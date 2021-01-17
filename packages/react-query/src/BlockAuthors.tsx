@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { HeaderExtended } from '@polkadot/api-derive';
 import { useApi, useCall } from '@canvas-ui/react-hooks';
 import { formatNumber } from '@polkadot/util';
+import keyring from "@polkadot/ui-keyring";
 
 export interface Authors {
   byAuthor: Record<string, string>;
@@ -52,6 +53,22 @@ function BlockAuthorsBase ({ children }: Props): React.ReactElement<Props> {
           const blockNumber = lastHeader.number.unwrap();
           const thisBlockAuthor = lastHeader.author?.toString();
           const thisBlockNumber = formatNumber(blockNumber);
+
+          // @ts-ignore
+          const [currentBlockIndex] = blockNumber.words;
+          if (parseInt(window.localStorage.getItem('currentBlockIndex') || '0') > currentBlockIndex) {
+            const resetConfirm = confirm('It seems your currently running chain and the UI artifacts are out of sync.\n' +
+              '\n' +
+              'This can happen after purging a chain or switching the chain to another.\n' +
+              'If this is the case please click [OK] in order to reset your UI.')
+            if (resetConfirm) {
+              const existingContractList = keyring.getContracts()
+              existingContractList.forEach(existingContract => {
+                keyring.forgetContract(existingContract.address.toString());
+              })
+            }
+          }
+          window.localStorage.setItem('currentBlockIndex', currentBlockIndex);
 
           if (thisBlockAuthor) {
             byAuthor[thisBlockAuthor] = thisBlockNumber;
