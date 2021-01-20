@@ -48,15 +48,21 @@ function BlockAuthorsBase ({ children }: Props): React.ReactElement<Props> {
       }).catch(console.error);
 
       // subscribe to new headers
-      api.derive.chain.subscribeNewHeads((lastHeader): void => {
+      api.derive.chain.subscribeNewHeads(async (lastHeader): void => {
         if (lastHeader?.number) {
           const blockNumber = lastHeader.number.unwrap();
           const thisBlockAuthor = lastHeader.author?.toString();
           const thisBlockNumber = formatNumber(blockNumber);
+          const chainName = (await api.rpc.system.chain()).toString()
+          const systemName = (await api.rpc.system.version()).toString()
 
           // @ts-ignore
           const [currentBlockIndex] = blockNumber.words;
-          if (parseInt(window.localStorage.getItem('currentBlockIndex') || '0') > currentBlockIndex) {
+          if (
+            ((window.localStorage.getItem('chainName') || chainName) !== chainName) ||
+            ((window.localStorage.getItem('systemName') || systemName) !== systemName) ||
+            (parseInt(window.localStorage.getItem('currentBlockIndex') || '0') > currentBlockIndex)
+          ) {
             const resetConfirm = confirm('It seems your currently running chain and the UI artifacts are out of sync.\n' +
               '\n' +
               'This can happen after purging a chain or switching the chain to another.\n' +
@@ -69,6 +75,8 @@ function BlockAuthorsBase ({ children }: Props): React.ReactElement<Props> {
             }
           }
           window.localStorage.setItem('currentBlockIndex', currentBlockIndex);
+          window.localStorage.setItem('chainName', chainName);
+          window.localStorage.setItem('systemName', systemName);
 
           if (thisBlockAuthor) {
             byAuthor[thisBlockAuthor] = thisBlockNumber;
