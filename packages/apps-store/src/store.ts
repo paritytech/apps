@@ -1,16 +1,16 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { api } from '@canvas-ui/react-api';
-import EventEmitter from 'eventemitter3';
-import { nanoid } from 'nanoid';
-import store from 'store'
+import { api } from "@canvas-ui/react-api";
+import EventEmitter from "eventemitter3";
+import { nanoid } from "nanoid";
+import store from "store";
 
-import { Code } from '../../apps/src/types';
+import { Code } from "../../apps/src/types";
 
-const KEY_CODE = 'code:';
+const KEY_CODE = "code:";
 
-function newId (): string {
+function newId(): string {
   return nanoid(6);
 }
 
@@ -19,21 +19,21 @@ class Store extends EventEmitter {
 
   private hashToId: Record<string, string> = {};
 
-  public get hasCode (): boolean {
+  public get hasCode(): boolean {
     return Object.keys(this.allCode).length !== 0;
   }
 
-  public isHashSaved (codeHash: string): boolean {
+  public isHashSaved(codeHash: string): boolean {
     return !!this.hashToId[codeHash];
   }
 
   public isReady = false;
 
-  public getAllCode (): Code[] {
+  public getAllCode(): Code[] {
     return Object.values(this.allCode);
   }
 
-  public getCode (id: string): Code | null {
+  public getCode(id: string): Code | null {
     return this.allCode[id] || null;
   }
 
@@ -42,7 +42,7 @@ class Store extends EventEmitter {
   // }
 
   // eslint-disable-next-line @typescript-eslint/require-await
-  public async saveCode (code: Pick<Code, never>, anId?: string): Promise<string> {
+  public async saveCode(code: Pick<Code, never>, anId?: string): Promise<string> {
     const id = anId || newId();
     const existing = anId ? this.getCode(anId) : null;
 
@@ -60,14 +60,14 @@ class Store extends EventEmitter {
     return id;
   }
 
-  public forgetCode (id: string): void {
+  public forgetCode(id: string): void {
     store.remove(`${KEY_CODE}${id}`);
 
     this.removeCode(id);
   }
 
-  public forgetAll (): void {
-    Object.keys(this.allCode).forEach((id) => {
+  public forgetAll(): void {
+    Object.keys(this.allCode).forEach(id => {
       this.forgetCode(id);
     });
   }
@@ -79,7 +79,7 @@ class Store extends EventEmitter {
   //   this.removeCode(id);
   // }
 
-  public async loadAll (): Promise<void> {
+  public async loadAll(): Promise<void> {
     try {
       await api.isReady;
 
@@ -91,39 +91,39 @@ class Store extends EventEmitter {
         }
 
         if (key.startsWith(KEY_CODE)) {
-          const id = key.split(':')[1];
+          const id = key.split(":")[1];
 
           this.addCode(id, json);
           this.hashToId[json.codeHash] = id;
         }
       });
     } catch (error) {
-      console.error('Unable to load code', error);
+      console.error("Unable to load code", error);
     }
   }
 
-  private addCode (id: string, json: Code): void {
+  private addCode(id: string, json: Code): void {
     try {
       this.hashToId[json.codeHash] = id;
       this.allCode[id] = json;
 
-      this.emit('new-code');
+      this.emit("new-code");
     } catch (error) {
       console.error(error);
     }
   }
 
-  private removeCode (id: string): void {
+  private removeCode(id: string): void {
     try {
       const { codeHash } = this.allCode[id];
 
       delete this.hashToId[codeHash];
       delete this.allCode[id];
-      this.emit('removed-code');
+      this.emit("removed-code");
     } catch (error) {
       console.error(error);
     }
   }
 }
 
-export const store = new Store()
+export default new Store();

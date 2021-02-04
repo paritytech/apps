@@ -1,0 +1,16 @@
+{
+  "name": "@canvas-ui/apps-store",
+  "version": "0.45.0-beta.33",
+  "main": "index.js",
+  "repository": "https://github.com/paritytech/canvas-ui",
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "maintainers": [
+    "Jaco Greeff <jacogr@gmail.com>"
+  ],
+  "contributors": [],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@canvas-ui/react-api": "workspace:packages/react-api",
+    "store": "^2.0.12"
+  }
+}
