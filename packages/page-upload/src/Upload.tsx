@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import store from '@canvas-ui/apps/store';
+import store from '../../apps-store/store';
 import { ComponentProps as Props } from '@canvas-ui/apps/types';
 import { registry } from '@canvas-ui/react-api';
 import { Button, Input, InputABI, InputAddress, InputFile, TxButton } from '@canvas-ui/react-components';

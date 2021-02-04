@@ -4,9 +4,9 @@
 import { api } from '@canvas-ui/react-api';
 import EventEmitter from 'eventemitter3';
 import { nanoid } from 'nanoid';
-import store from 'store';
+import store from 'store'
 
-import { Code } from './types';
+import { Code } from '../../apps/src/types';
 
 const KEY_CODE = 'code:';
 
@@ -126,4 +126,4 @@ class Store extends EventEmitter {
   }
 }
 
-export default new Store();
+export const store = new Store()

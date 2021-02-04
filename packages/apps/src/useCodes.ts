@@ -3,7 +3,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import store from './store';
+import store from '../../apps-store/store';
 import { WithCodes } from './types';
 
 export default function useAppNavigation (): WithCodes {
