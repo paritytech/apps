@@ -1,48 +1,61 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Code } from '@canvas-ui/apps/types';
-import { Button, ContractParams, Dropdown, Input, InputAddress, InputBalance, InputMegaGas, InputName, Labelled, MessageArg, MessageSignature, PendingTx, Toggle, TxButton } from '@canvas-ui/react-components';
-import { ELEV_2_CSS } from '@canvas-ui/react-components/styles/constants';
-import { useAbi, useAccountId, useApi, useGasWeight, useNonEmptyString, useNonZeroBn } from '@canvas-ui/react-hooks';
-import { useTxParams } from '@canvas-ui/react-params';
-import { extractValues } from '@canvas-ui/react-params/values';
-import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
-import { truncate } from '@canvas-ui/react-util';
-import BN from 'bn.js';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import { Code } from "@canvas-ui/apps/types";
+import {
+  Button,
+  ContractParams,
+  Dropdown,
+  Input,
+  InputAddress,
+  InputBalance,
+  InputMegaGas,
+  InputName,
+  Labelled,
+  MessageArg,
+  MessageSignature,
+  PendingTx,
+  Toggle,
+  TxButton
+} from "@canvas-ui/react-components";
+import { ELEV_2_CSS } from "@canvas-ui/react-components/styles/constants";
+import { useAccountId, useApi, useGasWeight, useNonEmptyString, useNonZeroBn } from "@canvas-ui/react-hooks";
+import { useAbi } from "@canvas-ui/page-contracts";
+import { useTxParams } from "@canvas-ui/react-params";
+import { extractValues } from "@canvas-ui/react-params/values";
+import usePendingTx from "@canvas-ui/react-signer/usePendingTx";
+import { truncate } from "@canvas-ui/react-util";
+import BN from "bn.js";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
-import { SubmittableResult } from '@polkadot/api';
-import { SubmittableExtrinsic } from '@polkadot/api/types';
-import { BlueprintPromise as Blueprint } from '@polkadot/api-contract';
-import { AccountId } from '@polkadot/types/interfaces';
-import keyring from '@polkadot/ui-keyring';
-import { randomAsHex } from '@polkadot/util-crypto';
+import { SubmittableResult } from "@polkadot/api";
+import { SubmittableExtrinsic } from "@polkadot/api/types";
+import { BlueprintPromise as Blueprint } from "@polkadot/api-contract";
+import { AccountId } from "@polkadot/types/interfaces";
+import keyring from "@polkadot/ui-keyring";
+import { randomAsHex } from "@polkadot/util-crypto";
 
 // import { ABI, InputMegaGas, InputName, MessageSignature, Params } from './shared';
-import { useTranslation } from './translate';
-import { ComponentProps as Props } from './types';
+import { useTranslation } from "./translate";
+import { ComponentProps as Props } from "./types";
 
 type ConstructOptions = { key: string; text: React.ReactNode; value: string }[];
 
 const ENDOWMENT = new BN(1e15);
 
-function defaultContractName (name?: string) {
-  return name ? `${name} (instance)` : '';
+function defaultContractName(name?: string) {
+  return name ? `${name} (instance)` : "";
 }
 
-function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Props> | null {
-  const { id, index = '0' }: { id: string, index?: string } = useParams();
+function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Props> | null {
+  const { id, index = "0" }: { id: string; index?: string } = useParams();
   const { t } = useTranslation();
   const { api } = useApi();
-  const code = useMemo(
-    (): Code | null => {
-      return allCodes.find((code: Code) => id === code.id) || null;
-    },
-    [allCodes, id]
-  );
+  const code = useMemo((): Code | null => {
+    return allCodes.find((code: Code) => id === code.id) || null;
+  }, [allCodes, id]);
   const useWeightHook = useGasWeight();
   const { isValid: isWeightValid, weight, weightToString } = useWeightHook;
   const [accountId, setAccountId] = useAccountId();
@@ -52,81 +65,74 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
   const { abi, isAbiValid } = useAbi(code);
   const [salt, setSalt] = useState(randomAsHex());
   const [withSalt, setWithSalt] = useState(false);
-  const [initTx, setInitTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
-  const pendingTx = usePendingTx('contracts.instantiate');
+  const [initTx, setInitTx] = useState<SubmittableExtrinsic<"promise"> | null>(null);
+  const pendingTx = usePendingTx("contracts.instantiate");
 
   const blueprint = useMemo(
-    () => isAbiValid && code?.codeHash && abi
-      ? new Blueprint(api, abi, code.codeHash)
-      : null,
+    () => (isAbiValid && code?.codeHash && abi ? new Blueprint(api, abi, code.codeHash) : null),
     [api, code?.codeHash, abi, isAbiValid]
   );
 
-  const constructOptions = useMemo(
-    (): ConstructOptions => {
-      if (!abi) {
-        return [];
-      }
+  const constructOptions = useMemo((): ConstructOptions => {
+    if (!abi) {
+      return [];
+    }
 
-      return abi.constructors.map(
-        (constructor, index) => {
-          return {
-            key: `${index}`,
-            text: (
-              <MessageSignature
-                isConstructor
-                message={constructor}
-                registry={abi.registry}
-              />
-            ),
-            value: `${index}`
-          };
-        });
-    },
-    [abi]
-  );
+    return abi.constructors.map((constructor, index) => {
+      return {
+        key: `${index}`,
+        text: <MessageSignature isConstructor message={constructor} registry={abi.registry} />,
+        value: `${index}`
+      };
+    });
+  }, [abi]);
 
-  const isValid = useMemo(
-    (): boolean => isNameValid && isEndowmentValid && isWeightValid && !!accountId,
-    [accountId, isEndowmentValid, isNameValid, isWeightValid]
-  );
+  const isValid = useMemo((): boolean => isNameValid && isEndowmentValid && isWeightValid && !!accountId, [
+    accountId,
+    isEndowmentValid,
+    isNameValid,
+    isWeightValid
+  ]);
 
   const [params, values = [], setValues] = useTxParams(abi?.constructors[constructorIndex].args || []);
 
   useEffect((): void => {
-    endowment && setInitTx((): SubmittableExtrinsic<'promise'> | null => {
-      if (blueprint) {
-        try {
-          const identifier = abi?.constructors[constructorIndex].identifier;
+    endowment &&
+      setInitTx((): SubmittableExtrinsic<"promise"> | null => {
+        if (blueprint) {
+          try {
+            const identifier = abi?.constructors[constructorIndex].identifier;
 
-          return identifier ? blueprint.tx[identifier]({ gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment }, ...extractValues(values)) : null;
-        } catch (error) {
-          console.error(error);
+            return identifier
+              ? blueprint.tx[identifier](
+                  { gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment },
+                  ...extractValues(values)
+                )
+              : null;
+          } catch (error) {
+            console.error(error);
 
-          return null;
+            return null;
+          }
         }
-      }
 
-      return null;
-    });
+        return null;
+      });
   }, [abi, blueprint, constructorIndex, endowment, values, weightToString, salt, withSalt]);
 
-  useEffect(
-    (): void => {
-      setName(t(defaultContractName(code?.name)));
-    },
-    [code, setName, t]
-  );
+  useEffect((): void => {
+    setName(t(defaultContractName(code?.name)));
+  }, [code, setName, t]);
 
   const _onSuccess = useCallback(
     (result: SubmittableResult): void => {
-      const section = api.tx.contracts ? 'contracts' : 'contract';
-      const records = result.filterRecords(section, 'Instantiated');
+      const section = api.tx.contracts ? "contracts" : "contract";
+      const records = result.filterRecords(section, "Instantiated");
 
       if (records.length) {
         // find the last EventRecord (in the case of multiple contracts deployed - we should really be
         // more clever here to find the exact contract deployed, this works for eg. Delegator)
-        const address = records[records.length - 1].event.data[1] as unknown as AccountId;
+        const address = (records[records.length - 1].event.data[1] as unknown) as AccountId;
 
         keyring.saveContract(address.toString(), {
           contract: {
@@ -147,14 +153,9 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
     (): Record<string, any> => ({
       constructor: constructOptions[constructorIndex]?.text,
       // data: encoder ? u8aToHex(encoder()) : null,
-      name: name || '',
+      name: name || "",
       params: params.map((param, index) => ({
-        arg: (
-          <MessageArg
-            arg={param}
-            registry={abi?.registry}
-          />
-        ),
+        arg: <MessageArg arg={param} registry={abi?.registry} />,
         type: param.type,
         value: values[index].value
       })),
@@ -163,106 +164,100 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
     [abi?.registry, name, constructOptions, constructorIndex, params, values, weight]
   );
 
-  useEffect(
-    (): void => {
-      if (!abi) {
-        navigateTo.deploy();
-      }
-    },
-    [abi, navigateTo]
-  );
+  useEffect((): void => {
+    if (!abi) {
+      navigateTo.deploy();
+    }
+  }, [abi, navigateTo]);
 
   return (
     <PendingTx
       additionalDetails={additionalDetails}
-      instructions={t<string>('Sign and submit to instantiate this contract derived from the code hash.')}
+      instructions={t<string>("Sign and submit to instantiate this contract derived from the code hash.")}
       registry={abi?.registry}
       {...pendingTx}
     >
       <div className={className}>
         <header>
-          <h1>{t<string>('Deploy {{contractName}}', { replace: { contractName: code?.name || 'Contract' } })}</h1>
-          <div className='instructions'>
-            {t<string>('Choose an account to deploy the contract from, give it a descriptive name and set the endowment amount.')}
+          <h1>
+            {t<string>("Deploy {{contractName}}", { replace: { contractName: code?.name || "Contract" } })}
+          </h1>
+          <div className="instructions">
+            {t<string>(
+              "Choose an account to deploy the contract from, give it a descriptive name and set the endowment amount."
+            )}
           </div>
         </header>
         <section>
           <InputAddress
-            help={t<string>('Specify the user account to use for this deployment. Any fees will be deducted from this account.')}
+            help={t<string>(
+              "Specify the user account to use for this deployment. Any fees will be deducted from this account."
+            )}
             isInput={false}
-            label={t<string>('deployment account')}
+            label={t<string>("deployment account")}
             onChange={setAccountId}
-            type='account'
+            type="account"
             value={accountId}
           />
-          <InputName
-            isContract
-            isError={isNameError}
-            onChange={setName}
-            value={name || ''}
-          />
-          <Labelled label={t<string>('Code Bundle')}>
-            <div className='code-bundle'>
-              <div className='name'>
-                {code?.name || ''}
-              </div>
-              <div className='code-hash'>
-                {truncate(code?.codeHash || '', 16)}
-              </div>
+          <InputName isContract isError={isNameError} onChange={setName} value={name || ""} />
+          <Labelled label={t<string>("Code Bundle")}>
+            <div className="code-bundle">
+              <div className="name">{code?.name || ""}</div>
+              <div className="code-hash">{truncate(code?.codeHash || "", 16)}</div>
             </div>
           </Labelled>
           {abi && (
             <>
               <Dropdown
-                help={t<string>('The deployment constructor information for this contract, as provided by the ABI.')}
+                help={t<string>("The deployment constructor information for this contract, as provided by the ABI.")}
                 isDisabled={abi.constructors.length <= 1}
-                label={t<string>('Deployment Constructor')}
+                label={t<string>("Deployment Constructor")}
                 onChange={setConstructorIndex}
                 options={constructOptions}
                 value={`${constructorIndex}`}
               />
-              <ContractParams
-                onChange={setValues}
-                params={params || []}
-                values={values}
-              />
+              <ContractParams onChange={setValues} params={params || []} values={values} />
             </>
           )}
           <InputBalance
-            help={t<string>('The allotted endowment for this contract, i.e. the amount transferred to the contract upon instantiation.')}
+            help={t<string>(
+              "The allotted endowment for this contract, i.e. the amount transferred to the contract upon instantiation."
+            )}
             isError={!isEndowmentValid}
-            label={t<string>('Endowment')}
+            label={t<string>("Endowment")}
             onChange={setEndowment}
             value={endowment}
           />
           <Input
-            help={t<string>('A hex or string value that acts as a salt for this deployment.')}
+            help={t<string>("A hex or string value that acts as a salt for this deployment.")}
             isDisabled={!withSalt}
-            label={t<string>('Unique Deployment Salt')}
+            label={t<string>("Unique Deployment Salt")}
             onChange={setSalt}
-            placeholder={t<string>('0x prefixed hex, e.g. 0x1234 or ascii data')}
-            value={withSalt ? salt : t<string>('<none>')}
+            placeholder={t<string>("0x prefixed hex, e.g. 0x1234 or ascii data")}
+            value={withSalt ? salt : t<string>("<none>")}
           >
             <Toggle
-              className='toggle'
+              className="toggle"
               isOverlay
-              label={t<string>('use deployment salt')}
+              label={t<string>("use deployment salt")}
               onChange={setWithSalt}
               value={withSalt}
             />
           </Input>
           <InputMegaGas
-            help={t<string>('The maximum amount of gas that can be used by this deployment, if the code requires more, the deployment will fail.')}
+            help={t<string>(
+              "The maximum amount of gas that can be used by this deployment, if the code requires more, the deployment will fail."
+            )}
             weight={useWeightHook}
           />
           <Button.Group>
             <TxButton
               accountId={accountId}
               extrinsic={initTx}
-              icon='cloud-upload-alt'
+              icon="cloud-upload-alt"
               isDisabled={!isValid}
               isPrimary
-              label={t<string>('Deploy')}
+              label={t<string>("Deploy")}
               onSuccess={_onSuccess}
               withSpinner
             />

@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { store } from "@canvas-ui/page-contracts";
+import { store, useAbi } from "@canvas-ui/page-contracts";
 import { Code, ComponentProps } from "@canvas-ui/apps/types";
 import { ELEV_2_CSS } from "@canvas-ui/react-components/styles/constants";
-import { useAbi, useToggle } from "@canvas-ui/react-hooks";
+import { useToggle } from "@canvas-ui/react-hooks";
 import { FileState } from "@canvas-ui/react-hooks/types";
 import { VoidFn } from "@canvas-ui/react-util/types";
 import React, { useCallback } from "react";
