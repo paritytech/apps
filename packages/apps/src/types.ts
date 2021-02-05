@@ -1,22 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { AnyJson } from "@polkadot/types/types";
-
 export interface WithBasePath {
   basePath: string;
-}
-
-interface CodeBase {
-  id: string;
-  codeHash: string;
-  name: string;
-  genesisHash: string;
-  tags: string[];
-}
-
-export interface Code extends CodeBase {
-  abi?: AnyJson | null;
 }
 
 // export interface Code extends CodeBase {
@@ -33,11 +19,4 @@ export interface ContractJsonOld {
   abi: string;
   address: string;
   name: string;
-}
-
-export interface WithCodes {
-  allCodes: Code[];
-  hasCodes: boolean;
-  isLoading: boolean;
-  updated: number;
 }

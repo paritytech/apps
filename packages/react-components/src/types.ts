@@ -19,6 +19,8 @@ import { TxCallback, TxFailedCallback } from './Status/types';
 import { VoidFn } from '@canvas-ui/react-util/types';
 import { ActionStatus } from './Status/types';
 
+import { AnyJson } from "@polkadot/types/types";
+
 export interface BareProps {
   children?: React.ReactNode;
   className?: string;
@@ -181,4 +183,23 @@ export interface ComponentProps extends BareProps, WithBasePath, WithAppNavigati
 
 export interface AppProps extends BareProps, WithBasePath, WithAppNavigation {
   onStatusChange: (status: ActionStatus) => void;
+}
+
+interface CodeBase {
+  id: string;
+  codeHash: string;
+  name: string;
+  genesisHash: string;
+  tags: string[];
+}
+
+export interface Code extends CodeBase {
+  abi?: AnyJson | null;
+}
+
+export interface WithCodes {
+  allCodes: Code[];
+  hasCodes: boolean;
+  isLoading: boolean;
+  updated: number;
 }

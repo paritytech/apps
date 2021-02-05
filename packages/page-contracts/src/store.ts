@@ -6,7 +6,7 @@ import EventEmitter from "eventemitter3";
 import { nanoid } from "nanoid";
 import store from "store";
 
-import { Code } from "../../apps/src/types";
+import { Code } from "@canvas-ui/react-components/types";
 
 const KEY_CODE = "code:";
 

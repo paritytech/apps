@@ -4,7 +4,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { store } from "@canvas-ui/page-contracts";
-import { WithCodes } from "./types";
+import { WithCodes } from "@canvas-ui/react-components/types";
 
 export default function useAppNavigation(): WithCodes {
   const [isLoading, setIsLoading] = useState(true);
