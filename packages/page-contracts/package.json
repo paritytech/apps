@@ -1,5 +1,5 @@
 {
-  "name": "@canvas-ui/apps-store",
+  "name": "@canvas-ui/page-contracts",
   "version": "0.45.0-beta.33",
   "main": "index.js",
   "repository": "https://github.com/paritytech/canvas-ui",
