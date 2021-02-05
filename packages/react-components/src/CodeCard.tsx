@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { store, useAbi } from "@canvas-ui/page-contracts";
-import { Code, ComponentProps } from "@canvas-ui/react-components/types";
-import { ELEV_2_CSS } from "@canvas-ui/react-components/styles/constants";
+import { Code, ComponentProps } from "./types";
+import { ELEV_2_CSS } from "./styles/constants";
 import { useToggle } from "@canvas-ui/react-hooks";
 import { FileState } from "@canvas-ui/react-hooks/types";
 import { VoidFn } from "@canvas-ui/react-util/types";

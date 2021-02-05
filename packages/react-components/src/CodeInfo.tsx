@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { store } from "@canvas-ui/page-contracts";
-import { Code } from "@canvas-ui/react-components/types";
+import { Code } from "./types";
 import { useNonEmptyString, useToggle } from "@canvas-ui/react-hooks";
 import { truncate } from "@canvas-ui/react-util";
 import { faFile } from "@fortawesome/free-regular-svg-icons";
