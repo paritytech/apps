@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { store } from "@canvas-ui/page-contracts";
-import { ComponentProps as Props } from "@canvas-ui/apps/types";
+import { ComponentProps as Props } from "@canvas-ui/react-components/types";
 import { registry } from "@canvas-ui/react-api";
 import { Button, Input, InputABI, InputAddress, InputFile, TxButton } from "@canvas-ui/react-components";
 import PendingTx from "@canvas-ui/react-components/PendingTx";

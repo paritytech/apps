@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { store } from "@canvas-ui/page-contracts";
+import store from "./store";
 import { Code } from "@canvas-ui/apps/types";
 import useApi from "../../react-hooks/src/useApi";
 import { VoidFn } from "@canvas-ui/react-util/types";

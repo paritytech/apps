@@ -1,36 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ActionStatus } from '@canvas-ui/react-components/Status/types';
-import { BareProps } from '@canvas-ui/react-components/types';
-import { VoidFn } from '@canvas-ui/react-util/types';
-
-import { AnyJson } from '@polkadot/types/types';
-
-export interface AppNavigation {
-  deploy: VoidFn;
-  deployNew: (_: string, __?: number) => VoidFn;
-  deploySuccess: (_: string) => VoidFn;
-  execute: VoidFn;
-  executeAdd: VoidFn;
-  executeCall: (_: string, __?: number) => VoidFn;
-  upload: VoidFn;
-  uploadAdd: VoidFn;
-  uploadSuccess: (_: string) => VoidFn;
-}
-
-interface WithAppNavigation {
-  navigateTo: AppNavigation;
-}
+import { AnyJson } from "@polkadot/types/types";
 
 export interface WithBasePath {
   basePath: string;
-}
-
-export interface ComponentProps extends BareProps, WithBasePath, WithAppNavigation {}
-
-export interface AppProps extends BareProps, WithBasePath, WithAppNavigation {
-  onStatusChange: (status: ActionStatus) => void;
 }
 
 interface CodeBase {

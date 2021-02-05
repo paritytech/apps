@@ -16,6 +16,9 @@ import { ButtonProps } from './Button/types';
 import { InputAddressProps } from './InputAddress/types';
 import { TxCallback, TxFailedCallback } from './Status/types';
 
+import { VoidFn } from '@canvas-ui/react-util/types';
+import { ActionStatus } from './Status/types';
+
 export interface BareProps {
   children?: React.ReactNode;
   className?: string;
@@ -150,4 +153,32 @@ export interface ThemeDef {
 
 export interface ThemeProps {
   theme: ThemeDef;
+}
+
+/*import from /apps */
+
+export interface AppNavigation {
+  deploy: VoidFn;
+  deployNew: (_: string, __?: number) => VoidFn;
+  deploySuccess: (_: string) => VoidFn;
+  execute: VoidFn;
+  executeAdd: VoidFn;
+  executeCall: (_: string, __?: number) => VoidFn;
+  upload: VoidFn;
+  uploadAdd: VoidFn;
+  uploadSuccess: (_: string) => VoidFn;
+}
+
+interface WithAppNavigation {
+  navigateTo: AppNavigation;
+}
+
+export interface WithBasePath {
+  basePath: string;
+}
+
+export interface ComponentProps extends BareProps, WithBasePath, WithAppNavigation {}
+
+export interface AppProps extends BareProps, WithBasePath, WithAppNavigation {
+  onStatusChange: (status: ActionStatus) => void;
 }
