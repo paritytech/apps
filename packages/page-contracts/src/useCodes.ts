@@ -3,7 +3,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-import { store } from "@canvas-ui/page-contracts";
+import store from "./store";
 import { WithCodes } from "@canvas-ui/react-components/types";
 
 export default function useAppNavigation(): WithCodes {
