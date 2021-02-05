@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from "@canvas-ui/react-api";
+import registry from "../typeRegistry";
 import React, { useCallback, useRef, useState } from "react";
 
 import { SubmittableResult } from "@polkadot/api";

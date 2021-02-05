@@ -14,10 +14,10 @@ import { AccountId, Index } from '@polkadot/types/interfaces';
 
 import { ButtonProps } from './Button/types';
 import { InputAddressProps } from './InputAddress/types';
-import { TxCallback, TxFailedCallback } from './Status/types';
+import { TxCallback, TxFailedCallback } from '@canvas-ui/react-api/Status/types';
 
 import { VoidFn } from '@canvas-ui/react-util/types';
-import { ActionStatus } from './Status/types';
+import { ActionStatus } from '@canvas-ui/react-api/Status/types';
 
 import { AnyJson } from "@polkadot/types/types";
 

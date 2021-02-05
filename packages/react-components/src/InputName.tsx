@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from '@canvas-ui/react-components/types';
-import { VoidFn } from '@canvas-ui/react-util/types';
-import React from 'react';
+import { BareProps } from "./types";
+import { VoidFn } from "@canvas-ui/react-util/types";
+import React from "react";
 
-import Input from './Input';
-import { useTranslation } from './translate';
+import Input from "./Input";
+import { useTranslation } from "./translate";
 
 interface Props extends BareProps {
   isBusy?: boolean;
@@ -19,7 +19,15 @@ interface Props extends BareProps {
   value?: string;
 }
 
-function InputName ({ className, isBusy, isContract, isError, onChange, onEnter, value = '' }: Props): React.ReactElement<Props> {
+function InputName({
+  className,
+  isBusy,
+  isContract,
+  isError,
+  onChange,
+  onEnter,
+  value = ""
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (
@@ -27,23 +35,15 @@ function InputName ({ className, isBusy, isContract, isError, onChange, onEnter,
       className={className}
       help={t(
         isContract
-          ? 'A name for the deployed contract to help users distinguish. Only used for display purposes.'
-          : 'A name for this WASM code to help users distinguish. Only used for display purposes.'
+          ? "A name for the deployed contract to help users distinguish. Only used for display purposes."
+          : "A name for this WASM code to help users distinguish. Only used for display purposes."
       )}
       isDisabled={isBusy}
       isError={isError}
-      label={t(
-        isContract
-          ? 'Contract Name'
-          : 'Code Bundle Name'
-      )}
+      label={t(isContract ? "Contract Name" : "Code Bundle Name")}
       onChange={onChange}
       onEnter={onEnter}
-      placeholder={t(
-        isContract
-          ? 'Give your contract a descriptive name'
-          : 'Give your code bundle a descriptive name'
-      )}
+      placeholder={t(isContract ? "Give your contract a descriptive name" : "Give your code bundle a descriptive name")}
       value={value}
     />
   );

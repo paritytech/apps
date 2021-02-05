@@ -11,6 +11,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@canvas-ui/react-api": "workspace:packages/react-api",
+    "@canvas-ui/react-util": "workspace:packages/react-util",
     "store": "^2.0.12"
   }
 }

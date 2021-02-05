@@ -1,23 +1,27 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from '@canvas-ui/react-api';
-import { StatusContext } from '@canvas-ui/react-components';
-import { QueueTx, QueueTxMessageSetStatus, QueueTxResult } from '@canvas-ui/react-components/Status/types';
-import { useApi, useScrollToTop } from '@canvas-ui/react-hooks';
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { registry } from "@canvas-ui/react-api";
+import { StatusContext } from "@canvas-ui/react-api/Status";
+import { QueueTx, QueueTxMessageSetStatus, QueueTxResult } from "@canvas-ui/react-api/Status/types";
+import { useApi, useScrollToTop } from "@canvas-ui/react-hooks";
+import { useContext, useEffect, useMemo, useState } from "react";
 
-import { ApiPromise } from '@polkadot/api';
-import { DefinitionRpcExt } from '@polkadot/types/types';
-import { assert, isFunction } from '@polkadot/util';
-import { format } from '@polkadot/util/logger';
+import { ApiPromise } from "@polkadot/api";
+import { DefinitionRpcExt } from "@polkadot/types/types";
+import { assert, isFunction } from "@polkadot/util";
+import { format } from "@polkadot/util/logger";
 
 export interface ItemState {
   currentItem: QueueTx | null;
   requestAddress: string | null;
 }
 
-async function submitRpc (api: ApiPromise, { method, section }: DefinitionRpcExt, values: any[]): Promise<QueueTxResult> {
+async function submitRpc(
+  api: ApiPromise,
+  { method, section }: DefinitionRpcExt,
+  values: any[]
+): Promise<QueueTxResult> {
   try {
     const rpc = api.rpc as Record<string, Record<string, (...params: unknown[]) => Promise<unknown>>>;
 
@@ -25,25 +29,29 @@ async function submitRpc (api: ApiPromise, { method, section }: DefinitionRpcExt
 
     const result = await rpc[section][method](...values);
 
-    console.log('submitRpc: result ::', format(result));
+    console.log("submitRpc: result ::", format(result));
 
     return {
       result,
-      status: 'sent'
+      status: "sent"
     };
   } catch (error) {
     console.error(error);
 
     return {
       error: error as Error,
-      status: 'error'
+      status: "error"
     };
   }
 }
 
-async function sendRpc (api: ApiPromise, queueSetTxStatus: QueueTxMessageSetStatus, { id, rpc, values = [] }: QueueTx): Promise<void> {
+async function sendRpc(
+  api: ApiPromise,
+  queueSetTxStatus: QueueTxMessageSetStatus,
+  { id, rpc, values = [] }: QueueTx
+): Promise<void> {
   if (rpc) {
-    queueSetTxStatus(id, 'sending');
+    queueSetTxStatus(id, "sending");
 
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const { error, result, status } = await submitRpc(api, rpc, values);
@@ -52,12 +60,17 @@ async function sendRpc (api: ApiPromise, queueSetTxStatus: QueueTxMessageSetStat
   }
 }
 
-function extractCurrent (api: ApiPromise, queueSetTxStatus: QueueTxMessageSetStatus, txqueue: QueueTx[], filter?: string): ItemState {
-  const nextItem = txqueue.find(({ status }) => ['queued', 'qr'].includes(status)) || null;
+function extractCurrent(
+  api: ApiPromise,
+  queueSetTxStatus: QueueTxMessageSetStatus,
+  txqueue: QueueTx[],
+  filter?: string
+): ItemState {
+  const nextItem = txqueue.find(({ status }) => ["queued", "qr"].includes(status)) || null;
   let currentItem = null;
 
   // when the next up is an RPC, send it immediately
-  if (nextItem && nextItem.status === 'queued' && !(nextItem.extrinsic || nextItem.payload)) {
+  if (nextItem && nextItem.status === "queued" && !(nextItem.extrinsic || nextItem.payload)) {
     sendRpc(api, queueSetTxStatus, nextItem).catch(console.error);
   } else {
     if (nextItem && nextItem.extrinsic?.callIndex) {
@@ -75,34 +88,25 @@ function extractCurrent (api: ApiPromise, queueSetTxStatus: QueueTxMessageSetSta
   };
 }
 
-export default function usePendingTx (signature?: string): ItemState {
+export default function usePendingTx(signature?: string): ItemState {
   const scrollToTop = useScrollToTop();
   const { api } = useApi();
   const { queueSetTxStatus, txqueue } = useContext(StatusContext);
   const [item, setItem] = useState<ItemState>({ currentItem: null, requestAddress: null });
 
-  const extracted = useMemo(
-    (): ItemState => {
-      return extractCurrent(api, queueSetTxStatus, txqueue, signature);
-    },
-    [api, queueSetTxStatus, signature, txqueue]
-  );
+  const extracted = useMemo((): ItemState => {
+    return extractCurrent(api, queueSetTxStatus, txqueue, signature);
+  }, [api, queueSetTxStatus, signature, txqueue]);
 
-  useEffect(
-    (): void => {
-      if (extracted.currentItem !== item.currentItem) {
-        setItem(extracted);
-      }
-    },
-    [extracted, item.currentItem]
-  );
+  useEffect((): void => {
+    if (extracted.currentItem !== item.currentItem) {
+      setItem(extracted);
+    }
+  }, [extracted, item.currentItem]);
 
-  useEffect(
-    (): void => {
-      scrollToTop();
-    },
-    [item, scrollToTop]
-  );
+  useEffect((): void => {
+    scrollToTop();
+  }, [item, scrollToTop]);
 
   return item;
 }

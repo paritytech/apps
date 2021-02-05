@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Status as StatusDisplay } from '@canvas-ui/react-components';
-import { ActionStatus, QueueAction$Add, QueueStatus, QueueTx } from '@canvas-ui/react-components/Status/types';
-import { useAccounts, useApi, useCall } from '@canvas-ui/react-hooks';
-import React, { useEffect } from 'react';
+import StatusDisplay from "@canvas-ui/react-api/Status";
+import { ActionStatus, QueueAction$Add, QueueStatus, QueueTx } from "@canvas-ui/react-api/Status/types";
+import { useAccounts, useApi, useCall } from "@canvas-ui/react-hooks";
+import React, { useEffect } from "react";
 
-import { EventRecord } from '@polkadot/types/interfaces';
-import { KeyringOptions } from '@polkadot/ui-keyring/options/types';
-import { stringToU8a } from '@polkadot/util';
-import { xxhashAsHex } from '@polkadot/util-crypto';
+import { EventRecord } from "@polkadot/types/interfaces";
+import { KeyringOptions } from "@polkadot/ui-keyring/options/types";
+import { stringToU8a } from "@polkadot/util";
+import { xxhashAsHex } from "@polkadot/util-crypto";
 
-import { useTranslation } from '../translate';
+import { useTranslation } from "../translate";
 
 interface Props {
   optionsAll?: KeyringOptions;
@@ -22,7 +22,12 @@ interface Props {
 
 let prevEventHash: string;
 
-function filterEvents (allAccounts: string[], t: <T = string> (key: string, opts?: Record<string, unknown>) => T, optionsAll?: KeyringOptions, events?: EventRecord[]): ActionStatus[] | null {
+function filterEvents(
+  allAccounts: string[],
+  t: <T = string>(key: string, opts?: Record<string, unknown>) => T,
+  optionsAll?: KeyringOptions,
+  events?: EventRecord[]
+): ActionStatus[] | null {
   const eventHash = xxhashAsHex(stringToU8a(JSON.stringify(events)));
 
   if (!optionsAll || !events || eventHash === prevEventHash) {
@@ -33,28 +38,28 @@ function filterEvents (allAccounts: string[], t: <T = string> (key: string, opts
 
   return events
     .map(({ event: { data, method, section } }): ActionStatus | null => {
-      if (section === 'balances' && method === 'Transfer') {
+      if (section === "balances" && method === "Transfer") {
         const account = data[1].toString();
 
         if (allAccounts.includes(account)) {
           return {
             account,
             action: `${section}.${method}`,
-            message: t<string>('transfer received'),
-            status: 'event'
+            message: t<string>("transfer received"),
+            status: "event"
           };
         }
-      } else if (section === 'democracy') {
+      } else if (section === "democracy") {
         const index = data[0].toString();
 
         return {
           action: `${section}.${method}`,
-          message: t('update on #{{index}}', {
+          message: t("update on #{{index}}", {
             replace: {
               index
             }
           }),
-          status: 'event'
+          status: "event"
         };
       }
 
@@ -63,7 +68,7 @@ function filterEvents (allAccounts: string[], t: <T = string> (key: string, opts
     .filter((item): item is ActionStatus => !!item);
 }
 
-function Status ({ optionsAll, queueAction, stqueue, txqueue }: Props): React.ReactElement<Props> {
+function Status({ optionsAll, queueAction, stqueue, txqueue }: Props): React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const { allAccounts } = useAccounts();
   const { t } = useTranslation();
@@ -75,12 +80,7 @@ function Status ({ optionsAll, queueAction, stqueue, txqueue }: Props): React.Re
     filtered && queueAction(filtered);
   }, [allAccounts, events, optionsAll, queueAction, t]);
 
-  return (
-    <StatusDisplay
-      stqueue={stqueue}
-      txqueue={txqueue}
-    />
-  );
+  return <StatusDisplay stqueue={stqueue} txqueue={txqueue} />;
 }
 
 export default React.memo(Status);

@@ -11,7 +11,7 @@ import { SubmittableResult } from '@polkadot/api';
 import { assert, isFunction } from '@polkadot/util';
 
 import Button from './Button';
-import { StatusContext } from './Status';
+import { StatusContext } from '@canvas-ui/react-api/Status';
 import { useTranslation } from './translate';
 
 function TxButton ({ accountId, className = '', extrinsic: propsExtrinsic, icon, isBasic, isBusy, isDisabled, isIcon, isPrimary, isUnsigned, label, onClick, onFailed, onSendRef, onStart, onSuccess, onUpdate, params, tooltip, tx, withSpinner, withoutLink }: Props): React.ReactElement<Props> {
