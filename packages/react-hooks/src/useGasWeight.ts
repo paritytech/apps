@@ -4,7 +4,8 @@
 import type { Weight } from '@polkadot/types/interfaces';
 import type { UseWeight } from './types';
 
-import { useApi, useBlockTime } from '@canvas-ui/react-hooks';
+import useApi from './useApi';
+import useBlockTime from './useBlockTime'
 import BN from 'bn.js';
 import { useCallback, useMemo, useState } from 'react';
 
