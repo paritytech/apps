@@ -14,8 +14,12 @@
     "@canvas-ui/apps-config": "workspace:packages/apps-config",
     "@canvas-ui/react-api": "0.45.0-beta.33",
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks",
+    "@polkadot/api": "^3.7.3",
+    "@polkadot/api-contract": "^3.7.3",
     "@polkadot/keyring": "^5.2.3",
+    "@polkadot/types": "^3.7.3",
     "@polkadot/ui-keyring": "^0.65.2-2",
+    "@polkadot/util": "^5.5.2",
     "i18next": "^19.4.5"
   }
 }
