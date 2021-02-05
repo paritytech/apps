@@ -1,60 +1,44 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ELEV_3_CSS } from '@canvas-ui/react-components/styles/constants';
-import { BareProps } from '@canvas-ui/react-components/types';
-import { useToggle } from '@canvas-ui/react-hooks';
-import React from 'react';
-import styled from 'styled-components';
+import { ELEV_3_CSS } from "@canvas-ui/react-components/styles/constants";
+import { BareProps } from "@canvas-ui/react-components/types";
+import { useToggle } from "@canvas-ui/react-hooks";
+import React from "react";
+import styled from "styled-components";
 
-import { Abi as InkAbi } from '@polkadot/api-contract';
+import { Abi as InkAbi } from "@polkadot/api-contract";
 
-import Expander from './Expander';
-import Messages from './Messages';
-import { useTranslation } from './translate';
+import Expander from "./Expander";
+import Messages from "./Messages";
+import { useTranslation } from "./translate";
 
 interface Props extends BareProps {
   abi: InkAbi;
   withConstructors?: boolean;
 }
 
-function Abi ({ abi, className, withConstructors = false }: Props): React.ReactElement<Props> {
+function Abi({ abi, className, withConstructors = false }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isInfoOpen, toggleIsInfoOpen] = useToggle();
   const [isAbiOpen, toggleIsAbiOpen] = useToggle();
-  const { contract: { authors, name, version } } = abi.project;
+  const {
+    contract: { authors, name, version }
+  } = abi.project;
 
   return (
     <div className={className}>
-      <Expander
-        isOpen={isInfoOpen}
-        onClick={toggleIsInfoOpen}
-        summary={t<string>('Info')}
-      >
-        <div className='contract-info'>
-          <div className='name'>{name.toString()}</div>
-          <div className='details'>
-            {t<string>('version')}
-            {' '}
-            {version.toString()}
-            {' '}
-            {t<string>('by')}
-            {' '}
-            {authors.map((author) => author.toString()).join(', ')}
+      <Expander isOpen={isInfoOpen} onClick={toggleIsInfoOpen} summary={t<string>("Info")}>
+        <div className="contract-info">
+          <div className="name">{name.toString()}</div>
+          <div className="details">
+            {t<string>("version")} {version.toString()} {t<string>("by")}{" "}
+            {authors.map(author => author.toString()).join(", ")}
           </div>
         </div>
       </Expander>
-      <Expander
-        isOpen={isAbiOpen}
-        onClick={toggleIsAbiOpen}
-        summary={t<string>('ABI')}
-      >
-        <Messages
-          abi={abi}
-          isLabelled={false}
-          isRemovable={false}
-          withConstructors={withConstructors}
-        />
+      <Expander isOpen={isAbiOpen} onClick={toggleIsAbiOpen} summary={t<string>("ABI")}>
+        <Messages abi={abi} isLabelled={false} isRemovable={false} withConstructors={withConstructors} />
       </Expander>
     </div>
   );
@@ -68,7 +52,6 @@ export default styled(React.memo(Abi))`
     width: 100%;
 
     .name {
-
     }
 
     .details {

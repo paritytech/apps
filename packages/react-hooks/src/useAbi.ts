@@ -3,7 +3,7 @@
 
 import { store } from "@canvas-ui/apps-store";
 import { Code } from "@canvas-ui/apps/types";
-import { useApi } from "@canvas-ui/react-hooks";
+import useApi from "./useApi";
 import { VoidFn } from "@canvas-ui/react-util/types";
 import { useCallback, useEffect, useState } from "react";
 
