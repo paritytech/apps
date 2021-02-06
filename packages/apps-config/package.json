@@ -12,8 +12,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime": "^7.10.2",
+    "bn.js": "^5.1.3",
     "edgeware-node-types": "^2.3.3",
-    "i18next": "^19.4.5",
-    "bn.js": "^5.1.3"
+    "i18next": "^19.4.5"
   }
 }

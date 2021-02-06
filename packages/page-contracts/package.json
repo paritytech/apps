@@ -11,8 +11,15 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@canvas-ui/react-api": "workspace:packages/react-api",
+    "@canvas-ui/react-components": "workspace:packages/react-components",
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks",
     "@canvas-ui/react-util": "workspace:packages/react-util",
+    "@polkadot/api-contract": "^3.7.3",
+    "@polkadot/types": "^3.7.3",
+    "@polkadot/util": "^5.5.2",
+    "eventemitter3": "^4.0.7",
+    "nanoid": "^3.1.10",
+    "react": "^16.13.1",
     "store": "^2.0.12"
   }
 }
