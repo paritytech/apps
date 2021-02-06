@@ -9,6 +9,6 @@ module.exports = function observable(method) {
   fn.unsubscribe = () => Promise.resolve(true);
 
   return createObservable(`section_${method}`, method, {
-    [method]: fn,
+    [method]: fn
   })();
 };

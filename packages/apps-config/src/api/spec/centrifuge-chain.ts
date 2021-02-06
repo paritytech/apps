@@ -9,19 +9,19 @@ export default {
   AnchorData: {
     id: 'H256',
     docRoot: 'H256',
-    anchoredBlock: 'u64',
+    anchoredBlock: 'u64'
   },
   Fee: {
     key: 'Hash',
-    price: 'Balance',
+    price: 'Balance'
   },
   PreCommitData: {
     signingRoot: 'H256',
     identity: 'H256',
-    expirationBlock: 'u64',
+    expirationBlock: 'u64'
   },
   Proof: {
     leafHash: 'H256',
-    sortedHashes: 'H256',
-  },
+    sortedHashes: 'H256'
+  }
 };

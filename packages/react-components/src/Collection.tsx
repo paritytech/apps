@@ -46,7 +46,7 @@ export default class Collection<P extends CollectionProps, S extends CollectionS
     super(props);
 
     this.state = {
-      isEmpty: Collection.isEmpty(props.children),
+      isEmpty: Collection.isEmpty(props.children)
     } as S;
   }
 
@@ -56,7 +56,7 @@ export default class Collection<P extends CollectionProps, S extends CollectionS
 
   public static getDerivedStateFromProps({ children, isEmpty }: CollectionProps): CollectionState {
     return {
-      isEmpty: isEmpty === undefined ? Collection.isEmpty(children) : isEmpty,
+      isEmpty: isEmpty === undefined ? Collection.isEmpty(children) : isEmpty
     };
   }
 

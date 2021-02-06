@@ -42,7 +42,7 @@ function Password({
   onEscape,
   tabIndex,
   value,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   return (
     <Input

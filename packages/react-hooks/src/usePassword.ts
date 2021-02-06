@@ -24,6 +24,6 @@ export default function usePassword(): PasswordProps {
     isPasswordValid,
     password,
     setIsPasswordValid,
-    setPassword,
+    setPassword
   };
 }

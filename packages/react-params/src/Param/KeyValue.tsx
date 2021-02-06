@@ -28,7 +28,7 @@ export function createParam(hex: string | String, length = -1): StateParam {
 
   return {
     isValid,
-    u8a: compactAddLength(u8a),
+    u8a: compactAddLength(u8a)
   };
 }
 
@@ -38,7 +38,7 @@ function KeyValue({
   label,
   onChange,
   onEnter,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const [, setIsValid] = useState(false);
   const [key, setKey] = useState<StateParam>({ isValid: false, u8a: new Uint8Array([]) });
@@ -50,7 +50,7 @@ function KeyValue({
     onChange &&
       onChange({
         isValid,
-        value: u8aConcat(key.u8a, value.u8a),
+        value: u8aConcat(key.u8a, value.u8a)
       });
     setIsValid(isValid);
   }, [key, onChange, value]);

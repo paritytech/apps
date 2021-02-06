@@ -58,7 +58,7 @@ function AddressToggle({
   noLookup,
   noToggle,
   onChange,
-  value,
+  value
 }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [address]);

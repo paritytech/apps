@@ -14,5 +14,5 @@ export default {
   kulupu,
   'node-template': nodeTemplate,
   'stable-poc': stablePoc,
-  stable_poc: stablePoc,
+  stable_poc: stablePoc
 };

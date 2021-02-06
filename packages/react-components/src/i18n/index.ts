@@ -17,7 +17,7 @@ languageDetector.addDetector({
 
     return i18nLang === LANGUAGE_DEFAULT ? undefined : i18nLang;
   },
-  name: 'i18nLangDetector',
+  name: 'i18nLangDetector'
 });
 
 i18n
@@ -28,11 +28,11 @@ i18n
     backend: {},
     debug: false,
     detection: {
-      order: ['i18nLangDetector', 'navigator'],
+      order: ['i18nLangDetector', 'navigator']
     },
     fallbackLng: false,
     interpolation: {
-      escapeValue: false,
+      escapeValue: false
     },
     keySeparator: false,
     load: 'languageOnly',
@@ -69,14 +69,14 @@ i18n
       'react-query',
       'react-signer',
       'react-util',
-      'translation',
+      'translation'
     ],
     nsSeparator: false,
     react: {
-      wait: true,
+      wait: true
     },
     returnEmptyString: false,
-    returnNull: false,
+    returnNull: false
   })
   .catch((error: Error): void => console.log('i18n: failure', error));
 

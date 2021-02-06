@@ -21,7 +21,7 @@ interface Parsed {
 
 const BYTES_TYPE = {
   info: 0,
-  type: 'Bytes',
+  type: 'Bytes'
 };
 
 const EMPTY_PLACEHOLDER = 'click to select or drag and drop JSON key/value (hex-encoded) file';
@@ -45,7 +45,7 @@ function parseFile(raw: Uint8Array): Parsed {
 
   return {
     isValid,
-    value,
+    value
   };
 }
 
@@ -58,7 +58,7 @@ function KeyValueArray({
   onChange,
   onEnter,
   onEscape,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [placeholder, setPlaceholder] = useState<string>(t(EMPTY_PLACEHOLDER));
@@ -73,8 +73,8 @@ function KeyValueArray({
         setPlaceholder(
           t('{{count}} key/value pairs encoded for submission', {
             replace: {
-              count: encoded.value.length,
-            },
+              count: encoded.value.length
+            }
           })
         );
       } catch (error) {

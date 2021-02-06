@@ -11,6 +11,6 @@ export default function createOptions(api: ApiPromise): DropdownOptions {
     .filter((name): number => Object.keys(api.tx[name]).length)
     .map((name): { text: string; value: string } => ({
       text: name,
-      value: name,
+      value: name
     }));
 }

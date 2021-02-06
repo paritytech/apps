@@ -20,7 +20,7 @@ export default function useContracts(): UseContracts {
     allContracts: [],
     hasContracts: false,
     isContract: () => false,
-    isReady: false,
+    isReady: false
   });
 
   useEffect((): (() => void) => {

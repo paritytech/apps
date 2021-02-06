@@ -45,7 +45,7 @@ function Editor({ className = '', code, isValid, onEdit }: Props): React.ReactEl
   useEffect((): void => {
     const editor = new CodeFlask(`#${editorId}`, {
       language: 'js',
-      lineNumbers: true,
+      lineNumbers: true
     });
 
     editor.updateCode(code);

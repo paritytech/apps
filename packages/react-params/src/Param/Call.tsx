@@ -16,7 +16,7 @@ function CallDisplay(props: Props): React.ReactElement<Props> {
     defaultValue: { value },
     isDisabled,
     label,
-    withLabel,
+    withLabel
   } = props;
 
   if (!isDisabled) {

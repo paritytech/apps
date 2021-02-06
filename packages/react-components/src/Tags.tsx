@@ -34,7 +34,7 @@ function Tags({
   onSave,
   onToggleIsEditing,
   size = 'small',
-  value,
+  value
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 

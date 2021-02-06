@@ -19,7 +19,7 @@ function Code({
   onEnter,
   onEscape,
   type,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 

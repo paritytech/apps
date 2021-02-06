@@ -24,7 +24,7 @@ function Transaction({
   currentItem: { accountId, extrinsic, isUnsigned, payload },
   isSendable,
   onError,
-  tip,
+  tip
 }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
 

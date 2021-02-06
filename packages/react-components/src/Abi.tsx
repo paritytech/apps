@@ -23,7 +23,7 @@ function Abi({ abi, className, withConstructors = false }: Props): React.ReactEl
   const [isInfoOpen, toggleIsInfoOpen] = useToggle();
   const [isAbiOpen, toggleIsAbiOpen] = useToggle();
   const {
-    contract: { authors, name, version },
+    contract: { authors, name, version }
   } = abi.project;
 
   return (

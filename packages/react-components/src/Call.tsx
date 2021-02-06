@@ -52,7 +52,7 @@ function Call({
   tip,
   value,
   withBorder,
-  withHash,
+  withHash
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [{ hash, params, values }, setExtracted] = useState<Extracted>({ hash: null, params: [], values: [] });
@@ -61,13 +61,13 @@ function Call({
     const params = GenericCall.filterOrigin(value.meta).map(
       ({ name, type }): Param => ({
         name: name.toString(),
-        type: getTypeDef(type.toString()),
+        type: getTypeDef(type.toString())
       })
     );
     const values = value.args.map(
       (value): Value => ({
         isValid: true,
-        value,
+        value
       })
     );
     const hash = withHash ? value.hash : null;

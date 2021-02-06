@@ -21,7 +21,7 @@ function AccountIndex({
   className = '',
   defaultValue,
   label,
-  value,
+  value
 }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(api.derive.accounts.info, [value]);

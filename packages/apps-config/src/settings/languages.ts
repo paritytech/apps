@@ -7,23 +7,23 @@ export default function create(t: <T = string>(key: string, text: string, option
   return [
     {
       text: t<string>('lng.detect', 'Default browser language (auto-detect)', { ns: 'apps-config' }),
-      value: 'default',
+      value: 'default'
     },
     {
       text: 'English',
-      value: 'en',
+      value: 'en'
     },
     {
       text: '汉语',
-      value: 'zh',
+      value: 'zh'
     },
     {
       text: 'русский',
-      value: 'ru',
+      value: 'ru'
     },
     {
       text: '日本語',
-      value: 'ja',
-    },
+      value: 'ja'
+    }
   ];
 }

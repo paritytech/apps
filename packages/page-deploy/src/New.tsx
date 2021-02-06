@@ -16,7 +16,7 @@ import {
   MessageSignature,
   PendingTx,
   Toggle,
-  TxButton,
+  TxButton
 } from '@canvas-ui/react-components';
 import { ELEV_2_CSS } from '@canvas-ui/react-components/styles/constants';
 import { useAccountId, useApi, useGasWeight, useNonEmptyString, useNonZeroBn } from '@canvas-ui/react-hooks';
@@ -82,7 +82,7 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
       return {
         key: `${index}`,
         text: <MessageSignature isConstructor message={constructor} registry={abi.registry} />,
-        value: `${index}`,
+        value: `${index}`
       };
     });
   }, [abi]);
@@ -91,7 +91,7 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
     accountId,
     isEndowmentValid,
     isNameValid,
-    isWeightValid,
+    isWeightValid
   ]);
 
   const [params, values = [], setValues] = useTxParams(abi?.constructors[constructorIndex].args || []);
@@ -137,10 +137,10 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
         keyring.saveContract(address.toString(), {
           contract: {
             abi: abi?.json || undefined,
-            genesisHash: api.genesisHash.toHex(),
+            genesisHash: api.genesisHash.toHex()
           },
           name,
-          tags: [],
+          tags: []
         });
 
         navigateTo.deploySuccess(address.toString())();
@@ -157,9 +157,9 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
       params: params.map((param, index) => ({
         arg: <MessageArg arg={param} registry={abi?.registry} />,
         type: param.type,
-        value: values[index].value,
+        value: values[index].value
       })),
-      weight: weight.toString(),
+      weight: weight.toString()
     }),
     [abi?.registry, name, constructOptions, constructorIndex, params, values, weight]
   );

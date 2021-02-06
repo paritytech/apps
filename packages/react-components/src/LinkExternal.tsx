@@ -64,7 +64,7 @@ function LinkExternal({ className = '', data, hash, type, withShort }: Props): R
     data,
     hash,
     type,
-    withShort,
+    withShort
   ]);
 
   if (!links.length) {

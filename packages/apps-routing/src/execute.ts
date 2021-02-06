@@ -10,9 +10,9 @@ export default function create(t: <T = string>(key: string, text: string, option
     Component,
     display: {
       needsAccounts: true,
-      needsApi: [],
+      needsApi: []
     },
     name: 'execute',
-    text: t<string>('nav.execute', 'Execute', { ns: 'apps-routing' }),
+    text: t<string>('nav.execute', 'Execute', { ns: 'apps-routing' })
   };
 }

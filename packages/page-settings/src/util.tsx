@@ -20,7 +20,7 @@ export function createOption({ isHeader, text, value }: Option): Option | React.
         {text}
       </div>
     ),
-    value,
+    value
   };
 }
 
@@ -37,7 +37,7 @@ export function createIdenticon({ info, text, value }: Option, overrides: string
         <div className="ui--Dropdown-name">{text}</div>
       </div>
     ),
-    value,
+    value
   };
 }
 

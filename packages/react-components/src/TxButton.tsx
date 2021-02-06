@@ -36,7 +36,7 @@ function TxButton({
   tooltip,
   tx,
   withSpinner,
-  withoutLink,
+  withoutLink
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const mountedRef = useIsMountedRef();
@@ -91,7 +91,7 @@ function TxButton({
         txFailedCb: withSpinner ? _onFailed : onFailed,
         txStartCb: _onStart,
         txSuccessCb: withSpinner ? _onSuccess : onSuccess,
-        txUpdateCb: onUpdate,
+        txUpdateCb: onUpdate
       });
     });
 
@@ -112,7 +112,7 @@ function TxButton({
     setIsSending,
     tx,
     withSpinner,
-    mountedRef,
+    mountedRef
   ]);
 
   if (onSendRef) {

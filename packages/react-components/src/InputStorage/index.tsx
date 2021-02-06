@@ -31,7 +31,7 @@ function InputStorage({
   help,
   label,
   onChange,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(keyOptions(api, defaultValue.creator.section));

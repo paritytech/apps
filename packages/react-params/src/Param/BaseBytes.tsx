@@ -70,7 +70,7 @@ function BaseBytes({
   size = 'full',
   validate = defaultValidate,
   withLabel,
-  withLength,
+  withLength
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [defaultValue] = useState(
@@ -97,7 +97,7 @@ function BaseBytes({
       onChange &&
         onChange({
           isValid,
-          value: asHex ? u8aToHex(value) : value,
+          value: asHex ? u8aToHex(value) : value
         });
 
       setIsValid(isValid);

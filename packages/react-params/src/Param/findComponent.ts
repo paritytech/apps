@@ -53,8 +53,8 @@ const componentDef: TypeToComponent[] = [
       'LookupSource',
       'LookupTarget',
       'SessionKey',
-      'ValidatorId',
-    ],
+      'ValidatorId'
+    ]
   },
   {
     c: Amount,
@@ -80,8 +80,8 @@ const componentDef: TypeToComponent[] = [
       'u64',
       'u128',
       'u256',
-      'VoteIndex',
-    ],
+      'VoteIndex'
+    ]
   },
   { c: Balance, t: ['Amount', 'AssetOf', 'Balance', 'BalanceOf'] },
   { c: Bool, t: ['bool'] },
@@ -106,7 +106,7 @@ const componentDef: TypeToComponent[] = [
   { c: VectorFixed, t: ['VecFixed'] },
   { c: Vote, t: ['Vote'] },
   { c: VoteThreshold, t: ['VoteThreshold'] },
-  { c: Unknown, t: ['Unknown'] },
+  { c: Unknown, t: ['Unknown'] }
 ];
 
 const components: ComponentMap = componentDef.reduce((components, { c, t }): ComponentMap => {

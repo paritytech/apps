@@ -69,7 +69,7 @@ function BaseDropdown<Option>({
   transform,
   value,
   withEllipsis,
-  withLabel,
+  withLabel
 }: Props<Option>): React.ReactElement<Props<Option>> {
   const lastUpdate = useRef<string>('');
   const [stored, setStored] = useState<string | undefined>();

@@ -25,7 +25,7 @@ function Contracts({
   className,
   contracts: contractAddresses,
   hasContracts,
-  navigateTo,
+  navigateTo
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();

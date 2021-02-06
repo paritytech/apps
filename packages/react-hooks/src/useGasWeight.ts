@@ -72,7 +72,7 @@ export default function useWeight(): UseWeight {
       setIsEmpty,
       setMegaGas,
       weight,
-      weightToString: weight.toString(),
+      weightToString: weight.toString()
     };
   }, [api, blockTime, isEmpty, megaGas, setIsEmpty, setMegaGas]);
 }
