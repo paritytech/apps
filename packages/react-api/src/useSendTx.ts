@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from '@canvas-ui/react-api';
-import { QueueTx, QueueTxMessageSetStatus } from '@canvas-ui/react-api/Status/types';
-import { StatusContext } from '@canvas-ui/react-components/Status/Status';
+import { registry } from '.';
+import { QueueTx, QueueTxMessageSetStatus } from './Status/types';
+import { StatusContext } from './Status/Context';
 import { useApi } from '@canvas-ui/react-hooks';
 import { StringOrNull, VoidFn } from '@canvas-ui/react-util/types';
 import BN from 'bn.js';

@@ -16,7 +16,6 @@ import Spinner from '../Spinner';
 import { ELEV_4_CSS } from '../styles/constants';
 import { useTranslation } from '../translate';
 
-export { StatusContext };
 
 interface Props {
   className?: string;
