@@ -1632,7 +1632,10 @@ __metadata:
     "@polkadot/ui-settings": ^0.68.1
     "@polkadot/util": ^5.5.2
     "@types/memoizee": ^0.4.4
+    bn.js: ^5.1.3
     memoizee: ^0.4.14
+    react: ^16.13.1
+    react-i18next: ^11.5.1
   languageName: unknown
   linkType: soft
 
@@ -1644,6 +1647,10 @@ __metadata:
     "@canvas-ui/react-api": "workspace:packages/react-api"
     "@canvas-ui/react-components": 0.45.0-beta.33
     "@canvas-ui/react-util": "workspace:packages/react-util"
+    "@polkadot/types": ^3.7.3
+    "@polkadot/ui-keyring": ^0.68.1
+    "@polkadot/util": ^5.5.2
+    "@polkadot/util-crypto": ^5.5.2
   languageName: unknown
   linkType: soft
 
