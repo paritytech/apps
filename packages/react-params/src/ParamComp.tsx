@@ -30,7 +30,7 @@ function ParamComp({
   onEnter,
   onEscape,
   overrides,
-  type,
+  type
 }: Props): React.ReactElement<Props> {
   const _onChange = useCallback((value: RawParamOnChangeValue): void => onChange(index, value), [index, onChange]);
 

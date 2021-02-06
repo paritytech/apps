@@ -16,7 +16,7 @@ function doChange(onChange?: (value: any) => void): (_: number) => void {
     onChange &&
       onChange({
         isValid: true,
-        value,
+        value
       });
   };
 }
@@ -27,13 +27,13 @@ function Vote({
   isDisabled,
   isError,
   onChange,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const optAyeRef = useRef([
     { text: t<string>('Nay'), value: 0 },
-    { text: t<string>('Aye'), value: -1 },
+    { text: t<string>('Aye'), value: -1 }
   ]);
 
   const optConvRef = useRef([
@@ -43,7 +43,7 @@ function Vote({
     { text: t<string>('Locked3x'), value: 3 },
     { text: t<string>('Locked4x'), value: 4 },
     { text: t<string>('Locked5x'), value: 5 },
-    { text: t<string>('Locked6x'), value: 6 },
+    { text: t<string>('Locked6x'), value: 6 }
   ]);
 
   const defaultValue =

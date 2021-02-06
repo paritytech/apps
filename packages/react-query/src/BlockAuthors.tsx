@@ -30,7 +30,7 @@ const BlockAuthorsContext: React.Context<Authors> = React.createContext<Authors>
   byAuthor,
   eraPoints,
   lastBlockAuthors: [],
-  lastHeaders: [],
+  lastHeaders: []
 });
 const ValidatorsContext: React.Context<string[]> = React.createContext<string[]>([]);
 
@@ -121,7 +121,7 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
                   lastBlockAuthors: lastBlockAuthors.slice(),
                   lastBlockNumber,
                   lastHeader,
-                  lastHeaders,
+                  lastHeaders
                 });
               }
             }
@@ -136,7 +136,7 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
     if (queryPoints) {
       const entries = [...queryPoints.individual.entries()].map(([accountId, points]) => [
         accountId.toString(),
-        formatNumber(points),
+        formatNumber(points)
       ]);
       const current = Object.keys(eraPoints);
 

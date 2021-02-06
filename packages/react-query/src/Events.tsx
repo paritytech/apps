@@ -47,8 +47,8 @@ function EventsBase({ children }: Props): React.ReactElement<Props> {
               .filter(
                 ({
                   record: {
-                    event: { section },
-                  },
+                    event: { section }
+                  }
                 }) => section !== 'system'
               );
             const newEventHash = xxhashAsHex(stringToU8a(JSON.stringify(newEvents)));
@@ -74,10 +74,10 @@ function EventsBase({ children }: Props): React.ReactElement<Props> {
                             blockNumber,
                             index,
                             key: `${blockNumber.toNumber()}-${blockHash}-${index}`,
-                            record,
+                            record
                           })
                         ),
-                        ...events,
+                        ...events
                       ].slice(0, MAX_EVENTS)
                     );
                   }

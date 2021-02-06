@@ -13,6 +13,6 @@ export default function createOptions(api: ApiPromise): DropdownOptions {
     )
     .map((name): { text: string; value: string } => ({
       text: name,
-      value: name,
+      value: name
     }));
 }

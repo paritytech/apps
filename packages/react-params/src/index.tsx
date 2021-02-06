@@ -35,7 +35,7 @@ export { default as useTxParams } from './useTxParams';
 
 class Params extends React.PureComponent<Props, State> {
   public state: State = {
-    params: null,
+    params: null
   };
 
   public static getDerivedStateFromProps(
@@ -53,10 +53,10 @@ class Params extends React.PureComponent<Props, State> {
       values: params.reduce(
         (result: RawParams, param, index): RawParams => [
           ...result,
-          values && values[index] ? values[index] : createValue(param),
+          values && values[index] ? values[index] : createValue(param)
         ],
         []
-      ),
+      )
     };
   }
 
@@ -85,7 +85,7 @@ class Params extends React.PureComponent<Props, State> {
       onEscape,
       overrides,
       params,
-      withBorder = true,
+      withBorder = true
     } = this.props;
     const { values = this.props.values } = this.state;
 
@@ -134,7 +134,7 @@ class Params extends React.PureComponent<Props, State> {
       (prevState: State): Pick<State, never> => ({
         values: (prevState.values || []).map(
           (prev, prevIndex): RawParam => (prevIndex !== index ? prev : { isValid, value })
-        ),
+        )
       }),
       this.triggerUpdate
     );

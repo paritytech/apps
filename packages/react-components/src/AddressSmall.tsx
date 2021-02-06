@@ -32,7 +32,7 @@ function AddressSmall({
   toggle,
   value,
   withIndex,
-  withSidebar = true,
+  withSidebar = true
 }: Props): React.ReactElement<Props> {
   return (
     <div className={`ui--AddressSmall ${className}`}>

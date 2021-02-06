@@ -40,7 +40,7 @@ function Badge({
   isSmall,
   isTooltip,
   onClick,
-  type,
+  type
 }: Props): React.ReactElement<Props> | null {
   const [trigger] = useState(`badge-hover-${Date.now()}-${badgeId++}`);
 

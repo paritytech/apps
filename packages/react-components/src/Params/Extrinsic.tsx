@@ -31,14 +31,14 @@ function ExtrinsicDisplay({
   onChange,
   onEnter,
   onEscape,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
     (method?: SubmittableExtrinsic<'promise'>): void =>
       onChange &&
       onChange({
         isValid: !!method,
-        value: method,
+        value: method
       }),
     [onChange]
   );

@@ -18,7 +18,7 @@ function Raw({
   onChange,
   onEnter,
   onEscape,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
@@ -29,7 +29,7 @@ function Raw({
       onChange &&
         onChange({
           isValid,
-          value,
+          value
         });
       setIsValid(isValid);
     },

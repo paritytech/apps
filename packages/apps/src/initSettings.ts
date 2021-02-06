@@ -58,7 +58,7 @@ try {
   const types = {
     ...((store.get('types') as Record<string, Record<string, string>>) || {}),
     Address: 'AccountId',
-    LookupSource: 'AccountId',
+    LookupSource: 'AccountId'
   };
   const names = Object.keys(types);
 

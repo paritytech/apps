@@ -8,7 +8,7 @@ import Line from './Line';
 const Chart = {
   Doughnut,
   HorizBar,
-  Line,
+  Line
 };
 
 export default Chart;

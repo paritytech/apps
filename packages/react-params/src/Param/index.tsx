@@ -22,13 +22,13 @@ function Param({
   onEnter,
   onEscape,
   overrides,
-  type,
+  type
 }: Props): React.ReactElement<Props> | null {
   const compRef = useRef<React.ComponentType<CProps> | null>(findComponent(type, overrides));
 
   const label = useMemo(() => (isUndefined(name) ? encodeTypeDef(type) : `${name}: ${encodeTypeDef(type)}`), [
     name,
-    type,
+    type
   ]);
 
   if (!compRef.current) {

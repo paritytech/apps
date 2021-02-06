@@ -37,7 +37,7 @@ interface CallState {
 function getParams({ meta }: SubmittableExtrinsicFunction<'promise'>): { name: string; type: TypeDef }[] {
   return GenericCall.filterOrigin(meta).map((arg): { name: string; type: TypeDef } => ({
     name: arg.name.toString(),
-    type: getTypeDef(arg.type.toString()),
+    type: getTypeDef(arg.type.toString())
   }));
 }
 
@@ -50,7 +50,7 @@ function ExtrinsicDisplay({
   onChange,
   onEnter,
   onEscape,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const [extrinsic, setCall] = useState<CallState>({ fn: defaultValue, params: getParams(defaultValue) });
   const [values, setValues] = useState<RawParam[]>([]);
@@ -85,7 +85,7 @@ function ExtrinsicDisplay({
 
   const {
     fn: { meta, method, section },
-    params,
+    params
   } = extrinsic;
 
   return (

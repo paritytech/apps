@@ -141,7 +141,7 @@ function Labelled({
   label = defaultLabel,
   labelExtra,
   withEllipsis,
-  withLabel = true,
+  withLabel = true
 }: Props): React.ReactElement<Props> | null {
   if (isHidden) {
     return null;

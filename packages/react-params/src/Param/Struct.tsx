@@ -22,7 +22,7 @@ function StructParam(props: Props): React.ReactElement<Props> {
             value[name as string] = values[index].value;
 
             return value;
-          }, {}),
+          }, {})
         });
     },
     [params, onChange]

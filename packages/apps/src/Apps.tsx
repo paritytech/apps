@@ -35,11 +35,11 @@ function Apps({ className = '' }: Props): React.ReactElement<Props> {
     isMenuOpen: false,
     transition: SideBarTransition.COLLAPSED,
     ...store.get('sidebar', {}),
-    isMenu: window.innerWidth < SIDEBAR_MENU_THRESHOLD,
+    isMenu: window.innerWidth < SIDEBAR_MENU_THRESHOLD
   });
   const uiHighlight = useMemo((): string | undefined => getSystemChainColor(systemChain, systemName), [
     systemChain,
-    systemName,
+    systemName
   ]);
 
   const _collapse = useCallback(
@@ -62,7 +62,7 @@ function Apps({ className = '' }: Props): React.ReactElement<Props> {
         ...sidebar,
         isMenu: transition === SideBarTransition.MINIMISED_AND_EXPANDED,
         isMenuOpen: false,
-        transition,
+        transition
       })
     );
   }, []);

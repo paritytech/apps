@@ -31,7 +31,7 @@ function CodeForget({ className, code, onForget }: Props): React.ReactElement<Pr
     showNotification({
       action: truncate(code.codeHash),
       message: t<string>('code bundle removed'),
-      status: 'success',
+      status: 'success'
     });
   }, [code.codeHash, onForget, showNotification, t, toggleIsOpen]);
 

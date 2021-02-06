@@ -10,7 +10,7 @@ export default {
     Kulupu: 'kulupu',
     Kusama: 'kusama',
     'Kusama CC3': 'kusama',
-    'Polkadot CC1': 'polkadot-cc1',
+    'Polkadot CC1': 'polkadot-cc1'
   },
   create: (chain: string, path: string, data: BN | number | string): string =>
     `https://polkascan.io/${chain}/${path}/${data.toString()}`,
@@ -23,7 +23,7 @@ export default {
     proposal: 'democracy/proposal',
     referendum: 'democracy/referendum',
     techcomm: 'techcomm/proposal',
-    treasury: 'treasury/proposal',
+    treasury: 'treasury/proposal'
   },
-  url: 'https://polkascan.io/',
+  url: 'https://polkascan.io/'
 };

@@ -8,7 +8,7 @@ import Proposal from './Proposal';
 
 const components: ComponentMap = {
   Call,
-  Proposal,
+  Proposal
 };
 
 export default components;

@@ -39,14 +39,14 @@ export default function useRegistrars(skipQuery?: boolean): State {
         .map(
           (registrar, index): RegistrarNull => ({
             address: registrar.isSome ? registrar.unwrap().account.toString() : null,
-            index,
+            index
           })
         )
         .filter((registrar): registrar is Registrar => !!registrar.address);
 
       setState({
         isRegistrar: registrars.some(({ address }) => allAccounts.includes(address)),
-        registrars,
+        registrars
       });
     }
   }, [allAccounts, query]);

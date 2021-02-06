@@ -17,7 +17,7 @@ function Account({
   isInOption,
   label,
   onChange,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const [defaultValue] = useState((value as string)?.toString());
 
@@ -38,7 +38,7 @@ function Account({
       onChange &&
         onChange({
           isValid,
-          value,
+          value
         });
     },
     [onChange]

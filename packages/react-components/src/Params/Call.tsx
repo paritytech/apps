@@ -17,7 +17,7 @@ function Call({
   onChange,
   onEnter,
   onEscape,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const { api, apiDefaultTx } = useApi();
 

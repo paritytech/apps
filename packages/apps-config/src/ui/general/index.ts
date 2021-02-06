@@ -22,11 +22,11 @@ const chainColors: Record<string, any> = [
   ['Kusama CC3', chainKusama],
   ['Polkadot', chainPolkadot],
   ['Polkadot CC1', chainPolkadot],
-  ['Westend', chainWestend],
+  ['Westend', chainWestend]
 ].reduce(
   (colors, [chain, color]): Record<string, any> => ({
     ...colors,
-    [chain.toLowerCase()]: color,
+    [chain.toLowerCase()]: color
   }),
   {}
 );
@@ -35,14 +35,14 @@ const chainColors: Record<string, any> = [
 const nodeColors: Record<string, any> = [
   ['centrifuge chain', nodeCentrifuge],
   ['edgeware node', nodeEdgeware],
-  ['nodle chain node', nodeNodle],
+  ['nodle chain node', nodeNodle]
   // ['node template', emptyColor],
   // ['parity polkadot', emptyColor],
   // ['substrate node', emptyColor]
 ].reduce(
   (colors, [node, color]): Record<string, any> => ({
     ...colors,
-    [node.toLowerCase().replace(/-/g, ' ')]: color,
+    [node.toLowerCase().replace(/-/g, ' ')]: color
   }),
   {}
 );

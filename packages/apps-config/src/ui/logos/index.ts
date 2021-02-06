@@ -23,11 +23,11 @@ const chainLogos: Record<string, any> = [
   ['Kusama', chainKusama], // new name after CC3
   ['Kusama CC1', chainKusama],
   ['Kusama CC2', chainKusama],
-  ['Kusama CC3', chainKusama],
+  ['Kusama CC3', chainKusama]
 ].reduce(
   (logos, [chain, logo]): Record<string, any> => ({
     ...logos,
-    [(chain as string).toLowerCase()]: logo,
+    [(chain as string).toLowerCase()]: logo
   }),
   {}
 );
@@ -43,11 +43,11 @@ const nodeLogos: Record<string, any> = [
   ['Nodle Chain Node', nodeNodle],
   ['parity-polkadot', nodePolkadot],
   ['polkadot-js', nodePolkadotJs],
-  ['substrate-node', nodeSubstrate],
+  ['substrate-node', nodeSubstrate]
 ].reduce(
   (logos, [node, logo]): Record<string, any> => ({
     ...logos,
-    [(node as string).toLowerCase().replace(/-/g, ' ')]: logo,
+    [(node as string).toLowerCase().replace(/-/g, ' ')]: logo
   }),
   {}
 );
@@ -62,12 +62,12 @@ const namedLogos: Record<string, any> = {
   nodle: nodeNodle,
   polkadot: nodePolkadot,
   substrate: nodeSubstrate,
-  westend: nodePolkadot,
+  westend: nodePolkadot
 };
 
 // extension logos
 const extensionLogos: Record<string, any> = {
-  'polkadot-js': extensionPolkadotJs,
+  'polkadot-js': extensionPolkadotJs
 };
 
 export { chainLogos, emptyLogo, extensionLogos, namedLogos, nodeLogos };

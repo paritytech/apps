@@ -34,7 +34,7 @@ function ContractForget({ address, className }: Props): React.ReactElement<Props
         account: address,
         action: 'forget',
         message: t<string>('contract removed'),
-        status: 'success',
+        status: 'success'
       });
       toggleIsOpen();
     } catch (error) {
@@ -42,7 +42,7 @@ function ContractForget({ address, className }: Props): React.ReactElement<Props
         account: address,
         action: 'forget',
         message: (error as Error).message,
-        status: 'error',
+        status: 'error'
       });
     }
   }, [address, showNotification, t, toggleIsOpen]);

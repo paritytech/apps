@@ -38,7 +38,7 @@ function TxSigned({ className, currentItem, requestAddress }: Props): React.Reac
     setSenderInfo,
     setSignedOptions,
     setTip,
-    signedTx,
+    signedTx
   } = useSendTx(currentItem, requestAddress);
   const [isRenderError, toggleRenderError] = useToggle();
   const [isSubmit, setIsSubmit] = useState(true);

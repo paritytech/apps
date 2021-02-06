@@ -83,7 +83,7 @@ function InputAddressMulti({
   defaultValue,
   maxCount,
   onChange,
-  valueLabel,
+  valueLabel
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [_filter, setFilter] = useState<string>('');

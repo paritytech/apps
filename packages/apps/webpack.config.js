@@ -17,7 +17,7 @@ module.exports = merge(baseConfig(context), {
     new HtmlWebpackPlugin({
       PAGE_TITLE: 'Polkadot/Substrate Portal',
       inject: true,
-      template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`),
-    }),
-  ],
+      template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`)
+    })
+  ]
 });

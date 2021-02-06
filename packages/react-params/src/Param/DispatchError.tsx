@@ -38,7 +38,7 @@ function ErrorDisplay(props: Props): React.ReactElement<Props> {
 
         return setDetails({
           details: documentation.join(', '),
-          type: `${section}.${name}`,
+          type: `${section}.${name}`
         });
       } catch (error) {
         // Errors may not actually be exposed, in this case, just return the default representation

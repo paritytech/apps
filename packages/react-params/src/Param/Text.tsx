@@ -16,7 +16,7 @@ function Text({
   onChange,
   onEnter,
   onEscape,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
@@ -27,7 +27,7 @@ function Text({
       onChange &&
         onChange({
           isValid,
-          value,
+          value
         });
       setIsValid(isValid);
     },

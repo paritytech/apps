@@ -17,7 +17,7 @@ export default function intervalObservable<Props, State extends CallState>(
 
     if (callUpdated !== that.state.callUpdated) {
       that.setState({
-        callUpdated,
+        callUpdated
       });
     }
   });

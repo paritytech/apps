@@ -44,7 +44,7 @@ function extractParams(
 ): [string, CallParams | null] {
   return [
     JSON.stringify({ f: (fn as { name: string })?.name, p: params }),
-    params.length === 0 || !params.some(param => isNull(param) || isUndefined(param)) ? paramMap(params) : null,
+    params.length === 0 || !params.some(param => isNull(param) || isUndefined(param)) ? paramMap(params) : null
   ];
 }
 

@@ -33,7 +33,7 @@ interface Config {
 (Chart as any).Chart.pluginService.register({
   beforeDraw: ({
     chart: { ctx },
-    chartArea,
+    chartArea
   }: {
     chart: {
       ctx: {
@@ -49,7 +49,7 @@ interface Config {
     ctx.fillStyle = '#fff';
     ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
     ctx.restore();
-  },
+  }
 });
 
 const COLORS = ['#ff8c00', '#008c8c', '#8c008c'];
@@ -61,17 +61,17 @@ const alphaColor = (hexColor: string): string =>
 const chartOptions = {
   // no need for the legend, expect the labels contain everything
   legend: {
-    display: false,
+    display: false
   },
   scales: {
     xAxes: [
       {
         ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
-  },
+          beginAtZero: true
+        }
+      }
+    ]
+  }
 };
 
 function calculateOptions(
@@ -91,7 +91,7 @@ function calculateOptions(
         data,
         fill: false,
         hoverBackgroundColor: color,
-        label: legends[index],
+        label: legends[index]
       });
 
       return chartData;
@@ -101,7 +101,7 @@ function calculateOptions(
 
   return {
     chartData,
-    chartOptions,
+    chartOptions
   };
 }
 
@@ -110,7 +110,7 @@ function LineChart({
   colors,
   labels,
   legends,
-  values,
+  values
 }: LineProps): React.ReactElement<LineProps> | null {
   const [{ chartData, chartOptions }, setState] = useState<State>({});
 

@@ -38,7 +38,7 @@ function IdentityIcon({ className = '', onCopy, prefix, size = 24, theme, value 
         account,
         action: 'clipboard',
         message: t<string>('address copied to clipboard'),
-        status: 'queued',
+        status: 'queued'
       });
     },
     [onCopy, showNotification, t]

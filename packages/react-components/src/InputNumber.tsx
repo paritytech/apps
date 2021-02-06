@@ -55,7 +55,7 @@ function getRegex(isDecimal: boolean): RegExp {
 function getSiOptions(): { text: string; value: string }[] {
   return formatBalance.getOptions().map(({ power, text, value }): { text: string; value: string } => ({
     text: power === 0 ? TokenUnit.abbr : text,
-    value,
+    value
   }));
 }
 
@@ -170,7 +170,7 @@ function InputNumber({
   onEnter,
   onEscape,
   placeholder,
-  value: propsValue,
+  value: propsValue
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [si, setSi] = useState<SiDef | null>(isSi ? formatBalance.findSi('-') : null);

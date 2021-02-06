@@ -24,7 +24,7 @@ function SelectSection({
   isError,
   onChange,
   options,
-  value,
+  value
 }: Props): React.ReactElement<Props> {
   return (
     <Dropdown
