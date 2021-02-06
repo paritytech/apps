@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { registry } from "@canvas-ui/react-api";
-import { StatusContext } from "@canvas-ui/react-api/Status";
+import { StatusContext } from "@canvas-ui/react-components/Status/Status";
 import { QueueTx, QueueTxMessageSetStatus } from "@canvas-ui/react-api/Status/types";
 import { useApi } from "@canvas-ui/react-hooks";
 import { StringOrNull, VoidFn } from "@canvas-ui/react-util/types";

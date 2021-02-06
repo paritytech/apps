@@ -3,7 +3,7 @@
 
 import store from "./store";
 import { Code } from "@canvas-ui/react-components/types";
-import useApi from "../../react-hooks/src/useApi";
+import useApi from "@canvas-ui/react-hooks/useApi";
 import { VoidFn } from "@canvas-ui/react-util/types";
 import { useCallback, useEffect, useState } from "react";
 
@@ -11,8 +11,8 @@ import { Abi } from "@polkadot/api-contract";
 import { AnyJson } from "@polkadot/types/types";
 import { u8aToString } from "@polkadot/util";
 
-import { useTranslation } from "../../react-hooks/src/translate";
-import { FileState } from "../../react-hooks/src/types";
+import { useTranslation } from "@canvas-ui/react-hooks/translate";
+import { FileState } from "@canvas-ui/react-hooks/types";
 
 interface UseAbi {
   abi: Abi | null;

@@ -4,7 +4,7 @@
 import createRoutes from "@canvas-ui/apps-routing";
 import { Route } from "@canvas-ui/apps-routing/types";
 import { ErrorBoundary, GuideModal, Icon, WithLoader } from "@canvas-ui/react-components";
-import { StatusContext } from "@canvas-ui/react-api/Status";
+import { StatusContext } from "@canvas-ui/react-components/Status/Status";
 import { ELEV_3_CSS } from "@canvas-ui/react-components/styles/constants";
 import { useApi } from "@canvas-ui/react-hooks";
 import { classes } from "@canvas-ui/react-util";

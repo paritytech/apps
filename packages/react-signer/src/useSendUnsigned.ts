@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { StatusContext } from "@canvas-ui/react-api/Status";
+import { StatusContext } from "@canvas-ui/react-components/Status/Status";
 import { QueueTx, QueueTxMessageSetStatus } from "@canvas-ui/react-api/Status/types";
 import { VoidFn } from "@canvas-ui/react-util/types";
 import { useCallback, useContext } from "react";

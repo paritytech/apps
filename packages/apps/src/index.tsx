@@ -8,7 +8,7 @@ import "tippy.js/dist/tippy.css"; // optional
 import "@canvas-ui/react-components/i18n";
 
 import { Api } from "@canvas-ui/react-api";
-import Queue from "@canvas-ui/react-api/Status/Queue";
+import Queue from "@canvas-ui/react-components/Status/Queue";
 import { BlockAuthors, Events } from "@canvas-ui/react-query";
 import React, { Suspense } from "react";
 import ReactDOM from "react-dom";

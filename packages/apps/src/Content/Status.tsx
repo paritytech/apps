@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import StatusDisplay from "@canvas-ui/react-api/Status";
+import StatusDisplay from "@canvas-ui/react-components/Status/Status";
 import { ActionStatus, QueueAction$Add, QueueStatus, QueueTx } from "@canvas-ui/react-api/Status/types";
 import { useAccounts, useApi, useCall } from "@canvas-ui/react-hooks";
 import React, { useEffect } from "react";

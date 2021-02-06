@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import registry from "../typeRegistry";
+import registry from "@canvas-ui/react-api/typeRegistry";
 import React, { useCallback, useRef, useState } from "react";
 
 import { SubmittableResult } from "@polkadot/api";
@@ -11,9 +11,9 @@ import { DispatchError } from "@polkadot/types/interfaces";
 import jsonrpc from "@polkadot/types/interfaces/jsonrpc";
 import { ITuple, SignerPayloadJSON } from "@polkadot/types/types";
 
-import { BareProps } from "../../../react-components/src/types";
-import { STATUS_COMPLETE } from "./constants";
-import { QueueProvider } from "./Context";
+import { BareProps } from "@canvas-ui/react-components/types";
+import { STATUS_COMPLETE } from "@canvas-ui/react-api/Status/constants";
+import { QueueProvider } from "@canvas-ui/react-api/Status/Context";
 import {
   ActionStatus,
   PartialQueueTxExtrinsic,
@@ -24,7 +24,7 @@ import {
   QueueTxRpc,
   QueueTxStatus,
   SignerCallback
-} from "./types";
+} from "@canvas-ui/react-api/Status/types";
 
 export interface Props extends BareProps {
   children: React.ReactNode;
