@@ -25,7 +25,7 @@ function SelectMethod({
   isError,
   onChange,
   options,
-  value
+  value,
 }: Props): React.ReactElement<Props> | null {
   const transform = useCallback(
     (method: string): SubmittableExtrinsicFunction<'promise'> => api.tx[value.section][method],

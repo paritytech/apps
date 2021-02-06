@@ -20,7 +20,7 @@ export default function useAccounts(): UseAccounts {
     allAccounts: [],
     hasAccounts: false,
     isAccount: () => false,
-    isReady: false
+    isReady: false,
   });
 
   useEffect((): (() => void) => {

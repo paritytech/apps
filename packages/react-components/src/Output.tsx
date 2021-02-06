@@ -43,7 +43,7 @@ function Output({
   type,
   value,
   withCopy = false,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   return (
     <Labelled className={className} help={help} isFull={isFull} isHidden={isHidden} label={label} withLabel={withLabel}>

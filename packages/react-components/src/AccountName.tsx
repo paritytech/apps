@@ -30,7 +30,7 @@ interface Props extends BareProps {
 
 const KNOWN: [AccountId, string][] = [
   [registry.createType('AccountId', stringToU8a('modlpy/socie'.padEnd(32, '\0'))), 'Society'],
-  [registry.createType('AccountId', stringToU8a('modlpy/trsry'.padEnd(32, '\0'))), 'Treasury']
+  [registry.createType('AccountId', stringToU8a('modlpy/trsry'.padEnd(32, '\0'))), 'Treasury'],
 ];
 
 const displayCache = new Map<string, React.ReactNode>();
@@ -149,7 +149,7 @@ function AccountName({
   onClick,
   override,
   toggle,
-  value
+  value,
 }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [value]);

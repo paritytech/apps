@@ -45,7 +45,7 @@ function Expander({
   summaryMeta,
   summarySub,
   withDot,
-  withHidden
+  withHidden,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isExpanded, toggleExpanded] = useToggle(isOpen);
@@ -53,10 +53,10 @@ function Expander({
   const headerSub = useMemo(() => (summary ? formatMeta(summaryMeta) || summarySub : null), [
     summary,
     summaryMeta,
-    summarySub
+    summarySub,
   ]);
   const hasContent = useMemo((): boolean => !!children && (!Array.isArray(children) || children.length !== 0), [
-    children
+    children,
   ]);
 
   return (

@@ -32,7 +32,7 @@ export default function useParamDefs(type: TypeDef): ParamDef[] {
         (td): ParamDef => ({
           length: typeDef.length,
           name: td.name,
-          type: td // expandDef(td)
+          type: td, // expandDef(td)
         })
       )
     );

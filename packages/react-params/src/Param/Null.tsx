@@ -10,7 +10,7 @@ function Null({ onChange }: Props): React.ReactElement<Props> | null {
     onChange &&
       onChange({
         isValid: true,
-        value: null
+        value: null,
       });
   }, [onChange]);
 

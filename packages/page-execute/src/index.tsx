@@ -24,7 +24,7 @@ function ExecuteApp({ basePath, className, navigateTo }: Props): React.ReactElem
       contracts: allContracts,
       hasContracts,
       isContract,
-      navigateTo
+      navigateTo,
     }),
     [allAccounts, allContracts, basePath, hasContracts, isContract, navigateTo]
   );

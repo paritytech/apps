@@ -31,7 +31,7 @@ function Icon({
   isSpinning,
   onClick,
   size = '1x',
-  tooltip
+  tooltip,
 }: Props): React.ReactElement<Props> {
   const extraProps = tooltip ? { 'data-for': tooltip, 'data-tip': true } : {};
 

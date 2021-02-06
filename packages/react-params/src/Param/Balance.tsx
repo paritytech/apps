@@ -17,7 +17,7 @@ function Balance({
   onChange,
   onEnter,
   onEscape,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
   const [defaultValue] = useState(new BN(((value as BN) || '0').toString()).toString(10));
@@ -29,7 +29,7 @@ function Balance({
       onChange &&
         onChange({
           isValid,
-          value
+          value,
         });
       setIsValid(isValid);
     },

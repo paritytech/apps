@@ -16,7 +16,7 @@ function ProposalDisplay({
   onChange,
   onEnter,
   onEscape,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   const { apiDefaultTxSudo } = useApi();
   const _onChange = useCallback(
@@ -30,7 +30,7 @@ function ProposalDisplay({
       onChange &&
         onChange({
           isValid,
-          value: proposal
+          value: proposal,
         });
     },
     [onChange]

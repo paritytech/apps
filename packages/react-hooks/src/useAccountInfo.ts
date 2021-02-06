@@ -29,7 +29,7 @@ const IS_NONE = {
   isProxied: false,
   isSociety: false,
   isSudo: false,
-  isTechCommittee: false
+  isTechCommittee: false,
 };
 
 export default function useAccountInfo(value: string | null, isContract = false): UseAccountInfo {
@@ -52,7 +52,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
     accountFlags &&
       setFlags(flags => ({
         ...flags,
-        ...accountFlags
+        ...accountFlags,
       }));
   }, [accountFlags]);
 
@@ -92,7 +92,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
         isLowQuality,
         isReasonable,
         judgements,
-        waitCount: identity.judgements.length - judgements.length
+        waitCount: identity.judgements.length - judgements.length,
       });
     } else {
       setIdentity(undefined);
@@ -121,7 +121,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
           isInContacts,
           isMultisig: !!accountOrAddress?.meta.isMultisig || false,
           isOwned,
-          isProxied: !!accountOrAddress?.meta.isProxied || false
+          isProxied: !!accountOrAddress?.meta.isProxied || false,
         })
       );
       setMeta(accountOrAddress?.meta);
@@ -237,6 +237,6 @@ export default function useAccountInfo(value: string | null, isContract = false)
     setTags,
     tags,
     toggleIsEditingName,
-    toggleIsEditingTags
+    toggleIsEditingTags,
   };
 }

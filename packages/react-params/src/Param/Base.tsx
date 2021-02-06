@@ -23,7 +23,7 @@ function Base({
   isOuter,
   label,
   size = 'full',
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>

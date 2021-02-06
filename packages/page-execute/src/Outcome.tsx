@@ -20,7 +20,7 @@ function Outcome({
   className,
   onClear,
   outcome: { from, message, output, params, result, when },
-  registry
+  registry,
 }: Props): React.ReactElement<Props> | null {
   return (
     <div className={className}>

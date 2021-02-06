@@ -62,7 +62,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
             </p>
           </>
         ),
-        header: t<string>('About Canvas smart contracts')
+        header: t<string>('About Canvas smart contracts'),
       },
       {
         content: (
@@ -79,7 +79,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
             </p>
           </>
         ),
-        header: t<string>('Upload')
+        header: t<string>('Upload'),
       },
       {
         content: (
@@ -94,7 +94,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
             </p>
           </>
         ),
-        header: t<string>('Deploy')
+        header: t<string>('Deploy'),
       },
       {
         content: (
@@ -111,8 +111,8 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
             </p>
           </>
         ),
-        header: t<string>('Execute')
-      }
+        header: t<string>('Execute'),
+      },
     ],
     [t]
   );
@@ -137,7 +137,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
             }
           )}
         </div>
-      </>
+      </>,
     ];
   }, [index, pages, _setIndex]);
 

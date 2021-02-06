@@ -55,10 +55,10 @@ function calculateOptions(
         {
           backgroundColor: [] as string[],
           data: [] as number[],
-          hoverBackgroundColor: [] as string[]
-        }
+          hoverBackgroundColor: [] as string[],
+        },
       ],
-      labels: [] as string[]
+      labels: [] as string[],
     }
   );
 
@@ -69,22 +69,22 @@ function calculateOptions(
       aspectRatio,
       // no need for the legend, expect the labels contain everything
       legend: {
-        display: false
+        display: false,
       },
       scales: {
         xAxes: [
           {
-            ticks: showLabels ? { beginAtZero: true, max } : { display: false }
-          }
-        ]
+            ticks: showLabels ? { beginAtZero: true, max } : { display: false },
+          },
+        ],
       },
       tooltips: {
         callbacks: {
-          label: (item: TooltipItem): string => values[item.index].tooltip || values[item.index].label
-        }
-      }
+          label: (item: TooltipItem): string => values[item.index].tooltip || values[item.index].label,
+        },
+      },
     },
-    jsonValues
+    jsonValues,
   };
 }
 
@@ -93,7 +93,7 @@ function ChartHorizBar({
   className = '',
   max = 100,
   showLabels = false,
-  values
+  values,
 }: HorizBarProps): React.ReactElement<HorizBarProps> | null {
   const [{ chartData, chartOptions, jsonValues }, setState] = useState<State>({});
 

@@ -9,11 +9,11 @@ const identityNodes: Record<string, string> = [
   ['node-template', 'substrate'],
   ['parity-polkadot', 'polkadot'],
   ['polkadot-js', 'polkadot'],
-  ['substrate-node', 'substrate']
+  ['substrate-node', 'substrate'],
 ].reduce(
   (icons, [spec, icon]): Record<string, string> => ({
     ...icons,
-    [spec.toLowerCase().replace(/-/g, ' ')]: icon
+    [spec.toLowerCase().replace(/-/g, ' ')]: icon,
   }),
   {}
 );

@@ -54,7 +54,7 @@ function AddressMini({
   withBonded = false,
   withName = true,
   withShrink = false,
-  withSidebar = true
+  withSidebar = true,
 }: Props): React.ReactElement<Props> | null {
   if (!value) {
     return null;

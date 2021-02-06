@@ -20,5 +20,5 @@ export {
   clearLedger,
   getLedger,
   isLedger,
-  isLedgerCapable
+  isLedgerCapable,
 };

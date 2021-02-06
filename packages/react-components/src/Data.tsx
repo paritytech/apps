@@ -42,7 +42,7 @@ function Data({
   className,
   registry = baseRegistry,
   type,
-  value
+  value,
 }: Props): React.ReactElement<Props> | null {
   const content = useMemo((): React.ReactNode => {
     if (isNull(value) || (Array.isArray(value) && value.length === 0)) {

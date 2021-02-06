@@ -11,9 +11,9 @@ export default function create(t: <T = string>(key: string, text: string, option
     display: {
       needsAccounts: true,
       needsApi: [],
-      needsCodes: true
+      needsCodes: true,
     },
     name: 'upload',
-    text: t<string>('nav.upload', 'Upload', { ns: 'apps-upload' })
+    text: t<string>('nav.upload', 'Upload', { ns: 'apps-upload' }),
   };
 }

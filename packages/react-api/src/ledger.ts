@@ -11,7 +11,7 @@ import { api } from './Api';
 
 const ALLOWED_CHAINS: [string, 'kusama' | 'polkadot'][] = [
   [KUSAMA_GENESIS, 'kusama'],
-  [POLKADOT_GENESIS, 'polkadot']
+  [POLKADOT_GENESIS, 'polkadot'],
 ];
 
 let ledger: Ledger | null = null;

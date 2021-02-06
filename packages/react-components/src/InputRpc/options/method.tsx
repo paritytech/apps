@@ -33,9 +33,9 @@ export default function createOptions(api: ApiPromise, sectionName: string): Dro
             </div>,
             <div className="ui--DropdownLinked-Item-text" key={`${sectionName}_${method}:text`}>
               {description || method}
-            </div>
+            </div>,
           ],
-          value: method
+          value: method,
         };
       }
     );

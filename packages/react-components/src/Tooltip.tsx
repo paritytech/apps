@@ -34,7 +34,7 @@ function Tooltip({
   offset,
   place = 'top',
   text,
-  trigger
+  trigger,
 }: Props): React.ReactElement<Props> | null {
   const [tooltipContainer] = useState(
     typeof document === 'undefined'

@@ -14,7 +14,7 @@ import useParamDefs from './useParamDefs';
 function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
   return {
     name: `${index}: ${name || type.type}`,
-    type
+    type,
   };
 }
 
@@ -26,7 +26,7 @@ function VectorFixed({
   onChange,
   overrides,
   type,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> | null {
   const inputParams = useParamDefs(type);
   const [params, setParams] = useState<ParamDef[]>([]);
@@ -83,7 +83,7 @@ function VectorFixed({
     onChange &&
       onChange({
         isValid: values.reduce((result: boolean, { isValid }) => result && isValid, true),
-        value: values.map(({ value }) => value)
+        value: values.map(({ value }) => value),
       });
   }, [values, onChange]);
 

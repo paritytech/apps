@@ -15,7 +15,7 @@ function BoolParam({
   isError,
   label,
   onChange,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [defaultValue] = useState(value instanceof Boolean ? value.valueOf() : (value as boolean));
@@ -23,7 +23,7 @@ function BoolParam({
   const options = useMemo(
     () => [
       { text: t<string>('No'), value: false },
-      { text: t<string>('Yes'), value: true }
+      { text: t<string>('Yes'), value: true },
     ],
     [t]
   );
@@ -33,7 +33,7 @@ function BoolParam({
       onChange &&
       onChange({
         isValid: true,
-        value
+        value,
       }),
     [onChange]
   );

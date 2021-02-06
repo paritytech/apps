@@ -50,7 +50,7 @@ class Store extends EventEmitter {
       ...existing,
       ...code,
       genesisHash: api.genesisHash.toHex(),
-      id
+      id,
     };
 
     store.set(`${KEY_CODE}${id || newId()}`, json);

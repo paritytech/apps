@@ -15,18 +15,18 @@ module.exports = {
         exclude: /(node_modules)/,
         test: /\.(js|ts|tsx)$/,
         use: {
-          loader: 'babel-loader'
-        }
-      }
-    ]
+          loader: 'babel-loader',
+        },
+      },
+    ],
   },
   output: {
     filename: './demo.js',
-    path: __dirname
+    path: __dirname,
   },
   plugins: [],
   resolve: {
     alias: {},
-    extensions: ['.js', '.jsx', '.ts', '.tsx']
-  }
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+  },
 };

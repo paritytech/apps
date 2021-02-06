@@ -25,7 +25,7 @@ function Toggle({
   label,
   onChange,
   preventDefault,
-  value
+  value,
 }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
     (event: React.FormEvent<HTMLInputElement>, { checked }: any): void => {

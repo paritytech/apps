@@ -28,11 +28,11 @@ const sawGuideKey = 'sawGuideKey';
 const NOT_FOUND: Route = {
   Component: NotFound,
   display: {
-    needsApi: undefined
+    needsApi: undefined,
   },
   isIgnored: false,
   name: 'unknown',
-  text: 'Unknown'
+  text: 'Unknown',
 };
 
 function Content({ className }: Props): React.ReactElement<Props> {
@@ -44,7 +44,7 @@ function Content({ className }: Props): React.ReactElement<Props> {
   const {
     Component,
     display: { needsApi },
-    name
+    name,
   } = useMemo((): Route => {
     const app = location.pathname.slice(1) || '';
     const found = createRoutes(t).find(route => !!(route && app.startsWith(route.name)));

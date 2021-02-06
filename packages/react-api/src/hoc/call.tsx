@@ -53,7 +53,7 @@ export default function withCall<P extends ApiProps>(
     propName,
     skipIf = NO_SKIP,
     transform = echoTransform,
-    withIndicator = false
+    withIndicator = false,
   }: Options = {}
 ): (Inner: React.ComponentType<ApiProps>) => React.ComponentType<any> {
   return (Inner: React.ComponentType<ApiProps>): React.ComponentType<SubtractProps<P, ApiProps>> => {
@@ -61,7 +61,7 @@ export default function withCall<P extends ApiProps>(
       public state: State = {
         callResult: undefined,
         callUpdated: false,
-        callUpdatedAt: 0
+        callUpdatedAt: 0,
       };
 
       private destroy?: () => void;
@@ -178,7 +178,7 @@ export default function withCall<P extends ApiProps>(
           {},
           expanded[0][1],
           expanded[0][2],
-          expanded[0][3]
+          expanded[0][3],
         ];
 
         assert(apiSection && apiSection[method], `Unable to find api.${area}.${section}.${method}`);
@@ -264,7 +264,7 @@ export default function withCall<P extends ApiProps>(
           this.nextState({
             callResult,
             callUpdated: true,
-            callUpdatedAt: Date.now()
+            callUpdatedAt: Date.now(),
           });
         } catch (error) {
           // console.warn(endpoint, '::', (error as Error).message);
@@ -276,7 +276,7 @@ export default function withCall<P extends ApiProps>(
         const _props = {
           ...this.props,
           callUpdated,
-          callUpdatedAt
+          callUpdatedAt,
         };
 
         if (!isUndefined(callResult)) {

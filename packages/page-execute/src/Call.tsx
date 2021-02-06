@@ -13,7 +13,7 @@ import {
   MessageArg,
   MessageSignature,
   PendingTx,
-  TxButton
+  TxButton,
 } from '@canvas-ui/react-components';
 import { useAccountId, useAccountInfo, useApi, useFormField, useGasWeight } from '@canvas-ui/react-hooks';
 import { useTxParams } from '@canvas-ui/react-params';
@@ -40,7 +40,7 @@ function getCallMessageOptions(callContract: Contract | null): Options {
         return {
           key: message.identifier,
           text: <MessageSignature message={message} registry={callContract.registry} />,
-          value: index
+          value: index,
         };
       })
     : [];
@@ -143,9 +143,9 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
               from: accountId,
               message: contract.abi.messages[messageIndex],
               params: extractValues(values),
-              when: new Date()
+              when: new Date(),
             },
-            ...outcomes
+            ...outcomes,
           ]);
         });
   }, [accountId, contract, messageIndex, payment, weightToString, outcomes, values]);
@@ -171,9 +171,9 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
       params: params.map((param, index) => ({
         arg: <MessageArg arg={param} registry={contract?.registry} />,
         type: param.type,
-        value: values[index]?.value
+        value: values[index]?.value,
       })),
-      weight: weightToString
+      weight: weightToString,
     }),
     [contract?.registry, name, messageOptions, messageIndex, params, values, weightToString]
   );
@@ -251,12 +251,12 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
                 options={[
                   {
                     text: t<string>('Send as RPC call'),
-                    value: true
+                    value: true,
                   },
                   {
                     text: t<string>('Send as transaction'),
-                    value: false
-                  }
+                    value: false,
+                  },
                 ]}
                 value={useRpc}
               />

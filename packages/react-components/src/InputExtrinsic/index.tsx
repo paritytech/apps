@@ -31,7 +31,7 @@ function InputExtrinsic({
   help,
   label,
   onChange,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(methodOptions(api, defaultValue.section));

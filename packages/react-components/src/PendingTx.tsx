@@ -33,7 +33,7 @@ function PendingTx({
   currentItem,
   instructions,
   registry,
-  requestAddress
+  requestAddress,
 }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const willSend = useRef(false);

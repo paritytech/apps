@@ -70,7 +70,7 @@ function FormatBalance({
   label,
   labelPost,
   value,
-  withSi
+  withSi,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [currency] = useState(formatBalance.getDefaults().unit);

@@ -18,7 +18,7 @@ function Tuple(props: Props): React.ReactElement<Props> {
       onChange &&
         onChange({
           isValid: values.reduce((result: boolean, { isValid }) => result && isValid, true),
-          value: values.map(({ value }) => value)
+          value: values.map(({ value }) => value),
         });
     },
     [onChange]

@@ -72,7 +72,7 @@ const KEYS = {
   TAB: 'Tab',
   V: 'v',
   X: 'x',
-  ZERO: '0'
+  ZERO: '0',
 };
 
 const KEYS_PRE: any[] = [KEYS.ALT, KEYS.CMD, KEYS.CTRL];
@@ -125,7 +125,7 @@ function Input({
   value,
   withEllipsis,
   withLabel,
-  withStatus = false
+  withStatus = false,
 }: Props): React.ReactElement<Props> {
   const [stateName] = useState(`in_${counter++}_at_${Date.now()}`);
 
@@ -161,7 +161,7 @@ function Input({
   );
 
   const _onPaste = useCallback((event: React.ClipboardEvent<HTMLInputElement>): void => onPaste && onPaste(event), [
-    onPaste
+    onPaste,
   ]);
 
   return (
@@ -181,7 +181,7 @@ function Input({
           isEditable ? 'ui--Input edit icon' : 'ui--Input',
           isInPlaceEditor ? 'inPlaceEditor' : '',
           isDisabled ? 'retain-appearance' : '',
-          inputClassName || ''
+          inputClassName || '',
         ].join(' ')}
         defaultValue={isUndefined(value) ? defaultValue || '' : undefined}
         disabled={isDisabled}

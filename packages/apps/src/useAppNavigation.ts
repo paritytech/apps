@@ -47,6 +47,6 @@ export default function useAppNavigation(): AppNavigation {
         return navigator(`/upload/success/${id}`);
       },
       [navigator]
-    )
+    ),
   };
 }

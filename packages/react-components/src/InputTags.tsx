@@ -67,7 +67,7 @@ function InputTags({
   placeholder,
   searchInput,
   value,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   return (
     <Dropdown

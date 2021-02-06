@@ -65,7 +65,7 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
   const isValid = useMemo((): boolean => isAbiValid && isAddressValid && isNameValid, [
     isAddressValid,
     isAbiValid,
-    isNameValid
+    isNameValid,
   ]);
 
   const _onAdd = useCallback((): void => {
@@ -77,10 +77,10 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
       const json = {
         contract: {
           abi: abi.json,
-          genesisHash: api.genesisHash.toHex()
+          genesisHash: api.genesisHash.toHex(),
         },
         name,
-        tags: []
+        tags: [],
       };
 
       keyring.saveContract(address, json);
@@ -89,7 +89,7 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
         account: address,
         action: 'created',
         message: t<string>('contract added'),
-        status: address ? 'success' : 'error'
+        status: address ? 'success' : 'error',
       });
 
       navigateTo.execute();
@@ -100,7 +100,7 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
         account: address,
         action: 'created',
         message: (error as Error).message,
-        status: 'error'
+        status: 'error',
       });
     }
   }, [abi, address, api, name, navigateTo, showNotification, t]);

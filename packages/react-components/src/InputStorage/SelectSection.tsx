@@ -25,8 +25,8 @@ function SelectSection({
   onChange,
   options,
   value: {
-    creator: { section }
-  }
+    creator: { section },
+  },
 }: Props): React.ReactElement<Props> {
   return (
     <Dropdown

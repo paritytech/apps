@@ -27,7 +27,7 @@ function extractLocalIpfs(url: string): State {
     ipnsChain: null,
     ipnsDomain: null,
     isIpfs: true,
-    isIpns: false
+    isIpns: false,
   };
 }
 
@@ -53,7 +53,7 @@ function extractLocalIpns(url: string): State {
     ipnsChain,
     ipnsDomain,
     isIpfs: true,
-    isIpns: true
+    isIpns: true,
   };
 }
 
@@ -96,7 +96,7 @@ function extractOther(url: string): State {
     ipnsChain,
     ipnsDomain,
     isIpfs,
-    isIpns
+    isIpns,
   };
 }
 

@@ -72,7 +72,7 @@ function InputFile({
   onRemove,
   value = null,
   withEllipsis,
-  withLabel
+  withLabel,
 }: InputFileProps): React.ReactElement<InputFileProps> {
   const { t } = useTranslation();
   const dropRef = createRef<DropzoneRef>();
@@ -91,7 +91,7 @@ function InputFile({
             const fileState = {
               data,
               name: file.name,
-              size: data.length
+              size: data.length,
             };
 
             onChange && onChange(fileState);
@@ -118,7 +118,7 @@ function InputFile({
     <Dropzone accept={accept} disabled={isDisabled} multiple={false} onDrop={_onDrop} ref={dropRef}>
       {({ getInputProps, getRootProps }): JSX.Element => {
         const rootProps = getRootProps({
-          className: classes('ui--InputFile', isError ? 'error' : '', !value ? 'isEmpty' : '', className)
+          className: classes('ui--InputFile', isError ? 'error' : '', !value ? 'isEmpty' : '', className),
         });
         const inputProps = getInputProps();
 

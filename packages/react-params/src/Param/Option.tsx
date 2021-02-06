@@ -19,7 +19,7 @@ function Option({
   onChange,
   onEnter,
   onEscape,
-  type: { sub, withOptionActive }
+  type: { sub, withOptionActive },
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isActive, setIsActive] = useState(withOptionActive || false);
@@ -29,7 +29,7 @@ function Option({
       onChange &&
       onChange({
         isValid: true,
-        value: null
+        value: null,
       });
   }, [isActive, onChange]);
 

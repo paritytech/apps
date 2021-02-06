@@ -30,7 +30,7 @@ function CopyButton({
   icon = 'copy',
   isAddress = false,
   value,
-  withButton = true
+  withButton = true,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const showNotification = useNotification();
@@ -40,7 +40,7 @@ function CopyButton({
       account: isAddress ? value : undefined,
       action: truncate(value),
       message: isAddress ? t<string>('address copied to clipboard') : t('copied to clipboard'),
-      status: 'queued'
+      status: 'queued',
     });
   }, [isAddress, showNotification, t, value]);
 

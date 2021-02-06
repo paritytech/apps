@@ -22,12 +22,12 @@ function SettingsApp({ className }: Props): React.ReactElement<Props> {
     () => [
       {
         text: t<string>('Dark theme'),
-        value: true
+        value: true,
       },
       {
         text: t<string>('Light theme'),
-        value: false
-      }
+        value: false,
+      },
     ],
     [t]
   );

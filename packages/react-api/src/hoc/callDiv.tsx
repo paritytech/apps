@@ -20,7 +20,7 @@ export default function withCallDiv<T>(endpoint: string, options: Options = {}) 
       callUpdated,
       children,
       className = defaultProps.className,
-      label = ''
+      label = '',
     }: any): React.ReactElement<Props<T>> {
       return (
         <div {...defaultProps} className={[className || '', callUpdated ? 'rx--updated' : undefined].join(' ')}>

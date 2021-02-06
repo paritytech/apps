@@ -19,7 +19,7 @@ export function extractExternal(accountId: string | null): AddressFlags {
       isQr: false,
       isUnlockable: false,
       threshold: 0,
-      who: []
+      who: [],
     };
   }
 
@@ -37,7 +37,7 @@ export function extractExternal(accountId: string | null): AddressFlags {
       isQr: false,
       isUnlockable: false,
       threshold: 0,
-      who: []
+      who: [],
     };
   }
 
@@ -51,7 +51,7 @@ export function extractExternal(accountId: string | null): AddressFlags {
     isQr: !!pair.meta.isExternal && !pair.meta.isMultisig && !pair.meta.isProxied,
     isUnlockable: !pair.meta.isExternal && !pair.meta.isHardware && !pair.meta.isInjected && pair.isLocked,
     threshold: (pair.meta.threshold as number) || 0,
-    who: ((pair.meta.who as string[]) || []).map(recodeAddress)
+    who: ((pair.meta.who as string[]) || []).map(recodeAddress),
   };
 }
 

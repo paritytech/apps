@@ -23,7 +23,7 @@ function Bytes({
   onEnter,
   onEscape,
   type,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isValid, setIsValid] = useState(false);
@@ -36,7 +36,7 @@ function Bytes({
       onChange &&
         onChange({
           isValid,
-          value: compactAddLength(value)
+          value: compactAddLength(value),
         });
 
       setIsValid(isValid);

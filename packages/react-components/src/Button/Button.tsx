@@ -29,7 +29,7 @@ function Button({
   onMouseEnter,
   onMouseLeave,
   tabIndex,
-  withoutLink
+  withoutLink,
 }: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(() => !(isBusy || isDisabled) && onClick && onClick(), [isBusy, isDisabled, onClick]);
 

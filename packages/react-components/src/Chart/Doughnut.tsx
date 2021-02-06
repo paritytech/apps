@@ -21,7 +21,7 @@ function ChartDoughnut({ className = '', size = 100, values }: DoughnutProps): R
     colorHover: [],
     colorNormal: [],
     data: [],
-    labels: []
+    labels: [],
   };
 
   values.forEach(({ colors: [normalColor = '#00f', hoverColor], label, value }): void => {
@@ -39,10 +39,10 @@ function ChartDoughnut({ className = '', size = 100, values }: DoughnutProps): R
             {
               backgroundColor: options.colorNormal,
               data: options.data,
-              hoverBackgroundColor: options.colorHover
-            }
+              hoverBackgroundColor: options.colorHover,
+            },
           ],
-          labels: options.labels
+          labels: options.labels,
         }}
         height={size}
         width={size}

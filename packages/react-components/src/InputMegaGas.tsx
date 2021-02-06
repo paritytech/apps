@@ -30,7 +30,7 @@ function InputMegaGas({
   estimatedWeight,
   help,
   isCall,
-  weight: { executionTime, isValid, megaGas, percentage, setIsEmpty, setMegaGas }
+  weight: { executionTime, isValid, megaGas, percentage, setIsEmpty, setMegaGas },
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
@@ -73,7 +73,7 @@ function InputMegaGas({
       </InputNumber>
       <div className="contracts--InputMegaGas-meter">
         {t<string>('{{executionTime}}s execution time', {
-          replace: { executionTime: executionTime < 0.001 ? '<0.001' : executionTime.toFixed(3) }
+          replace: { executionTime: executionTime < 0.001 ? '<0.001' : executionTime.toFixed(3) },
         })}
         <aside>
           {t<string>('{{percentage}}% of block time', { replace: { percentage: percentage.toFixed(3) } })}

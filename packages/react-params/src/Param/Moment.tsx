@@ -17,7 +17,7 @@ function Moment({
   onEnter,
   onEscape,
   type,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   const _onChange = useCallback((value: RawParamOnChangeValue) => onChange && onChange(value), [onChange]);
 

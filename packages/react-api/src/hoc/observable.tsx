@@ -32,7 +32,7 @@ export default function withObservable<T, P>(
         callResult: undefined,
         callUpdated: false,
         callUpdatedAt: 0,
-        subscriptions: []
+        subscriptions: [],
       };
 
       public componentDidMount(): void {
@@ -44,8 +44,8 @@ export default function withObservable<T, P>(
                 catchError((): Observable<any> => of(undefined))
               )
               .subscribe((value: any): void => this.triggerUpdate(this.props, value)),
-            intervalObservable(this)
-          ]
+            intervalObservable(this),
+          ],
         });
       }
 
@@ -66,7 +66,7 @@ export default function withObservable<T, P>(
           this.setState({
             callResult,
             callUpdated: true,
-            callUpdatedAt: Date.now()
+            callUpdatedAt: Date.now(),
           });
         } catch (error) {
           console.error(this.props, error);
@@ -82,7 +82,7 @@ export default function withObservable<T, P>(
           ...this.props,
           callUpdated,
           callUpdatedAt,
-          [propName]: callResult
+          [propName]: callResult,
         };
 
         return (

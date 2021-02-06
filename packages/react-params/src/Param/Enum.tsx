@@ -37,10 +37,10 @@ function EnumParam(props: Props): React.ReactElement<Props> {
       options: subTypes.map(
         ({ name }): Option => ({
           text: name,
-          value: name
+          value: name,
         })
       ),
-      subTypes
+      subTypes,
     });
     setCurrent([{ name: subTypes[0].name, type: subTypes[0] }]);
   }, [type]);
@@ -70,7 +70,7 @@ function EnumParam(props: Props): React.ReactElement<Props> {
         onChange &&
         onChange({
           isValid,
-          value: { [current[0].name as string]: value }
+          value: { [current[0].name as string]: value },
         });
     },
     [current, onChange]

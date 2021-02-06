@@ -12,7 +12,7 @@ export function createValue(param: { type: TypeDef }): RawParam {
 
   return {
     isValid: !isUndefined(value),
-    value
+    value,
   };
 }
 

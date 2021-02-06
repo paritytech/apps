@@ -18,7 +18,7 @@ import {
   KeyringOption$Type,
   KeyringOptions,
   KeyringSectionOption,
-  KeyringSectionOptions
+  KeyringSectionOptions,
 } from '@polkadot/ui-keyring/options/types';
 import { isNull, isUndefined } from '@polkadot/util';
 
@@ -159,7 +159,7 @@ function InputAddress({
   type = DEFAULT_TYPE,
   value: propsValue,
   withEllipsis,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { hasInjectedAccounts } = useApi();
@@ -278,7 +278,7 @@ function InputAddress({
   const _defaultValue = useMemo(() => (isMultiple || !isUndefined(value) ? undefined : actualValue), [
     actualValue,
     isMultiple,
-    value
+    value,
   ]);
 
   if (!hasOptions) {
@@ -298,8 +298,8 @@ function InputAddress({
             key: 'none',
             name: 'none',
             text: <NoAccount />,
-            value: 'none'
-          }
+            value: 'none',
+          },
         ]}
         placeholder={placeholder}
         renderLabel={isMultiple ? renderLabel : undefined}
@@ -400,7 +400,7 @@ const ExportedComponent = withMulti(
         );
 
         return result;
-      }, {})
+      }, {}),
   })
 ) as ExportedType;
 

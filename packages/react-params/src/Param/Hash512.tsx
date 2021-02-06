@@ -17,7 +17,7 @@ function Hash512({
   onEnter,
   onEscape,
   type,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   return (
     <BaseBytes

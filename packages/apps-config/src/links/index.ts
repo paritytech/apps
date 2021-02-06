@@ -11,7 +11,7 @@ const externals: Record<string, ExternalDef> = {
   Commonwealth,
   Polkascan,
   Polkassembly,
-  Subscan
+  Subscan,
 };
 
 export default externals;

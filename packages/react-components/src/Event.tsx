@@ -18,11 +18,11 @@ export interface Props extends BareProps {
 
 function EventDisplay({ children, className = '', value }: Props): React.ReactElement<Props> {
   const params = value.typeDef.map(({ type }): { type: TypeDef } => ({
-    type: getTypeDef(type)
+    type: getTypeDef(type),
   }));
   const values = value.data.map((value): { isValid: boolean; value: Codec } => ({
     isValid: true,
-    value
+    value,
   }));
 
   return (

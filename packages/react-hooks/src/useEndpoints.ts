@@ -37,7 +37,7 @@ function getInitialState(t: <T = string>(key: string) => T): Endpoint {
       return isCustom && value !== url;
     }, true),
     isValid: isValidUrl(url),
-    url
+    url,
   };
 }
 
@@ -64,7 +64,7 @@ export default function useEndpoints(onChange?: (_: string) => void): UseEndpoin
             : ((createEndpoints(t).find(({ value }) => value === info.url) || { value: 'ws://127.0.0.1:9944' })
                 .value as string)
         ),
-        isCustom
+        isCustom,
       }),
     [info, t]
   );
@@ -72,6 +72,6 @@ export default function useEndpoints(onChange?: (_: string) => void): UseEndpoin
   return {
     ...info,
     onChangeCustom,
-    onChangeUrl
+    onChangeUrl,
   };
 }

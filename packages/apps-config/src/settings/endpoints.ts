@@ -16,8 +16,8 @@ function createDev(t: TFunction): LinkOption[] {
       info: 'local',
       shortText: t<string>('rpc.local.short', 'Local Node', { ns: 'apps-config' }),
       text: t<string>('rpc.local', 'Local Node (Own, 127.0.0.1:9944)', { ns: 'apps-config' }),
-      value: 'ws://127.0.0.1:9944/'
-    }
+      value: 'ws://127.0.0.1:9944/',
+    },
   ];
 }
 
@@ -29,10 +29,10 @@ function createLive(t: TFunction): LinkOption[] {
       shortText: t<string>('rpc.canvas.test', 'Canvas Test', { ns: 'apps-config' }),
       text: t<string>('rpc.hosted.by', 'Canvas Test ({{host}}, canvas-rpc.parity.io)', {
         ns: 'apps-config',
-        replace: { host: 'Parity' }
+        replace: { host: 'Parity' },
       }),
-      value: 'wss://canvas-rpc.parity.io'
-    }
+      value: 'wss://canvas-rpc.parity.io',
+    },
   ];
 }
 
@@ -62,7 +62,7 @@ export default function create(t: TFunction): LinkOption[] {
       info: 'WS_URL',
       shortText: 'WS_URL',
       text: `WS_URL: ${WS_URL}`,
-      value: WS_URL
+      value: WS_URL,
     });
   }
 
@@ -84,7 +84,7 @@ export default function create(t: TFunction): LinkOption[] {
     //   text: t<string>('rpc.header.dev', 'Development', { ns: 'apps-config' }),
     //   value: ''
     // },
-    ...createDev(t)
+    ...createDev(t),
   ];
 
   if (ENV.length > 0) {
@@ -92,9 +92,9 @@ export default function create(t: TFunction): LinkOption[] {
       {
         isHeader: true,
         text: t<string>('rpc.custom', 'Custom environment', { ns: 'apps-config' }),
-        value: ''
+        value: '',
       },
-      ...ENV
+      ...ENV,
     ].concat(endpoints);
   }
 

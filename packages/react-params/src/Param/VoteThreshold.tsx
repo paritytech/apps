@@ -16,7 +16,7 @@ type TextMap = Record<number, string>;
 const options = [
   { text: 'Super majority approval', value: 0 },
   { text: 'Super majority rejection', value: 1 },
-  { text: 'Simple majority', value: 2 }
+  { text: 'Simple majority', value: 2 },
 ];
 
 export const textMap = options.reduce((textMap, { text, value }): TextMap => {
@@ -32,14 +32,14 @@ function VoteThresholdParam({
   isError,
   label,
   onChange,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
     (value: number) =>
       onChange &&
       onChange({
         isValid: true,
-        value
+        value,
       }),
     [onChange]
   );

@@ -21,7 +21,7 @@ function Amount({
   onChange,
   onEnter,
   type,
-  withLabel
+  withLabel,
 }: Props): React.ReactElement<Props> {
   const defaultValue = useMemo(
     () =>
@@ -46,7 +46,7 @@ function Amount({
       onChange &&
       onChange({
         isValid: !isUndefined(value),
-        value
+        value,
       }),
     [onChange]
   );

@@ -56,7 +56,7 @@ function InputABI(props: Props): React.ReactElement<Props> {
     isRequired = false,
     isValid,
     setFile,
-    withLabel
+    withLabel,
   } = props;
   const { t } = useTranslation();
 

@@ -61,6 +61,6 @@ export default function useSettings(reloadOnChange?: boolean): UseSettings {
     onChangeKey,
     save: _save,
     saveAndReload: _saveAndReload,
-    settings
+    settings,
   };
 }

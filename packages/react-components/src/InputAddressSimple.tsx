@@ -33,7 +33,7 @@ function InputAddressSimple({
   label,
   onChange,
   onEnter,
-  onEscape
+  onEscape,
 }: Props): React.ReactElement<Props> {
   const [address, setAddress] = useState<string | null>(defaultValue || null);
 

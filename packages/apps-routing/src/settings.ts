@@ -11,6 +11,6 @@ export default function create(t: <T = string>(key: string, text: string, option
     display: {},
     isIgnored: true,
     name: 'settings',
-    text: t<string>('nav.settings', 'Settings', { ns: 'apps-routing' })
+    text: t<string>('nav.settings', 'Settings', { ns: 'apps-routing' }),
   };
 }

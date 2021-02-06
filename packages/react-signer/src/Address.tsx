@@ -86,7 +86,7 @@ function filterProxies(
             'poll',
             'society',
             'technicalCommittee',
-            'treasury'
+            'treasury',
           ].includes(section);
         case 'IdentityJudgement':
           return section === 'identity' && method === 'provideJudgement';
@@ -135,13 +135,13 @@ async function queryForMultisig(
           address,
           isMultiCall: multi.approvals.length + 1 >= threshold,
           who,
-          whoFilter: who.filter(w => !multi.approvals.some(a => a.eq(w)))
+          whoFilter: who.filter(w => !multi.approvals.some(a => a.eq(w))),
         }
       : {
           address,
           isMultiCall: false,
           who,
-          whoFilter: who
+          whoFilter: who,
         };
   }
 
@@ -163,11 +163,11 @@ async function queryForProxy(
       api.tx.proxy.addProxy.meta.args.length === 3
         ? (_proxies as ProxyDefinition[]).map(({ delegate, proxyType }): [string, ProxyType] => [
             delegate.toString(),
-            proxyType
+            proxyType,
           ])
         : (_proxies as [AccountId, ProxyType][]).map(([delegate, proxyType]): [string, ProxyType] => [
             delegate.toString(),
-            proxyType
+            proxyType,
           ]);
     const proxiesFilter = filterProxies(allAccounts, tx, proxies);
 
@@ -192,7 +192,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
   const [proxyInfo, setProxyInfo] = useState<ProxyState | null>(null);
   const [{ isUnlockCached, signPassword }, setSignPassword] = useState<PasswordState>({
     isUnlockCached: false,
-    signPassword: ''
+    signPassword: '',
   });
 
   const [signAddress, flags] = useMemo((): [string, AddressFlags] => {
@@ -243,7 +243,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
       multiRoot: multiInfo ? multiInfo.address : null,
       proxyRoot: proxyInfo && isProxyActive ? proxyInfo.address : null,
       signAddress,
-      signPassword
+      signPassword,
     });
   }, [
     isProxyActive,
@@ -255,7 +255,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
     proxyAddress,
     proxyInfo,
     signAddress,
-    signPassword
+    signPassword,
   ]);
 
   return (

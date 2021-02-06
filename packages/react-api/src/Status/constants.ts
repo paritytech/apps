@@ -14,5 +14,5 @@ export const STATUS_COMPLETE: QueueTxStatus[] = [
   // normal completion
   'cancelled',
   'error',
-  'sent'
+  'sent',
 ];

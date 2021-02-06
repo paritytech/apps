@@ -22,7 +22,7 @@ function DeployApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
       hasCodes,
       isLoading,
       navigateTo,
-      updated
+      updated,
     }),
     [allCodes, basePath, hasCodes, isLoading, navigateTo, updated]
   );
