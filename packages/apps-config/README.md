@@ -40,4 +40,4 @@ These are self-explanatory and config here actually does get used in other parts
 - [logos](./src/ui/logos)
   - chains - Specific logos when connecting to a specific chain
   - nodes - Logos that are used when connecting to a specific runtime spec type (catch-all)
-  - named - These logos are used as overrides when we pass an explicit logo name 
+  - named - These logos are used as overrides when we pass an explicit logo name

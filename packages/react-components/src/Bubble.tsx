@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util';
-import React from 'react';
-import SUILabel from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
-import { SemanticCOLORS, SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
-import styled from 'styled-components';
+import { classes } from "@canvas-ui/react-util";
+import React from "react";
+import SUILabel from "semantic-ui-react/dist/commonjs/elements/Label/Label";
+import { SemanticCOLORS, SemanticICONS } from "semantic-ui-react/dist/commonjs/generic";
+import styled from "styled-components";
 
-import Icon from './Icon';
-import { BareProps } from './types';
+import Icon from "./Icon";
+import { BareProps } from "./types";
 
 interface Props extends BareProps {
   children: React.ReactNode;
@@ -17,24 +17,14 @@ interface Props extends BareProps {
   label?: React.ReactNode;
 }
 
-function Bubble ({ children, className = '', color, icon, label }: Props): React.ReactElement<Props> {
+function Bubble({ children, className = "", color, icon, label }: Props): React.ReactElement<Props> {
   return (
-    <SUILabel
-      className={classes('theme--default', 'ui--Bubble', className)}
-      color={color}
-    >
-      <div className='ui--Bubble-header'>
-        {icon && (
-          <Icon
-            icon={icon}
-            size='large'
-          />
-        )}
-        {label && <div className='text'>{label}</div>}
+    <SUILabel className={classes("theme--default", "ui--Bubble", className)} color={color}>
+      <div className="ui--Bubble-header">
+        {icon && <Icon icon={icon} size="large" />}
+        {label && <div className="text">{label}</div>}
       </div>
-      <div className='ui--Bubble-children'>
-        {children}
-      </div>
+      <div className="ui--Bubble-children">{children}</div>
     </SUILabel>
   );
 }
@@ -61,7 +51,7 @@ export default React.memo(styled(Bubble)`
   .ui--Bubble-header {
     background: rgba(0, 0, 0, 0.05);
     box-sizing: border-box;
-    border-radius: .28571429rem 0 0 .28571429rem;
+    border-radius: 0.28571429rem 0 0 0.28571429rem;
     height: 2.75rem;
     margin-right: 0.75rem;
     padding: 0 0.75rem;

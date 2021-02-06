@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import Params from '@canvas-ui/react-params';
-import { FormatBalance } from '@canvas-ui/react-query';
-import { classes } from '@canvas-ui/react-util';
-import BN from 'bn.js';
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import Params from "@canvas-ui/react-params";
+import { FormatBalance } from "@canvas-ui/react-query";
+import { classes } from "@canvas-ui/react-util";
+import BN from "bn.js";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 
-import { GenericCall, getTypeDef } from '@polkadot/types';
-import { Hash } from '@polkadot/types/interfaces';
-import { Codec, IExtrinsic, IMethod, TypeDef } from '@polkadot/types/types';
+import { GenericCall, getTypeDef } from "@polkadot/types";
+import { Hash } from "@polkadot/types/interfaces";
+import { Codec, IExtrinsic, IMethod, TypeDef } from "@polkadot/types/types";
 
-import Static from './Static';
-import { useTranslation } from './translate';
-import { BareProps } from './types';
+import Static from "./Static";
+import { useTranslation } from "./translate";
+import { BareProps } from "./types";
 
 export interface Props extends BareProps {
   children?: React.ReactNode;
@@ -43,58 +43,55 @@ interface Extracted {
   values: Value[];
 }
 
-function Call ({ children, className = '', labelHash, mortality, onError, tip, value, withBorder, withHash }: Props): React.ReactElement<Props> {
+function Call({
+  children,
+  className = "",
+  labelHash,
+  mortality,
+  onError,
+  tip,
+  value,
+  withBorder,
+  withHash,
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [{ hash, params, values }, setExtracted] = useState<Extracted>({ hash: null, params: [], values: [] });
 
   useEffect((): void => {
-    const params = GenericCall.filterOrigin(value.meta).map(({ name, type }): Param => ({
-      name: name.toString(),
-      type: getTypeDef(type.toString())
-    }));
-    const values = value.args.map((value): Value => ({
-      isValid: true,
-      value
-    }));
-    const hash = withHash
-      ? value.hash
-      : null;
+    const params = GenericCall.filterOrigin(value.meta).map(
+      ({ name, type }): Param => ({
+        name: name.toString(),
+        type: getTypeDef(type.toString()),
+      })
+    );
+    const values = value.args.map(
+      (value): Value => ({
+        isValid: true,
+        value,
+      })
+    );
+    const hash = withHash ? value.hash : null;
 
     setExtracted({ hash, params, values });
   }, [value, withHash]);
 
   return (
-    <div className={classes('ui--Extrinsic', className)}>
-      <Params
-        isDisabled
-        onError={onError}
-        params={params}
-        values={values}
-        withBorder={withBorder}
-      />
+    <div className={classes("ui--Extrinsic", className)}>
+      <Params isDisabled onError={onError} params={params} values={values} withBorder={withBorder} />
       {children}
-      <div className='ui--Extrinsic--toplevel'>
+      <div className="ui--Extrinsic--toplevel">
         {hash && (
-          <Static
-            className='hash'
-            label={labelHash || t<string>('extrinsic hash')}
-          >
+          <Static className="hash" label={labelHash || t<string>("extrinsic hash")}>
             {hash.toHex()}
           </Static>
         )}
         {mortality && (
-          <Static
-            className='mortality'
-            label={t<string>('lifetime')}
-          >
+          <Static className="mortality" label={t<string>("lifetime")}>
             {mortality}
           </Static>
         )}
         {tip?.gtn(0) && (
-          <Static
-            className='tip'
-            label={t<string>('tip')}
-          >
+          <Static className="tip" label={t<string>("tip")}>
             <FormatBalance value={tip} />
           </Static>
         )}

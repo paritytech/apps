@@ -3,24 +3,26 @@
 
 // Unused atm, experiment as a replacement for NodeInfo on the SideBar
 
-import { BestNumber, Chain, NodeName, NodeVersion } from '@canvas-ui/react-query';
-import React from 'react';
-import styled from 'styled-components';
+import { BestNumber, Chain, NodeName, NodeVersion } from "@canvas-ui/react-query";
+import React from "react";
+import styled from "styled-components";
 
 interface Props {
   className?: string;
 }
 
-function TopBar ({ className }: Props): React.ReactElement<Props> {
+function TopBar({ className }: Props): React.ReactElement<Props> {
   return (
     <div className={className}>
       <div>
-        <NodeName />&nbsp;
-        <NodeVersion label='v' />
+        <NodeName />
+        &nbsp;
+        <NodeVersion label="v" />
       </div>
       <div>
-        <Chain />&nbsp;
-        <BestNumber label='#' />
+        <Chain />
+        &nbsp;
+        <BestNumber label="#" />
       </div>
     </div>
   );

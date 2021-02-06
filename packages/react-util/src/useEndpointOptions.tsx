@@ -21,17 +21,17 @@ export default function useEndpointOptions(
       ...createEndpoints(t).map(({ shortText, text, value }) => ({
         key: value,
         text: <div className={className}>{useShortText ? shortText : text}</div>,
-        value
+        value,
       })),
       ...(isCustom
         ? [
             {
               key: url,
               text: <div className={className}>{t<string>("Custom Node")}</div>,
-              value: url
-            }
+              value: url,
+            },
           ]
-        : [])
+        : []),
     ],
     [className, isCustom, t, url, useShortText]
   );

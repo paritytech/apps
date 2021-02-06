@@ -1,22 +1,22 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from '@canvas-ui/react-api/types';
-import BN from 'bn.js';
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import { BareProps } from "@canvas-ui/react-api/types";
+import BN from "bn.js";
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import { Compact } from '@polkadot/types';
-import { formatBalance } from '@polkadot/util';
+import { Compact } from "@polkadot/types";
+import { formatBalance } from "@polkadot/util";
 
-import { useTranslation } from './translate';
+import { useTranslation } from "./translate";
 
 interface Props extends BareProps {
   children?: React.ReactNode;
   isShort?: boolean;
   label?: React.ReactNode;
   labelPost?: React.ReactNode;
-  value?: Compact<any> | BN | string | null | 'all';
+  value?: Compact<any> | BN | string | null | "all";
   withSi?: boolean;
 }
 
@@ -24,8 +24,13 @@ interface Props extends BareProps {
 const M_LENGTH = 6 + 1;
 const K_LENGTH = 3 + 1;
 
-function format (value: Compact<any> | BN | string, currency: string, withSi?: boolean, _isShort?: boolean): React.ReactNode {
-  const [prefix, postfix] = formatBalance(value, { forceUnit: '-', withSi: false }).split('.');
+function format(
+  value: Compact<any> | BN | string,
+  currency: string,
+  withSi?: boolean,
+  _isShort?: boolean
+): React.ReactNode {
+  const [prefix, postfix] = formatBalance(value, { forceUnit: "-", withSi: false }).split(".");
   const isShort = _isShort || (withSi && prefix.length >= K_LENGTH);
 
   if (prefix.length > M_LENGTH) {
@@ -33,7 +38,17 @@ function format (value: Compact<any> | BN | string, currency: string, withSi?: b
     return formatBalance(value);
   }
 
-  return <>{prefix}{!isShort && (<>.<span className='ui--FormatBalance-postfix'>{`000${postfix || ''}`.slice(-3)}</span></>)} {currency}</>;
+  return (
+    <>
+      {prefix}
+      {!isShort && (
+        <>
+          .<span className="ui--FormatBalance-postfix">{`000${postfix || ""}`.slice(-3)}</span>
+        </>
+      )}{" "}
+      {currency}
+    </>
+  );
 }
 
 // function formatSi (value: Compact<any> | BN | string): React.ReactNode {
@@ -48,19 +63,26 @@ function format (value: Compact<any> | BN | string, currency: string, withSi?: b
 //   return <>{prefix}.<span className='balance-postfix'>{`000${postfix || ''}`.slice(-3)}</span>{unit === '-' ? '' : unit}</>;
 // }
 
-function FormatBalance ({ children, className = '', isShort, label, labelPost, value, withSi }: Props): React.ReactElement<Props> {
+function FormatBalance({
+  children,
+  className = "",
+  isShort,
+  label,
+  labelPost,
+  value,
+  withSi,
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [currency] = useState(formatBalance.getDefaults().unit);
 
   return (
     <div className={`ui--FormatBalance ${className}`}>
-      {label || ''}<span className='ui--FormatBalance-value'>{
-        value
-          ? value === 'all'
-            ? t<string>('everything')
-            : format(value, currency, withSi, isShort)
-          : '-'
-      }</span>{labelPost}{children}
+      {label || ""}
+      <span className="ui--FormatBalance-value">
+        {value ? (value === "all" ? t<string>("everything") : format(value, currency, withSi, isShort)) : "-"}
+      </span>
+      {labelPost}
+      {children}
     </div>
   );
 }

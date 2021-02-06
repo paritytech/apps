@@ -6,77 +6,68 @@
 /* eslint-disable camelcase */
 
 export default {
-  Address: 'AccountId',
-  LookupSource: 'AccountId',
+  Address: "AccountId",
+  LookupSource: "AccountId",
   CeremonyPhaseType: {
-    _enum: [
-      'Registering',
-      'Assigning',
-      'Attesting'
-    ]
+    _enum: ["Registering", "Assigning", "Attesting"],
   },
-  CeremonyIndexType: 'u32',
-  ParticipantIndexType: 'u64',
-  MeetupIndexType: 'u64',
-  AttestationIndexType: 'u64',
-  CurrencyIdentifier: 'Hash',
-  BalanceType: 'i128',
+  CeremonyIndexType: "u32",
+  ParticipantIndexType: "u64",
+  MeetupIndexType: "u64",
+  AttestationIndexType: "u64",
+  CurrencyIdentifier: "Hash",
+  BalanceType: "i128",
   BalanceEntry: {
-    principal: 'i128',
-    last_update: 'BlockNumber'
+    principal: "i128",
+    last_update: "BlockNumber",
   },
   CurrencyCeremony: {
-    cid: 'CurrencyIdentifier',
-    cindex: 'CeremonyIndexType'
+    cid: "CurrencyIdentifier",
+    cindex: "CeremonyIndexType",
   },
   Location: {
-    lat: 'i64',
-    lon: 'i64'
+    lat: "i64",
+    lon: "i64",
   },
   Reputation: {
-    _enum: [
-      'Unverified',
-      'UnverifiedReputable',
-      'VerifiedUnlinked',
-      'VerifiedLinked'
-    ]
+    _enum: ["Unverified", "UnverifiedReputable", "VerifiedUnlinked", "VerifiedLinked"],
   },
   CurrencyPropertiesType: {
-    name_utf8: 'Text',
-    demurrage_per_block: 'i128'
+    name_utf8: "Text",
+    demurrage_per_block: "i128",
   },
   ClaimOfAttendance: {
-    claimant_public: 'AccountId',
-    ceremony_index: 'CeremonyIndexType',
-    currency_identifier: 'CurrencyIdentifier',
-    meetup_index: 'MeetupIndexType',
-    location: 'Location',
-    timestamp: 'Moment',
-    number_of_participants_confirmed: 'u32'
+    claimant_public: "AccountId",
+    ceremony_index: "CeremonyIndexType",
+    currency_identifier: "CurrencyIdentifier",
+    meetup_index: "MeetupIndexType",
+    location: "Location",
+    timestamp: "Moment",
+    number_of_participants_confirmed: "u32",
   },
   Attestation: {
-    claim: 'ClaimOfAttendance',
-    signature: 'Signature',
-    public: 'AccountId'
+    claim: "ClaimOfAttendance",
+    signature: "Signature",
+    public: "AccountId",
   },
   ProofOfAttendance: {
-    prover_public: 'AccountId',
-    ceremony_index: 'CeremonyIndexType',
-    currency_identifier: 'CurrencyIdentifier',
-    attendee_public: 'AccountId',
-    attendee_signature: 'Signature'
+    prover_public: "AccountId",
+    ceremony_index: "CeremonyIndexType",
+    currency_identifier: "CurrencyIdentifier",
+    attendee_public: "AccountId",
+    attendee_signature: "Signature",
   },
-  ShardIdentifier: 'Hash',
+  ShardIdentifier: "Hash",
   Request: {
-    shard: 'ShardIdentifier',
-    cyphertext: 'Vec<u8>'
+    shard: "ShardIdentifier",
+    cyphertext: "Vec<u8>",
   },
   Enclave: {
-    pubkey: 'AccountId',
-    mrenclave: 'Hash',
-    timestamp: 'u64',
-    url: 'Text'
+    pubkey: "AccountId",
+    mrenclave: "Hash",
+    timestamp: "u64",
+    url: "Text",
   },
   // substrate
-  Weight: 'u32'
+  Weight: "u32",
 };

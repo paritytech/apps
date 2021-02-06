@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useDebounce } from '@canvas-ui/react-hooks';
-import React, { useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import { useDebounce } from "@canvas-ui/react-hooks";
+import React, { useCallback, useEffect, useState } from "react";
+import styled from "styled-components";
 
-import Input from '../Input';
-import { useTranslation } from '../translate';
-import Available from './Available';
-import Selected from './Selected';
+import Input from "../Input";
+import { useTranslation } from "../translate";
+import Available from "./Available";
+import Selected from "./Selected";
 
 interface Props {
   available: string[];
@@ -76,9 +76,17 @@ interface Props {
 
 // NOTE Drag code above, disabled since it has massive performance implications
 
-function InputAddressMulti ({ available, availableLabel, className = '', defaultValue, maxCount, onChange, valueLabel }: Props): React.ReactElement<Props> {
+function InputAddressMulti({
+  available,
+  availableLabel,
+  className = "",
+  defaultValue,
+  maxCount,
+  onChange,
+  valueLabel,
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const [_filter, setFilter] = useState<string>('');
+  const [_filter, setFilter] = useState<string>("");
   const [selected, setSelected] = useState<string[]>([]);
   const filter = useDebounce(_filter);
 
@@ -92,22 +100,16 @@ function InputAddressMulti ({ available, availableLabel, className = '', default
 
   const _onSelect = useCallback(
     (address: string): void =>
-      setSelected(
-        (selected: string[]) =>
-          !selected.includes(address) && (selected.length < maxCount)
-            ? selected.concat(address)
-            : selected
+      setSelected((selected: string[]) =>
+        !selected.includes(address) && selected.length < maxCount ? selected.concat(address) : selected
       ),
     [maxCount]
   );
 
   const _onDeselect = useCallback(
     (address: string): void =>
-      setSelected(
-        (selected: string[]) =>
-          selected.includes(address)
-            ? selected.filter((a) => a !== address)
-            : selected
+      setSelected((selected: string[]) =>
+        selected.includes(address) ? selected.filter(a => a !== address) : selected
       ),
     []
   );
@@ -116,38 +118,37 @@ function InputAddressMulti ({ available, availableLabel, className = '', default
     <div className={`ui--InputAddressMulti ${className}`}>
       <Input
         autoFocus
-        className='ui--InputAddressMulti-Input label-small'
+        className="ui--InputAddressMulti-Input label-small"
         onChange={setFilter}
-        placeholder={t<string>('filter by name, address, or account index')}
+        placeholder={t<string>("filter by name, address, or account index")}
         value={_filter}
         withLabel={false}
       />
-      <div className='ui--InputAddressMulti-columns'>
-        <div className='ui--InputAddressMulti-column'>
+      <div className="ui--InputAddressMulti-columns">
+        <div className="ui--InputAddressMulti-column">
           <label>{valueLabel}</label>
-          <div className='ui--InputAddressMulti-items'>
-            {selected.map((address): React.ReactNode => (
-              <Selected
-                address={address}
-                filter={filter}
-                key={address}
-                onDeselect={_onDeselect}
-              />
-            ))}
+          <div className="ui--InputAddressMulti-items">
+            {selected.map(
+              (address): React.ReactNode => (
+                <Selected address={address} filter={filter} key={address} onDeselect={_onDeselect} />
+              )
+            )}
           </div>
         </div>
-        <div className='ui--InputAddressMulti-column'>
+        <div className="ui--InputAddressMulti-column">
           <label>{availableLabel}</label>
-          <div className='ui--InputAddressMulti-items'>
-            {available.map((address): React.ReactNode => (
-              <Available
-                address={address}
-                filter={filter}
-                isHidden={selected?.includes(address)}
-                key={address}
-                onSelect={_onSelect}
-              />
-            ))}
+          <div className="ui--InputAddressMulti-items">
+            {available.map(
+              (address): React.ReactNode => (
+                <Available
+                  address={address}
+                  filter={filter}
+                  isHidden={selected?.includes(address)}
+                  key={address}
+                  onSelect={_onSelect}
+                />
+              )
+            )}
           </div>
         </div>
       </div>
@@ -184,7 +185,7 @@ export default React.memo(styled(InputAddressMulti)`
       .ui--InputAddressMulti-items {
         padding: 0.5rem 0;
         background: white;
-        border: 1px solid rgba(34,36,38,0.15);
+        border: 1px solid rgba(34, 36, 38, 0.15);
         border-radius: 0.286rem 0.286rem;
         flex: 1;
         overflow-y: auto;

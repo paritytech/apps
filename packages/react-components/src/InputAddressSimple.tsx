@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { toAddress as addressToAddress } from '@canvas-ui/react-util';
-import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
+import { toAddress as addressToAddress } from "@canvas-ui/react-util";
+import React, { useCallback, useState } from "react";
+import styled from "styled-components";
 
-import IdentityIcon from './IdentityIcon';
-import Input from './Input';
-import { BareProps } from './types';
+import IdentityIcon from "./IdentityIcon";
+import Input from "./Input";
+import { BareProps } from "./types";
 
 interface Props extends BareProps {
   autoFocus?: boolean;
@@ -22,7 +22,19 @@ interface Props extends BareProps {
   onEscape?: () => void;
 }
 
-function InputAddressSimple ({ autoFocus, children, className = '', defaultValue, help, isError, isFull, label, onChange, onEnter, onEscape }: Props): React.ReactElement<Props> {
+function InputAddressSimple({
+  autoFocus,
+  children,
+  className = "",
+  defaultValue,
+  help,
+  isError,
+  isFull,
+  label,
+  onChange,
+  onEnter,
+  onEscape,
+}: Props): React.ReactElement<Props> {
   const [address, setAddress] = useState<string | null>(defaultValue || null);
 
   const _onChange = useCallback(
@@ -51,11 +63,7 @@ function InputAddressSimple ({ autoFocus, children, className = '', defaultValue
       >
         {children}
       </Input>
-      <IdentityIcon
-        className='ui--InputAddressSimpleIcon'
-        size={32}
-        value={address}
-      />
+      <IdentityIcon className="ui--InputAddressSimpleIcon" size={32} value={address} />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 interface Props {
   children: React.ReactNode;
@@ -19,23 +19,15 @@ type ColumarType = React.ComponentType<Props> & {
   Column: React.ComponentType<ColumnProps>;
 };
 
-function Column ({ children, className = '' }: Props): React.ReactElement<Props> {
-  return (
-    <div className={`ui--Column ${className}`}>
-      {children}
-    </div>
-  );
+function Column({ children, className = "" }: Props): React.ReactElement<Props> {
+  return <div className={`ui--Column ${className}`}>{children}</div>;
 }
 
-function Columar ({ children, className = '', is60 }: Props): React.ReactElement<Props> {
-  return (
-    <div className={`ui--Columnar ${is60 ? 'is60' : 'is50'} ${className}`}>
-      {children}
-    </div>
-  );
+function Columar({ children, className = "", is60 }: Props): React.ReactElement<Props> {
+  return <div className={`ui--Columnar ${is60 ? "is60" : "is50"} ${className}`}>{children}</div>;
 }
 
-const ColumarStyled = React.memo(styled(Columar)`
+const ColumarStyled = (React.memo(styled(Columar)`
   display: flex;
   flex-wrap: wrap;
 
@@ -63,7 +55,7 @@ const ColumarStyled = React.memo(styled(Columar)`
       }
     }
   }
-`) as unknown as ColumarType;
+`) as unknown) as ColumarType;
 
 ColumarStyled.Column = React.memo(styled(Column)`
   box-sizing: border-box;

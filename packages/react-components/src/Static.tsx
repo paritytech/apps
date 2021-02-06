@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
+import React from "react";
 
-import Labelled from './Labelled';
-import { BareProps } from './types';
+import Labelled from "./Labelled";
+import { BareProps } from "./types";
 
 interface Props extends BareProps {
   children?: React.ReactNode;
@@ -19,17 +19,20 @@ interface Props extends BareProps {
   withLabel?: boolean;
 }
 
-function Static ({ children, className = '', defaultValue, help, isFull, isHidden, label, value, withLabel }: Props): React.ReactElement<Props> {
+function Static({
+  children,
+  className = "",
+  defaultValue,
+  help,
+  isFull,
+  isHidden,
+  label,
+  value,
+  withLabel,
+}: Props): React.ReactElement<Props> {
   return (
-    <Labelled
-      className={className}
-      help={help}
-      isFull={isFull}
-      isHidden={isHidden}
-      label={label}
-      withLabel={withLabel}
-    >
-      <div className='ui--Static ui dropdown selection disabled'>
+    <Labelled className={className} help={help} isFull={isFull} isHidden={isHidden} label={label} withLabel={withLabel}>
+      <div className="ui--Static ui dropdown selection disabled">
         {value || defaultValue}
         {children}
       </div>

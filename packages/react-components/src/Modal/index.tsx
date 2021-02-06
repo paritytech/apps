@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
-import SUIModal from 'semantic-ui-react/dist/commonjs/modules/Modal/Modal';
+import React from "react";
+import SUIModal from "semantic-ui-react/dist/commonjs/modules/Modal/Modal";
 
-import Actions from './Actions';
-import Column from './Column';
-import Columns from './Columns';
-import { ActionsProps, ColumnProps, ModalProps } from './types';
+import Actions from "./Actions";
+import Column from "./Column";
+import Columns from "./Columns";
+import { ActionsProps, ColumnProps, ModalProps } from "./types";
 
 type ModalType = React.FC<ModalProps> & {
   Actions: React.FC<ActionsProps>;
@@ -18,25 +18,18 @@ type ModalType = React.FC<ModalProps> & {
   Description: typeof SUIModal.Description;
 };
 
-function ModalBase (props: ModalProps): React.ReactElement<ModalProps> {
-  const { children, className = '', header, isOpen = true } = props;
+function ModalBase(props: ModalProps): React.ReactElement<ModalProps> {
+  const { children, className = "", header, isOpen = true } = props;
 
   return (
-    <SUIModal
-      {...props}
-      className={`theme--default ui--Modal ${className}`}
-      header={undefined}
-      open={isOpen}
-    >
-      {header && (
-        <SUIModal.Header>{header}</SUIModal.Header>
-      )}
+    <SUIModal {...props} className={`theme--default ui--Modal ${className}`} header={undefined} open={isOpen}>
+      {header && <SUIModal.Header>{header}</SUIModal.Header>}
       {children}
     </SUIModal>
   );
 }
 
-const Modal = React.memo(ModalBase) as unknown as ModalType;
+const Modal = (React.memo(ModalBase) as unknown) as ModalType;
 
 Modal.Actions = Actions;
 Modal.Column = Column;

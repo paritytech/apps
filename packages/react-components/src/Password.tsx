@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
+import React from "react";
 
-import Input from './Input';
+import Input from "./Input";
 
 interface Props {
   autoFocus?: boolean;
@@ -25,7 +25,25 @@ interface Props {
   withLabel?: boolean;
 }
 
-function Password ({ autoFocus, children, className = '', defaultValue, help, isDisabled, isError, isFull, label, labelExtra, name, onChange, onEnter, onEscape, tabIndex, value, withLabel }: Props): React.ReactElement<Props> {
+function Password({
+  autoFocus,
+  children,
+  className = "",
+  defaultValue,
+  help,
+  isDisabled,
+  isError,
+  isFull,
+  label,
+  labelExtra,
+  name,
+  onChange,
+  onEnter,
+  onEscape,
+  tabIndex,
+  value,
+  withLabel,
+}: Props): React.ReactElement<Props> {
   return (
     <Input
       autoFocus={autoFocus}
@@ -42,7 +60,7 @@ function Password ({ autoFocus, children, className = '', defaultValue, help, is
       onEnter={onEnter}
       onEscape={onEscape}
       tabIndex={tabIndex}
-      type='password'
+      type="password"
       value={value}
       withLabel={withLabel}
     >

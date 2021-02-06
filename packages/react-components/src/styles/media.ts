@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { css } from 'styled-components';
+import { css } from "styled-components";
 
 export default css`
   /* block by default, flex as per media queries below */
@@ -141,7 +141,6 @@ export default css`
       height: auto;
       visibility: visible;
       width: auto;
-
     }
 
     td.ui--media-small,

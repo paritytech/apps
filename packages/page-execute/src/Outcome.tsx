@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/app-contracts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, IdentityIcon, MessageSignature, Output } from '@canvas-ui/react-components';
-import { BareProps } from '@canvas-ui/react-components/types';
-import React from 'react';
-import styled from 'styled-components';
+import { Button, IdentityIcon, MessageSignature, Output } from "@canvas-ui/react-components";
+import { BareProps } from "@canvas-ui/react-components/types";
+import React from "react";
+import styled from "styled-components";
 
-import { TypeRegistry } from '@polkadot/types';
+import { TypeRegistry } from "@polkadot/types";
 
-import { CallResult } from './types';
+import { CallResult } from "./types";
 
 interface Props extends BareProps {
   onClear?: () => void;
@@ -16,27 +16,21 @@ interface Props extends BareProps {
   registry: TypeRegistry;
 }
 
-function Outcome ({ className, onClear, outcome: { from, message, output, params, result, when }, registry }: Props): React.ReactElement<Props> | null {
+function Outcome({
+  className,
+  onClear,
+  outcome: { from, message, output, params, result, when },
+  registry,
+}: Props): React.ReactElement<Props> | null {
   return (
     <div className={className}>
-      <div className='info'>
+      <div className="info">
         <IdentityIcon value={from} />
-        <MessageSignature
-          message={message}
-          params={params}
-          registry={registry}
-        />
-        <span className='date-time'>
-          {when.toLocaleDateString()}
-          {' '}
-          {when.toLocaleTimeString()}
+        <MessageSignature message={message} params={params} registry={registry} />
+        <span className="date-time">
+          {when.toLocaleDateString()} {when.toLocaleTimeString()}
         </span>
-        <Button
-          className='icon-button clear-btn'
-          icon='times'
-          isPrimary
-          onClick={onClear}
-        />
+        <Button className="icon-button clear-btn" icon="times" isPrimary onClick={onClear} />
       </div>
       <Output
         isError={!result.isOk}

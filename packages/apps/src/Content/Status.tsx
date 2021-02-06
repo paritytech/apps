@@ -46,7 +46,7 @@ function filterEvents(
             account,
             action: `${section}.${method}`,
             message: t<string>("transfer received"),
-            status: "event"
+            status: "event",
           };
         }
       } else if (section === "democracy") {
@@ -56,10 +56,10 @@ function filterEvents(
           action: `${section}.${method}`,
           message: t("update on #{{index}}", {
             replace: {
-              index
-            }
+              index,
+            },
           }),
-          status: "event"
+          status: "event",
         };
       }
 

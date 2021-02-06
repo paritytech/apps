@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Labelled } from '@canvas-ui/react-components';
-import React from 'react';
+import { Labelled } from "@canvas-ui/react-components";
+import React from "react";
 
-import { Size } from '../types';
-import Bare from './Bare';
+import { Size } from "../types";
+import Bare from "./Bare";
 
 interface Props {
   children?: React.ReactNode;
@@ -17,16 +17,17 @@ interface Props {
   withLabel?: boolean;
 }
 
-function Base ({ children, className = '', isOuter, label, size = 'full', withLabel }: Props): React.ReactElement<Props> {
+function Base({
+  children,
+  className = "",
+  isOuter,
+  label,
+  size = "full",
+  withLabel,
+}: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>
-      <Labelled
-        className={size}
-        isOuter
-        label={label}
-        withEllipsis
-        withLabel={withLabel}
-      >
+      <Labelled className={size} isOuter label={label} withEllipsis withLabel={withLabel}>
         {!isOuter && children}
       </Labelled>
       {isOuter && children}

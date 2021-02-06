@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { css } from 'styled-components';
+import { css } from "styled-components";
 
-import { ELEV_2_CSS, ELEV_4_CSS } from './constants';
+import { ELEV_2_CSS, ELEV_4_CSS } from "./constants";
 
 export default css`
   .ui--output {
@@ -92,7 +92,7 @@ export default css`
         background: rgba(230, 230, 230, 0.8) !important;
         border: 0 !important;
         border-radius: 0 !important;
-        box-shadow: 0 3px 3px rgba(0,0,0,.2);
+        box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
       }
     }
 

@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi } from '@canvas-ui/react-hooks';
-import React, { useEffect, useState } from 'react';
+import { useApi } from "@canvas-ui/react-hooks";
+import React, { useEffect, useState } from "react";
 
-import { BlockNumber, EventRecord } from '@polkadot/types/interfaces';
-import { stringToU8a } from '@polkadot/util';
-import { xxhashAsHex } from '@polkadot/util-crypto';
+import { BlockNumber, EventRecord } from "@polkadot/types/interfaces";
+import { stringToU8a } from "@polkadot/util";
+import { xxhashAsHex } from "@polkadot/util-crypto";
 
 interface IndexedEvent {
   index: number;
@@ -29,56 +29,69 @@ const MAX_EVENTS = 50;
 
 const EventsContext: React.Context<Events> = React.createContext<Events>([]);
 
-function EventsBase ({ children }: Props): React.ReactElement<Props> {
+function EventsBase({ children }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [state, setState] = useState<Events>([]);
 
   useEffect((): void => {
     // No unsub, global context - destroyed on app close
-    api.isReady.then((): void => {
-      let prevBlockHash: string | null = null;
-      let prevEventHash: string | null = null;
+    api.isReady
+      .then((): void => {
+        let prevBlockHash: string | null = null;
+        let prevEventHash: string | null = null;
 
-      api.query.system.events((records): void => {
-        const newEvents: IndexedEvent[] = records
-          .map((record, index) => ({ index, record }))
-          .filter(({ record: { event: { section } } }) => section !== 'system');
-        const newEventHash = xxhashAsHex(stringToU8a(JSON.stringify(newEvents)));
+        api.query.system
+          .events((records): void => {
+            const newEvents: IndexedEvent[] = records
+              .map((record, index) => ({ index, record }))
+              .filter(
+                ({
+                  record: {
+                    event: { section },
+                  },
+                }) => section !== "system"
+              );
+            const newEventHash = xxhashAsHex(stringToU8a(JSON.stringify(newEvents)));
 
-        if (newEventHash !== prevEventHash && newEvents.length) {
-          prevEventHash = newEventHash;
+            if (newEventHash !== prevEventHash && newEvents.length) {
+              prevEventHash = newEventHash;
 
-          // retrieve the last header, this will map to the current state
-          api.rpc.chain.getHeader().then((header): void => {
-            const blockNumber = header.number.unwrap();
-            const blockHash = header.hash.toHex();
+              // retrieve the last header, this will map to the current state
+              api.rpc.chain
+                .getHeader()
+                .then((header): void => {
+                  const blockNumber = header.number.unwrap();
+                  const blockHash = header.hash.toHex();
 
-            if (blockHash !== prevBlockHash) {
-              prevBlockHash = blockHash;
+                  if (blockHash !== prevBlockHash) {
+                    prevBlockHash = blockHash;
 
-              setState((events) => [
-                ...newEvents.map(({ index, record }): KeyedEvent => ({
-                  blockHash,
-                  blockNumber,
-                  index,
-                  key: `${blockNumber.toNumber()}-${blockHash}-${index}`,
-                  record
-                })),
-                ...events
-              ].slice(0, MAX_EVENTS));
+                    setState(events =>
+                      [
+                        ...newEvents.map(
+                          ({ index, record }): KeyedEvent => ({
+                            blockHash,
+                            blockNumber,
+                            index,
+                            key: `${blockNumber.toNumber()}-${blockHash}-${index}`,
+                            record,
+                          })
+                        ),
+                        ...events,
+                      ].slice(0, MAX_EVENTS)
+                    );
+                  }
+                })
+                .catch(console.error);
             }
-          }).catch(console.error);
-        }
-      }).catch(console.error);
-    }).catch(console.error);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+          })
+          .catch(console.error);
+      })
+      .catch(console.error);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <EventsContext.Provider value={state}>
-      {children}
-    </EventsContext.Provider>
-  );
+  return <EventsContext.Provider value={state}>{children}</EventsContext.Provider>;
 }
 
 const Events = React.memo(EventsBase);

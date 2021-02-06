@@ -16,7 +16,7 @@ function UploadApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
   const componentProps = useMemo((): ComponentProps => ({ ...useCodesHook, basePath, navigateTo }), [
     useCodesHook,
     basePath,
-    navigateTo
+    navigateTo,
   ]);
 
   return (

@@ -1,16 +1,16 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import SUIButton from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import SUIDropdown, { DropdownProps } from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
-import styled from 'styled-components';
+import { classes } from "@canvas-ui/react-util";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import SUIButton from "semantic-ui-react/dist/commonjs/elements/Button/Button";
+import SUIDropdown, { DropdownProps } from "semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown";
+import styled from "styled-components";
 
-import { isUndefined } from '@polkadot/util';
+import { isUndefined } from "@polkadot/util";
 
-import Labelled from './Labelled';
-import { BareProps } from './types';
+import Labelled from "./Labelled";
+import { BareProps } from "./types";
 
 interface Props<Option> extends BareProps {
   allowAdd?: boolean;
@@ -41,10 +41,37 @@ interface Props<Option> extends BareProps {
 
 export type IDropdown<Option> = React.ComponentType<Props<Option>> & {
   Header: React.ComponentType<{ content: React.ReactNode }>;
-}
+};
 
-function BaseDropdown<Option> ({ allowAdd = false, children, className = '', defaultValue, dropdownClassName, help, isButton, isDisabled, isError, isFull, isMultiple, label, labelExtra, onAdd, onBlur, onChange, onClose, onSearch, options, placeholder, renderLabel, searchInput, transform, value, withEllipsis, withLabel }: Props<Option>): React.ReactElement<Props<Option>> {
-  const lastUpdate = useRef<string>('');
+function BaseDropdown<Option>({
+  allowAdd = false,
+  children,
+  className = "",
+  defaultValue,
+  dropdownClassName,
+  help,
+  isButton,
+  isDisabled,
+  isError,
+  isFull,
+  isMultiple,
+  label,
+  labelExtra,
+  onAdd,
+  onBlur,
+  onChange,
+  onClose,
+  onSearch,
+  options,
+  placeholder,
+  renderLabel,
+  searchInput,
+  transform,
+  value,
+  withEllipsis,
+  withLabel,
+}: Props<Option>): React.ReactElement<Props<Option>> {
+  const lastUpdate = useRef<string>("");
   const [stored, setStored] = useState<string | undefined>();
 
   const _setStored = useCallback(
@@ -56,11 +83,7 @@ function BaseDropdown<Option> ({ allowAdd = false, children, className = '', def
 
         setStored(value);
 
-        onChange && onChange(
-          transform
-            ? transform(value)
-            : value
-        );
+        onChange && onChange(transform ? transform(value) : value);
       }
     },
     [onChange, transform]
@@ -71,14 +94,12 @@ function BaseDropdown<Option> ({ allowAdd = false, children, className = '', def
   }, [_setStored, defaultValue, value]);
 
   const _onAdd = useCallback(
-    (_: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps): void =>
-      onAdd && onAdd(value),
+    (_: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps): void => onAdd && onAdd(value),
     [onAdd]
   );
 
   const _onChange = useCallback(
-    (_: React.SyntheticEvent<HTMLElement> | null, { value }: DropdownProps): void =>
-      _setStored(value as string),
+    (_: React.SyntheticEvent<HTMLElement> | null, { value }: DropdownProps): void => _setStored(value as string),
     [_setStored]
   );
 
@@ -106,29 +127,25 @@ function BaseDropdown<Option> ({ allowAdd = false, children, className = '', def
     />
   );
 
-  return isButton
-    ? (
-      <SUIButton.Group primary>
-        {dropdown}
-      </SUIButton.Group>
-    )
-    : (
-      <Labelled
-        className={classes('ui--Dropdown', className)}
-        help={help}
-        isFull={isFull}
-        label={label}
-        labelExtra={labelExtra}
-        withEllipsis={withEllipsis}
-        withLabel={withLabel}
-      >
-        {dropdown}
-        {children}
-      </Labelled>
-    );
+  return isButton ? (
+    <SUIButton.Group primary>{dropdown}</SUIButton.Group>
+  ) : (
+    <Labelled
+      className={classes("ui--Dropdown", className)}
+      help={help}
+      isFull={isFull}
+      label={label}
+      labelExtra={labelExtra}
+      withEllipsis={withEllipsis}
+      withLabel={withLabel}
+    >
+      {dropdown}
+      {children}
+    </Labelled>
+  );
 }
 
-const Dropdown = React.memo(styled(BaseDropdown)`
+const Dropdown = (React.memo(styled(BaseDropdown)`
   .ui--Dropdown-item {
     position: relative;
     white-space: nowrap;
@@ -173,7 +190,7 @@ const Dropdown = React.memo(styled(BaseDropdown)`
       > .chain-option {
         :before {
           background: var(--green-primary);
-          content: '';
+          content: "";
           display: block;
           border-radius: 4px;
           width: 0.5rem;
@@ -189,7 +206,7 @@ const Dropdown = React.memo(styled(BaseDropdown)`
       }
     }
   }
-`) as unknown as IDropdown<any>;
+`) as unknown) as IDropdown<any>;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 (Dropdown as any).Header = SUIDropdown.Header;

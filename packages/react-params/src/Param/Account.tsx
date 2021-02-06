@@ -1,15 +1,24 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputAddress } from '@canvas-ui/react-components';
-import React, { useCallback, useState } from 'react';
+import { InputAddress } from "@canvas-ui/react-components";
+import React, { useCallback, useState } from "react";
 
-import keyring from '@polkadot/ui-keyring';
+import keyring from "@polkadot/ui-keyring";
 
-import { Props } from '../types';
-import Bare from './Bare';
+import { Props } from "../types";
+import Bare from "./Bare";
 
-function Account ({ className = '', defaultValue: { value }, isDisabled, isError, isInOption, label, onChange, withLabel }: Props): React.ReactElement<Props> {
+function Account({
+  className = "",
+  defaultValue: { value },
+  isDisabled,
+  isError,
+  isInOption,
+  label,
+  onChange,
+  withLabel,
+}: Props): React.ReactElement<Props> {
   const [defaultValue] = useState((value as string)?.toString());
 
   const _onChange = useCallback(
@@ -26,10 +35,11 @@ function Account ({ className = '', defaultValue: { value }, isDisabled, isError
         }
       }
 
-      onChange && onChange({
-        isValid,
-        value
-      });
+      onChange &&
+        onChange({
+          isValid,
+          value,
+        });
     },
     [onChange]
   );
@@ -37,7 +47,7 @@ function Account ({ className = '', defaultValue: { value }, isDisabled, isError
   return (
     <Bare className={className}>
       <InputAddress
-        className='full'
+        className="full"
         defaultValue={defaultValue}
         hideAddress={isInOption}
         isDisabled={isDisabled}
@@ -45,8 +55,8 @@ function Account ({ className = '', defaultValue: { value }, isDisabled, isError
         isInput
         label={label}
         onChange={_onChange}
-        placeholder='5...'
-        type='allPlus'
+        placeholder="5..."
+        type="allPlus"
         withEllipsis
         withLabel={withLabel}
       />

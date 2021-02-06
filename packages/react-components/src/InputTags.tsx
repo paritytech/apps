@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
-import store from 'store';
+import React from "react";
+import store from "store";
 
-import Dropdown from './Dropdown';
-import { BareProps } from './types';
+import Dropdown from "./Dropdown";
+import { BareProps } from "./types";
 
 interface Option {
   key: string;
@@ -25,27 +25,27 @@ interface Props extends BareProps {
   onClose?: () => void;
   openOnFocus?: boolean;
   placeholder?: string;
-  searchInput?: {autoFocus: boolean};
+  searchInput?: { autoFocus: boolean };
   value?: string[];
   withLabel?: boolean;
 }
 
-function loadTags (): string[] {
-  return ((store.get('tags') as string[]) || ['Default']).sort();
+function loadTags(): string[] {
+  return ((store.get("tags") as string[]) || ["Default"]).sort();
 }
 
-function valueToOption (value: string): Option {
+function valueToOption(value: string): Option {
   return { key: value, text: value, value };
 }
 
 const tags = loadTags();
 const options = tags.map(valueToOption);
 
-function saveTags (tags: string[]): void {
-  store.set('tags', tags.sort());
+function saveTags(tags: string[]): void {
+  store.set("tags", tags.sort());
 }
 
-function onAddTag (value: string): void {
+function onAddTag(value: string): void {
   tags.push(value);
 
   options.push(valueToOption(value));
@@ -53,7 +53,22 @@ function onAddTag (value: string): void {
   saveTags(tags);
 }
 
-function InputTags ({ allowAdd = true, className = '', defaultValue, help, isDisabled, isError, label, onBlur, onChange, onClose, placeholder, searchInput, value, withLabel }: Props): React.ReactElement<Props> {
+function InputTags({
+  allowAdd = true,
+  className = "",
+  defaultValue,
+  help,
+  isDisabled,
+  isError,
+  label,
+  onBlur,
+  onChange,
+  onClose,
+  placeholder,
+  searchInput,
+  value,
+  withLabel,
+}: Props): React.ReactElement<Props> {
   return (
     <Dropdown
       allowAdd={allowAdd && !isDisabled}

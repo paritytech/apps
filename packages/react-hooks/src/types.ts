@@ -15,7 +15,7 @@ import {
   Hash,
   SessionIndex,
   StakingLedger,
-  ValidatorPrefs
+  ValidatorPrefs,
 } from "@polkadot/types/interfaces";
 import { IExtrinsic } from "@polkadot/types/types";
 import { KeyringJson$Meta } from "@polkadot/ui-keyring/types";

@@ -28,7 +28,7 @@ function CodeCard({
   code,
   code: { id },
   navigateTo,
-  onForget: _onForget
+  onForget: _onForget,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [, , setIsAbiOpen] = useToggle();

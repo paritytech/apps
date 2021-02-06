@@ -1,22 +1,26 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Call, Static } from '@canvas-ui/react-components';
-import React from 'react';
+import { Call, Static } from "@canvas-ui/react-components";
+import React from "react";
 
-import { Extrinsic } from '@polkadot/types/interfaces';
+import { Extrinsic } from "@polkadot/types/interfaces";
 
-import { Props } from '../types';
-import Bare from './Bare';
-import Unknown from './Unknown';
+import { Props } from "../types";
+import Bare from "./Bare";
+import Unknown from "./Unknown";
 
-function CallDisplay (props: Props): React.ReactElement<Props> {
-  const { className = '', defaultValue: { value }, isDisabled, label, withLabel } = props;
+function CallDisplay(props: Props): React.ReactElement<Props> {
+  const {
+    className = "",
+    defaultValue: { value },
+    isDisabled,
+    label,
+    withLabel,
+  } = props;
 
   if (!isDisabled) {
-    return (
-      <Unknown {...props} />
-    );
+    return <Unknown {...props} />;
   }
 
   const call = value as Extrinsic;
@@ -24,11 +28,7 @@ function CallDisplay (props: Props): React.ReactElement<Props> {
 
   return (
     <Bare>
-      <Static
-        className={`${className} full`}
-        label={label}
-        withLabel={withLabel}
-      >
+      <Static className={`${className} full`} label={label} withLabel={withLabel}>
         {section}.{method}
       </Static>
       <Call value={call} />

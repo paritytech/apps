@@ -1,9 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/apps-config authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import BN from 'bn.js';
+import BN from "bn.js";
 
-export type LinkTypes = 'address' | 'block' | 'council' | 'extrinsic' | 'proposal' | 'referendum' | 'techcomm' | 'treasury';
+export type LinkTypes =
+  | "address"
+  | "block"
+  | "council"
+  | "extrinsic"
+  | "proposal"
+  | "referendum"
+  | "techcomm"
+  | "treasury";
 
 export interface ExternalDef {
   chains: Record<string, string>;

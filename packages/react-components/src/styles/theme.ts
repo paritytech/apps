@@ -1,38 +1,38 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { css } from 'styled-components';
+import { css } from "styled-components";
 
-import { ELEV_2_CSS, ELEV_3_CSS } from './constants';
+import { ELEV_2_CSS, ELEV_3_CSS } from "./constants";
 
 /* highlighted buttons, orange */
-export const colorBtnHighlight = '#2477B3';
+export const colorBtnHighlight = "#2477B3";
 
 export default css`
   :root {
     /* colors */
-    --background: #11161A;
+    --background: #11161a;
 
-    --blue-primary: #2477B3;
+    --blue-primary: #2477b3;
     --blue-secondary: #195580;
-    --green-primary: #16DB9A;
-    --red-primary: #F54E4E;
-    --red-secondary: #FF8080;
-    --orange-primary: #F8C34F;
+    --green-primary: #16db9a;
+    --red-primary: #f54e4e;
+    --red-secondary: #ff8080;
+    --orange-primary: #f8c34f;
 
     --grey00: #000;
-    --grey10: #151B1F;
-    --grey15: #1C2429;
-    --grey20: #202B33; /* header text */
-    --grey30: #2B3840;
-    --grey40: #33434D;
-    --grey50: #777B80;
-    --grey60: #A0A2A3;
-    --grey70: #C6CACC;
-    --grey80: #DFE2E6;
-    --grey90: #E0E1E1;
+    --grey10: #151b1f;
+    --grey15: #1c2429;
+    --grey20: #202b33; /* header text */
+    --grey30: #2b3840;
+    --grey40: #33434d;
+    --grey50: #777b80;
+    --grey60: #a0a2a3;
+    --grey70: #c6cacc;
+    --grey80: #dfe2e6;
+    --grey90: #e0e1e1;
 
-    --white: #FFF;
+    --white: #fff;
 
     /* radii*/
     --btn-radius-default: 4px;
@@ -113,7 +113,6 @@ export default css`
 
     .ui.negative.button,
     .ui.buttons .negative.button {
-
       &:active,
       &:active,
       &:focus,
@@ -162,12 +161,12 @@ export default css`
       }
     }
 
-    .ui.toggle.checkbox input:checked~.box:before,
-    .ui.toggle.checkbox input:checked~label:before {
+    .ui.toggle.checkbox input:checked ~ .box:before,
+    .ui.toggle.checkbox input:checked ~ label:before {
       // background-color: ${colorBtnHighlight} !important;
     }
 
-    .ui.input>input {
+    .ui.input > input {
       color: var(--grey80);
     }
   }

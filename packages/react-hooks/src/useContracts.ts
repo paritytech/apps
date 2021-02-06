@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import { keyring } from '@polkadot/ui-keyring';
+import { keyring } from "@polkadot/ui-keyring";
 
-import useIsMountedRef from './useIsMountedRef';
+import useIsMountedRef from "./useIsMountedRef";
 
 interface UseContracts {
   allContracts: string[];
@@ -14,11 +14,16 @@ interface UseContracts {
   isReady: boolean;
 }
 
-export default function useContracts (): UseContracts {
+export default function useContracts(): UseContracts {
   const mountedRef = useIsMountedRef();
-  const [state, setState] = useState<UseContracts>({ allContracts: [], hasContracts: false, isContract: () => false, isReady: false });
+  const [state, setState] = useState<UseContracts>({
+    allContracts: [],
+    hasContracts: false,
+    isContract: () => false,
+    isReady: false,
+  });
 
-  useEffect((): () => void => {
+  useEffect((): (() => void) => {
     const subscription = keyring.contracts.subject.subscribe((contracts): void => {
       if (mountedRef.current) {
         const allContracts = contracts ? Object.keys(contracts) : [];

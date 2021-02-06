@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputFile } from '@canvas-ui/react-components';
-import React from 'react';
+import { InputFile } from "@canvas-ui/react-components";
+import React from "react";
 
-import Bare from './Bare';
+import Bare from "./Bare";
 
 interface Props {
   className?: string;
@@ -17,7 +17,15 @@ interface Props {
   withLabel?: boolean;
 }
 
-function File ({ className = '', isDisabled, isError = false, label, onChange, placeholder, withLabel }: Props): React.ReactElement<Props> {
+function File({
+  className = "",
+  isDisabled,
+  isError = false,
+  label,
+  onChange,
+  placeholder,
+  withLabel,
+}: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>
       <InputFile

@@ -84,8 +84,8 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
             meta: {
               ...meta,
               name: `${meta.name || "unknown"} (${meta.source === "polkadot-js" ? "extension" : meta.source})`,
-              whenCreated
-            }
+              whenCreated,
+            },
           })
         )
       )
@@ -93,7 +93,7 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
         console.error("web3Enable", error);
 
         return [];
-      })
+      }),
   ]);
 
   return {
@@ -102,7 +102,7 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
     systemChain: (systemChain || "<unknown>").toString(),
     systemChainType,
     systemName: systemName.toString(),
-    systemVersion: systemVersion.toString()
+    systemVersion: systemVersion.toString(),
   };
 }
 
@@ -125,7 +125,7 @@ async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiSt
   // first setup the UI helpers
   formatBalance.setDefaults({
     decimals: tokenDecimals,
-    unit: tokenSymbol
+    unit: tokenSymbol,
   });
   TokenUnit.setAbbr(tokenSymbol);
 
@@ -136,7 +136,7 @@ async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiSt
       isDevelopment,
       ss58Format,
       store,
-      type: "ed25519"
+      type: "ed25519",
     },
     injectedAccounts
   );
@@ -158,7 +158,7 @@ async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiSt
     isSubstrateV2,
     systemChain,
     systemName,
-    systemVersion
+    systemVersion,
   };
 }
 

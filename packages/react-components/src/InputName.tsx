@@ -26,7 +26,7 @@ function InputName({
   isError,
   onChange,
   onEnter,
-  value = ""
+  value = "",
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 

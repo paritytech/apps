@@ -27,7 +27,7 @@ function MessageSignature({
   message: { args, identifier, isConstructor, isMutating, isPayable, returnType },
   params = [],
   registry,
-  withTooltip = false
+  withTooltip = false,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
@@ -51,7 +51,7 @@ function MessageSignature({
           <span className="ui--MessageSignature-returnType">
             {encodeTypeDef({
               ...returnType,
-              ...((returnType.displayName || "").length > 0 ? { displayName: returnType.displayName } : {})
+              ...((returnType.displayName || "").length > 0 ? { displayName: returnType.displayName } : {}),
             })}
           </span>
         </>

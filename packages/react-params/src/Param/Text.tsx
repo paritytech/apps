@@ -1,34 +1,45 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Input } from '@canvas-ui/react-components';
-import React, { useCallback, useState } from 'react';
+import { Input } from "@canvas-ui/react-components";
+import React, { useCallback, useState } from "react";
 
-import { Props } from '../types';
-import Bare from './Bare';
+import { Props } from "../types";
+import Bare from "./Bare";
 
-function Text ({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
+function Text({
+  className = "",
+  defaultValue: { value },
+  isDisabled,
+  isError,
+  label,
+  onChange,
+  onEnter,
+  onEscape,
+  withLabel,
+}: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
     (value: string): void => {
       const isValid = value.length !== 0;
 
-      onChange && onChange({
-        isValid,
-        value
-      });
+      onChange &&
+        onChange({
+          isValid,
+          value,
+        });
       setIsValid(isValid);
     },
     [onChange]
   );
 
-  const defaultValue = (value as string || '').toString();
+  const defaultValue = ((value as string) || "").toString();
 
   return (
     <Bare className={className}>
       <Input
-        className='full'
+        className="full"
         defaultValue={defaultValue}
         isDisabled={isDisabled}
         isError={isError || !isValid}
@@ -36,8 +47,8 @@ function Text ({ className = '', defaultValue: { value }, isDisabled, isError, l
         onChange={_onChange}
         onEnter={onEnter}
         onEscape={onEscape}
-        placeholder='<any string>'
-        type='text'
+        placeholder="<any string>"
+        type="text"
         withLabel={withLabel}
       />
     </Bare>

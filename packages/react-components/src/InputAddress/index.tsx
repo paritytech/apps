@@ -1,30 +1,35 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { availableExtensions } from '@canvas-ui/apps-config/extensions';
-import { withMulti, withObservable } from '@canvas-ui/react-api/hoc';
-import { useApi } from '@canvas-ui/react-hooks';
-import { classes, getAddressName, toAddress as addressToAddress } from '@canvas-ui/react-util';
-import { StringOrNull } from '@canvas-ui/react-util/types';
-import { detect } from 'detect-browser';
-import React, { useCallback, useMemo } from 'react';
-import store from 'store';
-import styled from 'styled-components';
+import { availableExtensions } from "@canvas-ui/apps-config/extensions";
+import { withMulti, withObservable } from "@canvas-ui/react-api/hoc";
+import { useApi } from "@canvas-ui/react-hooks";
+import { classes, getAddressName, toAddress as addressToAddress } from "@canvas-ui/react-util";
+import { StringOrNull } from "@canvas-ui/react-util/types";
+import { detect } from "detect-browser";
+import React, { useCallback, useMemo } from "react";
+import store from "store";
+import styled from "styled-components";
 
-import { keyring } from '@polkadot/ui-keyring';
+import { keyring } from "@polkadot/ui-keyring";
 // import keyringOption from '@polkadot/ui-keyring/options';
-import { createOptionItem } from '@polkadot/ui-keyring/options/item';
-import { KeyringOption$Type, KeyringOptions, KeyringSectionOption, KeyringSectionOptions } from '@polkadot/ui-keyring/options/types';
-import { isNull, isUndefined } from '@polkadot/util';
+import { createOptionItem } from "@polkadot/ui-keyring/options/item";
+import {
+  KeyringOption$Type,
+  KeyringOptions,
+  KeyringSectionOption,
+  KeyringSectionOptions,
+} from "@polkadot/ui-keyring/options/types";
+import { isNull, isUndefined } from "@polkadot/util";
 
-import Dropdown from '../Dropdown';
-import InputStatus from '../InputStatus';
-import { useTranslation } from '../translate';
-import { BareProps } from '../types';
-import createHeader from './createHeader';
-import createItem from './createItem';
-import { NoAccount } from './KeyPair';
-import { Option } from './types';
+import Dropdown from "../Dropdown";
+import InputStatus from "../InputStatus";
+import { useTranslation } from "../translate";
+import { BareProps } from "../types";
+import createHeader from "./createHeader";
+import createItem from "./createItem";
+import { NoAccount } from "./KeyPair";
+import { Option } from "./types";
 
 interface Props extends BareProps {
   defaultValue?: Uint8Array | string | null;
@@ -48,7 +53,7 @@ interface Props extends BareProps {
   withLabel?: boolean;
 }
 
-type Browser = 'chrome' | 'firefox';
+type Browser = "chrome" | "firefox";
 
 type ExportedType = React.ComponentType<Props> & {
   createOption: (option: KeyringSectionOption, isUppercase?: boolean) => Option;
@@ -60,37 +65,35 @@ type ExportedType = React.ComponentType<Props> & {
 //   value?: string | string[];
 // }
 
-const STORAGE_KEY = 'options:InputAddress';
-const DEFAULT_TYPE = 'all';
+const STORAGE_KEY = "options:InputAddress";
+const DEFAULT_TYPE = "all";
 const MULTI_DEFAULT: string[] = [];
 
 const browserInfo = detect();
 const browserName: Browser | null = (browserInfo && (browserInfo.name as Browser)) || null;
 const isSupported = browserName && Object.keys(availableExtensions).includes(browserName);
 
-function transformToAddress (value?: string | Uint8Array | null): string | null {
+function transformToAddress(value?: string | Uint8Array | null): string | null {
   try {
     return addressToAddress(value) || null;
   } catch (error) {
-    console.error('Unable to transform address', value);
+    console.error("Unable to transform address", value);
   }
 
   return null;
 }
 
-function transformToAccountId (value: string): string | null {
+function transformToAccountId(value: string): string | null {
   if (!value) {
     return null;
   }
 
   const accountId = transformToAddress(value);
 
-  return !accountId
-    ? null
-    : accountId;
+  return !accountId ? null : accountId;
 }
 
-function createOption (address: string): Option {
+function createOption(address: string): Option {
   let isRecent: boolean | undefined;
   const pair = keyring.getAccount(address);
   let name: string | undefined;
@@ -111,24 +114,24 @@ function createOption (address: string): Option {
   return createItem(createOptionItem(address, name), !isRecent);
 }
 
-function readOptions (): Record<string, Record<string, string>> {
-  return store.get(STORAGE_KEY) as Record<string, Record<string, string>> || { defaults: {} };
+function readOptions(): Record<string, Record<string, string>> {
+  return (store.get(STORAGE_KEY) as Record<string, Record<string, string>>) || { defaults: {} };
 }
 
-function getLastValue (type: KeyringOption$Type = DEFAULT_TYPE): string {
+function getLastValue(type: KeyringOption$Type = DEFAULT_TYPE): string {
   const options = readOptions();
 
   return options.defaults[type];
 }
 
-function setLastValue (type: KeyringOption$Type = DEFAULT_TYPE, value: string): void {
+function setLastValue(type: KeyringOption$Type = DEFAULT_TYPE, value: string): void {
   const options = readOptions();
 
   options.defaults[type] = value;
   store.set(STORAGE_KEY, options);
 }
 
-function renderLabel ({ value }: KeyringSectionOption): React.ReactNode {
+function renderLabel({ value }: KeyringSectionOption): React.ReactNode {
   if (!value) {
     return undefined;
   }
@@ -136,7 +139,28 @@ function renderLabel ({ value }: KeyringSectionOption): React.ReactNode {
   return getAddressName(value);
 }
 
-function InputAddress ({ className = '', defaultValue, filter, help, hideAddress = false, isDisabled = false, isError, isInput, isMultiple, label, labelExtra, onChange: _onChange, onChangeMulti: _onChangeMulti, options, optionsAll, placeholder, type = DEFAULT_TYPE, value: propsValue, withEllipsis, withLabel }: Props): React.ReactElement<Props> | null {
+function InputAddress({
+  className = "",
+  defaultValue,
+  filter,
+  help,
+  hideAddress = false,
+  isDisabled = false,
+  isError,
+  isInput,
+  isMultiple,
+  label,
+  labelExtra,
+  onChange: _onChange,
+  onChangeMulti: _onChangeMulti,
+  options,
+  optionsAll,
+  placeholder,
+  type = DEFAULT_TYPE,
+  value: propsValue,
+  withEllipsis,
+  withLabel,
+}: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { hasInjectedAccounts } = useApi();
   const hasOptions = useMemo(
@@ -144,41 +168,23 @@ function InputAddress ({ className = '', defaultValue, filter, help, hideAddress
     [options, optionsAll, type]
   );
 
-  const value = useMemo(
-    (): string | undefined | (string | undefined)[] => {
-      try {
-        return Array.isArray(propsValue)
-          ? propsValue.map(addressToAddress)
-          : (addressToAddress(propsValue) || undefined);
-      } catch (error) {
-        return undefined;
-      }
-    },
-    [propsValue]
-  );
+  const value = useMemo((): string | undefined | (string | undefined)[] => {
+    try {
+      return Array.isArray(propsValue) ? propsValue.map(addressToAddress) : addressToAddress(propsValue) || undefined;
+    } catch (error) {
+      return undefined;
+    }
+  }, [propsValue]);
 
-  const filteredOptions = useMemo(
-    (): Option[] => {
-      return !optionsAll
-        ? []
-        : optionsAll[type].filter(({ value }) => !filter || (!!value && filter.includes(value)));
-    },
-    [filter, optionsAll, type]
-  );
+  const filteredOptions = useMemo((): Option[] => {
+    return !optionsAll ? [] : optionsAll[type].filter(({ value }) => !filter || (!!value && filter.includes(value)));
+  }, [filter, optionsAll, type]);
 
-  const lastValue = useMemo(
-    (): string => getLastValue(type),
-    [type]
-  );
+  const lastValue = useMemo((): string => getLastValue(type), [type]);
 
-  const lastOption = useMemo(
-    (): KeyringSectionOption | undefined => {
-      return filteredOptions.length
-        ? filteredOptions[filteredOptions.length - 1]
-        : undefined;
-    },
-    [filteredOptions]
-  );
+  const lastOption = useMemo((): KeyringSectionOption | undefined => {
+    return filteredOptions.length ? filteredOptions[filteredOptions.length - 1] : undefined;
+  }, [filteredOptions]);
 
   const hasValue = useCallback(
     (test?: Uint8Array | string | null): boolean => {
@@ -199,11 +205,7 @@ function InputAddress ({ className = '', defaultValue, filter, help, hideAddress
   const onChangeMulti = useCallback(
     (addresses: string[]): void => {
       if (_onChangeMulti) {
-        _onChangeMulti(
-          addresses
-            .map(transformToAccountId)
-            .filter((address): string => address as string) as string[]
-        );
+        _onChangeMulti(addresses.map(transformToAccountId).filter((address): string => address as string) as string[]);
       }
     },
     [_onChangeMulti]
@@ -228,22 +230,18 @@ function InputAddress ({ className = '', defaultValue, filter, help, hideAddress
     (filteredOptions: KeyringSectionOptions, _query: string): KeyringSectionOptions => {
       const query = _query.trim();
       const queryLower = query.toLowerCase();
-      const matches = filteredOptions.filter((item): boolean =>
-        !!item.value && (
-          (item.name.toLowerCase && item.name.toLowerCase().includes(queryLower)) ||
-          item.value.toLowerCase().includes(queryLower)
-        )
+      const matches = filteredOptions.filter(
+        (item): boolean =>
+          !!item.value &&
+          ((item.name.toLowerCase && item.name.toLowerCase().includes(queryLower)) ||
+            item.value.toLowerCase().includes(queryLower))
       );
 
       if (isInput && matches.length === 0) {
         const accountId = transformToAccountId(query);
 
         if (accountId) {
-          matches.push(
-            keyring.saveRecent(
-              accountId.toString()
-            ).option
-          );
+          matches.push(keyring.saveRecent(accountId.toString()).option);
         }
       }
 
@@ -259,37 +257,34 @@ function InputAddress ({ className = '', defaultValue, filter, help, hideAddress
   );
 
   const actualValue = useMemo(
-    (): StringOrNull => transformToAddress(
-      isDisabled || (defaultValue && hasValue(defaultValue))
-        ? defaultValue
-        : hasValue(lastValue)
+    (): StringOrNull =>
+      transformToAddress(
+        isDisabled || (defaultValue && hasValue(defaultValue))
+          ? defaultValue
+          : hasValue(lastValue)
           ? lastValue
-          : (lastOption && lastOption.value)
-    ),
+          : lastOption && lastOption.value
+      ),
     [defaultValue, hasValue, isDisabled, lastOption, lastValue]
   );
 
-  const actualOptions = useMemo(
-    (): Option[] => {
-      return options
-        ? options.map((o): Option => createItem(o))
-        : isDisabled && actualValue
-          ? [createOption(actualValue)]
-          : filteredOptions;
-    },
-    [actualValue, filteredOptions, isDisabled, options]
-  );
-  const _defaultValue = useMemo(
-    () => (isMultiple || !isUndefined(value))
-      ? undefined
-      : actualValue,
-    [actualValue, isMultiple, value]
-  );
+  const actualOptions = useMemo((): Option[] => {
+    return options
+      ? options.map((o): Option => createItem(o))
+      : isDisabled && actualValue
+      ? [createOption(actualValue)]
+      : filteredOptions;
+  }, [actualValue, filteredOptions, isDisabled, options]);
+  const _defaultValue = useMemo(() => (isMultiple || !isUndefined(value) ? undefined : actualValue), [
+    actualValue,
+    isMultiple,
+    value,
+  ]);
 
   if (!hasOptions) {
     return (
       <Dropdown
-        className={classes('ui--InputAddress', hideAddress && 'hideAddress', className)}
+        className={classes("ui--InputAddress", hideAddress && "hideAddress", className)}
         defaultValue={_defaultValue}
         help={help}
         isDisabled
@@ -298,19 +293,17 @@ function InputAddress ({ className = '', defaultValue, filter, help, hideAddress
         label={label}
         labelExtra={labelExtra}
         onSearch={onSearch}
-        options={[{
-          key: 'none',
-          name: 'none',
-          text: <NoAccount />,
-          value: 'none'
-        }]}
+        options={[
+          {
+            key: "none",
+            name: "none",
+            text: <NoAccount />,
+            value: "none",
+          },
+        ]}
         placeholder={placeholder}
-        renderLabel={
-          isMultiple
-            ? renderLabel
-            : undefined
-        }
-        value={'none'}
+        renderLabel={isMultiple ? renderLabel : undefined}
+        value={"none"}
         withEllipsis={withEllipsis}
         withLabel={withLabel}
       >
@@ -318,18 +311,12 @@ function InputAddress ({ className = '', defaultValue, filter, help, hideAddress
           <InputStatus
             text={
               <>
-                {t('Please reload this app with the')}
-                {' '}
-                <a
-                  href={availableExtensions[browserName][0].link}
-                  rel='noopener noreferrer'
-                  target='_blank'
-                >
-                  {t('Polkadot extension')}
-                </a>
-                {' '}
-                {t('to show available accounts')}
-                {'.'}
+                {t("Please reload this app with the")}{" "}
+                <a href={availableExtensions[browserName][0].link} rel="noopener noreferrer" target="_blank">
+                  {t("Polkadot extension")}
+                </a>{" "}
+                {t("to show available accounts")}
+                {"."}
               </>
             }
           />
@@ -340,7 +327,7 @@ function InputAddress ({ className = '', defaultValue, filter, help, hideAddress
 
   return (
     <Dropdown
-      className={classes('ui--InputAddress', hideAddress && 'hideAddress', className)}
+      className={classes("ui--InputAddress", hideAddress && "hideAddress", className)}
       defaultValue={_defaultValue}
       help={help}
       isDisabled={isDisabled || !hasOptions}
@@ -348,34 +335,18 @@ function InputAddress ({ className = '', defaultValue, filter, help, hideAddress
       isMultiple={isMultiple}
       label={label}
       labelExtra={labelExtra}
-      onChange={
-        isMultiple
-          ? onChangeMulti
-          : onChange
-      }
+      onChange={isMultiple ? onChangeMulti : onChange}
       onSearch={onSearch}
       options={actualOptions}
       placeholder={placeholder}
-      renderLabel={
-        isMultiple
-          ? renderLabel
-          : undefined
-      }
-      value={
-        isMultiple && !value
-          ? MULTI_DEFAULT
-          : value
-      }
+      renderLabel={isMultiple ? renderLabel : undefined}
+      value={isMultiple && !value ? MULTI_DEFAULT : value}
       withEllipsis={withEllipsis}
       withLabel={withLabel}
     >
       {!hasInjectedAccounts && actualOptions.length === 0 && (
         <InputStatus
-          text={
-            <>
-              {t('Please reload this app with the Polkadot extension to show available accounts.')}
-            </>
-          }
+          text={<>{t("Please reload this app with the Polkadot extension to show available accounts.")}</>}
         />
       )}
     </Dropdown>
@@ -418,17 +389,18 @@ const ExportedComponent = withMulti(
     }
   `,
   withObservable(keyring.keyringOption.optionsSubject, {
-    propName: 'optionsAll',
+    propName: "optionsAll",
     transform: (optionsAll: KeyringOptions): Record<string, (Option | React.ReactNode)[]> =>
-      Object.entries(optionsAll).reduce((result: Record<string, (Option | React.ReactNode)[]>, [type, options]): Record<string, (Option | React.ReactNode)[]> => {
+      Object.entries(optionsAll).reduce((result: Record<string, (Option | React.ReactNode)[]>, [type, options]): Record<
+        string,
+        (Option | React.ReactNode)[]
+      > => {
         result[type] = options.map((option): Option | React.ReactNode =>
-          option.value === null
-            ? createHeader(option)
-            : createItem(option)
+          option.value === null ? createHeader(option) : createItem(option)
         );
 
         return result;
-      }, {})
+      }, {}),
   })
 ) as ExportedType;
 

@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { truncate } from '@canvas-ui/react-util';
-import React from 'react';
-import styled from 'styled-components';
+import { truncate } from "@canvas-ui/react-util";
+import React from "react";
+import styled from "styled-components";
 
-import AccountName from '../AccountName';
-import IdentityIcon from '../IdentityIcon';
-import { useTranslation } from '../translate';
-import { BareProps } from '../types';
+import AccountName from "../AccountName";
+import IdentityIcon from "../IdentityIcon";
+import { useTranslation } from "../translate";
+import { BareProps } from "../types";
 
 interface Props extends BareProps {
   address: string;
@@ -54,46 +54,42 @@ const styles = `
   }
 `;
 
-function KeyPairNone ({ className }: BareProps): React.ReactElement<BareProps> {
+function KeyPairNone({ className }: BareProps): React.ReactElement<BareProps> {
   const { t } = useTranslation();
 
   return (
-    <div className={['ui--KeyPair', 'noAccount', className].join(' ')}>
-      <IdentityIcon
-        className='icon'
-        value='none'
-      />
-      <div className='info'>
-        <div className='name'>
-          {t('No Account')}
-        </div>
-        <div className='address'>
-          ...
-        </div>
+    <div className={["ui--KeyPair", "noAccount", className].join(" ")}>
+      <IdentityIcon className="icon" value="none" />
+      <div className="info">
+        <div className="name">{t("No Account")}</div>
+        <div className="address">...</div>
       </div>
     </div>
   );
 }
 
-function KeyPair ({ address, className }: Props): React.ReactElement<Props> {
+function KeyPair({ address, className }: Props): React.ReactElement<Props> {
   return (
-    <div className={['ui--KeyPair', className].join(' ')}>
-      <IdentityIcon
-        className='icon'
-        value={address}
-      />
-      <div className='info'>
-        <div className='name'>
+    <div className={["ui--KeyPair", className].join(" ")}>
+      <IdentityIcon className="icon" value={address} />
+      <div className="info">
+        <div className="name">
           <AccountName value={address} />
         </div>
-        <div className='address'>
-          {truncate(address, 8)}
-        </div>
+        <div className="address">{truncate(address, 8)}</div>
       </div>
     </div>
   );
 }
 
-export const NoAccount = React.memo(styled(KeyPairNone)`${styles}`);
+export const NoAccount = React.memo(
+  styled(KeyPairNone)`
+    ${styles}
+  `
+);
 
-export default React.memo(styled(KeyPair)`${styles}`);
+export default React.memo(
+  styled(KeyPair)`
+    ${styles}
+  `
+);

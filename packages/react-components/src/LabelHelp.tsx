@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { IconName } from '@fortawesome/fontawesome-svg-core';
+import type { IconName } from "@fortawesome/fontawesome-svg-core";
 
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
-import Icon from './Icon';
-import Tooltip from './Tooltip';
+import Icon from "./Icon";
+import Tooltip from "./Tooltip";
 
 interface Props {
   help: React.ReactNode;
@@ -17,19 +17,13 @@ interface Props {
 
 let id = 0;
 
-function LabelHelp ({ className = '', help, icon = 'question-circle' }: Props): React.ReactElement<Props> {
+function LabelHelp({ className = "", help, icon = "question-circle" }: Props): React.ReactElement<Props> {
   const [trigger] = useState(`label-help-${++id}`);
 
   return (
     <div className={`ui--LabelHelp ${className}`}>
-      <Icon
-        icon={icon}
-        tooltip={trigger}
-      />
-      <Tooltip
-        text={help}
-        trigger={trigger}
-      />
+      <Icon icon={icon} tooltip={trigger} />
+      <Tooltip text={help} trigger={trigger} />
     </div>
   );
 }

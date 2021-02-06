@@ -78,7 +78,7 @@ function InputBalance({
   value,
   withEllipsis,
   withLabel,
-  withMax
+  withMax,
 }: Props): React.ReactElement<Props> {
   const [defaultValue, setDefaultValue] = useState<string | undefined>();
 

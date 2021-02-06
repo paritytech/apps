@@ -33,14 +33,14 @@ async function submitRpc(
 
     return {
       result,
-      status: "sent"
+      status: "sent",
     };
   } catch (error) {
     console.error(error);
 
     return {
       error: error as Error,
-      status: "error"
+      status: "error",
     };
   }
 }
@@ -84,7 +84,7 @@ function extractCurrent(
 
   return {
     currentItem,
-    requestAddress: (currentItem && currentItem.accountId) || null
+    requestAddress: (currentItem && currentItem.accountId) || null,
   };
 }
 

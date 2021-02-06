@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { css } from 'styled-components';
+import { css } from "styled-components";
 
-import { ELEV_2_CSS, ELEV_3_CSS } from './constants';
+import { ELEV_2_CSS, ELEV_3_CSS } from "./constants";
 
 export default css`
   .ui.hidden.divider {
@@ -24,25 +24,29 @@ export default css`
     font-weight: normal;
     padding: 0.5rem 1rem;
     font-weight: normal;
-    transition: all .1s ease;
+    transition: all 0.1s ease;
   }
 
   .ui.checkbox {
     + label {
-      &, &:hover {
+      &,
+      &:hover {
         color: var(--grey50);
       }
     }
 
-    &.toggle .box:hover::before, &.toggle label:hover::before {
+    &.toggle .box:hover::before,
+    &.toggle label:hover::before {
       background: var(--grey30);
     }
 
-    &.toggle .box:before, &.toggle label:before {
+    &.toggle .box:before,
+    &.toggle label:before {
       background: var(--grey30);
     }
 
-    &.toggle input:focus~.box:before, &.toggle input:focus~label:before {
+    &.toggle input:focus ~ .box:before,
+    &.toggle input:focus ~ label:before {
       background: var(--grey30);
     }
   }
@@ -59,7 +63,8 @@ export default css`
   // }
 
   .ui.input {
-    > input, > input:focus {
+    > input,
+    > input:focus {
       font-family: var(--default-font-family, sans-serif);
       color: var(--grey80);
       ${ELEV_2_CSS}
@@ -82,7 +87,9 @@ export default css`
     color: var(--grey80);
     border: 1px solid var(--grey20);
 
-    > .delete.icon, > .dropdown.icon, > .search.icon {
+    > .delete.icon,
+    > .dropdown.icon,
+    > .search.icon {
       font-size: 1rem;
       height: 100%;
       display: flex;
@@ -151,23 +158,26 @@ export default css`
   }
 
   .ui.selection.active.dropdown {
-    &, &:hover {
+    &,
+    &:hover {
       border-color: var(--blue-primary);
 
       .menu {
-        &, &:hover {
+        &,
+        &:hover {
           border-color: var(--blue-primary);
         }
       }
     }
   }
 
-  .ui.selection.visible.dropdown>.text:not(.default) {
+  .ui.selection.visible.dropdown > .text:not(.default) {
     color: var(--grey80);
   }
 
   .ui.selection.dropdown .menu > .item {
-    &, &:hover {
+    &,
+    &:hover {
       border-top: 0;
       color: var(--grey80);
     }
@@ -230,7 +240,7 @@ export default css`
   .ui.modal {
     ${ELEV_3_CSS}
     box-shadow: none;
-    font-family: var(--default-font-family, sans-serif);;
+    font-family: var(--default-font-family, sans-serif);
     max-width: 572px;
 
     > .actions,
@@ -252,7 +262,7 @@ export default css`
     > .header:not(.ui) {
       background: transparent;
       border-bottom: none;
-      font-family: var(--default-font-family, sans-serif);;
+      font-family: var(--default-font-family, sans-serif);
       font-size: 1.5rem;
       font-weight: normal;
       line-height: 1.25rem;
@@ -275,7 +285,7 @@ export default css`
 
   .ui.progress {
     &.tiny {
-      font-size: .5rem;
+      font-size: 0.5rem;
     }
 
     .bar {
@@ -304,18 +314,18 @@ export default css`
     opacity: 0.2 !important;
   }
 
-  .ui.button+.ui.button {
+  .ui.button + .ui.button {
     margin-left: 0.5rem;
   }
 
   /* modals aligned to top, not center */
   .ui.dimmer {
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
     justify-content: flex-start;
   }
 
   .ui.menu {
-    font-family: var(--default-font-family, sans-serif);;
+    font-family: var(--default-font-family, sans-serif);
   }
 
   .ui.menu.tabular {
@@ -337,7 +347,7 @@ export default css`
       top: -1px;
 
       &.active {
-        background: none;;
+        background: none;
         border-bottom: 2px solid #db2828;
       }
     }

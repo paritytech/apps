@@ -1,124 +1,118 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from '@canvas-ui/react-api';
+import { registry } from "@canvas-ui/react-api";
 
-import { createType, getTypeDef, Raw } from '@polkadot/types';
-import { TypeDef, TypeDefInfo } from '@polkadot/types/types';
-import { BN_ZERO, isBn } from '@polkadot/util';
+import { createType, getTypeDef, Raw } from "@polkadot/types";
+import { TypeDef, TypeDefInfo } from "@polkadot/types/types";
+import { BN_ZERO, isBn } from "@polkadot/util";
 
 const warnList: string[] = [];
 
-export default function getInitValue (def: TypeDef): unknown {
+export default function getInitValue(def: TypeDef): unknown {
   if (def.info === TypeDefInfo.Vec) {
     return [getInitValue(def.sub as TypeDef)];
   } else if (def.info === TypeDefInfo.Tuple) {
-    return Array.isArray(def.sub)
-      ? def.sub.map((def) => getInitValue(def))
-      : [];
+    return Array.isArray(def.sub) ? def.sub.map(def => getInitValue(def)) : [];
   } else if (def.info === TypeDefInfo.Struct) {
     return Array.isArray(def.sub)
       ? def.sub.reduce((result: Record<string, unknown>, def): Record<string, unknown> => {
-        result[def.name as string] = getInitValue(def);
+          result[def.name as string] = getInitValue(def);
 
-        return result;
-      }, {})
+          return result;
+        }, {})
       : {};
   } else if (def.info === TypeDefInfo.Enum) {
-    return Array.isArray(def.sub)
-      ? { [def.sub[0].name as string]: getInitValue(def.sub[0]) }
-      : {};
+    return Array.isArray(def.sub) ? { [def.sub[0].name as string]: getInitValue(def.sub[0]) } : {};
   }
 
-  const type = [TypeDefInfo.Compact, TypeDefInfo.Option].includes(def.info)
-    ? (def.sub as TypeDef).type
-    : def.type;
+  const type = [TypeDefInfo.Compact, TypeDefInfo.Option].includes(def.info) ? (def.sub as TypeDef).type : def.type;
 
   switch (type) {
-    case 'AccountIndex':
-    case 'Balance':
-    case 'BalanceOf':
-    case 'BlockNumber':
-    case 'Compact':
-    case 'Gas':
-    case 'Index':
-    case 'Nonce':
-    case 'ParaId':
-    case 'PropIndex':
-    case 'ProposalIndex':
-    case 'ReferendumIndex':
-    case 'i8':
-    case 'i16':
-    case 'i32':
-    case 'i64':
-    case 'i128':
-    case 'u8':
-    case 'u16':
-    case 'u32':
-    case 'u64':
-    case 'u128':
-    case 'VoteIndex':
+    case "AccountIndex":
+    case "Balance":
+    case "BalanceOf":
+    case "BlockNumber":
+    case "Compact":
+    case "Gas":
+    case "Index":
+    case "Nonce":
+    case "ParaId":
+    case "PropIndex":
+    case "ProposalIndex":
+    case "ReferendumIndex":
+    case "i8":
+    case "i16":
+    case "i32":
+    case "i64":
+    case "i128":
+    case "u8":
+    case "u16":
+    case "u32":
+    case "u64":
+    case "u128":
+    case "VoteIndex":
       return BN_ZERO;
 
-    case 'bool':
+    case "bool":
       return false;
 
-    case 'Bytes':
+    case "Bytes":
       return undefined;
 
-    case 'String':
-    case 'Text':
-      return '';
+    case "String":
+    case "Text":
+      return "";
 
-    case 'Moment':
+    case "Moment":
       return BN_ZERO;
 
-    case 'Vote':
+    case "Vote":
       return -1;
 
-    case 'VoteThreshold':
+    case "VoteThreshold":
       return 0;
 
-    case 'BlockHash':
-    case 'CodeHash':
-    case 'Hash':
-    case 'H256':
-      return createType(registry, 'H256');
+    case "BlockHash":
+    case "CodeHash":
+    case "Hash":
+    case "H256":
+      return createType(registry, "H256");
 
-    case 'H512':
-      return createType(registry, 'H512');
+    case "H512":
+      return createType(registry, "H512");
 
-    case 'Raw':
-    case 'Keys':
-      return '';
+    case "Raw":
+    case "Keys":
+      return "";
 
-    case 'AccountId':
-    case 'AccountIdOf':
-    case 'Address':
-    case 'Call':
-    case 'CandidateReceipt':
-    case 'Digest':
-    case 'Header':
-    case 'KeyValue':
-    case 'MisbehaviorReport':
-    case 'Proposal':
-    case 'Signature':
-    case 'SessionKey':
-    case 'StorageKey':
-    case 'ValidatorId':
+    case "AccountId":
+    case "AccountIdOf":
+    case "Address":
+    case "Call":
+    case "CandidateReceipt":
+    case "Digest":
+    case "Header":
+    case "KeyValue":
+    case "MisbehaviorReport":
+    case "Proposal":
+    case "Signature":
+    case "SessionKey":
+    case "StorageKey":
+    case "ValidatorId":
       return undefined;
 
-    case 'Extrinsic':
+    case "Extrinsic":
       return new Raw(registry);
 
-    case 'Null':
+    case "Null":
       return null;
 
     default: {
       let error: string | null = null;
 
       try {
-        const instance = createType(registry, type as 'u32');
+        const instance = createType(registry, type as "u32");
         const raw = getTypeDef(instance.toRawType());
 
         if (isBn(instance)) {
@@ -136,10 +130,12 @@ export default function getInitValue (def: TypeDef): unknown {
       if (!warnList.includes(type)) {
         warnList.push(type);
         error && console.error(`params: initValue: ${error}`);
-        console.info(`params: initValue: No default value for type ${type} from ${JSON.stringify(def)}, using defaults`);
+        console.info(
+          `params: initValue: No default value for type ${type} from ${JSON.stringify(def)}, using defaults`
+        );
       }
 
-      return '0x';
+      return "0x";
     }
   }
 }

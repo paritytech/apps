@@ -30,7 +30,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
         setName(name);
       }
     },
-    validate: (file: FileState) => file?.data.subarray(0, 4).toString() === "0,97,115,109"
+    validate: (file: FileState) => file?.data.subarray(0, 4).toString() === "0,97,115,109",
   });
   const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });

@@ -26,7 +26,7 @@ function Messages(props: Props): React.ReactElement<Props> {
     abi: { constructors, messages },
     className = "",
     isLabelled,
-    /* isRemovable, onRemove = NOOP, */ withConstructors
+    /* isRemovable, onRemove = NOOP, */ withConstructors,
   } = props;
 
   return (

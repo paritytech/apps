@@ -23,7 +23,7 @@ import {
   QueueTxExtrinsic,
   QueueTxRpc,
   QueueTxStatus,
-  SignerCallback
+  SignerCallback,
 } from "@canvas-ui/react-api/Status/types";
 
 export interface Props extends BareProps {
@@ -85,14 +85,14 @@ function extractEvents(result?: SubmittableResult): ActionStatus[] {
             return {
               action: `${section}.${method}`,
               message,
-              status: "error"
+              status: "error",
             };
           }
 
           return {
             action: `${section}.${method}`,
             message: "extrinsic event",
-            status: "event"
+            status: "event",
           };
         }
       )
@@ -118,7 +118,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
       const id = ++nextId;
       const removeItem = (): void =>
         setTxQueue([
-          ...txRef.current.map((item): QueueTx => (item.id === id ? { ...item, status: "completed" } : item))
+          ...txRef.current.map((item): QueueTx => (item.id === id ? { ...item, status: "completed" } : item)),
         ]);
 
       setTxQueue([
@@ -128,8 +128,8 @@ function Queue({ children }: Props): React.ReactElement<Props> {
           id,
           removeItem,
           rpc: (value as QueueTxRpc).rpc || SUBMIT_RPC,
-          status: "queued"
-        }
+          status: "queued",
+        },
       ]);
     },
     [setTxQueue]
@@ -152,16 +152,16 @@ function Queue({ children }: Props): React.ReactElement<Props> {
                 ...item,
                 id,
                 isCompleted: false,
-                removeItem
+                removeItem,
               };
             }
-          )
+          ),
         ]);
     },
     [setStQueue]
   );
   const queueExtrinsic = useCallback((value: PartialQueueTxExtrinsic): void => addToTxQueue({ ...value }), [
-    addToTxQueue
+    addToTxQueue,
   ]);
   const queuePayload = useCallback(
     (payload: SignerPayloadJSON, signerCb: SignerCallback): void =>
@@ -175,7 +175,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
           { version: payload.version }
         ) as unknown) as SubmittableExtrinsic,
         payload,
-        signerCb
+        signerCb,
       }),
     [addToTxQueue]
   );
@@ -190,10 +190,10 @@ function Queue({ children }: Props): React.ReactElement<Props> {
                   ...item,
                   error: error === undefined ? item.error : error,
                   result: result === undefined ? (item.result as SubmittableResult) : result,
-                  status: item.status === "completed" ? item.status : status
+                  status: item.status === "completed" ? item.status : status,
                 }
               : item
-        )
+        ),
       ]);
 
       queueAction(extractEvents(result));
@@ -218,7 +218,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
         queueRpc,
         queueSetTxStatus,
         stqueue,
-        txqueue
+        txqueue,
       }}
     >
       {children}

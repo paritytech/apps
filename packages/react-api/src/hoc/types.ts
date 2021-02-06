@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
+import React from "react";
 
-import { OnChangeCb } from '../types';
+import { OnChangeCb } from "../types";
 
 export type Transform = (value: any, index: number) => any;
 
@@ -32,7 +32,11 @@ export type RenderFn = (value?: any) => React.ReactNode;
 
 export type StorageTransform = (input: any, index: number) => any | null;
 
-export type HOC = (Component: React.ComponentType<any>, defaultProps?: DefaultProps, render?: RenderFn) => React.ComponentType<any>;
+export type HOC = (
+  Component: React.ComponentType<any>,
+  defaultProps?: DefaultProps,
+  render?: RenderFn
+) => React.ComponentType<any>;
 
 export interface ApiMethod {
   name: string;

@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util';
-import React from 'react';
-import styled from 'styled-components';
+import { classes } from "@canvas-ui/react-util";
+import React from "react";
+import styled from "styled-components";
 
-import LabelHelp from './LabelHelp';
-import { BareProps } from './types';
+import LabelHelp from "./LabelHelp";
+import { BareProps } from "./types";
 
 interface Props extends BareProps {
   help?: React.ReactNode;
@@ -24,9 +24,7 @@ interface Props extends BareProps {
   withLabel?: boolean;
 }
 
-const defaultLabel: React.ReactNode = (
-  <div>&nbsp;</div>
-);
+const defaultLabel: React.ReactNode = <div>&nbsp;</div>;
 
 const Wrapper = styled.div`
   display: block;
@@ -38,7 +36,7 @@ const Wrapper = styled.div`
     &.withEllipsis {
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;  
+      white-space: nowrap;
     }
 
     &.isMonospace {
@@ -86,7 +84,7 @@ const Wrapper = styled.div`
     }
 
     .labelExtra {
-      color: rgba(78, 78, 78, .85);
+      color: rgba(78, 78, 78, 0.85);
       font-weight: 100;
       right: 1.75rem;
       text-align: right;
@@ -103,7 +101,7 @@ const Wrapper = styled.div`
       .ui.selection.dropdown {
         &.floating {
           .text {
-            padding: 0.45rem 0
+            padding: 0.45rem 0;
           }
         }
 
@@ -129,25 +127,46 @@ const Wrapper = styled.div`
   }
 `;
 
-function Labelled ({ className = '', children, help, isFull, isHidden, isIndented, isLabelMonospace, isMonospace, isOuter, isSmall, label = defaultLabel, labelExtra, withEllipsis, withLabel = true }: Props): React.ReactElement<Props> | null {
+function Labelled({
+  className = "",
+  children,
+  help,
+  isFull,
+  isHidden,
+  isIndented,
+  isLabelMonospace,
+  isMonospace,
+  isOuter,
+  isSmall,
+  label = defaultLabel,
+  labelExtra,
+  withEllipsis,
+  withLabel = true,
+}: Props): React.ReactElement<Props> | null {
   if (isHidden) {
     return null;
   }
 
   return (
-    <Wrapper className={classes('ui--Labelled', isIndented && 'label-indented', isSmall && 'label-small', isFull && 'label-full', isMonospace && 'label-monospace', isOuter && 'label-outer', className)}>
+    <Wrapper
+      className={classes(
+        "ui--Labelled",
+        isIndented && "label-indented",
+        isSmall && "label-small",
+        isFull && "label-full",
+        isMonospace && "label-monospace",
+        isOuter && "label-outer",
+        className
+      )}
+    >
       {withLabel && (
         <label>
-          <div className={classes(withEllipsis && 'withEllipsis', isLabelMonospace && 'isMonospace')}>
-            {label}
-          </div>
+          <div className={classes(withEllipsis && "withEllipsis", isLabelMonospace && "isMonospace")}>{label}</div>
           {help && <LabelHelp help={help} />}
         </label>
       )}
-      {labelExtra && <div className='labelExtra'>{labelExtra}</div>}
-      <div className='ui--Labelled-content'>
-        {children}
-      </div>
+      {labelExtra && <div className="labelExtra">{labelExtra}</div>}
+      <div className="ui--Labelled-content">{children}</div>
     </Wrapper>
   );
 }

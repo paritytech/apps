@@ -166,7 +166,7 @@ function signQrPayload(setQrState: (state: QrState) => void): (payload: SignerPa
         qrAddress: payload.address,
         qrPayload,
         qrReject: reject,
-        qrResolve: resolve
+        qrResolve: resolve,
       });
     });
 }
@@ -218,7 +218,7 @@ async function extractParams(
 ): Promise<["qr" | "signing", KeyringPair | string, Partial<SignerOptions>]> {
   const pair = keyring.getPair(address);
   const {
-    meta: { isExternal, isHardware, isInjected, source }
+    meta: { isExternal, isHardware, isInjected, source },
   } = pair;
 
   if (isHardware) {
@@ -247,7 +247,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
     isQrHashed: false,
     isQrVisible: false,
     qrAddress: "",
-    qrPayload: new Uint8Array()
+    qrPayload: new Uint8Array(),
   });
   // const [isRenderError, toggleRenderError] = useToggle();
   // const [isSubmit, setIsSubmit] = useState(true);
@@ -258,7 +258,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
     multiRoot: null,
     proxyRoot: null,
     signAddress: requestAddress,
-    signPassword: ""
+    signPassword: "",
   });
   const [signedOptions, setSignedOptions] = useState<Partial<SignerOptions>>({});
   const [signedTx, setSignedTx] = useState<string | null>(null);
@@ -273,7 +273,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
       multiRoot: null,
       proxyRoot: null,
       signAddress: requestAddress,
-      signPassword: ""
+      signPassword: "",
     });
   }, [requestAddress]);
 
@@ -298,7 +298,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
       qrResolve &&
       qrResolve({
         id: ++qrId,
-        signature
+        signature,
       }),
     [qrResolve]
   );
@@ -336,7 +336,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
     if (_unlock() && currentItem?.extrinsic && senderInfo.signAddress) {
       const [tx, [status, pairOrAddress, options]] = await Promise.all([
         wrapTx(api, currentItem, senderInfo),
-        extractParams(senderInfo.signAddress, { tip }, setQrState)
+        extractParams(senderInfo.signAddress, { tip }, setQrState),
       ]);
 
       queueSetTxStatus(currentItem.id, status);
@@ -354,7 +354,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
     if (_unlock() && currentItem && senderInfo.signAddress) {
       const [tx, [, pairOrAddress, options]] = await Promise.all([
         wrapTx(api, currentItem, senderInfo),
-        extractParams(senderInfo.signAddress, { ...signedOptions, tip }, setQrState)
+        extractParams(senderInfo.signAddress, { ...signedOptions, tip }, setQrState),
       ]);
 
       setSignedTx(await signAsync(queueSetTxStatus, currentItem, tx, pairOrAddress, options));
@@ -384,6 +384,6 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
     signedOptions,
     signedTx,
     tip,
-    tx: currentItem
+    tx: currentItem,
   };
 }

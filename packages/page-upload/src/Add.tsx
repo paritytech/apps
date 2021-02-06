@@ -23,7 +23,7 @@ function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
   const showNotification = useNotification();
   const [codeHash, setCodeHash, , , isCodeHashTouched] = useNonEmptyString();
   const codeStorage = useCall<Option<PrefabWasmModule>>((api.query.contracts || api.query.contract).codeStorage, [
-    codeHash
+    codeHash,
   ]);
   const [name, setName, isNameValid, isNameError] = useNonEmptyString();
   const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
@@ -65,7 +65,7 @@ function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
         showNotification({
           action: truncate(codeHash, 12),
           message: t<string>("code bundle added"),
-          status: "success"
+          status: "success",
         });
 
         navigateTo.uploadSuccess(id)();
@@ -76,7 +76,7 @@ function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
         showNotification({
           action: truncate(codeHash, 12),
           message: (error as Error).message,
-          status: "error"
+          status: "error",
         });
       });
   }, [abi, codeHash, name, navigateTo, showNotification, t]);

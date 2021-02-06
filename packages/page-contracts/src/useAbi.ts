@@ -41,7 +41,7 @@ export default function useAbi(source: Code | null = null, isRequired = false): 
     ? [
         source.abi ? new Abi(source.abi, api.registry.getChainProperties()) : null,
         !!source?.abi,
-        !isRequired || !!source.abi
+        !isRequired || !!source.abi,
       ]
     : [null, false, false];
   const [[abi, isAbiSupplied, isAbiValid], setAbi] = useState<State>(initialState);
@@ -93,6 +93,6 @@ export default function useAbi(source: Code | null = null, isRequired = false): 
     isAbiSupplied,
     isAbiValid,
     onChangeAbi,
-    onRemoveAbi
+    onRemoveAbi,
   };
 }

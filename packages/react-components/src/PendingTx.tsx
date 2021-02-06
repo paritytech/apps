@@ -33,7 +33,7 @@ function PendingTx({
   currentItem,
   instructions,
   registry,
-  requestAddress
+  requestAddress,
 }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const willSend = useRef(false);
@@ -46,7 +46,7 @@ function PendingTx({
   }, [onSend]);
 
   useEffect((): (() => void) => {
-    return function(): void {
+    return function (): void {
       if (!willSend.current) {
         onCancel();
       }

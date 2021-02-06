@@ -37,6 +37,6 @@ export default function useAppNavigation(): WithCodes {
     allCodes,
     hasCodes,
     isLoading,
-    updated
+    updated,
   };
 }
