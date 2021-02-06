@@ -1,29 +1,29 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import createRoutes from "@canvas-ui/apps-routing";
-import { Route } from "@canvas-ui/apps-routing/types";
-import { ErrorBoundary, GuideModal, Icon, WithLoader } from "@canvas-ui/react-components";
-import { StatusContext } from "@canvas-ui/react-components/Status/Status";
-import { ELEV_3_CSS } from "@canvas-ui/react-components/styles/constants";
-import { useApi } from "@canvas-ui/react-hooks";
-import { classes } from "@canvas-ui/react-util";
-import React, { Suspense, useCallback, useContext, useMemo } from "react";
-import { useLocation } from "react-router-dom";
-import store from "store";
-import styled from "styled-components";
+import createRoutes from '@canvas-ui/apps-routing';
+import { Route } from '@canvas-ui/apps-routing/types';
+import { ErrorBoundary, GuideModal, Icon, WithLoader } from '@canvas-ui/react-components';
+import { StatusContext } from '@canvas-ui/react-components/Status/Status';
+import { ELEV_3_CSS } from '@canvas-ui/react-components/styles/constants';
+import { useApi } from '@canvas-ui/react-hooks';
+import { classes } from '@canvas-ui/react-util';
+import React, { Suspense, useCallback, useContext, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
+import store from 'store';
+import styled from 'styled-components';
 
-import HelpWidget from "../HelpWidget";
-import { useTranslation } from "../translate";
-import useAppNavigation from "../useAppNavigation";
-import NotFound from "./NotFound";
-import Status from "./Status";
+import HelpWidget from '../HelpWidget';
+import { useTranslation } from '../translate';
+import useAppNavigation from '../useAppNavigation';
+import NotFound from './NotFound';
+import Status from './Status';
 
 interface Props {
   className?: string;
 }
 
-const sawGuideKey = "sawGuideKey";
+const sawGuideKey = 'sawGuideKey';
 
 const NOT_FOUND: Route = {
   Component: NotFound,
@@ -31,8 +31,8 @@ const NOT_FOUND: Route = {
     needsApi: undefined,
   },
   isIgnored: false,
-  name: "unknown",
-  text: "Unknown",
+  name: 'unknown',
+  text: 'Unknown',
 };
 
 function Content({ className }: Props): React.ReactElement<Props> {
@@ -46,7 +46,7 @@ function Content({ className }: Props): React.ReactElement<Props> {
     display: { needsApi },
     name,
   } = useMemo((): Route => {
-    const app = location.pathname.slice(1) || "";
+    const app = location.pathname.slice(1) || '';
     const found = createRoutes(t).find(route => !!(route && app.startsWith(route.name)));
 
     return found || NOT_FOUND;
@@ -56,15 +56,15 @@ function Content({ className }: Props): React.ReactElement<Props> {
     store.set(sawGuideKey, true);
   }, []);
 
-  if (!isApiConnected && name !== "settings") {
+  if (!isApiConnected && name !== 'settings') {
     return (
       <div className={className}>
         <div className="disconnected">
           <div>
             <Icon icon="warning-circle" />
-            {t<string>("You are not connected to a node.")}
+            {t<string>('You are not connected to a node.')}
             <br />
-            {t<string>("Ensure that your node is running and that your Websocket endpoint is reachable.")}
+            {t<string>('Ensure that your node is running and that your Websocket endpoint is reachable.')}
           </div>
         </div>
       </div>
@@ -76,11 +76,11 @@ function Content({ className }: Props): React.ReactElement<Props> {
   const sawGuide = !!store.get(sawGuideKey) || false;
 
   return (
-    <div className={classes(className, isLoading && "isLoading")}>
-      <WithLoader isLoading={isLoading} text={t<string>("Initializing connection")}>
+    <div className={classes(className, isLoading && 'isLoading')}>
+      <WithLoader isLoading={isLoading} text={t<string>('Initializing connection')}>
         <Suspense
           fallback={
-            <WithLoader text={t<string>("Loading")}>
+            <WithLoader text={t<string>('Loading')}>
               <div />
             </WithLoader>
           }

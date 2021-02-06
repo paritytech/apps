@@ -1,16 +1,16 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState } from 'react';
 
-import { isWasm } from "@polkadot/util";
+import { isWasm } from '@polkadot/util';
 
-import { Props } from "../types";
-import Bytes from "./Bytes";
-import BytesFile from "./File";
+import { Props } from '../types';
+import Bytes from './Bytes';
+import BytesFile from './File';
 
 function Code({
-  className = "",
+  className = '',
   defaultValue,
   isDisabled,
   isError,

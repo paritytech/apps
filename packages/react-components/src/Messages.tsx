@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from "./types";
-import { classes } from "@canvas-ui/react-util";
-import React from "react";
-import styled from "styled-components";
+import { BareProps } from './types';
+import { classes } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import { Abi } from "@polkadot/api-contract";
+import { Abi } from '@polkadot/api-contract';
 
-import Message from "./Message";
+import Message from './Message';
 
 export interface Props extends BareProps {
   abi: Abi;
@@ -24,13 +24,13 @@ export interface Props extends BareProps {
 function Messages(props: Props): React.ReactElement<Props> {
   const {
     abi: { constructors, messages },
-    className = "",
+    className = '',
     isLabelled,
     /* isRemovable, onRemove = NOOP, */ withConstructors,
   } = props;
 
   return (
-    <div className={classes(className, "ui--Messages", isLabelled && "labelled")}>
+    <div className={classes(className, 'ui--Messages', isLabelled && 'labelled')}>
       {withConstructors &&
         constructors.map(
           (constructor, index): React.ReactNode => (

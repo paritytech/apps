@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from "@canvas-ui/react-util";
-import { DropdownOptions } from "@canvas-ui/react-util/types";
-import React from "react";
+import { classes } from '@canvas-ui/react-util';
+import { DropdownOptions } from '@canvas-ui/react-util/types';
+import React from 'react';
 
-import { DefinitionRpcExt } from "@polkadot/types/types";
+import { DefinitionRpcExt } from '@polkadot/types/types';
 
-import Dropdown from "../Dropdown";
-import { BareProps } from "../types";
+import Dropdown from '../Dropdown';
+import { BareProps } from '../types';
 
 interface Props extends BareProps {
   defaultValue?: string;
@@ -19,7 +19,7 @@ interface Props extends BareProps {
 }
 
 function SelectSection({
-  className = "",
+  className = '',
   defaultValue,
   isError,
   onChange,
@@ -28,7 +28,7 @@ function SelectSection({
 }: Props): React.ReactElement<Props> {
   return (
     <Dropdown
-      className={classes("ui--DropdownLinked-Sections", className)}
+      className={classes('ui--DropdownLinked-Sections', className)}
       defaultValue={defaultValue}
       isError={isError}
       onChange={onChange}

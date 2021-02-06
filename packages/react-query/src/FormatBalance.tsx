@@ -1,22 +1,22 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from "@canvas-ui/react-api/types";
-import BN from "bn.js";
-import React, { useState } from "react";
-import styled from "styled-components";
+import { BareProps } from '@canvas-ui/react-api/types';
+import BN from 'bn.js';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import { Compact } from "@polkadot/types";
-import { formatBalance } from "@polkadot/util";
+import { Compact } from '@polkadot/types';
+import { formatBalance } from '@polkadot/util';
 
-import { useTranslation } from "./translate";
+import { useTranslation } from './translate';
 
 interface Props extends BareProps {
   children?: React.ReactNode;
   isShort?: boolean;
   label?: React.ReactNode;
   labelPost?: React.ReactNode;
-  value?: Compact<any> | BN | string | null | "all";
+  value?: Compact<any> | BN | string | null | 'all';
   withSi?: boolean;
 }
 
@@ -30,7 +30,7 @@ function format(
   withSi?: boolean,
   _isShort?: boolean
 ): React.ReactNode {
-  const [prefix, postfix] = formatBalance(value, { forceUnit: "-", withSi: false }).split(".");
+  const [prefix, postfix] = formatBalance(value, { forceUnit: '-', withSi: false }).split('.');
   const isShort = _isShort || (withSi && prefix.length >= K_LENGTH);
 
   if (prefix.length > M_LENGTH) {
@@ -43,9 +43,9 @@ function format(
       {prefix}
       {!isShort && (
         <>
-          .<span className="ui--FormatBalance-postfix">{`000${postfix || ""}`.slice(-3)}</span>
+          .<span className="ui--FormatBalance-postfix">{`000${postfix || ''}`.slice(-3)}</span>
         </>
-      )}{" "}
+      )}{' '}
       {currency}
     </>
   );
@@ -65,7 +65,7 @@ function format(
 
 function FormatBalance({
   children,
-  className = "",
+  className = '',
   isShort,
   label,
   labelPost,
@@ -77,9 +77,9 @@ function FormatBalance({
 
   return (
     <div className={`ui--FormatBalance ${className}`}>
-      {label || ""}
+      {label || ''}
       <span className="ui--FormatBalance-value">
-        {value ? (value === "all" ? t<string>("everything") : format(value, currency, withSi, isShort)) : "-"}
+        {value ? (value === 'all' ? t<string>('everything') : format(value, currency, withSi, isShort)) : '-'}
       </span>
       {labelPost}
       {children}

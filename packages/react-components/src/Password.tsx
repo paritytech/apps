@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
+import React from 'react';
 
-import Input from "./Input";
+import Input from './Input';
 
 interface Props {
   autoFocus?: boolean;
@@ -28,7 +28,7 @@ interface Props {
 function Password({
   autoFocus,
   children,
-  className = "",
+  className = '',
   defaultValue,
   help,
   isDisabled,

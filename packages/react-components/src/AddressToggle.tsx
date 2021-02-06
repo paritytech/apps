@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi, useCall } from "@canvas-ui/react-hooks";
-import { getAddressName } from "@canvas-ui/react-util";
-import React, { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
+import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { getAddressName } from '@canvas-ui/react-util';
+import React, { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { DeriveAccountInfo } from "@polkadot/api-derive/types";
+import { DeriveAccountInfo } from '@polkadot/api-derive/types';
 
-import AddressMini from "./AddressMini";
-import Toggle from "./Toggle";
+import AddressMini from './AddressMini';
+import Toggle from './Toggle';
 
 interface Props {
   address: string;
@@ -52,7 +52,7 @@ function getIsFiltered(address: string, filter?: string, info?: DeriveAccountInf
 
 function AddressToggle({
   address,
-  className = "",
+  className = '',
   filter,
   isHidden,
   noLookup,
@@ -72,8 +72,8 @@ function AddressToggle({
 
   return (
     <div
-      className={`ui--AddressToggle ${className} ${value || noToggle ? "isAye" : "isNay"} ${
-        isHidden || isFiltered ? "isHidden" : ""
+      className={`ui--AddressToggle ${className} ${value || noToggle ? 'isAye' : 'isNay'} ${
+        isHidden || isFiltered ? 'isHidden' : ''
       }`}
       onClick={_onClick}
     >

@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from "@canvas-ui/react-api/types";
-import BN from "bn.js";
-import React, { useEffect, useState } from "react";
+import { BareProps } from '@canvas-ui/react-api/types';
+import BN from 'bn.js';
+import React, { useEffect, useState } from 'react';
 
-import { bnToBn } from "@polkadot/util";
+import { bnToBn } from '@polkadot/util';
 
 type Ticker = (now: number) => void;
 
@@ -32,7 +32,7 @@ function tick(): void {
 function getDisplayValue(now = 0, value: BN | Date | number = 0): string {
   const tsValue =
     (value && (value as Date).getTime ? (value as Date).getTime() : bnToBn(value as number).toNumber()) || 0;
-  let display = "0.0 s";
+  let display = '0.0 s';
 
   if (now && tsValue) {
     const elapsed = Math.max(Math.abs(now - tsValue), 0) / 1000;
@@ -53,7 +53,7 @@ function getDisplayValue(now = 0, value: BN | Date | number = 0): string {
 
 tick();
 
-function Elapsed({ className = "", value }: Props): React.ReactElement<Props> {
+function Elapsed({ className = '', value }: Props): React.ReactElement<Props> {
   const [now, setNow] = useState(lastNow);
 
   useEffect((): (() => void) => {
@@ -66,7 +66,7 @@ function Elapsed({ className = "", value }: Props): React.ReactElement<Props> {
     };
   }, []);
 
-  return <div className={["ui--Elapsed", className].join(" ")}>{getDisplayValue(now, value)}</div>;
+  return <div className={['ui--Elapsed', className].join(' ')}>{getDisplayValue(now, value)}</div>;
 }
 
 export default React.memo(Elapsed);

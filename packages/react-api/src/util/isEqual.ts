@@ -7,7 +7,7 @@ function flatten(key: string | null, value?: unknown): unknown {
   }
 
   if ((value as Record<string, unknown>).$$typeof) {
-    return "";
+    return '';
   }
 
   if (Array.isArray(value)) {
@@ -22,7 +22,7 @@ export default function isEqual<T>(a?: T, b?: T, debug = false): boolean {
   const jsonB = JSON.stringify({ test: b }, flatten);
 
   if (debug) {
-    console.log("jsonA", jsonA, "jsonB", jsonB);
+    console.log('jsonA', jsonA, 'jsonB', jsonB);
   }
 
   return jsonA === jsonB;

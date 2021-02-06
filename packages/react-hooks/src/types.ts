@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { StringOrNull, VoidFn } from "@canvas-ui/react-util/types";
-import BN from "bn.js";
+import { StringOrNull, VoidFn } from '@canvas-ui/react-util/types';
+import BN from 'bn.js';
 
-import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
-import { DeriveAccountFlags, DeriveAccountRegistration } from "@polkadot/api-derive/types";
+import { SubmittableExtrinsic } from '@polkadot/api/promise/types';
+import { DeriveAccountFlags, DeriveAccountRegistration } from '@polkadot/api-derive/types';
 import {
   AccountId,
   Balance,
@@ -16,9 +16,9 @@ import {
   SessionIndex,
   StakingLedger,
   ValidatorPrefs,
-} from "@polkadot/types/interfaces";
-import { IExtrinsic } from "@polkadot/types/types";
-import { KeyringJson$Meta } from "@polkadot/ui-keyring/types";
+} from '@polkadot/types/interfaces';
+import { IExtrinsic } from '@polkadot/types/types';
+import { KeyringJson$Meta } from '@polkadot/ui-keyring/types';
 
 export type CallParam = any;
 

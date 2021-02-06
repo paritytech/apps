@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputNumber, Modal, Output } from "@canvas-ui/react-components";
-import { useApi } from "@canvas-ui/react-hooks";
-import BN from "bn.js";
-import React, { useCallback, useEffect, useState } from "react";
+import { InputNumber, Modal, Output } from '@canvas-ui/react-components';
+import { useApi } from '@canvas-ui/react-hooks';
+import BN from 'bn.js';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { SignerOptions } from "@polkadot/api/submittable/types";
-import { BN_ZERO } from "@polkadot/util";
+import { SignerOptions } from '@polkadot/api/submittable/types';
+import { BN_ZERO } from '@polkadot/util';
 
-import { useTranslation } from "./translate";
+import { useTranslation } from './translate';
 
 interface Props {
   address: string | null;
@@ -48,16 +48,16 @@ function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<
           <InputNumber
             isDisabled={!!signedTx}
             isZeroable
-            label={t<string>("Nonce")}
-            labelExtra={t<string>("Current account nonce: {{accountNonce}}", { replace: { accountNonce: nonce } })}
+            label={t<string>('Nonce')}
+            labelExtra={t<string>('Current account nonce: {{accountNonce}}', { replace: { accountNonce: nonce } })}
             onChange={_setNonce}
             value={nonce}
           />
           <InputNumber
             isDisabled={!!signedTx}
             isZeroable
-            label={t<string>("Lifetime (# of blocks)")}
-            labelExtra={t<string>("Set to 0 to make transaction immortal")}
+            label={t<string>('Lifetime (# of blocks)')}
+            labelExtra={t<string>('Set to 0 to make transaction immortal')}
             onChange={_setBlocks}
             value={blocks}
           />
@@ -65,7 +65,7 @@ function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<
         <Modal.Column>
           <p>
             {t<string>(
-              "Override any applicable values for the specific signed output. These will be used to construct and display the signed transaction."
+              'Override any applicable values for the specific signed output. These will be used to construct and display the signed transaction.'
             )}
           </p>
         </Modal.Column>
@@ -73,11 +73,11 @@ function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<
       {!!signedTx && (
         <Modal.Columns>
           <Modal.Column>
-            <Output isFull isTrimmed label={t<string>("Signed transaction")} value={signedTx} withCopy />
+            <Output isFull isTrimmed label={t<string>('Signed transaction')} value={signedTx} withCopy />
           </Modal.Column>
           <Modal.Column>
             {t<string>(
-              "The actual fully constructed signed output. This can be used for submission via other channels."
+              'The actual fully constructed signed output. This can be used for submission via other channels.'
             )}
           </Modal.Column>
         </Modal.Columns>

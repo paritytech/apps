@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from "./types";
-import { classes } from "@canvas-ui/react-util";
-import React from "react";
-import styled from "styled-components";
+import { BareProps } from './types';
+import { classes } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import { AbiMessage } from "@polkadot/api-contract/types";
-import { encodeTypeDef, TypeRegistry } from "@polkadot/types";
-import { CodecArg } from "@polkadot/types/types";
+import { AbiMessage } from '@polkadot/api-contract/types';
+import { encodeTypeDef, TypeRegistry } from '@polkadot/types';
+import { CodecArg } from '@polkadot/types/types';
 
-import Icon from "./Icon";
-import MessageArg from "./MessageArg";
-import Tooltip from "./Tooltip";
-import { useTranslation } from "./translate";
+import Icon from './Icon';
+import MessageArg from './MessageArg';
+import Tooltip from './Tooltip';
+import { useTranslation } from './translate';
 
 export interface Props extends BareProps {
   message: AbiMessage;
@@ -32,14 +32,14 @@ function MessageSignature({
   const { t } = useTranslation();
 
   return (
-    <div className={classes(className, isConstructor && "isConstructor")}>
+    <div className={classes(className, isConstructor && 'isConstructor')}>
       <span className="ui--MessageSignature-name">{identifier}</span>(
       {args.map(
         (arg, index): React.ReactNode => {
           return (
             <React.Fragment key={arg.name}>
               <MessageArg arg={arg} param={params[index]} registry={registry} />
-              {index < args.length - 1 && ", "}
+              {index < args.length - 1 && ', '}
             </React.Fragment>
           );
         }
@@ -47,11 +47,11 @@ function MessageSignature({
       )
       {!isConstructor && returnType && (
         <>
-          :{" "}
+          :{' '}
           <span className="ui--MessageSignature-returnType">
             {encodeTypeDef({
               ...returnType,
-              ...((returnType.displayName || "").length > 0 ? { displayName: returnType.displayName } : {}),
+              ...((returnType.displayName || '').length > 0 ? { displayName: returnType.displayName } : {}),
             })}
           </span>
         </>
@@ -59,13 +59,13 @@ function MessageSignature({
       {isMutating && (
         <>
           <Icon className="ui--MessageSignature-icon" data-for={`mutates-${identifier}`} data-tip icon="database" />
-          {withTooltip && <Tooltip text={t<string>("Mutates contract state")} trigger={`mutates-${identifier}`} />}
+          {withTooltip && <Tooltip text={t<string>('Mutates contract state')} trigger={`mutates-${identifier}`} />}
         </>
       )}
       {isPayable && (
         <>
           <Icon className="ui--MessageSignature-icon" data-for={`payable-${identifier}`} data-tip icon="paper-plane" />
-          {withTooltip && <Tooltip text={t<string>("Payable")} trigger={`payable-${identifier}`} />}
+          {withTooltip && <Tooltip text={t<string>('Payable')} trigger={`payable-${identifier}`} />}
         </>
       )}
     </div>

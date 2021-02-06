@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import store from "./store";
-import { WithCodes } from "@canvas-ui/react-components/types";
+import store from './store';
+import { WithCodes } from '@canvas-ui/react-components/types';
 
 export default function useAppNavigation(): WithCodes {
   const [isLoading, setIsLoading] = useState(true);
@@ -19,8 +19,8 @@ export default function useAppNavigation(): WithCodes {
   }, []);
 
   useEffect((): void => {
-    store.on("new-code", _triggerUpdate);
-    store.on("removed-code", _triggerUpdate);
+    store.on('new-code', _triggerUpdate);
+    store.on('removed-code', _triggerUpdate);
 
     store
       .loadAll()

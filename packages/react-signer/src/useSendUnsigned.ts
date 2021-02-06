@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { StatusContext } from "@canvas-ui/react-components/Status/Status";
-import { QueueTx, QueueTxMessageSetStatus } from "@canvas-ui/react-api/Status/types";
-import { VoidFn } from "@canvas-ui/react-util/types";
-import { useCallback, useContext } from "react";
+import { StatusContext } from '@canvas-ui/react-components/Status/Status';
+import { QueueTx, QueueTxMessageSetStatus } from '@canvas-ui/react-api/Status/types';
+import { VoidFn } from '@canvas-ui/react-util/types';
+import { useCallback, useContext } from 'react';
 
-import { SubmittableExtrinsic } from "@polkadot/api/types";
+import { SubmittableExtrinsic } from '@polkadot/api/types';
 
-import { handleTxResults } from "./util";
+import { handleTxResults } from './util';
 
 interface UseSendUnsigned {
   onCancel: VoidFn;
@@ -20,19 +20,19 @@ const NOOP = () => undefined;
 async function sendUnsigned(
   queueSetTxStatus: QueueTxMessageSetStatus,
   currentItem: QueueTx,
-  tx: SubmittableExtrinsic<"promise">
+  tx: SubmittableExtrinsic<'promise'>
 ): Promise<void> {
   currentItem.txStartCb && currentItem.txStartCb();
 
   try {
     const unsubscribe = await tx.send(
-      handleTxResults("send", queueSetTxStatus, currentItem, (): void => {
+      handleTxResults('send', queueSetTxStatus, currentItem, (): void => {
         unsubscribe();
       })
     );
   } catch (error) {
-    console.error("send: error:", error);
-    queueSetTxStatus(currentItem.id, "error", {}, error);
+    console.error('send: error:', error);
+    queueSetTxStatus(currentItem.id, 'error', {}, error);
 
     currentItem.txFailedCb && currentItem.txFailedCb(null);
   }
@@ -45,7 +45,7 @@ export default function useSendTx(currentItem: QueueTx): UseSendUnsigned {
     if (currentItem) {
       const { id, signerCb = NOOP, txFailedCb = NOOP } = currentItem;
 
-      queueSetTxStatus(id, "cancelled");
+      queueSetTxStatus(id, 'cancelled');
       signerCb(id, null);
       txFailedCb(null);
     }

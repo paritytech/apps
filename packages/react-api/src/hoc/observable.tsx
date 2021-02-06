@@ -3,14 +3,14 @@
 
 // TODO: Lots of duplicated code between this and withObservable, surely there is a better way of doing this?
 
-import React from "react";
-import { Observable, of } from "rxjs";
-import { catchError, map } from "rxjs/operators";
+import React from 'react';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-import echoTransform from "../transform/echo";
-import { CallState } from "../types";
-import { intervalObservable, isEqual, triggerChange } from "../util";
-import { DefaultProps, HOC, Options, RenderFn } from "./types";
+import echoTransform from '../transform/echo';
+import { CallState } from '../types';
+import { intervalObservable, isEqual, triggerChange } from '../util';
+import { DefaultProps, HOC, Options, RenderFn } from './types';
 
 interface State extends CallState {
   subscriptions: { unsubscribe: () => void }[];
@@ -18,7 +18,7 @@ interface State extends CallState {
 
 export default function withObservable<T, P>(
   observable: Observable<P>,
-  { callOnResult, propName = "value", transform = echoTransform }: Options = {}
+  { callOnResult, propName = 'value', transform = echoTransform }: Options = {}
 ): HOC {
   return (
     Inner: React.ComponentType<any>,

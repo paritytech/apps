@@ -1,35 +1,35 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { availableExtensions } from "@canvas-ui/apps-config/extensions";
-import { withMulti, withObservable } from "@canvas-ui/react-api/hoc";
-import { useApi } from "@canvas-ui/react-hooks";
-import { classes, getAddressName, toAddress as addressToAddress } from "@canvas-ui/react-util";
-import { StringOrNull } from "@canvas-ui/react-util/types";
-import { detect } from "detect-browser";
-import React, { useCallback, useMemo } from "react";
-import store from "store";
-import styled from "styled-components";
+import { availableExtensions } from '@canvas-ui/apps-config/extensions';
+import { withMulti, withObservable } from '@canvas-ui/react-api/hoc';
+import { useApi } from '@canvas-ui/react-hooks';
+import { classes, getAddressName, toAddress as addressToAddress } from '@canvas-ui/react-util';
+import { StringOrNull } from '@canvas-ui/react-util/types';
+import { detect } from 'detect-browser';
+import React, { useCallback, useMemo } from 'react';
+import store from 'store';
+import styled from 'styled-components';
 
-import { keyring } from "@polkadot/ui-keyring";
+import { keyring } from '@polkadot/ui-keyring';
 // import keyringOption from '@polkadot/ui-keyring/options';
-import { createOptionItem } from "@polkadot/ui-keyring/options/item";
+import { createOptionItem } from '@polkadot/ui-keyring/options/item';
 import {
   KeyringOption$Type,
   KeyringOptions,
   KeyringSectionOption,
   KeyringSectionOptions,
-} from "@polkadot/ui-keyring/options/types";
-import { isNull, isUndefined } from "@polkadot/util";
+} from '@polkadot/ui-keyring/options/types';
+import { isNull, isUndefined } from '@polkadot/util';
 
-import Dropdown from "../Dropdown";
-import InputStatus from "../InputStatus";
-import { useTranslation } from "../translate";
-import { BareProps } from "../types";
-import createHeader from "./createHeader";
-import createItem from "./createItem";
-import { NoAccount } from "./KeyPair";
-import { Option } from "./types";
+import Dropdown from '../Dropdown';
+import InputStatus from '../InputStatus';
+import { useTranslation } from '../translate';
+import { BareProps } from '../types';
+import createHeader from './createHeader';
+import createItem from './createItem';
+import { NoAccount } from './KeyPair';
+import { Option } from './types';
 
 interface Props extends BareProps {
   defaultValue?: Uint8Array | string | null;
@@ -53,7 +53,7 @@ interface Props extends BareProps {
   withLabel?: boolean;
 }
 
-type Browser = "chrome" | "firefox";
+type Browser = 'chrome' | 'firefox';
 
 type ExportedType = React.ComponentType<Props> & {
   createOption: (option: KeyringSectionOption, isUppercase?: boolean) => Option;
@@ -65,8 +65,8 @@ type ExportedType = React.ComponentType<Props> & {
 //   value?: string | string[];
 // }
 
-const STORAGE_KEY = "options:InputAddress";
-const DEFAULT_TYPE = "all";
+const STORAGE_KEY = 'options:InputAddress';
+const DEFAULT_TYPE = 'all';
 const MULTI_DEFAULT: string[] = [];
 
 const browserInfo = detect();
@@ -77,7 +77,7 @@ function transformToAddress(value?: string | Uint8Array | null): string | null {
   try {
     return addressToAddress(value) || null;
   } catch (error) {
-    console.error("Unable to transform address", value);
+    console.error('Unable to transform address', value);
   }
 
   return null;
@@ -140,7 +140,7 @@ function renderLabel({ value }: KeyringSectionOption): React.ReactNode {
 }
 
 function InputAddress({
-  className = "",
+  className = '',
   defaultValue,
   filter,
   help,
@@ -284,7 +284,7 @@ function InputAddress({
   if (!hasOptions) {
     return (
       <Dropdown
-        className={classes("ui--InputAddress", hideAddress && "hideAddress", className)}
+        className={classes('ui--InputAddress', hideAddress && 'hideAddress', className)}
         defaultValue={_defaultValue}
         help={help}
         isDisabled
@@ -295,15 +295,15 @@ function InputAddress({
         onSearch={onSearch}
         options={[
           {
-            key: "none",
-            name: "none",
+            key: 'none',
+            name: 'none',
             text: <NoAccount />,
-            value: "none",
+            value: 'none',
           },
         ]}
         placeholder={placeholder}
         renderLabel={isMultiple ? renderLabel : undefined}
-        value={"none"}
+        value={'none'}
         withEllipsis={withEllipsis}
         withLabel={withLabel}
       >
@@ -311,12 +311,12 @@ function InputAddress({
           <InputStatus
             text={
               <>
-                {t("Please reload this app with the")}{" "}
+                {t('Please reload this app with the')}{' '}
                 <a href={availableExtensions[browserName][0].link} rel="noopener noreferrer" target="_blank">
-                  {t("Polkadot extension")}
-                </a>{" "}
-                {t("to show available accounts")}
-                {"."}
+                  {t('Polkadot extension')}
+                </a>{' '}
+                {t('to show available accounts')}
+                {'.'}
               </>
             }
           />
@@ -327,7 +327,7 @@ function InputAddress({
 
   return (
     <Dropdown
-      className={classes("ui--InputAddress", hideAddress && "hideAddress", className)}
+      className={classes('ui--InputAddress', hideAddress && 'hideAddress', className)}
       defaultValue={_defaultValue}
       help={help}
       isDisabled={isDisabled || !hasOptions}
@@ -346,7 +346,7 @@ function InputAddress({
     >
       {!hasInjectedAccounts && actualOptions.length === 0 && (
         <InputStatus
-          text={<>{t("Please reload this app with the Polkadot extension to show available accounts.")}</>}
+          text={<>{t('Please reload this app with the Polkadot extension to show available accounts.')}</>}
         />
       )}
     </Dropdown>
@@ -389,7 +389,7 @@ const ExportedComponent = withMulti(
     }
   `,
   withObservable(keyring.keyringOption.optionsSubject, {
-    propName: "optionsAll",
+    propName: 'optionsAll',
     transform: (optionsAll: KeyringOptions): Record<string, (Option | React.ReactNode)[]> =>
       Object.entries(optionsAll).reduce((result: Record<string, (Option | React.ReactNode)[]>, [type, options]): Record<
         string,

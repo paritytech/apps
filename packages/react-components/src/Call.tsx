@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import Params from "@canvas-ui/react-params";
-import { FormatBalance } from "@canvas-ui/react-query";
-import { classes } from "@canvas-ui/react-util";
-import BN from "bn.js";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import Params from '@canvas-ui/react-params';
+import { FormatBalance } from '@canvas-ui/react-query';
+import { classes } from '@canvas-ui/react-util';
+import BN from 'bn.js';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { GenericCall, getTypeDef } from "@polkadot/types";
-import { Hash } from "@polkadot/types/interfaces";
-import { Codec, IExtrinsic, IMethod, TypeDef } from "@polkadot/types/types";
+import { GenericCall, getTypeDef } from '@polkadot/types';
+import { Hash } from '@polkadot/types/interfaces';
+import { Codec, IExtrinsic, IMethod, TypeDef } from '@polkadot/types/types';
 
-import Static from "./Static";
-import { useTranslation } from "./translate";
-import { BareProps } from "./types";
+import Static from './Static';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 export interface Props extends BareProps {
   children?: React.ReactNode;
@@ -45,7 +45,7 @@ interface Extracted {
 
 function Call({
   children,
-  className = "",
+  className = '',
   labelHash,
   mortality,
   onError,
@@ -76,22 +76,22 @@ function Call({
   }, [value, withHash]);
 
   return (
-    <div className={classes("ui--Extrinsic", className)}>
+    <div className={classes('ui--Extrinsic', className)}>
       <Params isDisabled onError={onError} params={params} values={values} withBorder={withBorder} />
       {children}
       <div className="ui--Extrinsic--toplevel">
         {hash && (
-          <Static className="hash" label={labelHash || t<string>("extrinsic hash")}>
+          <Static className="hash" label={labelHash || t<string>('extrinsic hash')}>
             {hash.toHex()}
           </Static>
         )}
         {mortality && (
-          <Static className="mortality" label={t<string>("lifetime")}>
+          <Static className="mortality" label={t<string>('lifetime')}>
             {mortality}
           </Static>
         )}
         {tip?.gtn(0) && (
-          <Static className="tip" label={t<string>("tip")}>
+          <Static className="tip" label={t<string>('tip')}>
             <FormatBalance value={tip} />
           </Static>
         )}

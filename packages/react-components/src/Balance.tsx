@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Balance, FormatBalance } from "@canvas-ui/react-query";
-import { classes } from "@canvas-ui/react-util";
-import BN from "bn.js";
-import React from "react";
+import { Balance, FormatBalance } from '@canvas-ui/react-query';
+import { classes } from '@canvas-ui/react-util';
+import BN from 'bn.js';
+import React from 'react';
 
-import { AccountId, AccountIndex, Address } from "@polkadot/types/interfaces";
-import { BN_ZERO } from "@polkadot/util";
+import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
+import { BN_ZERO } from '@polkadot/util';
 
-import { BareProps } from "./types";
+import { BareProps } from './types';
 
 export interface RenderProps extends BareProps {
   className?: string;
@@ -24,7 +24,7 @@ export interface Props extends BareProps {
   withLabel?: boolean;
 }
 
-export function renderProvided({ className = "", label, value }: RenderProps): React.ReactNode {
+export function renderProvided({ className = '', label, value }: RenderProps): React.ReactNode {
   let others: undefined | React.ReactNode;
 
   if (Array.isArray(value)) {
@@ -38,7 +38,7 @@ export function renderProvided({ className = "", label, value }: RenderProps): R
 
   return (
     <FormatBalance
-      className={classes("ui--Balance", className)}
+      className={classes('ui--Balance', className)}
       label={label}
       value={Array.isArray(value) ? value[0] : value}
     >
@@ -48,7 +48,7 @@ export function renderProvided({ className = "", label, value }: RenderProps): R
 }
 
 function BalanceDisplay(props: Props): React.ReactElement<Props> | null {
-  const { balance, className = "", label, params } = props;
+  const { balance, className = '', label, params } = props;
 
   if (!params) {
     return null;
@@ -57,7 +57,7 @@ function BalanceDisplay(props: Props): React.ReactElement<Props> | null {
   return balance ? (
     <>{renderProvided({ className, label, value: balance })}</>
   ) : (
-    <Balance className={classes("ui--Balance", className)} label={label} params={params} />
+    <Balance className={classes('ui--Balance', className)} label={label} params={params} />
   );
 }
 

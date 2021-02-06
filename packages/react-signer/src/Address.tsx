@@ -1,22 +1,22 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputAddress, Modal, Toggle } from "@canvas-ui/react-components";
-import { QueueTx } from "@canvas-ui/react-components/Status/types";
-import { useAccounts, useApi, useIsMountedRef } from "@canvas-ui/react-hooks";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { InputAddress, Modal, Toggle } from '@canvas-ui/react-components';
+import { QueueTx } from '@canvas-ui/react-components/Status/types';
+import { useAccounts, useApi, useIsMountedRef } from '@canvas-ui/react-hooks';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { ApiPromise } from "@polkadot/api";
-import { SubmittableExtrinsic } from "@polkadot/api/types";
-import { Option, Vec } from "@polkadot/types";
-import { AccountId, BalanceOf, Call, Multisig, ProxyDefinition, ProxyType } from "@polkadot/types/interfaces";
-import { ITuple } from "@polkadot/types/types";
-import { isFunction } from "@polkadot/util";
+import { ApiPromise } from '@polkadot/api';
+import { SubmittableExtrinsic } from '@polkadot/api/types';
+import { Option, Vec } from '@polkadot/types';
+import { AccountId, BalanceOf, Call, Multisig, ProxyDefinition, ProxyType } from '@polkadot/types/interfaces';
+import { ITuple } from '@polkadot/types/types';
+import { isFunction } from '@polkadot/util';
 
-import Password from "./Password";
-import { useTranslation } from "./translate";
-import { AddressFlags, AddressProxy } from "./types";
-import { extractExternal } from "./util";
+import Password from './Password';
+import { useTranslation } from './translate';
+import { AddressFlags, AddressProxy } from './types';
+import { extractExternal } from './util';
 
 interface Props {
   className?: string;
@@ -46,19 +46,19 @@ interface ProxyState {
   proxiesFilter: string[];
 }
 
-function findCall(tx: Call | SubmittableExtrinsic<"promise">): { method: string; section: string } {
+function findCall(tx: Call | SubmittableExtrinsic<'promise'>): { method: string; section: string } {
   try {
     const { method, section } = tx.registry.findMetaCall(tx.callIndex);
 
     return { method, section };
   } catch (error) {
-    return { method: "unknown", section: "unknown" };
+    return { method: 'unknown', section: 'unknown' };
   }
 }
 
 function filterProxies(
   allAccounts: string[],
-  tx: Call | SubmittableExtrinsic<"promise">,
+  tx: Call | SubmittableExtrinsic<'promise'>,
   proxies: [string, ProxyType][]
 ): string[] {
   // check an array of calls to all have proxies as the address
@@ -75,38 +75,38 @@ function filterProxies(
       }
 
       switch (proxy.toString()) {
-        case "Any":
+        case 'Any':
           return true;
-        case "Governance":
+        case 'Governance':
           return [
-            "council",
-            "democracy",
-            "elections",
-            "electionsPhragmen",
-            "poll",
-            "society",
-            "technicalCommittee",
-            "treasury",
+            'council',
+            'democracy',
+            'elections',
+            'electionsPhragmen',
+            'poll',
+            'society',
+            'technicalCommittee',
+            'treasury',
           ].includes(section);
-        case "IdentityJudgement":
-          return section === "identity" && method === "provideJudgement";
-        case "NonTransfer":
+        case 'IdentityJudgement':
+          return section === 'identity' && method === 'provideJudgement';
+        case 'NonTransfer':
           return !(
-            section === "balances" ||
-            (section === "indices" && method === "transfer") ||
-            (section === "vesting" && method === "vestedTransfer")
+            section === 'balances' ||
+            (section === 'indices' && method === 'transfer') ||
+            (section === 'vesting' && method === 'vestedTransfer')
           );
-        case "Staking":
+        case 'Staking':
           return (
-            section === "staking" ||
-            (section === "utility" &&
-              ((method === "batch" && checkCalls(address, tx.args[0] as Vec<Call>)) ||
-                (method === "asLimitedSub" && checkCalls(address, [tx.args[0] as Call]))))
+            section === 'staking' ||
+            (section === 'utility' &&
+              ((method === 'batch' && checkCalls(address, tx.args[0] as Vec<Call>)) ||
+                (method === 'asLimitedSub' && checkCalls(address, [tx.args[0] as Call]))))
           );
-        case "SudoBalances":
+        case 'SudoBalances':
           return (
-            (section === "sudo" && method === "sudo" && findCall(tx.args[0] as Call).section === "balances") ||
-            (section === "utility" && method === "batch" && checkCalls(address, tx.args[0] as Vec<Call>))
+            (section === 'sudo' && method === 'sudo' && findCall(tx.args[0] as Call).section === 'balances') ||
+            (section === 'utility' && method === 'batch' && checkCalls(address, tx.args[0] as Vec<Call>))
           );
         default:
           return false;
@@ -119,9 +119,9 @@ async function queryForMultisig(
   api: ApiPromise,
   requestAddress: string,
   proxyAddress: string | null,
-  tx: SubmittableExtrinsic<"promise">
+  tx: SubmittableExtrinsic<'promise'>
 ): Promise<MultiState | null> {
-  const multiModule = api.tx.multisig ? "multisig" : "utility";
+  const multiModule = api.tx.multisig ? 'multisig' : 'utility';
 
   if (isFunction(api.query[multiModule]?.multisigs)) {
     const address = proxyAddress || requestAddress;
@@ -152,7 +152,7 @@ async function queryForProxy(
   api: ApiPromise,
   allAccounts: string[],
   address: string,
-  tx: SubmittableExtrinsic<"promise">
+  tx: SubmittableExtrinsic<'promise'>
 ): Promise<ProxyState | null> {
   if (isFunction(api.query.proxy?.proxies)) {
     const { isProxied } = extractExternal(address);
@@ -192,7 +192,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
   const [proxyInfo, setProxyInfo] = useState<ProxyState | null>(null);
   const [{ isUnlockCached, signPassword }, setSignPassword] = useState<PasswordState>({
     isUnlockCached: false,
-    signPassword: "",
+    signPassword: '',
   });
 
   const [signAddress, flags] = useMemo((): [string, AddressFlags] => {
@@ -267,14 +267,14 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
             defaultValue={requestAddress}
             isDisabled
             isInput
-            label={t("sending from my account")}
+            label={t('sending from my account')}
             withLabel
           />
         </Modal.Column>
         <Modal.Column>
           <p>
             {t(
-              "The sending account that will be used to send this transaction. Any applicable fees will be paid by this account."
+              'The sending account that will be used to send this transaction. Any applicable fees will be paid by this account.'
             )}
           </p>
         </Modal.Column>
@@ -284,8 +284,8 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
           <Modal.Column>
             <InputAddress
               filter={proxyInfo.proxiesFilter}
-              help={t("The proxy to be used for this transaction.")}
-              label={t("proxy account")}
+              help={t('The proxy to be used for this transaction.')}
+              label={t('proxy account')}
               onChange={setProxyAddress}
               type="account"
             />
@@ -293,7 +293,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
           <Modal.Column>
             <p>
               {t(
-                "The proxy is one of the allowed proxies on the account, as set and filtered by the transaction type."
+                'The proxy is one of the allowed proxies on the account, as set and filtered by the transaction type.'
               )}
             </p>
           </Modal.Column>
@@ -304,8 +304,8 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
           <Modal.Column>
             <InputAddress
               filter={multiInfo.whoFilter}
-              help={t("The multisig signatory for this transaction.")}
-              label={t("multisig signatory")}
+              help={t('The multisig signatory for this transaction.')}
+              label={t('multisig signatory')}
               onChange={setMultiAddress}
               type="account"
             />
@@ -313,7 +313,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
           <Modal.Column>
             <p>
               {t(
-                "The signatory is one of the allowed accounts on the multisig, making a recorded approval for the transaction."
+                'The signatory is one of the allowed accounts on the multisig, making a recorded approval for the transaction.'
               )}
             </p>
           </Modal.Column>
@@ -329,7 +329,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
               className="tipToggle"
               isDisabled={proxyInfo.isProxied}
               label={
-                isProxyActive ? t<string>("Use a proxy for this call") : t<string>("Don't use a proxy for this call")
+                isProxyActive ? t<string>('Use a proxy for this call') : t<string>("Don't use a proxy for this call")
               }
               onChange={setIsProxyActive}
               value={isProxyActive}
@@ -338,7 +338,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
           <Modal.Column>
             <p>
               {t(
-                "This could either be an approval for the hash or with full call details. The call as last approval triggers execution."
+                'This could either be an approval for the hash or with full call details. The call as last approval triggers execution.'
               )}
             </p>
           </Modal.Column>
@@ -351,8 +351,8 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
               className="tipToggle"
               label={
                 isMultiCall
-                  ? t<string>("Multisig message with call (for final approval)")
-                  : t<string>("Multisig approval with hash (non-final approval)")
+                  ? t<string>('Multisig message with call (for final approval)')
+                  : t<string>('Multisig approval with hash (non-final approval)')
               }
               onChange={setIsMultiCall}
               value={isMultiCall}
@@ -361,7 +361,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
           <Modal.Column>
             <p>
               {t(
-                "This could either be an approval for the hash or with full call details. The call as last approval triggers execution."
+                'This could either be an approval for the hash or with full call details. The call as last approval triggers execution.'
               )}
             </p>
           </Modal.Column>

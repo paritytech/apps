@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Columar } from "@canvas-ui/react-components";
-import { BareProps } from "@canvas-ui/react-components/types";
-import React from "react";
-import styled from "styled-components";
+import { Columar } from '@canvas-ui/react-components';
+import { BareProps } from '@canvas-ui/react-components/types';
+import React from 'react';
+import styled from 'styled-components';
 
-import { QrDisplayPayload, QrScanSignature } from "@polkadot/react-qr";
+import { QrDisplayPayload, QrScanSignature } from '@polkadot/react-qr';
 
 interface Props extends BareProps {
   address: string;

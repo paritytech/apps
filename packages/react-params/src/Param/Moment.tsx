@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Static } from "@canvas-ui/react-components";
-import React, { useCallback } from "react";
+import { Static } from '@canvas-ui/react-components';
+import React, { useCallback } from 'react';
 
-import { Props, RawParamOnChangeValue } from "../types";
-import Amount from "./Amount";
+import { Props, RawParamOnChangeValue } from '../types';
+import Amount from './Amount';
 
 function Moment({
-  className = "",
+  className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -25,7 +25,7 @@ function Moment({
     return (
       <Static
         className={className}
-        defaultValue={defaultValue && defaultValue.value ? (defaultValue.value as string).toString() : ""}
+        defaultValue={defaultValue && defaultValue.value ? (defaultValue.value as string).toString() : ''}
         isError={isError}
         label={label}
         withLabel={withLabel}

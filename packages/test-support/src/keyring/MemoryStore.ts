@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/test-support authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { KeyringJson, KeyringStore } from "@polkadot/ui-keyring/types";
+import type { KeyringJson, KeyringStore } from '@polkadot/ui-keyring/types';
 
 type AccountsMap = Record<string, KeyringJson>;
 

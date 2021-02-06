@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Dropdown } from "@canvas-ui/react-components";
-import React, { useCallback, useMemo, useState } from "react";
+import { Dropdown } from '@canvas-ui/react-components';
+import React, { useCallback, useMemo, useState } from 'react';
 
-import { useTranslation } from "../translate";
-import { Props } from "../types";
-import Bare from "./Bare";
+import { useTranslation } from '../translate';
+import { Props } from '../types';
+import Bare from './Bare';
 
 function BoolParam({
-  className = "",
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -22,8 +22,8 @@ function BoolParam({
 
   const options = useMemo(
     () => [
-      { text: t<string>("No"), value: false },
-      { text: t<string>("Yes"), value: true },
+      { text: t<string>('No'), value: false },
+      { text: t<string>('Yes'), value: true },
     ],
     [t]
   );

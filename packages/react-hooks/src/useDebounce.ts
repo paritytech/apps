@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import useIsMountedRef from "./useIsMountedRef";
+import useIsMountedRef from './useIsMountedRef';
 
 const DEFAULT_DELAY = 250;
 

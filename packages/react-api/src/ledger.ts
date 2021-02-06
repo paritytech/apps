@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { KUSAMA_GENESIS, POLKADOT_GENESIS } from "@canvas-ui/apps-config/api/constants";
+import { KUSAMA_GENESIS, POLKADOT_GENESIS } from '@canvas-ui/apps-config/api/constants';
 
-import { Ledger } from "@polkadot/ui-keyring";
-import uiSettings from "@polkadot/ui-settings";
-import { assert } from "@polkadot/util";
+import { Ledger } from '@polkadot/ui-keyring';
+import uiSettings from '@polkadot/ui-settings';
+import { assert } from '@polkadot/util';
 
-import { api } from "./Api";
+import { api } from './Api';
 
-const ALLOWED_CHAINS: [string, "kusama" | "polkadot"][] = [
-  [KUSAMA_GENESIS, "kusama"],
-  [POLKADOT_GENESIS, "polkadot"],
+const ALLOWED_CHAINS: [string, 'kusama' | 'polkadot'][] = [
+  [KUSAMA_GENESIS, 'kusama'],
+  [POLKADOT_GENESIS, 'polkadot'],
 ];
 
 let ledger: Ledger | null = null;
@@ -29,7 +29,7 @@ export function isLedgerCapable(): boolean {
 }
 
 export function isLedger(): boolean {
-  return isLedgerCapable() && uiSettings.ledgerConn !== "none";
+  return isLedgerCapable() && uiSettings.ledgerConn !== 'none';
 }
 
 export function clearLedger(): void {
@@ -42,7 +42,7 @@ export function getLedger(): Ledger {
 
     assert(def, `Unable to find supported chain for ${api.genesisHash.toHex()}`);
 
-    ledger = new Ledger(uiSettings.ledgerConn as "u2f", def[1]);
+    ledger = new Ledger(uiSettings.ledgerConn as 'u2f', def[1]);
   }
 
   return ledger;

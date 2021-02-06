@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ErrorBoundary } from "@canvas-ui/react-components";
-import { I18nProps } from "@canvas-ui/react-components/types";
-import React from "react";
+import { ErrorBoundary } from '@canvas-ui/react-components';
+import { I18nProps } from '@canvas-ui/react-components/types';
+import React from 'react';
 
-import Holder from "./Holder";
-import ParamComp from "./ParamComp";
-import translate from "./translate";
-import { ComponentMap, ParamDef, RawParam, RawParamOnChangeValue, RawParams } from "./types";
-import { createValue } from "./values";
+import Holder from './Holder';
+import ParamComp from './ParamComp';
+import translate from './translate';
+import { ComponentMap, ParamDef, RawParam, RawParamOnChangeValue, RawParams } from './types';
+import { createValue } from './values';
 
 interface Props extends I18nProps {
   children?: React.ReactNode;
@@ -31,7 +31,7 @@ interface State {
 
 export { Holder };
 
-export { default as useTxParams } from "./useTxParams";
+export { default as useTxParams } from './useTxParams';
 
 class Params extends React.PureComponent<Props, State> {
   public state: State = {
@@ -79,7 +79,7 @@ class Params extends React.PureComponent<Props, State> {
   public render(): React.ReactNode {
     const {
       children,
-      className = "",
+      className = '',
       isDisabled,
       onEnter,
       onEscape,
@@ -104,7 +104,7 @@ class Params extends React.PureComponent<Props, State> {
                     defaultValue={values[index]}
                     index={index}
                     isDisabled={isDisabled}
-                    key={`${name || ""}:${type.toString()}:${index}`}
+                    key={`${name || ''}:${type.toString()}:${index}`}
                     name={name}
                     onChange={this.onChangeParam}
                     onEnter={onEnter}

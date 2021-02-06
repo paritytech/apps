@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
+import React from 'react';
 
 type HOC = (Component: React.ComponentType<any>) => React.ComponentType<any>;
 

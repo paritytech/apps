@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import * as moment from "moment";
-import React, { useState } from "react";
-import styled from "styled-components";
+import * as moment from 'moment';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 interface Props {
   className?: string;
@@ -19,7 +19,7 @@ const HelpWidget = ({ className }: Props) => {
   return (
     <div className={className}>
       {visible && (
-        <div className={"help-menu"}>
+        <div className={'help-menu'}>
           <div className="help-menu-items">
             <a
               href="https://substrate.dev/docs/en/knowledgebase/smart-contracts/"
@@ -35,7 +35,7 @@ const HelpWidget = ({ className }: Props) => {
           <div className="imprint">{moment.utc().year()} Parity Technologies</div>
         </div>
       )}
-      <div className={"help-button"} onClick={handleClick} role="button">
+      <div className={'help-button'} onClick={handleClick} role="button">
         ?
       </div>
     </div>

@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/app-contracts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, IdentityIcon, MessageSignature, Output } from "@canvas-ui/react-components";
-import { BareProps } from "@canvas-ui/react-components/types";
-import React from "react";
-import styled from "styled-components";
+import { Button, IdentityIcon, MessageSignature, Output } from '@canvas-ui/react-components';
+import { BareProps } from '@canvas-ui/react-components/types';
+import React from 'react';
+import styled from 'styled-components';
 
-import { TypeRegistry } from "@polkadot/types";
+import { TypeRegistry } from '@polkadot/types';
 
-import { CallResult } from "./types";
+import { CallResult } from './types';
 
 interface Props extends BareProps {
   onClear?: () => void;

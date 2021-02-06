@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { SubmittableResult } from "@polkadot/api";
-import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
-import { SignerResult } from "@polkadot/api/types";
-import { AccountId, Address } from "@polkadot/types/interfaces";
-import { DefinitionRpcExt, SignerPayloadJSON } from "@polkadot/types/types";
+import { SubmittableResult } from '@polkadot/api';
+import { SubmittableExtrinsic } from '@polkadot/api/promise/types';
+import { SignerResult } from '@polkadot/api/types';
+import { AccountId, Address } from '@polkadot/types/interfaces';
+import { DefinitionRpcExt, SignerPayloadJSON } from '@polkadot/types/types';
 
-export type Actions = "create" | "edit" | "restore" | "forget" | "backup" | "changePassword" | "transfer";
+export type Actions = 'create' | 'edit' | 'restore' | 'forget' | 'backup' | 'changePassword' | 'transfer';
 
 export interface ActionStatus {
   account?: AccountId | Address | string;
   action: Actions | string;
   message?: string;
-  status: "error" | "event" | "queued" | "received" | "success";
+  status: 'error' | 'event' | 'queued' | 'received' | 'success';
 }
 
 export interface AccountInfo {
@@ -21,26 +21,26 @@ export interface AccountInfo {
 }
 
 export type QueueTxStatus =
-  | "future"
-  | "ready"
-  | "finalized"
-  | "finalitytimeout"
-  | "usurped"
-  | "dropped"
-  | "inblock"
-  | "invalid"
-  | "broadcast"
-  | "cancelled"
-  | "completed"
-  | "error"
-  | "incomplete"
-  | "queued"
-  | "qr"
-  | "retracted"
-  | "sending"
-  | "signing"
-  | "sent"
-  | "blocked";
+  | 'future'
+  | 'ready'
+  | 'finalized'
+  | 'finalitytimeout'
+  | 'usurped'
+  | 'dropped'
+  | 'inblock'
+  | 'invalid'
+  | 'broadcast'
+  | 'cancelled'
+  | 'completed'
+  | 'error'
+  | 'incomplete'
+  | 'queued'
+  | 'qr'
+  | 'retracted'
+  | 'sending'
+  | 'signing'
+  | 'sent'
+  | 'blocked';
 
 export type SignerCallback = (id: number, result: SignerResult | null) => void;
 

@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ApiPromise } from "@polkadot/api";
-import { SubmittableExtrinsicFunction } from "@polkadot/api/promise/types";
-import { InjectedExtension } from "@polkadot/extension-inject/types";
+import { ApiPromise } from '@polkadot/api';
+import { SubmittableExtrinsicFunction } from '@polkadot/api/promise/types';
+import { InjectedExtension } from '@polkadot/extension-inject/types';
 
 // helpers for HOC props
 export type OmitProps<T, K> = Pick<T, Exclude<keyof T, K>>;
@@ -62,4 +62,4 @@ export type BaseProps<T> = BareProps &
 
 export type Formatter = (value?: any) => string;
 
-export type Environment = "web" | "app";
+export type Environment = 'web' | 'app';

@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { css } from "styled-components";
+import { css } from 'styled-components';
 
-import { ELEV_2_CSS, ELEV_3_CSS } from "./constants";
+import { ELEV_2_CSS, ELEV_3_CSS } from './constants';
 
 export default css`
   .ui.hidden.divider {
     margin: 0.5rem 0;
   }
 
-  .ui.action.input:not([class*="left action"]) > input:focus {
+  .ui.action.input:not([class*='left action']) > input:focus {
     border-right-color: var(--blue-primary) !important;
   }
 
-  .ui.action.input.error:not([class*="left action"]) > input {
+  .ui.action.input.error:not([class*='left action']) > input {
     border-right-color: var(--red-primary) !important;
   }
 
@@ -297,11 +297,11 @@ export default css`
     margin: 0;
   }
 
-  .ui[class*="left icon"].input.left.icon > input {
+  .ui[class*='left icon'].input.left.icon > input {
     padding-left: 4rem !important;
   }
 
-  .ui[class*="left icon"].input.left.icon > .svg-inline--fa.big {
+  .ui[class*='left icon'].input.left.icon > .svg-inline--fa.big {
     left: -7px;
     opacity: 1;
   }

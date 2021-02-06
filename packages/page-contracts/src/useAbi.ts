@@ -1,18 +1,18 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import store from "./store";
-import { Code } from "@canvas-ui/react-components/types";
-import useApi from "@canvas-ui/react-hooks/useApi";
-import { VoidFn } from "@canvas-ui/react-util/types";
-import { useCallback, useEffect, useState } from "react";
+import store from './store';
+import { Code } from '@canvas-ui/react-components/types';
+import useApi from '@canvas-ui/react-hooks/useApi';
+import { VoidFn } from '@canvas-ui/react-util/types';
+import { useCallback, useEffect, useState } from 'react';
 
-import { Abi } from "@polkadot/api-contract";
-import { AnyJson } from "@polkadot/types/types";
-import { u8aToString } from "@polkadot/util";
+import { Abi } from '@polkadot/api-contract';
+import { AnyJson } from '@polkadot/types/types';
+import { u8aToString } from '@polkadot/util';
 
-import { useTranslation } from "@canvas-ui/react-hooks/translate";
-import { FileState } from "@canvas-ui/react-hooks/types";
+import { useTranslation } from '@canvas-ui/react-hooks/translate';
+import { FileState } from '@canvas-ui/react-hooks/types';
 
 interface UseAbi {
   abi: Abi | null;
@@ -61,7 +61,7 @@ export default function useAbi(source: Code | null = null, isRequired = false): 
         const abiOutdated = JSON.parse(json) as AbiSpecOutdated;
 
         if (abiOutdated.deploy || abiOutdated.messages) {
-          throw new Error(t<string>("You are using an ABI with an outdated format. Please generate a new one."));
+          throw new Error(t<string>('You are using an ABI with an outdated format. Please generate a new one.'));
         }
 
         const newAbi = JSON.parse(json) as AnyJson;

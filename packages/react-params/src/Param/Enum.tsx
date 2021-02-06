@@ -1,16 +1,16 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Dropdown } from "@canvas-ui/react-components";
-import React, { useCallback, useEffect, useState } from "react";
+import { Dropdown } from '@canvas-ui/react-components';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { Enum } from "@polkadot/types";
-import { TypeDef } from "@polkadot/types/types";
+import { Enum } from '@polkadot/types';
+import { TypeDef } from '@polkadot/types/types';
 
-import { ParamDef, Props, RawParam } from "../types";
-import Params from "../";
-import Bare from "./Bare";
-import Static from "./Static";
+import { ParamDef, Props, RawParam } from '../types';
+import Params from '../';
+import Bare from './Bare';
+import Static from './Static';
 
 interface Option {
   text?: string;
@@ -23,7 +23,7 @@ interface Options {
 }
 
 function EnumParam(props: Props): React.ReactElement<Props> {
-  const { className = "", defaultValue, isDisabled, isError, label, onChange, overrides, type, withLabel } = props;
+  const { className = '', defaultValue, isDisabled, isError, label, onChange, overrides, type, withLabel } = props;
   const [current, setCurrent] = useState<ParamDef[] | null>(null);
   const [initialValue, setInitialValue] = useState<string | null>(null);
   const [{ options, subTypes }, setOptions] = useState<Options>({ options: [], subTypes: [] });

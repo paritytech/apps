@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { isUndefined } from "@polkadot/util";
+import { isUndefined } from '@polkadot/util';
 
-import getInitValue from "../initValue";
-import { ParamDef, Props, RawParam } from "../types";
-import Params from "../";
-import Base from "./Base";
-import useParamDefs from "./useParamDefs";
+import getInitValue from '../initValue';
+import { ParamDef, Props, RawParam } from '../types';
+import Params from '../';
+import Base from './Base';
+import useParamDefs from './useParamDefs';
 
 function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
   return {
@@ -19,7 +19,7 @@ function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
 }
 
 function VectorFixed({
-  className = "",
+  className = '',
   defaultValue,
   isDisabled = false,
   label,

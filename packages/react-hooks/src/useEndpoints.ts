@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/app-settings authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { createEndpoints } from "@canvas-ui/apps-config/settings";
-import { useCallback, useEffect, useState } from "react";
+import { createEndpoints } from '@canvas-ui/apps-config/settings';
+import { useCallback, useEffect, useState } from 'react';
 
-import uiSettings from "@polkadot/ui-settings";
+import uiSettings from '@polkadot/ui-settings';
 
-import { useTranslation } from "./translate";
-import { Endpoint, EndpointUrl, UseEndpoints } from "./types";
+import { useTranslation } from './translate';
+import { Endpoint, EndpointUrl, UseEndpoints } from './types';
 
 // check the validity of the url
 function isValidUrl(url: string): boolean {
@@ -15,7 +15,7 @@ function isValidUrl(url: string): boolean {
     // some random length... we probably want to parse via some lib
     url.length >= 7 &&
     // check that it starts with a valid ws identifier
-    (url.startsWith("ws://") || url.startsWith("wss://"))
+    (url.startsWith('ws://') || url.startsWith('wss://'))
   );
 }
 
@@ -61,7 +61,7 @@ export default function useEndpoints(onChange?: (_: string) => void): UseEndpoin
         ...makeUrl(
           isCustom
             ? info.url
-            : ((createEndpoints(t).find(({ value }) => value === info.url) || { value: "ws://127.0.0.1:9944" })
+            : ((createEndpoints(t).find(({ value }) => value === info.url) || { value: 'ws://127.0.0.1:9944' })
                 .value as string)
         ),
         isCustom,

@@ -1,22 +1,22 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from "./types";
-import { classes } from "@canvas-ui/react-util";
-import { VoidFn } from "@canvas-ui/react-util/types";
-import Tippy from "@tippyjs/react";
-import React, { useMemo } from "react";
-import styled from "styled-components";
-import { followCursor } from "tippy.js";
+import { BareProps } from './types';
+import { classes } from '@canvas-ui/react-util';
+import { VoidFn } from '@canvas-ui/react-util/types';
+import Tippy from '@tippyjs/react';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
+import { followCursor } from 'tippy.js';
 
-import { AbiMessage } from "@polkadot/api-contract/types";
-import { Registry } from "@polkadot/types/types";
+import { AbiMessage } from '@polkadot/api-contract/types';
+import { Registry } from '@polkadot/types/types';
 
-import { ELEV_3_CSS } from "./styles/constants";
-import Button from "./Button";
-import Docs from "./Docs";
-import MessageSignature from "./MessageSignature";
-import { useTranslation } from "./translate";
+import { ELEV_3_CSS } from './styles/constants';
+import Button from './Button';
+import Docs from './Docs';
+import MessageSignature from './MessageSignature';
+import { useTranslation } from './translate';
 
 export interface Props extends BareProps {
   isConstructor?: boolean;
@@ -44,7 +44,7 @@ function Message({ className, isConstructor, message, onSelect, registry }: Prop
   );
 
   return (
-    <div className={classes(className, !onSelect && "exempt-hover", isConstructor && "isConstructor")} key={identifier}>
+    <div className={classes(className, !onSelect && 'exempt-hover', isConstructor && 'isConstructor')} key={identifier}>
       <Tippy
         animation="fade"
         arrow={false}
@@ -56,15 +56,15 @@ function Message({ className, isConstructor, message, onSelect, registry }: Prop
         theme="transparent"
         trigger="mouseenter"
       >
-        <div style={{ height: "100%", padding: "0.5rem 1rem", width: "100%" }}>
+        <div style={{ height: '100%', padding: '0.5rem 1rem', width: '100%' }}>
           {signature}
           {!isConstructor && onSelect && (
             <div className="accessory">
               <Button
                 className="execute"
-                icon={isConstructor ? "cloud-upload" : "play"}
+                icon={isConstructor ? 'cloud-upload' : 'play'}
                 onClick={onSelect}
-                tooltip={t<string>(isConstructor ? "Deploy with this constructor" : "Call this message")}
+                tooltip={t<string>(isConstructor ? 'Deploy with this constructor' : 'Call this message')}
               />
             </div>
           )}

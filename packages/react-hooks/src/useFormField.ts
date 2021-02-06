@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 export type FormField<T> = [T | null, (_?: T | null) => void, boolean, boolean, boolean];
 

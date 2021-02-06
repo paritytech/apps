@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Route } from "@canvas-ui/apps-routing/types";
-import { Badge, Icon, Menu, Tooltip } from "@canvas-ui/react-components";
-import React from "react";
-import { NavLink } from "react-router-dom";
+import { Route } from '@canvas-ui/apps-routing/types';
+import { Badge, Icon, Menu, Tooltip } from '@canvas-ui/react-components';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
 const DUMMY_COUNTER = (): null => null;
 

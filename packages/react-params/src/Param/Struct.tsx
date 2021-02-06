@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 
-import { Props, RawParam } from "../types";
-import Params from "../";
-import Base from "./Base";
-import Static from "./Static";
-import useParamDefs from "./useParamDefs";
+import { Props, RawParam } from '../types';
+import Params from '../';
+import Base from './Base';
+import Static from './Static';
+import useParamDefs from './useParamDefs';
 
 function StructParam(props: Props): React.ReactElement<Props> {
   const params = useParamDefs(props.type);
-  const { className = "", isDisabled, label, onChange, overrides, withLabel } = props;
+  const { className = '', isDisabled, label, onChange, overrides, withLabel } = props;
 
   const _onChangeParams = useCallback(
     (values: RawParam[]): void => {

@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from "@canvas-ui/react-api";
-import { Call, Expander, Modal } from "@canvas-ui/react-components";
-import { QueueTx } from "@canvas-ui/react-components/Status/types";
-import BN from "bn.js";
-import React from "react";
-import styled from "styled-components";
+import { registry } from '@canvas-ui/react-api';
+import { Call, Expander, Modal } from '@canvas-ui/react-components';
+import { QueueTx } from '@canvas-ui/react-components/Status/types';
+import BN from 'bn.js';
+import React from 'react';
+import styled from 'styled-components';
 
-import PaymentInfo from "./PaymentInfo";
-import { useTranslation } from "./translate";
+import PaymentInfo from './PaymentInfo';
+import { useTranslation } from './translate';
 
 interface Props {
   className?: string;
@@ -33,7 +33,7 @@ function Transaction({
   }
 
   const { meta, method, section } = registry.findMetaCall(extrinsic.callIndex);
-  const args = meta?.args.map(({ name }) => name).join(", ") || "";
+  const args = meta?.args.map(({ name }) => name).join(', ') || '';
 
   return (
     <Modal.Columns className={className}>
@@ -42,7 +42,7 @@ function Transaction({
           className="tx-details"
           summary={
             <>
-              {t<string>("Sending transaction")}{" "}
+              {t<string>('Sending transaction')}{' '}
               <span className="highlight">
                 {section}.{method}({args})
               </span>
@@ -65,7 +65,7 @@ function Transaction({
       <Modal.Column>
         <p>
           {t<string>(
-            "The details of the transaction including the type, the description (as available from the chain metadata) as well as any parameters and fee estimations (as available) for the specific type of call."
+            'The details of the transaction including the type, the description (as available from the chain metadata) as well as any parameters and fee estimations (as available) for the specific type of call.'
           )}
         </p>
       </Modal.Column>

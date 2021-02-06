@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from 'react';
 
-import { Codec } from "@polkadot/types/types";
-import { isNull, isUndefined } from "@polkadot/util";
+import { Codec } from '@polkadot/types/types';
+import { isNull, isUndefined } from '@polkadot/util';
 
-import { CallOptions, CallParam, CallParams } from "./types";
-import useIsMountedRef, { MountedRef } from "./useIsMountedRef";
+import { CallOptions, CallParam, CallParams } from './types';
+import useIsMountedRef, { MountedRef } from './useIsMountedRef';
 
 type TrackFnResult = Promise<() => void>;
 

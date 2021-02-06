@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button } from "@canvas-ui/react-components";
-import React, { useCallback, useEffect, useState } from "react";
+import { Button } from '@canvas-ui/react-components';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { isUndefined } from "@polkadot/util";
+import { isUndefined } from '@polkadot/util';
 
-import getInitValue from "../initValue";
-import { useTranslation } from "../translate";
-import { ParamDef, Props, RawParam } from "../types";
-import Params from "../";
-import Base from "./Base";
-import useParamDefs from "./useParamDefs";
+import getInitValue from '../initValue';
+import { useTranslation } from '../translate';
+import { ParamDef, Props, RawParam } from '../types';
+import Params from '../';
+import Base from './Base';
+import useParamDefs from './useParamDefs';
 
 function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
   return {
@@ -21,7 +21,7 @@ function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
 }
 
 function Vector({
-  className = "",
+  className = '',
   defaultValue,
   isDisabled = false,
   label,
@@ -95,8 +95,8 @@ function Vector({
     <Base className={className} isOuter label={label} withLabel={withLabel}>
       {!isDisabled && (
         <div className="ui--Param-Vector-buttons">
-          <Button icon="plus" label={t<string>("Add item")} onClick={_rowAdd} />
-          <Button icon="minus" isDisabled={values.length === 0} label={t<string>("Remove item")} onClick={_rowRemove} />
+          <Button icon="plus" label={t<string>('Add item')} onClick={_rowAdd} />
+          <Button icon="minus" isDisabled={values.length === 0} label={t<string>('Remove item')} onClick={_rowRemove} />
         </div>
       )}
       <Params isDisabled={isDisabled} onChange={setValues} overrides={overrides} params={params} values={values} />

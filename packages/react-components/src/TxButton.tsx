@@ -1,22 +1,22 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { SubmittableExtrinsic } from "@polkadot/api/types";
-import type { TxButtonProps as Props } from "./types";
+import type { SubmittableExtrinsic } from '@polkadot/api/types';
+import type { TxButtonProps as Props } from './types';
 
-import { useIsMountedRef } from "@canvas-ui/react-hooks";
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import { useIsMountedRef } from '@canvas-ui/react-hooks';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
-import { SubmittableResult } from "@polkadot/api";
-import { assert, isFunction } from "@polkadot/util";
+import { SubmittableResult } from '@polkadot/api';
+import { assert, isFunction } from '@polkadot/util';
 
-import Button from "./Button";
-import { StatusContext } from "./Status/Status";
-import { useTranslation } from "./translate";
+import Button from './Button';
+import { StatusContext } from './Status/Status';
+import { useTranslation } from './translate';
 
 function TxButton({
   accountId,
-  className = "",
+  className = '',
   extrinsic: propsExtrinsic,
   icon,
   isBasic,
@@ -71,7 +71,7 @@ function TxButton({
   }, [setIsStarted, mountedRef]);
 
   const _onSend = useCallback((): void => {
-    let extrinsics: SubmittableExtrinsic<"promise">[] | undefined;
+    let extrinsics: SubmittableExtrinsic<'promise'>[] | undefined;
 
     if (propsExtrinsic) {
       extrinsics = Array.isArray(propsExtrinsic) ? propsExtrinsic : [propsExtrinsic];
@@ -79,7 +79,7 @@ function TxButton({
       extrinsics = [tx(...(isFunction(params) ? params() : params || []))];
     }
 
-    assert(extrinsics?.length, "Expected generated extrinsic passed to TxButton");
+    assert(extrinsics?.length, 'Expected generated extrinsic passed to TxButton');
 
     mountedRef.current && withSpinner && setIsSending(true);
 
@@ -133,7 +133,7 @@ function TxButton({
       }
       isIcon={isIcon && !!icon}
       isPrimary={isPrimary}
-      label={label || (isIcon ? "" : t<string>("Submit"))}
+      label={label || (isIcon ? '' : t<string>('Submit'))}
       onClick={_onSend}
       tooltip={tooltip}
       withoutLink={withoutLink}

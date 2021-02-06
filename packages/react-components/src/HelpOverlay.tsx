@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useToggle } from "@canvas-ui/react-hooks";
-import React from "react";
-import ReactMd from "react-markdown";
-import styled from "styled-components";
+import { useToggle } from '@canvas-ui/react-hooks';
+import React from 'react';
+import ReactMd from 'react-markdown';
+import styled from 'styled-components';
 
-import Icon from "./Icon";
-import { BareProps } from "./types";
+import Icon from './Icon';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   md: string;
 }
 
-function HelpOverlay({ className = "", md }: Props): React.ReactElement<Props> {
+function HelpOverlay({ className = '', md }: Props): React.ReactElement<Props> {
   const [isVisible, toggleVisible] = useToggle();
 
   return (
@@ -21,7 +21,7 @@ function HelpOverlay({ className = "", md }: Props): React.ReactElement<Props> {
       <div className="help-button">
         <Icon icon="question-circle" onClick={toggleVisible} />
       </div>
-      <div className={`help-slideout ${isVisible ? "open" : "closed"}`}>
+      <div className={`help-slideout ${isVisible ? 'open' : 'closed'}`}>
         <div className="help-button">
           <Icon icon="close" onClick={toggleVisible} />
         </div>

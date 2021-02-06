@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/apps-config authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { TFunction } from "i18next";
+import { TFunction } from 'i18next';
 
-import { Option } from "./types";
+import { Option } from './types';
 
 interface LinkOption extends Option {
   dnslink?: string;
@@ -12,11 +12,11 @@ interface LinkOption extends Option {
 function createDev(t: TFunction): LinkOption[] {
   return [
     {
-      dnslink: "local",
-      info: "local",
-      shortText: t<string>("rpc.local.short", "Local Node", { ns: "apps-config" }),
-      text: t<string>("rpc.local", "Local Node (Own, 127.0.0.1:9944)", { ns: "apps-config" }),
-      value: "ws://127.0.0.1:9944/",
+      dnslink: 'local',
+      info: 'local',
+      shortText: t<string>('rpc.local.short', 'Local Node', { ns: 'apps-config' }),
+      text: t<string>('rpc.local', 'Local Node (Own, 127.0.0.1:9944)', { ns: 'apps-config' }),
+      value: 'ws://127.0.0.1:9944/',
     },
   ];
 }
@@ -24,14 +24,14 @@ function createDev(t: TFunction): LinkOption[] {
 function createLive(t: TFunction): LinkOption[] {
   return [
     {
-      dnslink: "canvas",
-      info: "canvas",
-      shortText: t<string>("rpc.canvas.test", "Canvas Test", { ns: "apps-config" }),
-      text: t<string>("rpc.hosted.by", "Canvas Test ({{host}}, canvas-rpc.parity.io)", {
-        ns: "apps-config",
-        replace: { host: "Parity" },
+      dnslink: 'canvas',
+      info: 'canvas',
+      shortText: t<string>('rpc.canvas.test', 'Canvas Test', { ns: 'apps-config' }),
+      text: t<string>('rpc.hosted.by', 'Canvas Test ({{host}}, canvas-rpc.parity.io)', {
+        ns: 'apps-config',
+        replace: { host: 'Parity' },
       }),
-      value: "wss://canvas-rpc.parity.io",
+      value: 'wss://canvas-rpc.parity.io',
     },
   ];
 }
@@ -59,8 +59,8 @@ export default function create(t: TFunction): LinkOption[] {
 
   if (WS_URL) {
     ENV.push({
-      info: "WS_URL",
-      shortText: "WS_URL",
+      info: 'WS_URL',
+      shortText: 'WS_URL',
       text: `WS_URL: ${WS_URL}`,
       value: WS_URL,
     });
@@ -91,8 +91,8 @@ export default function create(t: TFunction): LinkOption[] {
     endpoints = [
       {
         isHeader: true,
-        text: t<string>("rpc.custom", "Custom environment", { ns: "apps-config" }),
-        value: "",
+        text: t<string>('rpc.custom', 'Custom environment', { ns: 'apps-config' }),
+        value: '',
       },
       ...ENV,
     ].concat(endpoints);

@@ -3,14 +3,14 @@
 
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
-import useApi from "./useApi";
-import { timeToString } from "@canvas-ui/react-util";
-import BN from "bn.js";
-import { useMemo } from "react";
+import useApi from './useApi';
+import { timeToString } from '@canvas-ui/react-util';
+import BN from 'bn.js';
+import { useMemo } from 'react';
 
-import { BN_ONE, extractTime } from "@polkadot/util";
+import { BN_ONE, extractTime } from '@polkadot/util';
 
-import { useTranslation } from "./translate";
+import { useTranslation } from './translate';
 
 type Result = [number, string];
 

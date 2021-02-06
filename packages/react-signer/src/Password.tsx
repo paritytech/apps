@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Modal, Password } from "@canvas-ui/react-components";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import { Modal, Password } from '@canvas-ui/react-components';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { KeyringPair } from "@polkadot/keyring/types";
-import keyring from "@polkadot/ui-keyring";
+import { KeyringPair } from '@polkadot/keyring/types';
+import keyring from '@polkadot/ui-keyring';
 
-import { useTranslation } from "./translate";
+import { useTranslation } from './translate';
 
 interface Props {
   address: string;
@@ -31,7 +31,7 @@ function getPair(address?: string | null): KeyringPair | null {
 function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const [pair, setPair] = useState<KeyringPair | null>(null);
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
 
   useEffect((): void => {
     setPair(getPair(address));
@@ -51,8 +51,8 @@ function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Prop
         <Password
           autoFocus
           isError={!!error}
-          label={t<string>("unlock account with password")}
-          labelExtra={error && <div className="errorLabel">{t<string>("wrong password supplied")}</div>}
+          label={t<string>('unlock account with password')}
+          labelExtra={error && <div className="errorLabel">{t<string>('wrong password supplied')}</div>}
           onChange={setPassword}
           onEnter={onEnter}
           tabIndex={tabIndex}
@@ -60,7 +60,7 @@ function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Prop
         />
       </Modal.Column>
       <Modal.Column>
-        <p>{t<string>("Unlock the sending account to allow signing of this transaction.")}</p>
+        <p>{t<string>('Unlock the sending account to allow signing of this transaction.')}</p>
       </Modal.Column>
     </Modal.Columns>
   );

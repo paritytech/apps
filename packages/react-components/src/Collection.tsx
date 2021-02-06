@@ -1,8 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { I18nProps } from "./types";
-import React from "react";
+import { I18nProps } from './types';
+import React from 'react';
 
 export interface CollectionProps extends I18nProps {
   banner?: React.ReactNode;
@@ -89,7 +89,7 @@ export default class Collection<P extends CollectionProps, S extends CollectionS
   }
 
   protected renderEmpty(): React.ReactNode {
-    const { emptyText = this.props.t<string>("No items"), showEmptyText = true } = this.props;
+    const { emptyText = this.props.t<string>('No items'), showEmptyText = true } = this.props;
 
     if (!showEmptyText) {
       return null;

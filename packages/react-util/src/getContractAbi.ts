@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { api } from "@canvas-ui/react-api";
+import { api } from '@canvas-ui/react-api';
 
-import { Abi } from "@polkadot/api-contract";
+import { Abi } from '@polkadot/api-contract';
 
-import getAddressMeta from "./getAddressMeta";
+import getAddressMeta from './getAddressMeta';
 
 export default function getContractAbi(address: string | null): Abi | null {
   if (!address) {
@@ -13,7 +13,7 @@ export default function getContractAbi(address: string | null): Abi | null {
   }
 
   let abi: Abi | undefined;
-  const meta = getAddressMeta(address, "contract");
+  const meta = getAddressMeta(address, 'contract');
 
   try {
     const data = meta.contract?.abi;

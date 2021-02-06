@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from "@canvas-ui/react-api";
-import { Input, InputNumber } from "@canvas-ui/react-components";
-import BN from "bn.js";
-import React, { useCallback, useMemo } from "react";
+import { registry } from '@canvas-ui/react-api';
+import { Input, InputNumber } from '@canvas-ui/react-components';
+import BN from 'bn.js';
+import React, { useCallback, useMemo } from 'react';
 
-import { ClassOf } from "@polkadot/types";
-import { bnToBn, formatNumber, isUndefined } from "@polkadot/util";
+import { ClassOf } from '@polkadot/types';
+import { bnToBn, formatNumber, isUndefined } from '@polkadot/util';
 
-import { Props } from "../types";
-import Bare from "./Bare";
+import { Props } from '../types';
+import Bare from './Bare';
 
 function Amount({
-  className = "",
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -26,7 +26,7 @@ function Amount({
   const defaultValue = useMemo(
     () =>
       isDisabled
-        ? value instanceof ClassOf(registry, "AccountIndex")
+        ? value instanceof ClassOf(registry, 'AccountIndex')
           ? value.toString()
           : formatNumber(value as number)
         : bnToBn((value as number) || 0).toString(),
@@ -35,7 +35,7 @@ function Amount({
 
   const bitLength = useMemo((): number => {
     try {
-      return registry.createType(type.type as "u32").bitLength();
+      return registry.createType(type.type as 'u32').bitLength();
     } catch (error) {
       return 32;
     }

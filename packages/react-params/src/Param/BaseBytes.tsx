@@ -1,16 +1,16 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Input } from "@canvas-ui/react-components";
-import React, { useCallback, useState } from "react";
+import { Input } from '@canvas-ui/react-components';
+import React, { useCallback, useState } from 'react';
 
-import { TypeDef } from "@polkadot/types/types";
-import { compactAddLength, hexToU8a, isAscii, isHex, isU8a, stringToU8a, u8aToHex, u8aToString } from "@polkadot/util";
-import { decodeAddress } from "@polkadot/util-crypto";
+import { TypeDef } from '@polkadot/types/types';
+import { compactAddLength, hexToU8a, isAscii, isHex, isU8a, stringToU8a, u8aToHex, u8aToString } from '@polkadot/util';
+import { decodeAddress } from '@polkadot/util-crypto';
 
-import { useTranslation } from "../translate";
-import { RawParam, RawParamOnChange, RawParamOnEnter, RawParamOnEscape, Size } from "../types";
-import Bare from "./Bare";
+import { useTranslation } from '../translate';
+import { RawParam, RawParamOnChange, RawParamOnEnter, RawParamOnEscape, Size } from '../types';
+import Bare from './Bare';
 
 interface Props {
   asHex?: boolean;
@@ -35,9 +35,9 @@ interface Props {
 const defaultValidate = (): boolean => true;
 
 function convertInput(value: string): [boolean, Uint8Array] {
-  if (value === "0x") {
+  if (value === '0x') {
     return [true, new Uint8Array([])];
-  } else if (value.startsWith("0x")) {
+  } else if (value.startsWith('0x')) {
     try {
       return [true, hexToU8a(value)];
     } catch (error) {
@@ -52,13 +52,13 @@ function convertInput(value: string): [boolean, Uint8Array] {
     // we continue
   }
 
-  return isAscii(value) ? [true, stringToU8a(value)] : [value === "0x", new Uint8Array([])];
+  return isAscii(value) ? [true, stringToU8a(value)] : [value === '0x', new Uint8Array([])];
 }
 
 function BaseBytes({
   asHex,
   children,
-  className = "",
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -67,7 +67,7 @@ function BaseBytes({
   onChange,
   onEnter,
   onEscape,
-  size = "full",
+  size = 'full',
   validate = defaultValidate,
   withLabel,
   withLength,
@@ -117,7 +117,7 @@ function BaseBytes({
         onChange={_onChange}
         onEnter={onEnter}
         onEscape={onEscape}
-        placeholder={t<string>("0x prefixed hex, e.g. 0x1234 or ascii data")}
+        placeholder={t<string>('0x prefixed hex, e.g. 0x1234 or ascii data')}
         type="text"
         withEllipsis
         withLabel={withLabel}

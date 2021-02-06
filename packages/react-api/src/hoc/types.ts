@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
+import React from 'react';
 
-import { OnChangeCb } from "../types";
+import { OnChangeCb } from '../types';
 
 export type Transform = (value: any, index: number) => any;
 

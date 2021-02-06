@@ -3,17 +3,17 @@
 
 // import { PromiseContract as Contract } from '@polkadot/api-contract';
 // import { CodeStored } from '@canvas-ui/apps/types';
-import IdentityIcon from "./IdentityIcon";
-import { useAccountInfo } from "@canvas-ui/react-hooks";
-import { truncate } from "@canvas-ui/react-util";
-import React from "react";
-import styled from "styled-components";
+import IdentityIcon from './IdentityIcon';
+import { useAccountInfo } from '@canvas-ui/react-hooks';
+import { truncate } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import CopyButton from "./CopyButton";
-import EditButton from "./EditButton";
-import Input from "./Input";
-import ItemInfo from "./ItemInfo";
-import { BareProps } from "./types";
+import CopyButton from './CopyButton';
+import EditButton from './EditButton';
+import Input from './Input';
+import ItemInfo from './ItemInfo';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   address: string;
@@ -37,7 +37,7 @@ function ContractInfo({ address, children, className, isEditable }: Props): Reac
           <Input
             autoFocus
             className="name-editor"
-            isError={name === ""}
+            isError={name === ''}
             onBlur={onSaveName}
             onChange={setName}
             onEnter

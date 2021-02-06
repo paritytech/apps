@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Dropdown } from "@canvas-ui/react-components";
-import BN from "bn.js";
-import React, { useRef } from "react";
+import { Dropdown } from '@canvas-ui/react-components';
+import BN from 'bn.js';
+import React, { useRef } from 'react';
 
-import { GenericVote } from "@polkadot/types";
+import { GenericVote } from '@polkadot/types';
 
-import { useTranslation } from "../translate";
-import { Props } from "../types";
-import Bare from "./Bare";
+import { useTranslation } from '../translate';
+import { Props } from '../types';
+import Bare from './Bare';
 
 function doChange(onChange?: (value: any) => void): (_: number) => void {
   return function (value: number): void {
@@ -22,7 +22,7 @@ function doChange(onChange?: (value: any) => void): (_: number) => void {
 }
 
 function Vote({
-  className = "",
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -32,18 +32,18 @@ function Vote({
   const { t } = useTranslation();
 
   const optAyeRef = useRef([
-    { text: t<string>("Nay"), value: 0 },
-    { text: t<string>("Aye"), value: -1 },
+    { text: t<string>('Nay'), value: 0 },
+    { text: t<string>('Aye'), value: -1 },
   ]);
 
   const optConvRef = useRef([
-    { text: t<string>("None"), value: 0 },
-    { text: t<string>("Locked1x"), value: 1 },
-    { text: t<string>("Locked2x"), value: 2 },
-    { text: t<string>("Locked3x"), value: 3 },
-    { text: t<string>("Locked4x"), value: 4 },
-    { text: t<string>("Locked5x"), value: 5 },
-    { text: t<string>("Locked6x"), value: 6 },
+    { text: t<string>('None'), value: 0 },
+    { text: t<string>('Locked1x'), value: 1 },
+    { text: t<string>('Locked2x'), value: 2 },
+    { text: t<string>('Locked3x'), value: 3 },
+    { text: t<string>('Locked4x'), value: 4 },
+    { text: t<string>('Locked5x'), value: 5 },
+    { text: t<string>('Locked6x'), value: 6 },
   ]);
 
   const defaultValue =
@@ -57,7 +57,7 @@ function Vote({
         defaultValue={defaultValue}
         isDisabled={isDisabled}
         isError={isError}
-        label={t<string>("aye: bool")}
+        label={t<string>('aye: bool')}
         onChange={doChange(onChange)}
         options={optAyeRef.current}
         withLabel={withLabel}
@@ -68,7 +68,7 @@ function Vote({
           defaultValue={defaultConv}
           isDisabled={isDisabled}
           isError={isError}
-          label={t<string>("conviction: Conviction")}
+          label={t<string>('conviction: Conviction')}
           options={optConvRef.current}
           withLabel={withLabel}
         />

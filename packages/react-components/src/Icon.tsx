@@ -1,22 +1,22 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Icon as IconType, IconName } from "@fortawesome/fontawesome-svg-core";
+import type { Icon as IconType, IconName } from '@fortawesome/fontawesome-svg-core';
 
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { library } from '@fortawesome/fontawesome-svg-core';
 // import { far } from '@fortawesome/free-regular-svg-icons';
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import styled from "styled-components";
+import { fas } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
   className?: string;
-  color?: "gray" | "green" | "normal" | "orange" | "red" | "transparent" | "white";
+  color?: 'gray' | 'green' | 'normal' | 'orange' | 'red' | 'transparent' | 'white';
   icon: IconName | IconType;
   isSpinning?: boolean;
   onClick?: () => void;
-  size?: "1x" | "2x";
+  size?: '1x' | '2x';
   tooltip?: string;
 }
 
@@ -25,20 +25,20 @@ interface Props {
 library.add(fas);
 
 function Icon({
-  className = "",
-  color = "normal",
+  className = '',
+  color = 'normal',
   icon,
   isSpinning,
   onClick,
-  size = "1x",
+  size = '1x',
   tooltip,
 }: Props): React.ReactElement<Props> {
-  const extraProps = tooltip ? { "data-for": tooltip, "data-tip": true } : {};
+  const extraProps = tooltip ? { 'data-for': tooltip, 'data-tip': true } : {};
 
   return (
     <FontAwesomeIcon
       {...extraProps}
-      className={`ui--Icon ${color}Color${onClick ? " isClickable" : ""} ${className}`}
+      className={`ui--Icon ${color}Color${onClick ? ' isClickable' : ''} ${className}`}
       icon={icon}
       onClick={onClick}
       size={size}

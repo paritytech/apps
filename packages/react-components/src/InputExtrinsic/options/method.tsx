@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { DropdownOption, DropdownOptions } from "@canvas-ui/react-util/types";
-import React from "react";
+import { DropdownOption, DropdownOptions } from '@canvas-ui/react-util/types';
+import React from 'react';
 
-import { ApiPromise } from "@polkadot/api";
+import { ApiPromise } from '@polkadot/api';
 
 export default function createOptions(api: ApiPromise, sectionName: string): DropdownOptions {
   const section = api.tx[sectionName];
@@ -19,12 +19,12 @@ export default function createOptions(api: ApiPromise, sectionName: string): Dro
       (value): DropdownOption => {
         const method = section[value];
         const inputs = method.meta.args
-          .filter((arg): boolean => arg.type.toString() !== "Origin")
+          .filter((arg): boolean => arg.type.toString() !== 'Origin')
           .map((arg): string => arg.name.toString())
-          .join(", ");
+          .join(', ');
 
         return {
-          className: "ui--DropdownLinked-Item",
+          className: 'ui--DropdownLinked-Item',
           key: `${sectionName}_${value}`,
           text: [
             <div className="ui--DropdownLinked-Item-call" key={`${sectionName}_${value}:call`}>

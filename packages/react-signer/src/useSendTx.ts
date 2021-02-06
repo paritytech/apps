@@ -1,29 +1,29 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from "@canvas-ui/react-api";
-import { StatusContext } from "@canvas-ui/react-components/Status/Status";
-import { QueueTx, QueueTxMessageSetStatus } from "@canvas-ui/react-api/Status/types";
-import { useApi } from "@canvas-ui/react-hooks";
-import { StringOrNull, VoidFn } from "@canvas-ui/react-util/types";
-import BN from "bn.js";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { registry } from '@canvas-ui/react-api';
+import { StatusContext } from '@canvas-ui/react-components/Status/Status';
+import { QueueTx, QueueTxMessageSetStatus } from '@canvas-ui/react-api/Status/types';
+import { useApi } from '@canvas-ui/react-hooks';
+import { StringOrNull, VoidFn } from '@canvas-ui/react-util/types';
+import BN from 'bn.js';
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
-import { ApiPromise } from "@polkadot/api";
-import { SignerOptions } from "@polkadot/api/submittable/types";
-import { SignerResult, SubmittableExtrinsic } from "@polkadot/api/types";
-import { web3FromSource } from "@polkadot/extension-dapp";
-import { KeyringPair } from "@polkadot/keyring/types";
-import { Option } from "@polkadot/types";
-import { Multisig, Timepoint } from "@polkadot/types/interfaces";
-import { SignerPayloadJSON } from "@polkadot/types/types";
-import keyring from "@polkadot/ui-keyring";
-import { assert, BN_ZERO } from "@polkadot/util";
-import { blake2AsU8a } from "@polkadot/util-crypto";
+import { ApiPromise } from '@polkadot/api';
+import { SignerOptions } from '@polkadot/api/submittable/types';
+import { SignerResult, SubmittableExtrinsic } from '@polkadot/api/types';
+import { web3FromSource } from '@polkadot/extension-dapp';
+import { KeyringPair } from '@polkadot/keyring/types';
+import { Option } from '@polkadot/types';
+import { Multisig, Timepoint } from '@polkadot/types/interfaces';
+import { SignerPayloadJSON } from '@polkadot/types/types';
+import keyring from '@polkadot/ui-keyring';
+import { assert, BN_ZERO } from '@polkadot/util';
+import { blake2AsU8a } from '@polkadot/util-crypto';
 
-import ledgerSigner from "./LedgerSigner";
-import { AddressFlags, AddressProxy } from "./types";
-import { extractExternal, handleTxResults } from "./util";
+import ledgerSigner from './LedgerSigner';
+import { AddressFlags, AddressProxy } from './types';
+import { extractExternal, handleTxResults } from './util';
 
 interface UseSendTx {
   addQrSignature: (_: { signature: string }) => void;
@@ -70,7 +70,7 @@ function unlockAccount({ signAddress, signPassword }: AddressProxy): string | nu
   } catch (error) {
     console.error(error);
 
-    return "unable to decode address";
+    return 'unable to decode address';
   }
 
   const pair = keyring.getPair(publicKey);
@@ -89,7 +89,7 @@ function unlockAccount({ signAddress, signPassword }: AddressProxy): string | nu
 async function signAndSend(
   queueSetTxStatus: QueueTxMessageSetStatus,
   currentItem: QueueTx,
-  tx: SubmittableExtrinsic<"promise">,
+  tx: SubmittableExtrinsic<'promise'>,
   pairOrAddress: KeyringPair | string,
   options: Partial<SignerOptions>
 ): Promise<void> {
@@ -99,13 +99,13 @@ async function signAndSend(
     const unsubscribe = await tx.signAndSend(
       pairOrAddress,
       options,
-      handleTxResults("signAndSend", queueSetTxStatus, currentItem, (): void => {
+      handleTxResults('signAndSend', queueSetTxStatus, currentItem, (): void => {
         unsubscribe();
       })
     );
   } catch (error) {
-    console.error("signAndSend: error:", error);
-    queueSetTxStatus(currentItem.id, "error", {}, error);
+    console.error('signAndSend: error:', error);
+    queueSetTxStatus(currentItem.id, 'error', {}, error);
 
     currentItem.txFailedCb && currentItem.txFailedCb(null);
   }
@@ -114,19 +114,19 @@ async function signAndSend(
 async function sendUnsigned(
   queueSetTxStatus: QueueTxMessageSetStatus,
   currentItem: QueueTx,
-  tx: SubmittableExtrinsic<"promise">
+  tx: SubmittableExtrinsic<'promise'>
 ): Promise<void> {
   currentItem.txStartCb && currentItem.txStartCb();
 
   try {
     const unsubscribe = await tx.send(
-      handleTxResults("send", queueSetTxStatus, currentItem, (): void => {
+      handleTxResults('send', queueSetTxStatus, currentItem, (): void => {
         unsubscribe();
       })
     );
   } catch (error) {
-    console.error("send: error:", error);
-    queueSetTxStatus(currentItem.id, "error", {}, error);
+    console.error('send: error:', error);
+    queueSetTxStatus(currentItem.id, 'error', {}, error);
 
     currentItem.txFailedCb && currentItem.txFailedCb(null);
   }
@@ -135,7 +135,7 @@ async function sendUnsigned(
 async function signAsync(
   queueSetTxStatus: QueueTxMessageSetStatus,
   { id, txFailedCb = NOOP, txStartCb = NOOP }: QueueTx,
-  tx: SubmittableExtrinsic<"promise">,
+  tx: SubmittableExtrinsic<'promise'>,
   pairOrAddress: KeyringPair | string,
   options: Partial<SignerOptions>
 ): Promise<string | null> {
@@ -144,7 +144,7 @@ async function signAsync(
   try {
     return (await tx.signAsync(pairOrAddress, options)).toJSON();
   } catch (error) {
-    queueSetTxStatus(id, "error", undefined, error);
+    queueSetTxStatus(id, 'error', undefined, error);
 
     txFailedCb(error);
   }
@@ -157,7 +157,7 @@ function signQrPayload(setQrState: (state: QrState) => void): (payload: SignerPa
     new Promise((resolve, reject): void => {
       // limit size of the transaction
       const isQrHashed = payload.method.length > 5000;
-      const wrapper = registry.createType("ExtrinsicPayload", payload, { version: payload.version });
+      const wrapper = registry.createType('ExtrinsicPayload', payload, { version: payload.version });
       const qrPayload = isQrHashed ? blake2AsU8a(wrapper.toU8a(true)) : wrapper.toU8a();
 
       setQrState({
@@ -175,15 +175,15 @@ async function wrapTx(
   api: ApiPromise,
   currentItem: QueueTx,
   { isMultiCall, multiRoot, proxyRoot, signAddress }: AddressProxy
-): Promise<SubmittableExtrinsic<"promise">> {
-  let tx = currentItem.extrinsic as SubmittableExtrinsic<"promise">;
+): Promise<SubmittableExtrinsic<'promise'>> {
+  let tx = currentItem.extrinsic as SubmittableExtrinsic<'promise'>;
 
   if (proxyRoot) {
     tx = api.tx.proxy.proxy(proxyRoot, null, tx);
   }
 
   if (multiRoot) {
-    const multiModule = api.tx.multisig ? "multisig" : "utility";
+    const multiModule = api.tx.multisig ? 'multisig' : 'utility';
     const info = await api.query[multiModule].multisigs<Option<Multisig>>(multiRoot, tx.method.hash);
     const { weight } = await tx.paymentInfo(multiRoot);
     const { threshold, who } = extractExternal(multiRoot);
@@ -215,25 +215,25 @@ async function extractParams(
   address: string,
   options: Partial<SignerOptions>,
   setQrState: (state: QrState) => void
-): Promise<["qr" | "signing", KeyringPair | string, Partial<SignerOptions>]> {
+): Promise<['qr' | 'signing', KeyringPair | string, Partial<SignerOptions>]> {
   const pair = keyring.getPair(address);
   const {
     meta: { isExternal, isHardware, isInjected, source },
   } = pair;
 
   if (isHardware) {
-    return ["signing", address, { ...options, signer: ledgerSigner }];
+    return ['signing', address, { ...options, signer: ledgerSigner }];
   } else if (isExternal) {
-    return ["qr", address, { ...options, signer: { signPayload: signQrPayload(setQrState) } }];
+    return ['qr', address, { ...options, signer: { signPayload: signQrPayload(setQrState) } }];
   } else if (isInjected) {
     const injected = await web3FromSource(source as string);
 
     assert(injected, `Unable to find a signer for ${address}`);
 
-    return ["signing", address, { ...options, signer: injected.signer }];
+    return ['signing', address, { ...options, signer: injected.signer }];
   }
 
-  return ["signing", pair, options];
+  return ['signing', pair, options];
 }
 
 let qrId = 0;
@@ -246,7 +246,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
   const [qrState, setQrState] = useState<QrState>({
     isQrHashed: false,
     isQrVisible: false,
-    qrAddress: "",
+    qrAddress: '',
     qrPayload: new Uint8Array(),
   });
   // const [isRenderError, toggleRenderError] = useToggle();
@@ -258,7 +258,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
     multiRoot: null,
     proxyRoot: null,
     signAddress: requestAddress,
-    signPassword: "",
+    signPassword: '',
   });
   const [signedOptions, setSignedOptions] = useState<Partial<SignerOptions>>({});
   const [signedTx, setSignedTx] = useState<string | null>(null);
@@ -273,7 +273,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
       multiRoot: null,
       proxyRoot: null,
       signAddress: requestAddress,
-      signPassword: "",
+      signPassword: '',
     });
   }, [requestAddress]);
 
@@ -307,7 +307,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
     if (currentItem) {
       const { id, signerCb = NOOP, txFailedCb = NOOP } = currentItem;
 
-      queueSetTxStatus(id, "cancelled");
+      queueSetTxStatus(id, 'cancelled');
       signerCb(id, null);
       txFailedCb(null);
     }
@@ -325,10 +325,10 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
     if (_unlock() && senderInfo.signAddress && currentItem?.payload) {
       const { id, payload, signerCb = NOOP } = currentItem;
       const pair = keyring.getPair(senderInfo.signAddress);
-      const result = registry.createType("ExtrinsicPayload", payload, { version: payload.version }).sign(pair);
+      const result = registry.createType('ExtrinsicPayload', payload, { version: payload.version }).sign(pair);
 
       signerCb(id, { id, ...result });
-      queueSetTxStatus(id, "completed");
+      queueSetTxStatus(id, 'completed');
     }
   }, [_unlock, currentItem, queueSetTxStatus, senderInfo]);
 

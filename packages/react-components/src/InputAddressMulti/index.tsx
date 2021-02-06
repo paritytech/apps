@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useDebounce } from "@canvas-ui/react-hooks";
-import React, { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
+import { useDebounce } from '@canvas-ui/react-hooks';
+import React, { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import Input from "../Input";
-import { useTranslation } from "../translate";
-import Available from "./Available";
-import Selected from "./Selected";
+import Input from '../Input';
+import { useTranslation } from '../translate';
+import Available from './Available';
+import Selected from './Selected';
 
 interface Props {
   available: string[];
@@ -79,14 +79,14 @@ interface Props {
 function InputAddressMulti({
   available,
   availableLabel,
-  className = "",
+  className = '',
   defaultValue,
   maxCount,
   onChange,
   valueLabel,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const [_filter, setFilter] = useState<string>("");
+  const [_filter, setFilter] = useState<string>('');
   const [selected, setSelected] = useState<string[]>([]);
   const filter = useDebounce(_filter);
 
@@ -120,7 +120,7 @@ function InputAddressMulti({
         autoFocus
         className="ui--InputAddressMulti-Input label-small"
         onChange={setFilter}
-        placeholder={t<string>("filter by name, address, or account index")}
+        placeholder={t<string>('filter by name, address, or account index')}
         value={_filter}
         withLabel={false}
       />

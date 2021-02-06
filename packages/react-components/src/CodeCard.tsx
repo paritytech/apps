@@ -1,22 +1,22 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { store, useAbi } from "@canvas-ui/page-contracts";
-import { Code, ComponentProps } from "./types";
-import { ELEV_2_CSS } from "./styles/constants";
-import { useToggle } from "@canvas-ui/react-hooks";
-import { FileState } from "@canvas-ui/react-hooks/types";
-import { VoidFn } from "@canvas-ui/react-util/types";
-import React, { useCallback } from "react";
-import styled from "styled-components";
+import { store, useAbi } from '@canvas-ui/page-contracts';
+import { Code, ComponentProps } from './types';
+import { ELEV_2_CSS } from './styles/constants';
+import { useToggle } from '@canvas-ui/react-hooks';
+import { FileState } from '@canvas-ui/react-hooks/types';
+import { VoidFn } from '@canvas-ui/react-util/types';
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
 
-import Abi from "./Abi";
-import Button from "./Button";
-import Card from "./Card";
-import CodeForget from "./CodeForget";
-import CodeInfo from "./CodeInfo";
-import CodeUploadABI from "./CodeUploadABI";
-import { useTranslation } from "./translate";
+import Abi from './Abi';
+import Button from './Button';
+import Card from './Card';
+import CodeForget from './CodeForget';
+import CodeInfo from './CodeInfo';
+import CodeUploadABI from './CodeUploadABI';
+import { useTranslation } from './translate';
 
 interface Props extends ComponentProps {
   code: Code;
@@ -62,12 +62,12 @@ function CodeCard({
           {abi?.project.source.wasm && abi.project.source.wasm.length === 0 && (
             <CodeUploadABI
               codeHash={code.codeHash}
-              label={t(isAbiSupplied ? "Edit ABI" : "Add ABI")}
+              label={t(isAbiSupplied ? 'Edit ABI' : 'Add ABI')}
               onSave={onSaveABI}
             />
           )}
           <CodeForget code={code} onForget={onForget} />
-          <Button isDisabled={!isAbiSupplied} isPrimary label={t<string>("Deploy")} onClick={onDeploy} />
+          <Button isDisabled={!isAbiSupplied} isPrimary label={t<string>('Deploy')} onClick={onDeploy} />
         </Button.Group>
       </div>
     </Card>

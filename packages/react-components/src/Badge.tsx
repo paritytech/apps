@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/app-staking authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import Tooltip from "./Tooltip";
+import Tooltip from './Tooltip';
 
 interface Props {
   className?: string;
@@ -16,23 +16,23 @@ interface Props {
   isTooltip?: boolean;
   onClick?: () => void;
   type:
-    | "counter"
-    | "online"
-    | "offline"
-    | "next"
-    | "runnerup"
-    | "selected"
-    | "green"
-    | "blue"
-    | "brown"
-    | "gray"
-    | "purple";
+    | 'counter'
+    | 'online'
+    | 'offline'
+    | 'next'
+    | 'runnerup'
+    | 'selected'
+    | 'green'
+    | 'blue'
+    | 'brown'
+    | 'gray'
+    | 'purple';
 }
 
 let badgeId = 0;
 
 function Badge({
-  className = "",
+  className = '',
   hover,
   info,
   isGray,
@@ -46,9 +46,9 @@ function Badge({
 
   return (
     <div
-      className={`ui--Badge ${isGray ? "isGray" : ""} ${isInline ? "isInline" : ""} ${isTooltip ? "isTooltip" : ""} ${
-        isSmall ? "isSmall" : ""
-      } ${onClick ? "isClickable" : ""} ${type} ${className}`}
+      className={`ui--Badge ${isGray ? 'isGray' : ''} ${isInline ? 'isInline' : ''} ${isTooltip ? 'isTooltip' : ''} ${
+        isSmall ? 'isSmall' : ''
+      } ${onClick ? 'isClickable' : ''} ${type} ${className}`}
       data-for={trigger}
       data-tip={true}
       data-tip-disable={!isTooltip}

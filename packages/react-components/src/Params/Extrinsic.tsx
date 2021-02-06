@@ -1,16 +1,16 @@
 // Copyright 2017-2021 @canvas-ui/app-extrinsics authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { RawParamOnChange, RawParamOnEnter, RawParamOnEscape } from "@canvas-ui/react-params/types";
-import React, { useCallback } from "react";
+import { RawParamOnChange, RawParamOnEnter, RawParamOnEscape } from '@canvas-ui/react-params/types';
+import React, { useCallback } from 'react';
 
-import { SubmittableExtrinsic, SubmittableExtrinsicFunction } from "@polkadot/api/types";
+import { SubmittableExtrinsic, SubmittableExtrinsicFunction } from '@polkadot/api/types';
 
-import BaseExtrinsic from "../Extrinsic";
-import { BareProps } from "../types";
+import BaseExtrinsic from '../Extrinsic';
+import { BareProps } from '../types';
 
 interface Props extends BareProps {
-  defaultValue: SubmittableExtrinsicFunction<"promise">;
+  defaultValue: SubmittableExtrinsicFunction<'promise'>;
   isDisabled?: boolean;
   isError?: boolean;
   isPrivate: boolean;
@@ -22,7 +22,7 @@ interface Props extends BareProps {
 }
 
 function ExtrinsicDisplay({
-  className = "",
+  className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -34,7 +34,7 @@ function ExtrinsicDisplay({
   withLabel,
 }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
-    (method?: SubmittableExtrinsic<"promise">): void =>
+    (method?: SubmittableExtrinsic<'promise'>): void =>
       onChange &&
       onChange({
         isValid: !!method,

@@ -1,18 +1,18 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState } from 'react';
 
-import { Vec } from "@polkadot/types";
-import { KeyValue as Pair } from "@polkadot/types/interfaces";
-import { assert, isHex, u8aToHex, u8aToString } from "@polkadot/util";
+import { Vec } from '@polkadot/types';
+import { KeyValue as Pair } from '@polkadot/types/interfaces';
+import { assert, isHex, u8aToHex, u8aToString } from '@polkadot/util';
 
-import { useTranslation } from "../translate";
-import { Props, RawParam } from "../types";
-import Base from "./Base";
-import Bytes from "./Bytes";
-import File from "./File";
-import { createParam } from "./KeyValue";
+import { useTranslation } from '../translate';
+import { Props, RawParam } from '../types';
+import Base from './Base';
+import Bytes from './Bytes';
+import File from './File';
+import { createParam } from './KeyValue';
 
 interface Parsed {
   isValid: boolean;
@@ -21,10 +21,10 @@ interface Parsed {
 
 const BYTES_TYPE = {
   info: 0,
-  type: "Bytes",
+  type: 'Bytes',
 };
 
-const EMPTY_PLACEHOLDER = "click to select or drag and drop JSON key/value (hex-encoded) file";
+const EMPTY_PLACEHOLDER = 'click to select or drag and drop JSON key/value (hex-encoded) file';
 
 function parseFile(raw: Uint8Array): Parsed {
   const json = JSON.parse(u8aToString(raw)) as Record<string, string>;
@@ -50,7 +50,7 @@ function parseFile(raw: Uint8Array): Parsed {
 }
 
 function KeyValueArray({
-  className = "",
+  className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -71,14 +71,14 @@ function KeyValueArray({
         encoded = parseFile(raw);
 
         setPlaceholder(
-          t("{{count}} key/value pairs encoded for submission", {
+          t('{{count}} key/value pairs encoded for submission', {
             replace: {
               count: encoded.value.length,
             },
           })
         );
       } catch (error) {
-        console.error("Error converting json k/v", error);
+        console.error('Error converting json k/v', error);
 
         setPlaceholder(t(EMPTY_PLACEHOLDER));
       }

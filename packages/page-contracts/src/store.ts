@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { api } from "@canvas-ui/react-api";
-import EventEmitter from "eventemitter3";
-import { nanoid } from "nanoid";
-import store from "store";
+import { api } from '@canvas-ui/react-api';
+import EventEmitter from 'eventemitter3';
+import { nanoid } from 'nanoid';
+import store from 'store';
 
-import { Code } from "@canvas-ui/react-components/types";
+import { Code } from '@canvas-ui/react-components/types';
 
-const KEY_CODE = "code:";
+const KEY_CODE = 'code:';
 
 function newId(): string {
   return nanoid(6);
@@ -91,14 +91,14 @@ class Store extends EventEmitter {
         }
 
         if (key.startsWith(KEY_CODE)) {
-          const id = key.split(":")[1];
+          const id = key.split(':')[1];
 
           this.addCode(id, json);
           this.hashToId[json.codeHash] = id;
         }
       });
     } catch (error) {
-      console.error("Unable to load code", error);
+      console.error('Unable to load code', error);
     }
   }
 
@@ -107,7 +107,7 @@ class Store extends EventEmitter {
       this.hashToId[json.codeHash] = id;
       this.allCode[id] = json;
 
-      this.emit("new-code");
+      this.emit('new-code');
     } catch (error) {
       console.error(error);
     }
@@ -119,7 +119,7 @@ class Store extends EventEmitter {
 
       delete this.hashToId[codeHash];
       delete this.allCode[id];
-      this.emit("removed-code");
+      this.emit('removed-code');
     } catch (error) {
       console.error(error);
     }

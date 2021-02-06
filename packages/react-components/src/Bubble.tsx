@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from "@canvas-ui/react-util";
-import React from "react";
-import SUILabel from "semantic-ui-react/dist/commonjs/elements/Label/Label";
-import { SemanticCOLORS, SemanticICONS } from "semantic-ui-react/dist/commonjs/generic";
-import styled from "styled-components";
+import { classes } from '@canvas-ui/react-util';
+import React from 'react';
+import SUILabel from 'semantic-ui-react/dist/commonjs/elements/Label/Label';
+import { SemanticCOLORS, SemanticICONS } from 'semantic-ui-react/dist/commonjs/generic';
+import styled from 'styled-components';
 
-import Icon from "./Icon";
-import { BareProps } from "./types";
+import Icon from './Icon';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   children: React.ReactNode;
@@ -17,9 +17,9 @@ interface Props extends BareProps {
   label?: React.ReactNode;
 }
 
-function Bubble({ children, className = "", color, icon, label }: Props): React.ReactElement<Props> {
+function Bubble({ children, className = '', color, icon, label }: Props): React.ReactElement<Props> {
   return (
-    <SUILabel className={classes("theme--default", "ui--Bubble", className)} color={color}>
+    <SUILabel className={classes('theme--default', 'ui--Bubble', className)} color={color}>
       <div className="ui--Bubble-header">
         {icon && <Icon icon={icon} size="large" />}
         {label && <div className="text">{label}</div>}

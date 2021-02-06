@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { VoidFn } from "@canvas-ui/react-util/types";
-import { useCallback, useMemo, useState } from "react";
+import { VoidFn } from '@canvas-ui/react-util/types';
+import { useCallback, useMemo, useState } from 'react';
 
-import { FileState, UseFile } from "./types";
+import { FileState, UseFile } from './types';
 
 interface FileOptions {
   defaultValue?: FileState | null;

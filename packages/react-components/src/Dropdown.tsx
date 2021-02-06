@@ -1,16 +1,16 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from "@canvas-ui/react-util";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import SUIButton from "semantic-ui-react/dist/commonjs/elements/Button/Button";
-import SUIDropdown, { DropdownProps } from "semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown";
-import styled from "styled-components";
+import { classes } from '@canvas-ui/react-util';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import SUIButton from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
+import SUIDropdown, { DropdownProps } from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
+import styled from 'styled-components';
 
-import { isUndefined } from "@polkadot/util";
+import { isUndefined } from '@polkadot/util';
 
-import Labelled from "./Labelled";
-import { BareProps } from "./types";
+import Labelled from './Labelled';
+import { BareProps } from './types';
 
 interface Props<Option> extends BareProps {
   allowAdd?: boolean;
@@ -46,7 +46,7 @@ export type IDropdown<Option> = React.ComponentType<Props<Option>> & {
 function BaseDropdown<Option>({
   allowAdd = false,
   children,
-  className = "",
+  className = '',
   defaultValue,
   dropdownClassName,
   help,
@@ -71,7 +71,7 @@ function BaseDropdown<Option>({
   withEllipsis,
   withLabel,
 }: Props<Option>): React.ReactElement<Props<Option>> {
-  const lastUpdate = useRef<string>("");
+  const lastUpdate = useRef<string>('');
   const [stored, setStored] = useState<string | undefined>();
 
   const _setStored = useCallback(
@@ -131,7 +131,7 @@ function BaseDropdown<Option>({
     <SUIButton.Group primary>{dropdown}</SUIButton.Group>
   ) : (
     <Labelled
-      className={classes("ui--Dropdown", className)}
+      className={classes('ui--Dropdown', className)}
       help={help}
       isFull={isFull}
       label={label}
@@ -190,7 +190,7 @@ const Dropdown = (React.memo(styled(BaseDropdown)`
       > .chain-option {
         :before {
           background: var(--green-primary);
-          content: "";
+          content: '';
           display: block;
           border-radius: 4px;
           width: 0.5rem;

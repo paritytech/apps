@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/app-accounts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Environment } from "../types";
+import type { Environment } from '../types';
 
 // https://github.com/electron/electron/issues/2288
 // function isElectron () {
@@ -21,5 +21,5 @@ export default function getEnvironment(): Environment {
   //   return 'app';
   // }
 
-  return "web";
+  return 'web';
 }

@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { truncate } from "@canvas-ui/react-util";
-import React from "react";
-import styled from "styled-components";
+import { truncate } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import AccountName from "../AccountName";
-import IdentityIcon from "../IdentityIcon";
-import { useTranslation } from "../translate";
-import { BareProps } from "../types";
+import AccountName from '../AccountName';
+import IdentityIcon from '../IdentityIcon';
+import { useTranslation } from '../translate';
+import { BareProps } from '../types';
 
 interface Props extends BareProps {
   address: string;
@@ -58,10 +58,10 @@ function KeyPairNone({ className }: BareProps): React.ReactElement<BareProps> {
   const { t } = useTranslation();
 
   return (
-    <div className={["ui--KeyPair", "noAccount", className].join(" ")}>
+    <div className={['ui--KeyPair', 'noAccount', className].join(' ')}>
       <IdentityIcon className="icon" value="none" />
       <div className="info">
-        <div className="name">{t("No Account")}</div>
+        <div className="name">{t('No Account')}</div>
         <div className="address">...</div>
       </div>
     </div>
@@ -70,7 +70,7 @@ function KeyPairNone({ className }: BareProps): React.ReactElement<BareProps> {
 
 function KeyPair({ address, className }: Props): React.ReactElement<Props> {
   return (
-    <div className={["ui--KeyPair", className].join(" ")}>
+    <div className={['ui--KeyPair', className].join(' ')}>
       <IdentityIcon className="icon" value={address} />
       <div className="info">
         <div className="name">

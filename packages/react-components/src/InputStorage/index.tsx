@@ -3,30 +3,30 @@
 
 // TODO: We have a lot shared between this and InputExtrinsic
 
-import { useApi } from "@canvas-ui/react-hooks";
-import { DropdownOptions } from "@canvas-ui/react-util/types";
-import React, { useCallback, useState } from "react";
+import { useApi } from '@canvas-ui/react-hooks';
+import { DropdownOptions } from '@canvas-ui/react-util/types';
+import React, { useCallback, useState } from 'react';
 
-import { QueryableStorageEntry } from "@polkadot/api/types";
+import { QueryableStorageEntry } from '@polkadot/api/types';
 
-import LinkedWrapper from "../InputExtrinsic/LinkedWrapper";
-import keyOptions from "./options/key";
-import sectionOptions from "./options/section";
-import SelectKey from "./SelectKey";
-import SelectSection from "./SelectSection";
+import LinkedWrapper from '../InputExtrinsic/LinkedWrapper';
+import keyOptions from './options/key';
+import sectionOptions from './options/section';
+import SelectKey from './SelectKey';
+import SelectSection from './SelectSection';
 
 interface Props {
   className?: string;
-  defaultValue: QueryableStorageEntry<"promise">;
+  defaultValue: QueryableStorageEntry<'promise'>;
   help?: React.ReactNode;
   isError?: boolean;
   label: React.ReactNode;
-  onChange?: (value: QueryableStorageEntry<"promise">) => void;
+  onChange?: (value: QueryableStorageEntry<'promise'>) => void;
   withLabel?: boolean;
 }
 
 function InputStorage({
-  className = "",
+  className = '',
   defaultValue,
   help,
   label,
@@ -36,10 +36,10 @@ function InputStorage({
   const { api } = useApi();
   const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(keyOptions(api, defaultValue.creator.section));
   const [optionsSection] = useState<DropdownOptions>(sectionOptions(api));
-  const [value, setValue] = useState<QueryableStorageEntry<"promise">>(() => defaultValue);
+  const [value, setValue] = useState<QueryableStorageEntry<'promise'>>(() => defaultValue);
 
   const _onKeyChange = useCallback(
-    (newValue: QueryableStorageEntry<"promise">): void => {
+    (newValue: QueryableStorageEntry<'promise'>): void => {
       if (value.creator.section === newValue.creator.section && value.creator.method === newValue.creator.method) {
         return;
       }

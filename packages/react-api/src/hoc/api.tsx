@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
+import React from 'react';
 
-import { assert } from "@polkadot/util";
+import { assert } from '@polkadot/util';
 
-import { ApiConsumer } from "../ApiContext";
-import { ApiProps, SubtractProps } from "../types";
-import { DefaultProps } from "./types";
+import { ApiConsumer } from '../ApiContext';
+import { ApiProps, SubtractProps } from '../types';
+import { DefaultProps } from './types';
 
 export default function withApi<P extends ApiProps>(
   Inner: React.ComponentType<P>,

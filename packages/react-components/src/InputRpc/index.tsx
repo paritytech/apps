@@ -3,18 +3,18 @@
 
 // TODO: We have a lot shared between this and InputExtrinsic & InputStorage
 
-import { useApi } from "@canvas-ui/react-hooks";
-import { DropdownOptions } from "@canvas-ui/react-util/types";
-import React, { useCallback, useEffect, useState } from "react";
+import { useApi } from '@canvas-ui/react-hooks';
+import { DropdownOptions } from '@canvas-ui/react-util/types';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import jsonrpc from "@polkadot/types/interfaces/jsonrpc";
-import { DefinitionRpcExt } from "@polkadot/types/types";
+import jsonrpc from '@polkadot/types/interfaces/jsonrpc';
+import { DefinitionRpcExt } from '@polkadot/types/types';
 
-import LinkedWrapper from "../InputExtrinsic/LinkedWrapper";
-import methodOptions from "./options/method";
-import sectionOptions from "./options/section";
-import SelectMethod from "./SelectMethod";
-import SelectSection from "./SelectSection";
+import LinkedWrapper from '../InputExtrinsic/LinkedWrapper';
+import methodOptions from './options/method';
+import sectionOptions from './options/section';
+import SelectMethod from './SelectMethod';
+import SelectSection from './SelectSection';
 
 interface Props {
   className?: string;
@@ -27,7 +27,7 @@ interface Props {
 }
 
 function InputRpc({
-  className = "",
+  className = '',
   defaultValue,
   help,
   label,

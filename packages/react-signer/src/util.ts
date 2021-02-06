@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { QueueTx, QueueTxMessageSetStatus, QueueTxStatus } from "@canvas-ui/react-components/Status/types";
+import { QueueTx, QueueTxMessageSetStatus, QueueTxStatus } from '@canvas-ui/react-components/Status/types';
 
-import { SubmittableResult } from "@polkadot/api";
-import keyring from "@polkadot/ui-keyring";
+import { SubmittableResult } from '@polkadot/api';
+import keyring from '@polkadot/ui-keyring';
 
-import { AddressFlags } from "./types";
+import { AddressFlags } from './types';
 
 const NOOP = () => undefined;
 
@@ -60,7 +60,7 @@ export function recodeAddress(address: string | Uint8Array): string {
 }
 
 export function handleTxResults(
-  handler: "send" | "signAndSend",
+  handler: 'send' | 'signAndSend',
   queueSetTxStatus: QueueTxMessageSetStatus,
   { id, txFailedCb = NOOP, txSuccessCb = NOOP, txUpdateCb = NOOP }: QueueTx,
   unsubscribe: () => void
@@ -79,11 +79,11 @@ export function handleTxResults(
 
     if (result.status.isFinalized || result.status.isInBlock) {
       result.events
-        .filter(({ event: { section } }) => section === "system")
+        .filter(({ event: { section } }) => section === 'system')
         .forEach(({ event: { method } }): void => {
-          if (method === "ExtrinsicFailed") {
+          if (method === 'ExtrinsicFailed') {
             txFailedCb(result);
-          } else if (method === "ExtrinsicSuccess") {
+          } else if (method === 'ExtrinsicSuccess') {
             txSuccessCb(result);
           }
         });

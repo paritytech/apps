@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from "@canvas-ui/react-api";
-import { QueueTxMessageSetStatus, QueueTxPayloadAdd, QueueTxStatus } from "@canvas-ui/react-components/Status/types";
+import { registry } from '@canvas-ui/react-api';
+import { QueueTxMessageSetStatus, QueueTxPayloadAdd, QueueTxStatus } from '@canvas-ui/react-components/Status/types';
 
-import { SubmittableResult } from "@polkadot/api";
-import { Signer, SignerResult } from "@polkadot/api/types";
-import { ClassOf } from "@polkadot/types";
-import { Hash } from "@polkadot/types/interfaces";
-import { SignerPayloadJSON } from "@polkadot/types/types";
+import { SubmittableResult } from '@polkadot/api';
+import { Signer, SignerResult } from '@polkadot/api/types';
+import { ClassOf } from '@polkadot/types';
+import { Hash } from '@polkadot/types/interfaces';
+import { SignerPayloadJSON } from '@polkadot/types/types';
 
 export default class ApiSigner implements Signer {
   readonly #queuePayload: QueueTxPayloadAdd;
@@ -26,15 +26,15 @@ export default class ApiSigner implements Signer {
         if (result) {
           resolve(result);
         } else {
-          reject(new Error("Unable to sign"));
+          reject(new Error('Unable to sign'));
         }
       });
     });
   }
 
   public update(id: number, result: Hash | SubmittableResult): void {
-    if (result instanceof ClassOf(registry, "Hash")) {
-      this.#queueSetTxStatus(id, "sent", result.toHex());
+    if (result instanceof ClassOf(registry, 'Hash')) {
+      this.#queueSetTxStatus(id, 'sent', result.toHex());
     } else {
       this.#queueSetTxStatus(id, result.status.type.toLowerCase() as QueueTxStatus, status);
     }

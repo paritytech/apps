@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import registry from "@canvas-ui/react-api/typeRegistry";
-import React, { useCallback, useRef, useState } from "react";
+import registry from '@canvas-ui/react-api/typeRegistry';
+import React, { useCallback, useRef, useState } from 'react';
 
-import { SubmittableResult } from "@polkadot/api";
-import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
-import { createType } from "@polkadot/types";
-import { DispatchError } from "@polkadot/types/interfaces";
-import jsonrpc from "@polkadot/types/interfaces/jsonrpc";
-import { ITuple, SignerPayloadJSON } from "@polkadot/types/types";
+import { SubmittableResult } from '@polkadot/api';
+import { SubmittableExtrinsic } from '@polkadot/api/promise/types';
+import { createType } from '@polkadot/types';
+import { DispatchError } from '@polkadot/types/interfaces';
+import jsonrpc from '@polkadot/types/interfaces/jsonrpc';
+import { ITuple, SignerPayloadJSON } from '@polkadot/types/types';
 
-import { BareProps } from "@canvas-ui/react-components/types";
-import { STATUS_COMPLETE } from "@canvas-ui/react-api/Status/constants";
-import { QueueProvider } from "@canvas-ui/react-api/Status/Context";
+import { BareProps } from '@canvas-ui/react-components/types';
+import { STATUS_COMPLETE } from '@canvas-ui/react-api/Status/constants';
+import { QueueProvider } from '@canvas-ui/react-api/Status/Context';
 import {
   ActionStatus,
   PartialQueueTxExtrinsic,
@@ -24,7 +24,7 @@ import {
   QueueTxRpc,
   QueueTxStatus,
   SignerCallback,
-} from "@canvas-ui/react-api/Status/types";
+} from '@canvas-ui/react-api/Status/types';
 
 export interface Props extends BareProps {
   children: React.ReactNode;
@@ -64,10 +64,10 @@ function extractEvents(result?: SubmittableResult): ActionStatus[] {
     ((result && result.events) || [])
       // filter events handled globally, or those we are not interested in, these are
       // handled by the global overview, so don't add them here
-      .filter((record): boolean => !!record.event && record.event.section !== "democracy")
+      .filter((record): boolean => !!record.event && record.event.section !== 'democracy')
       .map(
         ({ event: { data, method, section } }): ActionStatus => {
-          if (section === "system" && method === "ExtrinsicFailed") {
+          if (section === 'system' && method === 'ExtrinsicFailed') {
             const [dispatchError] = (data as unknown) as ITuple<[DispatchError]>;
             let message = dispatchError.type;
 
@@ -85,14 +85,14 @@ function extractEvents(result?: SubmittableResult): ActionStatus[] {
             return {
               action: `${section}.${method}`,
               message,
-              status: "error",
+              status: 'error',
             };
           }
 
           return {
             action: `${section}.${method}`,
-            message: "extrinsic event",
-            status: "event",
+            message: 'extrinsic event',
+            status: 'event',
           };
         }
       )
@@ -118,7 +118,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
       const id = ++nextId;
       const removeItem = (): void =>
         setTxQueue([
-          ...txRef.current.map((item): QueueTx => (item.id === id ? { ...item, status: "completed" } : item)),
+          ...txRef.current.map((item): QueueTx => (item.id === id ? { ...item, status: 'completed' } : item)),
         ]);
 
       setTxQueue([
@@ -128,7 +128,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
           id,
           removeItem,
           rpc: (value as QueueTxRpc).rpc || SUBMIT_RPC,
-          status: "queued",
+          status: 'queued',
         },
       ]);
     },
@@ -170,8 +170,8 @@ function Queue({ children }: Props): React.ReactElement<Props> {
         // this is not great, but the Extrinsic we don't need a submittable
         extrinsic: (createType(
           registry,
-          "Extrinsic",
-          { method: createType(registry, "Call", payload.method) },
+          'Extrinsic',
+          { method: createType(registry, 'Call', payload.method) },
           { version: payload.version }
         ) as unknown) as SubmittableExtrinsic,
         payload,
@@ -190,7 +190,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
                   ...item,
                   error: error === undefined ? item.error : error,
                   result: result === undefined ? (item.result as SubmittableResult) : result,
-                  status: item.status === "completed" ? item.status : status,
+                  status: item.status === 'completed' ? item.status : status,
                 }
               : item
         ),

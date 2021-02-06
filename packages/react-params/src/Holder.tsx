@@ -1,8 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
   children?: React.ReactNode;
@@ -11,11 +11,11 @@ interface Props {
   withPadding?: boolean;
 }
 
-function Holder({ children, className = "", withBorder, withPadding }: Props): React.ReactElement<Props> {
+function Holder({ children, className = '', withBorder, withPadding }: Props): React.ReactElement<Props> {
   return (
     <div
-      className={`ui--Params ${className} ${withBorder ? "withBorder" : "withoutBorder"} ${
-        withPadding ? "withPadding" : ""
+      className={`ui--Params ${className} ${withBorder ? 'withBorder' : 'withoutBorder'} ${
+        withPadding ? 'withPadding' : ''
       }`}
     >
       {children}

@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import linked from "@canvas-ui/apps-config/links";
-import { LinkTypes } from "@canvas-ui/apps-config/links/types";
-import { useApi } from "@canvas-ui/react-hooks";
-import BN from "bn.js";
-import React, { useMemo } from "react";
-import styled from "styled-components";
+import linked from '@canvas-ui/apps-config/links';
+import { LinkTypes } from '@canvas-ui/apps-config/links/types';
+import { useApi } from '@canvas-ui/react-hooks';
+import BN from 'bn.js';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
 
-import Tooltip from "./Tooltip";
-import { useTranslation } from "./translate";
+import Tooltip from './Tooltip';
+import { useTranslation } from './translate';
 
 interface Props {
   className?: string;
@@ -56,7 +56,7 @@ function genLinks(systemChain: string, { data, hash, type, withShort }: Props): 
     .filter((node): node is React.ReactNode => !!node);
 }
 
-function LinkExternal({ className = "", data, hash, type, withShort }: Props): React.ReactElement<Props> | null {
+function LinkExternal({ className = '', data, hash, type, withShort }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { systemChain } = useApi();
   const links = useMemo(() => genLinks(systemChain, { data, hash, type, withShort }), [
@@ -72,8 +72,8 @@ function LinkExternal({ className = "", data, hash, type, withShort }: Props): R
   }
 
   return (
-    <div className={`${className} ${withShort ? "withShort" : ""}`}>
-      {!withShort && <div>{t<string>("View this externally")}</div>}
+    <div className={`${className} ${withShort ? 'withShort' : ''}`}>
+      {!withShort && <div>{t<string>('View this externally')}</div>}
       <div className="links">
         {links.map((link, index) => (
           <span key={index}>{link}</span>

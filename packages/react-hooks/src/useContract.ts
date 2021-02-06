@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/app-contracts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { StringOrNull } from "@canvas-ui/react-util/types";
-import { useMemo } from "react";
+import { StringOrNull } from '@canvas-ui/react-util/types';
+import { useMemo } from 'react';
 
-import { ContractPromise as Contract } from "@polkadot/api-contract";
-import keyring from "@polkadot/ui-keyring";
+import { ContractPromise as Contract } from '@polkadot/api-contract';
+import keyring from '@polkadot/ui-keyring';
 
-import useApi from "./useApi";
+import useApi from './useApi';
 
 export default function useContract(address: StringOrNull): Contract | null {
   const { api } = useApi();
@@ -18,7 +18,7 @@ export default function useContract(address: StringOrNull): Contract | null {
     }
 
     try {
-      const pair = keyring.getAddress(address, "contract");
+      const pair = keyring.getAddress(address, 'contract');
 
       if (!pair) {
         throw new Error();

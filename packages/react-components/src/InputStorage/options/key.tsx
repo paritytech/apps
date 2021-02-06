@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { StorageEntry } from "@polkadot/types/primitive/types";
+import type { StorageEntry } from '@polkadot/types/primitive/types';
 
-import { DropdownOption, DropdownOptions } from "@canvas-ui/react-util/types";
-import React from "react";
+import { DropdownOption, DropdownOptions } from '@canvas-ui/react-util/types';
+import React from 'react';
 
-import { ApiPromise } from "@polkadot/api";
-import { unwrapStorageType } from "@polkadot/types/primitive/StorageKey";
+import { ApiPromise } from '@polkadot/api';
+import { unwrapStorageType } from '@polkadot/types/primitive/StorageKey';
 
 export default function createOptions(api: ApiPromise, sectionName: string): DropdownOptions {
   const section = api.query[sectionName];
@@ -26,11 +26,11 @@ export default function createOptions(api: ApiPromise, sectionName: string): Dro
           ? type.asMap.key.toString()
           : type.isDoubleMap
           ? `${type.asDoubleMap.key1.toString()}, ${type.asDoubleMap.key2.toString()}`
-          : "";
+          : '';
         const output = method.meta.modifier.isOptional ? `Option<${unwrapStorageType(type)}>` : unwrapStorageType(type);
 
         return {
-          className: "ui--DropdownLinked-Item",
+          className: 'ui--DropdownLinked-Item',
           key: `${sectionName}_${value}`,
           text: [
             <div className="ui--DropdownLinked-Item-call" key={`${sectionName}_${value}:call`}>

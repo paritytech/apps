@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BitLengthOption } from "./constants";
-import BN from "bn.js";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import { BitLengthOption } from './constants';
+import BN from 'bn.js';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { BN_TEN, BN_THOUSAND, formatBalance, isBn } from "@polkadot/util";
+import { BN_TEN, BN_THOUSAND, formatBalance, isBn } from '@polkadot/util';
 
-import InputNumber from "./InputNumber";
-import { BareProps, BitLength } from "./types";
+import InputNumber from './InputNumber';
+import { BareProps, BitLength } from './types';
 
 interface Props extends BareProps {
   autoFocus?: boolean;
@@ -43,8 +43,8 @@ function reformat(value: string | BN, isDisabled?: boolean): string {
         .toNumber() / 1000
     ).toFixed(3);
 
-    while (fmt.length !== 1 && [".", "0"].includes(fmt[fmt.length - 1])) {
-      const isLast = fmt.endsWith(".");
+    while (fmt.length !== 1 && ['.', '0'].includes(fmt[fmt.length - 1])) {
+      const isLast = fmt.endsWith('.');
 
       fmt = fmt.substr(0, fmt.length - 1);
 
@@ -56,12 +56,12 @@ function reformat(value: string | BN, isDisabled?: boolean): string {
     return fmt;
   }
 
-  return formatBalance(value, { forceUnit: "-", withSi: false }).replace(",", isDisabled ? "," : "");
+  return formatBalance(value, { forceUnit: '-', withSi: false }).replace(',', isDisabled ? ',' : '');
 }
 
 function InputBalance({
   autoFocus,
-  className = "",
+  className = '',
   defaultValue: inDefault,
   help,
   isDisabled,

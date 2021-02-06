@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/app-settings authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { SettingsStruct } from "@polkadot/ui-settings/types";
+import type { SettingsStruct } from '@polkadot/ui-settings/types';
 
-import { Option } from "@canvas-ui/apps-config/settings/types";
-import { Dropdown, IdentityIcon } from "@canvas-ui/react-components";
-import React from "react";
+import { Option } from '@canvas-ui/apps-config/settings/types';
+import { Dropdown, IdentityIcon } from '@canvas-ui/react-components';
+import React from 'react';
 
-import uiSettings from "@polkadot/ui-settings";
+import uiSettings from '@polkadot/ui-settings';
 
 export function createOption({ isHeader, text, value }: Option): Option | React.ReactNode {
   if (isHeader) {
@@ -24,14 +24,14 @@ export function createOption({ isHeader, text, value }: Option): Option | React.
   };
 }
 
-export function createIdenticon({ info, text, value }: Option, overrides: string[] = [], override = "empty"): Option {
+export function createIdenticon({ info, text, value }: Option, overrides: string[] = [], override = 'empty'): Option {
   return {
     text: (
       <div className="ui--Dropdown-item" key={value}>
         <IdentityIcon
           className="ui--Dropdown-icon"
           size={32}
-          theme={info && overrides.includes(info) ? (override as "empty") : (info as "substrate")}
+          theme={info && overrides.includes(info) ? (override as 'empty') : (info as 'substrate')}
           value="5F9999K9UgTUgSsbXZQcEmRMvQqwJoBUHMv9e1k2MdgghuRA"
         />
         <div className="ui--Dropdown-name">{text}</div>

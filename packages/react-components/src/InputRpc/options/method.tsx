@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { DropdownOption, DropdownOptions } from "@canvas-ui/react-util/types";
-import React from "react";
+import { DropdownOption, DropdownOptions } from '@canvas-ui/react-util/types';
+import React from 'react';
 
-import { ApiPromise } from "@polkadot/api";
-import jsonrpc from "@polkadot/types/interfaces/jsonrpc";
-import { DefinitionRpcExt } from "@polkadot/types/types";
+import { ApiPromise } from '@polkadot/api';
+import jsonrpc from '@polkadot/types/interfaces/jsonrpc';
+import { DefinitionRpcExt } from '@polkadot/types/types';
 
 export default function createOptions(api: ApiPromise, sectionName: string): DropdownOptions {
   const section = jsonrpc[sectionName];
@@ -22,10 +22,10 @@ export default function createOptions(api: ApiPromise, sectionName: string): Dro
     .filter(({ isSubscription }): boolean => !isSubscription)
     .map(
       ({ description, method, params }): DropdownOption => {
-        const inputs = params.map(({ name }): string => name).join(", ");
+        const inputs = params.map(({ name }): string => name).join(', ');
 
         return {
-          className: "ui--DropdownLinked-Item",
+          className: 'ui--DropdownLinked-Item',
           key: `${sectionName}_${method}`,
           text: [
             <div className="ui--DropdownLinked-Item-call" key={`${sectionName}_${method}:call`}>

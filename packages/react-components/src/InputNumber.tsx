@@ -1,21 +1,21 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from "@canvas-ui/react-util";
-import BN from "bn.js";
-import React, { useCallback, useEffect, useState } from "react";
-import styled from "styled-components";
-import { TokenUnit } from "@canvas-ui/react-api/Api";
+import { classes } from '@canvas-ui/react-util';
+import BN from 'bn.js';
+import React, { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
+import { TokenUnit } from '@canvas-ui/react-api/Api';
 
-import { BN_TEN, BN_ZERO, formatBalance, isBn } from "@polkadot/util";
-import { SiDef } from "@polkadot/util/types";
+import { BN_TEN, BN_ZERO, formatBalance, isBn } from '@polkadot/util';
+import { SiDef } from '@polkadot/util/types';
 
-import { ELEV_2_CSS } from "./styles/constants";
-import { BitLengthOption } from "./constants";
-import Dropdown from "./Dropdown";
-import Input, { KEYS, KEYS_PRE } from "./Input";
-import { useTranslation } from "./translate";
-import { BareProps, BitLength } from "./types";
+import { ELEV_2_CSS } from './styles/constants';
+import { BitLengthOption } from './constants';
+import Dropdown from './Dropdown';
+import Input, { KEYS, KEYS_PRE } from './Input';
+import { useTranslation } from './translate';
+import { BareProps, BitLength } from './types';
 
 interface Props extends BareProps {
   autoFocus?: boolean;
@@ -49,7 +49,7 @@ function getGlobalMaxValue(bitLength?: number): BN {
 }
 
 function getRegex(isDecimal: boolean): RegExp {
-  return new RegExp(isDecimal ? `^(0|[1-9]\\d*)(\\${KEYS.DECIMAL}\\d*)?$` : "^(0|[1-9]\\d*)$");
+  return new RegExp(isDecimal ? `^(0|[1-9]\\d*)(\\${KEYS.DECIMAL}\\d*)?$` : '^(0|[1-9]\\d*)$');
 }
 
 function getSiOptions(): { text: string; value: string }[] {
@@ -107,13 +107,13 @@ function inputToBn(
       result = new BN(-1);
     }
 
-    const div = new BN(input.replace(/\.\d*$/, ""));
-    const modString = input.replace(/^\d+\./, "");
+    const div = new BN(input.replace(/\.\d*$/, ''));
+    const modString = input.replace(/^\d+\./, '');
     const mod = new BN(modString);
 
     result = div.mul(BN_TEN.pow(siPower)).add(mod.mul(BN_TEN.pow(new BN(basePower + siUnitPower - modString.length))));
   } else {
-    result = new BN(input.replace(/[^\d]/g, "")).mul(BN_TEN.pow(siPower));
+    result = new BN(input.replace(/[^\d]/g, '')).mul(BN_TEN.pow(siPower));
   }
 
   return [result, isValidNumber(result, bitLength, isZeroable, maxValue)];
@@ -173,7 +173,7 @@ function InputNumber({
   value: propsValue,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const [si, setSi] = useState<SiDef | null>(isSi ? formatBalance.findSi("-") : null);
+  const [si, setSi] = useState<SiDef | null>(isSi ? formatBalance.findSi('-') : null);
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
   const [[value, valueBn, isValid], setValues] = useState<[string, BN, boolean]>(
     getValues(propsValue || defaultValue, si, bitLength, isZeroable, maxValue)
@@ -246,7 +246,7 @@ function InputNumber({
   return (
     <Input
       autoFocus={autoFocus}
-      className={classes("ui--InputNumber", className)}
+      className={classes('ui--InputNumber', className)}
       help={help}
       isAction={isSi}
       isDisabled={isDisabled}
@@ -261,7 +261,7 @@ function InputNumber({
       onKeyDown={_onKeyDown}
       onKeyUp={_onKeyUp}
       onPaste={_onPaste}
-      placeholder={placeholder || t<string>("Positive number")}
+      placeholder={placeholder || t<string>('Positive number')}
       type="text"
       value={value}
     >

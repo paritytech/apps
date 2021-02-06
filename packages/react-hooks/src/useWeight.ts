@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import BN from "bn.js";
-import { useEffect, useState } from "react";
+import BN from 'bn.js';
+import { useEffect, useState } from 'react';
 
-import { Call } from "@polkadot/types/interfaces";
-import { BN_ZERO } from "@polkadot/util";
+import { Call } from '@polkadot/types/interfaces';
+import { BN_ZERO } from '@polkadot/util';
 
-import useApi from "./useApi";
-import useIsMountedRef from "./useIsMountedRef";
+import useApi from './useApi';
+import useIsMountedRef from './useIsMountedRef';
 
 // a random address that we are using for our queries
-const ZERO_ACCOUNT = "5CAUdnwecHGxxyr5vABevAfZ34Fi4AaraDRMwfDQXQ52PXqg";
+const ZERO_ACCOUNT = '5CAUdnwecHGxxyr5vABevAfZ34Fi4AaraDRMwfDQXQ52PXqg';
 
 // for a given call, calculate the weight
 export default function useWeight(call: Call): BN {

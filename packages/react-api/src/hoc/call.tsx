@@ -9,15 +9,15 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import React from "react";
+import React from 'react';
 
-import { assert, isNull, isUndefined } from "@polkadot/util";
+import { assert, isNull, isUndefined } from '@polkadot/util';
 
-import echoTransform from "../transform/echo";
-import { ApiProps, CallState as State, SubtractProps } from "../types";
-import { isEqual, triggerChange } from "../util";
-import withApi from "./api";
-import { Options } from "./types";
+import echoTransform from '../transform/echo';
+import { ApiProps, CallState as State, SubtractProps } from '../types';
+import { isEqual, triggerChange } from '../util';
+import withApi from './api';
+import { Options } from './types';
 
 // FIXME This is not correct, we need some junction of derive, query & consts
 interface Method {
@@ -75,7 +75,7 @@ export default function withCall<P extends ApiProps>(
       constructor(props: P) {
         super(props);
 
-        const [, section, method] = endpoint.split(".");
+        const [, section, method] = endpoint.split('.');
 
         this.propName = `${section}_${method}`;
       }
@@ -148,17 +148,17 @@ export default function withCall<P extends ApiProps>(
 
       private constructApiSection = (endpoint: string): [Record<string, Method>, string, string, string] => {
         const { api } = this.props;
-        const [area, section, method, ...others] = endpoint.split(".");
+        const [area, section, method, ...others] = endpoint.split('.');
 
         assert(
           area.length && section.length && method.length && others.length === 0,
           `Invalid API format, expected <area>.<section>.<method>, found ${endpoint}`
         );
         assert(
-          ["consts", "rpc", "query", "derive"].includes(area),
+          ['consts', 'rpc', 'query', 'derive'].includes(area),
           `Unknown api.${area}, expected consts, rpc, query or derive`
         );
-        assert(!at || area === "query", "Only able to do an 'at' query on the api.query interface");
+        assert(!at || area === 'query', "Only able to do an 'at' query on the api.query interface");
 
         const apiSection = (api as any)[area][section];
 
@@ -166,10 +166,10 @@ export default function withCall<P extends ApiProps>(
       };
 
       private getApiMethod(newParams: any[]): ApiMethodInfo {
-        if (endpoint === "subscribe") {
+        if (endpoint === 'subscribe') {
           const [fn, ...params] = newParams;
 
-          return [fn, params, "subscribe"];
+          return [fn, params, 'subscribe'];
         }
 
         const endpoints: string[] = [endpoint].concat(fallbacks || []);
@@ -185,7 +185,7 @@ export default function withCall<P extends ApiProps>(
 
         const meta = apiSection[method].meta;
 
-        if (area === "query" && meta?.type.isMap) {
+        if (area === 'query' && meta?.type.isMap) {
           const arg = newParams[0];
 
           assert(
@@ -194,7 +194,7 @@ export default function withCall<P extends ApiProps>(
           );
         }
 
-        return [apiSection[method], newParams, method.startsWith("subscribe") ? "subscribe" : area];
+        return [apiSection[method], newParams, method.startsWith('subscribe') ? 'subscribe' : area];
       }
 
       private async subscribe([isValid, newParams]: [boolean, any[]]): Promise<void> {
@@ -208,14 +208,14 @@ export default function withCall<P extends ApiProps>(
         await api.isReady;
 
         try {
-          assert(at || !atProp, "Unable to perform query on non-existent at hash");
+          assert(at || !atProp, 'Unable to perform query on non-existent at hash');
 
           info = this.getApiMethod(newParams);
         } catch (error) {
           // don't flood the console with the same errors each time, just do it once, then
           // ignore it going forward
           if (!errorred[(error as Error).message]) {
-            console.warn(endpoint, "::", error);
+            console.warn(endpoint, '::', error);
 
             errorred[(error as Error).message] = true;
           }
@@ -231,9 +231,9 @@ export default function withCall<P extends ApiProps>(
         await this.unsubscribe();
 
         try {
-          if (["derive", "subscribe"].includes(area) || (area === "query" && !at && !atProp)) {
+          if (['derive', 'subscribe'].includes(area) || (area === 'query' && !at && !atProp)) {
             this.destroy = isMulti ? await apiMethod.multi(params, updateCb) : await apiMethod(...params, updateCb);
-          } else if (area === "consts") {
+          } else if (area === 'consts') {
             updateCb(apiMethod);
           } else {
             updateCb(at ? await apiMethod.at(at, ...params) : await apiMethod(...params));

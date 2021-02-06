@@ -1,21 +1,21 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Icon as IconType, IconName } from "@fortawesome/fontawesome-svg-core";
+import type { Icon as IconType, IconName } from '@fortawesome/fontawesome-svg-core';
 
-import { Icon } from "@canvas-ui/react-components";
-import { useToggle } from "@canvas-ui/react-hooks";
-import React from "react";
-import styled from "styled-components";
+import { Icon } from '@canvas-ui/react-components';
+import { useToggle } from '@canvas-ui/react-hooks';
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
   children: React.ReactNode;
   className?: string;
   icon: IconName | IconType;
-  type: "error" | "info";
+  type: 'error' | 'info';
 }
 
-function BaseOverlay({ children, className = "", icon, type }: Props): React.ReactElement<Props> | null {
+function BaseOverlay({ children, className = '', icon, type }: Props): React.ReactElement<Props> | null {
   const [isHidden, toggleHidden] = useToggle();
 
   if (isHidden) {
@@ -23,7 +23,7 @@ function BaseOverlay({ children, className = "", icon, type }: Props): React.Rea
   }
 
   return (
-    <div className={`${className} ${type === "error" ? "isError" : "isInfo"}`}>
+    <div className={`${className} ${type === 'error' ? 'isError' : 'isInfo'}`}>
       <div className="content">
         <Icon icon={icon} />
         <div className="contentItem">{children}</div>

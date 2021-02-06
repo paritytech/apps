@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import createMemo from "memoizee";
+import createMemo from 'memoizee';
 
 // Normalize via JSON.stringify, allow e.g. AccountId -> ss58
 // eslint-disable-next-line @typescript-eslint/unbound-method

@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import ChartJs from "chart.js";
-import React, { useEffect, useState } from "react";
-import { HorizontalBar } from "react-chartjs-2";
+import ChartJs from 'chart.js';
+import React, { useEffect, useState } from 'react';
+import { HorizontalBar } from 'react-chartjs-2';
 
-import { bnToBn, isNumber } from "@polkadot/util";
+import { bnToBn, isNumber } from '@polkadot/util';
 
-import { HorizBarProps, HorizBarValue } from "./types";
+import { HorizBarProps, HorizBarValue } from './types';
 
 interface State {
   chartData?: ChartJs.ChartData;
@@ -40,7 +40,7 @@ function calculateOptions(
   showLabels: boolean
 ): State {
   const chartData = values.reduce(
-    (data, { colors: [normalColor = "#00f", hoverColor], label, value }): Config => {
+    (data, { colors: [normalColor = '#00f', hoverColor], label, value }): Config => {
       const dataset = data.datasets[0];
 
       dataset.backgroundColor.push(alphaColor(normalColor));
@@ -90,7 +90,7 @@ function calculateOptions(
 
 function ChartHorizBar({
   aspectRatio = 8,
-  className = "",
+  className = '',
   max = 100,
   showLabels = false,
   values,

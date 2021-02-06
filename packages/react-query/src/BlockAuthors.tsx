@@ -1,13 +1,13 @@
 // Copyright 2017-2020 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ResetStorageModal } from "@canvas-ui/react-components";
-import { useApi, useCall } from "@canvas-ui/react-hooks";
-import React, { useEffect, useState } from "react";
+import { ResetStorageModal } from '@canvas-ui/react-components';
+import { useApi, useCall } from '@canvas-ui/react-hooks';
+import React, { useEffect, useState } from 'react';
 
-import { HeaderExtended } from "@polkadot/api-derive";
-import { EraRewardPoints } from "@polkadot/types/interfaces";
-import { formatNumber } from "@polkadot/util";
+import { HeaderExtended } from '@polkadot/api-derive';
+import { EraRewardPoints } from '@polkadot/types/interfaces';
+import { formatNumber } from '@polkadot/util';
 
 export interface Authors {
   byAuthor: Record<string, string>;
@@ -47,7 +47,7 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
       .then((): void => {
         let lastHeaders: HeaderExtended[] = [];
         let lastBlockAuthors: string[] = [];
-        let lastBlockNumber = "";
+        let lastBlockNumber = '';
 
         // subscribe to all validators
         api.query.session &&
@@ -60,8 +60,8 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
         // Set block one hash to check if contract/code purge needed
         api
           .queryMulti([api.query.system.chain, [api.query.system.blockHash, 1]], ([chainName, blockOneHash]) => {
-            if (chainName.toString() === "Development") {
-              window.localStorage.setItem("blockOneHash", blockOneHash.toString());
+            if (chainName.toString() === 'Development') {
+              window.localStorage.setItem('blockOneHash', blockOneHash.toString());
             }
           })
           .catch(console.error);
@@ -77,20 +77,20 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
                 const chainName = (await api.rpc.system.chain()).toString();
 
                 const blockOneHash = await api.query.system.blockHash(1);
-                const blockOneHashRef = window.localStorage.getItem("blockOneHash");
+                const blockOneHashRef = window.localStorage.getItem('blockOneHash');
 
                 console.log(blockOneHash.toString());
                 console.log(blockOneHashRef);
 
                 if (
-                  chainName === "Development" &&
+                  chainName === 'Development' &&
                   blockOneHashRef &&
                   (JSON.parse(blockOneHashRef) as string) !== blockOneHash.toString()
                 ) {
                   setIsChainPurged(true);
                 }
 
-                window.localStorage.setItem("currentBlockIndex", thisBlockNumber);
+                window.localStorage.setItem('currentBlockIndex', thisBlockNumber);
 
                 if (thisBlockAuthor) {
                   byAuthor[thisBlockAuthor] = thisBlockNumber;

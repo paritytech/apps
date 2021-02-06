@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
+import React from 'react';
 
-import Labelled from "./Labelled";
-import { BareProps } from "./types";
+import Labelled from './Labelled';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   children?: React.ReactNode;
@@ -21,7 +21,7 @@ interface Props extends BareProps {
 
 function Static({
   children,
-  className = "",
+  className = '',
   defaultValue,
   help,
   isFull,

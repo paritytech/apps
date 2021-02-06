@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from "@canvas-ui/react-util";
-import React from "react";
-import styled from "styled-components";
+import { classes } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import LabelHelp from "./LabelHelp";
-import { BareProps } from "./types";
+import LabelHelp from './LabelHelp';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   help?: React.ReactNode;
@@ -128,7 +128,7 @@ const Wrapper = styled.div`
 `;
 
 function Labelled({
-  className = "",
+  className = '',
   children,
   help,
   isFull,
@@ -150,18 +150,18 @@ function Labelled({
   return (
     <Wrapper
       className={classes(
-        "ui--Labelled",
-        isIndented && "label-indented",
-        isSmall && "label-small",
-        isFull && "label-full",
-        isMonospace && "label-monospace",
-        isOuter && "label-outer",
+        'ui--Labelled',
+        isIndented && 'label-indented',
+        isSmall && 'label-small',
+        isFull && 'label-full',
+        isMonospace && 'label-monospace',
+        isOuter && 'label-outer',
         className
       )}
     >
       {withLabel && (
         <label>
-          <div className={classes(withEllipsis && "withEllipsis", isLabelMonospace && "isMonospace")}>{label}</div>
+          <div className={classes(withEllipsis && 'withEllipsis', isLabelMonospace && 'isMonospace')}>{label}</div>
           {help && <LabelHelp help={help} />}
         </label>
       )}

@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from "@canvas-ui/react-api/types";
-import { useApi, useCall } from "@canvas-ui/react-hooks";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import { BareProps } from '@canvas-ui/react-api/types';
+import { useApi, useCall } from '@canvas-ui/react-hooks';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { DeriveAccountInfo } from "@polkadot/api-derive/types";
-import { AccountId, Address } from "@polkadot/types/interfaces";
+import { DeriveAccountInfo } from '@polkadot/api-derive/types';
+import { AccountId, Address } from '@polkadot/types/interfaces';
 
 interface Props extends BareProps {
   children?: React.ReactNode;
@@ -18,7 +18,7 @@ interface Props extends BareProps {
 
 function AccountIndex({
   children,
-  className = "",
+  className = '',
   defaultValue,
   label,
   value,
@@ -41,8 +41,8 @@ function AccountIndex({
 
   return (
     <div className={`ui--AccountIndex ${className}`}>
-      {label || ""}
-      <div className="account-index">{accountIndex || defaultValue || "-"}</div>
+      {label || ''}
+      <div className="account-index">{accountIndex || defaultValue || '-'}</div>
       {children}
     </div>
   );

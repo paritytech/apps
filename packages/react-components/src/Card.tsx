@@ -1,8 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
   children: React.ReactNode;
@@ -12,12 +12,12 @@ interface Props {
   withBottomMargin?: boolean;
 }
 
-function Card({ children, className = "", isError, isSuccess, withBottomMargin }: Props): React.ReactElement<Props> {
+function Card({ children, className = '', isError, isSuccess, withBottomMargin }: Props): React.ReactElement<Props> {
   return (
     <article
-      className={`ui--Card ${className} ${isError && !isSuccess ? "error" : ""} ${
-        !isError && isSuccess ? "success" : ""
-      } ${withBottomMargin ? "withBottomMargin" : ""}`}
+      className={`ui--Card ${className} ${isError && !isSuccess ? 'error' : ''} ${
+        !isError && isSuccess ? 'success' : ''
+      } ${withBottomMargin ? 'withBottomMargin' : ''}`}
     >
       {children}
     </article>

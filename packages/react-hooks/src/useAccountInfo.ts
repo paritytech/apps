@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { StringOrNull } from "@canvas-ui/react-util/types";
-import { useCallback, useEffect, useState } from "react";
+import { StringOrNull } from '@canvas-ui/react-util/types';
+import { useCallback, useEffect, useState } from 'react';
 
-import { DeriveAccountFlags, DeriveAccountInfo } from "@polkadot/api-derive/types";
-import keyring from "@polkadot/ui-keyring";
-import { KeyringJson$Meta } from "@polkadot/ui-keyring/types";
+import { DeriveAccountFlags, DeriveAccountInfo } from '@polkadot/api-derive/types';
+import keyring from '@polkadot/ui-keyring';
+import { KeyringJson$Meta } from '@polkadot/ui-keyring/types';
 
-import { AddressFlags, AddressIdentity, UseAccountInfo } from "./types";
-import useAccounts from "./useAccounts";
-import useAddresses from "./useAddresses";
-import useApi from "./useApi";
-import useCall from "./useCall";
-import useToggle from "./useToggle";
+import { AddressFlags, AddressIdentity, UseAccountInfo } from './types';
+import useAccounts from './useAccounts';
+import useAddresses from './useAddresses';
+import useApi from './useApi';
+import useCall from './useCall';
+import useToggle from './useToggle';
 
 const IS_NONE = {
   isCouncil: false,
@@ -40,7 +40,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
   const accountFlags = useCall<DeriveAccountFlags>(api.derive.accounts.flags as any, [value]);
   const [accountIndex, setAccountIndex] = useState<string | undefined>(undefined);
   const [tags, setSortedTags] = useState<string[]>([]);
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [genesisHash, setGenesisHash] = useState<StringOrNull>(null);
   const [identity, setIdentity] = useState<AddressIdentity | undefined>();
   const [flags, setFlags] = useState<AddressFlags>(IS_NONE);
@@ -73,7 +73,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
       name = nickname;
     }
 
-    setName(name || "");
+    setName(name || '');
 
     if (identity) {
       const judgements = identity.judgements.filter(([, judgement]) => !judgement.isFeePaid);
@@ -125,7 +125,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
         })
       );
       setMeta(accountOrAddress?.meta);
-      setName(accountOrAddress?.meta.name || "");
+      setName(accountOrAddress?.meta.name || '');
       setSortedTags(accountOrAddress?.meta.tags ? (accountOrAddress.meta.tags as string[]).sort() : []);
     }
   }, [identity, isAccount, isAddress, value]);

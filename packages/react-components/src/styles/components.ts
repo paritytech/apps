@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { css } from "styled-components";
+import { css } from 'styled-components';
 
-import { ELEV_2_CSS, ELEV_4_CSS } from "./constants";
+import { ELEV_2_CSS, ELEV_4_CSS } from './constants';
 
 export default css`
   .ui--output {

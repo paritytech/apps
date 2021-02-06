@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import StatusDisplay from "@canvas-ui/react-components/Status/Status";
-import { ActionStatus, QueueAction$Add, QueueStatus, QueueTx } from "@canvas-ui/react-api/Status/types";
-import { useAccounts, useApi, useCall } from "@canvas-ui/react-hooks";
-import React, { useEffect } from "react";
+import StatusDisplay from '@canvas-ui/react-components/Status/Status';
+import { ActionStatus, QueueAction$Add, QueueStatus, QueueTx } from '@canvas-ui/react-api/Status/types';
+import { useAccounts, useApi, useCall } from '@canvas-ui/react-hooks';
+import React, { useEffect } from 'react';
 
-import { EventRecord } from "@polkadot/types/interfaces";
-import { KeyringOptions } from "@polkadot/ui-keyring/options/types";
-import { stringToU8a } from "@polkadot/util";
-import { xxhashAsHex } from "@polkadot/util-crypto";
+import { EventRecord } from '@polkadot/types/interfaces';
+import { KeyringOptions } from '@polkadot/ui-keyring/options/types';
+import { stringToU8a } from '@polkadot/util';
+import { xxhashAsHex } from '@polkadot/util-crypto';
 
-import { useTranslation } from "../translate";
+import { useTranslation } from '../translate';
 
 interface Props {
   optionsAll?: KeyringOptions;
@@ -38,28 +38,28 @@ function filterEvents(
 
   return events
     .map(({ event: { data, method, section } }): ActionStatus | null => {
-      if (section === "balances" && method === "Transfer") {
+      if (section === 'balances' && method === 'Transfer') {
         const account = data[1].toString();
 
         if (allAccounts.includes(account)) {
           return {
             account,
             action: `${section}.${method}`,
-            message: t<string>("transfer received"),
-            status: "event",
+            message: t<string>('transfer received'),
+            status: 'event',
           };
         }
-      } else if (section === "democracy") {
+      } else if (section === 'democracy') {
         const index = data[0].toString();
 
         return {
           action: `${section}.${method}`,
-          message: t("update on #{{index}}", {
+          message: t('update on #{{index}}', {
             replace: {
               index,
             },
           }),
-          status: "event",
+          status: 'event',
         };
       }
 

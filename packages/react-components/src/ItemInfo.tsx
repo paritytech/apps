@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
+import React from 'react';
 // import { Link, useHistory } from 'react-router-dom';
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { BareProps } from "./types";
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   icon: React.ReactNode;

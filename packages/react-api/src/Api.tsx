@@ -1,27 +1,27 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { typesChain, typesSpec } from "@canvas-ui/apps-config/api";
-import { StatusContext } from "./Status/Context";
-import ApiSigner from "@canvas-ui/react-signer/ApiSigner";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import { typesChain, typesSpec } from '@canvas-ui/apps-config/api';
+import { StatusContext } from './Status/Context';
+import ApiSigner from '@canvas-ui/react-signer/ApiSigner';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 
-import { ApiPromise } from "@polkadot/api/promise";
-import { deriveMapCache, setDeriveCache } from "@polkadot/api-derive/util";
-import { web3Accounts, web3Enable } from "@polkadot/extension-dapp";
-import { InjectedExtension } from "@polkadot/extension-inject/types";
-import { WsProvider } from "@polkadot/rpc-provider";
-import { ChainProperties, ChainType } from "@polkadot/types/interfaces";
-import keyring from "@polkadot/ui-keyring";
-import { KeyringStore } from "@polkadot/ui-keyring/types";
-import uiSettings from "@polkadot/ui-settings";
-import { formatBalance, isTestChain } from "@polkadot/util";
-import { setSS58Format } from "@polkadot/util-crypto";
-import { defaults as addressDefaults } from "@polkadot/util-crypto/address/defaults";
+import { ApiPromise } from '@polkadot/api/promise';
+import { deriveMapCache, setDeriveCache } from '@polkadot/api-derive/util';
+import { web3Accounts, web3Enable } from '@polkadot/extension-dapp';
+import { InjectedExtension } from '@polkadot/extension-inject/types';
+import { WsProvider } from '@polkadot/rpc-provider';
+import { ChainProperties, ChainType } from '@polkadot/types/interfaces';
+import keyring from '@polkadot/ui-keyring';
+import { KeyringStore } from '@polkadot/ui-keyring/types';
+import uiSettings from '@polkadot/ui-settings';
+import { formatBalance, isTestChain } from '@polkadot/util';
+import { setSS58Format } from '@polkadot/util-crypto';
+import { defaults as addressDefaults } from '@polkadot/util-crypto/address/defaults';
 
-import ApiContext from "./ApiContext";
-import registry from "./typeRegistry";
-import { ApiProps, ApiState } from "./types";
+import ApiContext from './ApiContext';
+import registry from './typeRegistry';
+import { ApiProps, ApiState } from './types';
 
 interface Props {
   children: React.ReactNode;
@@ -53,15 +53,15 @@ interface ChainData {
 //   });
 // });
 
-const DEFAULT_DECIMALS = registry.createType("u32", 12);
-const DEFAULT_SS58 = registry.createType("u32", addressDefaults.prefix);
-const injectedPromise = web3Enable("polkadot-js/apps");
+const DEFAULT_DECIMALS = registry.createType('u32', 12);
+const DEFAULT_SS58 = registry.createType('u32', addressDefaults.prefix);
+const injectedPromise = web3Enable('polkadot-js/apps');
 let api: ApiPromise;
 
 export { api };
 
 export class TokenUnit {
-  public static abbr = "Unit";
+  public static abbr = 'Unit';
 
   public static setAbbr(abbr: string = TokenUnit.abbr): void {
     TokenUnit.abbr = abbr;
@@ -72,7 +72,7 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
   const [properties, systemChain, systemChainType, systemName, systemVersion, injectedAccounts] = await Promise.all([
     api.rpc.system.properties(),
     api.rpc.system.chain(),
-    api.rpc.system.chainType ? api.rpc.system.chainType() : Promise.resolve(registry.createType("ChainType", "Live")),
+    api.rpc.system.chainType ? api.rpc.system.chainType() : Promise.resolve(registry.createType('ChainType', 'Live')),
     api.rpc.system.name(),
     api.rpc.system.version(),
     injectedPromise
@@ -83,14 +83,14 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
             address,
             meta: {
               ...meta,
-              name: `${meta.name || "unknown"} (${meta.source === "polkadot-js" ? "extension" : meta.source})`,
+              name: `${meta.name || 'unknown'} (${meta.source === 'polkadot-js' ? 'extension' : meta.source})`,
               whenCreated,
             },
           })
         )
       )
       .catch((error): InjectedAccountExt[] => {
-        console.error("web3Enable", error);
+        console.error('web3Enable', error);
 
         return [];
       }),
@@ -99,7 +99,7 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
   return {
     injectedAccounts,
     properties,
-    systemChain: (systemChain || "<unknown>").toString(),
+    systemChain: (systemChain || '<unknown>').toString(),
     systemChainType,
     systemName: systemName.toString(),
     systemVersion: systemVersion.toString(),
@@ -117,7 +117,7 @@ async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiSt
   console.log(`chain: ${systemChain} (${systemChainType.toString()}), ${JSON.stringify(properties)}`);
 
   // explicitly override the ss58Format as specified
-  registry.setChainProperties(registry.createType("ChainProperties", { ...properties, ss58Format }));
+  registry.setChainProperties(registry.createType('ChainProperties', { ...properties, ss58Format }));
 
   // FIXME This should be removed (however we have some hanging bits, e.g. vanity)
   setSS58Format(ss58Format);
@@ -136,7 +136,7 @@ async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiSt
       isDevelopment,
       ss58Format,
       store,
-      type: "ed25519",
+      type: 'ed25519',
     },
     injectedAccounts
   );
@@ -180,15 +180,15 @@ function Api({ children, store, url }: Props): React.ReactElement<Props> | null 
 
     api = new ApiPromise({ provider, registry, signer, typesChain, typesSpec });
 
-    api.on("connected", () => setIsApiConnected(true));
-    api.on("disconnected", () => setIsApiConnected(false));
+    api.on('connected', () => setIsApiConnected(true));
+    api.on('disconnected', () => setIsApiConnected(false));
     api.on(
-      "ready",
+      'ready',
       async (): Promise<void> => {
         try {
           setState(await loadOnReady(api, store));
         } catch (error) {
-          console.error("Unable to load chain", error);
+          console.error('Unable to load chain', error);
         }
       }
     );

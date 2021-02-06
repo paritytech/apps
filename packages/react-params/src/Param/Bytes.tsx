@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Toggle } from "@canvas-ui/react-components";
-import React, { useCallback, useState } from "react";
-import styled from "styled-components";
+import { Toggle } from '@canvas-ui/react-components';
+import React, { useCallback, useState } from 'react';
+import styled from 'styled-components';
 
-import { compactAddLength } from "@polkadot/util";
+import { compactAddLength } from '@polkadot/util';
 
-import { useTranslation } from "../translate";
-import { Props } from "../types";
-import BaseBytes from "./BaseBytes";
-import File from "./File";
+import { useTranslation } from '../translate';
+import { Props } from '../types';
+import BaseBytes from './BaseBytes';
+import File from './File';
 
 function Bytes({
-  className = "",
+  className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -70,7 +70,7 @@ function Bytes({
           withLength
         />
       )}
-      {!isDisabled && <Toggle isOverlay label={t<string>("file upload")} onChange={setFileInput} value={isFileDrop} />}
+      {!isDisabled && <Toggle isOverlay label={t<string>('file upload')} onChange={setFileInput} value={isFileDrop} />}
     </div>
   );
 }

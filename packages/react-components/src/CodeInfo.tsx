@@ -1,21 +1,21 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { store } from "@canvas-ui/page-contracts";
-import { Code } from "./types";
-import { useNonEmptyString, useToggle } from "@canvas-ui/react-hooks";
-import { truncate } from "@canvas-ui/react-util";
-import { faFile } from "@fortawesome/free-regular-svg-icons";
-import React, { useCallback } from "react";
-import styled from "styled-components";
+import { store } from '@canvas-ui/page-contracts';
+import { Code } from './types';
+import { useNonEmptyString, useToggle } from '@canvas-ui/react-hooks';
+import { truncate } from '@canvas-ui/react-util';
+import { faFile } from '@fortawesome/free-regular-svg-icons';
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
 
-import CopyButton from "./CopyButton";
-import EditButton from "./EditButton";
-import Icon from "./Icon";
-import Input from "./Input";
-import ItemInfo from "./ItemInfo";
-import { useTranslation } from "./translate";
-import { BareProps } from "./types";
+import CopyButton from './CopyButton';
+import EditButton from './EditButton';
+import Icon from './Icon';
+import Input from './Input';
+import ItemInfo from './ItemInfo';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   code: Code;
@@ -46,9 +46,9 @@ function CodeInfo({ children, className, code: { codeHash, id, name }, isEditabl
       icon={<Icon className="code-icon" icon={faFile} size="2x" />}
       subtitle={
         <>
-          {t<string>("Code hash")}
-          {": "}
-          <CopyButton value={codeHash}>{truncate(codeHash || "", 16)}</CopyButton>
+          {t<string>('Code hash')}
+          {': '}
+          <CopyButton value={codeHash}>{truncate(codeHash || '', 16)}</CopyButton>
         </>
       }
       title={

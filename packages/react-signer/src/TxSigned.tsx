@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, ErrorBoundary, Modal, Output, Toggle } from "@canvas-ui/react-components";
-import { QueueTx } from "@canvas-ui/react-components/Status/types";
-import { useApi, useToggle } from "@canvas-ui/react-hooks";
-import React, { useState } from "react";
-import styled from "styled-components";
+import { Button, ErrorBoundary, Modal, Output, Toggle } from '@canvas-ui/react-components';
+import { QueueTx } from '@canvas-ui/react-components/Status/types';
+import { useApi, useToggle } from '@canvas-ui/react-hooks';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import Address from "./Address";
-import Qr from "./Qr";
-import SignFields from "./SignFields";
-import Tip from "./Tip";
-import Transaction from "./Transaction";
-import { useTranslation } from "./translate";
-import useSendTx from "./useSendTx";
+import Address from './Address';
+import Qr from './Qr';
+import SignFields from './SignFields';
+import Tip from './Tip';
+import Transaction from './Transaction';
+import { useTranslation } from './translate';
+import useSendTx from './useSendTx';
 
 interface Props {
   className?: string;
@@ -71,10 +71,10 @@ function TxSigned({ className, currentItem, requestAddress }: Props): React.Reac
               {isSubmit && !senderInfo.isMultiCall && multiCall && (
                 <Modal.Columns>
                   <Modal.Column>
-                    <Output isFull isTrimmed label={t<string>("multisig call data")} value={multiCall} withCopy />
+                    <Output isFull isTrimmed label={t<string>('multisig call data')} value={multiCall} withCopy />
                   </Modal.Column>
                   <Modal.Column>
-                    {t<string>("The call data that can be supplied to a final call to multi approvals")}
+                    {t<string>('The call data that can be supplied to a final call to multi approvals')}
                   </Modal.Column>
                 </Modal.Columns>
               )}
@@ -86,15 +86,15 @@ function TxSigned({ className, currentItem, requestAddress }: Props): React.Reac
         {!isQrVisible && (
           <>
             <Button
-              icon={flags.isQr ? "qrcode" : "sign-in"}
+              icon={flags.isQr ? 'qrcode' : 'sign-in'}
               isDisabled={!senderInfo.signAddress || isRenderError}
               isPrimary
               label={
                 flags.isQr
-                  ? t<string>("Sign via Qr")
+                  ? t<string>('Sign via Qr')
                   : isSubmit
-                  ? t<string>("Sign and Submit")
-                  : t<string>("Sign (no submission)")
+                  ? t<string>('Sign and Submit')
+                  : t<string>('Sign (no submission)')
               }
               onClick={isSubmit ? (currentItem.payload ? onSendPayload : onSend) : onSign}
               tabIndex={2}
@@ -102,7 +102,7 @@ function TxSigned({ className, currentItem, requestAddress }: Props): React.Reac
             <Toggle
               className="signToggle"
               isDisabled={isQrVisible || !!currentItem.payload}
-              label={isSubmit ? t<string>("Sign and Submit") : t<string>("Sign (no submission)")}
+              label={isSubmit ? t<string>('Sign and Submit') : t<string>('Sign (no submission)')}
               onChange={setIsSubmit}
               value={isSubmit}
             />

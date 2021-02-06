@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import BN from "bn.js";
-import ChartJs from "chart.js";
-import React, { useEffect, useState } from "react";
-import * as Chart from "react-chartjs-2";
+import BN from 'bn.js';
+import ChartJs from 'chart.js';
+import React, { useEffect, useState } from 'react';
+import * as Chart from 'react-chartjs-2';
 
-import { LineProps } from "./types";
+import { LineProps } from './types';
 
 interface State {
   chartData?: ChartJs.ChartData;
@@ -46,13 +46,13 @@ interface Config {
     chartArea: { bottom: number; left: number; right: number; top: number };
   }) => {
     ctx.save();
-    ctx.fillStyle = "#fff";
+    ctx.fillStyle = '#fff';
     ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
     ctx.restore();
   },
 });
 
-const COLORS = ["#ff8c00", "#008c8c", "#8c008c"];
+const COLORS = ['#ff8c00', '#008c8c', '#8c008c'];
 
 const alphaColor = (hexColor: string): string =>
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
@@ -106,7 +106,7 @@ function calculateOptions(
 }
 
 function LineChart({
-  className = "",
+  className = '',
   colors,
   labels,
   legends,

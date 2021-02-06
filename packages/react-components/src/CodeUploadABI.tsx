@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useFile, useNotification, useToggle } from "@canvas-ui/react-hooks";
-import { useAbi } from "@canvas-ui/page-contracts";
-import { FileState } from "@canvas-ui/react-hooks/types";
-import { truncate } from "@canvas-ui/react-util";
-import React, { useCallback } from "react";
+import { useFile, useNotification, useToggle } from '@canvas-ui/react-hooks';
+import { useAbi } from '@canvas-ui/page-contracts';
+import { FileState } from '@canvas-ui/react-hooks/types';
+import { truncate } from '@canvas-ui/react-util';
+import React, { useCallback } from 'react';
 
-import Button from "./Button";
-import InputABI from "./InputABI";
-import Modal from "./Modal";
-import { useTranslation } from "./translate";
-import { BareProps } from "./types";
+import Button from './Button';
+import InputABI from './InputABI';
+import Modal from './Modal';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   codeHash: string;
@@ -32,8 +32,8 @@ function CodeUploadABI({ codeHash, label, onSave }: Props): React.ReactElement<P
 
       showNotification({
         action: truncate(codeHash, 12),
-        message: t<string>("code bundle ABI updated"),
-        status: "success",
+        message: t<string>('code bundle ABI updated'),
+        status: 'success',
       });
       toggleIsOpen();
     }
@@ -43,7 +43,7 @@ function CodeUploadABI({ codeHash, label, onSave }: Props): React.ReactElement<P
     <>
       <Button label={label} onClick={toggleIsOpen} />
       <Modal isOpen={isOpen} onClose={toggleIsOpen}>
-        <Modal.Header>{t<string>("Upload ABI")}</Modal.Header>
+        <Modal.Header>{t<string>('Upload ABI')}</Modal.Header>
         <Modal.Content>
           <InputABI
             abi={abi}
@@ -59,7 +59,7 @@ function CodeUploadABI({ codeHash, label, onSave }: Props): React.ReactElement<P
           />
         </Modal.Content>
         <Modal.Actions onCancel={toggleIsOpen}>
-          <Button isDisabled={!abiFile || !isAbiValid} isPrimary label={t<string>("Save")} onClick={_onSave} />
+          <Button isDisabled={!abiFile || !isAbiValid} isPrimary label={t<string>('Save')} onClick={_onSave} />
         </Modal.Actions>
       </Modal>
     </>

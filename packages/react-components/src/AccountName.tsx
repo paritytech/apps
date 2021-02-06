@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import registry from "@canvas-ui/react-api/typeRegistry";
-import { BareProps } from "@canvas-ui/react-api/types";
-import { useApi, useCall } from "@canvas-ui/react-hooks";
-import { getAddressName } from "@canvas-ui/react-util";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import registry from '@canvas-ui/react-api/typeRegistry';
+import { BareProps } from '@canvas-ui/react-api/types';
+import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { getAddressName } from '@canvas-ui/react-util';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { DeriveAccountInfo, DeriveAccountRegistration } from "@polkadot/api-derive/types";
-import { AccountId, AccountIndex, Address } from "@polkadot/types/interfaces";
-import { isFunction, stringToU8a } from "@polkadot/util";
+import { DeriveAccountInfo, DeriveAccountRegistration } from '@polkadot/api-derive/types';
+import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
+import { isFunction, stringToU8a } from '@polkadot/util';
 
-import Badge from "./Badge";
-import Icon from "./Icon";
+import Badge from './Badge';
+import Icon from './Icon';
 
 interface Props extends BareProps {
   children?: React.ReactNode;
@@ -29,15 +29,15 @@ interface Props extends BareProps {
 }
 
 const KNOWN: [AccountId, string][] = [
-  [registry.createType("AccountId", stringToU8a("modlpy/socie".padEnd(32, "\0"))), "Society"],
-  [registry.createType("AccountId", stringToU8a("modlpy/trsry".padEnd(32, "\0"))), "Treasury"],
+  [registry.createType('AccountId', stringToU8a('modlpy/socie'.padEnd(32, '\0'))), 'Society'],
+  [registry.createType('AccountId', stringToU8a('modlpy/trsry'.padEnd(32, '\0'))), 'Treasury'],
 ];
 
 const displayCache = new Map<string, React.ReactNode>();
 const nameCache = new Map<string, [boolean, [React.ReactNode, React.ReactNode | null]]>();
 
 function defaultOrAddr(
-  defaultName = "",
+  defaultName = '',
   _address: AccountId | AccountIndex | Address | string | Uint8Array,
   _accountIndex?: AccountIndex | null
 ): [[React.ReactNode, React.ReactNode | null], boolean, boolean, boolean] {
@@ -48,7 +48,7 @@ function defaultOrAddr(
   }
 
   const accountId = _address.toString();
-  const accountIndex = (_accountIndex || "").toString();
+  const accountIndex = (_accountIndex || '').toString();
 
   if (!accountId) {
     return [[defaultName, null], false, false, false];
@@ -86,7 +86,7 @@ function extractName(address: string, accountIndex?: AccountIndex, defaultName?:
   return (
     <div className="via-identity">
       {isSpecial && <Badge info={<Icon icon="simplybuilt" />} isInline isSmall type="green" />}
-      <span className={`name ${isLocal || isSpecial ? "isLocal" : isAddress ? "isAddress" : ""}`}>
+      <span className={`name ${isLocal || isSpecial ? 'isLocal' : isAddress ? 'isAddress' : ''}`}>
         {displaySecond ? (
           <>
             <span className="top">{displayFirst}</span>
@@ -101,7 +101,7 @@ function extractName(address: string, accountIndex?: AccountIndex, defaultName?:
 }
 
 function createIdElem(
-  badgeType: "green" | "brown" | "gray",
+  badgeType: 'green' | 'brown' | 'gray',
   nameElem: React.ReactNode,
   infoElem: React.ReactNode
 ): React.ReactNode {
@@ -117,22 +117,22 @@ function extractIdentity(address: string, identity: DeriveAccountRegistration): 
   const judgements = identity.judgements.filter(([, judgement]): boolean => !judgement.isFeePaid);
   const isGood = judgements.some(([, judgement]): boolean => judgement.isKnownGood || judgement.isReasonable);
   const isBad = judgements.some(([, judgement]): boolean => judgement.isErroneous || judgement.isLowQuality);
-  const displayName = isGood ? identity.display : (identity.display || "").replace(/[^\x20-\x7E]/g, "");
+  const displayName = isGood ? identity.display : (identity.display || '').replace(/[^\x20-\x7E]/g, '');
   const displayParent = identity.displayParent
     ? isGood
       ? identity.displayParent
-      : identity.displayParent.replace(/[^\x20-\x7E]/g, "")
+      : identity.displayParent.replace(/[^\x20-\x7E]/g, '')
     : undefined;
   const nameElem = displayParent ? (
-    <span className={`name ${isGood ? "isGood" : ""}`}>
+    <span className={`name ${isGood ? 'isGood' : ''}`}>
       <span className="top">{displayParent}</span>
       <span className="sub">/{displayName}</span>
     </span>
   ) : (
-    <span className={`name ${isGood ? "isGood" : ""}`}>{displayName}</span>
+    <span className={`name ${isGood ? 'isGood' : ''}`}>{displayName}</span>
   );
-  const infoElem = <Icon icon={identity.parent ? "caret square up outline" : isGood ? "check" : "minus"} />;
-  const badgeType = isGood ? "green" : isBad ? "brown" : "gray";
+  const infoElem = <Icon icon={identity.parent ? 'caret square up outline' : isGood ? 'check' : 'minus'} />;
+  const badgeType = isGood ? 'green' : isBad ? 'brown' : 'gray';
 
   nameCache.set(address, [false, displayParent ? [displayParent, displayName] : [displayName, null]]);
   displayCache.set(address, createIdElem(badgeType, nameElem, infoElem));
@@ -142,7 +142,7 @@ function extractIdentity(address: string, identity: DeriveAccountRegistration): 
 
 function AccountName({
   children,
-  className = "",
+  className = '',
   defaultName,
   label,
   noLookup,
@@ -154,13 +154,13 @@ function AccountName({
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [value]);
   const [name, setName] = useState<React.ReactNode>(() =>
-    extractName((value || "").toString(), undefined, defaultName)
+    extractName((value || '').toString(), undefined, defaultName)
   );
 
   // set the actual nickname, local name, accountIndex, accountId
   useEffect((): void => {
     const { accountId, accountIndex, identity, nickname } = info || {};
-    const cacheAddr = (accountId || value || "").toString();
+    const cacheAddr = (accountId || value || '').toString();
 
     if (isFunction(api.query.identity?.identityOf)) {
       setName(() => (identity?.display ? extractIdentity(cacheAddr, identity) : extractName(cacheAddr, accountIndex)));
@@ -175,7 +175,7 @@ function AccountName({
 
   return (
     <div className={`ui--AccountName ${className}`} onClick={onClick}>
-      {label || ""}
+      {label || ''}
       {override || name}
       {children}
     </div>

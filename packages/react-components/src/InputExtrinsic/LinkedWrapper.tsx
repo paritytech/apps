@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
-import Labelled from "../Labelled";
+import Labelled from '../Labelled';
 
 interface Props {
   children: React.ReactNode;
@@ -14,7 +14,7 @@ interface Props {
   withLabel?: boolean;
 }
 
-function LinkedWrapper({ children, className = "", help, label, withLabel }: Props): React.ReactElement<Props> {
+function LinkedWrapper({ children, className = '', help, label, withLabel }: Props): React.ReactElement<Props> {
   return (
     <div className={className}>
       <Labelled help={help} label={label} withLabel={withLabel}>

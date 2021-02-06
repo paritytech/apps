@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Input } from "@canvas-ui/react-components";
-import React, { useCallback, useState } from "react";
+import { Input } from '@canvas-ui/react-components';
+import React, { useCallback, useState } from 'react';
 
-import { Props } from "../types";
-import Bare from "./Bare";
+import { Props } from '../types';
+import Bare from './Bare';
 
 function Text({
-  className = "",
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -34,7 +34,7 @@ function Text({
     [onChange]
   );
 
-  const defaultValue = ((value as string) || "").toString();
+  const defaultValue = ((value as string) || '').toString();
 
   return (
     <Bare className={className}>

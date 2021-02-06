@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from "@canvas-ui/react-util";
-import React from "react";
-import styled from "styled-components";
+import { classes } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import Icon from "./Icon";
-import { BareProps } from "./types";
+import Icon from './Icon';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   icon?: boolean;
@@ -17,8 +17,8 @@ interface Props extends BareProps {
 
 function InputStatus({ className, isError = false, isValid = false, text = null }: Props): React.ReactElement<Props> {
   return (
-    <div className={classes(className, isError && "isError")}>
-      {!!text && <Icon icon={!isValid ? "exclamation-circle" : "check-circle"} />}
+    <div className={classes(className, isError && 'isError')}>
+      {!!text && <Icon icon={!isValid ? 'exclamation-circle' : 'check-circle'} />}
       {text}
     </div>
   );

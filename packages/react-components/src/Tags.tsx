@@ -1,39 +1,39 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from "@canvas-ui/react-util";
-import { VoidFn } from "@canvas-ui/react-util/types";
-import React, { useCallback, useMemo } from "react";
-import styled from "styled-components";
+import { classes } from '@canvas-ui/react-util';
+import { VoidFn } from '@canvas-ui/react-util/types';
+import React, { useCallback, useMemo } from 'react';
+import styled from 'styled-components';
 
-import EditButton from "./EditButton";
-import InputTags from "./InputTags";
-import Tag from "./Tag";
-import { useTranslation } from "./translate";
+import EditButton from './EditButton';
+import InputTags from './InputTags';
+import Tag from './Tag';
+import { useTranslation } from './translate';
 
 interface Props {
   children?: React.ReactNode;
   className?: string;
-  color?: "green" | "grey" | "red";
+  color?: 'green' | 'grey' | 'red';
   isEditable?: boolean;
   isEditing?: boolean;
   onChange?: (_: string[]) => void;
   onToggleIsEditing?: () => void;
   onSave?: VoidFn;
-  size?: "small" | "tiny";
+  size?: 'small' | 'tiny';
   value: string[];
 }
 
 function Tags({
   children,
   className,
-  color = "grey",
+  color = 'grey',
   isEditable,
   isEditing,
   onChange,
   onSave,
   onToggleIsEditing,
-  size = "small",
+  size = 'small',
   value,
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
@@ -43,7 +43,7 @@ function Tags({
       value.length ? (
         value.map((tag): React.ReactNode => <Tag color={color} key={tag} label={tag} size={size} />)
       ) : (
-        <label>{t<string>("no tags")}</label>
+        <label>{t<string>('no tags')}</label>
       ),
     [color, size, t, value]
   );
@@ -54,7 +54,7 @@ function Tags({
   }, [onSave, onToggleIsEditing]);
 
   return (
-    <div className={classes("ui--Tags", className)}>
+    <div className={classes('ui--Tags', className)}>
       {isEditable && isEditing ? (
         <InputTags
           defaultValue={value}

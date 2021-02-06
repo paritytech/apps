@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry as baseRegistry } from "@canvas-ui/react-api";
-import { Button, Data, InputAddress, Labelled } from ".";
-import { QueueTx } from "@canvas-ui/react-api/Status/types";
-import useSendTx from "@canvas-ui/react-signer/useSendTx";
-import { truncate } from "@canvas-ui/react-util";
-import React, { useCallback, useEffect, useMemo, useRef } from "react";
-import styled from "styled-components";
+import { registry as baseRegistry } from '@canvas-ui/react-api';
+import { Button, Data, InputAddress, Labelled } from '.';
+import { QueueTx } from '@canvas-ui/react-api/Status/types';
+import useSendTx from '@canvas-ui/react-signer/useSendTx';
+import { truncate } from '@canvas-ui/react-util';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import styled from 'styled-components';
 
-import { TypeRegistry } from "@polkadot/types";
-import { TypeDef } from "@polkadot/types/types";
+import { TypeRegistry } from '@polkadot/types';
+import { TypeDef } from '@polkadot/types/types';
 
-import { ELEV_2_CSS } from "./styles/constants";
-import { useTranslation } from "./translate";
-import { BareProps } from "./types";
+import { ELEV_2_CSS } from './styles/constants';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   additionalDetails: Record<string, any>;
@@ -65,28 +65,28 @@ function PendingTx({
     let details: React.ReactNode = null;
 
     switch (`${section}.${method}`) {
-      case "contracts.putCode":
+      case 'contracts.putCode':
         details = (
           <div className="details">
-            <Labelled label={t<string>("Account")}>
+            <Labelled label={t<string>('Account')}>
               <InputAddress defaultValue={accountId} isDisabled value={accountId} withLabel={false} />
             </Labelled>
-            <Labelled label={t<string>("Code Bundle Name")}>{additionalDetails.name}</Labelled>
-            <Labelled isMonospace label={t<string>("Code Bytes")}>
+            <Labelled label={t<string>('Code Bundle Name')}>{additionalDetails.name}</Labelled>
+            <Labelled isMonospace label={t<string>('Code Bytes')}>
               {truncate(extrinsic.args[0].toString())}
             </Labelled>
           </div>
         );
         break;
-      case "contracts.instantiate":
+      case 'contracts.instantiate':
         details = (
           <div className="details">
-            <Labelled label={t<string>("Account")}>
+            <Labelled label={t<string>('Account')}>
               <InputAddress defaultValue={accountId} isDisabled value={accountId} withLabel={false} />
             </Labelled>
-            <Labelled label={t<string>("Contract Name")}>{additionalDetails.name}</Labelled>
+            <Labelled label={t<string>('Contract Name')}>{additionalDetails.name}</Labelled>
 
-            <Labelled isMonospace label={t<string>("Constructor")}>
+            <Labelled isMonospace label={t<string>('Constructor')}>
               {additionalDetails.constructor}
             </Labelled>
             {(additionalDetails.params as { arg: React.ReactNode; type: TypeDef; value: string }[]).map(
@@ -101,24 +101,24 @@ function PendingTx({
                 );
               }
             )}
-            <Labelled label={t<string>("Endowment")}>{truncate(extrinsic.args[0].toString())}</Labelled>
-            <Labelled label={t<string>("Weight")}>{truncate(extrinsic.args[1].toString())}</Labelled>
-            <Labelled isMonospace label={t<string>("Code Hash")}>
+            <Labelled label={t<string>('Endowment')}>{truncate(extrinsic.args[0].toString())}</Labelled>
+            <Labelled label={t<string>('Weight')}>{truncate(extrinsic.args[1].toString())}</Labelled>
+            <Labelled isMonospace label={t<string>('Code Hash')}>
               {truncate(extrinsic.args[2].toString())}
             </Labelled>
-            <Labelled isMonospace label={t<string>("Data")}>
+            <Labelled isMonospace label={t<string>('Data')}>
               {truncate(extrinsic.args[3].toString())}
             </Labelled>
           </div>
         );
         break;
-      case "contracts.call":
+      case 'contracts.call':
         details = (
           <div className="details">
-            <Labelled label={t<string>("Account")}>
+            <Labelled label={t<string>('Account')}>
               <InputAddress defaultValue={accountId} isDisabled value={accountId} withLabel={false} />
             </Labelled>
-            <Labelled label={t<string>("Contract to Call")}>
+            <Labelled label={t<string>('Contract to Call')}>
               <InputAddress
                 defaultValue={extrinsic.args[0].toString()}
                 isDisabled
@@ -126,7 +126,7 @@ function PendingTx({
                 withLabel={false}
               />
             </Labelled>
-            <Labelled isMonospace label={t<string>("Message to Call")}>
+            <Labelled isMonospace label={t<string>('Message to Call')}>
               {additionalDetails.message}
             </Labelled>
             {(additionalDetails.params as { arg: React.ReactNode; type: TypeDef; value: string }[]).map(
@@ -141,9 +141,9 @@ function PendingTx({
                 );
               }
             )}
-            <Labelled label={t<string>("Endowment")}>{truncate(extrinsic.args[1].toString())}</Labelled>
-            <Labelled label={t<string>("Weight")}>{truncate(extrinsic.args[2].toString())}</Labelled>
-            <Labelled isMonospace label={t<string>("Data")}>
+            <Labelled label={t<string>('Endowment')}>{truncate(extrinsic.args[1].toString())}</Labelled>
+            <Labelled label={t<string>('Weight')}>{truncate(extrinsic.args[2].toString())}</Labelled>
+            <Labelled isMonospace label={t<string>('Data')}>
               {truncate(extrinsic.args[3].toString())}
             </Labelled>
           </div>
@@ -168,18 +168,18 @@ function PendingTx({
 
   return (
     <div className={className}>
-      <div style={{ display: isSigning ? "block" : "none" }}>
+      <div style={{ display: isSigning ? 'block' : 'none' }}>
         {content}
         <footer>
-          <h3>{t<string>("Sign & Submit")}</h3>
+          <h3>{t<string>('Sign & Submit')}</h3>
           <div className="instructions">{instructions}</div>
           <Button.Group className="buttons-submit">
-            <Button isPrimary label={t<string>("Sign & Submit")} onClick={_onSend} />
-            <Button label={t<string>("Cancel")} onClick={onCancel} />
+            <Button isPrimary label={t<string>('Sign & Submit')} onClick={_onSend} />
+            <Button label={t<string>('Cancel')} onClick={onCancel} />
           </Button.Group>
         </footer>
       </div>
-      <div style={{ display: isSigning ? "none" : "block" }}>{children}</div>
+      <div style={{ display: isSigning ? 'none' : 'block' }}>{children}</div>
     </div>
   );
 }

@@ -1,18 +1,18 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry as baseRegistry } from "@canvas-ui/react-api";
-import { truncate } from "@canvas-ui/react-util";
-import React, { useMemo } from "react";
-import styled from "styled-components";
+import { registry as baseRegistry } from '@canvas-ui/react-api';
+import { truncate } from '@canvas-ui/react-util';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
 
-import { createTypeUnsafe, Option } from "@polkadot/types";
-import { AnyJson, Codec, Registry, TypeDef, TypeDefInfo } from "@polkadot/types/types";
-import { isNull } from "@polkadot/util";
+import { createTypeUnsafe, Option } from '@polkadot/types';
+import { AnyJson, Codec, Registry, TypeDef, TypeDefInfo } from '@polkadot/types/types';
+import { isNull } from '@polkadot/util';
 
-import AddressSmall from "./AddressMini";
-import Labelled from "./Labelled";
-import { BareProps } from "./types";
+import AddressSmall from './AddressMini';
+import Labelled from './Labelled';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   asJson?: boolean;
@@ -25,7 +25,7 @@ interface Props extends BareProps {
 const TRUNCATE_TO = 16;
 
 function formatData(registry: Registry, data: AnyJson, type: TypeDef | undefined): Codec {
-  return createTypeUnsafe(registry, type?.displayName || type?.type || "Raw", [data]);
+  return createTypeUnsafe(registry, type?.displayName || type?.type || 'Raw', [data]);
 }
 
 function Field({ name, value }: { name: string; value: React.ReactNode }): React.ReactElement {
@@ -46,16 +46,16 @@ function Data({
 }: Props): React.ReactElement<Props> | null {
   const content = useMemo((): React.ReactNode => {
     if (isNull(value) || (Array.isArray(value) && value.length === 0)) {
-      return "()";
+      return '()';
     }
 
     const codec = formatData(registry, value, type);
 
-    if (!type || type.displayName === "Hash") {
+    if (!type || type.displayName === 'Hash') {
       return truncate(codec.toHex(), TRUNCATE_TO);
     }
 
-    if (type.type === "AccountId") {
+    if (type.type === 'AccountId') {
       return value ? <AddressSmall className="account-id" value={value.toString()} /> : null;
     }
 
@@ -64,19 +64,19 @@ function Data({
       const subType = type.sub as TypeDef;
 
       if (asJson) {
-        return `${isSome ? "Some" : "None"}${isSome ? `(${value.toString()})` : ""}`;
+        return `${isSome ? 'Some' : 'None'}${isSome ? `(${value.toString()})` : ''}`;
       }
 
       return (
         <div className="enum">
-          {isSome ? "Some" : "None"}
+          {isSome ? 'Some' : 'None'}
           {isSome && (
             <>
-              {"("}
+              {'('}
               <div className="inner">
                 <Data registry={registry} type={subType} value={value.toString()} />
               </div>
-              {")"}
+              {')'}
             </>
           )}
         </div>
@@ -84,17 +84,17 @@ function Data({
     }
 
     if (type.info === TypeDefInfo.Plain) {
-      return truncate(value?.toString() || "()", TRUNCATE_TO);
+      return truncate(value?.toString() || '()', TRUNCATE_TO);
     }
 
     if (type.info === TypeDefInfo.Enum) {
       const json = (value as unknown) as Record<string, AnyJson>;
       const [variant, subValue] = Object.entries(json)[0];
-      const isNull = !!subValue && typeof subValue === "object" && Object.entries(subValue)[0] === null;
+      const isNull = !!subValue && typeof subValue === 'object' && Object.entries(subValue)[0] === null;
       const subType = (type.sub as TypeDef[]).find(({ name }) => name === variant);
 
       if (asJson) {
-        return `${variant}: ${JSON.stringify(formatData(registry, subValue, subType).toJSON()) || "()"}`;
+        return `${variant}: ${JSON.stringify(formatData(registry, subValue, subType).toJSON()) || '()'}`;
       }
 
       return (
@@ -148,7 +148,7 @@ function Data({
     if (type.sub && [TypeDefInfo.Vec, TypeDefInfo.VecFixed].includes(type.info)) {
       const sub = type.sub as TypeDef;
 
-      if (sub.type === "u8") {
+      if (sub.type === 'u8') {
         return truncate(codec.toHex(), TRUNCATE_TO);
       }
 

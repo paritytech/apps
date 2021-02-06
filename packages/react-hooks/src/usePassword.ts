@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import keyring from "@polkadot/ui-keyring";
+import keyring from '@polkadot/ui-keyring';
 
 interface PasswordProps {
   password: string;
@@ -13,7 +13,7 @@ interface PasswordProps {
 }
 
 export default function usePassword(): PasswordProps {
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
   useEffect((): void => {

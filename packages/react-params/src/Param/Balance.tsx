@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputBalance } from "@canvas-ui/react-components";
-import BN from "bn.js";
-import React, { useCallback, useState } from "react";
+import { InputBalance } from '@canvas-ui/react-components';
+import BN from 'bn.js';
+import React, { useCallback, useState } from 'react';
 
-import { Props } from "../types";
-import Bare from "./Bare";
+import { Props } from '../types';
+import Bare from './Bare';
 
 function Balance({
-  className = "",
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -20,7 +20,7 @@ function Balance({
   withLabel,
 }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
-  const [defaultValue] = useState(new BN(((value as BN) || "0").toString()).toString(10));
+  const [defaultValue] = useState(new BN(((value as BN) || '0').toString()).toString(10));
 
   const _onChange = useCallback(
     (value?: BN): void => {

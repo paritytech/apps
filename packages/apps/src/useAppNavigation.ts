@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { AppNavigation } from "@canvas-ui/react-components/types";
+import { AppNavigation } from '@canvas-ui/react-components/types';
 
 export default function useAppNavigation(): AppNavigation {
   const history = useHistory();
@@ -19,7 +19,7 @@ export default function useAppNavigation(): AppNavigation {
   );
 
   return {
-    deploy: navigator("/deploy"),
+    deploy: navigator('/deploy'),
     deployNew: useCallback(
       (id: string, constructorIndex = 0): (() => void) => {
         return navigator(`/deploy/new/${id}/${constructorIndex}`);
@@ -32,16 +32,16 @@ export default function useAppNavigation(): AppNavigation {
       },
       [navigator]
     ),
-    execute: navigator("/execute"),
-    executeAdd: navigator("/execute/add"),
+    execute: navigator('/execute'),
+    executeAdd: navigator('/execute/add'),
     executeCall: useCallback(
       (address: string, messageIndex = 0): (() => void) => {
         return navigator(`/execute/${address}/${messageIndex}`);
       },
       [navigator]
     ),
-    upload: navigator("/upload"),
-    uploadAdd: navigator("/upload/add"),
+    upload: navigator('/upload'),
+    uploadAdd: navigator('/upload/add'),
     uploadSuccess: useCallback(
       (id: string): (() => void) => {
         return navigator(`/upload/success/${id}`);

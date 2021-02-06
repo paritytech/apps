@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/app-settings authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, Dropdown, Input, Toggle } from "@canvas-ui/react-components";
-import { BareProps as Props } from "@canvas-ui/react-components/types";
-import { useEndpoints, useSettings } from "@canvas-ui/react-hooks";
-import { classes, useEndpointOptions } from "@canvas-ui/react-util";
-import React, { useMemo } from "react";
-import styled from "styled-components";
+import { Button, Dropdown, Input, Toggle } from '@canvas-ui/react-components';
+import { BareProps as Props } from '@canvas-ui/react-components/types';
+import { useEndpoints, useSettings } from '@canvas-ui/react-hooks';
+import { classes, useEndpointOptions } from '@canvas-ui/react-util';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
 
-import { useTranslation } from "./translate";
+import { useTranslation } from './translate';
 
 function SettingsApp({ className }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { isChanged, onChangeKey, save, saveAndReload } = useSettings();
-  const endpointState = useEndpoints(onChangeKey("apiUrl"));
+  const endpointState = useEndpoints(onChangeKey('apiUrl'));
   const endpointOptions = useEndpointOptions(endpointState, t);
 
   const { isCustom, isValid, onChangeCustom, onChangeUrl, url } = endpointState;
@@ -21,11 +21,11 @@ function SettingsApp({ className }: Props): React.ReactElement<Props> {
   const themeOptions = useMemo(
     () => [
       {
-        text: t<string>("Dark theme"),
+        text: t<string>('Dark theme'),
         value: true,
       },
       {
-        text: t<string>("Light theme"),
+        text: t<string>('Light theme'),
         value: false,
       },
     ],
@@ -33,14 +33,14 @@ function SettingsApp({ className }: Props): React.ReactElement<Props> {
   );
 
   return (
-    <main className={classes("settings--App", className)}>
+    <main className={classes('settings--App', className)}>
       <header>
-        <h1>{t<string>("Settings")}</h1>
+        <h1>{t<string>('Settings')}</h1>
       </header>
       <section>
         <Dropdown
           isDisabled={isCustom}
-          label={t<string>("Node to connect to")}
+          label={t<string>('Node to connect to')}
           onChange={onChangeUrl}
           options={endpointOptions}
           value={url}
@@ -49,7 +49,7 @@ function SettingsApp({ className }: Props): React.ReactElement<Props> {
           <Toggle
             className="settings--customToggle"
             defaultValue={isCustom}
-            label={t<string>("Use custom endpoint")}
+            label={t<string>('Use custom endpoint')}
             onChange={onChangeCustom}
           />
           {isCustom && (
@@ -62,14 +62,14 @@ function SettingsApp({ className }: Props): React.ReactElement<Props> {
             />
           )}
         </div>
-        <Dropdown defaultValue={true} isDisabled label={t<string>("Theme")} options={themeOptions} />
+        <Dropdown defaultValue={true} isDisabled label={t<string>('Theme')} options={themeOptions} />
       </section>
       <footer>
         <Button.Group>
           <Button
             isDisabled={isChanged === null}
             isPrimary
-            label={t<string>("Save")}
+            label={t<string>('Save')}
             onClick={isChanged ? saveAndReload : save}
           />
         </Button.Group>

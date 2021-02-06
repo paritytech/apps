@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from "./types";
-import React from "react";
-import Markdown from "react-markdown";
-import styled from "styled-components";
+import { BareProps } from './types';
+import React from 'react';
+import Markdown from 'react-markdown';
+import styled from 'styled-components';
 
-import { ELEV_2_CSS, ELEV_3_CSS } from "./styles/constants";
-import { useTranslation } from "./translate";
+import { ELEV_2_CSS, ELEV_3_CSS } from './styles/constants';
+import { useTranslation } from './translate';
 
 export interface Props extends BareProps {
   docs?: string[];
@@ -21,7 +21,7 @@ function Docs({ className, docs, signature }: Props): React.ReactElement<Props> 
     <div className={className}>
       <div className="header">{signature}</div>
       <div className="body">
-        {docs && docs.length > 0 ? <Markdown>{docs.join("\n")}</Markdown> : <i>{t("No documentation provided")}</i>}
+        {docs && docs.length > 0 ? <Markdown>{docs.join('\n')}</Markdown> : <i>{t('No documentation provided')}</i>}
       </div>
     </div>
   );

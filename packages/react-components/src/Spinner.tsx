@@ -1,25 +1,25 @@
 // Copyright 2017-2020 @canvas-ui/app-staking authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from "react";
-import Loader from "semantic-ui-react/dist/commonjs/elements/Loader/Loader";
-import styled from "styled-components";
+import React from 'react';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
+import styled from 'styled-components';
 
-import { useTranslation } from "./translate";
+import { useTranslation } from './translate';
 
 interface Props {
   className?: string;
   label?: React.ReactNode;
-  variant?: "app" | "push" | "mini" | "cover";
+  variant?: 'app' | 'push' | 'mini' | 'cover';
 }
 
-function Spinner({ className = "", label, variant = "app" }: Props): React.ReactElement<Props> | null {
+function Spinner({ className = '', label, variant = 'app' }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
 
   return (
-    <div className={`${className} ui--Spinner ${variant}${variant === "cover" ? " isCover" : ""}`}>
+    <div className={`${className} ui--Spinner ${variant}${variant === 'cover' ? ' isCover' : ''}`}>
       <Loader active className="ui--highlight--spinner" indeterminate inline="centered" size="medium">
-        {variant === "app" && (label || t<string>("Retrieving data"))}
+        {variant === 'app' && (label || t<string>('Retrieving data'))}
       </Loader>
     </div>
   );

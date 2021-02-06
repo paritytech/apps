@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/app-settings authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { SettingsStruct } from "@polkadot/ui-settings/types";
+import type { SettingsStruct } from '@polkadot/ui-settings/types';
 
-import { VoidFn } from "@canvas-ui/react-util/types";
-import { useCallback, useEffect, useState } from "react";
+import { VoidFn } from '@canvas-ui/react-util/types';
+import { useCallback, useEffect, useState } from 'react';
 
-import uiSettings from "@polkadot/ui-settings";
+import uiSettings from '@polkadot/ui-settings';
 
 interface UseSettings {
   isChanged: boolean | null;

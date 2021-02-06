@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback } from "react";
-import SUICheckbox from "semantic-ui-react/dist/commonjs/modules/Checkbox";
-import styled from "styled-components";
+import React, { useCallback } from 'react';
+import SUICheckbox from 'semantic-ui-react/dist/commonjs/modules/Checkbox';
+import styled from 'styled-components';
 
-import { BareProps } from "./types";
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   asSwitch?: boolean;
@@ -19,7 +19,7 @@ interface Props extends BareProps {
 
 function Toggle({
   asSwitch = true,
-  className = "",
+  className = '',
   defaultValue,
   isDisabled,
   label,
@@ -40,7 +40,7 @@ function Toggle({
   );
 
   return (
-    <div className={`ui--Toggle ${asSwitch ? "isToggle" : "isCheckbox"} ${className}`}>
+    <div className={`ui--Toggle ${asSwitch ? 'isToggle' : 'isCheckbox'} ${className}`}>
       <SUICheckbox
         checked={value}
         defaultChecked={defaultValue}

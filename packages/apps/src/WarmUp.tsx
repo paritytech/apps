@@ -1,8 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi, useCall } from "@canvas-ui/react-hooks";
-import React, { useEffect, useState } from "react";
+import { useApi, useCall } from '@canvas-ui/react-hooks';
+import React, { useEffect, useState } from 'react';
 
 function WarmUp(): React.ReactElement {
   const { api, isApiReady } = useApi();

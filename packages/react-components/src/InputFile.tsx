@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { FileState } from "@canvas-ui/react-hooks/types";
-import { classes } from "@canvas-ui/react-util";
-import React, { createRef, MouseEvent, useCallback } from "react";
-import Dropzone, { DropzoneRef } from "react-dropzone";
-import styled from "styled-components";
+import { FileState } from '@canvas-ui/react-hooks/types';
+import { classes } from '@canvas-ui/react-util';
+import React, { createRef, MouseEvent, useCallback } from 'react';
+import Dropzone, { DropzoneRef } from 'react-dropzone';
+import styled from 'styled-components';
 
-import { hexToU8a, isHex, u8aToString } from "@polkadot/util";
+import { hexToU8a, isHex, u8aToString } from '@polkadot/util';
 
-import { ELEV_2_CSS } from "./styles/constants";
-import FileSupplied from "./FileSupplied";
-import Icon from "./Icon";
-import Labelled from "./Labelled";
-import { useTranslation } from "./translate";
-import { BareProps } from "./types";
+import { ELEV_2_CSS } from './styles/constants';
+import FileSupplied from './FileSupplied';
+import Icon from './Icon';
+import Labelled from './Labelled';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 export interface InputFileProps extends BareProps {
   // Reference Example Usage: https://github.com/react-dropzone/react-dropzone/tree/master/examples/Accept
@@ -35,9 +35,9 @@ export interface InputFileProps extends BareProps {
   withLabel?: boolean;
 }
 
-const BYTE_STR_0 = "0".charCodeAt(0);
-const BYTE_STR_X = "x".charCodeAt(0);
-const STR_NL = "\n";
+const BYTE_STR_0 = '0'.charCodeAt(0);
+const BYTE_STR_X = 'x'.charCodeAt(0);
+const STR_NL = '\n';
 const NOOP = (): void => undefined;
 
 function convertResult(result: ArrayBuffer): Uint8Array {
@@ -118,7 +118,7 @@ function InputFile({
     <Dropzone accept={accept} disabled={isDisabled} multiple={false} onDrop={_onDrop} ref={dropRef}>
       {({ getInputProps, getRootProps }): JSX.Element => {
         const rootProps = getRootProps({
-          className: classes("ui--InputFile", isError ? "error" : "", !value ? "isEmpty" : "", className),
+          className: classes('ui--InputFile', isError ? 'error' : '', !value ? 'isEmpty' : '', className),
         });
         const inputProps = getInputProps();
 
@@ -128,7 +128,7 @@ function InputFile({
             {!value ? (
               <>
                 <Icon icon="upload" size="2x" />
-                <div>{t<string>("Click to select or drag & drop to upload file.")}</div>
+                <div>{t<string>('Click to select or drag & drop to upload file.')}</div>
               </>
             ) : (
               <FileSupplied errorText={errorText} isError={isError} onRemove={_onRemove} text={value.name} />

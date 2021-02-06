@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ComponentProps as Props } from "@canvas-ui/react-components/types";
+import { ComponentProps as Props } from '@canvas-ui/react-components/types';
 import {
   Button,
   ContractParams,
@@ -14,23 +14,23 @@ import {
   MessageSignature,
   PendingTx,
   TxButton,
-} from "@canvas-ui/react-components";
-import { useAccountId, useAccountInfo, useApi, useFormField, useGasWeight } from "@canvas-ui/react-hooks";
-import { useTxParams } from "@canvas-ui/react-params";
-import { extractValues } from "@canvas-ui/react-params/values";
-import usePendingTx from "@canvas-ui/react-signer/usePendingTx";
-import { getContractForAddress } from "@canvas-ui/react-util";
-import BN from "bn.js";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
-import styled from "styled-components";
+} from '@canvas-ui/react-components';
+import { useAccountId, useAccountInfo, useApi, useFormField, useGasWeight } from '@canvas-ui/react-hooks';
+import { useTxParams } from '@canvas-ui/react-params';
+import { extractValues } from '@canvas-ui/react-params/values';
+import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
+import { getContractForAddress } from '@canvas-ui/react-util';
+import BN from 'bn.js';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { ContractPromise as Contract } from "@polkadot/api-contract";
-import { BN_ZERO, isNull } from "@polkadot/util";
+import { ContractPromise as Contract } from '@polkadot/api-contract';
+import { BN_ZERO, isNull } from '@polkadot/util';
 
-import Outcome from "./Outcome";
-import { useTranslation } from "./translate";
-import { CallResult } from "./types";
+import Outcome from './Outcome';
+import { useTranslation } from './translate';
+import { CallResult } from './types';
 
 type Options = { key: string; text: React.ReactNode; value: number }[];
 
@@ -51,9 +51,9 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
   const { api } = useApi();
   const { t } = useTranslation();
   const { name } = useAccountInfo(pageParams.address?.toString() || null, true);
-  const pendingTx = usePendingTx("contracts.call");
+  const pendingTx = usePendingTx('contracts.call');
 
-  const [messageIndex, setMessageIndex] = useState(parseInt(pageParams.messageIndex || "0", 10));
+  const [messageIndex, setMessageIndex] = useState(parseInt(pageParams.messageIndex || '0', 10));
   const [outcomes, setOutcomes] = useState<CallResult[]>([]);
 
   const [contract, hasRpc] = useMemo((): [Contract | null, boolean] => {
@@ -167,7 +167,7 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
     (): Record<string, any> => ({
       // data: data ? u8aToHex(data) : null,
       message: messageOptions[messageIndex]?.text,
-      name: name || "",
+      name: name || '',
       params: params.map((param, index) => ({
         arg: <MessageArg arg={param} registry={contract?.registry} />,
         type: param.type,
@@ -185,17 +185,17 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
   return (
     <PendingTx
       additionalDetails={additionalDetails}
-      instructions={t<string>("Sign and submit to call the contract message with the above parameters.")}
+      instructions={t<string>('Sign and submit to call the contract message with the above parameters.')}
       registry={contract?.registry}
       {...pendingTx}
     >
       <div className={className}>
         <header>
           <h1>
-            {t<string>("Execute {{name}}", { replace: { name } })}
+            {t<string>('Execute {{name}}', { replace: { name } })}
           </h1>
           <div className="instructions">
-            {t<string>("Using the unique code hash you can add on-chain contract code for you to deploy.")}
+            {t<string>('Using the unique code hash you can add on-chain contract code for you to deploy.')}
           </div>
         </header>
         <section className={className}>
@@ -204,9 +204,9 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
               <InputAddress
                 defaultValue={accountId}
                 help={t<string>(
-                  "Specify the user account to use for this contract call. And fees will be deducted from this account."
+                  'Specify the user account to use for this contract call. And fees will be deducted from this account.'
                 )}
-                label={t<string>("Call from Account")}
+                label={t<string>('Call from Account')}
                 onChange={setAccountId}
                 type="account"
                 value={accountId}
@@ -214,10 +214,10 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
               <Dropdown
                 defaultValue={messageIndex}
                 help={t<string>(
-                  "The message to send to this contract. Parameters are adjusted based on the ABI provided."
+                  'The message to send to this contract. Parameters are adjusted based on the ABI provided.'
                 )}
                 isError={messageIndex >= contract?.abi?.messages.length}
-                label={t<string>("Message to Send")}
+                label={t<string>('Message to Send')}
                 onChange={setMessageIndex}
                 options={messageOptions}
                 value={messageIndex}
@@ -227,34 +227,34 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
                 className="retain-appearance"
                 help={t<string>(
                   contract.abi.messages[messageIndex].isPayable
-                    ? "The balance to transfer to the contract as part of this call."
-                    : "This message is not payable."
+                    ? 'The balance to transfer to the contract as part of this call.'
+                    : 'This message is not payable.'
                 )}
                 isDisabled={!contract.abi.messages[messageIndex].isPayable}
                 isError={isPaymentError}
                 isZeroable
-                label={t<string>("Payment")}
+                label={t<string>('Payment')}
                 onChange={setPayment}
                 value={payment}
               />
               <InputMegaGas
                 estimatedWeight={estimatedWeight}
                 help={t<string>(
-                  "The maximum amount of gas to use for this contract call. If the call requires more, it will fail."
+                  'The maximum amount of gas to use for this contract call. If the call requires more, it will fail.'
                 )}
                 isCall
-                label={t<string>("Maximum Gas Allowed")}
+                label={t<string>('Maximum Gas Allowed')}
                 weight={useWeightHook}
               />
               <Dropdown
                 onChange={setUseRpc}
                 options={[
                   {
-                    text: t<string>("Send as RPC call"),
+                    text: t<string>('Send as RPC call'),
                     value: true,
                   },
                   {
-                    text: t<string>("Send as transaction"),
+                    text: t<string>('Send as transaction'),
                     value: false,
                   },
                 ]}
@@ -263,15 +263,15 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
             </>
           )}
           <Button.Group>
-            <Button label={t<string>("Cancel")} onClick={navigateTo.execute} />
+            <Button label={t<string>('Cancel')} onClick={navigateTo.execute} />
             {useRpc ? (
-              <Button isDisabled={!isValid} isPrimary label={t<string>("Call")} onClick={_onSubmitRpc} />
+              <Button isDisabled={!isValid} isPrimary label={t<string>('Call')} onClick={_onSubmitRpc} />
             ) : (
               <TxButton
                 accountId={accountId}
                 isDisabled={!isValid}
                 isPrimary
-                label={t<string>("Call")}
+                label={t<string>('Call')}
                 params={_constructTx}
                 tx={api.tx.contracts.call}
               />
@@ -281,11 +281,11 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
         {outcomes.length > 0 && (
           <footer>
             <h3>
-              {t<string>("Call results")}
+              {t<string>('Call results')}
               <IconLink
                 className="clear-all"
                 icon="close"
-                label={t<string>("Clear all")}
+                label={t<string>('Clear all')}
                 onClick={_onClearAllOutcomes}
               />
             </h3>

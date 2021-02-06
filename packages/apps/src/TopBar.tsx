@@ -3,9 +3,9 @@
 
 // Unused atm, experiment as a replacement for NodeInfo on the SideBar
 
-import { BestNumber, Chain, NodeName, NodeVersion } from "@canvas-ui/react-query";
-import React from "react";
-import styled from "styled-components";
+import { BestNumber, Chain, NodeName, NodeVersion } from '@canvas-ui/react-query';
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
   className?: string;

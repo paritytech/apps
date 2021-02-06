@@ -1,16 +1,16 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputAddress } from "@canvas-ui/react-components";
-import React, { useCallback, useState } from "react";
+import { InputAddress } from '@canvas-ui/react-components';
+import React, { useCallback, useState } from 'react';
 
-import keyring from "@polkadot/ui-keyring";
+import keyring from '@polkadot/ui-keyring';
 
-import { Props } from "../types";
-import Bare from "./Bare";
+import { Props } from '../types';
+import Bare from './Bare';
 
 function Account({
-  className = "",
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,

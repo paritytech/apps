@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react';
 
-import AddressToggle from "../AddressToggle";
+import AddressToggle from '../AddressToggle';
 
 interface Props {
   address: string;
