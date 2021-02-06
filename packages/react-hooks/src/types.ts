@@ -1,27 +1,38 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ConstructTxFn } from '@canvas-ui/react-components/types';
-import { StringOrNull, VoidFn } from '@canvas-ui/react-util/types';
-import BN from 'bn.js';
+import { StringOrNull, VoidFn } from "@canvas-ui/react-util/types";
+import BN from "bn.js";
 
-import { SubmittableExtrinsic } from '@polkadot/api/promise/types';
-import { DeriveAccountFlags, DeriveAccountRegistration } from '@polkadot/api-derive/types';
-import { AccountId, Balance, BlockNumber, Call, Exposure, Hash, SessionIndex, StakingLedger, ValidatorPrefs } from '@polkadot/types/interfaces';
-import { IExtrinsic } from '@polkadot/types/types';
-import { KeyringJson$Meta } from '@polkadot/ui-keyring/types';
+import { SubmittableExtrinsic } from "@polkadot/api/promise/types";
+import { DeriveAccountFlags, DeriveAccountRegistration } from "@polkadot/api-derive/types";
+import {
+  AccountId,
+  Balance,
+  BlockNumber,
+  Call,
+  Exposure,
+  Hash,
+  SessionIndex,
+  StakingLedger,
+  ValidatorPrefs
+} from "@polkadot/types/interfaces";
+import { IExtrinsic } from "@polkadot/types/types";
+import { KeyringJson$Meta } from "@polkadot/ui-keyring/types";
 
 export type CallParam = any;
 
 export type CallParams = [] | CallParam[];
 
-export interface CallOptions <T> {
+export interface CallOptions<T> {
   defaultValue?: T;
   isSingle?: boolean;
   paramMap?: (params: any) => CallParams;
   transform?: (value: any) => T;
   withParams?: boolean;
 }
+
+export type ConstructTxFn = () => any[];
 
 export type TxDef = [string, any[] | ConstructTxFn];
 
@@ -147,7 +158,7 @@ export interface UseWeight {
   isValid: boolean;
   megaGas: BN;
   percentage: number;
-  setIsEmpty: React.Dispatch<boolean>
+  setIsEmpty: React.Dispatch<boolean>;
   setMegaGas: React.Dispatch<BN | undefined>;
   weight: BN;
   weightToString: string;

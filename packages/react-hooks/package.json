@@ -33,7 +33,6 @@
     "@babel/runtime": "^7.10.2",
     "@canvas-ui/apps-config": "workspace:packages/apps-config",
     "@canvas-ui/react-api": "workspace:packages/react-api",
-    "@canvas-ui/react-components": "workspace:packages/react-components",
     "@canvas-ui/react-util": "workspace:packages/react-util",
     "memoizee": "^0.4.14"
   },
