@@ -1,44 +1,49 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ELEV_3_CSS } from './styles/constants';
-import { BareProps } from './types';
 import { useToggle } from '@canvas-ui/react-hooks';
 import React from 'react';
 import styled from 'styled-components';
 
 import { Abi as InkAbi } from '@polkadot/api-contract';
 
+import { ELEV_3_CSS } from './styles/constants';
 import Expander from './Expander';
 import Messages from './Messages';
 import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   abi: InkAbi;
   withConstructors?: boolean;
 }
 
-function Abi({ abi, className, withConstructors = false }: Props): React.ReactElement<Props> {
+function Abi ({ abi, className, withConstructors = false }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isInfoOpen, toggleIsInfoOpen] = useToggle();
   const [isAbiOpen, toggleIsAbiOpen] = useToggle();
-  const {
-    contract: { authors, name, version }
-  } = abi.project;
+  const { contract: { authors, name, version } } = abi.project;
 
   return (
     <div className={className}>
-      <Expander isOpen={isInfoOpen} onClick={toggleIsInfoOpen} summary={t<string>('Info')}>
-        <div className="contract-info">
-          <div className="name">{name.toString()}</div>
-          <div className="details">
+      <Expander isOpen={isInfoOpen}
+        onClick={toggleIsInfoOpen}
+        summary={t<string>('Info')}>
+        <div className='contract-info'>
+          <div className='name'>{name.toString()}</div>
+          <div className='details'>
             {t<string>('version')} {version.toString()} {t<string>('by')}{' '}
-            {authors.map(author => author.toString()).join(', ')}
+            {authors.map((author) => author.toString()).join(', ')}
           </div>
         </div>
       </Expander>
-      <Expander isOpen={isAbiOpen} onClick={toggleIsAbiOpen} summary={t<string>('ABI')}>
-        <Messages abi={abi} isLabelled={false} isRemovable={false} withConstructors={withConstructors} />
+      <Expander isOpen={isAbiOpen}
+        onClick={toggleIsAbiOpen}
+        summary={t<string>('ABI')}>
+        <Messages abi={abi}
+          isLabelled={false}
+          isRemovable={false}
+          withConstructors={withConstructors} />
       </Expander>
     </div>
   );

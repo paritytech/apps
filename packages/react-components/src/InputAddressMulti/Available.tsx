@@ -12,14 +12,18 @@ interface Props {
   onSelect: (address: string) => void;
 }
 
-function Available({ address, filter, isHidden, onSelect }: Props): React.ReactElement<Props> | null {
+function Available ({ address, filter, isHidden, onSelect }: Props): React.ReactElement<Props> | null {
   const _onSelect = useCallback((): void => onSelect(address), [address, onSelect]);
 
   if (isHidden) {
     return null;
   }
 
-  return <AddressToggle address={address} filter={filter} noLookup noToggle onChange={_onSelect} />;
+  return <AddressToggle address={address}
+    filter={filter}
+    noLookup
+    noToggle
+    onChange={_onSelect} />;
 }
 
 export default React.memo(Available);

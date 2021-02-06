@@ -46,7 +46,7 @@ interface ProxyState {
   proxiesFilter: string[];
 }
 
-function findCall(tx: Call | SubmittableExtrinsic<'promise'>): { method: string; section: string } {
+function findCall (tx: Call | SubmittableExtrinsic<'promise'>): { method: string; section: string } {
   try {
     const { method, section } = tx.registry.findMetaCall(tx.callIndex);
 
@@ -56,14 +56,14 @@ function findCall(tx: Call | SubmittableExtrinsic<'promise'>): { method: string;
   }
 }
 
-function filterProxies(
+function filterProxies (
   allAccounts: string[],
   tx: Call | SubmittableExtrinsic<'promise'>,
   proxies: [string, ProxyType][]
 ): string[] {
   // check an array of calls to all have proxies as the address
   const checkCalls = (address: string, txs: Call[]): boolean =>
-    !txs.some(tx => !filterProxies(allAccounts, tx, proxies).includes(address));
+    !txs.some((tx) => !filterProxies(allAccounts, tx, proxies).includes(address));
 
   // get the call info
   const { method, section } = findCall(tx);
@@ -115,7 +115,7 @@ function filterProxies(
     .map(([address]) => address);
 }
 
-async function queryForMultisig(
+async function queryForMultisig (
   api: ApiPromise,
   requestAddress: string,
   proxyAddress: string | null,
@@ -132,23 +132,23 @@ async function queryForMultisig(
 
     return multi
       ? {
-          address,
-          isMultiCall: multi.approvals.length + 1 >= threshold,
-          who,
-          whoFilter: who.filter(w => !multi.approvals.some(a => a.eq(w)))
-        }
+        address,
+        isMultiCall: multi.approvals.length + 1 >= threshold,
+        who,
+        whoFilter: who.filter((w) => !multi.approvals.some((a) => a.eq(w)))
+      }
       : {
-          address,
-          isMultiCall: false,
-          who,
-          whoFilter: who
-        };
+        address,
+        isMultiCall: false,
+        who,
+        whoFilter: who
+      };
   }
 
   return null;
 }
 
-async function queryForProxy(
+async function queryForProxy (
   api: ApiPromise,
   allAccounts: string[],
   address: string,
@@ -157,18 +157,18 @@ async function queryForProxy(
   if (isFunction(api.query.proxy?.proxies)) {
     const { isProxied } = extractExternal(address);
     const [_proxies] = await api.query.proxy.proxies<
-      ITuple<[Vec<ITuple<[AccountId, ProxyType]> | ProxyDefinition>, BalanceOf]>
+    ITuple<[Vec<ITuple<[AccountId, ProxyType]> | ProxyDefinition>, BalanceOf]>
     >(address);
     const proxies =
       api.tx.proxy.addProxy.meta.args.length === 3
         ? (_proxies as ProxyDefinition[]).map(({ delegate, proxyType }): [string, ProxyType] => [
-            delegate.toString(),
-            proxyType
-          ])
+          delegate.toString(),
+          proxyType
+        ])
         : (_proxies as [AccountId, ProxyType][]).map(([delegate, proxyType]): [string, ProxyType] => [
-            delegate.toString(),
-            proxyType
-          ]);
+          delegate.toString(),
+          proxyType
+        ]);
     const proxiesFilter = filterProxies(allAccounts, tx, proxies);
 
     if (proxiesFilter.length) {
@@ -179,7 +179,7 @@ async function queryForProxy(
   return null;
 }
 
-function Address({ currentItem, onChange, onEnter, passwordError, requestAddress }: Props): React.ReactElement<Props> {
+function Address ({ currentItem, onChange, onEnter, passwordError, requestAddress }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const { allAccounts } = useAccounts();
@@ -216,7 +216,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
 
     currentItem.extrinsic &&
       queryForProxy(api, allAccounts, requestAddress, currentItem.extrinsic)
-        .then(info => mountedRef.current && setProxyInfo(info))
+        .then((info) => mountedRef.current && setProxyInfo(info))
         .catch(console.error);
   }, [allAccounts, api, currentItem, mountedRef, requestAddress]);
 
@@ -263,7 +263,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
       <Modal.Columns>
         <Modal.Column>
           <InputAddress
-            className="full"
+            className='full'
             defaultValue={requestAddress}
             isDisabled
             isInput
@@ -287,7 +287,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
               help={t('The proxy to be used for this transaction.')}
               label={t('proxy account')}
               onChange={setProxyAddress}
-              type="account"
+              type='account'
             />
           </Modal.Column>
           <Modal.Column>
@@ -307,7 +307,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
               help={t('The multisig signatory for this transaction.')}
               label={t('multisig signatory')}
               onChange={setMultiAddress}
-              type="account"
+              type='account'
             />
           </Modal.Column>
           <Modal.Column>
@@ -320,13 +320,16 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
         </Modal.Columns>
       )}
       {signAddress && !currentItem.isUnsigned && flags.isUnlockable && (
-        <Password address={signAddress} error={passwordError} onChange={_updatePassword} onEnter={onEnter} />
+        <Password address={signAddress}
+          error={passwordError}
+          onChange={_updatePassword}
+          onEnter={onEnter} />
       )}
       {proxyInfo && (
         <Modal.Columns>
           <Modal.Column>
             <Toggle
-              className="tipToggle"
+              className='tipToggle'
               isDisabled={proxyInfo.isProxied}
               label={
                 isProxyActive ? t<string>('Use a proxy for this call') : t<string>("Don't use a proxy for this call")
@@ -348,7 +351,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
         <Modal.Columns>
           <Modal.Column>
             <Toggle
-              className="tipToggle"
+              className='tipToggle'
               label={
                 isMultiCall
                   ? t<string>('Multisig message with call (for final approval)')

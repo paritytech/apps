@@ -1,9 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ComponentProps as Props } from '@canvas-ui/react-components/types';
-import {
-  Button,
+import { Button,
   ContractParams,
   Dropdown,
   IconLink,
@@ -13,8 +11,8 @@ import {
   MessageArg,
   MessageSignature,
   PendingTx,
-  TxButton
-} from '@canvas-ui/react-components';
+  TxButton } from '@canvas-ui/react-components';
+import { ComponentProps as Props } from '@canvas-ui/react-components/types';
 import { useAccountId, useAccountInfo, useApi, useFormField, useGasWeight } from '@canvas-ui/react-hooks';
 import { useTxParams } from '@canvas-ui/react-params';
 import { extractValues } from '@canvas-ui/react-params/values';
@@ -34,19 +32,20 @@ import { CallResult } from './types';
 
 type Options = { key: string; text: React.ReactNode; value: number }[];
 
-function getCallMessageOptions(callContract: Contract | null): Options {
+function getCallMessageOptions (callContract: Contract | null): Options {
   return callContract
     ? callContract.abi.messages.map((message, index): { key: string; text: React.ReactNode; value: number } => {
-        return {
-          key: message.identifier,
-          text: <MessageSignature message={message} registry={callContract.registry} />,
-          value: index
-        };
-      })
+      return {
+        key: message.identifier,
+        text: <MessageSignature message={message}
+          registry={callContract.registry} />,
+        value: index
+      };
+    })
     : [];
 }
 
-function Call({ className, navigateTo }: Props): React.ReactElement<Props> | null {
+function Call ({ className, navigateTo }: Props): React.ReactElement<Props> | null {
   const pageParams: { address?: string; messageIndex?: string } = useParams();
   const { api } = useApi();
   const { t } = useTranslation();
@@ -107,7 +106,7 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
         setEstimatedWeight(result.isOk ? gasConsumed : null);
         setMegaGas(gasConsumed);
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e);
         setEstimatedWeight(null);
       });
@@ -169,7 +168,8 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
       message: messageOptions[messageIndex]?.text,
       name: name || '',
       params: params.map((param, index) => ({
-        arg: <MessageArg arg={param} registry={contract?.registry} />,
+        arg: <MessageArg arg={param}
+          registry={contract?.registry} />,
         type: param.type,
         value: values[index]?.value
       })),
@@ -194,7 +194,7 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
           <h1>
             {t<string>('Execute {{name}}', { replace: { name } })}
           </h1>
-          <div className="instructions">
+          <div className='instructions'>
             {t<string>('Using the unique code hash you can add on-chain contract code for you to deploy.')}
           </div>
         </header>
@@ -208,7 +208,7 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
                 )}
                 label={t<string>('Call from Account')}
                 onChange={setAccountId}
-                type="account"
+                type='account'
                 value={accountId}
               />
               <Dropdown
@@ -222,9 +222,11 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
                 options={messageOptions}
                 value={messageIndex}
               />
-              <ContractParams onChange={setValues} params={params} values={values} />
+              <ContractParams onChange={setValues}
+                params={params}
+                values={values} />
               <InputBalance
-                className="retain-appearance"
+                className='retain-appearance'
                 help={t<string>(
                   contract.abi.messages[messageIndex].isPayable
                     ? 'The balance to transfer to the contract as part of this call.'
@@ -263,19 +265,25 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
             </>
           )}
           <Button.Group>
-            <Button label={t<string>('Cancel')} onClick={navigateTo.execute} />
-            {useRpc ? (
-              <Button isDisabled={!isValid} isPrimary label={t<string>('Call')} onClick={_onSubmitRpc} />
-            ) : (
-              <TxButton
-                accountId={accountId}
-                isDisabled={!isValid}
-                isPrimary
-                label={t<string>('Call')}
-                params={_constructTx}
-                tx={api.tx.contracts.call}
-              />
-            )}
+            <Button label={t<string>('Cancel')}
+              onClick={navigateTo.execute} />
+            {useRpc
+              ? (
+                <Button isDisabled={!isValid}
+                  isPrimary
+                  label={t<string>('Call')}
+                  onClick={_onSubmitRpc} />
+              )
+              : (
+                <TxButton
+                  accountId={accountId}
+                  isDisabled={!isValid}
+                  isPrimary
+                  label={t<string>('Call')}
+                  params={_constructTx}
+                  tx={api.tx.contracts.call}
+                />
+              )}
           </Button.Group>
         </section>
         {outcomes.length > 0 && (
@@ -283,13 +291,13 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
             <h3>
               {t<string>('Call results')}
               <IconLink
-                className="clear-all"
-                icon="close"
+                className='clear-all'
+                icon='close'
                 label={t<string>('Clear all')}
                 onClick={_onClearAllOutcomes}
               />
             </h3>
-            <div className="outcomes">
+            <div className='outcomes'>
               {outcomes.map(
                 (outcome, index): React.ReactNode => (
                   <Outcome

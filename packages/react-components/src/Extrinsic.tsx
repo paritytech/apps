@@ -1,8 +1,6 @@
 // Copyright 2017-2021 @canvas-ui/app-extrinsics authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import InputExtrinsic from './InputExtrinsic';
-import { BareProps } from './types';
 import Params from '@canvas-ui/react-params';
 import { RawParam } from '@canvas-ui/react-params/types';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -12,7 +10,9 @@ import { GenericCall, getTypeDef } from '@polkadot/types';
 import { TypeDef } from '@polkadot/types/types';
 import { isUndefined } from '@polkadot/util';
 
+import InputExtrinsic from './InputExtrinsic';
 import paramComponents from './Params';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   defaultValue: SubmittableExtrinsicFunction<'promise'>;
@@ -34,15 +34,14 @@ interface CallState {
   }[];
 }
 
-function getParams({ meta }: SubmittableExtrinsicFunction<'promise'>): { name: string; type: TypeDef }[] {
+function getParams ({ meta }: SubmittableExtrinsicFunction<'promise'>): { name: string; type: TypeDef }[] {
   return GenericCall.filterOrigin(meta).map((arg): { name: string; type: TypeDef } => ({
     name: arg.name.toString(),
     type: getTypeDef(arg.type.toString())
   }));
 }
 
-function ExtrinsicDisplay({
-  defaultValue,
+function ExtrinsicDisplay ({ defaultValue,
   isDisabled,
   isError,
   isPrivate,
@@ -50,8 +49,7 @@ function ExtrinsicDisplay({
   onChange,
   onEnter,
   onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+  withLabel }: Props): React.ReactElement<Props> {
   const [extrinsic, setCall] = useState<CallState>({ fn: defaultValue, params: getParams(defaultValue) });
   const [values, setValues] = useState<RawParam[]>([]);
 
@@ -83,13 +81,11 @@ function ExtrinsicDisplay({
     []
   );
 
-  const {
-    fn: { meta, method, section },
-    params
-  } = extrinsic;
+  const { fn: { meta, method, section },
+    params } = extrinsic;
 
   return (
-    <div className="extrinsics--Extrinsic">
+    <div className='extrinsics--Extrinsic'>
       <InputExtrinsic
         defaultValue={defaultValue}
         help={meta?.documentation.join(' ')}

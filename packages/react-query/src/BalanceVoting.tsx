@@ -16,12 +16,14 @@ interface Props extends BareProps {
   params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
 }
 
-function BalanceVoting({ children, className = '', label, params }: Props): React.ReactElement<Props> {
+function BalanceVoting ({ children, className = '', label, params }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const allBalances = useCall<DeriveBalancesAll>(api.derive.balances.all, [params]);
 
   return (
-    <FormatBalance className={className} label={label} value={allBalances?.votingBalance}>
+    <FormatBalance className={className}
+      label={label}
+      value={allBalances?.votingBalance}>
       {children}
     </FormatBalance>
   );

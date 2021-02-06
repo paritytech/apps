@@ -119,7 +119,7 @@ const components: ComponentMap = componentDef.reduce((components, { c, t }): Com
 
 const warnList: string[] = [];
 
-function fromDef({ displayName, info, sub, type }: TypeDef): string {
+function fromDef ({ displayName, info, sub, type }: TypeDef): string {
   if (displayName && SPECIAL_TYPES.includes(displayName)) {
     return displayName;
   }
@@ -163,7 +163,7 @@ function fromDef({ displayName, info, sub, type }: TypeDef): string {
   }
 }
 
-export default function findComponent(def: TypeDef, overrides: ComponentMap = {}): React.ComponentType<Props> {
+export default function findComponent (def: TypeDef, overrides: ComponentMap = {}): React.ComponentType<Props> {
   const findOne = (type: string): React.ComponentType<Props> | null => overrides[type] || components[type];
   const type = fromDef(def);
   let Component = findOne(type);

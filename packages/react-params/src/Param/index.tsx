@@ -11,8 +11,7 @@ import { Props as CProps, Props } from '../types';
 import findComponent from './findComponent';
 import Static from './Static';
 
-function Param({
-  className = '',
+function Param ({ className = '',
   defaultValue,
   isDisabled,
   isInOption,
@@ -22,8 +21,7 @@ function Param({
   onEnter,
   onEscape,
   overrides,
-  type
-}: Props): React.ReactElement<Props> | null {
+  type }: Props): React.ReactElement<Props> | null {
   const compRef = useRef<React.ComponentType<CProps> | null>(findComponent(type, overrides));
 
   const label = useMemo(() => (isUndefined(name) ? encodeTypeDef(type) : `${name}: ${encodeTypeDef(type)}`), [
@@ -35,24 +33,28 @@ function Param({
     return null;
   }
 
-  return isOptional ? (
-    <Static defaultValue={defaultValue} label={label} type={type} />
-  ) : (
-    <compRef.current
-      className={classes('ui--Param', className)}
-      defaultValue={defaultValue}
-      isDisabled={isDisabled}
-      isInOption={isInOption}
-      key={`${name || 'unknown'}:${type.toString()}`}
-      label={label}
-      name={name}
-      onChange={onChange}
-      onEnter={onEnter}
-      onEscape={onEscape}
-      overrides={overrides}
-      type={type}
-    />
-  );
+  return isOptional
+    ? (
+      <Static defaultValue={defaultValue}
+        label={label}
+        type={type} />
+    )
+    : (
+      <compRef.current
+        className={classes('ui--Param', className)}
+        defaultValue={defaultValue}
+        isDisabled={isDisabled}
+        isInOption={isInOption}
+        key={`${name || 'unknown'}:${type.toString()}`}
+        label={label}
+        name={name}
+        onChange={onChange}
+        onEnter={onEnter}
+        onEscape={onEscape}
+        overrides={overrides}
+        type={type}
+      />
+    );
 }
 
 export default React.memo(Param);

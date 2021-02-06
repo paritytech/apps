@@ -20,7 +20,7 @@ interface Props {
   tabIndex?: number;
 }
 
-function getPair(address?: string | null): KeyringPair | null {
+function getPair (address?: string | null): KeyringPair | null {
   try {
     return keyring.getPair(address as string);
   } catch (error) {
@@ -28,7 +28,7 @@ function getPair(address?: string | null): KeyringPair | null {
   }
 }
 
-function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Props): React.ReactElement<Props> | null {
+function Unlock ({ address, className, error, onChange, onEnter, tabIndex }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const [pair, setPair] = useState<KeyringPair | null>(null);
   const [password, setPassword] = useState('');
@@ -52,7 +52,7 @@ function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Prop
           autoFocus
           isError={!!error}
           label={t<string>('unlock account with password')}
-          labelExtra={error && <div className="errorLabel">{t<string>('wrong password supplied')}</div>}
+          labelExtra={error && <div className='errorLabel'>{t<string>('wrong password supplied')}</div>}
           onChange={setPassword}
           onEnter={onEnter}
           tabIndex={tabIndex}

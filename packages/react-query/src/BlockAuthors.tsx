@@ -34,7 +34,7 @@ const BlockAuthorsContext: React.Context<Authors> = React.createContext<Authors>
 });
 const ValidatorsContext: React.Context<string[]> = React.createContext<string[]>([]);
 
-function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
+function BlockAuthorsBase ({ children }: Props): React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const queryPoints = useCall<EraRewardPoints>(isApiReady && api.derive.staking?.currentPoints, []);
   const [state, setState] = useState<Authors>({ byAuthor, eraPoints, lastBlockAuthors: [], lastHeaders: [] });
@@ -53,7 +53,7 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
         api.query.session &&
           api.query.session
             .validators((validatorIds): void => {
-              setValidators(validatorIds.map(validatorId => validatorId.toString()));
+              setValidators(validatorIds.map((validatorId) => validatorId.toString()));
             })
             .catch(console.error);
 

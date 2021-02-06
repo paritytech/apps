@@ -17,9 +17,11 @@ export const PORTAL_ID = 'portals';
 
 const portal = document.getElementById(PORTAL_ID) as Element;
 
-function Selected({ address, index, onDeselect }: Props): React.ReactElement<Props> {
+function Selected ({ address, index, onDeselect }: Props): React.ReactElement<Props> {
   return (
-    <Draggable draggableId={address} index={index} key={address}>
+    <Draggable draggableId={address}
+      index={index}
+      key={address}>
       {(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement => {
         const element = (
           <div

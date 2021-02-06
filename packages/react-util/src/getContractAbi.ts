@@ -7,7 +7,7 @@ import { Abi } from '@polkadot/api-contract';
 
 import getAddressMeta from './getAddressMeta';
 
-export default function getContractAbi(address: string | null): Abi | null {
+export default function getContractAbi (address: string | null): Abi | null {
   if (!address) {
     return null;
   }

@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { AppProps as Props } from '@canvas-ui/react-components/types';
 import { useCodes } from '@canvas-ui/page-contracts';
 import { WithLoader } from '@canvas-ui/react-components';
+import { AppProps as Props } from '@canvas-ui/react-components/types';
 import React, { useMemo } from 'react';
 import { Route, Switch } from 'react-router';
 
@@ -12,7 +12,7 @@ import New from './New';
 import Success from './Success';
 import { ComponentProps } from './types';
 
-function DeployApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
+function DeployApp ({ basePath, navigateTo }: Props): React.ReactElement<Props> {
   const { allCodes, hasCodes, isLoading, updated } = useCodes();
 
   const componentProps = useMemo(
@@ -28,7 +28,7 @@ function DeployApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
   );
 
   return (
-    <main className="deploy--App">
+    <main className='deploy--App'>
       <WithLoader isLoading={isLoading}>
         <Switch>
           <Route path={`${basePath}/new/:id?/:index?`}>

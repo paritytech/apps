@@ -18,14 +18,12 @@ interface Props extends BareProps {
   value: SubmittableExtrinsicFunction<'promise'>;
 }
 
-function SelectSection({
-  className = '',
+function SelectSection ({ className = '',
   defaultValue,
   isError,
   onChange,
   options,
-  value
-}: Props): React.ReactElement<Props> {
+  value }: Props): React.ReactElement<Props> {
   return (
     <Dropdown
       className={classes('ui--DropdownLinked-Sections', className)}

@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-function flatten(key: string | null, value?: unknown): unknown {
+function flatten (key: string | null, value?: unknown): unknown {
   if (!value) {
     return value;
   }
@@ -11,13 +11,13 @@ function flatten(key: string | null, value?: unknown): unknown {
   }
 
   if (Array.isArray(value)) {
-    return value.map(item => flatten(null, item));
+    return value.map((item) => flatten(null, item));
   }
 
   return value;
 }
 
-export default function isEqual<T>(a?: T, b?: T, debug = false): boolean {
+export default function isEqual<T> (a?: T, b?: T, debug = false): boolean {
   const jsonA = JSON.stringify({ test: a }, flatten);
   const jsonB = JSON.stringify({ test: b }, flatten);
 

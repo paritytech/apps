@@ -4,6 +4,7 @@
 import { getSystemChainColor } from '@canvas-ui/apps-config/ui';
 import { defaultColor } from '@canvas-ui/apps-config/ui/general';
 import { ScrollToTop } from '@canvas-ui/react-components';
+import { PORTAL_ID } from '@canvas-ui/react-components/InputAddressMulti/SelectedDrag';
 import GlobalStyle from '@canvas-ui/react-components/styles';
 import { BareProps as Props } from '@canvas-ui/react-components/types';
 import { useApi } from '@canvas-ui/react-hooks';
@@ -12,7 +13,6 @@ import store from 'store';
 import styled from 'styled-components';
 
 import { SIDEBAR_MENU_THRESHOLD, SideBarTransition } from './constants';
-import { PORTAL_ID } from '@canvas-ui/react-components/InputAddressMulti/SelectedDrag';
 import Content from './Content';
 import SideBar from './SideBar';
 import WarmUp from './WarmUp';
@@ -24,11 +24,11 @@ interface SidebarState {
   transition: SideBarTransition;
 }
 
-function saveSidebar(sidebar: SidebarState): SidebarState {
+function saveSidebar (sidebar: SidebarState): SidebarState {
   return store.set('sidebar', sidebar) as SidebarState;
 }
 
-function Apps({ className = '' }: Props): React.ReactElement<Props> {
+function Apps ({ className = '' }: Props): React.ReactElement<Props> {
   const { systemChain, systemName } = useApi();
   const [sidebar, setSidebar] = useState<SidebarState>({
     isCollapsed: false,
@@ -78,7 +78,8 @@ function Apps({ className = '' }: Props): React.ReactElement<Props> {
           isMenuOpen ? 'menu-open' : ''
         } theme--default ${className}`}
       >
-        <div className={`apps--Menu-bg ${isMenuOpen ? 'open' : 'closed'}`} onClick={_handleResize} />
+        <div className={`apps--Menu-bg ${isMenuOpen ? 'open' : 'closed'}`}
+          onClick={_handleResize} />
         <SideBar
           collapse={_collapse}
           handleResize={_handleResize}

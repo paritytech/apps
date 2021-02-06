@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BitLengthOption } from './constants';
 import BN from 'bn.js';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { BN_TEN, BN_THOUSAND, formatBalance, isBn } from '@polkadot/util';
 
+import { BitLengthOption } from './constants';
 import InputNumber from './InputNumber';
 import { BareProps, BitLength } from './types';
 
@@ -34,7 +34,7 @@ interface Props extends BareProps {
 
 const DEFAULT_BITLENGTH = BitLengthOption.CHAIN_SPEC as BitLength;
 
-function reformat(value: string | BN, isDisabled?: boolean): string {
+function reformat (value: string | BN, isDisabled?: boolean): string {
   if (isBn(value)) {
     let fmt = (
       value
@@ -59,8 +59,7 @@ function reformat(value: string | BN, isDisabled?: boolean): string {
   return formatBalance(value, { forceUnit: '-', withSi: false }).replace(',', isDisabled ? ',' : '');
 }
 
-function InputBalance({
-  autoFocus,
+function InputBalance ({ autoFocus,
   className = '',
   defaultValue: inDefault,
   help,
@@ -78,8 +77,7 @@ function InputBalance({
   value,
   withEllipsis,
   withLabel,
-  withMax
-}: Props): React.ReactElement<Props> {
+  withMax }: Props): React.ReactElement<Props> {
   const [defaultValue, setDefaultValue] = useState<string | undefined>();
 
   useEffect((): void => {

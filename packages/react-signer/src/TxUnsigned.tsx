@@ -15,7 +15,7 @@ interface Props {
   currentItem: QueueTx;
 }
 
-function TxUnsigned({ className, currentItem }: Props): React.ReactElement<Props> | null {
+function TxUnsigned ({ className, currentItem }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { onCancel, onSendUnsigned } = useSendUnsigned(currentItem);
   const [isRenderError, toggleRenderError] = useToggle();
@@ -24,12 +24,13 @@ function TxUnsigned({ className, currentItem }: Props): React.ReactElement<Props
     <>
       <Modal.Content className={className}>
         <ErrorBoundary onError={toggleRenderError}>
-          <Transaction currentItem={currentItem} onError={toggleRenderError} />
+          <Transaction currentItem={currentItem}
+            onError={toggleRenderError} />
         </ErrorBoundary>
       </Modal.Content>
       <Modal.Actions onCancel={onCancel}>
         <Button
-          icon="sign-in"
+          icon='sign-in'
           isDisabled={isRenderError}
           isPrimary
           label={t<string>('Submit (no signature)')}

@@ -18,7 +18,7 @@ interface Props {
   signedTx: string | null;
 }
 
-function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<Props> {
+function SignFields ({ address, onChange, signedTx }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [blocks, setBlocks] = useState(new BN(64));
   const [nonce, setNonce] = useState(BN_ZERO);
@@ -73,7 +73,11 @@ function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<
       {!!signedTx && (
         <Modal.Columns>
           <Modal.Column>
-            <Output isFull isTrimmed label={t<string>('Signed transaction')} value={signedTx} withCopy />
+            <Output isFull
+              isTrimmed
+              label={t<string>('Signed transaction')}
+              value={signedTx}
+              withCopy />
           </Modal.Column>
           <Modal.Column>
             {t<string>(

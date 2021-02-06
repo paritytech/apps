@@ -32,34 +32,34 @@ interface TrackerRef {
 }
 
 // the default transform, just returns what we have
-function transformIdentity<T>(value: unknown): T {
+function transformIdentity<T> (value: unknown): T {
   return value as T;
 }
 
 // extract the serialized and mapped params, all ready for use in our call
-function extractParams(
+function extractParams (
   fn: unknown,
   params: unknown[],
   paramMap: (params: unknown[]) => CallParams
 ): [string, CallParams | null] {
   return [
     JSON.stringify({ f: (fn as { name: string })?.name, p: params }),
-    params.length === 0 || !params.some(param => isNull(param) || isUndefined(param)) ? paramMap(params) : null
+    params.length === 0 || !params.some((param) => isNull(param) || isUndefined(param)) ? paramMap(params) : null
   ];
 }
 
 // unsubscribe and remove from  the tracker
-function unsubscribe(tracker: TrackerRef): void {
+function unsubscribe (tracker: TrackerRef): void {
   tracker.current.isActive = false;
 
   if (tracker.current.subscriber) {
-    tracker.current.subscriber.then(unsubFn => unsubFn()).catch(console.error);
+    tracker.current.subscriber.then((unsubFn) => unsubFn()).catch(console.error);
     tracker.current.subscriber = null;
   }
 }
 
 // subscribe, trying to play nice with the browser threads
-function subscribe<T>(
+function subscribe<T> (
   mountedRef: MountedRef,
   tracker: TrackerRef,
   fn: TrackFn | undefined,
@@ -103,7 +103,7 @@ function subscribe<T>(
 //  - returns a promise with an unsubscribe function
 //  - has a callback to set the value
 // FIXME The typings here need some serious TLC
-export default function useCall<T>(
+export default function useCall<T> (
   fn: TrackFn | undefined | null | false,
   params: CallParams = [],
   options: CallOptions<T> = {}

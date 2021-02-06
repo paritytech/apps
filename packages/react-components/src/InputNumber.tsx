@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { TokenUnit } from '@canvas-ui/react-api/Api';
 import { classes } from '@canvas-ui/react-util';
 import BN from 'bn.js';
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { TokenUnit } from '@canvas-ui/react-api/Api';
 
 import { BN_TEN, BN_ZERO, formatBalance, isBn } from '@polkadot/util';
 import { SiDef } from '@polkadot/util/types';
@@ -44,22 +44,22 @@ interface Props extends BareProps {
 
 const DEFAULT_BITLENGTH = BitLengthOption.NORMAL_NUMBERS as BitLength;
 
-function getGlobalMaxValue(bitLength?: number): BN {
+function getGlobalMaxValue (bitLength?: number): BN {
   return new BN(2).pow(new BN(bitLength || DEFAULT_BITLENGTH)).subn(1);
 }
 
-function getRegex(isDecimal: boolean): RegExp {
+function getRegex (isDecimal: boolean): RegExp {
   return new RegExp(isDecimal ? `^(0|[1-9]\\d*)(\\${KEYS.DECIMAL}\\d*)?$` : '^(0|[1-9]\\d*)$');
 }
 
-function getSiOptions(): { text: string; value: string }[] {
+function getSiOptions (): { text: string; value: string }[] {
   return formatBalance.getOptions().map(({ power, text, value }): { text: string; value: string } => ({
     text: power === 0 ? TokenUnit.abbr : text,
     value
   }));
 }
 
-function getSiPowers(si: SiDef | null): [BN, number, number] {
+function getSiPowers (si: SiDef | null): [BN, number, number] {
   if (!si) {
     return [BN_ZERO, 0, 0];
   }
@@ -69,7 +69,7 @@ function getSiPowers(si: SiDef | null): [BN, number, number] {
   return [new BN(basePower + si.power), basePower, si.power];
 }
 
-function isValidNumber(bn: BN, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): boolean {
+function isValidNumber (bn: BN, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): boolean {
   if (
     // cannot be negative
     bn.lt(BN_ZERO) ||
@@ -88,7 +88,7 @@ function isValidNumber(bn: BN, bitLength: BitLength, isZeroable: boolean, maxVal
   return true;
 }
 
-function inputToBn(
+function inputToBn (
   input: string,
   si: SiDef | null,
   bitLength: BitLength,
@@ -119,7 +119,7 @@ function inputToBn(
   return [result, isValidNumber(result, bitLength, isZeroable, maxValue)];
 }
 
-function getValuesFromString(
+function getValuesFromString (
   value: string,
   si: SiDef | null,
   bitLength: BitLength,
@@ -131,7 +131,7 @@ function getValuesFromString(
   return [value, valueBn, isValid];
 }
 
-function getValuesFromBn(valueBn: BN, si: SiDef | null): [string, BN, boolean] {
+function getValuesFromBn (valueBn: BN, si: SiDef | null): [string, BN, boolean] {
   const value = si
     ? valueBn.div(BN_TEN.pow(new BN(formatBalance.getDefaults().decimals + si.power))).toString()
     : valueBn.toString();
@@ -139,7 +139,7 @@ function getValuesFromBn(valueBn: BN, si: SiDef | null): [string, BN, boolean] {
   return [value, valueBn, true];
 }
 
-function getValues(
+function getValues (
   value: BN | string = BN_ZERO,
   si: SiDef | null,
   bitLength: BitLength,
@@ -149,8 +149,7 @@ function getValues(
   return isBn(value) ? getValuesFromBn(value, si) : getValuesFromString(value, si, bitLength, isZeroable, maxValue);
 }
 
-function InputNumber({
-  autoFocus,
+function InputNumber ({ autoFocus,
   bitLength = DEFAULT_BITLENGTH,
   children,
   className,
@@ -170,8 +169,7 @@ function InputNumber({
   onEnter,
   onEscape,
   placeholder,
-  value: propsValue
-}: Props): React.ReactElement<Props> {
+  value: propsValue }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [si, setSi] = useState<SiDef | null>(isSi ? formatBalance.findSi('-') : null);
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
@@ -262,12 +260,12 @@ function InputNumber({
       onKeyUp={_onKeyUp}
       onPaste={_onPaste}
       placeholder={placeholder || t<string>('Positive number')}
-      type="text"
+      type='text'
       value={value}
     >
       {!!si && (
         <Dropdown
-          className="siDropdown"
+          className='siDropdown'
           defaultValue={si.value}
           isButton
           onChange={_onSelectSiUnit}

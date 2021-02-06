@@ -8,7 +8,7 @@ import { CallState } from '../types';
 
 const interval$ = interval(500);
 
-export default function intervalObservable<Props, State extends CallState>(
+export default function intervalObservable<Props, State extends CallState> (
   that: React.Component<Props, State>
 ): Subscription {
   return interval$.subscribe((): void => {

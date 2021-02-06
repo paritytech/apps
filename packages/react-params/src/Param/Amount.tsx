@@ -12,8 +12,7 @@ import { bnToBn, formatNumber, isUndefined } from '@polkadot/util';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function Amount({
-  className = '',
+function Amount ({ className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -21,8 +20,7 @@ function Amount({
   onChange,
   onEnter,
   type,
-  withLabel
-}: Props): React.ReactElement<Props> {
+  withLabel }: Props): React.ReactElement<Props> {
   const defaultValue = useMemo(
     () =>
       isDisabled
@@ -53,28 +51,30 @@ function Amount({
 
   return (
     <Bare className={className}>
-      {isDisabled ? (
-        <Input
-          className="full"
-          defaultValue={defaultValue}
-          isDisabled
-          label={label}
-          withEllipsis
-          withLabel={withLabel}
-        />
-      ) : (
-        <InputNumber
-          bitLength={bitLength}
-          className="full"
-          defaultValue={defaultValue}
-          isError={isError}
-          isZeroable
-          label={label}
-          onChange={_onChange}
-          onEnter={onEnter}
-          withLabel={withLabel}
-        />
-      )}
+      {isDisabled
+        ? (
+          <Input
+            className='full'
+            defaultValue={defaultValue}
+            isDisabled
+            label={label}
+            withEllipsis
+            withLabel={withLabel}
+          />
+        )
+        : (
+          <InputNumber
+            bitLength={bitLength}
+            className='full'
+            defaultValue={defaultValue}
+            isError={isError}
+            isZeroable
+            label={label}
+            onChange={_onChange}
+            onEnter={onEnter}
+            withLabel={withLabel}
+          />
+        )}
     </Bare>
   );
 }

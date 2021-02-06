@@ -13,13 +13,13 @@ interface Props extends BareProps {
   title?: React.ReactNode;
 }
 
-function ItemInfo({ children, className, icon, subtitle, title }: Props): React.ReactElement<Props> {
+function ItemInfo ({ children, className, icon, subtitle, title }: Props): React.ReactElement<Props> {
   return (
     <div className={className}>
-      <div className="item-icon">{icon}</div>
-      <div className="info">
-        <div className="title">{title}</div>
-        <div className="subtitle">{subtitle}</div>
+      <div className='item-icon'>{icon}</div>
+      <div className='info'>
+        <div className='title'>{title}</div>
+        <div className='subtitle'>{subtitle}</div>
         {children}
       </div>
     </div>

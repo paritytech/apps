@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 import { useTranslation } from './translate';
 
-function SettingsApp({ className }: Props): React.ReactElement<Props> {
+function SettingsApp ({ className }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { isChanged, onChangeKey, save, saveAndReload } = useSettings();
   const endpointState = useEndpoints(onChangeKey('apiUrl'));
@@ -47,14 +47,14 @@ function SettingsApp({ className }: Props): React.ReactElement<Props> {
         />
         <div>
           <Toggle
-            className="settings--customToggle"
+            className='settings--customToggle'
             defaultValue={isCustom}
             label={t<string>('Use custom endpoint')}
             onChange={onChangeCustom}
           />
           {isCustom && (
             <Input
-              className="custom-url"
+              className='custom-url'
               defaultValue={url}
               isError={!isValid}
               onChange={onChangeUrl}
@@ -62,7 +62,10 @@ function SettingsApp({ className }: Props): React.ReactElement<Props> {
             />
           )}
         </div>
-        <Dropdown defaultValue={true} isDisabled label={t<string>('Theme')} options={themeOptions} />
+        <Dropdown defaultValue={true}
+          isDisabled
+          label={t<string>('Theme')}
+          options={themeOptions} />
       </section>
       <footer>
         <Button.Group>

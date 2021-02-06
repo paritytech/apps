@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from './types';
 import { VoidFn } from '@canvas-ui/react-util/types';
 import React from 'react';
 
 import Input from './Input';
 import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
   isBusy?: boolean;
@@ -19,15 +19,13 @@ interface Props extends BareProps {
   value?: string;
 }
 
-function InputName({
-  className,
+function InputName ({ className,
   isBusy,
   isContract,
   isError,
   onChange,
   onEnter,
-  value = ''
-}: Props): React.ReactElement<Props> {
+  value = '' }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (

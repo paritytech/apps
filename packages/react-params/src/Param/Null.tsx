@@ -5,7 +5,7 @@ import React, { useEffect } from 'react';
 
 import { Props } from '../types';
 
-function Null({ onChange }: Props): React.ReactElement<Props> | null {
+function Null ({ onChange }: Props): React.ReactElement<Props> | null {
   useEffect((): void => {
     onChange &&
       onChange({

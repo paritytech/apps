@@ -2,14 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { store, useAbi } from '@canvas-ui/page-contracts';
-import { Code, ComponentProps } from './types';
-import { ELEV_2_CSS } from './styles/constants';
 import { useToggle } from '@canvas-ui/react-hooks';
 import { FileState } from '@canvas-ui/react-hooks/types';
 import { VoidFn } from '@canvas-ui/react-util/types';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
+import { ELEV_2_CSS } from './styles/constants';
 import Abi from './Abi';
 import Button from './Button';
 import Card from './Card';
@@ -17,19 +16,18 @@ import CodeForget from './CodeForget';
 import CodeInfo from './CodeInfo';
 import CodeUploadABI from './CodeUploadABI';
 import { useTranslation } from './translate';
+import { Code, ComponentProps } from './types';
 
 interface Props extends ComponentProps {
   code: Code;
   onForget?: VoidFn;
 }
 
-function CodeCard({
-  className,
+function CodeCard ({ className,
   code,
   code: { id },
   navigateTo,
-  onForget: _onForget
-}: Props): React.ReactElement<Props> {
+  onForget: _onForget }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [, , setIsAbiOpen] = useToggle();
   const { abi, isAbiSupplied, onChangeAbi } = useAbi(code);
@@ -54,10 +52,12 @@ function CodeCard({
 
   return (
     <Card className={className}>
-      <CodeInfo code={code} isEditable>
-        {isAbiSupplied && abi && <Abi abi={abi} withConstructors />}
+      <CodeInfo code={code}
+        isEditable>
+        {isAbiSupplied && abi && <Abi abi={abi}
+          withConstructors />}
       </CodeInfo>
-      <div className="footer">
+      <div className='footer'>
         <Button.Group>
           {abi?.project.source.wasm && abi.project.source.wasm.length === 0 && (
             <CodeUploadABI
@@ -66,8 +66,12 @@ function CodeCard({
               onSave={onSaveABI}
             />
           )}
-          <CodeForget code={code} onForget={onForget} />
-          <Button isDisabled={!isAbiSupplied} isPrimary label={t<string>('Deploy')} onClick={onDeploy} />
+          <CodeForget code={code}
+            onForget={onForget} />
+          <Button isDisabled={!isAbiSupplied}
+            isPrimary
+            label={t<string>('Deploy')}
+            onClick={onDeploy} />
         </Button.Group>
       </div>
     </Card>

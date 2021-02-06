@@ -9,16 +9,14 @@ import keyring from '@polkadot/ui-keyring';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function Account({
-  className = '',
+function Account ({ className = '',
   defaultValue: { value },
   isDisabled,
   isError,
   isInOption,
   label,
   onChange,
-  withLabel
-}: Props): React.ReactElement<Props> {
+  withLabel }: Props): React.ReactElement<Props> {
   const [defaultValue] = useState((value as string)?.toString());
 
   const _onChange = useCallback(
@@ -47,7 +45,7 @@ function Account({
   return (
     <Bare className={className}>
       <InputAddress
-        className="full"
+        className='full'
         defaultValue={defaultValue}
         hideAddress={isInOption}
         isDisabled={isDisabled}
@@ -55,8 +53,8 @@ function Account({
         isInput
         label={label}
         onChange={_onChange}
-        placeholder="5..."
-        type="allPlus"
+        placeholder='5...'
+        type='allPlus'
         withEllipsis
         withLabel={withLabel}
       />

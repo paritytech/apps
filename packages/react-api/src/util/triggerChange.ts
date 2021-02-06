@@ -5,7 +5,7 @@ import { isFunction, isObservable } from '@polkadot/util';
 
 import { OnChangeCb } from '../types';
 
-export default function triggerChange(value?: unknown, ...callOnResult: (OnChangeCb | undefined)[]): void {
+export default function triggerChange (value?: unknown, ...callOnResult: (OnChangeCb | undefined)[]): void {
   if (!callOnResult || !callOnResult.length) {
     return;
   }

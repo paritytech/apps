@@ -24,7 +24,7 @@ interface Props extends BareProps {
 const M_LENGTH = 6 + 1;
 const K_LENGTH = 3 + 1;
 
-function format(
+function format (
   value: Compact<any> | BN | string,
   currency: string,
   withSi?: boolean,
@@ -43,7 +43,7 @@ function format(
       {prefix}
       {!isShort && (
         <>
-          .<span className="ui--FormatBalance-postfix">{`000${postfix || ''}`.slice(-3)}</span>
+          .<span className='ui--FormatBalance-postfix'>{`000${postfix || ''}`.slice(-3)}</span>
         </>
       )}{' '}
       {currency}
@@ -63,22 +63,20 @@ function format(
 //   return <>{prefix}.<span className='balance-postfix'>{`000${postfix || ''}`.slice(-3)}</span>{unit === '-' ? '' : unit}</>;
 // }
 
-function FormatBalance({
-  children,
+function FormatBalance ({ children,
   className = '',
   isShort,
   label,
   labelPost,
   value,
-  withSi
-}: Props): React.ReactElement<Props> {
+  withSi }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [currency] = useState(formatBalance.getDefaults().unit);
 
   return (
     <div className={`ui--FormatBalance ${className}`}>
       {label || ''}
-      <span className="ui--FormatBalance-value">
+      <span className='ui--FormatBalance-value'>
         {value ? (value === 'all' ? t<string>('everything') : format(value, currency, withSi, isShort)) : '-'}
       </span>
       {labelPost}

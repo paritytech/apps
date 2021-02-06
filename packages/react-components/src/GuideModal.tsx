@@ -21,7 +21,7 @@ interface Props extends BareProps {
   onClose: VoidFn;
 }
 
-function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
+function GuideModal ({ className, onClose }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle(true);
   const [index, setIndex] = useState(0);
@@ -55,7 +55,9 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
               {t<string>(
                 'You will need to have a built contract ready to upload. If you’re new to ink! smart contracts,'
               )}{' '}
-              <a href="https://substrate.dev/substrate-contracts-workshop/" rel="noopener noreferrer" target="_blank">
+              <a href='https://substrate.dev/substrate-contracts-workshop/'
+                rel='noopener noreferrer'
+                target='_blank'>
                 {t<string>('check out the tutorial on the Substrate Developer Hub')}
               </a>
               {'.'}
@@ -124,7 +126,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
       header,
       <>
         {content}
-        <div className="page-control">
+        <div className='page-control'>
           {pages.map(
             (_, pageIndex): React.ReactNode => {
               return (
@@ -145,7 +147,9 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
   const isLastPage = index === pages.length - 1;
 
   return (
-    <Modal className={className} isOpen={isOpen} onClose={_onClose}>
+    <Modal className={className}
+      isOpen={isOpen}
+      onClose={_onClose}>
       <Modal.Header>{header}</Modal.Header>
       <Modal.Content>{content}</Modal.Content>
       <Modal.Actions

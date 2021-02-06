@@ -6,8 +6,7 @@ import BN from 'bn.js';
 
 import { SubmittableExtrinsic } from '@polkadot/api/promise/types';
 import { DeriveAccountFlags, DeriveAccountRegistration } from '@polkadot/api-derive/types';
-import {
-  AccountId,
+import { AccountId,
   Balance,
   BlockNumber,
   Call,
@@ -15,8 +14,7 @@ import {
   Hash,
   SessionIndex,
   StakingLedger,
-  ValidatorPrefs
-} from '@polkadot/types/interfaces';
+  ValidatorPrefs } from '@polkadot/types/interfaces';
 import { IExtrinsic } from '@polkadot/types/types';
 import { KeyringJson$Meta } from '@polkadot/ui-keyring/types';
 

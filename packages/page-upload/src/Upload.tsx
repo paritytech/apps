@@ -1,13 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { store } from '@canvas-ui/page-contracts';
-import { ComponentProps as Props } from '@canvas-ui/react-components/types';
+import { store, useAbi } from '@canvas-ui/page-contracts';
 import { registry } from '@canvas-ui/react-api';
 import { Button, Input, InputABI, InputAddress, InputFile, TxButton } from '@canvas-ui/react-components';
 import PendingTx from '@canvas-ui/react-components/PendingTx';
+import { ComponentProps as Props } from '@canvas-ui/react-components/types';
 import { useAccountId, useApi, useFile, useNonEmptyString } from '@canvas-ui/react-hooks';
-import { useAbi } from '@canvas-ui/page-contracts';
 import { FileState } from '@canvas-ui/react-hooks/types';
 import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -18,7 +17,7 @@ import { compactAddLength, isNull, isWasm } from '@polkadot/util';
 
 import { useTranslation } from './translate';
 
-function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
+function Upload ({ basePath, navigateTo }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const [accountId, setAccountId] = useAccountId();
@@ -107,7 +106,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
     >
       <header>
         <h1>{t<string>('Upload WASM Code Blob')}</h1>
-        <div className="instructions">
+        <div className='instructions'>
           {t<string>('You can upload an existing Wasm blob here. Already have a blob on chain? ')}
           <Link to={`${basePath}/add`}>{t<string>('Add an existing code hash.')}</Link>
         </div>
@@ -120,7 +119,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
           isInput={false}
           label={t<string>('Account')}
           onChange={setAccountId}
-          type="account"
+          type='account'
           value={accountId}
         />
         <Input

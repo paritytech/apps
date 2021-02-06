@@ -26,7 +26,7 @@ const BYTES_TYPE = {
 
 const EMPTY_PLACEHOLDER = 'click to select or drag and drop JSON key/value (hex-encoded) file';
 
-function parseFile(raw: Uint8Array): Parsed {
+function parseFile (raw: Uint8Array): Parsed {
   const json = JSON.parse(u8aToString(raw)) as Record<string, string>;
   const keys = Object.keys(json);
   let isValid = keys.length !== 0;
@@ -49,8 +49,7 @@ function parseFile(raw: Uint8Array): Parsed {
   };
 }
 
-function KeyValueArray({
-  className = '',
+function KeyValueArray ({ className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -58,8 +57,7 @@ function KeyValueArray({
   onChange,
   onEnter,
   onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+  withLabel }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [placeholder, setPlaceholder] = useState<string>(t(EMPTY_PLACEHOLDER));
 
@@ -93,10 +91,11 @@ function KeyValueArray({
 
     return (
       <>
-        <Base className={className} label={label}>
+        <Base className={className}
+          label={label}>
           <div />
         </Base>
-        <div className="ui--Params">
+        <div className='ui--Params'>
           {pairs.map(
             ([key, value]): React.ReactNode => {
               const keyHex = u8aToHex(key.toU8a(true));

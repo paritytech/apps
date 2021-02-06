@@ -1,8 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import store from './store';
 import { Code } from '@canvas-ui/react-components/types';
+import { useTranslation } from '@canvas-ui/react-hooks/translate';
+import { FileState } from '@canvas-ui/react-hooks/types';
 import useApi from '@canvas-ui/react-hooks/useApi';
 import { VoidFn } from '@canvas-ui/react-util/types';
 import { useCallback, useEffect, useState } from 'react';
@@ -11,8 +12,7 @@ import { Abi } from '@polkadot/api-contract';
 import { AnyJson } from '@polkadot/types/types';
 import { u8aToString } from '@polkadot/util';
 
-import { useTranslation } from '@canvas-ui/react-hooks/translate';
-import { FileState } from '@canvas-ui/react-hooks/types';
+import store from './store';
 
 interface UseAbi {
   abi: Abi | null;
@@ -34,15 +34,15 @@ interface AbiSpecOutdated {
   };
 }
 
-export default function useAbi(source: Code | null = null, isRequired = false): UseAbi {
+export default function useAbi (source: Code | null = null, isRequired = false): UseAbi {
   const { api } = useApi();
   const { t } = useTranslation();
   const initialState: State = source
     ? [
-        source.abi ? new Abi(source.abi, api.registry.getChainProperties()) : null,
-        !!source?.abi,
-        !isRequired || !!source.abi
-      ]
+      source.abi ? new Abi(source.abi, api.registry.getChainProperties()) : null,
+      !!source?.abi,
+      !isRequired || !!source.abi
+    ]
     : [null, false, false];
   const [[abi, isAbiSupplied, isAbiValid], setAbi] = useState<State>(initialState);
   const [[isAbiError, errorText], setError] = useState<[boolean, string | null]>([false, null]);

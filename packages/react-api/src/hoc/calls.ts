@@ -9,7 +9,7 @@ import { Options } from './types';
 
 type Call = string | [string, Options];
 
-export default function withCalls<P>(
+export default function withCalls<P> (
   ...calls: Call[]
 ): (Component: React.ComponentType<P>) => React.ComponentType<SubtractProps<P, ApiProps>> {
   return (Component: React.ComponentType<P>): React.ComponentType<any> => {

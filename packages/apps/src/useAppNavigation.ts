@@ -1,12 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { AppNavigation } from '@canvas-ui/react-components/types';
 import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { AppNavigation } from '@canvas-ui/react-components/types';
-
-export default function useAppNavigation(): AppNavigation {
+export default function useAppNavigation (): AppNavigation {
   const history = useHistory();
 
   const navigator = useCallback(

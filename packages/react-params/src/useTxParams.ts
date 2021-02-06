@@ -8,7 +8,7 @@ import { TypeDef } from '@polkadot/types/types';
 import { RawParams, UseTxParamsHook } from './types';
 import createValues from './values';
 
-export default function useTxParams(source: { type: TypeDef }[]): UseTxParamsHook {
+export default function useTxParams (source: { type: TypeDef }[]): UseTxParamsHook {
   const [params, setParams] = useState(source);
   const [values, setValues] = useState<RawParams>(createValues(params));
 

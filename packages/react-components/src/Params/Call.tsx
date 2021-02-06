@@ -9,16 +9,14 @@ import { SubmittableExtrinsicFunction } from '@polkadot/api/types';
 
 import Extrinsic from './Extrinsic';
 
-function Call({
-  className = '',
+function Call ({ className = '',
   isDisabled,
   isError,
   label,
   onChange,
   onEnter,
   onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+  withLabel }: Props): React.ReactElement<Props> {
   const { api, apiDefaultTx } = useApi();
 
   const defaultValue = ((): SubmittableExtrinsicFunction<'promise'> => {

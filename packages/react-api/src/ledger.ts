@@ -16,7 +16,7 @@ const ALLOWED_CHAINS: [string, 'kusama' | 'polkadot'][] = [
 
 let ledger: Ledger | null = null;
 
-export function isLedgerCapable(): boolean {
+export function isLedgerCapable (): boolean {
   try {
     return (
       !!((window as unknown) as { USB?: unknown }).USB &&
@@ -28,15 +28,15 @@ export function isLedgerCapable(): boolean {
   }
 }
 
-export function isLedger(): boolean {
+export function isLedger (): boolean {
   return isLedgerCapable() && uiSettings.ledgerConn !== 'none';
 }
 
-export function clearLedger(): void {
+export function clearLedger (): void {
   ledger = null;
 }
 
-export function getLedger(): Ledger {
+export function getLedger (): Ledger {
   if (!ledger) {
     const def = api && ALLOWED_CHAINS.find(([g]) => g === api.genesisHash.toHex());
 

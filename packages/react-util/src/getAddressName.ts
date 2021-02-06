@@ -7,7 +7,7 @@ import getAddressMeta from './getAddressMeta';
 import toShortAddress from './toShortAddress';
 
 // isName, isDefault, name
-export default function getAddressName(
+export default function getAddressName (
   address: string,
   type: KeyringItemType | null = null,
   defaultName?: string
@@ -17,6 +17,6 @@ export default function getAddressName(
   return meta.name
     ? [false, false, meta.name.toUpperCase()]
     : defaultName
-    ? [false, true, defaultName.toUpperCase()]
-    : [true, false, toShortAddress(address)];
+      ? [false, true, defaultName.toUpperCase()]
+      : [true, false, toShortAddress(address)];
 }

@@ -1,25 +1,23 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { ConstructTxFn } from '@canvas-ui/react-hooks/types';
 import type { StringOrNull } from '@canvas-ui/react-util/types';
 import type { Icon as IconType, IconName } from '@fortawesome/fontawesome-svg-core';
 import type { SubmittableExtrinsic } from '@polkadot/api/types';
-import type { ConstructTxFn } from '@canvas-ui/react-hooks/types';
+
+import { ActionStatus, TxCallback, TxFailedCallback } from '@canvas-ui/react-api/Status/types';
 import { TxState } from '@canvas-ui/react-hooks/types';
+import { VoidFn } from '@canvas-ui/react-util/types';
 import { WithTranslation } from 'react-i18next';
 
 // import { ButtonProps as SUIButtonProps } from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import { Abi } from '@polkadot/api-contract';
 import { AccountId, Index } from '@polkadot/types/interfaces';
+import { AnyJson } from '@polkadot/types/types';
 
 import { ButtonProps } from './Button/types';
 import { InputAddressProps } from './InputAddress/types';
-import { TxCallback, TxFailedCallback } from '@canvas-ui/react-api/Status/types';
-
-import { VoidFn } from '@canvas-ui/react-util/types';
-import { ActionStatus } from '@canvas-ui/react-api/Status/types';
-
-import { AnyJson } from '@polkadot/types/types';
 
 export interface BareProps {
   children?: React.ReactNode;
@@ -155,7 +153,7 @@ export interface ThemeProps {
   theme: ThemeDef;
 }
 
-/*import from /apps */
+/* import from /apps */
 
 export interface AppNavigation {
   deploy: VoidFn;
