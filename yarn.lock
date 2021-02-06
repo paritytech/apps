@@ -1435,10 +1435,18 @@ __metadata:
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks"
     "@canvas-ui/react-query": "workspace:packages/react-query"
     "@canvas-ui/react-util": "workspace:packages/react-util"
+    "@fortawesome/fontawesome-svg-core": ^1.2.34
+    "@fortawesome/free-solid-svg-icons": ^5.15.2
     "@polkadot/api-contract": ^3.4.2-3
     "@polkadot/dev": ^0.61.24
+    "@polkadot/types": ^3.7.3
+    "@polkadot/ui-keyring": ^0.68.1
+    "@polkadot/ui-settings": ^0.68.1
+    "@polkadot/util": ^5.5.2
+    "@polkadot/util-crypto": ^5.5.2
     babel-loader: ^8.1.0
     copy-webpack-plugin: ^6.0.2
+    crypto-browserify: ^3.12.0
     css-loader: ^3.5.3
     empty: ^0.10.1
     file-loader: ^6.0.0
@@ -1446,12 +1454,24 @@ __metadata:
     html-webpack-plugin: ^4.3.0
     markdown-loader: ^5.1.0
     mini-css-extract-plugin: ^0.9.0
+    moment: ^2.29.1
     nanoid: ^3.1.10
     null-loader: ^4.0.1
+    path-browserify: ^1.0.1
     query-string: ^6.13.1
+    react: ^16.13.1
+    react-dom: ^16.13.1
+    react-i18next: ^11.5.1
+    react-router: ^5.2.0
+    react-router-dom: ^5.2.0
+    semantic-ui-css: ^2.4.1
+    semantic-ui-react: ^0.88.2
     store: ^2.0.12
+    stream-browserify: ^3.0.0
     style-loader: ^1.2.1
+    styled-components: ^5.2.0
     thread-loader: ^2.1.3
+    tippy.js: ^6.2.7
     url-loader: ^4.1.0
     webpack: ^5.12.2
     webpack-cli: ^4.3.1
@@ -1465,7 +1485,6 @@ __metadata:
   resolution: "@canvas-ui/page-contracts@workspace:packages/page-contracts"
   dependencies:
     "@canvas-ui/react-api": "workspace:packages/react-api"
-    "@canvas-ui/react-components": "workspace:packages/react-components"
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks"
     "@canvas-ui/react-util": "workspace:packages/react-util"
     store: ^2.0.12
@@ -1492,10 +1511,10 @@ __metadata:
     "@babel/runtime": ^7.10.2
     "@canvas-ui/apps-config": "workspace:packages/apps-config"
     "@canvas-ui/page-contracts": "workspace:packages/page-contracts"
-    "@canvas-ui/react-api": 0.45.0-beta.33
+    "@canvas-ui/react-api": "workspace:packages/react-api"
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks"
     "@canvas-ui/react-params": "workspace:packages/react-params"
-    "@canvas-ui/react-query": 0.45.0-beta.33
+    "@canvas-ui/react-query": "workspace:packages/react-query"
     "@canvas-ui/react-signer": "workspace:packages/react-signer"
     "@canvas-ui/react-util": "workspace:packages/react-util"
     "@fortawesome/fontawesome-svg-core": ^1.2.32
@@ -1556,7 +1575,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@canvas-ui/react-query@0.45.0-beta.33, @canvas-ui/react-query@workspace:packages/react-query":
+"@canvas-ui/react-query@workspace:packages/react-query":
   version: 0.0.0-use.local
   resolution: "@canvas-ui/react-query@workspace:packages/react-query"
   dependencies:
@@ -1569,8 +1588,8 @@ __metadata:
     "@polkadot/util": ^5.5.2
     "@polkadot/util-crypto": ^5.5.2
     bn.js: ^5.1.3
-    react-i18next: ^11.8.5
-    styled-components: ^5.2.1
+    react-i18next: ^11.5.1
+    styled-components: ^5.2.0
   languageName: unknown
   linkType: soft
 
@@ -1724,7 +1743,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-svg-core@npm:^1.2.32":
+"@fortawesome/fontawesome-svg-core@npm:^1.2.32, @fortawesome/fontawesome-svg-core@npm:^1.2.34":
   version: 1.2.34
   resolution: "@fortawesome/fontawesome-svg-core@npm:1.2.34"
   dependencies:
@@ -1742,7 +1761,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/free-solid-svg-icons@npm:^5.15.1":
+"@fortawesome/free-solid-svg-icons@npm:^5.15.1, @fortawesome/free-solid-svg-icons@npm:^5.15.2":
   version: 5.15.2
   resolution: "@fortawesome/free-solid-svg-icons@npm:5.15.2"
   dependencies:
@@ -2002,10 +2021,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ledgerhq/devices@npm:^5.41.0":
+  version: 5.41.0
+  resolution: "@ledgerhq/devices@npm:5.41.0"
+  dependencies:
+    "@ledgerhq/errors": ^5.41.0
+    "@ledgerhq/logs": ^5.41.0
+    rxjs: ^6.6.3
+    semver: ^7.3.4
+  checksum: 5f1ff31df030b86789d746d1c6db7bb884b8ca8b884353b56322915a432e5ec24d8f3f0285ee046f7d6b914c7f9d1272e7875de8985add7010d4244b81cb99b5
+  languageName: node
+  linkType: hard
+
 "@ledgerhq/errors@npm:^5.39.0":
   version: 5.39.0
   resolution: "@ledgerhq/errors@npm:5.39.0"
   checksum: 61d17b826c1fc5ffd2d3bf238c0842afc5f168a0e119ffefab289956ca861456f5a87bdd8e128dc9f03506665cb8a63cdd1c15e9d439af7815f8c55151745e83
+  languageName: node
+  linkType: hard
+
+"@ledgerhq/errors@npm:^5.41.0":
+  version: 5.41.0
+  resolution: "@ledgerhq/errors@npm:5.41.0"
+  checksum: f06e63e1f96fcb89f718ae617b31ec4d0ea83d82dafc92125beebcee0759dfe1fd32b7a72f6b7e656d57a93637f2417743b04adf77a84d2a27f4cd75ac158c25
   languageName: node
   linkType: hard
 
@@ -2019,6 +2057,19 @@ __metadata:
     "@ledgerhq/logs": ^5.39.0
     node-hid: 2.1.1
   checksum: a0f7b2b4c4dc6532ff29e3b8c65dea23489f81ea433f2015ba84227cc056af019de479925f009708a4c781de04f8e3f46379b7fe4425a5b55d4afc49acd6647f
+  languageName: node
+  linkType: hard
+
+"@ledgerhq/hw-transport-node-hid-noevents@npm:^5.41.0":
+  version: 5.41.0
+  resolution: "@ledgerhq/hw-transport-node-hid-noevents@npm:5.41.0"
+  dependencies:
+    "@ledgerhq/devices": ^5.41.0
+    "@ledgerhq/errors": ^5.41.0
+    "@ledgerhq/hw-transport": ^5.41.0
+    "@ledgerhq/logs": ^5.41.0
+    node-hid: 2.1.1
+  checksum: 791d7bac6e76d26cb47959addf2ab6228f4d9c52777a18509552ff3aca71bf63bdf98dd43f73b545b64b368c6bf297d7ed74207cf26c8aecce6344bf3aeb9c01
   languageName: node
   linkType: hard
 
@@ -2038,6 +2089,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ledgerhq/hw-transport-node-hid-singleton@npm:^5.41.0":
+  version: 5.41.0
+  resolution: "@ledgerhq/hw-transport-node-hid-singleton@npm:5.41.0"
+  dependencies:
+    "@ledgerhq/devices": ^5.41.0
+    "@ledgerhq/errors": ^5.41.0
+    "@ledgerhq/hw-transport": ^5.41.0
+    "@ledgerhq/hw-transport-node-hid-noevents": ^5.41.0
+    "@ledgerhq/logs": ^5.41.0
+    lodash: ^4.17.20
+    node-hid: 2.1.1
+    usb-detection: ^4.10.0
+  checksum: 2775d1dc3463dab6c13c57eb11830e6dbe1507c20793cc9f499d09a948d82efcfb0f3b2fb695d7885a9f2553390c6ea21c2fe9dcd7c930a2ed3d82792d647a15
+  languageName: node
+  linkType: hard
+
 "@ledgerhq/hw-transport-webusb@npm:^5.39.0":
   version: 5.39.1
   resolution: "@ledgerhq/hw-transport-webusb@npm:5.39.1"
@@ -2047,6 +2114,18 @@ __metadata:
     "@ledgerhq/hw-transport": ^5.39.1
     "@ledgerhq/logs": ^5.39.0
   checksum: 2276fea83c127c713ffcddcd474c5f8b7e4384a4c40707c8c69c769b345b47e25efe42d173511232cfe9f882a0735b761f08bc610a42b10082ad820540e3d375
+  languageName: node
+  linkType: hard
+
+"@ledgerhq/hw-transport-webusb@npm:^5.41.0":
+  version: 5.41.0
+  resolution: "@ledgerhq/hw-transport-webusb@npm:5.41.0"
+  dependencies:
+    "@ledgerhq/devices": ^5.41.0
+    "@ledgerhq/errors": ^5.41.0
+    "@ledgerhq/hw-transport": ^5.41.0
+    "@ledgerhq/logs": ^5.41.0
+  checksum: 9ab9c689068b1c4e7fae600bf4b98f786eb5ca37daad6e6c25911bde57c532cc965d897fa6922b6e7cf8e37610c363515a9db4c7631e3ed5d33a00b1e1c86121
   languageName: node
   linkType: hard
 
@@ -2061,10 +2140,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ledgerhq/hw-transport@npm:^5.41.0":
+  version: 5.41.0
+  resolution: "@ledgerhq/hw-transport@npm:5.41.0"
+  dependencies:
+    "@ledgerhq/devices": ^5.41.0
+    "@ledgerhq/errors": ^5.41.0
+    events: ^3.2.0
+  checksum: 46dbc86686dd70ea29b6fb46a8c6dd5cd308ebdd02bc6065302f39471fc7b966f69d2b1ced42a2c759fc11d30f85fc64401681b569ce99720102df418bf045bd
+  languageName: node
+  linkType: hard
+
 "@ledgerhq/logs@npm:^5.39.0":
   version: 5.39.0
   resolution: "@ledgerhq/logs@npm:5.39.0"
   checksum: 2cb2edb98987d0da3db0e99d84766b0f1391a1798658710dac048f265aa6955d121621ed0e2faa1788c3d1fa0aa7cdcfe461b4284453f835043aa77eb49e6247
+  languageName: node
+  linkType: hard
+
+"@ledgerhq/logs@npm:^5.41.0":
+  version: 5.41.0
+  resolution: "@ledgerhq/logs@npm:5.41.0"
+  checksum: 83de45a01f5b35b2fdbf23971ce5f5b86553aa44f1fe8a4c186bbef48d1964b4d71a04c5d35d4f583e6923c4d46cb031745dd2277b16c20cd8d06f7a86233b0a
   languageName: node
   linkType: hard
 
@@ -2343,6 +2440,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@polkadot/hw-ledger-transports@npm:5.5.2":
+  version: 5.5.2
+  resolution: "@polkadot/hw-ledger-transports@npm:5.5.2"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+    "@ledgerhq/hw-transport-node-hid-singleton": ^5.41.0
+    "@ledgerhq/hw-transport-webusb": ^5.41.0
+  dependenciesMeta:
+    "@ledgerhq/hw-transport-node-hid-singleton":
+      optional: true
+  checksum: b1122910243e3eda213acca04729f6a23edc5f3c7e51ae3e4740c3cf3cf0df70baa08aeca464b677eb774146b570283e974a443eee92fd6674ac095982852c89
+  languageName: node
+  linkType: hard
+
 "@polkadot/hw-ledger@npm:^5.2.4-6":
   version: 5.3.1
   resolution: "@polkadot/hw-ledger@npm:5.3.1"
@@ -2352,6 +2463,18 @@ __metadata:
     "@polkadot/util": ^5.3.1
     "@zondax/ledger-polkadot": ^0.13.0
   checksum: 491a7bd6e873058e73ae2751c46eb218df99d2056b5338eeabce7a2b8cd98723f0243b2282eab6a8ce537d4f5c1441dfd696b841db82760218e801299f727fc0
+  languageName: node
+  linkType: hard
+
+"@polkadot/hw-ledger@npm:^5.5.1":
+  version: 5.5.2
+  resolution: "@polkadot/hw-ledger@npm:5.5.2"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+    "@polkadot/hw-ledger-transports": 5.5.2
+    "@polkadot/util": ^5.5.2
+    "@zondax/ledger-polkadot": ^0.13.0
+  checksum: 5e8160f3a678cc5d944484aada94fd981a89a4ef0e59908cb77d23172b6bcccac4cb983c16d5413812f6dfe49c73fa607301f22ec4cc5f830dc641452f2f5d04
   languageName: node
   linkType: hard
 
@@ -2406,7 +2529,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/networks@npm:^5.5.2":
+"@polkadot/networks@npm:^5.5.1, @polkadot/networks@npm:^5.5.2":
   version: 5.5.2
   resolution: "@polkadot/networks@npm:5.5.2"
   dependencies:
@@ -2592,6 +2715,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@polkadot/ui-keyring@npm:^0.68.1":
+  version: 0.68.1
+  resolution: "@polkadot/ui-keyring@npm:0.68.1"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+    "@polkadot/hw-ledger": ^5.5.1
+    "@polkadot/keyring": ^5.5.1
+    "@polkadot/ui-settings": 0.68.1
+    "@polkadot/util": ^5.5.1
+    "@polkadot/x-rxjs": ^5.5.1
+    mkdirp: ^1.0.4
+    store: ^2.0.12
+  peerDependencies:
+    "@polkadot/keyring": "*"
+    "@polkadot/ui-settings": "*"
+    "@polkadot/util": "*"
+  checksum: e03d48735fa7adb8b9356a18454f947bb0db0a86af388209078f39cce3935443b4f9de3220aecb0d739e10bd90c03dc0662d35073fc077cbdbfc440b012c09e1
+  languageName: node
+  linkType: hard
+
 "@polkadot/ui-settings@npm:0.65.2-5, @polkadot/ui-settings@npm:^0.65.2-2":
   version: 0.65.2-5
   resolution: "@polkadot/ui-settings@npm:0.65.2-5"
@@ -2605,6 +2748,22 @@ __metadata:
     "@polkadot/networks": "*"
     "@polkadot/util": "*"
   checksum: 0828eafb56021de1394165e17f5d1970a4328b9750f83797534d8623de1f0cd9088181d43bb3818ed15555c33e460b458156872bef72c05879e2c3c39bde2750
+  languageName: node
+  linkType: hard
+
+"@polkadot/ui-settings@npm:0.68.1, @polkadot/ui-settings@npm:^0.68.1":
+  version: 0.68.1
+  resolution: "@polkadot/ui-settings@npm:0.68.1"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+    "@polkadot/networks": ^5.5.1
+    "@polkadot/util": ^5.5.1
+    eventemitter3: ^4.0.7
+    store: ^2.0.12
+  peerDependencies:
+    "@polkadot/networks": "*"
+    "@polkadot/util": "*"
+  checksum: 8e2779699e06da66025bd2c74845380cf0fb1709c74ac318a554aeca77ad4499756ba7feef88bc13df81a74195ab7211df33cbfe91027932ec04e873bb8ba14f
   languageName: node
   linkType: hard
 
@@ -2746,7 +2905,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/x-rxjs@npm:^5.5.2":
+"@polkadot/x-rxjs@npm:^5.5.1, @polkadot/x-rxjs@npm:^5.5.2":
   version: 5.5.2
   resolution: "@polkadot/x-rxjs@npm:5.5.2"
   dependencies:
@@ -6722,7 +6881,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"crypto-browserify@npm:^3.11.0":
+"crypto-browserify@npm:^3.11.0, crypto-browserify@npm:^3.12.0":
   version: 3.12.0
   resolution: "crypto-browserify@npm:3.12.0"
   dependencies:
@@ -10705,7 +10864,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"inherits@npm:2, inherits@npm:2.0.4, inherits@npm:^2.0.1, inherits@npm:^2.0.3, inherits@npm:^2.0.4, inherits@npm:~2.0.1, inherits@npm:~2.0.3":
+"inherits@npm:2, inherits@npm:2.0.4, inherits@npm:^2.0.1, inherits@npm:^2.0.3, inherits@npm:^2.0.4, inherits@npm:~2.0.1, inherits@npm:~2.0.3, inherits@npm:~2.0.4":
   version: 2.0.4
   resolution: "inherits@npm:2.0.4"
   checksum: 98426da247ddfc3dcd7d7daedd90c3ca32d5b08deca08949726f12d49232aef94772a07b36cf4ff833e105ae2ef931777f6de4a6dd8245a216b9299ad4a50bea
@@ -13444,7 +13603,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"moment@npm:^2.10.2":
+"moment@npm:^2.10.2, moment@npm:^2.29.1":
   version: 2.29.1
   resolution: "moment@npm:2.29.1"
   checksum: 86729013febf7160de5b93da69273dd304d674b0224f9544b3abd09a87671ddd2cdd57598261ce57588910d63747ffd5590965e83c790d8bf327083c0e0a06e0
@@ -14634,6 +14793,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"path-browserify@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "path-browserify@npm:1.0.1"
+  checksum: 45bb7389177dfe5cba5d1ee9589e578c8272ac330c00d388343845199c1d30227ca8d59bb3a15618e478673fcfa2fb7a5ad2bfcc1083d442a61a3a71aecd7dd6
+  languageName: node
+  linkType: hard
+
 "path-dirname@npm:^1.0.0":
   version: 1.0.2
   resolution: "path-dirname@npm:1.0.2"
@@ -15633,7 +15799,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"react-i18next@npm:^11.5.1, react-i18next@npm:^11.8.5":
+"react-i18next@npm:^11.5.1":
   version: 11.8.5
   resolution: "react-i18next@npm:11.8.5"
   dependencies:
@@ -15886,7 +16052,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.6.0":
+"readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.5.0, readable-stream@npm:^3.6.0":
   version: 3.6.0
   resolution: "readable-stream@npm:3.6.0"
   dependencies:
@@ -17555,6 +17721,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"stream-browserify@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "stream-browserify@npm:3.0.0"
+  dependencies:
+    inherits: ~2.0.4
+    readable-stream: ^3.5.0
+  checksum: 55fb0c30082a87f7e42f1c093ad7aee42c942864edf11ac911e6e89d5be9877ba32fd20569f6bfb489dabd71b63d3264bec349463294abc270fba42bedd6ca22
+  languageName: node
+  linkType: hard
+
 "stream-each@npm:^1.1.0":
   version: 1.2.3
   resolution: "stream-each@npm:1.2.3"
@@ -18354,7 +18530,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"tippy.js@npm:^6.2.0":
+"tippy.js@npm:^6.2.0, tippy.js@npm:^6.2.7":
   version: 6.2.7
   resolution: "tippy.js@npm:6.2.7"
   dependencies:
