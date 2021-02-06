@@ -15,7 +15,6 @@
     "@polkadot/types": "^3.7.3",
     "@polkadot/ui-keyring": "^0.68.1",
     "@testing-library/react": "^11.2.3",
-    "testcontainers": "^6.4.1",
     "react": "^16.13.1"
   }
 }

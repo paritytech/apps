@@ -10,7 +10,6 @@
   "contributors": [],
   "license": "Apache-2.0",
   "dependencies": {
-    "@babel/runtime": "^7.10.2",
     "@canvas-ui/apps-config": "workspace:packages/apps-config",
     "@canvas-ui/react-api": "0.45.0-beta.33",
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks",
