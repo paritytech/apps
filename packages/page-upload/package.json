@@ -17,6 +17,14 @@
     "@canvas-ui/react-components": "workspace:packages/react-components",
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks",
     "@canvas-ui/react-signer": "workspace:packages/react-signer",
-    "@canvas-ui/react-util": "workspace:packages/react-util"
+    "@canvas-ui/react-util": "workspace:packages/react-util",
+    "@polkadot/api": "^3.7.3",
+    "@polkadot/types": "^3.7.3",
+    "@polkadot/util": "^5.5.2",
+    "react": "^16.13.1",
+    "react-i18next": "^11.5.1",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "styled-components": "^5.2.0"
   }
 }
