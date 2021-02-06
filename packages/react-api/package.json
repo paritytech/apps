@@ -30,7 +30,6 @@
   },
   "homepage": "https://github.com/polkadot-js/ui/tree/master/packages/ui-reactive#readme",
   "dependencies": {
-    "@canvas-ui/apps-config": "workspace:packages/apps-config",
     "@canvas-ui/react-signer": "workspace:packages/react-signer",
     "@polkadot/api": "^3.4.2-3",
     "@polkadot/api-derive": "^3.7.3",
