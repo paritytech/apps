@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { QueueTx, QueueTxMessageSetStatus } from '@canvas-ui/react-api/Status/types';
-import { StatusContext } from '@canvas-ui/react-components/Status/Status';
+import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { VoidFn } from '@canvas-ui/react-util/types';
 import { useCallback, useContext } from 'react';
 
@@ -17,7 +17,7 @@ interface UseSendUnsigned {
 
 const NOOP = () => undefined;
 
-async function sendUnsigned (
+async function sendUnsigned(
   queueSetTxStatus: QueueTxMessageSetStatus,
   currentItem: QueueTx,
   tx: SubmittableExtrinsic<'promise'>
@@ -38,7 +38,7 @@ async function sendUnsigned (
   }
 }
 
-export default function useSendTx (currentItem: QueueTx): UseSendUnsigned {
+export default function useSendTx(currentItem: QueueTx): UseSendUnsigned {
   const { queueSetTxStatus } = useContext(StatusContext);
 
   const onCancel = useCallback((): void => {

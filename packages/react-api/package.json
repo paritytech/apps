@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/polkadot-js/ui/tree/master/packages/ui-reactive#readme",
   "dependencies": {
+    "@babel/runtime": "^7.10.2",
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks",
     "@canvas-ui/react-signer": "workspace:packages/react-signer",
     "@canvas-ui/react-util": "workspace:packages/react-util",
@@ -49,6 +50,7 @@
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6",
     "react": "^16.13.1",
-    "rxjs": "^6.5.5"
+    "rxjs": "^6.5.5",
+    "rxjs-compat": "^6.5.5"
   }
 }

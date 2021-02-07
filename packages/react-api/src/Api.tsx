@@ -18,7 +18,7 @@ import { formatBalance, isTestChain } from '@polkadot/util';
 import { setSS58Format } from '@polkadot/util-crypto';
 import { defaults as addressDefaults } from '@polkadot/util-crypto/address/defaults';
 
-import { StatusContext } from './Status/Context';
+import StatusContext from './Status/Context';
 import ApiContext from './ApiContext';
 import registry from './typeRegistry';
 import { ApiProps, ApiState } from './types';

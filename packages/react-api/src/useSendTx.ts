@@ -3,7 +3,7 @@
 
 import { registry } from '.';
 import { QueueTx, QueueTxMessageSetStatus } from './Status/types';
-import { StatusContext } from './Status/Context';
+import StatusContext from './Status/Context';
 import { useApi } from '@canvas-ui/react-hooks';
 import { StringOrNull, VoidFn } from '@canvas-ui/react-util/types';
 import BN from 'bn.js';

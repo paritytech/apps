@@ -4,7 +4,7 @@
 import createRoutes from '@canvas-ui/apps-routing';
 import { Route } from '@canvas-ui/apps-routing/types';
 import { ErrorBoundary, GuideModal, Icon, WithLoader } from '@canvas-ui/react-components';
-import { StatusContext } from '@canvas-ui/react-components/Status/Status';
+import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { ELEV_3_CSS } from '@canvas-ui/react-components/styles/constants';
 import { useApi } from '@canvas-ui/react-hooks';
 import { classes } from '@canvas-ui/react-util';
@@ -35,17 +35,19 @@ const NOT_FOUND: Route = {
   text: 'Unknown'
 };
 
-function Content ({ className }: Props): React.ReactElement<Props> {
+function Content({ className }: Props): React.ReactElement<Props> {
   const location = useLocation();
   const { t } = useTranslation();
   const { isApiConnected, isApiReady } = useApi();
   const navigateTo = useAppNavigation();
   const { queueAction, stqueue, txqueue } = useContext(StatusContext);
-  const { Component,
+  const {
+    Component,
     display: { needsApi },
-    name } = useMemo((): Route => {
+    name
+  } = useMemo((): Route => {
     const app = location.pathname.slice(1) || '';
-    const found = createRoutes(t).find((route) => !!(route && app.startsWith(route.name)));
+    const found = createRoutes(t).find(route => !!(route && app.startsWith(route.name)));
 
     return found || NOT_FOUND;
   }, [location, t]);
@@ -57,9 +59,9 @@ function Content ({ className }: Props): React.ReactElement<Props> {
   if (!isApiConnected && name !== 'settings') {
     return (
       <div className={className}>
-        <div className='disconnected'>
+        <div className="disconnected">
           <div>
-            <Icon icon='warning-circle' />
+            <Icon icon="warning-circle" />
             {t<string>('You are not connected to a node.')}
             <br />
             {t<string>('Ensure that your node is running and that your Websocket endpoint is reachable.')}
@@ -75,8 +77,7 @@ function Content ({ className }: Props): React.ReactElement<Props> {
 
   return (
     <div className={classes(className, isLoading && 'isLoading')}>
-      <WithLoader isLoading={isLoading}
-        text={t<string>('Initializing connection')}>
+      <WithLoader isLoading={isLoading} text={t<string>('Initializing connection')}>
         <Suspense
           fallback={
             <WithLoader text={t<string>('Loading')}>
@@ -85,17 +86,12 @@ function Content ({ className }: Props): React.ReactElement<Props> {
           }
         >
           <ErrorBoundary trigger={name}>
-            <Component basePath={`/${name}`}
-              location={location}
-              navigateTo={navigateTo}
-              onStatusChange={queueAction} />
+            <Component basePath={`/${name}`} location={location} navigateTo={navigateTo} onStatusChange={queueAction} />
             {!sawGuide && !isLoading && <GuideModal onClose={setSawGuide} />}
             <HelpWidget />
           </ErrorBoundary>
         </Suspense>
-        <Status queueAction={queueAction}
-          stqueue={stqueue}
-          txqueue={txqueue} />
+        <Status queueAction={queueAction} stqueue={stqueue} txqueue={txqueue} />
       </WithLoader>
     </div>
   );
