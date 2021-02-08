@@ -11,6 +11,7 @@
   "contributors": [],
   "license": "Apache-2.0",
   "dependencies": {
+    "@babel/runtime": "^7.10.2",
     "@canvas-ui/app-deploy": "workspace:packages/page-deploy",
     "@canvas-ui/app-execute": "workspace:packages/page-execute",
     "@canvas-ui/app-settings": "workspace:packages/page-settings",

@@ -9,12 +9,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks",
-    "@polkadot/api": "^3.7.3",
-    "@polkadot/keyring": "^5.5.2",
-    "@polkadot/rpc-provider": "^3.7.3",
-    "@polkadot/types": "^3.7.3",
-    "@polkadot/ui-keyring": "^0.65.2-2",
     "@testing-library/react": "^11.2.3",
-    "react": "^16.13.1"
+    "testcontainers": "^6.4.1"
   }
 }
