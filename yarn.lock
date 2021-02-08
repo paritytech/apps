@@ -1509,6 +1509,7 @@ __metadata:
     "@canvas-ui/react-util": "workspace:packages/react-util"
     "@polkadot/api": ^3.4.2-3
     "@polkadot/extension-dapp": ^0.26.0-beta.26
+    rxjs: ^6.6.3
     rxjs-compat: ^6.5.5
   languageName: unknown
   linkType: soft
@@ -2537,7 +2538,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/types@npm:3.8.1, @polkadot/types@npm:^3.4.2-3":
+"@polkadot/types@npm:^3.4.2-3":
   version: 3.8.1
   resolution: "@polkadot/types@npm:3.8.1"
   dependencies:
