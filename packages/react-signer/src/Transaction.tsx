@@ -3,7 +3,7 @@
 
 import { registry } from '@canvas-ui/react-api';
 import { Call, Expander, Modal } from '@canvas-ui/react-components';
-import { QueueTx } from '@canvas-ui/react-components/Status/types';
+import { QueueTx } from '@canvas-ui/react-api/Status/types';
 import BN from 'bn.js';
 import React from 'react';
 import styled from 'styled-components';
@@ -19,11 +19,13 @@ interface Props {
   tip?: BN;
 }
 
-function Transaction ({ className,
+function Transaction({
+  className,
   currentItem: { accountId, extrinsic, isUnsigned, payload },
   isSendable,
   onError,
-  tip }: Props): React.ReactElement<Props> | null {
+  tip
+}: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
 
   if (!extrinsic) {
@@ -37,25 +39,23 @@ function Transaction ({ className,
     <Modal.Columns className={className}>
       <Modal.Column>
         <Expander
-          className='tx-details'
+          className="tx-details"
           summary={
             <>
               {t<string>('Sending transaction')}{' '}
-              <span className='highlight'>
+              <span className="highlight">
                 {section}.{method}({args})
               </span>
             </>
           }
           summaryMeta={meta}
         >
-          <Call onError={onError}
-            value={extrinsic}
-            withBorder={false} />
+          <Call onError={onError} value={extrinsic} withBorder={false} />
         </Expander>
         {!isUnsigned && !payload && (
           <PaymentInfo
             accountId={accountId}
-            className='tx-details'
+            className="tx-details"
             extrinsic={extrinsic}
             isSendable={isSendable}
             tip={tip}
