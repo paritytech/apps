@@ -1400,7 +1400,8 @@ __metadata:
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks"
     "@canvas-ui/react-util": "workspace:packages/react-util"
     "@polkadot/extension-inject": ^0.36.1
-    "@polkadot/ui-settings": ^0.68.1
+    "@polkadot/ui-keyring": ^0.65.2-2
+    "@polkadot/ui-settings": ^0.65.2-2
     react: ^16.13.1
     react-i18next: ^11.5.1
     styled-components: ^5.2.0
@@ -2420,15 +2421,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@polkadot/networks@npm:^5.5.1":
-  version: 5.5.2
-  resolution: "@polkadot/networks@npm:5.5.2"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-  checksum: 8203fb953a8fca6e0a9bf7863c8d8262c714c2aed32f1dfedc0af08ee3c4224a51de56be832b6def94517d7cddcb33ca0a318bb8940500fd73cfc009404a4a6f
-  languageName: node
-  linkType: hard
-
 "@polkadot/networks@npm:^5.6.1":
   version: 5.6.1
   resolution: "@polkadot/networks@npm:5.6.1"
@@ -2586,22 +2578,6 @@ __metadata:
     "@polkadot/networks": "*"
     "@polkadot/util": "*"
   checksum: 0828eafb56021de1394165e17f5d1970a4328b9750f83797534d8623de1f0cd9088181d43bb3818ed15555c33e460b458156872bef72c05879e2c3c39bde2750
-  languageName: node
-  linkType: hard
-
-"@polkadot/ui-settings@npm:^0.68.1":
-  version: 0.68.1
-  resolution: "@polkadot/ui-settings@npm:0.68.1"
-  dependencies:
-    "@babel/runtime": ^7.12.5
-    "@polkadot/networks": ^5.5.1
-    "@polkadot/util": ^5.5.1
-    eventemitter3: ^4.0.7
-    store: ^2.0.12
-  peerDependencies:
-    "@polkadot/networks": "*"
-    "@polkadot/util": "*"
-  checksum: 8e2779699e06da66025bd2c74845380cf0fb1709c74ac318a554aeca77ad4499756ba7feef88bc13df81a74195ab7211df33cbfe91027932ec04e873bb8ba14f
   languageName: node
   linkType: hard
 
