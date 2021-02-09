@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { WithCodes } from '@canvas-ui/page-contracts/types';
+import { WithCodes } from './types';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import store from './store';
