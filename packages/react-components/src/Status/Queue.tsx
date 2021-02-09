@@ -3,8 +3,7 @@
 
 import { STATUS_COMPLETE } from '@canvas-ui/react-api/Status/constants';
 import { QueueProvider } from '@canvas-ui/react-api/Status/Context';
-import {
-  ActionStatus,
+import { ActionStatus,
   PartialQueueTxExtrinsic,
   PartialQueueTxRpc,
   QueueStatus,
@@ -12,10 +11,8 @@ import {
   QueueTxExtrinsic,
   QueueTxRpc,
   QueueTxStatus,
-  SignerCallback
-} from '@canvas-ui/react-api/Status/types';
+  SignerCallback } from '@canvas-ui/react-api/Status/types';
 import registry from '@canvas-ui/react-api/typeRegistry';
-import { BareProps } from '../types';
 import React, { useCallback, useRef, useState } from 'react';
 
 import { SubmittableResult } from '@polkadot/api';
@@ -24,6 +21,8 @@ import { createType } from '@polkadot/types';
 import { DispatchError } from '@polkadot/types/interfaces';
 import jsonrpc from '@polkadot/types/interfaces/jsonrpc';
 import { ITuple, SignerPayloadJSON } from '@polkadot/types/types';
+
+import { BareProps } from '../types';
 
 export interface Props extends BareProps {
   children: React.ReactNode;
@@ -39,7 +38,7 @@ let nextId = 0;
 const REMOVE_TIMEOUT = 7500;
 const SUBMIT_RPC = jsonrpc.author.submitAndWatchExtrinsic;
 
-function mergeStatus(status: ActionStatus[]): ActionStatus[] {
+function mergeStatus (status: ActionStatus[]): ActionStatus[] {
   return status
     .reduce((result: StatusCount[], status): StatusCount[] => {
       const prev = result.find(({ status: prev }) => prev.action === status.action && prev.status === status.status);
@@ -58,7 +57,7 @@ function mergeStatus(status: ActionStatus[]): ActionStatus[] {
     );
 }
 
-function extractEvents(result?: SubmittableResult): ActionStatus[] {
+function extractEvents (result?: SubmittableResult): ActionStatus[] {
   return mergeStatus(
     ((result && result.events) || [])
       // filter events handled globally, or those we are not interested in, these are
@@ -98,7 +97,7 @@ function extractEvents(result?: SubmittableResult): ActionStatus[] {
   );
 }
 
-function Queue({ children }: Props): React.ReactElement<Props> {
+function Queue ({ children }: Props): React.ReactElement<Props> {
   const [stqueue, _setStQueue] = useState<QueueStatus[]>([]);
   const [txqueue, _setTxQueue] = useState<QueueTx[]>([]);
   const stRef = useRef(stqueue);
@@ -186,11 +185,11 @@ function Queue({ children }: Props): React.ReactElement<Props> {
           (item): QueueTx =>
             item.id === id
               ? {
-                  ...item,
-                  error: error === undefined ? item.error : error,
-                  result: result === undefined ? (item.result as SubmittableResult) : result,
-                  status: item.status === 'completed' ? item.status : status
-                }
+                ...item,
+                error: error === undefined ? item.error : error,
+                result: result === undefined ? (item.result as SubmittableResult) : result,
+                status: item.status === 'completed' ? item.status : status
+              }
               : item
         )
       ]);

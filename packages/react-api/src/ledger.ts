@@ -1,12 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { KUSAMA_GENESIS, POLKADOT_GENESIS } from './api/constants';
-
 import { Ledger } from '@polkadot/ui-keyring';
 import uiSettings from '@polkadot/ui-settings';
 import { assert } from '@polkadot/util';
 
+import { KUSAMA_GENESIS, POLKADOT_GENESIS } from './api/constants';
 import { api } from './Api';
 
 const ALLOWED_CHAINS: [string, 'kusama' | 'polkadot'][] = [
@@ -16,7 +15,7 @@ const ALLOWED_CHAINS: [string, 'kusama' | 'polkadot'][] = [
 
 let ledger: Ledger | null = null;
 
-export function isLedgerCapable(): boolean {
+export function isLedgerCapable (): boolean {
   try {
     return (
       !!((window as unknown) as { USB?: unknown }).USB &&
@@ -28,15 +27,15 @@ export function isLedgerCapable(): boolean {
   }
 }
 
-export function isLedger(): boolean {
+export function isLedger (): boolean {
   return isLedgerCapable() && uiSettings.ledgerConn !== 'none';
 }
 
-export function clearLedger(): void {
+export function clearLedger (): void {
   ledger = null;
 }
 
-export function getLedger(): Ledger {
+export function getLedger (): Ledger {
   if (!ledger) {
     const def = api && ALLOWED_CHAINS.find(([g]) => g === api.genesisHash.toHex());
 

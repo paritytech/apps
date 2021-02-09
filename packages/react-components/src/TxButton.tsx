@@ -4,13 +4,13 @@
 import type { SubmittableExtrinsic } from '@polkadot/api/types';
 import type { TxButtonProps as Props } from './types';
 
+import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { useIsMountedRef } from '@canvas-ui/react-hooks';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import { SubmittableResult } from '@polkadot/api';
 import { assert, isFunction } from '@polkadot/util';
 
-import StatusContext from '@canvas-ui/react-api/Status/Context';
 import Button from './Button';
 import { useTranslation } from './translate';
 
