@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useAbi } from '@canvas-ui/page-contracts';
-import { Button,
+import {
+  Button,
   ContractParams,
   Dropdown,
   Input,
@@ -15,7 +16,8 @@ import { Button,
   MessageSignature,
   PendingTx,
   Toggle,
-  TxButton } from '@canvas-ui/react-components';
+  TxButton
+} from '@canvas-ui/react-components';
 import { ELEV_2_CSS } from '@canvas-ui/react-components/styles/constants';
 import { Code } from '@canvas-ui/react-components/types';
 import { useAccountId, useApi, useGasWeight, useNonEmptyString, useNonZeroBn } from '@canvas-ui/react-hooks';
@@ -43,11 +45,11 @@ type ConstructOptions = { key: string; text: React.ReactNode; value: string }[];
 
 const ENDOWMENT = new BN(1e15);
 
-function defaultContractName (name?: string) {
+function defaultContractName(name?: string) {
   return name ? `${name} (instance)` : '';
 }
 
-function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Props> | null {
+function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Props> | null {
   const { id, index = '0' }: { id: string; index?: string } = useParams();
   const { t } = useTranslation();
   const { api } = useApi();
@@ -79,9 +81,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
     return abi.constructors.map((constructor, index) => {
       return {
         key: `${index}`,
-        text: <MessageSignature isConstructor
-          message={constructor}
-          registry={abi.registry} />,
+        text: <MessageSignature isConstructor message={constructor} registry={abi.registry} />,
         value: `${index}`
       };
     });
@@ -105,9 +105,9 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
 
             return identifier
               ? blueprint.tx[identifier](
-                { gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment },
-                ...extractValues(values)
-              )
+                  { gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment },
+                  ...extractValues(values)
+                )
               : null;
           } catch (error) {
             console.error(error);
@@ -155,8 +155,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
       // data: encoder ? u8aToHex(encoder()) : null,
       name: name || '',
       params: params.map((param, index) => ({
-        arg: <MessageArg arg={param}
-          registry={abi?.registry} />,
+        arg: <MessageArg arg={param} registry={abi?.registry} />,
         type: param.type,
         value: values[index].value
       })),
@@ -183,7 +182,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
           <h1>
             {t<string>('Deploy {{contractName}}', { replace: { contractName: code?.name || 'Contract' } })}
           </h1>
-          <div className='instructions'>
+          <div className="instructions">
             {t<string>(
               'Choose an account to deploy the contract from, give it a descriptive name and set the endowment amount.'
             )}
@@ -197,17 +196,14 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
             isInput={false}
             label={t<string>('deployment account')}
             onChange={setAccountId}
-            type='account'
+            type="account"
             value={accountId}
           />
-          <InputName isContract
-            isError={isNameError}
-            onChange={setName}
-            value={name || ''} />
+          <InputName isContract isError={isNameError} onChange={setName} value={name || ''} />
           <Labelled label={t<string>('Code Bundle')}>
-            <div className='code-bundle'>
-              <div className='name'>{code?.name || ''}</div>
-              <div className='code-hash'>{truncate(code?.codeHash || '', 16)}</div>
+            <div className="code-bundle">
+              <div className="name">{code?.name || ''}</div>
+              <div className="code-hash">{truncate(code?.codeHash || '', 16)}</div>
             </div>
           </Labelled>
           {abi && (
@@ -220,9 +216,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
                 options={constructOptions}
                 value={`${constructorIndex}`}
               />
-              <ContractParams onChange={setValues}
-                params={params || []}
-                values={values} />
+              <ContractParams onChange={setValues} params={params || []} values={values} />
             </>
           )}
           <InputBalance
@@ -243,7 +237,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
             value={withSalt ? salt : t<string>('<none>')}
           >
             <Toggle
-              className='toggle'
+              className="toggle"
               isOverlay
               label={t<string>('use deployment salt')}
               onChange={setWithSalt}
@@ -260,7 +254,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
             <TxButton
               accountId={accountId}
               extrinsic={initTx}
-              icon='cloud-upload-alt'
+              icon="cloud-upload-alt"
               isDisabled={!isValid}
               isPrimary
               label={t<string>('Deploy')}
