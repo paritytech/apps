@@ -1,42 +1,42 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
+import React from 'react'
 
-import { assert } from '@polkadot/util';
+import { assert } from '@polkadot/util'
 
-import { ApiConsumer } from '../ApiContext';
-import { ApiProps, SubtractProps } from '../types';
-import { DefaultProps } from './types';
+import { ApiConsumer } from '../ApiContext'
+import { ApiProps, SubtractProps } from '../types'
+import { DefaultProps } from './types'
 
-export default function withApi<P extends ApiProps> (
-  Inner: React.ComponentType<P>,
-  defaultProps: DefaultProps = {}
+export default function withApi<P extends ApiProps>(
+    Inner: React.ComponentType<P>,
+    defaultProps: DefaultProps = {}
 ): React.ComponentType<any> {
-  return class WithApi extends React.PureComponent<SubtractProps<P, ApiProps>> {
-    private component: any = React.createRef();
+    return class WithApi extends React.PureComponent<SubtractProps<P, ApiProps>> {
+        private component: any = React.createRef()
 
-    public render (): React.ReactNode {
-      return (
-        <ApiConsumer>
-          {(apiProps?: ApiProps): React.ReactNode => {
-            assert(
-              apiProps && apiProps.api,
-              "Application root must be wrapped inside 'react-api/Api' to provide API context"
-            );
-
+        public render(): React.ReactNode {
             return (
-              <Inner
-                {...defaultProps}
-                {...(apiProps as any)}
-                {...this.props}
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                ref={this.component}
-              />
-            );
-          }}
-        </ApiConsumer>
-      );
+                <ApiConsumer>
+                    {(apiProps?: ApiProps): React.ReactNode => {
+                        assert(
+                            apiProps && apiProps.api,
+                            "Application root must be wrapped inside 'react-api/Api' to provide API context"
+                        )
+
+                        return (
+                            <Inner
+                                {...defaultProps}
+                                {...(apiProps as any)}
+                                {...this.props}
+                                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                                ref={this.component}
+                            />
+                        )
+                    }}
+                </ApiConsumer>
+            )
+        }
     }
-  };
 }

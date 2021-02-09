@@ -1,31 +1,31 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from '@canvas-ui/react-api/types';
-import { useBlockTime } from '@canvas-ui/react-hooks';
-import BN from 'bn.js';
-import React from 'react';
+import { BareProps } from '@canvas-ui/react-api/types'
+import { useBlockTime } from '@canvas-ui/react-hooks'
+import BN from 'bn.js'
+import React from 'react'
 
 interface Props extends BareProps {
-  blocks?: BN;
-  children?: React.ReactNode;
-  label?: React.ReactNode;
+    blocks?: BN
+    children?: React.ReactNode
+    label?: React.ReactNode
 }
 
-function BlockToTime ({ blocks, children, className = '', label }: Props): React.ReactElement<Props> | null {
-  const [, text] = useBlockTime(blocks);
+function BlockToTime({ blocks, children, className = '', label }: Props): React.ReactElement<Props> | null {
+    const [, text] = useBlockTime(blocks)
 
-  if (blocks?.ltn(0)) {
-    return null;
-  }
+    if (blocks?.ltn(0)) {
+        return null
+    }
 
-  return (
-    <div className={className}>
-      {label || ''}
-      {text}
-      {children}
-    </div>
-  );
+    return (
+        <div className={className}>
+            {label || ''}
+            {text}
+            {children}
+        </div>
+    )
 }
 
-export default React.memo(BlockToTime);
+export default React.memo(BlockToTime)

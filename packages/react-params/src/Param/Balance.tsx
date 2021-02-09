@@ -1,57 +1,59 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputBalance } from '@canvas-ui/react-components';
-import BN from 'bn.js';
-import React, { useCallback, useState } from 'react';
+import { InputBalance } from '@canvas-ui/react-components'
+import BN from 'bn.js'
+import React, { useCallback, useState } from 'react'
 
-import { Props } from '../types';
-import Bare from './Bare';
+import { Props } from '../types'
+import Bare from './Bare'
 
-function Balance ({ className = '',
-  defaultValue: { value },
-  isDisabled,
-  isError,
-  label,
-  onChange,
-  onEnter,
-  onEscape,
-  withLabel }: Props): React.ReactElement<Props> {
-  const [isValid, setIsValid] = useState(false);
-  const [defaultValue] = useState(new BN(((value as BN) || '0').toString()).toString(10));
+function Balance({
+    className = '',
+    defaultValue: { value },
+    isDisabled,
+    isError,
+    label,
+    onChange,
+    onEnter,
+    onEscape,
+    withLabel,
+}: Props): React.ReactElement<Props> {
+    const [isValid, setIsValid] = useState(false)
+    const [defaultValue] = useState(new BN(((value as BN) || '0').toString()).toString(10))
 
-  const _onChange = useCallback(
-    (value?: BN): void => {
-      const isValid = !isError && !!value;
+    const _onChange = useCallback(
+        (value?: BN): void => {
+            const isValid = !isError && !!value
 
-      onChange &&
-        onChange({
-          isValid,
-          value
-        });
-      setIsValid(isValid);
-    },
-    [isError, onChange]
-  );
+            onChange &&
+                onChange({
+                    isValid,
+                    value,
+                })
+            setIsValid(isValid)
+        },
+        [isError, onChange]
+    )
 
-  return (
-    <Bare className={className}>
-      <InputBalance
-        className='full'
-        defaultValue={defaultValue}
-        isDisabled={isDisabled}
-        isError={isError || !isValid}
-        label={label}
-        onChange={_onChange}
-        onEnter={onEnter}
-        onEscape={onEscape}
-        withEllipsis
-        withLabel={withLabel}
-      />
-    </Bare>
-  );
+    return (
+        <Bare className={className}>
+            <InputBalance
+                className="full"
+                defaultValue={defaultValue}
+                isDisabled={isDisabled}
+                isError={isError || !isValid}
+                label={label}
+                onChange={_onChange}
+                onEnter={onEnter}
+                onEscape={onEscape}
+                withEllipsis
+                withLabel={withLabel}
+            />
+        </Bare>
+    )
 }
 
-export default React.memo(Balance);
+export default React.memo(Balance)
 
-export { Balance };
+export { Balance }

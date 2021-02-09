@@ -1,25 +1,25 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from 'styled-components'
 
-import cssComponents from './components';
-import { ELEV_3_CSS } from './constants';
-import cssForm from './form';
-import cssMedia from './media';
-import cssRx from './rx';
-import cssSemantic from './semantic';
-import cssTheme from './theme';
+import cssComponents from './components'
+import { ELEV_3_CSS } from './constants'
+import cssForm from './form'
+import cssMedia from './media'
+import cssRx from './rx'
+import cssSemantic from './semantic'
+import cssTheme from './theme'
 
 interface Props {
-  uiHighlight?: string;
+    uiHighlight?: string
 }
 
-const defaultHighlight = '#2477B3'; // #999
+const defaultHighlight = '#2477B3' // #999
 
-const getHighlight = (props: Props): string => props.uiHighlight || defaultHighlight;
+const getHighlight = (props: Props): string => props.uiHighlight || defaultHighlight
 
-export * from './constants';
+export * from './constants'
 
 export default createGlobalStyle<Props>`
   .ui--highlight--all {
@@ -47,7 +47,7 @@ export default createGlobalStyle<Props>`
 
   .ui--highlight--gradient {
     background: ${(props: Props): string =>
-    `linear-gradient(90deg, ${props.uiHighlight || defaultHighlight}, transparent)`};
+        `linear-gradient(90deg, ${props.uiHighlight || defaultHighlight}, transparent)`};
   }
 
   .ui--highlight--icon {
@@ -311,4 +311,4 @@ export default createGlobalStyle<Props>`
   ${cssMedia}
   ${cssRx}
   ${cssComponents}
-`;
+`

@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export interface Option {
-  info?: string;
-  isHeader?: boolean;
-  shortText?: React.ReactNode;
-  text: React.ReactNode;
-  value: string | number;
+    info?: string
+    isHeader?: boolean
+    shortText?: React.ReactNode
+    text: React.ReactNode
+    value: string | number
 }

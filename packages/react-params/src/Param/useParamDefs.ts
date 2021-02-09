@@ -1,42 +1,42 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from '@canvas-ui/react-api';
-import { useEffect, useState } from 'react';
+import { registry } from '@canvas-ui/react-api'
+import { useEffect, useState } from 'react'
 
-import { getTypeDef } from '@polkadot/types';
-import { TypeDef } from '@polkadot/types/types';
+import { getTypeDef } from '@polkadot/types'
+import { TypeDef } from '@polkadot/types/types'
 
-import { ParamDef } from '../types';
+import { ParamDef } from '../types'
 
-function expandDef (td: TypeDef): TypeDef {
-  try {
-    return getTypeDef(registry.createType(td.type as 'u32').toRawType());
-  } catch (e) {
-    return td;
-  }
+function expandDef(td: TypeDef): TypeDef {
+    try {
+        return getTypeDef(registry.createType(td.type as 'u32').toRawType())
+    } catch (e) {
+        return td
+    }
 }
 
-export default function useParamDefs (type: TypeDef): ParamDef[] {
-  const [params, setParams] = useState<ParamDef[]>([]);
+export default function useParamDefs(type: TypeDef): ParamDef[] {
+    const [params, setParams] = useState<ParamDef[]>([])
 
-  useEffect((): void => {
-    const typeDef = expandDef(type);
+    useEffect((): void => {
+        const typeDef = expandDef(type)
 
-    if (!typeDef.sub) {
-      return setParams([]);
-    }
+        if (!typeDef.sub) {
+            return setParams([])
+        }
 
-    setParams(
-      (Array.isArray(typeDef.sub) ? typeDef.sub : [typeDef.sub]).map(
-        (td): ParamDef => ({
-          length: typeDef.length,
-          name: td.name,
-          type: td // expandDef(td)
-        })
-      )
-    );
-  }, [type]);
+        setParams(
+            (Array.isArray(typeDef.sub) ? typeDef.sub : [typeDef.sub]).map(
+                (td): ParamDef => ({
+                    length: typeDef.length,
+                    name: td.name,
+                    type: td, // expandDef(td)
+                })
+            )
+        )
+    }, [type])
 
-  return params;
+    return params
 }

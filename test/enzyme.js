@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-const Adapter = require('enzyme-adapter-react-16');
-const Enzyme = require('enzyme');
+const Adapter = require('enzyme-adapter-react-16')
+const Enzyme = require('enzyme')
 
 Enzyme.configure({
-  adapter: new Adapter()
-});
+    adapter: new Adapter(),
+})
 
-module.exports = Enzyme;
+module.exports = Enzyme

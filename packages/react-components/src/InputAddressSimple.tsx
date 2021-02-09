@@ -1,82 +1,82 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { toAddress as addressToAddress } from '@canvas-ui/react-util';
-import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
+import { toAddress as addressToAddress } from '@canvas-ui/react-util'
+import React, { useCallback, useState } from 'react'
+import styled from 'styled-components'
 
-import IdentityIcon from './IdentityIcon';
-import Input from './Input';
-import { BareProps } from './types';
+import IdentityIcon from './IdentityIcon'
+import Input from './Input'
+import { BareProps } from './types'
 
 interface Props extends BareProps {
-  autoFocus?: boolean;
-  children?: React.ReactNode;
-  defaultValue?: string | null;
-  help?: React.ReactNode;
-  isError?: boolean;
-  isFull?: boolean;
-  label?: React.ReactNode;
-  onChange?: (address: string | null) => void;
-  onEnter?: () => void;
-  onEscape?: () => void;
+    autoFocus?: boolean
+    children?: React.ReactNode
+    defaultValue?: string | null
+    help?: React.ReactNode
+    isError?: boolean
+    isFull?: boolean
+    label?: React.ReactNode
+    onChange?: (address: string | null) => void
+    onEnter?: () => void
+    onEscape?: () => void
 }
 
-function InputAddressSimple ({ autoFocus,
-  children,
-  className = '',
-  defaultValue,
-  help,
-  isError,
-  isFull,
-  label,
-  onChange,
-  onEnter,
-  onEscape }: Props): React.ReactElement<Props> {
-  const [address, setAddress] = useState<string | null>(defaultValue || null);
+function InputAddressSimple({
+    autoFocus,
+    children,
+    className = '',
+    defaultValue,
+    help,
+    isError,
+    isFull,
+    label,
+    onChange,
+    onEnter,
+    onEscape,
+}: Props): React.ReactElement<Props> {
+    const [address, setAddress] = useState<string | null>(defaultValue || null)
 
-  const _onChange = useCallback(
-    (_address: string): void => {
-      const address = addressToAddress(_address) || null;
+    const _onChange = useCallback(
+        (_address: string): void => {
+            const address = addressToAddress(_address) || null
 
-      setAddress(address);
+            setAddress(address)
 
-      onChange && onChange(address);
-    },
-    [onChange]
-  );
+            onChange && onChange(address)
+        },
+        [onChange]
+    )
 
-  return (
-    <div className={className}>
-      <Input
-        autoFocus={autoFocus}
-        defaultValue={defaultValue}
-        help={help}
-        isError={isError || !address}
-        isFull={isFull}
-        label={label}
-        onChange={_onChange}
-        onEnter={onEnter}
-        onEscape={onEscape}
-      >
-        {children}
-      </Input>
-      <IdentityIcon className='ui--InputAddressSimpleIcon'
-        size={32}
-        value={address} />
-    </div>
-  );
+    return (
+        <div className={className}>
+            <Input
+                autoFocus={autoFocus}
+                defaultValue={defaultValue}
+                help={help}
+                isError={isError || !address}
+                isFull={isFull}
+                label={label}
+                onChange={_onChange}
+                onEnter={onEnter}
+                onEscape={onEscape}
+            >
+                {children}
+            </Input>
+            <IdentityIcon className="ui--InputAddressSimpleIcon" size={32} value={address} />
+        </div>
+    )
 }
 
 export default React.memo(styled(InputAddressSimple)`
-  position: relative;
+    position: relative;
 
-  .ui--InputAddressSimpleIcon {
-    background: #eee;
-    border: 1px solid #888;
-    border-radius: 50%;
-    left: 0.75rem;
-    position: absolute;
-    top: 1rem;
-  }
-`);
+    .ui--InputAddressSimpleIcon {
+        background: #eee;
+        border: 1px solid #888;
+        border-radius: 50%;
+        left: 0.75rem;
+        position: absolute;
+        top: 1rem;
+    }
+`)

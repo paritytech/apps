@@ -5,17 +5,17 @@
 /* eslint-disable sort-keys */
 
 export default {
-  AccountData: {
-    free: 'Balance',
-    reserved: 'Balance',
-    miscFrozen: 'Balance',
-    feeFrozen: 'Balance',
-    txCount: 'u32',
-    sessionIndex: 'u32'
-  },
-  TemplateAccountData: {
-    txCount: 'u32',
-    sessionIndex: 'u32'
-  },
-  TxCount: 'u32'
-};
+    AccountData: {
+        free: 'Balance',
+        reserved: 'Balance',
+        miscFrozen: 'Balance',
+        feeFrozen: 'Balance',
+        txCount: 'u32',
+        sessionIndex: 'u32',
+    },
+    TemplateAccountData: {
+        txCount: 'u32',
+        sessionIndex: 'u32',
+    },
+    TxCount: 'u32',
+}

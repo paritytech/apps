@@ -1,22 +1,22 @@
 {
-  "name": "@canvas-ui/app-execute",
-  "private": true,
-  "version": "0.45.0-beta.33",
-  "description": "Deployment and management of substrate contracts",
-  "main": "index.js",
-  "scripts": {},
-  "author": "Jaco Greeff <jacogr@gmail.com>",
-  "maintainers": [
-    "Jaco Greeff <jacogr@gmail.com>"
-  ],
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@babel/runtime": "^7.10.2",
-    "@canvas-ui/page-contracts": "workspace:packages/page-contracts",
-    "@canvas-ui/react-components": "workspace:packages/react-components",
-    "@canvas-ui/react-hooks": "workspace:packages/react-hooks",
-    "@canvas-ui/react-params": "workspace:packages/react-params",
-    "@canvas-ui/react-signer": "workspace:packages/react-signer",
-    "@canvas-ui/react-util": "workspace:packages/react-util"
-  }
+    "name": "@canvas-ui/app-execute",
+    "private": true,
+    "version": "0.45.0-beta.33",
+    "description": "Deployment and management of substrate contracts",
+    "main": "index.js",
+    "scripts": {},
+    "author": "Jaco Greeff <jacogr@gmail.com>",
+    "maintainers": [
+        "Jaco Greeff <jacogr@gmail.com>"
+    ],
+    "license": "Apache-2.0",
+    "dependencies": {
+        "@babel/runtime": "^7.10.2",
+        "@canvas-ui/page-contracts": "workspace:packages/page-contracts",
+        "@canvas-ui/react-components": "workspace:packages/react-components",
+        "@canvas-ui/react-hooks": "workspace:packages/react-hooks",
+        "@canvas-ui/react-params": "workspace:packages/react-params",
+        "@canvas-ui/react-signer": "workspace:packages/react-signer",
+        "@canvas-ui/react-util": "workspace:packages/react-util"
+    }
 }
