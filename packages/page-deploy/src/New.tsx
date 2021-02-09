@@ -19,7 +19,7 @@ import {
   TxButton
 } from '@canvas-ui/react-components';
 import { ELEV_2_CSS } from '@canvas-ui/react-components/styles/constants';
-import { Code } from '@canvas-ui/react-components/types';
+import { Code } from '@canvas-ui/page-contracts/types';
 import { useAccountId, useApi, useGasWeight, useNonEmptyString, useNonZeroBn } from '@canvas-ui/react-hooks';
 import { useTxParams } from '@canvas-ui/react-params';
 import { extractValues } from '@canvas-ui/react-params/values';

@@ -14,7 +14,6 @@ import { WithTranslation } from 'react-i18next';
 // import { ButtonProps as SUIButtonProps } from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
 import { Abi } from '@polkadot/api-contract';
 import { AccountId, Index } from '@polkadot/types/interfaces';
-import { AnyJson } from '@polkadot/types/types';
 
 import { ButtonProps } from './Button/types';
 import { InputAddressProps } from './InputAddress/types';
@@ -181,21 +180,4 @@ export interface AppProps extends BareProps, WithBasePath, WithAppNavigation {
   onStatusChange: (status: ActionStatus) => void;
 }
 
-interface CodeBase {
-  id: string;
-  codeHash: string;
-  name: string;
-  genesisHash: string;
-  tags: string[];
-}
 
-export interface Code extends CodeBase {
-  abi?: AnyJson | null;
-}
-
-export interface WithCodes {
-  allCodes: Code[];
-  hasCodes: boolean;
-  isLoading: boolean;
-  updated: number;
-}
