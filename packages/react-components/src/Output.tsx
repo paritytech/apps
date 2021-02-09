@@ -15,76 +15,69 @@ import Labelled from './Labelled'
 import { BareProps } from './types'
 
 interface Props extends BareProps {
-    children?: React.ReactNode
-    help?: React.ReactNode
-    isError?: boolean
-    isFull?: boolean
-    isHidden?: boolean
-    isMonospace?: boolean
-    isTrimmed?: boolean
-    label?: React.ReactNode
-    registry?: TypeRegistry
-    type?: TypeDef | null
-    value?: Codec
-    withCopy?: boolean
-    withLabel?: boolean
+  children?: React.ReactNode
+  help?: React.ReactNode
+  isError?: boolean
+  isFull?: boolean
+  isHidden?: boolean
+  isMonospace?: boolean
+  isTrimmed?: boolean
+  label?: React.ReactNode
+  registry?: TypeRegistry
+  type?: TypeDef | null
+  value?: Codec
+  withCopy?: boolean
+  withLabel?: boolean
 }
 
 function Output({
-    children,
-    className = '',
-    help,
-    isError,
-    isFull,
-    isHidden,
-    isTrimmed,
-    label,
-    registry,
-    type,
-    value,
-    withCopy = false,
-    withLabel,
+  children,
+  className = '',
+  help,
+  isError,
+  isFull,
+  isHidden,
+  isTrimmed,
+  label,
+  registry,
+  type,
+  value,
+  withCopy = false,
+  withLabel,
 }: Props): React.ReactElement<Props> {
-    return (
-        <Labelled
-            className={className}
-            help={help}
-            isFull={isFull}
-            isHidden={isHidden}
-            label={label}
-            withLabel={withLabel}
-        >
-            <div className={classes('ui--output', isError && 'error', 'monospace')}>
-                <Data isTrimmed={isTrimmed} registry={registry} type={type} value={value?.toJSON()} />
-                {children}
-                {withCopy ? (
-                    <CopyButton className="copy-output" value={value?.toString() || ''} withButton={false}>
-                        <Icon className="copy-output" icon="copy" />
-                    </CopyButton>
-                ) : null}
-            </div>
-        </Labelled>
-    )
+  return (
+    <Labelled className={className} help={help} isFull={isFull} isHidden={isHidden} label={label} withLabel={withLabel}>
+      <div className={classes('ui--output', isError && 'error', 'monospace')}>
+        <Data isTrimmed={isTrimmed} registry={registry} type={type} value={value?.toJSON()} />
+        {children}
+        {withCopy ? (
+          <CopyButton className="copy-output" value={value?.toString() || ''} withButton={false}>
+            <Icon className="copy-output" icon="copy" />
+          </CopyButton>
+        ) : null}
+      </div>
+    </Labelled>
+  )
 }
 
 export default React.memo(styled(Output)`
-    pre {
-        margin: 0;
-        overflow: hidden;
-        text-overflow: ellipsis;
+  pre {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .copy-output {
+    float: right;
+
+    .svg-inline--fa {
+      font-size: 0.875rem;
+      color: var(--grey60);
+      margin-right: 0;
+
+      &:hover {
+        color: var(--white);
+      }
     }
-
-    .copy-output {
-        float: right;
-
-        .svg-inline--fa {
-            font-size: 0.875rem;
-            color: var(--grey60);
-            margin-right: 0;
-
-            &:hover {
-                color: var(--white);
-            }
-        }
-    }
+  }
 `)

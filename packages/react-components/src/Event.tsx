@@ -12,25 +12,25 @@ import { Codec, TypeDef } from '@polkadot/types/types'
 import { BareProps } from './types'
 
 export interface Props extends BareProps {
-    children?: React.ReactNode
-    value: Event
+  children?: React.ReactNode
+  value: Event
 }
 
 function EventDisplay({ children, className = '', value }: Props): React.ReactElement<Props> {
-    const params = value.typeDef.map(({ type }): { type: TypeDef } => ({
-        type: getTypeDef(type),
-    }))
-    const values = value.data.map((value): { isValid: boolean; value: Codec } => ({
-        isValid: true,
-        value,
-    }))
+  const params = value.typeDef.map(({ type }): { type: TypeDef } => ({
+    type: getTypeDef(type),
+  }))
+  const values = value.data.map((value): { isValid: boolean; value: Codec } => ({
+    isValid: true,
+    value,
+  }))
 
-    return (
-        <div className={classes('ui--Event', className)}>
-            {children}
-            <Params isDisabled params={params} values={values} />
-        </div>
-    )
+  return (
+    <div className={classes('ui--Event', className)}>
+      {children}
+      <Params isDisabled params={params} values={values} />
+    </div>
+  )
 }
 
 export default React.memo(EventDisplay)

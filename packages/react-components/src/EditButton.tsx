@@ -12,27 +12,27 @@ import Button from './Button'
 import { BareProps } from './types'
 
 interface Props extends BareProps {
-    children?: React.ReactNode
-    icon?: IconName
-    onClick: VoidFn
-    size?: IconProps['size']
+  children?: React.ReactNode
+  icon?: IconName
+  onClick: VoidFn
+  size?: IconProps['size']
 }
 
 function EditButton({ children, className, icon = 'edit', onClick }: Props): React.ReactElement<Props> {
-    return (
-        <div className={className} onClick={onClick}>
-            {children}
-            <span className="editSpan">
-                <Button className="icon-button show-on-hover" icon={icon} isIcon />
-            </span>
-        </div>
-    )
+  return (
+    <div className={className} onClick={onClick}>
+      {children}
+      <span className="editSpan">
+        <Button className="icon-button show-on-hover" icon={icon} isIcon />
+      </span>
+    </div>
+  )
 }
 
 export default React.memo(styled(EditButton)`
-    cursor: pointer;
+  cursor: pointer;
 
-    .editSpan {
-        white-space: nowrap;
-    }
+  .editSpan {
+    white-space: nowrap;
+  }
 `)

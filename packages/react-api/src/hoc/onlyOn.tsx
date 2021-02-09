@@ -7,11 +7,11 @@ import { Environment } from '../types'
 import { getEnvironment } from '../util'
 
 const onlyOn = (environment: Environment) => <T extends ComponentType<any>>(component: T): T | (() => null) => {
-    if (getEnvironment() === environment) {
-        return component
-    }
+  if (getEnvironment() === environment) {
+    return component
+  }
 
-    return () => null
+  return () => null
 }
 
 export const onlyOnWeb = onlyOn('web')

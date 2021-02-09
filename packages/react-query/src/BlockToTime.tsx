@@ -7,25 +7,25 @@ import BN from 'bn.js'
 import React from 'react'
 
 interface Props extends BareProps {
-    blocks?: BN
-    children?: React.ReactNode
-    label?: React.ReactNode
+  blocks?: BN
+  children?: React.ReactNode
+  label?: React.ReactNode
 }
 
 function BlockToTime({ blocks, children, className = '', label }: Props): React.ReactElement<Props> | null {
-    const [, text] = useBlockTime(blocks)
+  const [, text] = useBlockTime(blocks)
 
-    if (blocks?.ltn(0)) {
-        return null
-    }
+  if (blocks?.ltn(0)) {
+    return null
+  }
 
-    return (
-        <div className={className}>
-            {label || ''}
-            {text}
-            {children}
-        </div>
-    )
+  return (
+    <div className={className}>
+      {label || ''}
+      {text}
+      {children}
+    </div>
+  )
 }
 
 export default React.memo(BlockToTime)

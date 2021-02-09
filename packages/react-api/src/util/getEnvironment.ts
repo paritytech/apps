@@ -17,9 +17,9 @@ import type { Environment } from '../types'
 // }
 
 export default function getEnvironment(): Environment {
-    // if (isElectron()) {
-    //   return 'app';
-    // }
+  // if (isElectron()) {
+  //   return 'app';
+  // }
 
-    return 'web'
+  return 'web'
 }

@@ -5,6 +5,6 @@ import Arcadia from './arcadia'
 // import Berlin from './berlin';
 
 export default {
-    'Arcadia Nodle Network': Arcadia,
-    // Berlin
+  'Arcadia Nodle Network': Arcadia,
+  // Berlin
 }

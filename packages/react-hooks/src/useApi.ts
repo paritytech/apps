@@ -7,5 +7,5 @@ import { ApiContext } from '@canvas-ui/react-api'
 import { useContext } from 'react'
 
 export default function useApi(): ApiProps {
-    return useContext(ApiContext)
+  return useContext(ApiContext)
 }

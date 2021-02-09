@@ -10,27 +10,27 @@ import Icon from './Icon'
 import Tooltip from './Tooltip'
 
 interface Props {
-    help: React.ReactNode
-    icon?: IconName
-    className?: string
+  help: React.ReactNode
+  icon?: IconName
+  className?: string
 }
 
 let id = 0
 
 function LabelHelp({ className = '', help, icon = 'question-circle' }: Props): React.ReactElement<Props> {
-    const [trigger] = useState(`label-help-${++id}`)
+  const [trigger] = useState(`label-help-${++id}`)
 
-    return (
-        <div className={`ui--LabelHelp ${className}`}>
-            <Icon icon={icon} tooltip={trigger} />
-            <Tooltip text={help} trigger={trigger} />
-        </div>
-    )
+  return (
+    <div className={`ui--LabelHelp ${className}`}>
+      <Icon icon={icon} tooltip={trigger} />
+      <Tooltip text={help} trigger={trigger} />
+    </div>
+  )
 }
 
 export default React.memo(styled(LabelHelp)`
-    cursor: help;
-    display: inline-block;
-    line-height: 1rem;
-    margin: 0 0 0 0.25rem;
+  cursor: help;
+  display: inline-block;
+  line-height: 1rem;
+  margin: 0 0 0 0.25rem;
 `)

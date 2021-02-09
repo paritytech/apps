@@ -8,10 +8,10 @@ import Subscan from './subscan'
 import { ExternalDef } from './types'
 
 const externals: Record<string, ExternalDef> = {
-    Commonwealth,
-    Polkascan,
-    Polkassembly,
-    Subscan,
+  Commonwealth,
+  Polkascan,
+  Polkassembly,
+  Subscan,
 }
 
 export default externals

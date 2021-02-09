@@ -4,8 +4,8 @@
 import { css } from 'styled-components'
 
 export default css`
-    .rx--updated {
-        background: #ffffe0 !important;
-        transition: all 0.7s ease-out;
-    }
+  .rx--updated {
+    background: #ffffe0 !important;
+    transition: all 0.7s ease-out;
+  }
 `

@@ -6,11 +6,11 @@ import { registry } from '@canvas-ui/react-api'
 import { Proposal } from '@polkadot/types/interfaces'
 
 export default function isTreasuryProposalVote(proposal?: Proposal | null): boolean {
-    if (!proposal) {
-        return false
-    }
+  if (!proposal) {
+    return false
+  }
 
-    const { method, section } = registry.findMetaCall(proposal.callIndex)
+  const { method, section } = registry.findMetaCall(proposal.callIndex)
 
-    return section === 'treasury' && ['approveProposal', 'rejectProposal'].includes(method) && !!proposal.args[0]
+  return section === 'treasury' && ['approveProposal', 'rejectProposal'].includes(method) && !!proposal.args[0]
 }

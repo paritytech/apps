@@ -110,14 +110,14 @@
 // }
 
 async function main() {
-    // only run on non-beta versions
-    // if (!lernaInfo.version.includes('-beta.')) {
-    //   const hash = await pin();
-    //   await dnslink(hash);
-    //   await unpin(hash);
-    // }
+  // only run on non-beta versions
+  // if (!lernaInfo.version.includes('-beta.')) {
+  //   const hash = await pin();
+  //   await dnslink(hash);
+  //   await unpin(hash);
+  // }
 }
 
 main()
-    .catch(console.error)
-    .finally(() => process.exit())
+  .catch(console.error)
+  .finally(() => process.exit())

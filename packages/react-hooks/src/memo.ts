@@ -8,5 +8,5 @@ import createMemo from 'memoizee'
 const normalizer = JSON.stringify
 
 export default function memo<T extends (...args: any[]) => any>(inner: T): T {
-    return createMemo(inner, { normalizer })
+  return createMemo(inner, { normalizer })
 }

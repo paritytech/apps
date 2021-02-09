@@ -9,10 +9,10 @@ import nodeTemplate from './node-template'
 import stablePoc from './stable-poc'
 
 export default {
-    'centrifuge-chain': centrifugeChain,
-    'encointer-node': encointerNode,
-    kulupu,
-    'node-template': nodeTemplate,
-    'stable-poc': stablePoc,
-    stable_poc: stablePoc,
+  'centrifuge-chain': centrifugeChain,
+  'encointer-node': encointerNode,
+  kulupu,
+  'node-template': nodeTemplate,
+  'stable-poc': stablePoc,
+  stable_poc: stablePoc,
 }

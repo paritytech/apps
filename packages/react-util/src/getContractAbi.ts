@@ -8,20 +8,20 @@ import { Abi } from '@polkadot/api-contract'
 import getAddressMeta from './getAddressMeta'
 
 export default function getContractAbi(address: string | null): Abi | null {
-    if (!address) {
-        return null
-    }
+  if (!address) {
+    return null
+  }
 
-    let abi: Abi | undefined
-    const meta = getAddressMeta(address, 'contract')
+  let abi: Abi | undefined
+  const meta = getAddressMeta(address, 'contract')
 
-    try {
-        const data = meta.contract?.abi
+  try {
+    const data = meta.contract?.abi
 
-        abi = new Abi(data, api.registry.getChainProperties())
-    } catch (error) {
-        // invalid address, maybe
-    }
+    abi = new Abi(data, api.registry.getChainProperties())
+  } catch (error) {
+    // invalid address, maybe
+  }
 
-    return abi || null
+  return abi || null
 }

@@ -11,13 +11,13 @@ import CallDisplay from './Call'
 import Unknown from './Unknown'
 
 function OpaqueCall(props: Props): React.ReactElement<Props> {
-    if (!props.isDisabled) {
-        return <Unknown {...props} />
-    }
+  if (!props.isDisabled) {
+    return <Unknown {...props} />
+  }
 
-    const value = registry.createType('Call', (props.defaultValue.value as Bytes).toHex())
+  const value = registry.createType('Call', (props.defaultValue.value as Bytes).toHex())
 
-    return <CallDisplay {...props} defaultValue={{ isValid: true, value }} />
+  return <CallDisplay {...props} defaultValue={{ isValid: true, value }} />
 }
 
 export default React.memo(OpaqueCall)

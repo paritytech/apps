@@ -9,13 +9,13 @@ import { RawParams, UseTxParamsHook } from './types'
 import createValues from './values'
 
 export default function useTxParams(source: { type: TypeDef }[]): UseTxParamsHook {
-    const [params, setParams] = useState(source)
-    const [values, setValues] = useState<RawParams>(createValues(params))
+  const [params, setParams] = useState(source)
+  const [values, setValues] = useState<RawParams>(createValues(params))
 
-    useEffect((): void => {
-        setParams(source)
-        setValues(createValues(source))
-    }, [source])
+  useEffect((): void => {
+    setParams(source)
+    setValues(createValues(source))
+  }, [source])
 
-    return [params, values, setValues]
+  return [params, values, setValues]
 }

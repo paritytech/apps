@@ -6,19 +6,19 @@ import React from 'react'
 import { I18nProps } from './types'
 
 export interface CollectionProps extends I18nProps {
-    banner?: React.ReactNode
-    buttons?: React.ReactNode
-    children: React.ReactNode
-    className?: string
-    headerText?: React.ReactNode
-    isEmpty?: boolean
-    emptyText?: React.ReactNode
-    showEmptyText?: boolean
+  banner?: React.ReactNode
+  buttons?: React.ReactNode
+  children: React.ReactNode
+  className?: string
+  headerText?: React.ReactNode
+  isEmpty?: boolean
+  emptyText?: React.ReactNode
+  showEmptyText?: boolean
 }
 
 export interface CollectionState {
-    isEmpty: boolean
-    showHeader?: boolean
+  isEmpty: boolean
+  showHeader?: boolean
 }
 
 export const collectionStyles = `
@@ -40,72 +40,72 @@ export const collectionStyles = `
 `
 
 export default class Collection<P extends CollectionProps, S extends CollectionState> extends React.PureComponent<
-    P,
-    S
+  P,
+  S
 > {
-    constructor(props: P) {
-        super(props)
+  constructor(props: P) {
+    super(props)
 
-        this.state = {
-            isEmpty: Collection.isEmpty(props.children),
-        } as S
+    this.state = {
+      isEmpty: Collection.isEmpty(props.children),
+    } as S
+  }
+
+  private static isEmpty(children?: React.ReactNode): boolean {
+    return !children || (Array.isArray(children) && children.length === 0)
+  }
+
+  public static getDerivedStateFromProps({ children, isEmpty }: CollectionProps): CollectionState {
+    return {
+      isEmpty: isEmpty === undefined ? Collection.isEmpty(children) : isEmpty,
+    }
+  }
+
+  public render(): React.ReactNode {
+    const { banner, className } = this.props
+    const { isEmpty, showHeader } = this.state
+
+    return (
+      <div className={className}>
+        {showHeader && this.renderHeader()}
+        {banner}
+        {isEmpty ? this.renderEmpty() : this.renderCollection()}
+      </div>
+    )
+  }
+
+  protected renderHeader(): React.ReactNode {
+    const { buttons, headerText } = this.props
+
+    if (!headerText && !buttons) {
+      return null
     }
 
-    private static isEmpty(children?: React.ReactNode): boolean {
-        return !children || (Array.isArray(children) && children.length === 0)
+    return (
+      <div className="ui--Collection-header">
+        <h1>{headerText}</h1>
+        {buttons && <div className="ui--Collection-buttons">{buttons}</div>}
+      </div>
+    )
+  }
+
+  protected renderEmpty(): React.ReactNode {
+    const { emptyText = this.props.t<string>('No items'), showEmptyText = true } = this.props
+
+    if (!showEmptyText) {
+      return null
     }
 
-    public static getDerivedStateFromProps({ children, isEmpty }: CollectionProps): CollectionState {
-        return {
-            isEmpty: isEmpty === undefined ? Collection.isEmpty(children) : isEmpty,
-        }
-    }
+    return (
+      <article>
+        <div className="ui--Collection-lowercase">{emptyText}</div>
+      </article>
+    )
+  }
 
-    public render(): React.ReactNode {
-        const { banner, className } = this.props
-        const { isEmpty, showHeader } = this.state
+  protected renderCollection(): React.ReactNode {
+    const { children } = this.props
 
-        return (
-            <div className={className}>
-                {showHeader && this.renderHeader()}
-                {banner}
-                {isEmpty ? this.renderEmpty() : this.renderCollection()}
-            </div>
-        )
-    }
-
-    protected renderHeader(): React.ReactNode {
-        const { buttons, headerText } = this.props
-
-        if (!headerText && !buttons) {
-            return null
-        }
-
-        return (
-            <div className="ui--Collection-header">
-                <h1>{headerText}</h1>
-                {buttons && <div className="ui--Collection-buttons">{buttons}</div>}
-            </div>
-        )
-    }
-
-    protected renderEmpty(): React.ReactNode {
-        const { emptyText = this.props.t<string>('No items'), showEmptyText = true } = this.props
-
-        if (!showEmptyText) {
-            return null
-        }
-
-        return (
-            <article>
-                <div className="ui--Collection-lowercase">{emptyText}</div>
-            </article>
-        )
-    }
-
-    protected renderCollection(): React.ReactNode {
-        const { children } = this.props
-
-        return children
-    }
+    return children
+  }
 }

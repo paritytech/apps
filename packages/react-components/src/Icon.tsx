@@ -11,13 +11,13 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface Props {
-    className?: string
-    color?: 'gray' | 'green' | 'normal' | 'orange' | 'red' | 'transparent' | 'white'
-    icon: IconName | IconType
-    isSpinning?: boolean
-    onClick?: () => void
-    size?: '1x' | '2x'
-    tooltip?: string
+  className?: string
+  color?: 'gray' | 'green' | 'normal' | 'orange' | 'red' | 'transparent' | 'white'
+  icon: IconName | IconType
+  isSpinning?: boolean
+  onClick?: () => void
+  size?: '1x' | '2x'
+  tooltip?: string
 }
 
 // one-time init of FA libraries
@@ -25,54 +25,54 @@ interface Props {
 library.add(fas)
 
 function Icon({
-    className = '',
-    color = 'normal',
-    icon,
-    isSpinning,
-    onClick,
-    size = '1x',
-    tooltip,
+  className = '',
+  color = 'normal',
+  icon,
+  isSpinning,
+  onClick,
+  size = '1x',
+  tooltip,
 }: Props): React.ReactElement<Props> {
-    const extraProps = tooltip ? { 'data-for': tooltip, 'data-tip': true } : {}
+  const extraProps = tooltip ? { 'data-for': tooltip, 'data-tip': true } : {}
 
-    return (
-        <FontAwesomeIcon
-            {...extraProps}
-            className={`ui--Icon ${color}Color${onClick ? ' isClickable' : ''} ${className}`}
-            icon={icon}
-            onClick={onClick}
-            size={size}
-            spin={isSpinning}
-        />
-    )
+  return (
+    <FontAwesomeIcon
+      {...extraProps}
+      className={`ui--Icon ${color}Color${onClick ? ' isClickable' : ''} ${className}`}
+      icon={icon}
+      onClick={onClick}
+      size={size}
+      spin={isSpinning}
+    />
+  )
 }
 
 export default React.memo(styled(Icon)`
-    &.isClickable {
-        cursor: pointer;
-    }
+  &.isClickable {
+    cursor: pointer;
+  }
 
-    &.grayColor {
-        opacity: 0.25;
-    }
+  &.grayColor {
+    opacity: 0.25;
+  }
 
-    &.greenColor {
-        color: green;
-    }
+  &.greenColor {
+    color: green;
+  }
 
-    &.orangeColor {
-        color: darkorange;
-    }
+  &.orangeColor {
+    color: darkorange;
+  }
 
-    &.redColor {
-        color: darkred;
-    }
+  &.redColor {
+    color: darkred;
+  }
 
-    &.transparentColor {
-        color: transparent;
-    }
+  &.transparentColor {
+    color: transparent;
+  }
 
-    &.whiteColor {
-        color: white;
-    }
+  &.whiteColor {
+    color: white;
+  }
 `)

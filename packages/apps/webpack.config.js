@@ -12,12 +12,12 @@ const context = __dirname
 const hasPublic = fs.existsSync(path.join(context, 'public'))
 
 module.exports = merge(baseConfig(context), {
-    devtool: process.env.BUILD_ANALYZE ? 'source-map' : false,
-    plugins: [
-        new HtmlWebpackPlugin({
-            PAGE_TITLE: 'Polkadot/Substrate Portal',
-            inject: true,
-            template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`),
-        }),
-    ],
+  devtool: process.env.BUILD_ANALYZE ? 'source-map' : false,
+  plugins: [
+    new HtmlWebpackPlugin({
+      PAGE_TITLE: 'Polkadot/Substrate Portal',
+      inject: true,
+      template: path.join(context, `${hasPublic ? 'public/' : ''}index.html`),
+    }),
+  ],
 })

@@ -20,54 +20,54 @@ import emptyLogo from './empty.svg'
 
 // overrides based on the actual matched chain name
 const chainLogos: Record<string, any> = [
-    ['Kusama', chainKusama], // new name after CC3
-    ['Kusama CC1', chainKusama],
-    ['Kusama CC2', chainKusama],
-    ['Kusama CC3', chainKusama],
+  ['Kusama', chainKusama], // new name after CC3
+  ['Kusama CC1', chainKusama],
+  ['Kusama CC2', chainKusama],
+  ['Kusama CC3', chainKusama],
 ].reduce(
-    (logos, [chain, logo]): Record<string, any> => ({
-        ...logos,
-        [(chain as string).toLowerCase()]: logo,
-    }),
-    {}
+  (logos, [chain, logo]): Record<string, any> => ({
+    ...logos,
+    [(chain as string).toLowerCase()]: logo,
+  }),
+  {}
 )
 
 // overrides based on the actual software node type (all '-' converted to ' ')
 const nodeLogos: Record<string, any> = [
-    ['centrifuge chain', nodeCentrifuge],
-    ['Centrifuge Chain Node', nodeCentrifuge],
-    ['Edgeware Node', nodeEdgeware],
-    ['Encointer Node', nodeEncointer],
-    ['kulupu', nodeSubstrate],
-    ['node-template', nodeSubstrate],
-    ['Nodle Chain Node', nodeNodle],
-    ['parity-polkadot', nodePolkadot],
-    ['polkadot-js', nodePolkadotJs],
-    ['substrate-node', nodeSubstrate],
+  ['centrifuge chain', nodeCentrifuge],
+  ['Centrifuge Chain Node', nodeCentrifuge],
+  ['Edgeware Node', nodeEdgeware],
+  ['Encointer Node', nodeEncointer],
+  ['kulupu', nodeSubstrate],
+  ['node-template', nodeSubstrate],
+  ['Nodle Chain Node', nodeNodle],
+  ['parity-polkadot', nodePolkadot],
+  ['polkadot-js', nodePolkadotJs],
+  ['substrate-node', nodeSubstrate],
 ].reduce(
-    (logos, [node, logo]): Record<string, any> => ({
-        ...logos,
-        [(node as string).toLowerCase().replace(/-/g, ' ')]: logo,
-    }),
-    {}
+  (logos, [node, logo]): Record<string, any> => ({
+    ...logos,
+    [(node as string).toLowerCase().replace(/-/g, ' ')]: logo,
+  }),
+  {}
 )
 
 // overrides when we pass an explicit logo name
 const namedLogos: Record<string, any> = {
-    alexander: nodePolkadot,
-    centrifuge: nodeCentrifuge,
-    edgeware: nodeEdgeware,
-    empty: emptyLogo,
-    kusama: chainKusama,
-    nodle: nodeNodle,
-    polkadot: nodePolkadot,
-    substrate: nodeSubstrate,
-    westend: nodePolkadot,
+  alexander: nodePolkadot,
+  centrifuge: nodeCentrifuge,
+  edgeware: nodeEdgeware,
+  empty: emptyLogo,
+  kusama: chainKusama,
+  nodle: nodeNodle,
+  polkadot: nodePolkadot,
+  substrate: nodeSubstrate,
+  westend: nodePolkadot,
 }
 
 // extension logos
 const extensionLogos: Record<string, any> = {
-    'polkadot-js': extensionPolkadotJs,
+  'polkadot-js': extensionPolkadotJs,
 }
 
 export { chainLogos, emptyLogo, extensionLogos, namedLogos, nodeLogos }

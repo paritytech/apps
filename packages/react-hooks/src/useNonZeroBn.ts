@@ -8,5 +8,5 @@ import { BN_ZERO } from '@polkadot/util'
 import useFormField, { FormField } from './useFormField'
 
 export default function useNonZeroBn(initialValue: BN = BN_ZERO): FormField<BN> {
-    return useFormField(initialValue, (value: BN): boolean => !value.isZero())
+  return useFormField(initialValue, (value: BN): boolean => !value.isZero())
 }

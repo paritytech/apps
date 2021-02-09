@@ -5,19 +5,19 @@ import { StringOrNull } from '@canvas-ui/react-util/types'
 import { useCallback, useState } from 'react'
 
 export default function useAccountId(
-    initialValue: StringOrNull = null,
-    onChangeAccountId?: (_: StringOrNull) => void
+  initialValue: StringOrNull = null,
+  onChangeAccountId?: (_: StringOrNull) => void
 ): [StringOrNull, (_: StringOrNull) => void] {
-    const [accountId, setAccountId] = useState<StringOrNull>(initialValue)
+  const [accountId, setAccountId] = useState<StringOrNull>(initialValue)
 
-    const _setAccountId = useCallback(
-        (accountId: StringOrNull = null): void => {
-            setAccountId(accountId)
+  const _setAccountId = useCallback(
+    (accountId: StringOrNull = null): void => {
+      setAccountId(accountId)
 
-            onChangeAccountId && onChangeAccountId(accountId)
-        },
-        [onChangeAccountId]
-    )
+      onChangeAccountId && onChangeAccountId(accountId)
+    },
+    [onChangeAccountId]
+  )
 
-    return [accountId, _setAccountId]
+  return [accountId, _setAccountId]
 }

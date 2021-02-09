@@ -12,36 +12,36 @@ import Dropdown from '../Dropdown'
 import { BareProps } from '../types'
 
 interface Props extends BareProps {
-    isError?: boolean
-    onChange: (value: DefinitionRpcExt) => void
-    options: DropdownOptions
-    value: DefinitionRpcExt
+  isError?: boolean
+  onChange: (value: DefinitionRpcExt) => void
+  options: DropdownOptions
+  value: DefinitionRpcExt
 }
 
 function transform({ value: { section } }: Props): (method: string) => DefinitionRpcExt {
-    return function (method: string): DefinitionRpcExt {
-        return jsonrpc[section][method]
-    }
+  return function (method: string): DefinitionRpcExt {
+    return jsonrpc[section][method]
+  }
 }
 
 function SelectMethod(props: Props): React.ReactElement<Props> | null {
-    const { className = '', isError, onChange, options, value } = props
+  const { className = '', isError, onChange, options, value } = props
 
-    if (!options.length) {
-        return null
-    }
+  if (!options.length) {
+    return null
+  }
 
-    return (
-        <Dropdown
-            className={classes('ui--DropdownLinked-Items', className)}
-            isError={isError}
-            onChange={onChange}
-            options={options}
-            transform={transform(props)}
-            value={value.method}
-            withLabel={false}
-        />
-    )
+  return (
+    <Dropdown
+      className={classes('ui--DropdownLinked-Items', className)}
+      isError={isError}
+      onChange={onChange}
+      options={options}
+      transform={transform(props)}
+      value={value.method}
+      withLabel={false}
+    />
+  )
 }
 
 export default React.memo(SelectMethod)

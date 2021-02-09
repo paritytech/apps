@@ -15,62 +15,62 @@ import { useTranslation } from './translate'
 import { BareProps } from './types'
 
 interface Props extends BareProps {
-    children?: React.ReactNode
-    className?: string
-    icon?: IconName
-    isAddress?: boolean
-    // size?: IconProps['size'];
-    value: string
-    withButton: boolean
+  children?: React.ReactNode
+  className?: string
+  icon?: IconName
+  isAddress?: boolean
+  // size?: IconProps['size'];
+  value: string
+  withButton: boolean
 }
 
 function CopyButton({
-    children,
-    className,
-    icon = 'copy',
-    isAddress = false,
-    value,
-    withButton = true,
+  children,
+  className,
+  icon = 'copy',
+  isAddress = false,
+  value,
+  withButton = true,
 }: Props): React.ReactElement<Props> {
-    const { t } = useTranslation()
-    const showNotification = useNotification()
+  const { t } = useTranslation()
+  const showNotification = useNotification()
 
-    const _onCopy = useCallback((): void => {
-        showNotification({
-            account: isAddress ? value : undefined,
-            action: truncate(value),
-            message: isAddress ? t<string>('address copied to clipboard') : t('copied to clipboard'),
-            status: 'queued',
-        })
-    }, [isAddress, showNotification, t, value])
+  const _onCopy = useCallback((): void => {
+    showNotification({
+      account: isAddress ? value : undefined,
+      action: truncate(value),
+      message: isAddress ? t<string>('address copied to clipboard') : t('copied to clipboard'),
+      status: 'queued',
+    })
+  }, [isAddress, showNotification, t, value])
 
-    return (
-        <div className={className}>
-            <CopyToClipboard onCopy={_onCopy} text={value}>
-                <div className="copyContainer">
-                    {children}
-                    {withButton && (
-                        <span className="copySpan">
-                            <Button className="icon-button show-on-hover" icon={icon} isIcon />
-                        </span>
-                    )}
-                </div>
-            </CopyToClipboard>
+  return (
+    <div className={className}>
+      <CopyToClipboard onCopy={_onCopy} text={value}>
+        <div className="copyContainer">
+          {children}
+          {withButton && (
+            <span className="copySpan">
+              <Button className="icon-button show-on-hover" icon={icon} isIcon />
+            </span>
+          )}
         </div>
-    )
+      </CopyToClipboard>
+    </div>
+  )
 }
 
 export default React.memo(styled(CopyButton)`
+  cursor: copy;
+  display: inline-block;
+
+  button.u.svg-inline--fa.primary.button.icon-button {
     cursor: copy;
-    display: inline-block;
+    position: relative;
+    top: 2px;
+  }
 
-    button.u.svg-inline--fa.primary.button.icon-button {
-        cursor: copy;
-        position: relative;
-        top: 2px;
-    }
-
-    .copySpan {
-        white-space: nowrap;
-    }
+  .copySpan {
+    white-space: nowrap;
+  }
 `)

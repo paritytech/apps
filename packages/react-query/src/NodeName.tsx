@@ -6,20 +6,20 @@ import { useApi } from '@canvas-ui/react-hooks'
 import React from 'react'
 
 interface Props extends BareProps {
-    children?: React.ReactNode
-    label?: React.ReactNode
+  children?: React.ReactNode
+  label?: React.ReactNode
 }
 
 function NodeName({ children, className = '', label }: Props): React.ReactElement<Props> {
-    const { systemName } = useApi()
+  const { systemName } = useApi()
 
-    return (
-        <div className={className}>
-            {label || ''}
-            {systemName}
-            {children}
-        </div>
-    )
+  return (
+    <div className={className}>
+      {label || ''}
+      {systemName}
+      {children}
+    </div>
+  )
 }
 
 export default React.memo(NodeName)

@@ -6,9 +6,9 @@ import HorizBar from './HorizBar'
 import Line from './Line'
 
 const Chart = {
-    Doughnut,
-    HorizBar,
-    Line,
+  Doughnut,
+  HorizBar,
+  Line,
 }
 
 export default Chart

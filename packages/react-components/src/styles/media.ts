@@ -4,155 +4,155 @@
 import { css } from 'styled-components'
 
 export default css`
-    /* block by default, flex as per media queries below */
-    .ui--flex-large,
-    .ui--flex-medium,
-    .ui--flex-small {
-        display: block;
+  /* block by default, flex as per media queries below */
+  .ui--flex-large,
+  .ui--flex-medium,
+  .ui--flex-small {
+    display: block;
+  }
+
+  /* hide all by default, add as per media queries below */
+  .ui--media-large,
+  .ui--media-medium,
+  .ui--media-small {
+    height: 0;
+    visibility: hidden;
+    width: 0;
+  }
+
+  td.ui--media-large,
+  td.ui--media-medium,
+  td.ui--media-small,
+  th.ui--media-large,
+  th.ui--media-medium,
+  th.ui--media-small {
+    display: none;
+  }
+
+  .ui--media-1600 {
+    @media only screen and (max-width: 1600px) {
+      width: none;
+    }
+  }
+
+  .ui--media-1500 {
+    @media only screen and (max-width: 1500px) {
+      display: none;
+    }
+  }
+
+  .ui--media-1400 {
+    @media only screen and (max-width: 1400px) {
+      display: none;
+    }
+  }
+
+  .ui--media-1300 {
+    @media only screen and (max-width: 1300px) {
+      display: none;
+    }
+  }
+
+  .ui--media-1200 {
+    @media only screen and (max-width: 1200px) {
+      display: none;
+    }
+  }
+
+  .ui--media-1100 {
+    @media only screen and (max-width: 1100px) {
+      display: none;
+    }
+  }
+
+  .ui--media-1000 {
+    @media only screen and (max-width: 1000px) {
+      display: none;
+    }
+  }
+
+  .ui--media-900 {
+    @media only screen and (max-width: 900px) {
+      display: none;
+    }
+  }
+
+  .ui--media-800 {
+    @media only screen and (max-width: 800px) {
+      display: none;
+    }
+  }
+
+  .ui--media-8700 {
+    @media only screen and (max-width: 700px) {
+      display: none;
+    }
+  }
+
+  .ui--media-600 {
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1281px) {
+    .ui--flex-large {
+      display: flex;
+      flex-wrap: wrap;
     }
 
-    /* hide all by default, add as per media queries below */
-    .ui--media-large,
-    .ui--media-medium,
-    .ui--media-small {
-        height: 0;
-        visibility: hidden;
-        width: 0;
+    .ui--media-large {
+      height: auto;
+      visibility: visible;
+      width: auto;
     }
 
     td.ui--media-large,
+    th.ui--media-large {
+      display: table-cell;
+    }
+  }
+
+  @media (min-width: 1025px) {
+    .ui--flex-medium {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .ui--media-medium {
+      height: auto;
+      visibility: visible;
+      width: auto;
+    }
+
     td.ui--media-medium,
+    th.ui--media-medium {
+      display: table-cell;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .ui--flex-small {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .ui--media-small {
+      height: auto;
+      visibility: visible;
+      width: auto;
+    }
+
     td.ui--media-small,
-    th.ui--media-large,
-    th.ui--media-medium,
     th.ui--media-small {
-        display: none;
+      display: table-cell;
     }
+  }
 
-    .ui--media-1600 {
-        @media only screen and (max-width: 1600px) {
-            width: none;
-        }
+  /* tabs */
+  @media (max-width: 991px) {
+    .ui.menu.tabular {
+      padding-left: 5.2rem !important;
     }
-
-    .ui--media-1500 {
-        @media only screen and (max-width: 1500px) {
-            display: none;
-        }
-    }
-
-    .ui--media-1400 {
-        @media only screen and (max-width: 1400px) {
-            display: none;
-        }
-    }
-
-    .ui--media-1300 {
-        @media only screen and (max-width: 1300px) {
-            display: none;
-        }
-    }
-
-    .ui--media-1200 {
-        @media only screen and (max-width: 1200px) {
-            display: none;
-        }
-    }
-
-    .ui--media-1100 {
-        @media only screen and (max-width: 1100px) {
-            display: none;
-        }
-    }
-
-    .ui--media-1000 {
-        @media only screen and (max-width: 1000px) {
-            display: none;
-        }
-    }
-
-    .ui--media-900 {
-        @media only screen and (max-width: 900px) {
-            display: none;
-        }
-    }
-
-    .ui--media-800 {
-        @media only screen and (max-width: 800px) {
-            display: none;
-        }
-    }
-
-    .ui--media-8700 {
-        @media only screen and (max-width: 700px) {
-            display: none;
-        }
-    }
-
-    .ui--media-600 {
-        @media only screen and (max-width: 600px) {
-            display: none;
-        }
-    }
-
-    @media (min-width: 1281px) {
-        .ui--flex-large {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .ui--media-large {
-            height: auto;
-            visibility: visible;
-            width: auto;
-        }
-
-        td.ui--media-large,
-        th.ui--media-large {
-            display: table-cell;
-        }
-    }
-
-    @media (min-width: 1025px) {
-        .ui--flex-medium {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .ui--media-medium {
-            height: auto;
-            visibility: visible;
-            width: auto;
-        }
-
-        td.ui--media-medium,
-        th.ui--media-medium {
-            display: table-cell;
-        }
-    }
-
-    @media (min-width: 768px) {
-        .ui--flex-small {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .ui--media-small {
-            height: auto;
-            visibility: visible;
-            width: auto;
-        }
-
-        td.ui--media-small,
-        th.ui--media-small {
-            display: table-cell;
-        }
-    }
-
-    /* tabs */
-    @media (max-width: 991px) {
-        .ui.menu.tabular {
-            padding-left: 5.2rem !important;
-        }
-    }
+  }
 `

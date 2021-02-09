@@ -9,16 +9,16 @@ import { useTranslation } from '../translate'
 import { ActionsProps } from './types'
 
 function Actions({ cancelLabel, children, className, onCancel }: ActionsProps): React.ReactElement<ActionsProps> {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
 
-    return (
-        <SUIModal.Actions>
-            <Button.Group className={className}>
-                <Button label={cancelLabel || t<string>('Cancel')} onClick={onCancel} />
-                {children}
-            </Button.Group>
-        </SUIModal.Actions>
-    )
+  return (
+    <SUIModal.Actions>
+      <Button.Group className={className}>
+        <Button label={cancelLabel || t<string>('Cancel')} onClick={onCancel} />
+        {children}
+      </Button.Group>
+    </SUIModal.Actions>
+  )
 }
 
 export default React.memo(Actions)

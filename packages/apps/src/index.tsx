@@ -25,31 +25,31 @@ const rootElement = document.getElementById(rootId)
 const theme = { theme: settings.uiTheme }
 
 if (!rootElement) {
-    throw new Error(`Unable to find element with id '${rootId}'`)
+  throw new Error(`Unable to find element with id '${rootId}'`)
 }
 
 // cleanups for old/unused storage items
 store.each((_, key): void => {
-    if (key.startsWith('hooks:sessionSlashes:')) {
-        store.remove(key)
-    }
+  if (key.startsWith('hooks:sessionSlashes:')) {
+    store.remove(key)
+  }
 })
 
 ReactDOM.render(
-    <Suspense fallback="...">
-        <ThemeProvider theme={theme}>
-            <Queue>
-                <Api url={settings.apiUrl}>
-                    <BlockAuthors>
-                        <Events>
-                            <HashRouter>
-                                <Apps />
-                            </HashRouter>
-                        </Events>
-                    </BlockAuthors>
-                </Api>
-            </Queue>
-        </ThemeProvider>
-    </Suspense>,
-    rootElement
+  <Suspense fallback="...">
+    <ThemeProvider theme={theme}>
+      <Queue>
+        <Api url={settings.apiUrl}>
+          <BlockAuthors>
+            <Events>
+              <HashRouter>
+                <Apps />
+              </HashRouter>
+            </Events>
+          </BlockAuthors>
+        </Api>
+      </Queue>
+    </ThemeProvider>
+  </Suspense>,
+  rootElement
 )

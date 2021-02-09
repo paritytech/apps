@@ -11,48 +11,48 @@ import Message from './Message'
 import { BareProps } from './types'
 
 export interface Props extends BareProps {
-    abi: Abi
-    address?: string
-    isLabelled?: boolean
-    isRemovable: boolean
-    onRemove?: () => void
-    onSelect?: (messageIndex: number) => () => void
-    onSelectConstructor?: (constructorIndex: number) => void
-    withConstructors?: boolean
+  abi: Abi
+  address?: string
+  isLabelled?: boolean
+  isRemovable: boolean
+  onRemove?: () => void
+  onSelect?: (messageIndex: number) => () => void
+  onSelectConstructor?: (constructorIndex: number) => void
+  withConstructors?: boolean
 }
 
 function Messages(props: Props): React.ReactElement<Props> {
-    const {
-        abi: { constructors, messages },
-        className = '',
-        isLabelled,
-        /* isRemovable, onRemove = NOOP, */ withConstructors,
-    } = props
+  const {
+    abi: { constructors, messages },
+    className = '',
+    isLabelled,
+    /* isRemovable, onRemove = NOOP, */ withConstructors,
+  } = props
 
-    return (
-        <div className={classes(className, 'ui--Messages', isLabelled && 'labelled')}>
-            {withConstructors &&
-                constructors.map(
-                    (constructor, index): React.ReactNode => (
-                        <Message isConstructor key={`constructor-${index}`} message={constructor} />
-                    )
-                )}
-            {messages.map(
-                (message, index): React.ReactNode => (
-                    <Message isConstructor key={`message-${index}`} message={message} />
-                )
-            )}
-        </div>
-    )
+  return (
+    <div className={classes(className, 'ui--Messages', isLabelled && 'labelled')}>
+      {withConstructors &&
+        constructors.map(
+          (constructor, index): React.ReactNode => (
+            <Message isConstructor key={`constructor-${index}`} message={constructor} />
+          )
+        )}
+      {messages.map(
+        (message, index): React.ReactNode => (
+          <Message isConstructor key={`message-${index}`} message={message} />
+        )
+      )}
+    </div>
+  )
 }
 
 export default React.memo(styled(Messages)`
-    .remove-abi {
-        float: right;
+  .remove-abi {
+    float: right;
 
-        &:hover,
-        &:hover :not(i) {
-            text-decoration: underline;
-        }
+    &:hover,
+    &:hover :not(i) {
+      text-decoration: underline;
     }
+  }
 `)

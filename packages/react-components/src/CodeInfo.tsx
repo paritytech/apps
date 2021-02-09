@@ -17,79 +17,79 @@ import { useTranslation } from './translate'
 import { BareProps, Code } from './types'
 
 interface Props extends BareProps {
-    code: Code
-    isEditable?: boolean
+  code: Code
+  isEditable?: boolean
 }
 
 function CodeInfo({ children, className, code: { codeHash, id, name }, isEditable }: Props): React.ReactElement<Props> {
-    const { t } = useTranslation()
-    const [newName, setNewName, isNewNameValid, isNewNameError] = useNonEmptyString(name)
-    const [isEditingName, toggleIsEditingName] = useToggle()
+  const { t } = useTranslation()
+  const [newName, setNewName, isNewNameValid, isNewNameError] = useNonEmptyString(name)
+  const [isEditingName, toggleIsEditingName] = useToggle()
 
-    const onSaveName = useCallback((): void => {
-        if (!isNewNameValid) {
-            return
-        }
+  const onSaveName = useCallback((): void => {
+    if (!isNewNameValid) {
+      return
+    }
 
-        store
-            .saveCode({ name: newName }, id)
-            .then(toggleIsEditingName)
-            .catch((e): void => {
-                console.error(e)
-            })
-    }, [id, isNewNameValid, newName, toggleIsEditingName])
+    store
+      .saveCode({ name: newName }, id)
+      .then(toggleIsEditingName)
+      .catch((e): void => {
+        console.error(e)
+      })
+  }, [id, isNewNameValid, newName, toggleIsEditingName])
 
-    return (
-        <ItemInfo
-            className={className}
-            icon={<Icon className="code-icon" icon={faFile} size="2x" />}
-            subtitle={
-                <>
-                    {t<string>('Code hash')}
-                    {': '}
-                    <CopyButton value={codeHash}>{truncate(codeHash || '', 16)}</CopyButton>
-                </>
-            }
-            title={
-                isEditable && isEditingName ? (
-                    <Input
-                        autoFocus
-                        className="name-editor"
-                        isError={isNewNameError}
-                        onBlur={onSaveName}
-                        onChange={setNewName}
-                        onEnter
-                        value={newName}
-                        withLabel={false}
-                    />
-                ) : isEditable ? (
-                    <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
-                ) : (
-                    name
-                )
-            }
-        >
-            {children}
-        </ItemInfo>
-    )
+  return (
+    <ItemInfo
+      className={className}
+      icon={<Icon className="code-icon" icon={faFile} size="2x" />}
+      subtitle={
+        <>
+          {t<string>('Code hash')}
+          {': '}
+          <CopyButton value={codeHash}>{truncate(codeHash || '', 16)}</CopyButton>
+        </>
+      }
+      title={
+        isEditable && isEditingName ? (
+          <Input
+            autoFocus
+            className="name-editor"
+            isError={isNewNameError}
+            onBlur={onSaveName}
+            onChange={setNewName}
+            onEnter
+            value={newName}
+            withLabel={false}
+          />
+        ) : isEditable ? (
+          <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
+        ) : (
+          name
+        )
+      }
+    >
+      {children}
+    </ItemInfo>
+  )
 }
 
 export default styled(React.memo(CodeInfo))`
-    .svg-inline--fa.code-icon {
-        color: var(--grey60);
-        font-size: 1.8rem;
-        margin: 0.5rem;
+  .svg-inline--fa.code-icon {
+    color: var(--grey60);
+    font-size: 1.8rem;
+    margin: 0.5rem;
+  }
+
+  .name-editor {
+    background: var(--grey15);
+
+    .ui.input {
+      margin: 0;
+
+      > input {
+        padding: 0;
+      }
     }
-
-    .name-editor {
-        background: var(--grey15);
-
-        .ui.input {
-            margin: 0;
-
-            > input {
-                padding: 0;
-            }
-        }
-    }
+  }
 `

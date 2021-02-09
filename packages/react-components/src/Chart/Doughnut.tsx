@@ -10,45 +10,45 @@ import Base from './Base'
 import { DoughnutProps } from './types'
 
 interface Options {
-    colorNormal: string[]
-    colorHover: string[]
-    data: number[]
-    labels: string[]
+  colorNormal: string[]
+  colorHover: string[]
+  data: number[]
+  labels: string[]
 }
 
 function ChartDoughnut({ className = '', size = 100, values }: DoughnutProps): React.ReactElement<DoughnutProps> {
-    const options: Options = {
-        colorHover: [],
-        colorNormal: [],
-        data: [],
-        labels: [],
-    }
+  const options: Options = {
+    colorHover: [],
+    colorNormal: [],
+    data: [],
+    labels: [],
+  }
 
-    values.forEach(({ colors: [normalColor = '#00f', hoverColor], label, value }): void => {
-        options.colorNormal.push(normalColor)
-        options.colorHover.push(hoverColor || normalColor)
-        options.data.push(bnToBn(value).toNumber())
-        options.labels.push(label)
-    })
+  values.forEach(({ colors: [normalColor = '#00f', hoverColor], label, value }): void => {
+    options.colorNormal.push(normalColor)
+    options.colorHover.push(hoverColor || normalColor)
+    options.data.push(bnToBn(value).toNumber())
+    options.labels.push(label)
+  })
 
-    return (
-        <Base className={className}>
-            <Doughnut
-                data={{
-                    datasets: [
-                        {
-                            backgroundColor: options.colorNormal,
-                            data: options.data,
-                            hoverBackgroundColor: options.colorHover,
-                        },
-                    ],
-                    labels: options.labels,
-                }}
-                height={size}
-                width={size}
-            />
-        </Base>
-    )
+  return (
+    <Base className={className}>
+      <Doughnut
+        data={{
+          datasets: [
+            {
+              backgroundColor: options.colorNormal,
+              data: options.data,
+              hoverBackgroundColor: options.colorHover,
+            },
+          ],
+          labels: options.labels,
+        }}
+        height={size}
+        width={size}
+      />
+    </Base>
+  )
 }
 
 export default React.memo(ChartDoughnut)

@@ -10,30 +10,30 @@ import Static from './Static'
 import useParamDefs from './useParamDefs'
 
 function Tuple(props: Props): React.ReactElement<Props> {
-    const params = useParamDefs(props.type)
-    const { className = '', isDisabled, label, onChange, overrides, withLabel } = props
+  const params = useParamDefs(props.type)
+  const { className = '', isDisabled, label, onChange, overrides, withLabel } = props
 
-    const _onChangeParams = useCallback(
-        (values: RawParam[]): void => {
-            onChange &&
-                onChange({
-                    isValid: values.reduce((result: boolean, { isValid }) => result && isValid, true),
-                    value: values.map(({ value }) => value),
-                })
-        },
-        [onChange]
-    )
+  const _onChangeParams = useCallback(
+    (values: RawParam[]): void => {
+      onChange &&
+        onChange({
+          isValid: values.reduce((result: boolean, { isValid }) => result && isValid, true),
+          value: values.map(({ value }) => value),
+        })
+    },
+    [onChange]
+  )
 
-    if (isDisabled) {
-        return <Static {...props} />
-    }
+  if (isDisabled) {
+    return <Static {...props} />
+  }
 
-    return (
-        <div className="ui--Params-Tuple">
-            <Base className={className} label={label} withLabel={withLabel} />
-            <Params onChange={_onChangeParams} overrides={overrides} params={params} />
-        </div>
-    )
+  return (
+    <div className="ui--Params-Tuple">
+      <Base className={className} label={label} withLabel={withLabel} />
+      <Params onChange={_onChangeParams} overrides={overrides} params={params} />
+    </div>
+  )
 }
 
 export default React.memo(Tuple)

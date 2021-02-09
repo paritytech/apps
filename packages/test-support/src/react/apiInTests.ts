@@ -5,7 +5,7 @@ import { useApi } from '@canvas-ui/react-hooks'
 import React, { PropsWithChildren } from 'react'
 
 export const WaitForApi = ({ children }: { children: React.ReactNode }): PropsWithChildren<any> | null => {
-    const api = useApi()
+  const api = useApi()
 
-    return api.isApiReady ? children : null
+  return api.isApiReady ? children : null
 }

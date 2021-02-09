@@ -8,36 +8,36 @@ import { keyring } from '@polkadot/ui-keyring'
 import useIsMountedRef from './useIsMountedRef'
 
 interface UseContracts {
-    allContracts: string[]
-    hasContracts: boolean
-    isContract: (address: string) => boolean
-    isReady: boolean
+  allContracts: string[]
+  hasContracts: boolean
+  isContract: (address: string) => boolean
+  isReady: boolean
 }
 
 export default function useContracts(): UseContracts {
-    const mountedRef = useIsMountedRef()
-    const [state, setState] = useState<UseContracts>({
-        allContracts: [],
-        hasContracts: false,
-        isContract: () => false,
-        isReady: false,
+  const mountedRef = useIsMountedRef()
+  const [state, setState] = useState<UseContracts>({
+    allContracts: [],
+    hasContracts: false,
+    isContract: () => false,
+    isReady: false,
+  })
+
+  useEffect((): (() => void) => {
+    const subscription = keyring.contracts.subject.subscribe((contracts): void => {
+      if (mountedRef.current) {
+        const allContracts = contracts ? Object.keys(contracts) : []
+        const hasContracts = allContracts.length !== 0
+        const isContract = (address: string): boolean => allContracts.includes(address)
+
+        setState({ allContracts, hasContracts, isContract, isReady: true })
+      }
     })
 
-    useEffect((): (() => void) => {
-        const subscription = keyring.contracts.subject.subscribe((contracts): void => {
-            if (mountedRef.current) {
-                const allContracts = contracts ? Object.keys(contracts) : []
-                const hasContracts = allContracts.length !== 0
-                const isContract = (address: string): boolean => allContracts.includes(address)
+    return (): void => {
+      setTimeout(() => subscription.unsubscribe(), 0)
+    }
+  }, [mountedRef])
 
-                setState({ allContracts, hasContracts, isContract, isReady: true })
-            }
-        })
-
-        return (): void => {
-            setTimeout(() => subscription.unsubscribe(), 0)
-        }
-    }, [mountedRef])
-
-    return state
+  return state
 }

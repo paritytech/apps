@@ -1,5 +1,5 @@
 {
-    "nav.deploy": "Deploy",
-    "nav.execute": "Execute",
-    "nav.upload": "Upload"
+  "nav.deploy": "Deploy",
+  "nav.execute": "Execute",
+  "nav.upload": "Upload"
 }

@@ -8,5 +8,5 @@ import { Routes } from './types'
 import upload from './upload'
 
 export default function create(t: <T = string>(key: string, text: string, options: { ns: string }) => T): Routes {
-    return [upload(t), deploy(t), execute(t), settings(t)]
+  return [upload(t), deploy(t), execute(t), settings(t)]
 }

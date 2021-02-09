@@ -7,8 +7,8 @@ import Call from './Call'
 import Proposal from './Proposal'
 
 const components: ComponentMap = {
-    Call,
-    Proposal,
+  Call,
+  Proposal,
 }
 
 export default components

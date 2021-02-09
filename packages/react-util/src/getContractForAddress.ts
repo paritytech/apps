@@ -8,11 +8,11 @@ import getContractAbi from './getContractAbi'
 import { StringOrNull } from './types'
 
 export default function getContractForAddress(api: ApiPromise, address: StringOrNull): Contract | null {
-    if (!address) {
-        return null
-    } else {
-        const abi = getContractAbi(address)
+  if (!address) {
+    return null
+  } else {
+    const abi = getContractAbi(address)
 
-        return abi ? new Contract(api, abi, address) : null
-    }
+    return abi ? new Contract(api, abi, address) : null
+  }
 }

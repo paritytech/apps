@@ -8,18 +8,18 @@ import getInitValue from './initValue'
 import { RawParam } from './types'
 
 export function createValue(param: { type: TypeDef }): RawParam {
-    const value = getInitValue(param.type)
+  const value = getInitValue(param.type)
 
-    return {
-        isValid: !isUndefined(value),
-        value,
-    }
+  return {
+    isValid: !isUndefined(value),
+    value,
+  }
 }
 
 export function extractValues(values: RawParam[]): CodecArg[] {
-    return values.map(({ value }) => value as CodecArg)
+  return values.map(({ value }) => value as CodecArg)
 }
 
 export default function createValues(params: { type: TypeDef }[]): RawParam[] {
-    return params.map(createValue)
+  return params.map(createValue)
 }

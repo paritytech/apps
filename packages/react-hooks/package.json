@@ -1,44 +1,44 @@
 {
-    "name": "@canvas-ui/react-hooks",
-    "version": "0.45.0-beta.33",
-    "description": "A collection of React hooks the Polkadot JS Apps UI",
-    "main": "index.js",
-    "keywords": [
-        "Polkadot",
-        "React",
-        "RxJs"
-    ],
-    "author": "Jaco Greeff <jacogr@gmail.com>",
-    "maintainers": [
-        "Jaco Greeff <jacogr@gmail.com>"
-    ],
-    "contributors": [],
-    "license": "Apache-2.0",
-    "engines": {
-        "node": ">=8.0"
-    },
-    "publishConfig": {
-        "access": "public",
-        "registry": "https://registry.npmjs.org"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/polkadot-js/ui.git"
-    },
-    "bugs": {
-        "url": "https://github.com/polkadot-js/ui/issues"
-    },
-    "homepage": "https://github.com/polkadot-js/ui/tree/master/packages/ui-reactive#readme",
-    "dependencies": {
-        "@babel/runtime": "^7.10.2",
-        "@canvas-ui/apps-config": "workspace:packages/apps-config",
-        "@canvas-ui/react-api": "workspace:packages/react-api",
-        "@canvas-ui/react-util": "workspace:packages/react-util",
-        "bn.js": "^4.11.9",
-        "memoizee": "^0.4.14"
-    },
-    "devDependencies": {
-        "@types/bn.js": "^4.11.6",
-        "@types/memoizee": "^0.4.4"
-    }
+  "name": "@canvas-ui/react-hooks",
+  "version": "0.45.0-beta.33",
+  "description": "A collection of React hooks the Polkadot JS Apps UI",
+  "main": "index.js",
+  "keywords": [
+    "Polkadot",
+    "React",
+    "RxJs"
+  ],
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "maintainers": [
+    "Jaco Greeff <jacogr@gmail.com>"
+  ],
+  "contributors": [],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=8.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polkadot-js/ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/polkadot-js/ui/issues"
+  },
+  "homepage": "https://github.com/polkadot-js/ui/tree/master/packages/ui-reactive#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.10.2",
+    "@canvas-ui/apps-config": "workspace:packages/apps-config",
+    "@canvas-ui/react-api": "workspace:packages/react-api",
+    "@canvas-ui/react-util": "workspace:packages/react-util",
+    "bn.js": "^4.11.9",
+    "memoizee": "^0.4.14"
+  },
+  "devDependencies": {
+    "@types/bn.js": "^4.11.6",
+    "@types/memoizee": "^0.4.4"
+  }
 }

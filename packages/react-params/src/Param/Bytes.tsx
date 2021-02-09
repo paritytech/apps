@@ -13,70 +13,68 @@ import BaseBytes from './BaseBytes'
 import File from './File'
 
 function Bytes({
-    className = '',
-    defaultValue,
-    isDisabled,
-    isError,
-    label,
-    name,
-    onChange,
-    onEnter,
-    onEscape,
-    type,
-    withLabel,
+  className = '',
+  defaultValue,
+  isDisabled,
+  isError,
+  label,
+  name,
+  onChange,
+  onEnter,
+  onEscape,
+  type,
+  withLabel,
 }: Props): React.ReactElement<Props> {
-    const { t } = useTranslation()
-    const [isValid, setIsValid] = useState(false)
-    const [isFileDrop, setFileInput] = useState(false)
+  const { t } = useTranslation()
+  const [isValid, setIsValid] = useState(false)
+  const [isFileDrop, setFileInput] = useState(false)
 
-    const _onChangeFile = useCallback(
-        (value: Uint8Array): void => {
-            const isValid = value.length !== 0
+  const _onChangeFile = useCallback(
+    (value: Uint8Array): void => {
+      const isValid = value.length !== 0
 
-            onChange &&
-                onChange({
-                    isValid,
-                    value: compactAddLength(value),
-                })
+      onChange &&
+        onChange({
+          isValid,
+          value: compactAddLength(value),
+        })
 
-            setIsValid(isValid)
-        },
-        [onChange]
-    )
+      setIsValid(isValid)
+    },
+    [onChange]
+  )
 
-    return (
-        <div className={className}>
-            {!isDisabled && isFileDrop ? (
-                <File
-                    isDisabled={isDisabled}
-                    isError={isError || !isValid}
-                    label={label}
-                    onChange={_onChangeFile}
-                    withLabel={withLabel}
-                />
-            ) : (
-                <BaseBytes
-                    defaultValue={defaultValue}
-                    isDisabled={isDisabled}
-                    isError={isError}
-                    label={label}
-                    length={-1}
-                    name={name}
-                    onChange={onChange}
-                    onEnter={onEnter}
-                    onEscape={onEscape}
-                    type={type}
-                    withLabel={withLabel}
-                    withLength
-                />
-            )}
-            {!isDisabled && (
-                <Toggle isOverlay label={t<string>('file upload')} onChange={setFileInput} value={isFileDrop} />
-            )}
-        </div>
-    )
+  return (
+    <div className={className}>
+      {!isDisabled && isFileDrop ? (
+        <File
+          isDisabled={isDisabled}
+          isError={isError || !isValid}
+          label={label}
+          onChange={_onChangeFile}
+          withLabel={withLabel}
+        />
+      ) : (
+        <BaseBytes
+          defaultValue={defaultValue}
+          isDisabled={isDisabled}
+          isError={isError}
+          label={label}
+          length={-1}
+          name={name}
+          onChange={onChange}
+          onEnter={onEnter}
+          onEscape={onEscape}
+          type={type}
+          withLabel={withLabel}
+          withLength
+        />
+      )}
+      {!isDisabled && <Toggle isOverlay label={t<string>('file upload')} onChange={setFileInput} value={isFileDrop} />}
+    </div>
+  )
 }
 
 export default React.memo(styled(Bytes)`
-    position: relative;
+  position: relative;
 `)

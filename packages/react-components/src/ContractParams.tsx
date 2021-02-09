@@ -6,16 +6,16 @@ import { UseTxParams } from '@canvas-ui/react-params/types'
 import React from 'react'
 
 interface Props extends UseTxParams {
-    isDisabled?: boolean
-    onEnter?: () => void
+  isDisabled?: boolean
+  onEnter?: () => void
 }
 
 function Params({ isDisabled, onChange, onEnter, params = [], values }: Props): React.ReactElement<Props> | null {
-    if (!params.length) {
-        return null
-    }
+  if (!params.length) {
+    return null
+  }
 
-    return <UIParams isDisabled={isDisabled} onChange={onChange} onEnter={onEnter} params={params} values={values} />
+  return <UIParams isDisabled={isDisabled} onChange={onChange} onEnter={onEnter} params={params} values={values} />
 }
 
 export default React.memo(Params)

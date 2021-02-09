@@ -11,51 +11,51 @@ import { SubmittableExtrinsic } from '@polkadot/api/types'
 import { handleTxResults } from './util'
 
 interface UseSendUnsigned {
-    onCancel: VoidFn
-    onSendUnsigned: () => Promise<void>
+  onCancel: VoidFn
+  onSendUnsigned: () => Promise<void>
 }
 
 const NOOP = () => undefined
 
 async function sendUnsigned(
-    queueSetTxStatus: QueueTxMessageSetStatus,
-    currentItem: QueueTx,
-    tx: SubmittableExtrinsic<'promise'>
+  queueSetTxStatus: QueueTxMessageSetStatus,
+  currentItem: QueueTx,
+  tx: SubmittableExtrinsic<'promise'>
 ): Promise<void> {
-    currentItem.txStartCb && currentItem.txStartCb()
+  currentItem.txStartCb && currentItem.txStartCb()
 
-    try {
-        const unsubscribe = await tx.send(
-            handleTxResults('send', queueSetTxStatus, currentItem, (): void => {
-                unsubscribe()
-            })
-        )
-    } catch (error) {
-        console.error('send: error:', error)
-        queueSetTxStatus(currentItem.id, 'error', {}, error)
+  try {
+    const unsubscribe = await tx.send(
+      handleTxResults('send', queueSetTxStatus, currentItem, (): void => {
+        unsubscribe()
+      })
+    )
+  } catch (error) {
+    console.error('send: error:', error)
+    queueSetTxStatus(currentItem.id, 'error', {}, error)
 
-        currentItem.txFailedCb && currentItem.txFailedCb(null)
-    }
+    currentItem.txFailedCb && currentItem.txFailedCb(null)
+  }
 }
 
 export default function useSendTx(currentItem: QueueTx): UseSendUnsigned {
-    const { queueSetTxStatus } = useContext(StatusContext)
+  const { queueSetTxStatus } = useContext(StatusContext)
 
-    const onCancel = useCallback((): void => {
-        if (currentItem) {
-            const { id, signerCb = NOOP, txFailedCb = NOOP } = currentItem
+  const onCancel = useCallback((): void => {
+    if (currentItem) {
+      const { id, signerCb = NOOP, txFailedCb = NOOP } = currentItem
 
-            queueSetTxStatus(id, 'cancelled')
-            signerCb(id, null)
-            txFailedCb(null)
-        }
-    }, [currentItem, queueSetTxStatus])
+      queueSetTxStatus(id, 'cancelled')
+      signerCb(id, null)
+      txFailedCb(null)
+    }
+  }, [currentItem, queueSetTxStatus])
 
-    const onSendUnsigned = useCallback(async (): Promise<void> => {
-        if (currentItem.extrinsic) {
-            await sendUnsigned(queueSetTxStatus, currentItem, currentItem.extrinsic)
-        }
-    }, [currentItem, queueSetTxStatus])
+  const onSendUnsigned = useCallback(async (): Promise<void> => {
+    if (currentItem.extrinsic) {
+      await sendUnsigned(queueSetTxStatus, currentItem, currentItem.extrinsic)
+    }
+  }, [currentItem, queueSetTxStatus])
 
-    return { onCancel, onSendUnsigned }
+  return { onCancel, onSendUnsigned }
 }

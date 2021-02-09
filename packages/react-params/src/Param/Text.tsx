@@ -8,51 +8,51 @@ import { Props } from '../types'
 import Bare from './Bare'
 
 function Text({
-    className = '',
-    defaultValue: { value },
-    isDisabled,
-    isError,
-    label,
-    onChange,
-    onEnter,
-    onEscape,
-    withLabel,
+  className = '',
+  defaultValue: { value },
+  isDisabled,
+  isError,
+  label,
+  onChange,
+  onEnter,
+  onEscape,
+  withLabel,
 }: Props): React.ReactElement<Props> {
-    const [isValid, setIsValid] = useState(false)
+  const [isValid, setIsValid] = useState(false)
 
-    const _onChange = useCallback(
-        (value: string): void => {
-            const isValid = value.length !== 0
+  const _onChange = useCallback(
+    (value: string): void => {
+      const isValid = value.length !== 0
 
-            onChange &&
-                onChange({
-                    isValid,
-                    value,
-                })
-            setIsValid(isValid)
-        },
-        [onChange]
-    )
+      onChange &&
+        onChange({
+          isValid,
+          value,
+        })
+      setIsValid(isValid)
+    },
+    [onChange]
+  )
 
-    const defaultValue = ((value as string) || '').toString()
+  const defaultValue = ((value as string) || '').toString()
 
-    return (
-        <Bare className={className}>
-            <Input
-                className="full"
-                defaultValue={defaultValue}
-                isDisabled={isDisabled}
-                isError={isError || !isValid}
-                label={label}
-                onChange={_onChange}
-                onEnter={onEnter}
-                onEscape={onEscape}
-                placeholder="<any string>"
-                type="text"
-                withLabel={withLabel}
-            />
-        </Bare>
-    )
+  return (
+    <Bare className={className}>
+      <Input
+        className="full"
+        defaultValue={defaultValue}
+        isDisabled={isDisabled}
+        isError={isError || !isValid}
+        label={label}
+        onChange={_onChange}
+        onEnter={onEnter}
+        onEscape={onEscape}
+        placeholder="<any string>"
+        type="text"
+        withLabel={withLabel}
+      />
+    </Bare>
+  )
 }
 
 export default React.memo(Text)

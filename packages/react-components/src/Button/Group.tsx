@@ -7,26 +7,26 @@ import React from 'react'
 import styled from 'styled-components'
 
 function ButtonGroup({ children, className = '', isCentered }: GroupProps): React.ReactElement<GroupProps> {
-    return <div className={`ui--Button-Group${isCentered ? ' isCentered' : ''} ${className}`}>{children}</div>
+  return <div className={`ui--Button-Group${isCentered ? ' isCentered' : ''} ${className}`}>{children}</div>
 }
 
 export default React.memo(styled(ButtonGroup)`
-    text-align: right;
+  text-align: right;
 
-    &.isCentered {
-        margin-bottom: 0.5rem;
-        text-align: center;
-    }
+  &.isCentered {
+    margin-bottom: 0.5rem;
+    text-align: center;
+  }
 
-    & + .ui--Table {
-        margin-top: 1.5rem;
-    }
+  & + .ui--Table {
+    margin-top: 1.5rem;
+  }
 
-    .ui--Button {
-        margin: 0 0.25rem;
-    }
+  .ui--Button {
+    margin: 0 0.25rem;
+  }
 
-    .ui--CopyButton {
-        display: inline-block;
-    }
+  .ui--CopyButton {
+    display: inline-block;
+  }
 `)

@@ -10,37 +10,35 @@ import { useParams } from 'react-router-dom'
 import { useTranslation } from './translate'
 
 function Success({ basePath, navigateTo }: Props): React.ReactElement<Props> | null {
-    const { t } = useTranslation()
-    const { address }: { address: string } = useParams()
-    const contract = useContract(address)
+  const { t } = useTranslation()
+  const { address }: { address: string } = useParams()
+  const contract = useContract(address)
 
-    useEffect((): void => {
-        if (!contract) {
-            navigateTo.deploy()
-        }
-    }, [contract, navigateTo])
-
+  useEffect((): void => {
     if (!contract) {
-        return null
+      navigateTo.deploy()
     }
+  }, [contract, navigateTo])
 
-    return (
-        <>
-            <header>
-                <h1>{t<string>('Contract successfully deployed')}</h1>
-                <div className="instructions">
-                    {t<string>('Your contract has been successfully deployed on chain.')}
-                </div>
-            </header>
-            <section>
-                <ContractCard basePath={basePath} contract={contract} navigateTo={navigateTo} />
-                <Button.Group>
-                    <Button isPrimary label={t<string>('Execute Contract')} onClick={navigateTo.executeCall(address)} />
-                    <Button label={t<string>('Deploy Another Contract')} onClick={navigateTo.deploy} />
-                </Button.Group>
-            </section>
-        </>
-    )
+  if (!contract) {
+    return null
+  }
+
+  return (
+    <>
+      <header>
+        <h1>{t<string>('Contract successfully deployed')}</h1>
+        <div className="instructions">{t<string>('Your contract has been successfully deployed on chain.')}</div>
+      </header>
+      <section>
+        <ContractCard basePath={basePath} contract={contract} navigateTo={navigateTo} />
+        <Button.Group>
+          <Button isPrimary label={t<string>('Execute Contract')} onClick={navigateTo.executeCall(address)} />
+          <Button label={t<string>('Deploy Another Contract')} onClick={navigateTo.deploy} />
+        </Button.Group>
+      </section>
+    </>
+  )
 }
 
 export default React.memo(Success)

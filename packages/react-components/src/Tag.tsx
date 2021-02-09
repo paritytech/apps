@@ -8,28 +8,28 @@ import styled from 'styled-components'
 import Tooltip from './Tooltip'
 
 interface Props {
-    className?: string
-    color?: 'green' | 'grey' | 'red'
-    hover?: React.ReactNode
-    isTag?: boolean
-    label: React.ReactNode
-    size?: 'small' | 'tiny'
+  className?: string
+  color?: 'green' | 'grey' | 'red'
+  hover?: React.ReactNode
+  isTag?: boolean
+  label: React.ReactNode
+  size?: 'small' | 'tiny'
 }
 
 let tagId = 0
 
 function Tag({ className = '', color, hover, isTag = true, label, size = 'small' }: Props): React.ReactElement<Props> {
-    const [trigger] = useState(`tag-hover-${Date.now()}-${tagId++}`)
-    const tooltipProps = hover ? { 'data-for': trigger, 'data-tip': true } : {}
+  const [trigger] = useState(`tag-hover-${Date.now()}-${tagId++}`)
+  const tooltipProps = hover ? { 'data-for': trigger, 'data-tip': true } : {}
 
-    return (
-        <Label className={className} color={color || 'grey'} size={size} tag={isTag} {...tooltipProps}>
-            {label}
-            {hover && <Tooltip text={hover} trigger={trigger} />}
-        </Label>
-    )
+  return (
+    <Label className={className} color={color || 'grey'} size={size} tag={isTag} {...tooltipProps}>
+      {label}
+      {hover && <Tooltip text={hover} trigger={trigger} />}
+    </Label>
+  )
 }
 
 export default React.memo(styled(Tag)`
-    white-space: nowrap;
+  white-space: nowrap;
 `)

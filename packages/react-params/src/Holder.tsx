@@ -5,100 +5,100 @@ import React from 'react'
 import styled from 'styled-components'
 
 interface Props {
-    children?: React.ReactNode
-    className?: string
-    withBorder?: boolean
-    withPadding?: boolean
+  children?: React.ReactNode
+  className?: string
+  withBorder?: boolean
+  withPadding?: boolean
 }
 
 function Holder({ children, className = '', withBorder, withPadding }: Props): React.ReactElement<Props> {
-    return (
-        <div
-            className={`ui--Params ${className} ${withBorder ? 'withBorder' : 'withoutBorder'} ${
-                withPadding ? 'withPadding' : ''
-            }`}
-        >
-            {children}
-        </div>
-    )
+  return (
+    <div
+      className={`ui--Params ${className} ${withBorder ? 'withBorder' : 'withoutBorder'} ${
+        withPadding ? 'withPadding' : ''
+      }`}
+    >
+      {children}
+    </div>
+  )
 }
 
 export default React.memo(styled(Holder)`
-    &.withBorder {
-        border-left: 0.25rem solid transparent;
-    }
+  &.withBorder {
+    border-left: 0.25rem solid transparent;
+  }
 
-    &.withoutBorder {
-        margin-left: -1.75rem;
-        padding: 0;
-    }
+  &.withoutBorder {
+    margin-left: -1.75rem;
+    padding: 0;
+  }
 
-    &.withPadding {
-        padding-left: 4rem;
-    }
+  &.withPadding {
+    padding-left: 4rem;
+  }
 
-    .ui--Param .ui--Labelled label {
-        text-transform: none !important;
-        font-family: monospace;
-    }
+  .ui--Param .ui--Labelled label {
+    text-transform: none !important;
+    font-family: monospace;
+  }
 
-    .ui--row {
-        flex-wrap: wrap;
-    }
+  .ui--row {
+    flex-wrap: wrap;
+  }
 
-    .ui--Param-Address {
-        font-family: monospace;
-    }
+  .ui--Param-Address {
+    font-family: monospace;
+  }
 
-    .ui--Params-Content {
-        box-sizing: border-box;
-        padding: 0 0 0 1.75rem;
-    }
+  .ui--Params-Content {
+    box-sizing: border-box;
+    padding: 0 0 0 1.75rem;
+  }
 
-    .ui--Param-text {
-        display: inline-block;
-        font-size: 1rem;
-        line-height: 1.714rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  .ui--Param-text {
+    display: inline-block;
+    font-size: 1rem;
+    line-height: 1.714rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    .ui--Param-text .icon {
-        margin-right: 0.5rem !important;
-    }
+  .ui--Param-text .icon {
+    margin-right: 0.5rem !important;
+  }
 
-    .ui--Param-text * {
-        vertical-align: middle;
-    }
+  .ui--Param-text * {
+    vertical-align: middle;
+  }
 
-    .ui--Param-text.nowrap {
-        white-space: nowrap;
-    }
+  .ui--Param-text.nowrap {
+    white-space: nowrap;
+  }
 
-    .ui--Param-text.name {
-        color: rgba(0, 0, 0, 0.6);
-        font-style: italic;
-    }
+  .ui--Param-text.name {
+    color: rgba(0, 0, 0, 0.6);
+    font-style: italic;
+  }
 
-    .ui--Param-text + .ui--Param-text {
-        margin-left: 0.5rem;
-    }
+  .ui--Param-text + .ui--Param-text {
+    margin-left: 0.5rem;
+  }
 
-    .ui--Param-Vector-buttons {
-        text-align: right;
-    }
+  .ui--Param-Vector-buttons {
+    text-align: right;
+  }
 
-    .ui--Param-composite {
-        position: relative;
+  .ui--Param-composite {
+    position: relative;
 
-        .ui--Param-overlay {
-            position: absolute;
-            top: 0.5rem;
-            right: 3.5rem;
-        }
+    .ui--Param-overlay {
+      position: absolute;
+      top: 0.5rem;
+      right: 3.5rem;
     }
+  }
 
-    .ui--Params {
-        margin-top: 1.5rem;
-    }
+  .ui--Params {
+    margin-top: 1.5rem;
+  }
 `)

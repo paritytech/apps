@@ -13,37 +13,37 @@ import Success from './Success'
 import { ComponentProps } from './types'
 
 function DeployApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
-    const { allCodes, hasCodes, isLoading, updated } = useCodes()
+  const { allCodes, hasCodes, isLoading, updated } = useCodes()
 
-    const componentProps = useMemo(
-        (): ComponentProps => ({
-            allCodes,
-            basePath,
-            hasCodes,
-            isLoading,
-            navigateTo,
-            updated,
-        }),
-        [allCodes, basePath, hasCodes, isLoading, navigateTo, updated]
-    )
+  const componentProps = useMemo(
+    (): ComponentProps => ({
+      allCodes,
+      basePath,
+      hasCodes,
+      isLoading,
+      navigateTo,
+      updated,
+    }),
+    [allCodes, basePath, hasCodes, isLoading, navigateTo, updated]
+  )
 
-    return (
-        <main className="deploy--App">
-            <WithLoader isLoading={isLoading}>
-                <Switch>
-                    <Route path={`${basePath}/new/:id?/:index?`}>
-                        <New {...componentProps} />
-                    </Route>
-                    <Route path={`${basePath}/success/:address`}>
-                        <Success {...componentProps} />
-                    </Route>
-                    <Route exact>
-                        <Codes {...componentProps} />
-                    </Route>
-                </Switch>
-            </WithLoader>
-        </main>
-    )
+  return (
+    <main className="deploy--App">
+      <WithLoader isLoading={isLoading}>
+        <Switch>
+          <Route path={`${basePath}/new/:id?/:index?`}>
+            <New {...componentProps} />
+          </Route>
+          <Route path={`${basePath}/success/:address`}>
+            <Success {...componentProps} />
+          </Route>
+          <Route exact>
+            <Codes {...componentProps} />
+          </Route>
+        </Switch>
+      </WithLoader>
+    </main>
+  )
 }
 
 export default React.memo(DeployApp)

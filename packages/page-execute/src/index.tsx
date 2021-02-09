@@ -14,39 +14,39 @@ import Contracts from './Contracts'
 import { ComponentProps } from './types'
 
 function ExecuteApp({ basePath, className, navigateTo }: Props): React.ReactElement<Props> {
-    const { allAccounts, isReady: isAccountsReady } = useAccounts()
-    const { allContracts, hasContracts, isContract, isReady: isContractsReady } = useContracts()
+  const { allAccounts, isReady: isAccountsReady } = useAccounts()
+  const { allContracts, hasContracts, isContract, isReady: isContractsReady } = useContracts()
 
-    const componentProps = useMemo(
-        (): ComponentProps => ({
-            accounts: allAccounts,
-            basePath,
-            contracts: allContracts,
-            hasContracts,
-            isContract,
-            navigateTo,
-        }),
-        [allAccounts, allContracts, basePath, hasContracts, isContract, navigateTo]
-    )
-    const isLoading = useMemo((): boolean => !isContractsReady || !isAccountsReady, [isAccountsReady, isContractsReady])
+  const componentProps = useMemo(
+    (): ComponentProps => ({
+      accounts: allAccounts,
+      basePath,
+      contracts: allContracts,
+      hasContracts,
+      isContract,
+      navigateTo,
+    }),
+    [allAccounts, allContracts, basePath, hasContracts, isContract, navigateTo]
+  )
+  const isLoading = useMemo((): boolean => !isContractsReady || !isAccountsReady, [isAccountsReady, isContractsReady])
 
-    return (
-        <main className={classes(className, 'execute--App', isLoading && 'isLoading')}>
-            <WithLoader isLoading={isLoading}>
-                <Switch>
-                    <Route path={`${basePath}/add`}>
-                        <Add {...componentProps} />
-                    </Route>
-                    <Route path={`${basePath}/:address/:messageIndex?`}>
-                        <Call {...componentProps} />
-                    </Route>
-                    <Route exact>
-                        <Contracts {...componentProps} />
-                    </Route>
-                </Switch>
-            </WithLoader>
-        </main>
-    )
+  return (
+    <main className={classes(className, 'execute--App', isLoading && 'isLoading')}>
+      <WithLoader isLoading={isLoading}>
+        <Switch>
+          <Route path={`${basePath}/add`}>
+            <Add {...componentProps} />
+          </Route>
+          <Route path={`${basePath}/:address/:messageIndex?`}>
+            <Call {...componentProps} />
+          </Route>
+          <Route exact>
+            <Contracts {...componentProps} />
+          </Route>
+        </Switch>
+      </WithLoader>
+    </main>
+  )
 }
 
 export default React.memo(ExecuteApp)

@@ -12,76 +12,76 @@ import Tag from './Tag'
 import { useTranslation } from './translate'
 
 interface Props {
-    children?: React.ReactNode
-    className?: string
-    color?: 'green' | 'grey' | 'red'
-    isEditable?: boolean
-    isEditing?: boolean
-    onChange?: (_: string[]) => void
-    onToggleIsEditing?: () => void
-    onSave?: VoidFn
-    size?: 'small' | 'tiny'
-    value: string[]
+  children?: React.ReactNode
+  className?: string
+  color?: 'green' | 'grey' | 'red'
+  isEditable?: boolean
+  isEditing?: boolean
+  onChange?: (_: string[]) => void
+  onToggleIsEditing?: () => void
+  onSave?: VoidFn
+  size?: 'small' | 'tiny'
+  value: string[]
 }
 
 function Tags({
-    children,
-    className,
-    color = 'grey',
-    isEditable,
-    isEditing,
-    onChange,
-    onSave,
-    onToggleIsEditing,
-    size = 'small',
-    value,
+  children,
+  className,
+  color = 'grey',
+  isEditable,
+  isEditing,
+  onChange,
+  onSave,
+  onToggleIsEditing,
+  size = 'small',
+  value,
 }: Props): React.ReactElement<Props> {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
 
-    const contents = useMemo(
-        (): React.ReactNode =>
-            value.length ? (
-                value.map((tag): React.ReactNode => <Tag color={color} key={tag} label={tag} size={size} />)
-            ) : (
-                <label>{t<string>('no tags')}</label>
-            ),
-        [color, size, t, value]
-    )
+  const contents = useMemo(
+    (): React.ReactNode =>
+      value.length ? (
+        value.map((tag): React.ReactNode => <Tag color={color} key={tag} label={tag} size={size} />)
+      ) : (
+        <label>{t<string>('no tags')}</label>
+      ),
+    [color, size, t, value]
+  )
 
-    const _onSave = useCallback((): void => {
-        onSave && onSave()
-        onToggleIsEditing && onToggleIsEditing()
-    }, [onSave, onToggleIsEditing])
+  const _onSave = useCallback((): void => {
+    onSave && onSave()
+    onToggleIsEditing && onToggleIsEditing()
+  }, [onSave, onToggleIsEditing])
 
-    return (
-        <div className={classes('ui--Tags', className)}>
-            {isEditable && isEditing ? (
-                <InputTags
-                    defaultValue={value}
-                    onBlur={_onSave}
-                    onChange={onChange}
-                    onClose={_onSave}
-                    openOnFocus
-                    searchInput={{ autoFocus: true }}
-                    value={value}
-                    withLabel={false}
-                />
-            ) : (
-                <div className="tags--toggle">
-                    {isEditable ? <EditButton onClick={onToggleIsEditing}>{contents}</EditButton> : contents}
-                </div>
-            )}
-            {children}
+  return (
+    <div className={classes('ui--Tags', className)}>
+      {isEditable && isEditing ? (
+        <InputTags
+          defaultValue={value}
+          onBlur={_onSave}
+          onChange={onChange}
+          onClose={_onSave}
+          openOnFocus
+          searchInput={{ autoFocus: true }}
+          value={value}
+          withLabel={false}
+        />
+      ) : (
+        <div className="tags--toggle">
+          {isEditable ? <EditButton onClick={onToggleIsEditing}>{contents}</EditButton> : contents}
         </div>
-    )
+      )}
+      {children}
+    </div>
+  )
 }
 
 export default React.memo(styled(Tags)`
-    .tags--toggle {
-        display: inline-block;
+  .tags--toggle {
+    display: inline-block;
 
-        label {
-            display: inline-block !important;
-        }
+    label {
+      display: inline-block !important;
     }
+  }
 `)

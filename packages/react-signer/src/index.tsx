@@ -12,28 +12,28 @@ import TxUnsigned from './TxUnsigned'
 import usePendingTx from './usePendingTx'
 
 function Signer({ children, className = '' }: Props): React.ReactElement<Props> {
-    const { t } = useTranslation()
-    const { currentItem, requestAddress } = usePendingTx()
+  const { t } = useTranslation()
+  const { currentItem, requestAddress } = usePendingTx()
 
-    return (
-        <>
-            {children}
-            {currentItem && (
-                <Modal className={className} header={t<string>('Authorize transaction')} size="large">
-                    {currentItem.isUnsigned ? (
-                        <TxUnsigned currentItem={currentItem} />
-                    ) : (
-                        <TxSigned currentItem={currentItem} requestAddress={requestAddress} />
-                    )}
-                </Modal>
-            )}
-        </>
-    )
+  return (
+    <>
+      {children}
+      {currentItem && (
+        <Modal className={className} header={t<string>('Authorize transaction')} size="large">
+          {currentItem.isUnsigned ? (
+            <TxUnsigned currentItem={currentItem} />
+          ) : (
+            <TxSigned currentItem={currentItem} requestAddress={requestAddress} />
+          )}
+        </Modal>
+      )}
+    </>
+  )
 }
 
 export default React.memo(styled(Signer)`
-    .signToggle {
-        position: absolute;
-        left: 1.5rem;
-    }
+  .signToggle {
+    position: absolute;
+    left: 1.5rem;
+  }
 `)

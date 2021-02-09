@@ -12,12 +12,12 @@ import { formatBalance } from '@polkadot/util'
 import { useTranslation } from './translate'
 
 interface Props extends BareProps {
-    children?: React.ReactNode
-    isShort?: boolean
-    label?: React.ReactNode
-    labelPost?: React.ReactNode
-    value?: Compact<any> | BN | string | null | 'all'
-    withSi?: boolean
+  children?: React.ReactNode
+  isShort?: boolean
+  label?: React.ReactNode
+  labelPost?: React.ReactNode
+  value?: Compact<any> | BN | string | null | 'all'
+  withSi?: boolean
 }
 
 // for million, 2 * 3-grouping + comma
@@ -25,30 +25,30 @@ const M_LENGTH = 6 + 1
 const K_LENGTH = 3 + 1
 
 function format(
-    value: Compact<any> | BN | string,
-    currency: string,
-    withSi?: boolean,
-    _isShort?: boolean
+  value: Compact<any> | BN | string,
+  currency: string,
+  withSi?: boolean,
+  _isShort?: boolean
 ): React.ReactNode {
-    const [prefix, postfix] = formatBalance(value, { forceUnit: '-', withSi: false }).split('.')
-    const isShort = _isShort || (withSi && prefix.length >= K_LENGTH)
+  const [prefix, postfix] = formatBalance(value, { forceUnit: '-', withSi: false }).split('.')
+  const isShort = _isShort || (withSi && prefix.length >= K_LENGTH)
 
-    if (prefix.length > M_LENGTH) {
-        // TODO Format with balance-postfix
-        return formatBalance(value)
-    }
+  if (prefix.length > M_LENGTH) {
+    // TODO Format with balance-postfix
+    return formatBalance(value)
+  }
 
-    return (
+  return (
+    <>
+      {prefix}
+      {!isShort && (
         <>
-            {prefix}
-            {!isShort && (
-                <>
-                    .<span className="ui--FormatBalance-postfix">{`000${postfix || ''}`.slice(-3)}</span>
-                </>
-            )}{' '}
-            {currency}
+          .<span className="ui--FormatBalance-postfix">{`000${postfix || ''}`.slice(-3)}</span>
         </>
-    )
+      )}{' '}
+      {currency}
+    </>
+  )
 }
 
 // function formatSi (value: Compact<any> | BN | string): React.ReactNode {
@@ -64,52 +64,52 @@ function format(
 // }
 
 function FormatBalance({
-    children,
-    className = '',
-    isShort,
-    label,
-    labelPost,
-    value,
-    withSi,
+  children,
+  className = '',
+  isShort,
+  label,
+  labelPost,
+  value,
+  withSi,
 }: Props): React.ReactElement<Props> {
-    const { t } = useTranslation()
-    const [currency] = useState(formatBalance.getDefaults().unit)
+  const { t } = useTranslation()
+  const [currency] = useState(formatBalance.getDefaults().unit)
 
-    return (
-        <div className={`ui--FormatBalance ${className}`}>
-            {label || ''}
-            <span className="ui--FormatBalance-value">
-                {value ? (value === 'all' ? t<string>('everything') : format(value, currency, withSi, isShort)) : '-'}
-            </span>
-            {labelPost}
-            {children}
-        </div>
-    )
+  return (
+    <div className={`ui--FormatBalance ${className}`}>
+      {label || ''}
+      <span className="ui--FormatBalance-value">
+        {value ? (value === 'all' ? t<string>('everything') : format(value, currency, withSi, isShort)) : '-'}
+      </span>
+      {labelPost}
+      {children}
+    </div>
+  )
 }
 
 export default React.memo(styled(FormatBalance)`
+  display: inline-block;
+  vertical-align: baseline;
+  white-space: nowrap;
+
+  * {
+    vertical-align: baseline !important;
+  }
+
+  > label,
+  > .label {
     display: inline-block;
+    margin-right: 0.25rem;
     vertical-align: baseline;
-    white-space: nowrap;
+  }
 
-    * {
-        vertical-align: baseline !important;
+  .ui--FormatBalance-value {
+    text-align: right;
+
+    > .ui--FormatBalance-postfix {
+      font-weight: 100;
+      opacity: 0.75;
+      vertical-align: baseline;
     }
-
-    > label,
-    > .label {
-        display: inline-block;
-        margin-right: 0.25rem;
-        vertical-align: baseline;
-    }
-
-    .ui--FormatBalance-value {
-        text-align: right;
-
-        > .ui--FormatBalance-postfix {
-            font-weight: 100;
-            opacity: 0.75;
-            vertical-align: baseline;
-        }
-    }
+  }
 `)

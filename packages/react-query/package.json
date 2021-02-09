@@ -1,38 +1,38 @@
 {
-    "name": "@canvas-ui/react-query",
-    "version": "0.45.0-beta.33",
-    "description": "A collection of RxJs React components the Polkadot JS API",
-    "main": "index.js",
-    "keywords": [
-        "Polkadot",
-        "React",
-        "RxJs"
-    ],
-    "author": "Jaco Greeff <jacogr@gmail.com>",
-    "maintainers": [
-        "Jaco Greeff <jacogr@gmail.com>"
-    ],
-    "contributors": [],
-    "license": "Apache-2.0",
-    "engines": {
-        "node": ">=8.0"
-    },
-    "publishConfig": {
-        "access": "public",
-        "registry": "https://registry.npmjs.org"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/polkadot-js/ui.git"
-    },
-    "bugs": {
-        "url": "https://github.com/polkadot-js/ui/issues"
-    },
-    "homepage": "https://github.com/polkadot-js/ui/tree/master/packages/ui-reactive#readme",
-    "dependencies": {
-        "@babel/runtime": "^7.10.2",
-        "@canvas-ui/react-api": "workspace:packages/react-api",
-        "@canvas-ui/react-components": "workspace:packages/react-components",
-        "@canvas-ui/react-hooks": "workspace:packages/react-hooks"
-    }
+  "name": "@canvas-ui/react-query",
+  "version": "0.45.0-beta.33",
+  "description": "A collection of RxJs React components the Polkadot JS API",
+  "main": "index.js",
+  "keywords": [
+    "Polkadot",
+    "React",
+    "RxJs"
+  ],
+  "author": "Jaco Greeff <jacogr@gmail.com>",
+  "maintainers": [
+    "Jaco Greeff <jacogr@gmail.com>"
+  ],
+  "contributors": [],
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=8.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/polkadot-js/ui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/polkadot-js/ui/issues"
+  },
+  "homepage": "https://github.com/polkadot-js/ui/tree/master/packages/ui-reactive#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.10.2",
+    "@canvas-ui/react-api": "workspace:packages/react-api",
+    "@canvas-ui/react-components": "workspace:packages/react-components",
+    "@canvas-ui/react-hooks": "workspace:packages/react-hooks"
+  }
 }

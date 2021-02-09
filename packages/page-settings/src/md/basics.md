@@ -6,9 +6,9 @@ Here you are able to tweak a number of the settings for your interface - where i
 
 In the general section you can setup the basic operation for your UI.
 
--   **endpoint** Defines the node to connect to. Select from one of the available hosted RPCs or connect to your own by specifying a custom URL. (Be aware that custom URLs should be behind secure WebSockets if you are using a UI hosted on a https endpoint)
--   **theme** Swap between a Polkadot or Substrate themed interface.
--   **mode** By default the UI appears in a fully-featured mode. You can select to only have the core features (which provides all the basics, unless you are a power user).
+- **endpoint** Defines the node to connect to. Select from one of the available hosted RPCs or connect to your own by specifying a custom URL. (Be aware that custom URLs should be behind secure WebSockets if you are using a UI hosted on a https endpoint)
+- **theme** Swap between a Polkadot or Substrate themed interface.
+- **mode** By default the UI appears in a fully-featured mode. You can select to only have the core features (which provides all the basics, unless you are a power user).
 
 # Developer
 

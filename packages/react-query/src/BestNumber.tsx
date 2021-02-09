@@ -9,23 +9,23 @@ import { BlockNumber } from '@polkadot/types/interfaces'
 import { formatNumber } from '@polkadot/util'
 
 interface Props extends BareProps {
-    children?: React.ReactNode
-    label?: React.ReactNode
-    withPound?: boolean
+  children?: React.ReactNode
+  label?: React.ReactNode
+  withPound?: boolean
 }
 
 function BestNumber({ children, className = '', label, withPound }: Props): React.ReactElement<Props> {
-    const { api, isApiReady } = useApi()
-    const bestNumber = useCall<BlockNumber>(isApiReady && api.derive.chain.bestNumber, [])
+  const { api, isApiReady } = useApi()
+  const bestNumber = useCall<BlockNumber>(isApiReady && api.derive.chain.bestNumber, [])
 
-    return (
-        <div className={className}>
-            {label || ''}
-            {withPound && '#'}
-            {bestNumber ? formatNumber(bestNumber) : '-'}
-            {children}
-        </div>
-    )
+  return (
+    <div className={className}>
+      {label || ''}
+      {withPound && '#'}
+      {bestNumber ? formatNumber(bestNumber) : '-'}
+      {children}
+    </div>
+  )
 }
 
 export default React.memo(BestNumber)
