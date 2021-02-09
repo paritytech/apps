@@ -11,10 +11,25 @@ import { Props as CProps, Props } from '../types';
 import findComponent from './findComponent';
 import Static from './Static';
 
-function Param({ className = '', defaultValue, isDisabled, isInOption, isOptional, name, onChange, onEnter, onEscape, overrides, type }: Props): React.ReactElement<Props> | null {
+function Param({
+  className = '',
+  defaultValue,
+  isDisabled,
+  isInOption,
+  isOptional,
+  name,
+  onChange,
+  onEnter,
+  onEscape,
+  overrides,
+  type
+}: Props): React.ReactElement<Props> | null {
   const compRef = useRef<React.ComponentType<CProps> | null>(findComponent(type, overrides));
 
-  const label = useMemo(() => (isUndefined(name) ? encodeTypeDef(type) : `${name}: ${encodeTypeDef(type)}`), [name, type]);
+  const label = useMemo(
+    () => (isUndefined(name) ? encodeTypeDef(type) : `${name}: ${encodeTypeDef(type)}`),
+    [name, type]
+  );
 
   if (!compRef.current) {
     return null;

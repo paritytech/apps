@@ -23,7 +23,13 @@ function Settings({ className }: Props): React.ReactElement<Props> {
 
   return (
     <div className={`apps--SideBar-settings ${className || ''}`}>
-      <Dropdown className={classes('chain-dropdown', !isApiConnected && 'isDisconnected')} defaultValue={url} onChange={onChangeUrl} options={endpointOptions} withLabel={false} />
+      <Dropdown
+        className={classes('chain-dropdown', !isApiConnected && 'isDisconnected')}
+        defaultValue={url}
+        onChange={onChangeUrl}
+        options={endpointOptions}
+        withLabel={false}
+      />
       <NavLink className="settings-link" data-for="settings-link" data-tip to="/settings">
         <Icon icon="cog" />
       </NavLink>

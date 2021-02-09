@@ -59,7 +59,21 @@ function convertResult(result: ArrayBuffer): Uint8Array {
   return data;
 }
 
-function InputFile({ accept, children, className, errorText, help, isDisabled, isError = false, label, onChange, onRemove, value = null, withEllipsis, withLabel }: InputFileProps): React.ReactElement<InputFileProps> {
+function InputFile({
+  accept,
+  children,
+  className,
+  errorText,
+  help,
+  isDisabled,
+  isError = false,
+  label,
+  onChange,
+  onRemove,
+  value = null,
+  withEllipsis,
+  withLabel
+}: InputFileProps): React.ReactElement<InputFileProps> {
   const { t } = useTranslation();
   const dropRef = createRef<DropzoneRef>();
 
@@ -104,7 +118,12 @@ function InputFile({ accept, children, className, errorText, help, isDisabled, i
     <Dropzone accept={accept} disabled={isDisabled} multiple={false} onDrop={_onDrop} ref={dropRef}>
       {({ getInputProps, getRootProps }): JSX.Element => {
         const rootProps = getRootProps({
-          className: classes('ui--InputFile', isError ? 'error' : '', !value ? 'isEmpty' : '', className)
+          className: classes(
+            'ui--InputFile',
+            isError ? 'error' : '',
+            !value ? 'isEmpty' : '',
+            className
+          )
         });
         const inputProps = getInputProps();
 
@@ -117,7 +136,12 @@ function InputFile({ accept, children, className, errorText, help, isDisabled, i
                 <div>{t<string>('Click to select or drag & drop to upload file.')}</div>
               </>
             ) : (
-              <FileSupplied errorText={errorText} isError={isError} onRemove={_onRemove} text={value.name} />
+              <FileSupplied
+                errorText={errorText}
+                isError={isError}
+                onRemove={_onRemove}
+                text={value.name}
+              />
             )}
             {children && <div className="children">{children}</div>}
           </div>

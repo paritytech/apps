@@ -21,10 +21,18 @@ const HelpWidget = ({ className }: Props) => {
       {visible && (
         <div className={'help-menu'}>
           <div className="help-menu-items">
-            <a href="https://substrate.dev/docs/en/knowledgebase/smart-contracts/" rel="noopener noreferrer" target="blank">
+            <a
+              href="https://substrate.dev/docs/en/knowledgebase/smart-contracts/"
+              rel="noopener noreferrer"
+              target="blank"
+            >
               ink! smart contracts docs
             </a>
-            <a href="https://github.com/paritytech/canvas-ui" rel="noopener noreferrer" target="blank">
+            <a
+              href="https://github.com/paritytech/canvas-ui"
+              rel="noopener noreferrer"
+              target="blank"
+            >
               GitHub repository
             </a>
           </div>
@@ -59,7 +67,8 @@ export default styled(HelpWidget)`
     height: 36px;
     border-radius: 100%;
     font-size: 1.5rem;
-    box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.2) 0px 3px 6px, rgba(15, 15, 15, 0.4) 0px 9px 24px;
+    box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.2) 0px 3px 6px,
+      rgba(15, 15, 15, 0.4) 0px 9px 24px;
   }
 
   .help-menu {
@@ -73,7 +82,8 @@ export default styled(HelpWidget)`
     background: var(--grey30);
     font-size: 1rem;
     border-radius: var(--btn-radius-default);
-    box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.2) 0px 3px 6px, rgba(15, 15, 15, 0.4) 0px 9px 24px;
+    box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.2) 0px 3px 6px,
+      rgba(15, 15, 15, 0.4) 0px 9px 24px;
 
     .help-menu-items {
       display: flex;

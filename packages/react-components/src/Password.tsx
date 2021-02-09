@@ -25,7 +25,25 @@ interface Props {
   withLabel?: boolean;
 }
 
-function Password({ autoFocus, children, className = '', defaultValue, help, isDisabled, isError, isFull, label, labelExtra, name, onChange, onEnter, onEscape, tabIndex, value, withLabel }: Props): React.ReactElement<Props> {
+function Password({
+  autoFocus,
+  children,
+  className = '',
+  defaultValue,
+  help,
+  isDisabled,
+  isError,
+  isFull,
+  label,
+  labelExtra,
+  name,
+  onChange,
+  onEnter,
+  onEscape,
+  tabIndex,
+  value,
+  withLabel
+}: Props): React.ReactElement<Props> {
   return (
     <Input
       autoFocus={autoFocus}

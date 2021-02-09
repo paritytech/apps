@@ -110,7 +110,14 @@ export default function useAccountInfo(value: string | null, isContract = false)
         (flags): AddressFlags => ({
           ...flags,
           isDevelopment: accountOrAddress?.meta.isTesting || false,
-          isEditable: !!(!identity?.display && (isInContacts || accountOrAddress?.meta.isMultisig || (accountOrAddress && !(accountOrAddress.meta.isInjected || accountOrAddress.meta.isHardware)))) || false,
+          isEditable:
+            !!(
+              !identity?.display &&
+              (isInContacts ||
+                accountOrAddress?.meta.isMultisig ||
+                (accountOrAddress &&
+                  !(accountOrAddress.meta.isInjected || accountOrAddress.meta.isHardware)))
+            ) || false,
           isExternal: !!accountOrAddress?.meta.isExternal || false,
           isInContacts,
           isMultisig: !!accountOrAddress?.meta.isMultisig || false,
@@ -120,7 +127,9 @@ export default function useAccountInfo(value: string | null, isContract = false)
       );
       setMeta(accountOrAddress?.meta);
       setName(accountOrAddress?.meta.name || '');
-      setSortedTags(accountOrAddress?.meta.tags ? (accountOrAddress.meta.tags as string[]).sort() : []);
+      setSortedTags(
+        accountOrAddress?.meta.tags ? (accountOrAddress.meta.tags as string[]).sort() : []
+      );
     }
   }, [identity, isAccount, isAddress, value]);
 

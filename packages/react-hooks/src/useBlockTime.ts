@@ -21,7 +21,10 @@ export default function useBlockTime(blocks = BN_ONE): Result {
   const { api } = useApi();
 
   return useMemo((): Result => {
-    const blockTime = api.consts.babe?.expectedBlockTime || api.consts.timestamp?.minimumPeriod.muln(2) || DEFAULT_TIME;
+    const blockTime =
+      api.consts.babe?.expectedBlockTime ||
+      api.consts.timestamp?.minimumPeriod.muln(2) ||
+      DEFAULT_TIME;
 
     return [blockTime.toNumber(), timeToString(t, extractTime(blockTime.mul(blocks).toNumber()))];
   }, [api, blocks, t]);

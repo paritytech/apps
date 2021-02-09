@@ -28,7 +28,14 @@ function TxUnsigned({ className, currentItem }: Props): React.ReactElement<Props
         </ErrorBoundary>
       </Modal.Content>
       <Modal.Actions onCancel={onCancel}>
-        <Button icon="sign-in" isDisabled={isRenderError} isPrimary label={t<string>('Submit (no signature)')} onClick={onSendUnsigned} tabIndex={2} />
+        <Button
+          icon="sign-in"
+          isDisabled={isRenderError}
+          isPrimary
+          label={t<string>('Submit (no signature)')}
+          onClick={onSendUnsigned}
+          tabIndex={2}
+        />
       </Modal.Actions>
     </>
   );

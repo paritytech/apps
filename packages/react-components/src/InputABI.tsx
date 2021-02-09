@@ -31,21 +31,62 @@ interface Props extends BareProps {
   withLabel?: boolean;
 }
 
-function renderMessages({ abi, isDisabled, onRemove, onSelectConstructor, withLabel }: Props): React.ReactNode {
-  return <Messages abi={abi} isLabelled={withLabel} isRemovable={!isDisabled} onRemove={onRemove} onSelectConstructor={onSelectConstructor} withConstructors />;
+function renderMessages({
+  abi,
+  isDisabled,
+  onRemove,
+  onSelectConstructor,
+  withLabel
+}: Props): React.ReactNode {
+  return (
+    <Messages
+      abi={abi}
+      isLabelled={withLabel}
+      isRemovable={!isDisabled}
+      onRemove={onRemove}
+      onSelectConstructor={onSelectConstructor}
+      withConstructors
+    />
+  );
 }
 
 function InputABI(props: Props): React.ReactElement<Props> {
-  const { abi, className, errorText, file, isContract = false, isDisabled, isError, isRequired = false, isValid, setFile, withLabel } = props;
+  const {
+    abi,
+    className,
+    errorText,
+    file,
+    isContract = false,
+    isDisabled,
+    isError,
+    isRequired = false,
+    isValid,
+    setFile,
+    withLabel
+  } = props;
   const { t } = useTranslation();
 
   const help = isContract
-    ? t<string>('The ABI or .contract bundle for the WASM code. Since we will be making a call into the code, the ABI is required and stored for future operations such as sending messages.')
-    : t<string>('The .contract bundle or ABI for the WASM code. If using an ABI, you will need to upload the generated WASM file separately.');
+    ? t<string>(
+        'The ABI or .contract bundle for the WASM code. Since we will be making a call into the code, the ABI is required and stored for future operations such as sending messages.'
+      )
+    : t<string>(
+        'The .contract bundle or ABI for the WASM code. If using an ABI, you will need to upload the generated WASM file separately.'
+      );
   const label = isRequired ? 'Upload ABI' : 'Upload Contract Bundle';
 
   return (
-    <InputFile className={className} errorText={t<string>('Invalid ABI file — {{errorText}}', { replace: { errorText } })} help={help} isDisabled={isDisabled} isError={isError} label={label} onChange={setFile} value={file} withLabel={withLabel}>
+    <InputFile
+      className={className}
+      errorText={t<string>('Invalid ABI file — {{errorText}}', { replace: { errorText } })}
+      help={help}
+      isDisabled={isDisabled}
+      isError={isError}
+      label={label}
+      onChange={setFile}
+      value={file}
+      withLabel={withLabel}
+    >
       {abi && isValid ? renderMessages(props) : null}
     </InputFile>
   );

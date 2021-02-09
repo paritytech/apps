@@ -9,7 +9,8 @@ export default {
     'Kusama CC3': 'kusama',
     'Polkadot CC1': 'polkadot-cc1'
   },
-  create: (chain: string, path: string, data: BN | number | string): string => `https://${chain}.subscan.io/${path}/${data.toString()}`,
+  create: (chain: string, path: string, data: BN | number | string): string =>
+    `https://${chain}.subscan.io/${path}/${data.toString()}`,
   isActive: true,
   paths: {
     address: 'account',

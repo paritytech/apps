@@ -18,7 +18,16 @@ function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
   };
 }
 
-function VectorFixed({ className = '', defaultValue, isDisabled = false, label, onChange, overrides, type, withLabel }: Props): React.ReactElement<Props> | null {
+function VectorFixed({
+  className = '',
+  defaultValue,
+  isDisabled = false,
+  label,
+  onChange,
+  overrides,
+  type,
+  withLabel
+}: Props): React.ReactElement<Props> | null {
   const inputParams = useParamDefs(type);
   const [params, setParams] = useState<ParamDef[]>([]);
   const [values, setValues] = useState<RawParam[]>([]);
@@ -61,7 +70,14 @@ function VectorFixed({ className = '', defaultValue, isDisabled = false, label, 
 
   // when isDisabled, set the values based on the defaultValue input
   useEffect((): void => {
-    isDisabled && setValues(((defaultValue.value as RawParam[]) || []).map((value: RawParam) => (isUndefined(value) || isUndefined(value.isValid) ? { isValid: !isUndefined(value), value } : value)));
+    isDisabled &&
+      setValues(
+        ((defaultValue.value as RawParam[]) || []).map((value: RawParam) =>
+          isUndefined(value) || isUndefined(value.isValid)
+            ? { isValid: !isUndefined(value), value }
+            : value
+        )
+      );
   }, [defaultValue, isDisabled]);
 
   // when our values has changed, alert upstream
@@ -75,7 +91,13 @@ function VectorFixed({ className = '', defaultValue, isDisabled = false, label, 
 
   return (
     <Base className={className} isOuter label={label} withLabel={withLabel}>
-      <Params isDisabled={isDisabled} onChange={setValues} overrides={overrides} params={params} values={values} />
+      <Params
+        isDisabled={isDisabled}
+        onChange={setValues}
+        overrides={overrides}
+        params={params}
+        values={values}
+      />
     </Base>
   );
 }

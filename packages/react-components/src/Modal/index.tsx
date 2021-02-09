@@ -22,7 +22,12 @@ function ModalBase(props: ModalProps): React.ReactElement<ModalProps> {
   const { children, className = '', header, isOpen = true } = props;
 
   return (
-    <SUIModal {...props} className={`theme--default ui--Modal ${className}`} header={undefined} open={isOpen}>
+    <SUIModal
+      {...props}
+      className={`theme--default ui--Modal ${className}`}
+      header={undefined}
+      open={isOpen}
+    >
       {header && <SUIModal.Header>{header}</SUIModal.Header>}
       {children}
     </SUIModal>

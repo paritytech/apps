@@ -9,7 +9,13 @@ import styled from 'styled-components';
 import { useTranslation } from './translate';
 import { ComponentProps as Props } from './types';
 
-function Codes({ allCodes, basePath, className, hasCodes, navigateTo }: Props): React.ReactElement<Props> {
+function Codes({
+  allCodes,
+  basePath,
+  className,
+  hasCodes,
+  navigateTo
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (
@@ -19,14 +25,18 @@ function Codes({ allCodes, basePath, className, hasCodes, navigateTo }: Props): 
         <div className="instructions">
           {hasCodes ? (
             <>
-              {t<string>('Choose an on-chain code bundle to deploy from below. Don’t see what you’re looking for?')} <Link to={'/upload/add'}>{t<string>('Add an existing code hash')}</Link>
+              {t<string>(
+                'Choose an on-chain code bundle to deploy from below. Don’t see what you’re looking for?'
+              )}{' '}
+              <Link to={'/upload/add'}>{t<string>('Add an existing code hash')}</Link>
               {` ${t<string>('or')} `}
               <Link to={'/upload'}>{t<string>('upload a new Wasm blob')}</Link>
               {'.'}
             </>
           ) : (
             <>
-              {t<string>('You can add an existing code bundle by')} <Link to={'/upload/add'}>{t<string>('using its code hash')}</Link>
+              {t<string>('You can add an existing code bundle by')}{' '}
+              <Link to={'/upload/add'}>{t<string>('using its code hash')}</Link>
               {` ${t<string>('or by')} `}
               <Link to={'/upload'}>{t<string>('uploading a new Wasm blob')}</Link>
               {'.'}
@@ -39,7 +49,12 @@ function Codes({ allCodes, basePath, className, hasCodes, navigateTo }: Props): 
           {hasCodes && <h3>{t<string>('Code Bundles')}</h3>}
           {allCodes.map(
             (code): React.ReactNode => (
-              <CodeCard basePath={basePath} code={code} key={code.codeHash} navigateTo={navigateTo} />
+              <CodeCard
+                basePath={basePath}
+                code={code}
+                key={code.codeHash}
+                navigateTo={navigateTo}
+              />
             )
           )}
           <Button.Group>

@@ -12,7 +12,12 @@ interface Props {
   onSelect: (address: string) => void;
 }
 
-function Available({ address, filter, isHidden, onSelect }: Props): React.ReactElement<Props> | null {
+function Available({
+  address,
+  filter,
+  isHidden,
+  onSelect
+}: Props): React.ReactElement<Props> | null {
   const _onSelect = useCallback((): void => onSelect(address), [address, onSelect]);
 
   if (isHidden) {

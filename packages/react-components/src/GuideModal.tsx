@@ -46,10 +46,20 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
       {
         content: (
           <>
-            <p>{t<string>('This quick intro will take you through the working flow of uploading, deploying and interacting with smart contracts via the Canvas UI.')}</p>
             <p>
-              {t<string>('You will need to have a built contract ready to upload. If you’re new to ink! smart contracts,')}{' '}
-              <a href="https://substrate.dev/substrate-contracts-workshop/" rel="noopener noreferrer" target="_blank">
+              {t<string>(
+                'This quick intro will take you through the working flow of uploading, deploying and interacting with smart contracts via the Canvas UI.'
+              )}
+            </p>
+            <p>
+              {t<string>(
+                'You will need to have a built contract ready to upload. If you’re new to ink! smart contracts,'
+              )}{' '}
+              <a
+                href="https://substrate.dev/substrate-contracts-workshop/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
                 {t<string>('check out the tutorial on the Substrate Developer Hub')}
               </a>
               {'.'}
@@ -61,8 +71,16 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
       {
         content: (
           <>
-            <p>{t<string>('After having tested and built your contract, you’re ready to upload the generated WebAssembly file on the Canvas chain. In the upload section you can also add the generated metadata.json file as an ABI.')}</p>
-            <p>{t<string>('A unique code hash identifies the code put on chain so that duplications of the same code on chain can be avoided. You can add an already existing code bundle to the UI by pasting its unique code hash.')}</p>
+            <p>
+              {t<string>(
+                'After having tested and built your contract, you’re ready to upload the generated WebAssembly file on the Canvas chain. In the upload section you can also add the generated metadata.json file as an ABI.'
+              )}
+            </p>
+            <p>
+              {t<string>(
+                'A unique code hash identifies the code put on chain so that duplications of the same code on chain can be avoided. You can add an already existing code bundle to the UI by pasting its unique code hash.'
+              )}
+            </p>
           </>
         ),
         header: t<string>('Upload')
@@ -70,8 +88,16 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
       {
         content: (
           <>
-            <p>{t<string>('With the code uploaded to the chain, it is time to deploy it and instantiate a contract.')}</p>
-            <p>{t<string>('This quick intro will take you through the working flow of uploading, deploying and interacting with smart contracts on the Canvas chain.')}</p>
+            <p>
+              {t<string>(
+                'With the code uploaded to the chain, it is time to deploy it and instantiate a contract.'
+              )}
+            </p>
+            <p>
+              {t<string>(
+                'This quick intro will take you through the working flow of uploading, deploying and interacting with smart contracts on the Canvas chain.'
+              )}
+            </p>
           </>
         ),
         header: t<string>('Deploy')
@@ -79,8 +105,16 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
       {
         content: (
           <>
-            <p>{t<string>('You can now interact with your contract on chain. The uploaded ABI provides you with messages to call.')}</p>
-            <p>{t<string>('Using a contract’s unique code hash, you can also add and interact with already deployed contracts via the Canvas UI.')}</p>
+            <p>
+              {t<string>(
+                'You can now interact with your contract on chain. The uploaded ABI provides you with messages to call.'
+              )}
+            </p>
+            <p>
+              {t<string>(
+                'Using a contract’s unique code hash, you can also add and interact with already deployed contracts via the Canvas UI.'
+              )}
+            </p>
           </>
         ),
         header: t<string>('Execute')
@@ -99,7 +133,13 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
         <div className="page-control">
           {pages.map(
             (_, pageIndex): React.ReactNode => {
-              return <div className={classes('page', index === pageIndex && 'isActive')} key={`guide-page-${pageIndex}`} onClick={_setIndex(pageIndex)} />;
+              return (
+                <div
+                  className={classes('page', index === pageIndex && 'isActive')}
+                  key={`guide-page-${pageIndex}`}
+                  onClick={_setIndex(pageIndex)}
+                />
+              );
             }
           )}
         </div>
@@ -114,8 +154,15 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
     <Modal className={className} isOpen={isOpen} onClose={_onClose}>
       <Modal.Header>{header}</Modal.Header>
       <Modal.Content>{content}</Modal.Content>
-      <Modal.Actions cancelLabel={t<string>(isFirstPage ? 'Skip Intro' : 'Go Back')} onCancel={isFirstPage ? _onClose : decrementIndex}>
-        <Button isPrimary label={t<string>(isLastPage ? "Let's Go" : 'Next')} onClick={isLastPage ? _onClose : incrementIndex} />
+      <Modal.Actions
+        cancelLabel={t<string>(isFirstPage ? 'Skip Intro' : 'Go Back')}
+        onCancel={isFirstPage ? _onClose : decrementIndex}
+      >
+        <Button
+          isPrimary
+          label={t<string>(isLastPage ? "Let's Go" : 'Next')}
+          onClick={isLastPage ? _onClose : incrementIndex}
+        />
       </Modal.Actions>
     </Modal>
   );

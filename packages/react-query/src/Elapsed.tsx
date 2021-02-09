@@ -30,7 +30,10 @@ function tick(): void {
 }
 
 function getDisplayValue(now = 0, value: BN | Date | number = 0): string {
-  const tsValue = (value && (value as Date).getTime ? (value as Date).getTime() : bnToBn(value as number).toNumber()) || 0;
+  const tsValue =
+    (value && (value as Date).getTime
+      ? (value as Date).getTime()
+      : bnToBn(value as number).toNumber()) || 0;
   let display = '0.0 s';
 
   if (now && tsValue) {

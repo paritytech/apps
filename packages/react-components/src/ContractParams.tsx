@@ -10,12 +10,26 @@ interface Props extends UseTxParams {
   onEnter?: () => void;
 }
 
-function Params({ isDisabled, onChange, onEnter, params = [], values }: Props): React.ReactElement<Props> | null {
+function Params({
+  isDisabled,
+  onChange,
+  onEnter,
+  params = [],
+  values
+}: Props): React.ReactElement<Props> | null {
   if (!params.length) {
     return null;
   }
 
-  return <UIParams isDisabled={isDisabled} onChange={onChange} onEnter={onEnter} params={params} values={values} />;
+  return (
+    <UIParams
+      isDisabled={isDisabled}
+      onChange={onChange}
+      onEnter={onEnter}
+      params={params}
+      values={values}
+    />
+  );
 }
 
 export default React.memo(Params);

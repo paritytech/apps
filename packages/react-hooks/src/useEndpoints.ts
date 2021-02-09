@@ -50,7 +50,10 @@ export default function useEndpoints(onChange?: (_: string) => void): UseEndpoin
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [info]);
 
-  const onChangeUrl = useCallback((url: string): void => setInfo((info: Endpoint) => ({ ...info, ...makeUrl(url) })), []);
+  const onChangeUrl = useCallback(
+    (url: string): void => setInfo((info: Endpoint) => ({ ...info, ...makeUrl(url) })),
+    []
+  );
 
   const onChangeCustom = useCallback(
     (isCustom: boolean): void =>

@@ -32,20 +32,56 @@ export interface Props extends BareProps {
 //   margin: 0 !important;
 // `;
 
-function Message({ className, isConstructor, message, onSelect, registry }: Props): React.ReactElement<Props> {
+function Message({
+  className,
+  isConstructor,
+  message,
+  onSelect,
+  registry
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { docs, identifier } = message;
 
-  const signature = useMemo((): React.ReactNode => <MessageSignature isConstructor={isConstructor} message={message} registry={registry} withTooltip />, [isConstructor, message, registry]);
+  const signature = useMemo(
+    (): React.ReactNode => (
+      <MessageSignature
+        isConstructor={isConstructor}
+        message={message}
+        registry={registry}
+        withTooltip
+      />
+    ),
+    [isConstructor, message, registry]
+  );
 
   return (
-    <div className={classes(className, !onSelect && 'exempt-hover', isConstructor && 'isConstructor')} key={identifier}>
-      <Tippy animation="fade" arrow={false} content={<Docs docs={docs} signature={signature} />} interactive offset={[30, 0]} placement="bottom-start" plugins={[followCursor]} theme="transparent" trigger="mouseenter">
+    <div
+      className={classes(className, !onSelect && 'exempt-hover', isConstructor && 'isConstructor')}
+      key={identifier}
+    >
+      <Tippy
+        animation="fade"
+        arrow={false}
+        content={<Docs docs={docs} signature={signature} />}
+        interactive
+        offset={[30, 0]}
+        placement="bottom-start"
+        plugins={[followCursor]}
+        theme="transparent"
+        trigger="mouseenter"
+      >
         <div style={{ height: '100%', padding: '0.5rem 1rem', width: '100%' }}>
           {signature}
           {!isConstructor && onSelect && (
             <div className="accessory">
-              <Button className="execute" icon={isConstructor ? 'cloud-upload' : 'play'} onClick={onSelect} tooltip={t<string>(isConstructor ? 'Deploy with this constructor' : 'Call this message')} />
+              <Button
+                className="execute"
+                icon={isConstructor ? 'cloud-upload' : 'play'}
+                onClick={onSelect}
+                tooltip={t<string>(
+                  isConstructor ? 'Deploy with this constructor' : 'Call this message'
+                )}
+              />
             </div>
           )}
         </div>

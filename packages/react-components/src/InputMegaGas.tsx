@@ -25,12 +25,20 @@ interface Props extends BareProps {
 
 const MEGA = new BN(1_000_000);
 
-function InputMegaGas({ className, estimatedWeight, help, isCall, weight: { executionTime, isValid, megaGas, percentage, setIsEmpty, setMegaGas } }: Props): React.ReactElement<Props> {
+function InputMegaGas({
+  className,
+  estimatedWeight,
+  help,
+  isCall,
+  weight: { executionTime, isValid, megaGas, percentage, setIsEmpty, setMegaGas }
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const [withEstimate, setWithEstimate] = useState(true);
 
-  const estimatedMg = useMemo(() => (estimatedWeight ? estimatedWeight.div(MEGA).iaddn(1) : null), [estimatedWeight]);
+  const estimatedMg = useMemo(() => (estimatedWeight ? estimatedWeight.div(MEGA).iaddn(1) : null), [
+    estimatedWeight
+  ]);
 
   useEffect((): void => {
     withEstimate && estimatedMg && setMegaGas(estimatedMg);
@@ -54,16 +62,34 @@ function InputMegaGas({ className, estimatedWeight, help, isCall, weight: { exec
         onChange={isDisabled ? undefined : setMegaGas}
         value={isDisabled ? undefined : isCall && withEstimate ? BN_ZERO : megaGas}
       >
-        {(estimatedWeight || isCall) && <Toggle isOverlay label={isCall ? t<string>(withEstimate ? 'use estimated gas' : 'specify gas') : t<string>('use estimated gas')} onChange={setWithEstimate} value={withEstimate} />}
+        {(estimatedWeight || isCall) && (
+          <Toggle
+            isOverlay
+            label={
+              isCall
+                ? t<string>(withEstimate ? 'use estimated gas' : 'specify gas')
+                : t<string>('use estimated gas')
+            }
+            onChange={setWithEstimate}
+            value={withEstimate}
+          />
+        )}
       </InputNumber>
       <div className="contracts--InputMegaGas-meter">
         {t<string>('{{executionTime}}s execution time', {
           replace: { executionTime: executionTime < 0.001 ? '<0.001' : executionTime.toFixed(3) }
         })}
         <aside>
-          {t<string>('{{percentage}}% of block time', { replace: { percentage: percentage.toFixed(3) } })}
+          {t<string>('{{percentage}}% of block time', {
+            replace: { percentage: percentage.toFixed(3) }
+          })}
         </aside>
-        <Progress className="contracts--InputMegaGas-progress" color={percentage < 100 ? 'green' : 'red'} total={100} value={percentage} />
+        <Progress
+          className="contracts--InputMegaGas-progress"
+          color={percentage < 100 ? 'green' : 'red'}
+          total={100}
+          value={percentage}
+        />
       </div>
     </div>
   );

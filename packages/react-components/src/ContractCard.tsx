@@ -18,7 +18,11 @@ interface Props extends ComponentProps {
   contract: Contract;
 }
 
-function ContractCard({ className, contract: { abi, address }, navigateTo }: Props): React.ReactElement<Props> {
+function ContractCard({
+  className,
+  contract: { abi, address },
+  navigateTo
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const onExecute = useCallback((): void => {

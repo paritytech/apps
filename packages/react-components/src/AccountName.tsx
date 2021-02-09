@@ -36,7 +36,11 @@ const KNOWN: [AccountId, string][] = [
 const displayCache = new Map<string, React.ReactNode>();
 const nameCache = new Map<string, [boolean, [React.ReactNode, React.ReactNode | null]]>();
 
-function defaultOrAddr(defaultName = '', _address: AccountId | AccountIndex | Address | string | Uint8Array, _accountIndex?: AccountIndex | null): [[React.ReactNode, React.ReactNode | null], boolean, boolean, boolean] {
+function defaultOrAddr(
+  defaultName = '',
+  _address: AccountId | AccountIndex | Address | string | Uint8Array,
+  _accountIndex?: AccountIndex | null
+): [[React.ReactNode, React.ReactNode | null], boolean, boolean, boolean] {
   const known = KNOWN.find(([known]) => known.eq(_address));
 
   if (known) {
@@ -66,14 +70,22 @@ function defaultOrAddr(defaultName = '', _address: AccountId | AccountIndex | Ad
   return [[extracted, null], !isAddressExtracted, isAddressExtracted, false];
 }
 
-function extractName(address: string, accountIndex?: AccountIndex, defaultName?: string): React.ReactNode {
+function extractName(
+  address: string,
+  accountIndex?: AccountIndex,
+  defaultName?: string
+): React.ReactNode {
   const displayCached = displayCache.get(address);
 
   if (displayCached) {
     return displayCached;
   }
 
-  const [[displayFirst, displaySecond], isLocal, isAddress, isSpecial] = defaultOrAddr(defaultName, address, accountIndex);
+  const [[displayFirst, displaySecond], isLocal, isAddress, isSpecial] = defaultOrAddr(
+    defaultName,
+    address,
+    accountIndex
+  );
 
   return (
     <div className="via-identity">
@@ -92,7 +104,11 @@ function extractName(address: string, accountIndex?: AccountIndex, defaultName?:
   );
 }
 
-function createIdElem(badgeType: 'green' | 'brown' | 'gray', nameElem: React.ReactNode, infoElem: React.ReactNode): React.ReactNode {
+function createIdElem(
+  badgeType: 'green' | 'brown' | 'gray',
+  nameElem: React.ReactNode,
+  infoElem: React.ReactNode
+): React.ReactNode {
   return (
     <div className="via-identity">
       <Badge info={infoElem} isInline isSmall isTooltip type={badgeType} />
@@ -103,10 +119,20 @@ function createIdElem(badgeType: 'green' | 'brown' | 'gray', nameElem: React.Rea
 
 function extractIdentity(address: string, identity: DeriveAccountRegistration): React.ReactNode {
   const judgements = identity.judgements.filter(([, judgement]): boolean => !judgement.isFeePaid);
-  const isGood = judgements.some(([, judgement]): boolean => judgement.isKnownGood || judgement.isReasonable);
-  const isBad = judgements.some(([, judgement]): boolean => judgement.isErroneous || judgement.isLowQuality);
-  const displayName = isGood ? identity.display : (identity.display || '').replace(/[^\x20-\x7E]/g, '');
-  const displayParent = identity.displayParent ? (isGood ? identity.displayParent : identity.displayParent.replace(/[^\x20-\x7E]/g, '')) : undefined;
+  const isGood = judgements.some(
+    ([, judgement]): boolean => judgement.isKnownGood || judgement.isReasonable
+  );
+  const isBad = judgements.some(
+    ([, judgement]): boolean => judgement.isErroneous || judgement.isLowQuality
+  );
+  const displayName = isGood
+    ? identity.display
+    : (identity.display || '').replace(/[^\x20-\x7E]/g, '');
+  const displayParent = identity.displayParent
+    ? isGood
+      ? identity.displayParent
+      : identity.displayParent.replace(/[^\x20-\x7E]/g, '')
+    : undefined;
   const nameElem = displayParent ? (
     <span className={`name ${isGood ? 'isGood' : ''}`}>
       <span className="top">{displayParent}</span>
@@ -115,19 +141,36 @@ function extractIdentity(address: string, identity: DeriveAccountRegistration): 
   ) : (
     <span className={`name ${isGood ? 'isGood' : ''}`}>{displayName}</span>
   );
-  const infoElem = <Icon icon={identity.parent ? 'caret square up outline' : isGood ? 'check' : 'minus'} />;
+  const infoElem = (
+    <Icon icon={identity.parent ? 'caret square up outline' : isGood ? 'check' : 'minus'} />
+  );
   const badgeType = isGood ? 'green' : isBad ? 'brown' : 'gray';
 
-  nameCache.set(address, [false, displayParent ? [displayParent, displayName] : [displayName, null]]);
+  nameCache.set(address, [
+    false,
+    displayParent ? [displayParent, displayName] : [displayName, null]
+  ]);
   displayCache.set(address, createIdElem(badgeType, nameElem, infoElem));
 
   return createIdElem(badgeType, nameElem, infoElem);
 }
 
-function AccountName({ children, className = '', defaultName, label, noLookup, onClick, override, toggle, value }: Props): React.ReactElement<Props> {
+function AccountName({
+  children,
+  className = '',
+  defaultName,
+  label,
+  noLookup,
+  onClick,
+  override,
+  toggle,
+  value
+}: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [value]);
-  const [name, setName] = useState<React.ReactNode>(() => extractName((value || '').toString(), undefined, defaultName));
+  const [name, setName] = useState<React.ReactNode>(() =>
+    extractName((value || '').toString(), undefined, defaultName)
+  );
 
   // set the actual nickname, local name, accountIndex, accountId
   useEffect((): void => {
@@ -135,7 +178,11 @@ function AccountName({ children, className = '', defaultName, label, noLookup, o
     const cacheAddr = (accountId || value || '').toString();
 
     if (isFunction(api.query.identity?.identityOf)) {
-      setName(() => (identity?.display ? extractIdentity(cacheAddr, identity) : extractName(cacheAddr, accountIndex)));
+      setName(() =>
+        identity?.display
+          ? extractIdentity(cacheAddr, identity)
+          : extractName(cacheAddr, accountIndex)
+      );
     } else if (nickname) {
       nameCache.set(cacheAddr, [false, [nickname, null]]);
 

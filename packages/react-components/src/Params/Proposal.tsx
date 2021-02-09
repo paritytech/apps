@@ -8,7 +8,16 @@ import React, { useCallback } from 'react';
 
 import ExtrinsicDisplay from './Extrinsic';
 
-function ProposalDisplay({ className = '', isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
+function ProposalDisplay({
+  className = '',
+  isDisabled,
+  isError,
+  label,
+  onChange,
+  onEnter,
+  onEscape,
+  withLabel
+}: Props): React.ReactElement<Props> {
   const { apiDefaultTxSudo } = useApi();
   const _onChange = useCallback(
     ({ isValid, value }: RawParam): void => {
@@ -27,7 +36,20 @@ function ProposalDisplay({ className = '', isDisabled, isError, label, onChange,
     [onChange]
   );
 
-  return <ExtrinsicDisplay className={className} defaultValue={apiDefaultTxSudo} isDisabled={isDisabled} isError={isError} isPrivate label={label} onChange={_onChange} onEnter={onEnter} onEscape={onEscape} withLabel={withLabel} />;
+  return (
+    <ExtrinsicDisplay
+      className={className}
+      defaultValue={apiDefaultTxSudo}
+      isDisabled={isDisabled}
+      isError={isError}
+      isPrivate
+      label={label}
+      onChange={_onChange}
+      onEnter={onEnter}
+      onEscape={onEscape}
+      withLabel={withLabel}
+    />
+  );
 }
 
 export default React.memo(ProposalDisplay);

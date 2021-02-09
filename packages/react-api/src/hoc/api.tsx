@@ -9,7 +9,10 @@ import { ApiConsumer } from '../ApiContext';
 import { ApiProps, SubtractProps } from '../types';
 import { DefaultProps } from './types';
 
-export default function withApi<P extends ApiProps>(Inner: React.ComponentType<P>, defaultProps: DefaultProps = {}): React.ComponentType<any> {
+export default function withApi<P extends ApiProps>(
+  Inner: React.ComponentType<P>,
+  defaultProps: DefaultProps = {}
+): React.ComponentType<any> {
   return class WithApi extends React.PureComponent<SubtractProps<P, ApiProps>> {
     private component: any = React.createRef();
 
@@ -17,7 +20,10 @@ export default function withApi<P extends ApiProps>(Inner: React.ComponentType<P
       return (
         <ApiConsumer>
           {(apiProps?: ApiProps): React.ReactNode => {
-            assert(apiProps && apiProps.api, "Application root must be wrapped inside 'react-api/Api' to provide API context");
+            assert(
+              apiProps && apiProps.api,
+              "Application root must be wrapped inside 'react-api/Api' to provide API context"
+            );
 
             return (
               <Inner

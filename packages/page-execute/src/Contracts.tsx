@@ -19,11 +19,24 @@ import { ComponentProps as Props } from './types';
 //     .filter((contract): contract is Contract => !!contract);
 // }
 
-function Contracts({ accounts, basePath, className, contracts: contractAddresses, hasContracts, navigateTo }: Props): React.ReactElement<Props> {
+function Contracts({
+  accounts,
+  basePath,
+  className,
+  contracts: contractAddresses,
+  hasContracts,
+  navigateTo
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const contracts = useMemo((): Contract[] | null => {
-    return accounts && contractAddresses && (contractAddresses.map((address): Contract | null => getContractForAddress(api, address)).filter((contract: Contract | null): boolean => !!contract) as Contract[]);
+    return (
+      accounts &&
+      contractAddresses &&
+      (contractAddresses
+        .map((address): Contract | null => getContractForAddress(api, address))
+        .filter((contract: Contract | null): boolean => !!contract) as Contract[])
+    );
   }, [accounts, api, contractAddresses]);
 
   return (
@@ -35,7 +48,8 @@ function Contracts({ accounts, basePath, className, contracts: contractAddresses
             t<string>('Call messages on deployed contracts.')
           ) : (
             <>
-              {t<string>('You can add an existing contract by')} <Link to={'/execute/add'}>{t<string>('adding its address')}</Link>
+              {t<string>('You can add an existing contract by')}{' '}
+              <Link to={'/execute/add'}>{t<string>('adding its address')}</Link>
               {`. ${t<string>('Or deploy from a')} `}
               <Link to={'/deploy'}>{t<string>('code bundle')}</Link>
               {'.'}
@@ -48,7 +62,12 @@ function Contracts({ accounts, basePath, className, contracts: contractAddresses
           {hasContracts && <h3>{t<string>('Deployed Contracts')}</h3>}
           {contracts?.map(
             (contract): React.ReactNode => (
-              <ContractCard basePath={basePath} contract={contract} key={contract.address.toString()} navigateTo={navigateTo} />
+              <ContractCard
+                basePath={basePath}
+                contract={contract}
+                key={contract.address.toString()}
+                navigateTo={navigateTo}
+              />
             )
           )}
           <Button.Group>

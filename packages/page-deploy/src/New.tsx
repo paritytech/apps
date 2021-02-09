@@ -3,9 +3,30 @@
 
 import { useAbi } from '@canvas-ui/page-contracts';
 import { Code } from '@canvas-ui/page-contracts/types';
-import { Button, ContractParams, Dropdown, Input, InputAddress, InputBalance, InputMegaGas, InputName, Labelled, MessageArg, MessageSignature, PendingTx, Toggle, TxButton } from '@canvas-ui/react-components';
+import {
+  Button,
+  ContractParams,
+  Dropdown,
+  Input,
+  InputAddress,
+  InputBalance,
+  InputMegaGas,
+  InputName,
+  Labelled,
+  MessageArg,
+  MessageSignature,
+  PendingTx,
+  Toggle,
+  TxButton
+} from '@canvas-ui/react-components';
 import { ELEV_2_CSS } from '@canvas-ui/react-components/styles/constants';
-import { useAccountId, useApi, useGasWeight, useNonEmptyString, useNonZeroBn } from '@canvas-ui/react-hooks';
+import {
+  useAccountId,
+  useApi,
+  useGasWeight,
+  useNonEmptyString,
+  useNonZeroBn
+} from '@canvas-ui/react-hooks';
 import { useTxParams } from '@canvas-ui/react-params';
 import { extractValues } from '@canvas-ui/react-params/values';
 import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
@@ -46,14 +67,19 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
   const [accountId, setAccountId] = useAccountId();
   const [endowment, setEndowment, isEndowmentValid] = useNonZeroBn(ENDOWMENT);
   const [constructorIndex, setConstructorIndex] = useState(parseInt(index, 10) || 0);
-  const [name, setName, isNameValid, isNameError] = useNonEmptyString(t(defaultContractName(code?.name)));
+  const [name, setName, isNameValid, isNameError] = useNonEmptyString(
+    t(defaultContractName(code?.name))
+  );
   const { abi, isAbiValid } = useAbi(code);
   const [salt, setSalt] = useState(randomAsHex());
   const [withSalt, setWithSalt] = useState(false);
   const [initTx, setInitTx] = useState<SubmittableExtrinsic<'promise'> | null>(null);
   const pendingTx = usePendingTx('contracts.instantiate');
 
-  const blueprint = useMemo(() => (isAbiValid && code?.codeHash && abi ? new Blueprint(api, abi, code.codeHash) : null), [api, code?.codeHash, abi, isAbiValid]);
+  const blueprint = useMemo(
+    () => (isAbiValid && code?.codeHash && abi ? new Blueprint(api, abi, code.codeHash) : null),
+    [api, code?.codeHash, abi, isAbiValid]
+  );
 
   const constructOptions = useMemo((): ConstructOptions => {
     if (!abi) {
@@ -69,9 +95,14 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
     });
   }, [abi]);
 
-  const isValid = useMemo((): boolean => isNameValid && isEndowmentValid && isWeightValid && !!accountId, [accountId, isEndowmentValid, isNameValid, isWeightValid]);
+  const isValid = useMemo(
+    (): boolean => isNameValid && isEndowmentValid && isWeightValid && !!accountId,
+    [accountId, isEndowmentValid, isNameValid, isWeightValid]
+  );
 
-  const [params, values = [], setValues] = useTxParams(abi?.constructors[constructorIndex].args || []);
+  const [params, values = [], setValues] = useTxParams(
+    abi?.constructors[constructorIndex].args || []
+  );
 
   useEffect((): void => {
     endowment &&
@@ -80,7 +111,12 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
           try {
             const identifier = abi?.constructors[constructorIndex].identifier;
 
-            return identifier ? blueprint.tx[identifier]({ gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment }, ...extractValues(values)) : null;
+            return identifier
+              ? blueprint.tx[identifier](
+                  { gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment },
+                  ...extractValues(values)
+                )
+              : null;
           } catch (error) {
             console.error(error);
 
@@ -143,16 +179,38 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
   }, [abi, navigateTo]);
 
   return (
-    <PendingTx additionalDetails={additionalDetails} instructions={t<string>('Sign and submit to instantiate this contract derived from the code hash.')} registry={abi?.registry} {...pendingTx}>
+    <PendingTx
+      additionalDetails={additionalDetails}
+      instructions={t<string>(
+        'Sign and submit to instantiate this contract derived from the code hash.'
+      )}
+      registry={abi?.registry}
+      {...pendingTx}
+    >
       <div className={className}>
         <header>
           <h1>
-            {t<string>('Deploy {{contractName}}', { replace: { contractName: code?.name || 'Contract' } })}
+            {t<string>('Deploy {{contractName}}', {
+              replace: { contractName: code?.name || 'Contract' }
+            })}
           </h1>
-          <div className="instructions">{t<string>('Choose an account to deploy the contract from, give it a descriptive name and set the endowment amount.')}</div>
+          <div className="instructions">
+            {t<string>(
+              'Choose an account to deploy the contract from, give it a descriptive name and set the endowment amount.'
+            )}
+          </div>
         </header>
         <section>
-          <InputAddress help={t<string>('Specify the user account to use for this deployment. Any fees will be deducted from this account.')} isInput={false} label={t<string>('deployment account')} onChange={setAccountId} type="account" value={accountId} />
+          <InputAddress
+            help={t<string>(
+              'Specify the user account to use for this deployment. Any fees will be deducted from this account.'
+            )}
+            isInput={false}
+            label={t<string>('deployment account')}
+            onChange={setAccountId}
+            type="account"
+            value={accountId}
+          />
           <InputName isContract isError={isNameError} onChange={setName} value={name || ''} />
           <Labelled label={t<string>('Code Bundle')}>
             <div className="code-bundle">
@@ -163,7 +221,9 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
           {abi && (
             <>
               <Dropdown
-                help={t<string>('The deployment constructor information for this contract, as provided by the ABI.')}
+                help={t<string>(
+                  'The deployment constructor information for this contract, as provided by the ABI.'
+                )}
                 isDisabled={abi.constructors.length <= 1}
                 label={t<string>('Deployment Constructor')}
                 onChange={setConstructorIndex}
@@ -173,7 +233,15 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
               <ContractParams onChange={setValues} params={params || []} values={values} />
             </>
           )}
-          <InputBalance help={t<string>('The allotted endowment for this contract, i.e. the amount transferred to the contract upon instantiation.')} isError={!isEndowmentValid} label={t<string>('Endowment')} onChange={setEndowment} value={endowment} />
+          <InputBalance
+            help={t<string>(
+              'The allotted endowment for this contract, i.e. the amount transferred to the contract upon instantiation.'
+            )}
+            isError={!isEndowmentValid}
+            label={t<string>('Endowment')}
+            onChange={setEndowment}
+            value={endowment}
+          />
           <Input
             help={t<string>('A hex or string value that acts as a salt for this deployment.')}
             isDisabled={!withSalt}
@@ -182,11 +250,31 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
             placeholder={t<string>('0x prefixed hex, e.g. 0x1234 or ascii data')}
             value={withSalt ? salt : t<string>('<none>')}
           >
-            <Toggle className="toggle" isOverlay label={t<string>('use deployment salt')} onChange={setWithSalt} value={withSalt} />
+            <Toggle
+              className="toggle"
+              isOverlay
+              label={t<string>('use deployment salt')}
+              onChange={setWithSalt}
+              value={withSalt}
+            />
           </Input>
-          <InputMegaGas help={t<string>('The maximum amount of gas that can be used by this deployment, if the code requires more, the deployment will fail.')} weight={useWeightHook} />
+          <InputMegaGas
+            help={t<string>(
+              'The maximum amount of gas that can be used by this deployment, if the code requires more, the deployment will fail.'
+            )}
+            weight={useWeightHook}
+          />
           <Button.Group>
-            <TxButton accountId={accountId} extrinsic={initTx} icon="cloud-upload-alt" isDisabled={!isValid} isPrimary label={t<string>('Deploy')} onSuccess={_onSuccess} withSpinner />
+            <TxButton
+              accountId={accountId}
+              extrinsic={initTx}
+              icon="cloud-upload-alt"
+              isDisabled={!isValid}
+              isPrimary
+              label={t<string>('Deploy')}
+              onSuccess={_onSuccess}
+              withSpinner
+            />
           </Button.Group>
         </section>
       </div>

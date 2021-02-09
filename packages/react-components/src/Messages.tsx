@@ -31,7 +31,12 @@ function Messages(props: Props): React.ReactElement<Props> {
 
   return (
     <div className={classes(className, 'ui--Messages', isLabelled && 'labelled')}>
-      {withConstructors && constructors.map((constructor, index): React.ReactNode => <Message isConstructor key={`constructor-${index}`} message={constructor} />)}
+      {withConstructors &&
+        constructors.map(
+          (constructor, index): React.ReactNode => (
+            <Message isConstructor key={`constructor-${index}`} message={constructor} />
+          )
+        )}
       {messages.map(
         (message, index): React.ReactNode => (
           <Message isConstructor key={`message-${index}`} message={message} />

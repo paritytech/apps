@@ -11,7 +11,13 @@ const SKIP_NS = ['app-123code', 'app-dashboard', 'app-i18n', 'translation'].map(
 function getEntries(langRoot) {
   return fs
     .readdirSync(langRoot)
-    .filter(entry => !['.', '..'].includes(entry) && fs.lstatSync(path.join(langRoot, entry)).isFile() && entry.endsWith('.json') && !['index.json'].includes(entry))
+    .filter(
+      entry =>
+        !['.', '..'].includes(entry) &&
+        fs.lstatSync(path.join(langRoot, entry)).isFile() &&
+        entry.endsWith('.json') &&
+        !['index.json'].includes(entry)
+    )
     .sort();
 }
 
@@ -37,7 +43,9 @@ function sortLanguage(lang) {
   });
 
   if (lang === 'en') {
-    const filtered = entries.filter(entry => !SKIP_NS.includes(entry)).filter(entry => hasKeys[entry]);
+    const filtered = entries
+      .filter(entry => !SKIP_NS.includes(entry))
+      .filter(entry => hasKeys[entry]);
 
     fs.writeFileSync(path.join(langRoot, 'index.json'), JSON.stringify(filtered, null, 2));
   }
@@ -46,7 +54,10 @@ function sortLanguage(lang) {
 function checkLanguages() {
   const languages = fs
     .readdirSync(i18nRoot)
-    .filter(entry => !['.', '..'].includes(entry) && fs.lstatSync(path.join(i18nRoot, entry)).isDirectory())
+    .filter(
+      entry =>
+        !['.', '..'].includes(entry) && fs.lstatSync(path.join(i18nRoot, entry)).isDirectory()
+    )
     .sort();
 
   languages.forEach(sortLanguage);

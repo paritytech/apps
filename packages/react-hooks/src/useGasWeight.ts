@@ -17,10 +17,29 @@ const BN_MILLION = new BN(1_000_000);
 export default function useWeight(): UseWeight {
   const { api } = useApi();
   const [blockTime] = useBlockTime();
-  const [megaGas, _setMegaGas] = useState<BN>((api.consts.system.blockWeights ? api.consts.system.blockWeights.perClass.normal.maxExtrinsic : (api.consts.system.maximumBlockWeight as Weight)).div(BN_MILLION).div(BN_TEN));
+  const [megaGas, _setMegaGas] = useState<BN>(
+    (api.consts.system.blockWeights
+      ? api.consts.system.blockWeights.perClass.normal.maxExtrinsic
+      : (api.consts.system.maximumBlockWeight as Weight)
+    )
+      .div(BN_MILLION)
+      .div(BN_TEN)
+  );
   const [isEmpty, setIsEmpty] = useState(false);
 
-  const setMegaGas = useCallback((value?: BN | undefined) => _setMegaGas(value || (api.consts.system.blockWeights ? api.consts.system.blockWeights.perClass.normal.maxExtrinsic : (api.consts.system.maximumBlockWeight as Weight)).div(BN_MILLION).div(BN_TEN)), [api]);
+  const setMegaGas = useCallback(
+    (value?: BN | undefined) =>
+      _setMegaGas(
+        value ||
+          (api.consts.system.blockWeights
+            ? api.consts.system.blockWeights.perClass.normal.maxExtrinsic
+            : (api.consts.system.maximumBlockWeight as Weight)
+          )
+            .div(BN_MILLION)
+            .div(BN_TEN)
+      ),
+    [api]
+  );
 
   return useMemo((): UseWeight => {
     let executionTime = 0;
@@ -32,7 +51,11 @@ export default function useWeight(): UseWeight {
       weight = megaGas.mul(BN_MILLION);
       executionTime = weight
         .muln(blockTime)
-        .div(api.consts.system.blockWeights ? api.consts.system.blockWeights.perClass.normal.maxExtrinsic : (api.consts.system.maximumBlockWeight as Weight))
+        .div(
+          api.consts.system.blockWeights
+            ? api.consts.system.blockWeights.perClass.normal.maxExtrinsic
+            : (api.consts.system.maximumBlockWeight as Weight)
+        )
         .toNumber();
       percentage = (executionTime / blockTime) * 100;
 

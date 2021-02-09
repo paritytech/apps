@@ -17,7 +17,14 @@ interface Props {
   withLabel?: boolean;
 }
 
-function Base({ children, className = '', isOuter, label, size = 'full', withLabel }: Props): React.ReactElement<Props> {
+function Base({
+  children,
+  className = '',
+  isOuter,
+  label,
+  size = 'full',
+  withLabel
+}: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>
       <Labelled className={size} isOuter label={label} withEllipsis withLabel={withLabel}>

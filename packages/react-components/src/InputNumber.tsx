@@ -53,7 +53,10 @@ function getRegex(isDecimal: boolean): RegExp {
 }
 
 function getSiOptions(): { text: string; value: string }[] {
-  return formatBalance.getOptions().map(({ power, text, value }): { text: string; value: string } => ({
+  return formatBalance.getOptions().map(({ power, text, value }): {
+    text: string;
+    value: string;
+  } => ({
     text: power === 0 ? TokenUnit.abbr : text,
     value
   }));
@@ -88,7 +91,13 @@ function isValidNumber(bn: BN, bitLength: BitLength, isZeroable: boolean, maxVal
   return true;
 }
 
-function inputToBn(input: string, si: SiDef | null, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): [BN, boolean] {
+function inputToBn(
+  input: string,
+  si: SiDef | null,
+  bitLength: BitLength,
+  isZeroable: boolean,
+  maxValue?: BN
+): [BN, boolean] {
   const [siPower, basePower, siUnitPower] = getSiPowers(si);
 
   // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
@@ -105,7 +114,9 @@ function inputToBn(input: string, si: SiDef | null, bitLength: BitLength, isZero
     const modString = input.replace(/^\d+\./, '');
     const mod = new BN(modString);
 
-    result = div.mul(BN_TEN.pow(siPower)).add(mod.mul(BN_TEN.pow(new BN(basePower + siUnitPower - modString.length))));
+    result = div
+      .mul(BN_TEN.pow(siPower))
+      .add(mod.mul(BN_TEN.pow(new BN(basePower + siUnitPower - modString.length))));
   } else {
     result = new BN(input.replace(/[^\d]/g, '')).mul(BN_TEN.pow(siPower));
   }
@@ -113,20 +124,36 @@ function inputToBn(input: string, si: SiDef | null, bitLength: BitLength, isZero
   return [result, isValidNumber(result, bitLength, isZeroable, maxValue)];
 }
 
-function getValuesFromString(value: string, si: SiDef | null, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): [string, BN, boolean] {
+function getValuesFromString(
+  value: string,
+  si: SiDef | null,
+  bitLength: BitLength,
+  isZeroable: boolean,
+  maxValue?: BN
+): [string, BN, boolean] {
   const [valueBn, isValid] = inputToBn(value, si, bitLength, isZeroable, maxValue);
 
   return [value, valueBn, isValid];
 }
 
 function getValuesFromBn(valueBn: BN, si: SiDef | null): [string, BN, boolean] {
-  const value = si ? valueBn.div(BN_TEN.pow(new BN(formatBalance.getDefaults().decimals + si.power))).toString() : valueBn.toString();
+  const value = si
+    ? valueBn.div(BN_TEN.pow(new BN(formatBalance.getDefaults().decimals + si.power))).toString()
+    : valueBn.toString();
 
   return [value, valueBn, true];
 }
 
-function getValues(value: BN | string = BN_ZERO, si: SiDef | null, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): [string, BN, boolean] {
-  return isBn(value) ? getValuesFromBn(value, si) : getValuesFromString(value, si, bitLength, isZeroable, maxValue);
+function getValues(
+  value: BN | string = BN_ZERO,
+  si: SiDef | null,
+  bitLength: BitLength,
+  isZeroable: boolean,
+  maxValue?: BN
+): [string, BN, boolean] {
+  return isBn(value)
+    ? getValuesFromBn(value, si)
+    : getValuesFromString(value, si, bitLength, isZeroable, maxValue);
 }
 
 function InputNumber({
@@ -155,15 +182,24 @@ function InputNumber({
   const { t } = useTranslation();
   const [si, setSi] = useState<SiDef | null>(isSi ? formatBalance.findSi('-') : null);
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
-  const [[value, valueBn, isValid], setValues] = useState<[string, BN, boolean]>(getValues(propsValue || defaultValue, si, bitLength, isZeroable, maxValue));
+  const [[value, valueBn, isValid], setValues] = useState<[string, BN, boolean]>(
+    getValues(propsValue || defaultValue, si, bitLength, isZeroable, maxValue)
+  );
 
   useEffect((): void => {
     onChange && onChange(valueBn);
   }, [onChange, valueBn]);
 
-  const _onChangeWithSi = useCallback((input: string, si: SiDef | null) => setValues(getValuesFromString(input, si, bitLength, isZeroable, maxValue)), [bitLength, isZeroable, maxValue]);
+  const _onChangeWithSi = useCallback(
+    (input: string, si: SiDef | null) =>
+      setValues(getValuesFromString(input, si, bitLength, isZeroable, maxValue)),
+    [bitLength, isZeroable, maxValue]
+  );
 
-  const _onChange = useCallback((input: string) => _onChangeWithSi(input, si), [_onChangeWithSi, si]);
+  const _onChange = useCallback((input: string) => _onChangeWithSi(input, si), [
+    _onChangeWithSi,
+    si
+  ]);
 
   useEffect((): void => {
     defaultValue && _onChange(defaultValue);
@@ -240,7 +276,15 @@ function InputNumber({
       type="text"
       value={value}
     >
-      {!!si && <Dropdown className="siDropdown" defaultValue={si.value} isButton onChange={_onSelectSiUnit} options={getSiOptions()} />}
+      {!!si && (
+        <Dropdown
+          className="siDropdown"
+          defaultValue={si.value}
+          isButton
+          onChange={_onSelectSiUnit}
+          options={getSiOptions()}
+        />
+      )}
       {children}
     </Input>
   );

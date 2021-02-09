@@ -22,8 +22,14 @@ export default function createOptions(api: ApiPromise, sectionName: string): Dro
       (value): DropdownOption => {
         const method = (section[value] as unknown) as StorageEntry;
         const type = method.meta.type;
-        const input = type.isMap ? type.asMap.key.toString() : type.isDoubleMap ? `${type.asDoubleMap.key1.toString()}, ${type.asDoubleMap.key2.toString()}` : '';
-        const output = method.meta.modifier.isOptional ? `Option<${unwrapStorageType(type)}>` : unwrapStorageType(type);
+        const input = type.isMap
+          ? type.asMap.key.toString()
+          : type.isDoubleMap
+          ? `${type.asDoubleMap.key1.toString()}, ${type.asDoubleMap.key2.toString()}`
+          : '';
+        const output = method.meta.modifier.isOptional
+          ? `Option<${unwrapStorageType(type)}>`
+          : unwrapStorageType(type);
 
         return {
           className: 'ui--DropdownLinked-Item',

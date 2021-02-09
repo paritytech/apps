@@ -9,7 +9,17 @@ import { Codec } from '@polkadot/types/types';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function Raw({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
+function Raw({
+  className = '',
+  defaultValue: { value },
+  isDisabled,
+  isError,
+  label,
+  onChange,
+  onEnter,
+  onEscape,
+  withLabel
+}: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
@@ -26,11 +36,27 @@ function Raw({ className = '', defaultValue: { value }, isDisabled, isError, lab
     [onChange]
   );
 
-  const defaultValue = value ? ((value as { toHex?: () => unknown }).toHex ? (value as Codec).toHex() : value) : '';
+  const defaultValue = value
+    ? (value as { toHex?: () => unknown }).toHex
+      ? (value as Codec).toHex()
+      : value
+    : '';
 
   return (
     <Bare className={className}>
-      <Input className="full" defaultValue={defaultValue as string} isDisabled={isDisabled} isError={isError || !isValid} label={label} onChange={_onChange} onEnter={onEnter} onEscape={onEscape} placeholder="Hex data" type="text" withLabel={withLabel} />
+      <Input
+        className="full"
+        defaultValue={defaultValue as string}
+        isDisabled={isDisabled}
+        isError={isError || !isValid}
+        label={label}
+        onChange={_onChange}
+        onEnter={onEnter}
+        onEscape={onEscape}
+        placeholder="Hex data"
+        type="text"
+        withLabel={withLabel}
+      />
     </Bare>
   );
 }

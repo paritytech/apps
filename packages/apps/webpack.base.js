@@ -33,7 +33,9 @@ function createWebpack(context, mode = 'production') {
 
     return alias;
   }, {});
-  const plugins = fs.existsSync(path.join(context, 'public')) ? new CopyWebpackPlugin({ patterns: [{ from: 'public' }] }) : [];
+  const plugins = fs.existsSync(path.join(context, 'public'))
+    ? new CopyWebpackPlugin({ patterns: [{ from: 'public' }] })
+    : [];
 
   return {
     context,
@@ -95,7 +97,17 @@ function createWebpack(context, mode = 'production') {
         },
         {
           include: [/semantic-ui-css/],
-          test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.eot$/, /\.ttf$/, /\.svg$/, /\.woff$/, /\.woff2$/],
+          test: [
+            /\.bmp$/,
+            /\.gif$/,
+            /\.jpe?g$/,
+            /\.png$/,
+            /\.eot$/,
+            /\.ttf$/,
+            /\.svg$/,
+            /\.woff$/,
+            /\.woff2$/
+          ],
           use: [
             {
               loader: require.resolve('null-loader')
@@ -112,7 +124,11 @@ function createWebpack(context, mode = 'production') {
       minimize: mode === 'production',
       splitChunks: {
         cacheGroups: {
-          ...mapChunks('robohash', [/* 00 */ /RoboHash\/(backgrounds|sets\/set1)/, /* 01 */ /RoboHash\/sets\/set(2|3)/, /* 02 */ /RoboHash\/sets\/set(4|5)/]),
+          ...mapChunks('robohash', [
+            /* 00 */ /RoboHash\/(backgrounds|sets\/set1)/,
+            /* 01 */ /RoboHash\/sets\/set(2|3)/,
+            /* 02 */ /RoboHash\/sets\/set(4|5)/
+          ]),
           ...mapChunks('polkadot', [
             /* 00 */ /node_modules\/@polkadot\/(wasm)/,
             /* 01 */ /node_modules\/(@polkadot\/(api|metadata|rpc|types))/,

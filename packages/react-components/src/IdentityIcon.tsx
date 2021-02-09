@@ -14,10 +14,18 @@ import uiSettings from '@polkadot/ui-settings';
 import { useTranslation } from './translate';
 
 export function getIdentityTheme(systemName: string): 'substrate' {
-  return ((uiSettings.icon === 'default' && getSystemIcon(systemName)) || uiSettings.icon) as 'substrate';
+  return ((uiSettings.icon === 'default' && getSystemIcon(systemName)) ||
+    uiSettings.icon) as 'substrate';
 }
 
-function IdentityIcon({ className = '', onCopy, prefix, size = 24, theme, value }: Props): React.ReactElement<Props> {
+function IdentityIcon({
+  className = '',
+  onCopy,
+  prefix,
+  size = 24,
+  theme,
+  value
+}: Props): React.ReactElement<Props> {
   const { systemName } = useApi();
   const { t } = useTranslation();
   const showNotification = useNotification();
@@ -46,7 +54,14 @@ function IdentityIcon({ className = '', onCopy, prefix, size = 24, theme, value 
 
   return (
     <div className={`ui--IdentityIcon-Outer ${className}`}>
-      <BaseIdentityIcon isHighlight={isValidator} onCopy={_onCopy} prefix={prefix} size={size} theme={thisTheme as 'substrate'} value={address} />
+      <BaseIdentityIcon
+        isHighlight={isValidator}
+        onCopy={_onCopy}
+        prefix={prefix}
+        size={size}
+        theme={thisTheme as 'substrate'}
+        value={address}
+      />
     </div>
   );
 }

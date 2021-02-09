@@ -12,7 +12,10 @@ export function getSystemIcon(systemName: string): 'beachball' | 'polkadot' | 's
   return (identityNodes[systemName.toLowerCase().replace(/-/g, ' ')] || 'substrate') as 'substrate';
 }
 
-export const getSystemChainColor = (systemChain: string, systemName: string): string | undefined => {
+export const getSystemChainColor = (
+  systemChain: string,
+  systemName: string
+): string | undefined => {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return chainColors[sanitize(systemChain)] || nodeColors[sanitize(systemName)];
 };

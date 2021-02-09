@@ -1,7 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ActionStatus, QueueAction$Add, QueueStatus, QueueTx } from '@canvas-ui/react-api/Status/types';
+import {
+  ActionStatus,
+  QueueAction$Add,
+  QueueStatus,
+  QueueTx
+} from '@canvas-ui/react-api/Status/types';
 import StatusDisplay from '@canvas-ui/react-components/Status/Status';
 import { useAccounts, useApi, useCall } from '@canvas-ui/react-hooks';
 import React, { useEffect } from 'react';
@@ -22,7 +27,12 @@ interface Props {
 
 let prevEventHash: string;
 
-function filterEvents(allAccounts: string[], t: <T = string>(key: string, opts?: Record<string, unknown>) => T, optionsAll?: KeyringOptions, events?: EventRecord[]): ActionStatus[] | null {
+function filterEvents(
+  allAccounts: string[],
+  t: <T = string>(key: string, opts?: Record<string, unknown>) => T,
+  optionsAll?: KeyringOptions,
+  events?: EventRecord[]
+): ActionStatus[] | null {
   const eventHash = xxhashAsHex(stringToU8a(JSON.stringify(events)));
 
   if (!optionsAll || !events || eventHash === prevEventHash) {

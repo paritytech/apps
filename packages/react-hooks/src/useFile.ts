@@ -14,7 +14,12 @@ interface FileOptions {
 }
 
 // Simple wrapper for a true/false toggle
-export default function useFile({ defaultValue = null, onChange, onRemove, validate = (file: FileState): boolean => file.data.length > 0 }: FileOptions | undefined = {}): UseFile {
+export default function useFile({
+  defaultValue = null,
+  onChange,
+  onRemove,
+  validate = (file: FileState): boolean => file.data.length > 0
+}: FileOptions | undefined = {}): UseFile {
   const [file, _setFile] = useState<FileState | null>(defaultValue);
 
   const setFile: React.Dispatch<FileState | null> = useCallback(

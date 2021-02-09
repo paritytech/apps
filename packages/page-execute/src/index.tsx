@@ -28,7 +28,10 @@ function ExecuteApp({ basePath, className, navigateTo }: Props): React.ReactElem
     }),
     [allAccounts, allContracts, basePath, hasContracts, isContract, navigateTo]
   );
-  const isLoading = useMemo((): boolean => !isContractsReady || !isAccountsReady, [isAccountsReady, isContractsReady]);
+  const isLoading = useMemo((): boolean => !isContractsReady || !isAccountsReady, [
+    isAccountsReady,
+    isContractsReady
+  ]);
 
   return (
     <main className={classes(className, 'execute--App', isLoading && 'isLoading')}>

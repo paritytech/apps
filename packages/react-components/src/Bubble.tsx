@@ -17,7 +17,13 @@ interface Props extends BareProps {
   label?: React.ReactNode;
 }
 
-function Bubble({ children, className = '', color, icon, label }: Props): React.ReactElement<Props> {
+function Bubble({
+  children,
+  className = '',
+  color,
+  icon,
+  label
+}: Props): React.ReactElement<Props> {
   return (
     <SUILabel className={classes('theme--default', 'ui--Bubble', className)} color={color}>
       <div className="ui--Bubble-header">

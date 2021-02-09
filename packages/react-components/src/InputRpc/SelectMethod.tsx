@@ -31,7 +31,17 @@ function SelectMethod(props: Props): React.ReactElement<Props> | null {
     return null;
   }
 
-  return <Dropdown className={classes('ui--DropdownLinked-Items', className)} isError={isError} onChange={onChange} options={options} transform={transform(props)} value={value.method} withLabel={false} />;
+  return (
+    <Dropdown
+      className={classes('ui--DropdownLinked-Items', className)}
+      isError={isError}
+      onChange={onChange}
+      options={options}
+      transform={transform(props)}
+      value={value.method}
+      withLabel={false}
+    />
+  );
 }
 
 export default React.memo(SelectMethod);

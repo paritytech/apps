@@ -32,12 +32,18 @@ function Abi({ abi, className, withConstructors = false }: Props): React.ReactEl
         <div className="contract-info">
           <div className="name">{name.toString()}</div>
           <div className="details">
-            {t<string>('version')} {version.toString()} {t<string>('by')} {authors.map(author => author.toString()).join(', ')}
+            {t<string>('version')} {version.toString()} {t<string>('by')}{' '}
+            {authors.map(author => author.toString()).join(', ')}
           </div>
         </div>
       </Expander>
       <Expander isOpen={isAbiOpen} onClick={toggleIsAbiOpen} summary={t<string>('ABI')}>
-        <Messages abi={abi} isLabelled={false} isRemovable={false} withConstructors={withConstructors} />
+        <Messages
+          abi={abi}
+          isLabelled={false}
+          isRemovable={false}
+          withConstructors={withConstructors}
+        />
       </Expander>
     </div>
   );

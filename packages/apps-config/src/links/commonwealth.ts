@@ -11,7 +11,10 @@ export default {
     Kusama: 'kusama',
     'Kusama CC3': 'kusama'
   },
-  create: (chain: string, path: string, data: BN | number | string, hash?: string): string => `https://commonwealth.im/${chain}/${path}/${HASH_PATHS.includes(path) ? hash || '' : data.toString()}`,
+  create: (chain: string, path: string, data: BN | number | string, hash?: string): string =>
+    `https://commonwealth.im/${chain}/${path}/${
+      HASH_PATHS.includes(path) ? hash || '' : data.toString()
+    }`,
   isActive: true,
   paths: {
     council: 'proposal/councilmotion',

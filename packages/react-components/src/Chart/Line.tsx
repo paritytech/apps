@@ -47,7 +47,12 @@ interface Config {
   }) => {
     ctx.save();
     ctx.fillStyle = '#fff';
-    ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
+    ctx.fillRect(
+      chartArea.left,
+      chartArea.top,
+      chartArea.right - chartArea.left,
+      chartArea.bottom - chartArea.top
+    );
     ctx.restore();
   }
 });
@@ -74,7 +79,12 @@ const chartOptions = {
   }
 };
 
-function calculateOptions(colors: (string | undefined)[] = [], legends: string[], labels: string[], values: (number | BN)[][]): State {
+function calculateOptions(
+  colors: (string | undefined)[] = [],
+  legends: string[],
+  labels: string[],
+  values: (number | BN)[][]
+): State {
   const chartData = values.reduce(
     (chartData, values, index): Config => {
       const color = colors[index] || alphaColor(COLORS[index]);
@@ -100,7 +110,13 @@ function calculateOptions(colors: (string | undefined)[] = [], legends: string[]
   };
 }
 
-function LineChart({ className = '', colors, labels, legends, values }: LineProps): React.ReactElement<LineProps> | null {
+function LineChart({
+  className = '',
+  colors,
+  labels,
+  legends,
+  values
+}: LineProps): React.ReactElement<LineProps> | null {
   const [{ chartData, chartOptions }, setState] = useState<State>({});
 
   useEffect((): void => {

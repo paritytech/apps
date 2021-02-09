@@ -20,7 +20,11 @@ function Signer({ children, className = '' }: Props): React.ReactElement<Props> 
       {children}
       {currentItem && (
         <Modal className={className} header={t<string>('Authorize transaction')} size="large">
-          {currentItem.isUnsigned ? <TxUnsigned currentItem={currentItem} /> : <TxSigned currentItem={currentItem} requestAddress={requestAddress} />}
+          {currentItem.isUnsigned ? (
+            <TxUnsigned currentItem={currentItem} />
+          ) : (
+            <TxSigned currentItem={currentItem} requestAddress={requestAddress} />
+          )}
         </Modal>
       )}
     </>

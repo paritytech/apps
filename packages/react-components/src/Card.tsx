@@ -12,8 +12,22 @@ interface Props {
   withBottomMargin?: boolean;
 }
 
-function Card({ children, className = '', isError, isSuccess, withBottomMargin }: Props): React.ReactElement<Props> {
-  return <article className={`ui--Card ${className} ${isError && !isSuccess ? 'error' : ''} ${!isError && isSuccess ? 'success' : ''} ${withBottomMargin ? 'withBottomMargin' : ''}`}>{children}</article>;
+function Card({
+  children,
+  className = '',
+  isError,
+  isSuccess,
+  withBottomMargin
+}: Props): React.ReactElement<Props> {
+  return (
+    <article
+      className={`ui--Card ${className} ${isError && !isSuccess ? 'error' : ''} ${
+        !isError && isSuccess ? 'success' : ''
+      } ${withBottomMargin ? 'withBottomMargin' : ''}`}
+    >
+      {children}
+    </article>
+  );
 }
 
 export default React.memo(styled(Card)`

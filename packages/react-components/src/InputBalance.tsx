@@ -56,10 +56,33 @@ function reformat(value: string | BN, isDisabled?: boolean): string {
     return fmt;
   }
 
-  return formatBalance(value, { forceUnit: '-', withSi: false }).replace(',', isDisabled ? ',' : '');
+  return formatBalance(value, { forceUnit: '-', withSi: false }).replace(
+    ',',
+    isDisabled ? ',' : ''
+  );
 }
 
-function InputBalance({ autoFocus, className = '', defaultValue: inDefault, help, isDisabled, isError, isFull, isZeroable, label, labelExtra, maxValue, onChange, onEnter, onEscape, placeholder, value, withEllipsis, withLabel, withMax }: Props): React.ReactElement<Props> {
+function InputBalance({
+  autoFocus,
+  className = '',
+  defaultValue: inDefault,
+  help,
+  isDisabled,
+  isError,
+  isFull,
+  isZeroable,
+  label,
+  labelExtra,
+  maxValue,
+  onChange,
+  onEnter,
+  onEscape,
+  placeholder,
+  value,
+  withEllipsis,
+  withLabel,
+  withMax
+}: Props): React.ReactElement<Props> {
   const [defaultValue, setDefaultValue] = useState<string | undefined>();
 
   useEffect((): void => {
@@ -98,7 +121,9 @@ export default React.memo(styled(InputBalance)`
     right: 6.5rem;
   }
 
-  .ui.action.input.ui--Input .ui.primary.buttons .ui.disabled.button.compact.floating.selection.dropdown.ui--SiDropdown {
+  .ui.action.input.ui--Input
+    .ui.primary.buttons
+    .ui.disabled.button.compact.floating.selection.dropdown.ui--SiDropdown {
     border-style: solid;
     opacity: 1 !important;
   }

@@ -24,10 +24,29 @@ interface Props {
   value: string[];
 }
 
-function Tags({ children, className, color = 'grey', isEditable, isEditing, onChange, onSave, onToggleIsEditing, size = 'small', value }: Props): React.ReactElement<Props> {
+function Tags({
+  children,
+  className,
+  color = 'grey',
+  isEditable,
+  isEditing,
+  onChange,
+  onSave,
+  onToggleIsEditing,
+  size = 'small',
+  value
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
-  const contents = useMemo((): React.ReactNode => (value.length ? value.map((tag): React.ReactNode => <Tag color={color} key={tag} label={tag} size={size} />) : <label>{t<string>('no tags')}</label>), [color, size, t, value]);
+  const contents = useMemo(
+    (): React.ReactNode =>
+      value.length ? (
+        value.map((tag): React.ReactNode => <Tag color={color} key={tag} label={tag} size={size} />)
+      ) : (
+        <label>{t<string>('no tags')}</label>
+      ),
+    [color, size, t, value]
+  );
 
   const _onSave = useCallback((): void => {
     onSave && onSave();
@@ -37,9 +56,20 @@ function Tags({ children, className, color = 'grey', isEditable, isEditing, onCh
   return (
     <div className={classes('ui--Tags', className)}>
       {isEditable && isEditing ? (
-        <InputTags defaultValue={value} onBlur={_onSave} onChange={onChange} onClose={_onSave} openOnFocus searchInput={{ autoFocus: true }} value={value} withLabel={false} />
+        <InputTags
+          defaultValue={value}
+          onBlur={_onSave}
+          onChange={onChange}
+          onClose={_onSave}
+          openOnFocus
+          searchInput={{ autoFocus: true }}
+          value={value}
+          withLabel={false}
+        />
       ) : (
-        <div className="tags--toggle">{isEditable ? <EditButton onClick={onToggleIsEditing}>{contents}</EditButton> : contents}</div>
+        <div className="tags--toggle">
+          {isEditable ? <EditButton onClick={onToggleIsEditing}>{contents}</EditButton> : contents}
+        </div>
       )}
       {children}
     </div>

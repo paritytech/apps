@@ -17,7 +17,11 @@ let ledger: Ledger | null = null;
 
 export function isLedgerCapable(): boolean {
   try {
-    return !!((window as unknown) as { USB?: unknown }).USB && !!api && ALLOWED_CHAINS.map(([g]) => g).includes(api.genesisHash.toHex());
+    return (
+      !!((window as unknown) as { USB?: unknown }).USB &&
+      !!api &&
+      ALLOWED_CHAINS.map(([g]) => g).includes(api.genesisHash.toHex())
+    );
   } catch (error) {
     return false;
   }

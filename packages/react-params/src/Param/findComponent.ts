@@ -45,11 +45,43 @@ const SPECIAL_TYPES = ['AccountId', 'AccountIndex', 'Address', 'Balance'];
 const componentDef: TypeToComponent[] = [
   {
     c: Account,
-    t: ['AccountId', 'AccountIdOf', 'Address', 'AuthorityId', 'LookupSource', 'LookupTarget', 'SessionKey', 'ValidatorId']
+    t: [
+      'AccountId',
+      'AccountIdOf',
+      'Address',
+      'AuthorityId',
+      'LookupSource',
+      'LookupTarget',
+      'SessionKey',
+      'ValidatorId'
+    ]
   },
   {
     c: Amount,
-    t: ['AccountIndex', 'AssetId', 'BlockNumber', 'Gas', 'Index', 'Nonce', 'ParaId', 'ProposalIndex', 'PropIndex', 'ReferendumIndex', 'i8', 'i16', 'i32', 'i64', 'i128', 'u8', 'u16', 'u32', 'u64', 'u128', 'u256', 'VoteIndex']
+    t: [
+      'AccountIndex',
+      'AssetId',
+      'BlockNumber',
+      'Gas',
+      'Index',
+      'Nonce',
+      'ParaId',
+      'ProposalIndex',
+      'PropIndex',
+      'ReferendumIndex',
+      'i8',
+      'i16',
+      'i32',
+      'i64',
+      'i128',
+      'u8',
+      'u16',
+      'u32',
+      'u64',
+      'u128',
+      'u256',
+      'VoteIndex'
+    ]
   },
   { c: Balance, t: ['Amount', 'AssetOf', 'Balance', 'BalanceOf'] },
   { c: Bool, t: ['bool'] },
@@ -131,8 +163,12 @@ function fromDef({ displayName, info, sub, type }: TypeDef): string {
   }
 }
 
-export default function findComponent(def: TypeDef, overrides: ComponentMap = {}): React.ComponentType<Props> {
-  const findOne = (type: string): React.ComponentType<Props> | null => overrides[type] || components[type];
+export default function findComponent(
+  def: TypeDef,
+  overrides: ComponentMap = {}
+): React.ComponentType<Props> {
+  const findOne = (type: string): React.ComponentType<Props> | null =>
+    overrides[type] || components[type];
   const type = fromDef(def);
   let Component = findOne(type);
 
@@ -162,7 +198,11 @@ export default function findComponent(def: TypeDef, overrides: ComponentMap = {}
     if (!warnList.includes(type)) {
       warnList.push(type);
       error && console.error(`params: findComponent: ${error}`);
-      console.info(`params: findComponent: No pre-defined component for type ${type} from ${JSON.stringify(def)}, using defaults`);
+      console.info(
+        `params: findComponent: No pre-defined component for type ${type} from ${JSON.stringify(
+          def
+        )}, using defaults`
+      );
     }
   }
 

@@ -65,7 +65,14 @@ function signerIconName(status: QueueTxStatus): IconName {
   }
 }
 
-function renderStatus({ account, action, id, message, removeItem, status }: QueueStatus): React.ReactNode {
+function renderStatus({
+  account,
+  action,
+  id,
+  message,
+  removeItem,
+  status
+}: QueueStatus): React.ReactNode {
   return (
     <div className={`item ${status}`} key={id}>
       <div className="wrapper">
@@ -75,7 +82,11 @@ function renderStatus({ account, action, id, message, removeItem, status }: Queu
             <Icon icon={iconName(status)} />
           </div>
           <div className="desc">
-            <div className="header">{Array.isArray(action) ? action.map((action, index) => <div key={index}>{action}</div>) : action}</div>
+            <div className="header">
+              {Array.isArray(action)
+                ? action.map((action, index) => <div key={index}>{action}</div>)
+                : action}
+            </div>
             {account && <AddressMini value={account} />}
             <div className="status">{message}</div>
           </div>
@@ -103,8 +114,12 @@ function renderItem({ error, extrinsic, id, removeItem, rpc, status }: QueueTx):
     <div className={`item ${status}`} key={id}>
       <div className="wrapper">
         <div className="container">
-          {STATUS_COMPLETE.includes(status) && <Icon className="close-button" icon="times" onClick={removeItem} />}
-          <div className="short">{icon === 'spinner' ? <Spinner variant="push" /> : <Icon icon={icon} />}</div>
+          {STATUS_COMPLETE.includes(status) && (
+            <Icon className="close-button" icon="times" onClick={removeItem} />
+          )}
+          <div className="short">
+            {icon === 'spinner' ? <Spinner variant="push" /> : <Icon icon={icon} />}
+          </div>
           <div className="desc">
             <div className="header">
               {section}.{method}
@@ -122,7 +137,9 @@ function filterSt(stqueue?: QueueStatus[]): QueueStatus[] {
 }
 
 function filterTx(txqueue?: QueueTx[]): [QueueTx[], QueueTx[]] {
-  const allTx = (txqueue || []).filter(({ status }) => !['completed', 'incomplete'].includes(status));
+  const allTx = (txqueue || []).filter(
+    ({ status }) => !['completed', 'incomplete'].includes(status)
+  );
 
   return [allTx, allTx.filter(({ status }) => STATUS_COMPLETE.includes(status))];
 }
@@ -154,7 +171,13 @@ function Status({ className = '' }: Props): React.ReactElement<Props> | null {
     <div className={`ui--Status ${className}`}>
       {allSt.length + completedTx.length > 1 && (
         <div className="dismiss">
-          <Button icon="times" isFull isPrimary label={t<string>('Dismiss all notifications')} onClick={_onDismiss} />
+          <Button
+            icon="times"
+            isFull
+            isPrimary
+            label={t<string>('Dismiss all notifications')}
+            onClick={_onDismiss}
+          />
         </div>
       )}
       {allTx.map(renderItem)}

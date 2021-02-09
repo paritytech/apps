@@ -38,16 +38,45 @@ function SettingsApp({ className }: Props): React.ReactElement<Props> {
         <h1>{t<string>('Settings')}</h1>
       </header>
       <section>
-        <Dropdown isDisabled={isCustom} label={t<string>('Node to connect to')} onChange={onChangeUrl} options={endpointOptions} value={url} />
+        <Dropdown
+          isDisabled={isCustom}
+          label={t<string>('Node to connect to')}
+          onChange={onChangeUrl}
+          options={endpointOptions}
+          value={url}
+        />
         <div>
-          <Toggle className="settings--customToggle" defaultValue={isCustom} label={t<string>('Use custom endpoint')} onChange={onChangeCustom} />
-          {isCustom && <Input className="custom-url" defaultValue={url} isError={!isValid} onChange={onChangeUrl} withLabel={false} />}
+          <Toggle
+            className="settings--customToggle"
+            defaultValue={isCustom}
+            label={t<string>('Use custom endpoint')}
+            onChange={onChangeCustom}
+          />
+          {isCustom && (
+            <Input
+              className="custom-url"
+              defaultValue={url}
+              isError={!isValid}
+              onChange={onChangeUrl}
+              withLabel={false}
+            />
+          )}
         </div>
-        <Dropdown defaultValue={true} isDisabled label={t<string>('Theme')} options={themeOptions} />
+        <Dropdown
+          defaultValue={true}
+          isDisabled
+          label={t<string>('Theme')}
+          options={themeOptions}
+        />
       </section>
       <footer>
         <Button.Group>
-          <Button isDisabled={isChanged === null} isPrimary label={t<string>('Save')} onClick={isChanged ? saveAndReload : save} />
+          <Button
+            isDisabled={isChanged === null}
+            isPrimary
+            label={t<string>('Save')}
+            onClick={isChanged ? saveAndReload : save}
+          />
         </Button.Group>
       </footer>
     </main>

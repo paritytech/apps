@@ -69,10 +69,19 @@ export class TokenUnit {
 }
 
 async function retrieve(api: ApiPromise): Promise<ChainData> {
-  const [properties, systemChain, systemChainType, systemName, systemVersion, injectedAccounts] = await Promise.all([
+  const [
+    properties,
+    systemChain,
+    systemChainType,
+    systemName,
+    systemVersion,
+    injectedAccounts
+  ] = await Promise.all([
     api.rpc.system.properties(),
     api.rpc.system.chain(),
-    api.rpc.system.chainType ? api.rpc.system.chainType() : Promise.resolve(registry.createType('ChainType', 'Live')),
+    api.rpc.system.chainType
+      ? api.rpc.system.chainType()
+      : Promise.resolve(registry.createType('ChainType', 'Live')),
     api.rpc.system.name(),
     api.rpc.system.version(),
     injectedPromise
@@ -83,7 +92,9 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
             address,
             meta: {
               ...meta,
-              name: `${meta.name || 'unknown'} (${meta.source === 'polkadot-js' ? 'extension' : meta.source})`,
+              name: `${meta.name || 'unknown'} (${
+                meta.source === 'polkadot-js' ? 'extension' : meta.source
+              })`,
               whenCreated
             }
           })
@@ -107,16 +118,31 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
 }
 
 async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiState> {
-  const { injectedAccounts, properties, systemChain, systemChainType, systemName, systemVersion } = await retrieve(api);
-  const ss58Format = uiSettings.prefix === -1 ? properties.ss58Format.unwrapOr(DEFAULT_SS58).toNumber() : uiSettings.prefix;
+  const {
+    injectedAccounts,
+    properties,
+    systemChain,
+    systemChainType,
+    systemName,
+    systemVersion
+  } = await retrieve(api);
+  const ss58Format =
+    uiSettings.prefix === -1
+      ? properties.ss58Format.unwrapOr(DEFAULT_SS58).toNumber()
+      : uiSettings.prefix;
   const tokenSymbol = properties.tokenSymbol.unwrapOr(undefined)?.toString();
   const tokenDecimals = properties.tokenDecimals.unwrapOr(DEFAULT_DECIMALS).toNumber();
-  const isDevelopment = systemChainType.isDevelopment || systemChainType.isLocal || isTestChain(systemChain);
+  const isDevelopment =
+    systemChainType.isDevelopment || systemChainType.isLocal || isTestChain(systemChain);
 
-  console.log(`chain: ${systemChain} (${systemChainType.toString()}), ${JSON.stringify(properties)}`);
+  console.log(
+    `chain: ${systemChain} (${systemChainType.toString()}), ${JSON.stringify(properties)}`
+  );
 
   // explicitly override the ss58Format as specified
-  registry.setChainProperties(registry.createType('ChainProperties', { ...properties, ss58Format }));
+  registry.setChainProperties(
+    registry.createType('ChainProperties', { ...properties, ss58Format })
+  );
 
   // FIXME This should be removed (however we have some hanging bits, e.g. vanity)
   setSS58Format(ss58Format);
@@ -167,7 +193,17 @@ function Api({ children, store, url }: Props): React.ReactElement<Props> | null 
   const [isApiConnected, setIsApiConnected] = useState(false);
   const [isApiInitialized, setIsApiInitialized] = useState(false);
   const [extensions, setExtensions] = useState<InjectedExtension[] | undefined>();
-  const props = useMemo<ApiProps>(() => ({ ...state, api, extensions, isApiConnected, isApiInitialized, isWaitingInjected: !extensions }), [extensions, isApiConnected, isApiInitialized, state]);
+  const props = useMemo<ApiProps>(
+    () => ({
+      ...state,
+      api,
+      extensions,
+      isApiConnected,
+      isApiInitialized,
+      isWaitingInjected: !extensions
+    }),
+    [extensions, isApiConnected, isApiInitialized, state]
+  );
 
   // initial initialization
   useEffect((): void => {

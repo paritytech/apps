@@ -10,7 +10,13 @@ const i18nRoot = path.join(__dirname, '../packages/apps/public/locales');
 function getEntries(langRoot) {
   return fs
     .readdirSync(langRoot)
-    .filter(entry => !['.', '..'].includes(entry) && fs.lstatSync(path.join(langRoot, entry)).isFile() && entry.endsWith('.json') && !['index.json', 'translation.json'].includes(entry))
+    .filter(
+      entry =>
+        !['.', '..'].includes(entry) &&
+        fs.lstatSync(path.join(langRoot, entry)).isFile() &&
+        entry.endsWith('.json') &&
+        !['index.json', 'translation.json'].includes(entry)
+    )
     .sort();
 }
 
@@ -56,7 +62,12 @@ function checkLanguage(lang) {
 
 function checkLanguages() {
   fs.readdirSync(i18nRoot)
-    .filter(entry => !['.', '..'].includes(entry) && fs.lstatSync(path.join(i18nRoot, entry)).isDirectory() && entry !== 'en')
+    .filter(
+      entry =>
+        !['.', '..'].includes(entry) &&
+        fs.lstatSync(path.join(i18nRoot, entry)).isDirectory() &&
+        entry !== 'en'
+    )
     .sort()
     .forEach(checkLanguage);
 }

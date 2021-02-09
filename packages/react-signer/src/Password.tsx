@@ -28,7 +28,14 @@ function getPair(address?: string | null): KeyringPair | null {
   }
 }
 
-function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Props): React.ReactElement<Props> | null {
+function Unlock({
+  address,
+  className,
+  error,
+  onChange,
+  onEnter,
+  tabIndex
+}: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const [pair, setPair] = useState<KeyringPair | null>(null);
   const [password, setPassword] = useState('');
@@ -48,7 +55,18 @@ function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Prop
   return (
     <Modal.Columns className={className}>
       <Modal.Column>
-        <Password autoFocus isError={!!error} label={t<string>('unlock account with password')} labelExtra={error && <div className="errorLabel">{t<string>('wrong password supplied')}</div>} onChange={setPassword} onEnter={onEnter} tabIndex={tabIndex} value={password} />
+        <Password
+          autoFocus
+          isError={!!error}
+          label={t<string>('unlock account with password')}
+          labelExtra={
+            error && <div className="errorLabel">{t<string>('wrong password supplied')}</div>
+          }
+          onChange={setPassword}
+          onEnter={onEnter}
+          tabIndex={tabIndex}
+          value={password}
+        />
       </Modal.Column>
       <Modal.Column>
         <p>{t<string>('Unlock the sending account to allow signing of this transaction.')}</p>

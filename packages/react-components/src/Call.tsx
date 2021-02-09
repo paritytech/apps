@@ -43,9 +43,23 @@ interface Extracted {
   values: Value[];
 }
 
-function Call({ children, className = '', labelHash, mortality, onError, tip, value, withBorder, withHash }: Props): React.ReactElement<Props> {
+function Call({
+  children,
+  className = '',
+  labelHash,
+  mortality,
+  onError,
+  tip,
+  value,
+  withBorder,
+  withHash
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
-  const [{ hash, params, values }, setExtracted] = useState<Extracted>({ hash: null, params: [], values: [] });
+  const [{ hash, params, values }, setExtracted] = useState<Extracted>({
+    hash: null,
+    params: [],
+    values: []
+  });
 
   useEffect((): void => {
     const params = GenericCall.filterOrigin(value.meta).map(
@@ -67,7 +81,13 @@ function Call({ children, className = '', labelHash, mortality, onError, tip, va
 
   return (
     <div className={classes('ui--Extrinsic', className)}>
-      <Params isDisabled onError={onError} params={params} values={values} withBorder={withBorder} />
+      <Params
+        isDisabled
+        onError={onError}
+        params={params}
+        values={values}
+        withBorder={withBorder}
+      />
       {children}
       <div className="ui--Extrinsic--toplevel">
         {hash && (

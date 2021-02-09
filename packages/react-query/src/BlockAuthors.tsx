@@ -37,7 +37,12 @@ const ValidatorsContext: React.Context<string[]> = React.createContext<string[]>
 function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const queryPoints = useCall<EraRewardPoints>(isApiReady && api.derive.staking?.currentPoints, []);
-  const [state, setState] = useState<Authors>({ byAuthor, eraPoints, lastBlockAuthors: [], lastHeaders: [] });
+  const [state, setState] = useState<Authors>({
+    byAuthor,
+    eraPoints,
+    lastBlockAuthors: [],
+    lastHeaders: []
+  });
   const [validators, setValidators] = useState<string[]>([]);
   const [isChainPurged, setIsChainPurged] = useState(false);
 
@@ -59,11 +64,14 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
 
         // Set block one hash to check if contract/code purge needed
         api
-          .queryMulti([api.query.system.chain, [api.query.system.blockHash, 1]], ([chainName, blockOneHash]) => {
-            if (chainName.toString() === 'Development') {
-              window.localStorage.setItem('blockOneHash', blockOneHash.toString());
+          .queryMulti(
+            [api.query.system.chain, [api.query.system.blockHash, 1]],
+            ([chainName, blockOneHash]) => {
+              if (chainName.toString() === 'Development') {
+                window.localStorage.setItem('blockOneHash', blockOneHash.toString());
+              }
             }
-          })
+          )
           .catch(console.error);
 
         // subscribe to new headers
@@ -82,7 +90,11 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
                 console.log(blockOneHash.toString());
                 console.log(blockOneHashRef);
 
-                if (chainName === 'Development' && blockOneHashRef && (JSON.parse(blockOneHashRef) as string) !== blockOneHash.toString()) {
+                if (
+                  chainName === 'Development' &&
+                  blockOneHashRef &&
+                  (JSON.parse(blockOneHashRef) as string) !== blockOneHash.toString()
+                ) {
                   setIsChainPurged(true);
                 }
 
@@ -100,7 +112,10 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
                 }
 
                 lastHeaders = lastHeaders
-                  .filter((old, index): boolean => index < MAX_HEADERS && old.number.unwrap().lt(blockNumber))
+                  .filter(
+                    (old, index): boolean =>
+                      index < MAX_HEADERS && old.number.unwrap().lt(blockNumber)
+                  )
                   .reduce(
                     (next, header): HeaderExtended[] => {
                       next.push(header);
@@ -130,7 +145,10 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
 
   useEffect((): void => {
     if (queryPoints) {
-      const entries = [...queryPoints.individual.entries()].map(([accountId, points]) => [accountId.toString(), formatNumber(points)]);
+      const entries = [...queryPoints.individual.entries()].map(([accountId, points]) => [
+        accountId.toString(),
+        formatNumber(points)
+      ]);
       const current = Object.keys(eraPoints);
 
       // we have an update, clear all previous

@@ -64,7 +64,9 @@ function Content({ className }: Props): React.ReactElement<Props> {
             <Icon icon="warning-circle" />
             {t<string>('You are not connected to a node.')}
             <br />
-            {t<string>('Ensure that your node is running and that your Websocket endpoint is reachable.')}
+            {t<string>(
+              'Ensure that your node is running and that your Websocket endpoint is reachable.'
+            )}
           </div>
         </div>
       </div>
@@ -86,7 +88,12 @@ function Content({ className }: Props): React.ReactElement<Props> {
           }
         >
           <ErrorBoundary trigger={name}>
-            <Component basePath={`/${name}`} location={location} navigateTo={navigateTo} onStatusChange={queueAction} />
+            <Component
+              basePath={`/${name}`}
+              location={location}
+              navigateTo={navigateTo}
+              onStatusChange={queueAction}
+            />
             {!sawGuide && !isLoading && <GuideModal onClose={setSawGuide} />}
             <HelpWidget />
           </ErrorBoundary>
