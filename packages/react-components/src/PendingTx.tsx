@@ -3,7 +3,7 @@
 
 import { registry as baseRegistry } from '@canvas-ui/react-api';
 import { QueueTx } from '@canvas-ui/react-api/Status/types';
-import useSendTx from '@canvas-ui/react-signer/useSendTx';
+import useSendTx from './useSendTx';
 import { truncate } from '@canvas-ui/react-util';
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
@@ -26,13 +26,15 @@ interface Props extends BareProps {
   requestAddress: string;
 }
 
-function PendingTx ({ additionalDetails,
+function PendingTx({
+  additionalDetails,
   children,
   className,
   currentItem,
   instructions,
   registry,
-  requestAddress }: Props): React.ReactElement<Props> | null {
+  requestAddress
+}: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const willSend = useRef(false);
   const { onCancel, onSend, tx } = useSendTx(currentItem, requestAddress);
@@ -44,7 +46,7 @@ function PendingTx ({ additionalDetails,
   }, [onSend]);
 
   useEffect((): (() => void) => {
-    return function (): void {
+    return function(): void {
       if (!willSend.current) {
         onCancel();
       }
@@ -65,16 +67,12 @@ function PendingTx ({ additionalDetails,
     switch (`${section}.${method}`) {
       case 'contracts.putCode':
         details = (
-          <div className='details'>
+          <div className="details">
             <Labelled label={t<string>('Account')}>
-              <InputAddress defaultValue={accountId}
-                isDisabled
-                value={accountId}
-                withLabel={false} />
+              <InputAddress defaultValue={accountId} isDisabled value={accountId} withLabel={false} />
             </Labelled>
             <Labelled label={t<string>('Code Bundle Name')}>{additionalDetails.name}</Labelled>
-            <Labelled isMonospace
-              label={t<string>('Code Bytes')}>
+            <Labelled isMonospace label={t<string>('Code Bytes')}>
               {truncate(extrinsic.args[0].toString())}
             </Labelled>
           </div>
@@ -82,17 +80,13 @@ function PendingTx ({ additionalDetails,
         break;
       case 'contracts.instantiate':
         details = (
-          <div className='details'>
+          <div className="details">
             <Labelled label={t<string>('Account')}>
-              <InputAddress defaultValue={accountId}
-                isDisabled
-                value={accountId}
-                withLabel={false} />
+              <InputAddress defaultValue={accountId} isDisabled value={accountId} withLabel={false} />
             </Labelled>
             <Labelled label={t<string>('Contract Name')}>{additionalDetails.name}</Labelled>
 
-            <Labelled isMonospace
-              label={t<string>('Constructor')}>
+            <Labelled isMonospace label={t<string>('Constructor')}>
               {additionalDetails.constructor}
             </Labelled>
             {(additionalDetails.params as { arg: React.ReactNode; type: TypeDef; value: string }[]).map(
@@ -101,27 +95,18 @@ function PendingTx ({ additionalDetails,
                 index
               ): React.ReactNode => {
                 return (
-                  <Labelled isIndented
-                    isLabelMonospace
-                    isMonospace
-                    key={`arg-${index}`}
-                    label={arg}>
-                    <Data isTrimmed
-                      registry={registry}
-                      type={type}
-                      value={value} />
+                  <Labelled isIndented isLabelMonospace isMonospace key={`arg-${index}`} label={arg}>
+                    <Data isTrimmed registry={registry} type={type} value={value} />
                   </Labelled>
                 );
               }
             )}
             <Labelled label={t<string>('Endowment')}>{truncate(extrinsic.args[0].toString())}</Labelled>
             <Labelled label={t<string>('Weight')}>{truncate(extrinsic.args[1].toString())}</Labelled>
-            <Labelled isMonospace
-              label={t<string>('Code Hash')}>
+            <Labelled isMonospace label={t<string>('Code Hash')}>
               {truncate(extrinsic.args[2].toString())}
             </Labelled>
-            <Labelled isMonospace
-              label={t<string>('Data')}>
+            <Labelled isMonospace label={t<string>('Data')}>
               {truncate(extrinsic.args[3].toString())}
             </Labelled>
           </div>
@@ -129,12 +114,9 @@ function PendingTx ({ additionalDetails,
         break;
       case 'contracts.call':
         details = (
-          <div className='details'>
+          <div className="details">
             <Labelled label={t<string>('Account')}>
-              <InputAddress defaultValue={accountId}
-                isDisabled
-                value={accountId}
-                withLabel={false} />
+              <InputAddress defaultValue={accountId} isDisabled value={accountId} withLabel={false} />
             </Labelled>
             <Labelled label={t<string>('Contract to Call')}>
               <InputAddress
@@ -144,8 +126,7 @@ function PendingTx ({ additionalDetails,
                 withLabel={false}
               />
             </Labelled>
-            <Labelled isMonospace
-              label={t<string>('Message to Call')}>
+            <Labelled isMonospace label={t<string>('Message to Call')}>
               {additionalDetails.message}
             </Labelled>
             {(additionalDetails.params as { arg: React.ReactNode; type: TypeDef; value: string }[]).map(
@@ -154,23 +135,15 @@ function PendingTx ({ additionalDetails,
                 index
               ): React.ReactNode => {
                 return (
-                  <Labelled isIndented
-                    isLabelMonospace
-                    isMonospace
-                    key={`arg-${index}`}
-                    label={arg}>
-                    <Data isTrimmed
-                      registry={registry}
-                      type={type}
-                      value={value} />
+                  <Labelled isIndented isLabelMonospace isMonospace key={`arg-${index}`} label={arg}>
+                    <Data isTrimmed registry={registry} type={type} value={value} />
                   </Labelled>
                 );
               }
             )}
             <Labelled label={t<string>('Endowment')}>{truncate(extrinsic.args[1].toString())}</Labelled>
             <Labelled label={t<string>('Weight')}>{truncate(extrinsic.args[2].toString())}</Labelled>
-            <Labelled isMonospace
-              label={t<string>('Data')}>
+            <Labelled isMonospace label={t<string>('Data')}>
               {truncate(extrinsic.args[3].toString())}
             </Labelled>
           </div>
@@ -186,7 +159,7 @@ function PendingTx ({ additionalDetails,
           <h1>
             {section}.{method}
           </h1>
-          <div className='instructions'>{meta.documentation}</div>
+          <div className="instructions">{meta.documentation}</div>
         </header>
         <section>{details}</section>
       </>
@@ -199,13 +172,10 @@ function PendingTx ({ additionalDetails,
         {content}
         <footer>
           <h3>{t<string>('Sign & Submit')}</h3>
-          <div className='instructions'>{instructions}</div>
-          <Button.Group className='buttons-submit'>
-            <Button isPrimary
-              label={t<string>('Sign & Submit')}
-              onClick={_onSend} />
-            <Button label={t<string>('Cancel')}
-              onClick={onCancel} />
+          <div className="instructions">{instructions}</div>
+          <Button.Group className="buttons-submit">
+            <Button isPrimary label={t<string>('Sign & Submit')} onClick={_onSend} />
+            <Button label={t<string>('Cancel')} onClick={onCancel} />
           </Button.Group>
         </footer>
       </div>
