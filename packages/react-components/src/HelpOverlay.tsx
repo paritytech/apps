@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useToggle } from '@canvas-ui/react-hooks'
-import React from 'react'
-import ReactMd from 'react-markdown'
-import styled from 'styled-components'
+import { useToggle } from '@canvas-ui/react-hooks';
+import React from 'react';
+import ReactMd from 'react-markdown';
+import styled from 'styled-components';
 
-import Icon from './Icon'
-import { BareProps } from './types'
+import Icon from './Icon';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  md: string
+  md: string;
 }
 
 function HelpOverlay({ className = '', md }: Props): React.ReactElement<Props> {
-  const [isVisible, toggleVisible] = useToggle()
+  const [isVisible, toggleVisible] = useToggle();
 
   return (
     <div className={className}>
@@ -28,7 +28,7 @@ function HelpOverlay({ className = '', md }: Props): React.ReactElement<Props> {
         <ReactMd className="help-content" escapeHtml={false} source={md} />
       </div>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(HelpOverlay)`
@@ -69,4 +69,4 @@ export default React.memo(styled(HelpOverlay)`
       right: 0;
     }
   }
-`)
+`);

@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Static } from '@canvas-ui/react-components'
-import React, { useCallback } from 'react'
+import { Static } from '@canvas-ui/react-components';
+import React, { useCallback } from 'react';
 
-import { Props, RawParamOnChangeValue } from '../types'
-import Amount from './Amount'
+import { Props, RawParamOnChangeValue } from '../types';
+import Amount from './Amount';
 
 function Moment({
   className = '',
@@ -17,9 +17,9 @@ function Moment({
   onEnter,
   onEscape,
   type,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
-  const _onChange = useCallback((value: RawParamOnChangeValue) => onChange && onChange(value), [onChange])
+  const _onChange = useCallback((value: RawParamOnChangeValue) => onChange && onChange(value), [onChange]);
 
   if (isDisabled) {
     return (
@@ -30,7 +30,7 @@ function Moment({
         label={label}
         withLabel={withLabel}
       />
-    )
+    );
   }
 
   return (
@@ -46,7 +46,7 @@ function Moment({
       type={type}
       withLabel={withLabel}
     />
-  )
+  );
 }
 
-export default React.memo(Moment)
+export default React.memo(Moment);

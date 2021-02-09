@@ -1,48 +1,48 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Modal, Password } from '@canvas-ui/react-components'
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import { Modal, Password } from '@canvas-ui/react-components';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { KeyringPair } from '@polkadot/keyring/types'
-import keyring from '@polkadot/ui-keyring'
+import { KeyringPair } from '@polkadot/keyring/types';
+import keyring from '@polkadot/ui-keyring';
 
-import { useTranslation } from './translate'
+import { useTranslation } from './translate';
 
 interface Props {
-  address: string
-  className?: string
-  error?: string
-  onChange: (password: string) => void
-  onEnter?: () => void
-  password: string
-  tabIndex?: number
+  address: string;
+  className?: string;
+  error?: string;
+  onChange: (password: string) => void;
+  onEnter?: () => void;
+  password: string;
+  tabIndex?: number;
 }
 
 function getPair(address?: string | null): KeyringPair | null {
   try {
-    return keyring.getPair(address as string)
+    return keyring.getPair(address as string);
   } catch (error) {
-    return null
+    return null;
   }
 }
 
 function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Props): React.ReactElement<Props> | null {
-  const { t } = useTranslation()
-  const [pair, setPair] = useState<KeyringPair | null>(null)
-  const [password, setPassword] = useState('')
+  const { t } = useTranslation();
+  const [pair, setPair] = useState<KeyringPair | null>(null);
+  const [password, setPassword] = useState('');
 
   useEffect((): void => {
-    setPair(getPair(address))
-  }, [address])
+    setPair(getPair(address));
+  }, [address]);
 
   useEffect((): void => {
-    onChange(password)
-  }, [onChange, password])
+    onChange(password);
+  }, [onChange, password]);
 
   if (!pair || !pair.isLocked || pair.meta.isInjected) {
-    return null
+    return null;
   }
 
   return (
@@ -63,7 +63,7 @@ function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Prop
         <p>{t<string>('Unlock the sending account to allow signing of this transaction.')}</p>
       </Modal.Column>
     </Modal.Columns>
-  )
+  );
 }
 
 export default React.memo(styled(Unlock)`
@@ -71,4 +71,4 @@ export default React.memo(styled(Unlock)`
     margin-right: 2rem;
     color: #9f3a38 !important;
   }
-`)
+`);

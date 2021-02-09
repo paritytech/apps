@@ -1,27 +1,27 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputBalance, Modal, Toggle } from '@canvas-ui/react-components'
-import BN from 'bn.js'
-import React, { useEffect, useState } from 'react'
+import { InputBalance, Modal, Toggle } from '@canvas-ui/react-components';
+import BN from 'bn.js';
+import React, { useEffect, useState } from 'react';
 
-import { BN_ZERO } from '@polkadot/util'
+import { BN_ZERO } from '@polkadot/util';
 
-import { useTranslation } from './translate'
+import { useTranslation } from './translate';
 
 interface Props {
-  className?: string
-  onChange: (tip: BN) => void
+  className?: string;
+  onChange: (tip: BN) => void;
 }
 
 function Tip({ className, onChange }: Props): React.ReactElement<Props> | null {
-  const { t } = useTranslation()
-  const [tip, setTip] = useState(BN_ZERO)
-  const [showTip, setShowTip] = useState(false)
+  const { t } = useTranslation();
+  const [tip, setTip] = useState(BN_ZERO);
+  const [showTip, setShowTip] = useState(false);
 
   useEffect((): void => {
-    onChange(showTip ? tip : BN_ZERO)
-  }, [onChange, showTip, tip])
+    onChange(showTip ? tip : BN_ZERO);
+  }, [onChange, showTip, tip]);
 
   return (
     <Modal.Columns className={className}>
@@ -53,7 +53,7 @@ function Tip({ className, onChange }: Props): React.ReactElement<Props> | null {
         </p>
       </Modal.Column>
     </Modal.Columns>
-  )
+  );
 }
 
-export default React.memo(Tip)
+export default React.memo(Tip);

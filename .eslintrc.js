@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-const base = require('@polkadot/dev/config/eslint.cjs')
+const base = require('@polkadot/dev/config/eslint.cjs');
 
 // add override for any (a metric ton of them, initial conversion)
 module.exports = {
@@ -14,11 +14,11 @@ module.exports = {
     '.yarn/**',
     '**/build/*',
     '**/coverage/*',
-    '**/node_modules/*',
+    '**/node_modules/*'
   ],
   parserOptions: {
     ...base.parserOptions,
-    project: ['./tsconfig.json'],
+    project: ['./tsconfig.json']
   },
   rules: {
     ...base.rules,
@@ -29,7 +29,7 @@ module.exports = {
     'header/header': [
       2,
       'line',
-      [{ pattern: ' Copyright \\d{4}(-\\d{4})? @canvas-ui/' }, ' SPDX-License-Identifier: Apache-2.0'],
-    ],
-  },
-}
+      [{ pattern: ' Copyright \\d{4}(-\\d{4})? @canvas-ui/' }, ' SPDX-License-Identifier: Apache-2.0']
+    ]
+  }
+};

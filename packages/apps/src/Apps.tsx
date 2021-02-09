@@ -1,73 +1,73 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { getSystemChainColor } from '@canvas-ui/apps-config/ui'
-import { defaultColor } from '@canvas-ui/apps-config/ui/general'
-import { ScrollToTop } from '@canvas-ui/react-components'
-import { PORTAL_ID } from '@canvas-ui/react-components/InputAddressMulti/SelectedDrag'
-import GlobalStyle from '@canvas-ui/react-components/styles'
-import { BareProps as Props } from '@canvas-ui/react-components/types'
-import { useApi } from '@canvas-ui/react-hooks'
-import React, { useCallback, useMemo, useState } from 'react'
-import store from 'store'
-import styled from 'styled-components'
+import { getSystemChainColor } from '@canvas-ui/apps-config/ui';
+import { defaultColor } from '@canvas-ui/apps-config/ui/general';
+import { ScrollToTop } from '@canvas-ui/react-components';
+import { PORTAL_ID } from '@canvas-ui/react-components/InputAddressMulti/SelectedDrag';
+import GlobalStyle from '@canvas-ui/react-components/styles';
+import { BareProps as Props } from '@canvas-ui/react-components/types';
+import { useApi } from '@canvas-ui/react-hooks';
+import React, { useCallback, useMemo, useState } from 'react';
+import store from 'store';
+import styled from 'styled-components';
 
-import { SIDEBAR_MENU_THRESHOLD, SideBarTransition } from './constants'
-import Content from './Content'
-import SideBar from './SideBar'
-import WarmUp from './WarmUp'
+import { SIDEBAR_MENU_THRESHOLD, SideBarTransition } from './constants';
+import Content from './Content';
+import SideBar from './SideBar';
+import WarmUp from './WarmUp';
 
 interface SidebarState {
-  isCollapsed: boolean
-  isMenu: boolean
-  isMenuOpen: boolean
-  transition: SideBarTransition
+  isCollapsed: boolean;
+  isMenu: boolean;
+  isMenuOpen: boolean;
+  transition: SideBarTransition;
 }
 
 function saveSidebar(sidebar: SidebarState): SidebarState {
-  return store.set('sidebar', sidebar) as SidebarState
+  return store.set('sidebar', sidebar) as SidebarState;
 }
 
 function Apps({ className = '' }: Props): React.ReactElement<Props> {
-  const { systemChain, systemName } = useApi()
+  const { systemChain, systemName } = useApi();
   const [sidebar, setSidebar] = useState<SidebarState>({
     isCollapsed: false,
     isMenuOpen: false,
     transition: SideBarTransition.COLLAPSED,
     ...store.get('sidebar', {}),
-    isMenu: window.innerWidth < SIDEBAR_MENU_THRESHOLD,
-  })
+    isMenu: window.innerWidth < SIDEBAR_MENU_THRESHOLD
+  });
   const uiHighlight = useMemo((): string | undefined => getSystemChainColor(systemChain, systemName), [
     systemChain,
-    systemName,
-  ])
+    systemName
+  ]);
 
   const _collapse = useCallback(
     (): void => setSidebar((sidebar: SidebarState) => saveSidebar({ ...sidebar, isCollapsed: !sidebar.isCollapsed })),
     []
-  )
+  );
   const _toggleMenu = useCallback(
     (): void =>
       setSidebar((sidebar: SidebarState) => saveSidebar({ ...sidebar, isCollapsed: false, isMenuOpen: true })),
     []
-  )
+  );
   const _handleResize = useCallback((): void => {
     const transition =
       window.innerWidth < SIDEBAR_MENU_THRESHOLD
         ? SideBarTransition.MINIMISED_AND_EXPANDED
-        : SideBarTransition.EXPANDED_AND_MAXIMISED
+        : SideBarTransition.EXPANDED_AND_MAXIMISED;
 
     setSidebar((sidebar: SidebarState) =>
       saveSidebar({
         ...sidebar,
         isMenu: transition === SideBarTransition.MINIMISED_AND_EXPANDED,
         isMenuOpen: false,
-        transition,
+        transition
       })
-    )
-  }, [])
+    );
+  }, []);
 
-  const { isCollapsed, isMenuOpen } = sidebar
+  const { isCollapsed, isMenuOpen } = sidebar;
 
   return (
     <>
@@ -91,7 +91,7 @@ function Apps({ className = '' }: Props): React.ReactElement<Props> {
       </div>
       <WarmUp />
     </>
-  )
+  );
 }
 
 export default React.memo(styled(Apps)`
@@ -222,4 +222,4 @@ export default React.memo(styled(Apps)`
       opacity: 1;
     }
   }
-`)
+`);

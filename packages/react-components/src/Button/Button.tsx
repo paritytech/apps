@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ThemeProps } from '../types'
-import type { ButtonProps } from './types'
+import type { ThemeProps } from '../types';
+import type { ButtonProps } from './types';
 
-import React, { useCallback } from 'react'
-import styled from 'styled-components'
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
 
-import Icon from '../Icon'
-import Spinner from '../Spinner'
+import Icon from '../Icon';
+import Spinner from '../Spinner';
 
 function Button({
   children,
@@ -29,9 +29,9 @@ function Button({
   onMouseEnter,
   onMouseLeave,
   tabIndex,
-  withoutLink,
+  withoutLink
 }: ButtonProps): React.ReactElement<ButtonProps> {
-  const _onClick = useCallback(() => !(isBusy || isDisabled) && onClick && onClick(), [isBusy, isDisabled, onClick])
+  const _onClick = useCallback(() => !(isBusy || isDisabled) && onClick && onClick(), [isBusy, isDisabled, onClick]);
 
   return (
     <button
@@ -52,10 +52,10 @@ function Button({
       {children}
       <Spinner className="ui--Button-spinner" variant="cover" />
     </button>
-  )
+  );
 }
 
-const ICON_PADDING = 0.5
+const ICON_PADDING = 0.5;
 
 export default React.memo(
   styled(Button)(
@@ -183,4 +183,4 @@ export default React.memo(
   }
 `
   )
-)
+);

@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
+import React from 'react';
 
-import { BaseProps } from '../types'
-import withCall from './call'
-import { DefaultProps, Options } from './types'
+import { BaseProps } from '../types';
+import withCall from './call';
+import { DefaultProps, Options } from './types';
 
 interface Props<T> extends BaseProps<T> {
-  callResult?: T
+  callResult?: T;
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -20,7 +20,7 @@ export default function withCallDiv<T>(endpoint: string, options: Options = {}) 
       callUpdated,
       children,
       className = defaultProps.className,
-      label = '',
+      label = ''
     }: any): React.ReactElement<Props<T>> {
       return (
         <div {...defaultProps} className={[className || '', callUpdated ? 'rx--updated' : undefined].join(' ')}>
@@ -28,9 +28,9 @@ export default function withCallDiv<T>(endpoint: string, options: Options = {}) 
           {render(callResult)}
           {children}
         </div>
-      )
+      );
     }
 
-    return withCall(endpoint, { ...options, propName: 'callResult' })(Inner)
-  }
+    return withCall(endpoint, { ...options, propName: 'callResult' })(Inner);
+  };
 }

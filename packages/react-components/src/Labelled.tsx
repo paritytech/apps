@@ -1,30 +1,30 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import React from 'react'
-import styled from 'styled-components'
+import { classes } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import LabelHelp from './LabelHelp'
-import { BareProps } from './types'
+import LabelHelp from './LabelHelp';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  help?: React.ReactNode
-  isHidden?: boolean
-  isFull?: boolean
-  isIndented?: boolean
-  isLabelMonospace?: boolean
-  isMonospace?: boolean
-  isOuter?: boolean
-  isSmall?: boolean
-  label?: React.ReactNode
-  labelExtra?: React.ReactNode
-  children: React.ReactNode
-  withEllipsis?: boolean
-  withLabel?: boolean
+  help?: React.ReactNode;
+  isHidden?: boolean;
+  isFull?: boolean;
+  isIndented?: boolean;
+  isLabelMonospace?: boolean;
+  isMonospace?: boolean;
+  isOuter?: boolean;
+  isSmall?: boolean;
+  label?: React.ReactNode;
+  labelExtra?: React.ReactNode;
+  children: React.ReactNode;
+  withEllipsis?: boolean;
+  withLabel?: boolean;
 }
 
-const defaultLabel: React.ReactNode = <div>&nbsp;</div>
+const defaultLabel: React.ReactNode = <div>&nbsp;</div>;
 
 const Wrapper = styled.div`
   display: block;
@@ -125,7 +125,7 @@ const Wrapper = styled.div`
       }
     }
   }
-`
+`;
 
 function Labelled({
   className = '',
@@ -141,10 +141,10 @@ function Labelled({
   label = defaultLabel,
   labelExtra,
   withEllipsis,
-  withLabel = true,
+  withLabel = true
 }: Props): React.ReactElement<Props> | null {
   if (isHidden) {
-    return null
+    return null;
   }
 
   return (
@@ -168,7 +168,7 @@ function Labelled({
       {labelExtra && <div className="labelExtra">{labelExtra}</div>}
       <div className="ui--Labelled-content">{children}</div>
     </Wrapper>
-  )
+  );
 }
 
-export default React.memo(Labelled)
+export default React.memo(Labelled);

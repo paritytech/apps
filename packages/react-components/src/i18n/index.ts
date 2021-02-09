@@ -1,24 +1,24 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import i18n from 'i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import { initReactI18next } from 'react-i18next'
+import i18n from 'i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import { initReactI18next } from 'react-i18next';
 
-import uiSettings, { LANGUAGE_DEFAULT } from '@polkadot/ui-settings'
+import uiSettings, { LANGUAGE_DEFAULT } from '@polkadot/ui-settings';
 
-import Backend from './Backend'
+import Backend from './Backend';
 
-const languageDetector = new LanguageDetector()
+const languageDetector = new LanguageDetector();
 
 languageDetector.addDetector({
   lookup: () => {
-    const i18nLang = uiSettings.i18nLang
+    const i18nLang = uiSettings.i18nLang;
 
-    return i18nLang === LANGUAGE_DEFAULT ? undefined : i18nLang
+    return i18nLang === LANGUAGE_DEFAULT ? undefined : i18nLang;
   },
-  name: 'i18nLangDetector',
-})
+  name: 'i18nLangDetector'
+});
 
 i18n
   .use(languageDetector)
@@ -28,11 +28,11 @@ i18n
     backend: {},
     debug: false,
     detection: {
-      order: ['i18nLangDetector', 'navigator'],
+      order: ['i18nLangDetector', 'navigator']
     },
     fallbackLng: false,
     interpolation: {
-      escapeValue: false,
+      escapeValue: false
     },
     keySeparator: false,
     load: 'languageOnly',
@@ -69,16 +69,16 @@ i18n
       'react-query',
       'react-signer',
       'react-util',
-      'translation',
+      'translation'
     ],
     nsSeparator: false,
     react: {
-      wait: true,
+      wait: true
     },
     returnEmptyString: false,
-    returnNull: false,
+    returnNull: false
   })
-  .catch((error: Error): void => console.log('i18n: failure', error))
+  .catch((error: Error): void => console.log('i18n: failure', error));
 
 uiSettings.on('change', (settings): void => {
   i18n
@@ -88,7 +88,7 @@ uiSettings.on('change', (settings): void => {
           i18n.services.languageDetector.detect()
         : settings.i18nLang
     )
-    .catch(console.error)
-})
+    .catch(console.error);
+});
 
-export default i18n
+export default i18n;

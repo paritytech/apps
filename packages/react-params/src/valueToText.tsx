@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import React from 'react'
+import { classes } from '@canvas-ui/react-util';
+import React from 'react';
 
-import { Option, Raw } from '@polkadot/types'
-import { Keys, ValidatorId } from '@polkadot/types/interfaces'
-import { Codec } from '@polkadot/types/types'
-import { isFunction, isNull, isUndefined, u8aToHex } from '@polkadot/util'
+import { Option, Raw } from '@polkadot/types';
+import { Keys, ValidatorId } from '@polkadot/types/interfaces';
+import { Codec } from '@polkadot/types/types';
+import { isFunction, isNull, isUndefined, u8aToHex } from '@polkadot/util';
 
 interface DivProps {
-  className?: string
-  key?: string
+  className?: string;
+  key?: string;
 }
 
 function div({ className = '', key }: DivProps, ...values: React.ReactNode[]): React.ReactNode {
@@ -19,20 +19,20 @@ function div({ className = '', key }: DivProps, ...values: React.ReactNode[]): R
     <div className={classes('ui--Param-text', className)} key={key}>
       {values}
     </div>
-  )
+  );
 }
 
 function formatKeys(keys: [ValidatorId, Keys][]): string {
-  return JSON.stringify(keys.map(([validator, keys]): [string, string] => [validator.toString(), keys.toHex()]))
+  return JSON.stringify(keys.map(([validator, keys]): [string, string] => [validator.toString(), keys.toHex()]));
 }
 
 function toHuman(value: Codec | Codec[]): unknown {
   // eslint-disable-next-line @typescript-eslint/unbound-method
-  return isFunction((value as Codec).toHuman) ? (value as Codec).toHuman() : (value as Codec[]).map(toHuman)
+  return isFunction((value as Codec).toHuman) ? (value as Codec).toHuman() : (value as Codec[]).map(toHuman);
 }
 
 function toString(value: any): string {
-  return JSON.stringify(value, null, 2).replace(/"/g, '').replace(/\\/g, '').replace(/\],\[/g, '],\n[')
+  return JSON.stringify(value, null, 2).replace(/"/g, '').replace(/\\/g, '').replace(/\],\[/g, '],\n[');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -43,7 +43,7 @@ export default function valueToText(
   contentShorten = true
 ): React.ReactNode {
   if (isNull(value) || isUndefined(value)) {
-    return div({}, '<unknown>')
+    return div({}, '<unknown>');
   }
 
   return div(
@@ -61,5 +61,5 @@ export default function valueToText(
       : value instanceof Option && value.isNone
       ? '<none>'
       : toString(toHuman(value))
-  )
+  );
 }

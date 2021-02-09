@@ -1,29 +1,29 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Route } from '@canvas-ui/apps-routing/types'
-import { Badge, Icon, Menu, Tooltip } from '@canvas-ui/react-components'
-import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Route } from '@canvas-ui/apps-routing/types';
+import { Badge, Icon, Menu, Tooltip } from '@canvas-ui/react-components';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-const DUMMY_COUNTER = (): null => null
+const DUMMY_COUNTER = (): null => null;
 
 interface Props {
-  isCollapsed: boolean
-  onClick: () => void
-  route: Route
+  isCollapsed: boolean;
+  onClick: () => void;
+  route: Route;
 }
 
-const TOOLTIP_OFFSET = { right: -4 }
+const TOOLTIP_OFFSET = { right: -4 };
 
 function Item({ isCollapsed, onClick, route }: Props): React.ReactElement<Props> | null {
   if (route.isIgnored) {
-    return null
+    return null;
   }
 
-  const count = (route.useCounter || DUMMY_COUNTER)()
+  const count = (route.useCounter || DUMMY_COUNTER)();
 
-  const { name, text } = route
+  const { name, text } = route;
 
   const body = (
     <>
@@ -32,7 +32,7 @@ function Item({ isCollapsed, onClick, route }: Props): React.ReactElement<Props>
       <Tooltip offset={TOOLTIP_OFFSET} place="right" text={text} trigger={`nav-${name}`} />
       <Icon icon="chevron-right" />
     </>
-  )
+  );
 
   return (
     <Menu.Item className="apps--SideBar-Item">
@@ -48,7 +48,7 @@ function Item({ isCollapsed, onClick, route }: Props): React.ReactElement<Props>
         {body}
       </NavLink>
     </Menu.Item>
-  )
+  );
 }
 
-export default React.memo(Item)
+export default React.memo(Item);

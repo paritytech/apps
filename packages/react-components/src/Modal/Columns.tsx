@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
-import { ColumnProps } from './types'
+import { ColumnProps } from './types';
 
 function Columns({ children, className = '' }: ColumnProps): React.ReactElement<ColumnProps> {
-  return <div className={`ui--Modal-Columns ${className}`}>{children}</div>
+  return <div className={`ui--Modal-Columns ${className}`}>{children}</div>;
 }
 
 export default React.memo(styled(Columns)`
@@ -19,4 +19,4 @@ export default React.memo(styled(Columns)`
   & + & {
     margin-top: 0.25rem;
   }
-`)
+`);

@@ -1,33 +1,33 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import React from 'react'
-import styled from 'styled-components'
+import { classes } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import { TypeRegistry } from '@polkadot/types'
-import { Codec, TypeDef } from '@polkadot/types/types'
+import { TypeRegistry } from '@polkadot/types';
+import { Codec, TypeDef } from '@polkadot/types/types';
 
-import CopyButton from './CopyButton'
-import Data from './Data'
-import Icon from './Icon'
-import Labelled from './Labelled'
-import { BareProps } from './types'
+import CopyButton from './CopyButton';
+import Data from './Data';
+import Icon from './Icon';
+import Labelled from './Labelled';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  children?: React.ReactNode
-  help?: React.ReactNode
-  isError?: boolean
-  isFull?: boolean
-  isHidden?: boolean
-  isMonospace?: boolean
-  isTrimmed?: boolean
-  label?: React.ReactNode
-  registry?: TypeRegistry
-  type?: TypeDef | null
-  value?: Codec
-  withCopy?: boolean
-  withLabel?: boolean
+  children?: React.ReactNode;
+  help?: React.ReactNode;
+  isError?: boolean;
+  isFull?: boolean;
+  isHidden?: boolean;
+  isMonospace?: boolean;
+  isTrimmed?: boolean;
+  label?: React.ReactNode;
+  registry?: TypeRegistry;
+  type?: TypeDef | null;
+  value?: Codec;
+  withCopy?: boolean;
+  withLabel?: boolean;
 }
 
 function Output({
@@ -43,7 +43,7 @@ function Output({
   type,
   value,
   withCopy = false,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   return (
     <Labelled className={className} help={help} isFull={isFull} isHidden={isHidden} label={label} withLabel={withLabel}>
@@ -57,7 +57,7 @@ function Output({
         ) : null}
       </div>
     </Labelled>
-  )
+  );
 }
 
 export default React.memo(styled(Output)`
@@ -80,4 +80,4 @@ export default React.memo(styled(Output)`
       }
     }
   }
-`)
+`);

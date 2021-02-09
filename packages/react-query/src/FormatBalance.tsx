@@ -1,28 +1,28 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from '@canvas-ui/react-api/types'
-import BN from 'bn.js'
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import { BareProps } from '@canvas-ui/react-api/types';
+import BN from 'bn.js';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import { Compact } from '@polkadot/types'
-import { formatBalance } from '@polkadot/util'
+import { Compact } from '@polkadot/types';
+import { formatBalance } from '@polkadot/util';
 
-import { useTranslation } from './translate'
+import { useTranslation } from './translate';
 
 interface Props extends BareProps {
-  children?: React.ReactNode
-  isShort?: boolean
-  label?: React.ReactNode
-  labelPost?: React.ReactNode
-  value?: Compact<any> | BN | string | null | 'all'
-  withSi?: boolean
+  children?: React.ReactNode;
+  isShort?: boolean;
+  label?: React.ReactNode;
+  labelPost?: React.ReactNode;
+  value?: Compact<any> | BN | string | null | 'all';
+  withSi?: boolean;
 }
 
 // for million, 2 * 3-grouping + comma
-const M_LENGTH = 6 + 1
-const K_LENGTH = 3 + 1
+const M_LENGTH = 6 + 1;
+const K_LENGTH = 3 + 1;
 
 function format(
   value: Compact<any> | BN | string,
@@ -30,12 +30,12 @@ function format(
   withSi?: boolean,
   _isShort?: boolean
 ): React.ReactNode {
-  const [prefix, postfix] = formatBalance(value, { forceUnit: '-', withSi: false }).split('.')
-  const isShort = _isShort || (withSi && prefix.length >= K_LENGTH)
+  const [prefix, postfix] = formatBalance(value, { forceUnit: '-', withSi: false }).split('.');
+  const isShort = _isShort || (withSi && prefix.length >= K_LENGTH);
 
   if (prefix.length > M_LENGTH) {
     // TODO Format with balance-postfix
-    return formatBalance(value)
+    return formatBalance(value);
   }
 
   return (
@@ -48,7 +48,7 @@ function format(
       )}{' '}
       {currency}
     </>
-  )
+  );
 }
 
 // function formatSi (value: Compact<any> | BN | string): React.ReactNode {
@@ -70,10 +70,10 @@ function FormatBalance({
   label,
   labelPost,
   value,
-  withSi,
+  withSi
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const [currency] = useState(formatBalance.getDefaults().unit)
+  const { t } = useTranslation();
+  const [currency] = useState(formatBalance.getDefaults().unit);
 
   return (
     <div className={`ui--FormatBalance ${className}`}>
@@ -84,7 +84,7 @@ function FormatBalance({
       {labelPost}
       {children}
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(FormatBalance)`
@@ -112,4 +112,4 @@ export default React.memo(styled(FormatBalance)`
       vertical-align: baseline;
     }
   }
-`)
+`);

@@ -3,17 +3,17 @@
 
 // TODO: Lots of duplicated code between this and withObservable, surely there is a better way of doing this?
 
-import React from 'react'
-import { Observable, of } from 'rxjs'
-import { catchError, map } from 'rxjs/operators'
+import React from 'react';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
-import echoTransform from '../transform/echo'
-import { CallState } from '../types'
-import { intervalObservable, isEqual, triggerChange } from '../util'
-import { DefaultProps, HOC, Options, RenderFn } from './types'
+import echoTransform from '../transform/echo';
+import { CallState } from '../types';
+import { intervalObservable, isEqual, triggerChange } from '../util';
+import { DefaultProps, HOC, Options, RenderFn } from './types';
 
 interface State extends CallState {
-  subscriptions: { unsubscribe: () => void }[]
+  subscriptions: { unsubscribe: () => void }[];
 }
 
 export default function withObservable<T, P>(
@@ -26,14 +26,14 @@ export default function withObservable<T, P>(
     render?: RenderFn
   ): React.ComponentType<any> => {
     return class WithObservable extends React.Component<any, State> {
-      private isActive = true
+      private isActive = true;
 
       public state: State = {
         callResult: undefined,
         callUpdated: false,
         callUpdatedAt: 0,
-        subscriptions: [],
-      }
+        subscriptions: []
+      };
 
       public componentDidMount(): void {
         this.setState({
@@ -44,54 +44,54 @@ export default function withObservable<T, P>(
                 catchError((): Observable<any> => of(undefined))
               )
               .subscribe((value: any): void => this.triggerUpdate(this.props, value)),
-            intervalObservable(this),
-          ],
-        })
+            intervalObservable(this)
+          ]
+        });
       }
 
       public componentWillUnmount(): void {
-        this.isActive = false
-        this.state.subscriptions.forEach((subscription): void => subscription.unsubscribe())
+        this.isActive = false;
+        this.state.subscriptions.forEach((subscription): void => subscription.unsubscribe());
       }
 
       private triggerUpdate = (props: P, callResult?: T): void => {
         try {
           if (!this.isActive || isEqual(callResult, this.state.callResult)) {
-            return
+            return;
           }
 
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          triggerChange(callResult, callOnResult, (props as any).callOnResult || defaultProps.callOnResult)
+          triggerChange(callResult, callOnResult, (props as any).callOnResult || defaultProps.callOnResult);
 
           this.setState({
             callResult,
             callUpdated: true,
-            callUpdatedAt: Date.now(),
-          })
+            callUpdatedAt: Date.now()
+          });
         } catch (error) {
-          console.error(this.props, error)
+          console.error(this.props, error);
         }
-      }
+      };
 
       public render(): React.ReactNode {
-        const { children } = this.props
+        const { children } = this.props;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        const { callResult, callUpdated, callUpdatedAt } = this.state
+        const { callResult, callUpdated, callUpdatedAt } = this.state;
         const _props = {
           ...defaultProps,
           ...this.props,
           callUpdated,
           callUpdatedAt,
-          [propName]: callResult,
-        }
+          [propName]: callResult
+        };
 
         return (
           <Inner {..._props}>
             {render && render(callResult)}
             {children}
           </Inner>
-        )
+        );
       }
-    }
-  }
+    };
+  };
 }

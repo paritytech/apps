@@ -1,33 +1,33 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { AppNavigation } from '@canvas-ui/react-components/types'
-import { useCallback } from 'react'
-import { useHistory } from 'react-router-dom'
+import { AppNavigation } from '@canvas-ui/react-components/types';
+import { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function useAppNavigation(): AppNavigation {
-  const history = useHistory()
+  const history = useHistory();
 
   const navigator = useCallback(
     (path: string): (() => void) => {
       return function (): void {
-        history.push(path)
-      }
+        history.push(path);
+      };
     },
     [history]
-  )
+  );
 
   return {
     deploy: navigator('/deploy'),
     deployNew: useCallback(
       (id: string, constructorIndex = 0): (() => void) => {
-        return navigator(`/deploy/new/${id}/${constructorIndex}`)
+        return navigator(`/deploy/new/${id}/${constructorIndex}`);
       },
       [navigator]
     ),
     deploySuccess: useCallback(
       (address: string): (() => void) => {
-        return navigator(`/deploy/success/${address}`)
+        return navigator(`/deploy/success/${address}`);
       },
       [navigator]
     ),
@@ -35,7 +35,7 @@ export default function useAppNavigation(): AppNavigation {
     executeAdd: navigator('/execute/add'),
     executeCall: useCallback(
       (address: string, messageIndex = 0): (() => void) => {
-        return navigator(`/execute/${address}/${messageIndex}`)
+        return navigator(`/execute/${address}/${messageIndex}`);
       },
       [navigator]
     ),
@@ -43,9 +43,9 @@ export default function useAppNavigation(): AppNavigation {
     uploadAdd: navigator('/upload/add'),
     uploadSuccess: useCallback(
       (id: string): (() => void) => {
-        return navigator(`/upload/success/${id}`)
+        return navigator(`/upload/success/${id}`);
       },
       [navigator]
-    ),
-  }
+    )
+  };
 }

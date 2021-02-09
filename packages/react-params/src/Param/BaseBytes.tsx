@@ -1,58 +1,58 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Input } from '@canvas-ui/react-components'
-import React, { useCallback, useState } from 'react'
+import { Input } from '@canvas-ui/react-components';
+import React, { useCallback, useState } from 'react';
 
-import { TypeDef } from '@polkadot/types/types'
-import { compactAddLength, hexToU8a, isAscii, isHex, isU8a, stringToU8a, u8aToHex, u8aToString } from '@polkadot/util'
-import { decodeAddress } from '@polkadot/util-crypto'
+import { TypeDef } from '@polkadot/types/types';
+import { compactAddLength, hexToU8a, isAscii, isHex, isU8a, stringToU8a, u8aToHex, u8aToString } from '@polkadot/util';
+import { decodeAddress } from '@polkadot/util-crypto';
 
-import { useTranslation } from '../translate'
-import { RawParam, RawParamOnChange, RawParamOnEnter, RawParamOnEscape, Size } from '../types'
-import Bare from './Bare'
+import { useTranslation } from '../translate';
+import { RawParam, RawParamOnChange, RawParamOnEnter, RawParamOnEscape, Size } from '../types';
+import Bare from './Bare';
 
 interface Props {
-  asHex?: boolean
-  children?: React.ReactNode
-  className?: string
-  defaultValue: RawParam
-  isDisabled?: boolean
-  isError?: boolean
-  label?: React.ReactNode
-  length?: number
-  name?: string
-  onChange?: RawParamOnChange
-  onEnter?: RawParamOnEnter
-  onEscape?: RawParamOnEscape
-  size?: Size
-  type: TypeDef & { withOptionActive?: boolean }
-  validate?: (u8a: Uint8Array) => boolean
-  withLabel?: boolean
-  withLength?: boolean
+  asHex?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  defaultValue: RawParam;
+  isDisabled?: boolean;
+  isError?: boolean;
+  label?: React.ReactNode;
+  length?: number;
+  name?: string;
+  onChange?: RawParamOnChange;
+  onEnter?: RawParamOnEnter;
+  onEscape?: RawParamOnEscape;
+  size?: Size;
+  type: TypeDef & { withOptionActive?: boolean };
+  validate?: (u8a: Uint8Array) => boolean;
+  withLabel?: boolean;
+  withLength?: boolean;
 }
 
-const defaultValidate = (): boolean => true
+const defaultValidate = (): boolean => true;
 
 function convertInput(value: string): [boolean, Uint8Array] {
   if (value === '0x') {
-    return [true, new Uint8Array([])]
+    return [true, new Uint8Array([])];
   } else if (value.startsWith('0x')) {
     try {
-      return [true, hexToU8a(value)]
+      return [true, hexToU8a(value)];
     } catch (error) {
-      return [false, new Uint8Array([])]
+      return [false, new Uint8Array([])];
     }
   }
 
   // maybe it is an ss58?
   try {
-    return [true, decodeAddress(value)]
+    return [true, decodeAddress(value)];
   } catch (error) {
     // we continue
   }
 
-  return isAscii(value) ? [true, stringToU8a(value)] : [value === '0x', new Uint8Array([])]
+  return isAscii(value) ? [true, stringToU8a(value)] : [value === '0x', new Uint8Array([])];
 }
 
 function BaseBytes({
@@ -70,9 +70,9 @@ function BaseBytes({
   size = 'full',
   validate = defaultValidate,
   withLabel,
-  withLength,
+  withLength
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
   const [defaultValue] = useState(
     value
       ? isDisabled && isU8a(value) && isAscii(value)
@@ -81,29 +81,29 @@ function BaseBytes({
         ? value
         : u8aToHex(value as Uint8Array, isDisabled ? 256 : -1)
       : undefined
-  )
-  const [isValid, setIsValid] = useState(false)
+  );
+  const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
     (hex: string): void => {
-      let [isValid, value] = convertInput(hex)
+      let [isValid, value] = convertInput(hex);
 
-      isValid = isValid && validate(value) && (length !== -1 ? value.length === length : value.length !== 0)
+      isValid = isValid && validate(value) && (length !== -1 ? value.length === length : value.length !== 0);
 
       if (withLength && isValid) {
-        value = compactAddLength(value)
+        value = compactAddLength(value);
       }
 
       onChange &&
         onChange({
           isValid,
-          value: asHex ? u8aToHex(value) : value,
-        })
+          value: asHex ? u8aToHex(value) : value
+        });
 
-      setIsValid(isValid)
+      setIsValid(isValid);
     },
     [asHex, length, onChange, validate, withLength]
-  )
+  );
 
   return (
     <Bare className={className}>
@@ -125,7 +125,7 @@ function BaseBytes({
         {children}
       </Input>
     </Bare>
-  )
+  );
 }
 
-export default React.memo(BaseBytes)
+export default React.memo(BaseBytes);

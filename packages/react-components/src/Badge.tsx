@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/app-staking authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import Tooltip from './Tooltip'
+import Tooltip from './Tooltip';
 
 interface Props {
-  className?: string
-  hover?: React.ReactNode
-  info: React.ReactNode
-  isGray?: boolean
-  isInline?: boolean
-  isSmall?: boolean
-  isTooltip?: boolean
-  onClick?: () => void
+  className?: string;
+  hover?: React.ReactNode;
+  info: React.ReactNode;
+  isGray?: boolean;
+  isInline?: boolean;
+  isSmall?: boolean;
+  isTooltip?: boolean;
+  onClick?: () => void;
   type:
     | 'counter'
     | 'online'
@@ -26,10 +26,10 @@ interface Props {
     | 'blue'
     | 'brown'
     | 'gray'
-    | 'purple'
+    | 'purple';
 }
 
-let badgeId = 0
+let badgeId = 0;
 
 function Badge({
   className = '',
@@ -40,9 +40,9 @@ function Badge({
   isSmall,
   isTooltip,
   onClick,
-  type,
+  type
 }: Props): React.ReactElement<Props> | null {
-  const [trigger] = useState(`badge-hover-${Date.now()}-${badgeId++}`)
+  const [trigger] = useState(`badge-hover-${Date.now()}-${badgeId++}`);
 
   return (
     <div
@@ -58,7 +58,7 @@ function Badge({
       <div className="detail">{hover}</div>
       {hover && <Tooltip text={hover} trigger={trigger} />}
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(Badge)`
@@ -168,4 +168,4 @@ export default React.memo(styled(Badge)`
       width: auto;
     }
   }
-`)
+`);

@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react';
 
-import { isWasm } from '@polkadot/util'
+import { isWasm } from '@polkadot/util';
 
-import { Props } from '../types'
-import Bytes from './Bytes'
-import BytesFile from './File'
+import { Props } from '../types';
+import Bytes from './Bytes';
+import BytesFile from './File';
 
 function Code({
   className = '',
@@ -19,19 +19,19 @@ function Code({
   onEnter,
   onEscape,
   type,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
-  const [isValid, setIsValid] = useState(false)
+  const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
     (value: Uint8Array): void => {
-      const isValid = isWasm(value)
+      const isValid = isWasm(value);
 
-      onChange && onChange({ isValid, value })
-      setIsValid(isValid)
+      onChange && onChange({ isValid, value });
+      setIsValid(isValid);
     },
     [onChange]
-  )
+  );
 
   if (isDisabled) {
     return (
@@ -45,7 +45,7 @@ function Code({
         type={type}
         withLabel={withLabel}
       />
-    )
+    );
   }
 
   return (
@@ -57,7 +57,7 @@ function Code({
       onChange={_onChange}
       withLabel={withLabel}
     />
-  )
+  );
 }
 
-export default React.memo(Code)
+export default React.memo(Code);

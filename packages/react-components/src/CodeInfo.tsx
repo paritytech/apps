@@ -1,43 +1,43 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { store } from '@canvas-ui/page-contracts'
-import { useNonEmptyString, useToggle } from '@canvas-ui/react-hooks'
-import { truncate } from '@canvas-ui/react-util'
-import { faFile } from '@fortawesome/free-regular-svg-icons'
-import React, { useCallback } from 'react'
-import styled from 'styled-components'
+import { store } from '@canvas-ui/page-contracts';
+import { useNonEmptyString, useToggle } from '@canvas-ui/react-hooks';
+import { truncate } from '@canvas-ui/react-util';
+import { faFile } from '@fortawesome/free-regular-svg-icons';
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
 
-import CopyButton from './CopyButton'
-import EditButton from './EditButton'
-import Icon from './Icon'
-import Input from './Input'
-import ItemInfo from './ItemInfo'
-import { useTranslation } from './translate'
-import { BareProps, Code } from './types'
+import CopyButton from './CopyButton';
+import EditButton from './EditButton';
+import Icon from './Icon';
+import Input from './Input';
+import ItemInfo from './ItemInfo';
+import { useTranslation } from './translate';
+import { BareProps, Code } from './types';
 
 interface Props extends BareProps {
-  code: Code
-  isEditable?: boolean
+  code: Code;
+  isEditable?: boolean;
 }
 
 function CodeInfo({ children, className, code: { codeHash, id, name }, isEditable }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const [newName, setNewName, isNewNameValid, isNewNameError] = useNonEmptyString(name)
-  const [isEditingName, toggleIsEditingName] = useToggle()
+  const { t } = useTranslation();
+  const [newName, setNewName, isNewNameValid, isNewNameError] = useNonEmptyString(name);
+  const [isEditingName, toggleIsEditingName] = useToggle();
 
   const onSaveName = useCallback((): void => {
     if (!isNewNameValid) {
-      return
+      return;
     }
 
     store
       .saveCode({ name: newName }, id)
       .then(toggleIsEditingName)
       .catch((e): void => {
-        console.error(e)
-      })
-  }, [id, isNewNameValid, newName, toggleIsEditingName])
+        console.error(e);
+      });
+  }, [id, isNewNameValid, newName, toggleIsEditingName]);
 
   return (
     <ItemInfo
@@ -71,7 +71,7 @@ function CodeInfo({ children, className, code: { codeHash, id, name }, isEditabl
     >
       {children}
     </ItemInfo>
-  )
+  );
 }
 
 export default styled(React.memo(CodeInfo))`
@@ -92,4 +92,4 @@ export default styled(React.memo(CodeInfo))`
       }
     }
   }
-`
+`;

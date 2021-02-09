@@ -1,21 +1,21 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
-import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import { Draggable, DraggableProvided, DraggableStateSnapshot } from 'react-beautiful-dnd';
+import ReactDOM from 'react-dom';
 
-import AddressToggle from '../AddressToggle'
+import AddressToggle from '../AddressToggle';
 
 interface Props {
-  address: string
-  index: number
-  onDeselect: (index: number) => void
+  address: string;
+  index: number;
+  onDeselect: (index: number) => void;
 }
 
-export const PORTAL_ID = 'portals'
+export const PORTAL_ID = 'portals';
 
-const portal = document.getElementById(PORTAL_ID) as Element
+const portal = document.getElementById(PORTAL_ID) as Element;
 
 function Selected({ address, index, onDeselect }: Props): React.ReactElement<Props> {
   return (
@@ -35,12 +35,12 @@ function Selected({ address, index, onDeselect }: Props): React.ReactElement<Pro
               onChange={onDeselect}
             />
           </div>
-        )
+        );
 
-        return snapshot.isDragging ? ReactDOM.createPortal(element, portal) : element
+        return snapshot.isDragging ? ReactDOM.createPortal(element, portal) : element;
       }}
     </Draggable>
-  )
+  );
 }
 
-export default React.memo(Selected)
+export default React.memo(Selected);

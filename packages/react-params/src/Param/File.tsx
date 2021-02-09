@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputFile } from '@canvas-ui/react-components'
-import React from 'react'
+import { InputFile } from '@canvas-ui/react-components';
+import React from 'react';
 
-import Bare from './Bare'
+import Bare from './Bare';
 
 interface Props {
-  className?: string
-  defaultValue?: any
-  isDisabled?: boolean
-  isError?: boolean
-  label?: React.ReactNode
-  onChange?: (contents: Uint8Array) => void
-  placeholder?: string
-  withLabel?: boolean
+  className?: string;
+  defaultValue?: any;
+  isDisabled?: boolean;
+  isError?: boolean;
+  label?: React.ReactNode;
+  onChange?: (contents: Uint8Array) => void;
+  placeholder?: string;
+  withLabel?: boolean;
 }
 
 function File({
@@ -24,7 +24,7 @@ function File({
   label,
   onChange,
   placeholder,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>
@@ -38,7 +38,7 @@ function File({
         withLabel={withLabel}
       />
     </Bare>
-  )
+  );
 }
 
-export default React.memo(File)
+export default React.memo(File);

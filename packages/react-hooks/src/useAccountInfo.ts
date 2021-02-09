@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { StringOrNull } from '@canvas-ui/react-util/types'
-import { useCallback, useEffect, useState } from 'react'
+import { StringOrNull } from '@canvas-ui/react-util/types';
+import { useCallback, useEffect, useState } from 'react';
 
-import { DeriveAccountFlags, DeriveAccountInfo } from '@polkadot/api-derive/types'
-import keyring from '@polkadot/ui-keyring'
-import { KeyringJson$Meta } from '@polkadot/ui-keyring/types'
+import { DeriveAccountFlags, DeriveAccountInfo } from '@polkadot/api-derive/types';
+import keyring from '@polkadot/ui-keyring';
+import { KeyringJson$Meta } from '@polkadot/ui-keyring/types';
 
-import { AddressFlags, AddressIdentity, UseAccountInfo } from './types'
-import useAccounts from './useAccounts'
-import useAddresses from './useAddresses'
-import useApi from './useApi'
-import useCall from './useCall'
-import useToggle from './useToggle'
+import { AddressFlags, AddressIdentity, UseAccountInfo } from './types';
+import useAccounts from './useAccounts';
+import useAddresses from './useAddresses';
+import useApi from './useApi';
+import useCall from './useCall';
+import useToggle from './useToggle';
 
 const IS_NONE = {
   isCouncil: false,
@@ -29,58 +29,58 @@ const IS_NONE = {
   isProxied: false,
   isSociety: false,
   isSudo: false,
-  isTechCommittee: false,
-}
+  isTechCommittee: false
+};
 
 export default function useAccountInfo(value: string | null, isContract = false): UseAccountInfo {
-  const { api } = useApi()
-  const { isAccount } = useAccounts()
-  const { isAddress } = useAddresses()
-  const accountInfo = useCall<DeriveAccountInfo>(api.derive.accounts.info as any, [value])
-  const accountFlags = useCall<DeriveAccountFlags>(api.derive.accounts.flags as any, [value])
-  const [accountIndex, setAccountIndex] = useState<string | undefined>(undefined)
-  const [tags, setSortedTags] = useState<string[]>([])
-  const [name, setName] = useState('')
-  const [genesisHash, setGenesisHash] = useState<StringOrNull>(null)
-  const [identity, setIdentity] = useState<AddressIdentity | undefined>()
-  const [flags, setFlags] = useState<AddressFlags>(IS_NONE)
-  const [meta, setMeta] = useState<KeyringJson$Meta | undefined>()
-  const [isEditingName, toggleIsEditingName] = useToggle()
-  const [isEditingTags, toggleIsEditingTags] = useToggle()
+  const { api } = useApi();
+  const { isAccount } = useAccounts();
+  const { isAddress } = useAddresses();
+  const accountInfo = useCall<DeriveAccountInfo>(api.derive.accounts.info as any, [value]);
+  const accountFlags = useCall<DeriveAccountFlags>(api.derive.accounts.flags as any, [value]);
+  const [accountIndex, setAccountIndex] = useState<string | undefined>(undefined);
+  const [tags, setSortedTags] = useState<string[]>([]);
+  const [name, setName] = useState('');
+  const [genesisHash, setGenesisHash] = useState<StringOrNull>(null);
+  const [identity, setIdentity] = useState<AddressIdentity | undefined>();
+  const [flags, setFlags] = useState<AddressFlags>(IS_NONE);
+  const [meta, setMeta] = useState<KeyringJson$Meta | undefined>();
+  const [isEditingName, toggleIsEditingName] = useToggle();
+  const [isEditingTags, toggleIsEditingTags] = useToggle();
 
   useEffect((): void => {
     accountFlags &&
-      setFlags((flags) => ({
+      setFlags(flags => ({
         ...flags,
-        ...accountFlags,
-      }))
-  }, [accountFlags])
+        ...accountFlags
+      }));
+  }, [accountFlags]);
 
   useEffect((): void => {
-    const { accountIndex: anAccountIndex, identity, nickname } = accountInfo || {}
+    const { accountIndex: anAccountIndex, identity, nickname } = accountInfo || {};
 
     if (anAccountIndex && accountIndex !== anAccountIndex.toString()) {
-      setAccountIndex(anAccountIndex.toString())
+      setAccountIndex(anAccountIndex.toString());
     }
 
-    let name
+    let name;
 
     if (api.query.identity && api.query.identity.identityOf) {
       if (identity?.display) {
-        name = identity.display
+        name = identity.display;
       }
     } else if (nickname) {
-      name = nickname
+      name = nickname;
     }
 
-    setName(name || '')
+    setName(name || '');
 
     if (identity) {
-      const judgements = identity.judgements.filter(([, judgement]) => !judgement.isFeePaid)
-      const isKnownGood = judgements.some(([, judgement]) => judgement.isKnownGood)
-      const isReasonable = judgements.some(([, judgement]) => judgement.isReasonable)
-      const isErroneous = judgements.some(([, judgement]) => judgement.isErroneous)
-      const isLowQuality = judgements.some(([, judgement]) => judgement.isLowQuality)
+      const judgements = identity.judgements.filter(([, judgement]) => !judgement.isFeePaid);
+      const isKnownGood = judgements.some(([, judgement]) => judgement.isKnownGood);
+      const isReasonable = judgements.some(([, judgement]) => judgement.isReasonable);
+      const isErroneous = judgements.some(([, judgement]) => judgement.isErroneous);
+      const isLowQuality = judgements.some(([, judgement]) => judgement.isLowQuality);
 
       setIdentity({
         ...identity,
@@ -92,20 +92,20 @@ export default function useAccountInfo(value: string | null, isContract = false)
         isLowQuality,
         isReasonable,
         judgements,
-        waitCount: identity.judgements.length - judgements.length,
-      })
+        waitCount: identity.judgements.length - judgements.length
+      });
     } else {
-      setIdentity(undefined)
+      setIdentity(undefined);
     }
-  }, [accountIndex, accountInfo, api])
+  }, [accountIndex, accountInfo, api]);
 
   useEffect((): void => {
     if (value) {
-      const accountOrAddress = keyring.getAccount(value) || keyring.getAddress(value)
-      const isOwned = isAccount(value)
-      const isInContacts = isAddress(value)
+      const accountOrAddress = keyring.getAccount(value) || keyring.getAddress(value);
+      const isOwned = isAccount(value);
+      const isInContacts = isAddress(value);
 
-      setGenesisHash(accountOrAddress?.meta.genesisHash || null)
+      setGenesisHash(accountOrAddress?.meta.genesisHash || null);
       setFlags(
         (flags): AddressFlags => ({
           ...flags,
@@ -121,103 +121,103 @@ export default function useAccountInfo(value: string | null, isContract = false)
           isInContacts,
           isMultisig: !!accountOrAddress?.meta.isMultisig || false,
           isOwned,
-          isProxied: !!accountOrAddress?.meta.isProxied || false,
+          isProxied: !!accountOrAddress?.meta.isProxied || false
         })
-      )
-      setMeta(accountOrAddress?.meta)
-      setName(accountOrAddress?.meta.name || '')
-      setSortedTags(accountOrAddress?.meta.tags ? (accountOrAddress.meta.tags as string[]).sort() : [])
+      );
+      setMeta(accountOrAddress?.meta);
+      setName(accountOrAddress?.meta.name || '');
+      setSortedTags(accountOrAddress?.meta.tags ? (accountOrAddress.meta.tags as string[]).sort() : []);
     }
-  }, [identity, isAccount, isAddress, value])
+  }, [identity, isAccount, isAddress, value]);
 
   const onSaveName = useCallback((): void => {
     if (isEditingName) {
-      toggleIsEditingName()
+      toggleIsEditingName();
     }
 
-    const meta = { name, whenEdited: Date.now() }
+    const meta = { name, whenEdited: Date.now() };
 
     if (isContract) {
       try {
         if (value) {
-          const originalMeta = keyring.getAddress(value)?.meta
+          const originalMeta = keyring.getAddress(value)?.meta;
 
-          keyring.saveContract(value, { ...originalMeta, ...meta })
+          keyring.saveContract(value, { ...originalMeta, ...meta });
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     } else if (value) {
       try {
-        const pair = keyring.getPair(value)
+        const pair = keyring.getPair(value);
 
-        pair && keyring.saveAccountMeta(pair, meta)
+        pair && keyring.saveAccountMeta(pair, meta);
       } catch (error) {
-        const pair = keyring.getAddress(value)
+        const pair = keyring.getAddress(value);
 
         if (pair) {
-          keyring.saveAddress(value, meta)
+          keyring.saveAddress(value, meta);
         } else {
-          keyring.saveAddress(value, { genesisHash: api.genesisHash.toHex(), ...meta })
+          keyring.saveAddress(value, { genesisHash: api.genesisHash.toHex(), ...meta });
         }
       }
     }
-  }, [api, isContract, isEditingName, name, toggleIsEditingName, value])
+  }, [api, isContract, isEditingName, name, toggleIsEditingName, value]);
 
   const onSaveTags = useCallback((): void => {
-    const meta = { tags, whenEdited: Date.now() }
+    const meta = { tags, whenEdited: Date.now() };
 
     if (isContract) {
       try {
         if (value) {
-          const originalMeta = keyring.getAddress(value)?.meta
+          const originalMeta = keyring.getAddress(value)?.meta;
 
-          value && keyring.saveContract(value, { ...originalMeta, ...meta })
+          value && keyring.saveContract(value, { ...originalMeta, ...meta });
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     } else if (value) {
       try {
-        const currentKeyring = keyring.getPair(value)
+        const currentKeyring = keyring.getPair(value);
 
-        currentKeyring && keyring.saveAccountMeta(currentKeyring, meta)
+        currentKeyring && keyring.saveAccountMeta(currentKeyring, meta);
       } catch (error) {
-        keyring.saveAddress(value, meta)
+        keyring.saveAddress(value, meta);
       }
     }
-  }, [isContract, tags, value])
+  }, [isContract, tags, value]);
 
   const onForgetAddress = useCallback((): void => {
     if (isEditingName) {
-      toggleIsEditingName()
+      toggleIsEditingName();
     }
 
     if (isEditingTags) {
-      toggleIsEditingTags()
+      toggleIsEditingTags();
     }
 
     try {
-      value && keyring.forgetAddress(value)
+      value && keyring.forgetAddress(value);
     } catch (e) {
-      console.error(e)
+      console.error(e);
     }
-  }, [isEditingName, isEditingTags, toggleIsEditingName, toggleIsEditingTags, value])
+  }, [isEditingName, isEditingTags, toggleIsEditingName, toggleIsEditingTags, value]);
 
   const onSetGenesisHash = useCallback(
     (genesisHash: string | null): void => {
       if (value) {
-        const account = keyring.getPair(value)
+        const account = keyring.getPair(value);
 
-        account && keyring.saveAccountMeta(account, { ...account.meta, genesisHash })
+        account && keyring.saveAccountMeta(account, { ...account.meta, genesisHash });
 
-        setGenesisHash(genesisHash)
+        setGenesisHash(genesisHash);
       }
     },
     [value]
-  )
+  );
 
-  const setTags = useCallback((tags: string[]): void => setSortedTags(tags.sort()), [])
+  const setTags = useCallback((tags: string[]): void => setSortedTags(tags.sort()), []);
 
   return {
     accountIndex,
@@ -237,6 +237,6 @@ export default function useAccountInfo(value: string | null, isContract = false)
     setTags,
     tags,
     toggleIsEditingName,
-    toggleIsEditingTags,
-  }
+    toggleIsEditingTags
+  };
 }

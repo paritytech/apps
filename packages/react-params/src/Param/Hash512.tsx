@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
+import React from 'react';
 
-import { Props } from '../types'
-import BaseBytes from './BaseBytes'
+import { Props } from '../types';
+import BaseBytes from './BaseBytes';
 
 function Hash512({
   className = '',
@@ -17,7 +17,7 @@ function Hash512({
   onEnter,
   onEscape,
   type,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   return (
     <BaseBytes
@@ -34,7 +34,7 @@ function Hash512({
       type={type}
       withLabel={withLabel}
     />
-  )
+  );
 }
 
-export default React.memo(Hash512)
+export default React.memo(Hash512);

@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import * as moment from 'moment'
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import * as moment from 'moment';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
 interface Props {
-  className?: string
+  className?: string;
 }
 
 const HelpWidget = ({ className }: Props) => {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   const handleClick = () => {
-    !visible ? setVisible(true) : setVisible(false)
-  }
+    !visible ? setVisible(true) : setVisible(false);
+  };
 
   return (
     <div className={className}>
@@ -39,8 +39,8 @@ const HelpWidget = ({ className }: Props) => {
         ?
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default styled(HelpWidget)`
   position: fixed;
@@ -107,4 +107,4 @@ export default styled(HelpWidget)`
       border-top: solid 1px var(--grey40);
     }
   }
-`
+`;

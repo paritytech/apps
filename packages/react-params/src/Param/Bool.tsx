@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Dropdown } from '@canvas-ui/react-components'
-import React, { useCallback, useMemo, useState } from 'react'
+import { Dropdown } from '@canvas-ui/react-components';
+import React, { useCallback, useMemo, useState } from 'react';
 
-import { useTranslation } from '../translate'
-import { Props } from '../types'
-import Bare from './Bare'
+import { useTranslation } from '../translate';
+import { Props } from '../types';
+import Bare from './Bare';
 
 function BoolParam({
   className = '',
@@ -15,28 +15,28 @@ function BoolParam({
   isError,
   label,
   onChange,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const [defaultValue] = useState(value instanceof Boolean ? value.valueOf() : (value as boolean))
+  const { t } = useTranslation();
+  const [defaultValue] = useState(value instanceof Boolean ? value.valueOf() : (value as boolean));
 
   const options = useMemo(
     () => [
       { text: t<string>('No'), value: false },
-      { text: t<string>('Yes'), value: true },
+      { text: t<string>('Yes'), value: true }
     ],
     [t]
-  )
+  );
 
   const _onChange = useCallback(
     (value: boolean) =>
       onChange &&
       onChange({
         isValid: true,
-        value,
+        value
       }),
     [onChange]
-  )
+  );
 
   return (
     <Bare className={className}>
@@ -52,7 +52,7 @@ function BoolParam({
         withLabel={withLabel}
       />
     </Bare>
-  )
+  );
 }
 
-export default React.memo(BoolParam)
+export default React.memo(BoolParam);

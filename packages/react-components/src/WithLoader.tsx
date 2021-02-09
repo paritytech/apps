@@ -1,20 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/app-staking authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
-import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader'
-import styled from 'styled-components'
+import React from 'react';
+import Loader from 'semantic-ui-react/dist/commonjs/elements/Loader/Loader';
+import styled from 'styled-components';
 
-import { useTranslation } from './translate'
-import { BareProps } from './types'
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  isLoading?: boolean
-  text?: React.ReactNode
+  isLoading?: boolean;
+  text?: React.ReactNode;
 }
 
 function WithLoader({ children = null, className, isLoading = false, text }: Props): React.ReactElement<Props> | null {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <>
@@ -28,7 +28,7 @@ function WithLoader({ children = null, className, isLoading = false, text }: Pro
         children
       )}
     </>
-  )
+  );
 }
 
 export default React.memo(styled(WithLoader)`
@@ -46,4 +46,4 @@ export default React.memo(styled(WithLoader)`
     display: flex;
     align-items: center;
   }
-`)
+`);

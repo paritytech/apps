@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
-  children: React.ReactNode
-  className?: string
-  isError?: boolean
-  isSuccess?: boolean
-  withBottomMargin?: boolean
+  children: React.ReactNode;
+  className?: string;
+  isError?: boolean;
+  isSuccess?: boolean;
+  withBottomMargin?: boolean;
 }
 
 function Card({ children, className = '', isError, isSuccess, withBottomMargin }: Props): React.ReactElement<Props> {
@@ -21,7 +21,7 @@ function Card({ children, className = '', isError, isSuccess, withBottomMargin }
     >
       {children}
     </article>
-  )
+  );
 }
 
 export default React.memo(styled(Card)`
@@ -97,4 +97,4 @@ export default React.memo(styled(Card)`
       margin-left: 0.2em;
     }
   }
-`)
+`);

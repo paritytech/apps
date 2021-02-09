@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { css } from 'styled-components'
+import { css } from 'styled-components';
 
-import { ELEV_2_CSS, ELEV_3_CSS } from './constants'
+import { ELEV_2_CSS, ELEV_3_CSS } from './constants';
 
 export default css`
   .ui.hidden.divider {
@@ -361,4 +361,4 @@ export default css`
   .ui.vertical.menu {
     width: 100%;
   }
-`
+`;

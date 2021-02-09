@@ -1,38 +1,38 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useNotification, useToggle } from '@canvas-ui/react-hooks'
-import { truncate } from '@canvas-ui/react-util'
-import { VoidFn } from '@canvas-ui/react-util/types'
-import React, { useCallback } from 'react'
-import styled from 'styled-components'
+import { useNotification, useToggle } from '@canvas-ui/react-hooks';
+import { truncate } from '@canvas-ui/react-util';
+import { VoidFn } from '@canvas-ui/react-util/types';
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
 
-import Button from './Button'
-import CodeInfo from './CodeInfo'
-import Modal from './Modal'
-import { useTranslation } from './translate'
-import { BareProps, Code } from './types'
+import Button from './Button';
+import CodeInfo from './CodeInfo';
+import Modal from './Modal';
+import { useTranslation } from './translate';
+import { BareProps, Code } from './types';
 
 interface Props extends BareProps {
-  code: Code
-  onForget: VoidFn
+  code: Code;
+  onForget: VoidFn;
 }
 
 function CodeForget({ className, code, onForget }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const showNotification = useNotification()
-  const [isOpen, toggleIsOpen] = useToggle()
+  const { t } = useTranslation();
+  const showNotification = useNotification();
+  const [isOpen, toggleIsOpen] = useToggle();
 
   const _onForget = useCallback((): void => {
-    onForget()
-    toggleIsOpen()
+    onForget();
+    toggleIsOpen();
 
     showNotification({
       action: truncate(code.codeHash),
       message: t<string>('code bundle removed'),
-      status: 'success',
-    })
-  }, [code.codeHash, onForget, showNotification, t, toggleIsOpen])
+      status: 'success'
+    });
+  }, [code.codeHash, onForget, showNotification, t, toggleIsOpen]);
 
   return (
     <>
@@ -57,7 +57,7 @@ function CodeForget({ className, code, onForget }: Props): React.ReactElement<Pr
         </Modal.Actions>
       </Modal>
     </>
-  )
+  );
 }
 
 export default styled(React.memo(CodeForget))`
@@ -66,4 +66,4 @@ export default styled(React.memo(CodeForget))`
     margin-top: 1.5rem;
     padding-top: 1.5rem;
   }
-`
+`;

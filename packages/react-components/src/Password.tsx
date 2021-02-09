@@ -1,28 +1,28 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
+import React from 'react';
 
-import Input from './Input'
+import Input from './Input';
 
 interface Props {
-  autoFocus?: boolean
-  children?: React.ReactNode
-  className?: string
-  defaultValue?: string
-  help?: string
-  isDisabled?: boolean
-  isError?: boolean
-  isFull?: boolean
-  label?: string
-  labelExtra?: React.ReactNode
-  name?: string
-  onChange: (value: string) => void
-  onEnter?: () => void
-  onEscape?: () => void
-  tabIndex?: number
-  value: string
-  withLabel?: boolean
+  autoFocus?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  defaultValue?: string;
+  help?: string;
+  isDisabled?: boolean;
+  isError?: boolean;
+  isFull?: boolean;
+  label?: string;
+  labelExtra?: React.ReactNode;
+  name?: string;
+  onChange: (value: string) => void;
+  onEnter?: () => void;
+  onEscape?: () => void;
+  tabIndex?: number;
+  value: string;
+  withLabel?: boolean;
 }
 
 function Password({
@@ -42,7 +42,7 @@ function Password({
   onEscape,
   tabIndex,
   value,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   return (
     <Input
@@ -66,7 +66,7 @@ function Password({
     >
       {children}
     </Input>
-  )
+  );
 }
 
-export default React.memo(Password)
+export default React.memo(Password);

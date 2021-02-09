@@ -1,22 +1,22 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from '@canvas-ui/react-api'
-import { QueueTx } from '@canvas-ui/react-api/Status/types'
-import { Call, Expander, Modal } from '@canvas-ui/react-components'
-import BN from 'bn.js'
-import React from 'react'
-import styled from 'styled-components'
+import { registry } from '@canvas-ui/react-api';
+import { QueueTx } from '@canvas-ui/react-api/Status/types';
+import { Call, Expander, Modal } from '@canvas-ui/react-components';
+import BN from 'bn.js';
+import React from 'react';
+import styled from 'styled-components';
 
-import PaymentInfo from './PaymentInfo'
-import { useTranslation } from './translate'
+import PaymentInfo from './PaymentInfo';
+import { useTranslation } from './translate';
 
 interface Props {
-  className?: string
-  currentItem: QueueTx
-  isSendable: boolean
-  onError: () => void
-  tip?: BN
+  className?: string;
+  currentItem: QueueTx;
+  isSendable: boolean;
+  onError: () => void;
+  tip?: BN;
 }
 
 function Transaction({
@@ -24,16 +24,16 @@ function Transaction({
   currentItem: { accountId, extrinsic, isUnsigned, payload },
   isSendable,
   onError,
-  tip,
+  tip
 }: Props): React.ReactElement<Props> | null {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   if (!extrinsic) {
-    return null
+    return null;
   }
 
-  const { meta, method, section } = registry.findMetaCall(extrinsic.callIndex)
-  const args = meta?.args.map(({ name }) => name).join(', ') || ''
+  const { meta, method, section } = registry.findMetaCall(extrinsic.callIndex);
+  const args = meta?.args.map(({ name }) => name).join(', ') || '';
 
   return (
     <Modal.Columns className={className}>
@@ -70,7 +70,7 @@ function Transaction({
         </p>
       </Modal.Column>
     </Modal.Columns>
-  )
+  );
 }
 
 export default React.memo(styled(Transaction)`
@@ -94,4 +94,4 @@ export default React.memo(styled(Transaction)`
       opacity: 0.6;
     }
   }
-`)
+`);

@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { QueueTx, QueueTxMessageSetStatus, QueueTxStatus } from '@canvas-ui/react-api/Status/types'
+import { QueueTx, QueueTxMessageSetStatus, QueueTxStatus } from '@canvas-ui/react-api/Status/types';
 
-import { SubmittableResult } from '@polkadot/api'
-import keyring from '@polkadot/ui-keyring'
+import { SubmittableResult } from '@polkadot/api';
+import keyring from '@polkadot/ui-keyring';
 
-import { AddressFlags } from './types'
+import { AddressFlags } from './types';
 
-const NOOP = () => undefined
+const NOOP = () => undefined;
 
 export function extractExternal(accountId: string | null): AddressFlags {
   if (!accountId) {
@@ -19,16 +19,16 @@ export function extractExternal(accountId: string | null): AddressFlags {
       isQr: false,
       isUnlockable: false,
       threshold: 0,
-      who: [],
-    }
+      who: []
+    };
   }
 
-  let publicKey
+  let publicKey;
 
   try {
-    publicKey = keyring.decodeAddress(accountId)
+    publicKey = keyring.decodeAddress(accountId);
   } catch (error) {
-    console.error(error)
+    console.error(error);
 
     return {
       isHardware: false,
@@ -37,11 +37,11 @@ export function extractExternal(accountId: string | null): AddressFlags {
       isQr: false,
       isUnlockable: false,
       threshold: 0,
-      who: [],
-    }
+      who: []
+    };
   }
 
-  const pair = keyring.getPair(publicKey)
+  const pair = keyring.getPair(publicKey);
 
   return {
     hardwareType: pair.meta.hardwareType as string,
@@ -51,12 +51,12 @@ export function extractExternal(accountId: string | null): AddressFlags {
     isQr: !!pair.meta.isExternal && !pair.meta.isMultisig && !pair.meta.isProxied,
     isUnlockable: !pair.meta.isExternal && !pair.meta.isHardware && !pair.meta.isInjected && pair.isLocked,
     threshold: (pair.meta.threshold as number) || 0,
-    who: ((pair.meta.who as string[]) || []).map(recodeAddress),
-  }
+    who: ((pair.meta.who as string[]) || []).map(recodeAddress)
+  };
 }
 
 export function recodeAddress(address: string | Uint8Array): string {
-  return keyring.encodeAddress(keyring.decodeAddress(address))
+  return keyring.encodeAddress(keyring.decodeAddress(address));
 }
 
 export function handleTxResults(
@@ -67,32 +67,32 @@ export function handleTxResults(
 ): (result: SubmittableResult) => void {
   return (result: SubmittableResult): void => {
     if (!result || !result.status) {
-      return
+      return;
     }
 
-    const status = result.status.type.toLowerCase() as QueueTxStatus
+    const status = result.status.type.toLowerCase() as QueueTxStatus;
 
-    console.log(`${handler}: status :: ${JSON.stringify(result)}`)
+    console.log(`${handler}: status :: ${JSON.stringify(result)}`);
 
-    queueSetTxStatus(id, status, result)
-    txUpdateCb(result)
+    queueSetTxStatus(id, status, result);
+    txUpdateCb(result);
 
     if (result.status.isFinalized || result.status.isInBlock) {
       result.events
         .filter(({ event: { section } }) => section === 'system')
         .forEach(({ event: { method } }): void => {
           if (method === 'ExtrinsicFailed') {
-            txFailedCb(result)
+            txFailedCb(result);
           } else if (method === 'ExtrinsicSuccess') {
-            txSuccessCb(result)
+            txSuccessCb(result);
           }
-        })
+        });
     } else if (result.isError) {
-      txFailedCb(result)
+      txFailedCb(result);
     }
 
     if (result.isCompleted) {
-      unsubscribe()
+      unsubscribe();
     }
-  }
+  };
 }

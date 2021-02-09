@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/apps-config authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import BN from 'bn.js'
+import BN from 'bn.js';
 
 export default {
   chains: {
     Kusama: 'kusama',
-    'Kusama CC3': 'kusama',
+    'Kusama CC3': 'kusama'
   },
   create: (chain: string, path: string, data: BN | number | string): string =>
     `https://${chain}.polkassembly.io/${path}/${data.toString()}`,
@@ -15,7 +15,7 @@ export default {
     council: 'motion',
     proposal: 'proposal',
     referendum: 'referendum',
-    treasury: 'treasury',
+    treasury: 'treasury'
   },
-  url: 'https://polkassembly.io/',
-}
+  url: 'https://polkassembly.io/'
+};

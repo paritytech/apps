@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
+import React from 'react';
 
-import { Props } from '../types'
-import BaseBytes from './BaseBytes'
-import Static from './Static'
+import { Props } from '../types';
+import BaseBytes from './BaseBytes';
+import Static from './Static';
 
 function Unknown(props: Props): React.ReactElement<Props> {
-  const { className = '', defaultValue, isDisabled, isError, label, name, onChange, onEnter, onEscape, type } = props
+  const { className = '', defaultValue, isDisabled, isError, label, name, onChange, onEnter, onEscape, type } = props;
 
   if (isDisabled) {
-    return <Static {...props} />
+    return <Static {...props} />;
   }
 
   return (
@@ -30,7 +30,7 @@ function Unknown(props: Props): React.ReactElement<Props> {
       type={type}
       withLength={false}
     />
-  )
+  );
 }
 
-export default React.memo(Unknown)
+export default React.memo(Unknown);

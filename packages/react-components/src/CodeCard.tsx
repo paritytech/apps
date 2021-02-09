@@ -1,26 +1,26 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { store, useAbi } from '@canvas-ui/page-contracts'
-import { useToggle } from '@canvas-ui/react-hooks'
-import { FileState } from '@canvas-ui/react-hooks/types'
-import { VoidFn } from '@canvas-ui/react-util/types'
-import React, { useCallback } from 'react'
-import styled from 'styled-components'
+import { store, useAbi } from '@canvas-ui/page-contracts';
+import { useToggle } from '@canvas-ui/react-hooks';
+import { FileState } from '@canvas-ui/react-hooks/types';
+import { VoidFn } from '@canvas-ui/react-util/types';
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
 
-import { ELEV_2_CSS } from './styles/constants'
-import Abi from './Abi'
-import Button from './Button'
-import Card from './Card'
-import CodeForget from './CodeForget'
-import CodeInfo from './CodeInfo'
-import CodeUploadABI from './CodeUploadABI'
-import { useTranslation } from './translate'
-import { Code, ComponentProps } from './types'
+import { ELEV_2_CSS } from './styles/constants';
+import Abi from './Abi';
+import Button from './Button';
+import Card from './Card';
+import CodeForget from './CodeForget';
+import CodeInfo from './CodeInfo';
+import CodeUploadABI from './CodeUploadABI';
+import { useTranslation } from './translate';
+import { Code, ComponentProps } from './types';
 
 interface Props extends ComponentProps {
-  code: Code
-  onForget?: VoidFn
+  code: Code;
+  onForget?: VoidFn;
 }
 
 function CodeCard({
@@ -28,29 +28,29 @@ function CodeCard({
   code,
   code: { id },
   navigateTo,
-  onForget: _onForget,
+  onForget: _onForget
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const [, , setIsAbiOpen] = useToggle()
-  const { abi, isAbiSupplied, onChangeAbi } = useAbi(code)
+  const { t } = useTranslation();
+  const [, , setIsAbiOpen] = useToggle();
+  const { abi, isAbiSupplied, onChangeAbi } = useAbi(code);
 
   const onDeploy = useCallback((): void => {
-    navigateTo.deployNew(id)()
-  }, [id, navigateTo])
+    navigateTo.deployNew(id)();
+  }, [id, navigateTo]);
 
   const onForget = useCallback((): void => {
-    store.forgetCode(id)
+    store.forgetCode(id);
 
-    _onForget && _onForget()
-  }, [id, _onForget])
+    _onForget && _onForget();
+  }, [id, _onForget]);
 
   const onSaveABI = useCallback(
     (file: FileState): void => {
-      onChangeAbi(file)
-      setIsAbiOpen(true)
+      onChangeAbi(file);
+      setIsAbiOpen(true);
     },
     [onChangeAbi, setIsAbiOpen]
-  )
+  );
 
   return (
     <Card className={className}>
@@ -71,7 +71,7 @@ function CodeCard({
         </Button.Group>
       </div>
     </Card>
-  )
+  );
 }
 
 export default styled(React.memo(CodeCard))`
@@ -84,4 +84,4 @@ export default styled(React.memo(CodeCard))`
     padding: 1rem 0 0;
     border-top: 1px solid var(--grey40);
   }
-`
+`;

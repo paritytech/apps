@@ -1,41 +1,41 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-const fs = require('fs')
-const path = require('path')
-const typescript = require('typescript')
+const fs = require('fs');
+const path = require('path');
+const typescript = require('typescript');
 
-const findPackages = require('./scripts/findPackages')
+const findPackages = require('./scripts/findPackages');
 
 function transform(file, enc, done) {
-  const { ext } = path.parse(file.path)
+  const { ext } = path.parse(file.path);
 
   if (ext === '.tsx') {
-    const content = fs.readFileSync(file.path, enc)
+    const content = fs.readFileSync(file.path, enc);
 
     const { outputText } = typescript.transpileModule(content, {
       compilerOptions: {
-        target: 'es2018',
+        target: 'es2018'
       },
-      fileName: path.basename(file.path),
-    })
+      fileName: path.basename(file.path)
+    });
 
     const parserHandler = (key, options) => {
-      options.defaultValue = key
+      options.defaultValue = key;
 
       if (process.platform !== 'win32') {
-        options.ns = /packages\/(.*?)\/src/g.exec(file.path)[1].replace('page-', 'app-')
+        options.ns = /packages\/(.*?)\/src/g.exec(file.path)[1].replace('page-', 'app-');
       } else {
-        options.ns = /packages\\(.*?)\\src/g.exec(file.path)[1].replace('page-', 'app-')
+        options.ns = /packages\\(.*?)\\src/g.exec(file.path)[1].replace('page-', 'app-');
       }
 
-      this.parser.set(key, options)
-    }
+      this.parser.set(key, options);
+    };
 
-    this.parser.parseFuncFromString(outputText, parserHandler)
+    this.parser.parseFuncFromString(outputText, parserHandler);
   }
 
-  done()
+  done();
 }
 
 module.exports = {
@@ -44,14 +44,14 @@ module.exports = {
     // Use ! to filter out files or directories
     '!packages/*/src/**/*.spec.{ts,tsx}',
     '!packages/*/src/i18n/**',
-    '!**/node_modules/**',
+    '!**/node_modules/**'
   ],
   options: {
     debug: true,
     defaultLng: 'en',
     func: {
       extensions: ['.tsx', '.ts'],
-      list: ['t', 'i18next.t', 'i18n.t'],
+      list: ['t', 'i18next.t', 'i18n.t']
     },
     keySeparator: false, // key separator
     lngs: ['en'],
@@ -61,12 +61,12 @@ module.exports = {
       jsonIndent: 2,
       lineEnding: '\n',
       loadPath: 'packages/apps/public/locales/{{lng}}/{{ns}}.json',
-      savePath: 'packages/apps/public/locales/{{lng}}/{{ns}}.json',
+      savePath: 'packages/apps/public/locales/{{lng}}/{{ns}}.json'
     },
     trans: {
-      component: 'Trans',
-    },
+      component: 'Trans'
+    }
   },
   output: './',
-  transform,
-}
+  transform
+};

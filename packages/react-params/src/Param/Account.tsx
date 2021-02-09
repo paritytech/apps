@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputAddress } from '@canvas-ui/react-components'
-import React, { useCallback, useState } from 'react'
+import { InputAddress } from '@canvas-ui/react-components';
+import React, { useCallback, useState } from 'react';
 
-import keyring from '@polkadot/ui-keyring'
+import keyring from '@polkadot/ui-keyring';
 
-import { Props } from '../types'
-import Bare from './Bare'
+import { Props } from '../types';
+import Bare from './Bare';
 
 function Account({
   className = '',
@@ -17,32 +17,32 @@ function Account({
   isInOption,
   label,
   onChange,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
-  const [defaultValue] = useState((value as string)?.toString())
+  const [defaultValue] = useState((value as string)?.toString());
 
   const _onChange = useCallback(
     (value?: string | null): void => {
-      let isValid = false
+      let isValid = false;
 
       if (value) {
         try {
-          keyring.decodeAddress(value)
+          keyring.decodeAddress(value);
 
-          isValid = true
+          isValid = true;
         } catch (err) {
-          console.error(err)
+          console.error(err);
         }
       }
 
       onChange &&
         onChange({
           isValid,
-          value,
-        })
+          value
+        });
     },
     [onChange]
-  )
+  );
 
   return (
     <Bare className={className}>
@@ -61,7 +61,7 @@ function Account({
         withLabel={withLabel}
       />
     </Bare>
-  )
+  );
 }
 
-export default React.memo(Account)
+export default React.memo(Account);

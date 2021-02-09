@@ -1,58 +1,58 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { QueueTx } from '@canvas-ui/react-api/Status/types'
-import { InputAddress, Modal, Toggle } from '@canvas-ui/react-components'
-import { useAccounts, useApi, useIsMountedRef } from '@canvas-ui/react-hooks'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { QueueTx } from '@canvas-ui/react-api/Status/types';
+import { InputAddress, Modal, Toggle } from '@canvas-ui/react-components';
+import { useAccounts, useApi, useIsMountedRef } from '@canvas-ui/react-hooks';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { ApiPromise } from '@polkadot/api'
-import { SubmittableExtrinsic } from '@polkadot/api/types'
-import { Option, Vec } from '@polkadot/types'
-import { AccountId, BalanceOf, Call, Multisig, ProxyDefinition, ProxyType } from '@polkadot/types/interfaces'
-import { ITuple } from '@polkadot/types/types'
-import { isFunction } from '@polkadot/util'
+import { ApiPromise } from '@polkadot/api';
+import { SubmittableExtrinsic } from '@polkadot/api/types';
+import { Option, Vec } from '@polkadot/types';
+import { AccountId, BalanceOf, Call, Multisig, ProxyDefinition, ProxyType } from '@polkadot/types/interfaces';
+import { ITuple } from '@polkadot/types/types';
+import { isFunction } from '@polkadot/util';
 
-import Password from './Password'
-import { useTranslation } from './translate'
-import { AddressFlags, AddressProxy } from './types'
-import { extractExternal } from './util'
+import Password from './Password';
+import { useTranslation } from './translate';
+import { AddressFlags, AddressProxy } from './types';
+import { extractExternal } from './util';
 
 interface Props {
-  className?: string
-  currentItem: QueueTx
-  onChange: (address: AddressProxy) => void
-  onEnter?: () => void
-  passwordError: string | null
-  requestAddress: string
+  className?: string;
+  currentItem: QueueTx;
+  onChange: (address: AddressProxy) => void;
+  onEnter?: () => void;
+  passwordError: string | null;
+  requestAddress: string;
 }
 
 interface MultiState {
-  address: string
-  isMultiCall: boolean
-  who: string[]
-  whoFilter: string[]
+  address: string;
+  isMultiCall: boolean;
+  who: string[];
+  whoFilter: string[];
 }
 
 interface PasswordState {
-  isUnlockCached: boolean
-  signPassword: string
+  isUnlockCached: boolean;
+  signPassword: string;
 }
 
 interface ProxyState {
-  address: string
-  isProxied: boolean
-  proxies: [string, ProxyType][]
-  proxiesFilter: string[]
+  address: string;
+  isProxied: boolean;
+  proxies: [string, ProxyType][];
+  proxiesFilter: string[];
 }
 
 function findCall(tx: Call | SubmittableExtrinsic<'promise'>): { method: string; section: string } {
   try {
-    const { method, section } = tx.registry.findMetaCall(tx.callIndex)
+    const { method, section } = tx.registry.findMetaCall(tx.callIndex);
 
-    return { method, section }
+    return { method, section };
   } catch (error) {
-    return { method: 'unknown', section: 'unknown' }
+    return { method: 'unknown', section: 'unknown' };
   }
 }
 
@@ -63,20 +63,20 @@ function filterProxies(
 ): string[] {
   // check an array of calls to all have proxies as the address
   const checkCalls = (address: string, txs: Call[]): boolean =>
-    !txs.some((tx) => !filterProxies(allAccounts, tx, proxies).includes(address))
+    !txs.some(tx => !filterProxies(allAccounts, tx, proxies).includes(address));
 
   // get the call info
-  const { method, section } = findCall(tx)
+  const { method, section } = findCall(tx);
 
   return proxies
     .filter(([address, proxy]): boolean => {
       if (!allAccounts.includes(address)) {
-        return false
+        return false;
       }
 
       switch (proxy.toString()) {
         case 'Any':
-          return true
+          return true;
         case 'Governance':
           return [
             'council',
@@ -86,33 +86,33 @@ function filterProxies(
             'poll',
             'society',
             'technicalCommittee',
-            'treasury',
-          ].includes(section)
+            'treasury'
+          ].includes(section);
         case 'IdentityJudgement':
-          return section === 'identity' && method === 'provideJudgement'
+          return section === 'identity' && method === 'provideJudgement';
         case 'NonTransfer':
           return !(
             section === 'balances' ||
             (section === 'indices' && method === 'transfer') ||
             (section === 'vesting' && method === 'vestedTransfer')
-          )
+          );
         case 'Staking':
           return (
             section === 'staking' ||
             (section === 'utility' &&
               ((method === 'batch' && checkCalls(address, tx.args[0] as Vec<Call>)) ||
                 (method === 'asLimitedSub' && checkCalls(address, [tx.args[0] as Call]))))
-          )
+          );
         case 'SudoBalances':
           return (
             (section === 'sudo' && method === 'sudo' && findCall(tx.args[0] as Call).section === 'balances') ||
             (section === 'utility' && method === 'batch' && checkCalls(address, tx.args[0] as Vec<Call>))
-          )
+          );
         default:
-          return false
+          return false;
       }
     })
-    .map(([address]) => address)
+    .map(([address]) => address);
 }
 
 async function queryForMultisig(
@@ -121,31 +121,31 @@ async function queryForMultisig(
   proxyAddress: string | null,
   tx: SubmittableExtrinsic<'promise'>
 ): Promise<MultiState | null> {
-  const multiModule = api.tx.multisig ? 'multisig' : 'utility'
+  const multiModule = api.tx.multisig ? 'multisig' : 'utility';
 
   if (isFunction(api.query[multiModule]?.multisigs)) {
-    const address = proxyAddress || requestAddress
-    const { threshold, who } = extractExternal(address)
-    const hash = (proxyAddress ? api.tx.proxy.proxy(requestAddress, null, tx) : tx).method.hash
-    const optMulti = await api.query[multiModule].multisigs<Option<Multisig>>(address, hash)
-    const multi = optMulti.unwrapOr(null)
+    const address = proxyAddress || requestAddress;
+    const { threshold, who } = extractExternal(address);
+    const hash = (proxyAddress ? api.tx.proxy.proxy(requestAddress, null, tx) : tx).method.hash;
+    const optMulti = await api.query[multiModule].multisigs<Option<Multisig>>(address, hash);
+    const multi = optMulti.unwrapOr(null);
 
     return multi
       ? {
           address,
           isMultiCall: multi.approvals.length + 1 >= threshold,
           who,
-          whoFilter: who.filter((w) => !multi.approvals.some((a) => a.eq(w))),
+          whoFilter: who.filter(w => !multi.approvals.some(a => a.eq(w)))
         }
       : {
           address,
           isMultiCall: false,
           who,
-          whoFilter: who,
-        }
+          whoFilter: who
+        };
   }
 
-  return null
+  return null;
 }
 
 async function queryForProxy(
@@ -155,86 +155,86 @@ async function queryForProxy(
   tx: SubmittableExtrinsic<'promise'>
 ): Promise<ProxyState | null> {
   if (isFunction(api.query.proxy?.proxies)) {
-    const { isProxied } = extractExternal(address)
+    const { isProxied } = extractExternal(address);
     const [_proxies] = await api.query.proxy.proxies<
       ITuple<[Vec<ITuple<[AccountId, ProxyType]> | ProxyDefinition>, BalanceOf]>
-    >(address)
+    >(address);
     const proxies =
       api.tx.proxy.addProxy.meta.args.length === 3
         ? (_proxies as ProxyDefinition[]).map(({ delegate, proxyType }): [string, ProxyType] => [
             delegate.toString(),
-            proxyType,
+            proxyType
           ])
         : (_proxies as [AccountId, ProxyType][]).map(([delegate, proxyType]): [string, ProxyType] => [
             delegate.toString(),
-            proxyType,
-          ])
-    const proxiesFilter = filterProxies(allAccounts, tx, proxies)
+            proxyType
+          ]);
+    const proxiesFilter = filterProxies(allAccounts, tx, proxies);
 
     if (proxiesFilter.length) {
-      return { address, isProxied, proxies, proxiesFilter }
+      return { address, isProxied, proxies, proxiesFilter };
     }
   }
 
-  return null
+  return null;
 }
 
 function Address({ currentItem, onChange, onEnter, passwordError, requestAddress }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const { api } = useApi()
-  const { allAccounts } = useAccounts()
-  const mountedRef = useIsMountedRef()
-  const [multiAddress, setMultiAddress] = useState<string | null>(null)
-  const [proxyAddress, setProxyAddress] = useState<string | null>(null)
-  const [isMultiCall, setIsMultiCall] = useState(false)
-  const [isProxyActive, setIsProxyActive] = useState(true)
-  const [multiInfo, setMultInfo] = useState<MultiState | null>(null)
-  const [proxyInfo, setProxyInfo] = useState<ProxyState | null>(null)
+  const { t } = useTranslation();
+  const { api } = useApi();
+  const { allAccounts } = useAccounts();
+  const mountedRef = useIsMountedRef();
+  const [multiAddress, setMultiAddress] = useState<string | null>(null);
+  const [proxyAddress, setProxyAddress] = useState<string | null>(null);
+  const [isMultiCall, setIsMultiCall] = useState(false);
+  const [isProxyActive, setIsProxyActive] = useState(true);
+  const [multiInfo, setMultInfo] = useState<MultiState | null>(null);
+  const [proxyInfo, setProxyInfo] = useState<ProxyState | null>(null);
   const [{ isUnlockCached, signPassword }, setSignPassword] = useState<PasswordState>({
     isUnlockCached: false,
-    signPassword: '',
-  })
+    signPassword: ''
+  });
 
   const [signAddress, flags] = useMemo((): [string, AddressFlags] => {
-    const signAddress = (multiInfo && multiAddress) || (isProxyActive && proxyInfo && proxyAddress) || requestAddress
+    const signAddress = (multiInfo && multiAddress) || (isProxyActive && proxyInfo && proxyAddress) || requestAddress;
 
-    return [signAddress, extractExternal(signAddress)]
-  }, [multiAddress, proxyAddress, isProxyActive, multiInfo, proxyInfo, requestAddress])
+    return [signAddress, extractExternal(signAddress)];
+  }, [multiAddress, proxyAddress, isProxyActive, multiInfo, proxyInfo, requestAddress]);
 
   const _updatePassword = useCallback(
     (signPassword: string, isUnlockCached: boolean) => setSignPassword({ isUnlockCached, signPassword }),
     []
-  )
+  );
 
   useEffect((): void => {
-    !proxyInfo && setProxyAddress(null)
-  }, [proxyInfo])
+    !proxyInfo && setProxyAddress(null);
+  }, [proxyInfo]);
 
   // proxy for requestor
   useEffect((): void => {
-    setProxyInfo(null)
+    setProxyInfo(null);
 
     currentItem.extrinsic &&
       queryForProxy(api, allAccounts, requestAddress, currentItem.extrinsic)
-        .then((info) => mountedRef.current && setProxyInfo(info))
-        .catch(console.error)
-  }, [allAccounts, api, currentItem, mountedRef, requestAddress])
+        .then(info => mountedRef.current && setProxyInfo(info))
+        .catch(console.error);
+  }, [allAccounts, api, currentItem, mountedRef, requestAddress]);
 
   // multisig
   useEffect((): void => {
-    setMultInfo(null)
+    setMultInfo(null);
 
     currentItem.extrinsic &&
       extractExternal(proxyAddress || requestAddress).isMultisig &&
       queryForMultisig(api, requestAddress, proxyAddress, currentItem.extrinsic)
         .then((info): void => {
           if (mountedRef.current) {
-            setMultInfo(info)
-            setIsMultiCall(info?.isMultiCall || false)
+            setMultInfo(info);
+            setIsMultiCall(info?.isMultiCall || false);
           }
         })
-        .catch(console.error)
-  }, [proxyAddress, api, currentItem, mountedRef, requestAddress])
+        .catch(console.error);
+  }, [proxyAddress, api, currentItem, mountedRef, requestAddress]);
 
   useEffect((): void => {
     onChange({
@@ -243,8 +243,8 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
       multiRoot: multiInfo ? multiInfo.address : null,
       proxyRoot: proxyInfo && isProxyActive ? proxyInfo.address : null,
       signAddress,
-      signPassword,
-    })
+      signPassword
+    });
   }, [
     isProxyActive,
     isMultiCall,
@@ -255,8 +255,8 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
     proxyAddress,
     proxyInfo,
     signAddress,
-    signPassword,
-  ])
+    signPassword
+  ]);
 
   return (
     <>
@@ -368,7 +368,7 @@ function Address({ currentItem, onChange, onEnter, passwordError, requestAddress
         </Modal.Columns>
       )}
     </>
-  )
+  );
 }
 
-export default React.memo(Address)
+export default React.memo(Address);

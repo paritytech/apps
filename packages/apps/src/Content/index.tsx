@@ -1,60 +1,60 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import createRoutes from '@canvas-ui/apps-routing'
-import { Route } from '@canvas-ui/apps-routing/types'
-import StatusContext from '@canvas-ui/react-api/Status/Context'
-import { ErrorBoundary, GuideModal, Icon, WithLoader } from '@canvas-ui/react-components'
-import { ELEV_3_CSS } from '@canvas-ui/react-components/styles/constants'
-import { useApi } from '@canvas-ui/react-hooks'
-import { classes } from '@canvas-ui/react-util'
-import React, { Suspense, useCallback, useContext, useMemo } from 'react'
-import { useLocation } from 'react-router-dom'
-import store from 'store'
-import styled from 'styled-components'
+import createRoutes from '@canvas-ui/apps-routing';
+import { Route } from '@canvas-ui/apps-routing/types';
+import StatusContext from '@canvas-ui/react-api/Status/Context';
+import { ErrorBoundary, GuideModal, Icon, WithLoader } from '@canvas-ui/react-components';
+import { ELEV_3_CSS } from '@canvas-ui/react-components/styles/constants';
+import { useApi } from '@canvas-ui/react-hooks';
+import { classes } from '@canvas-ui/react-util';
+import React, { Suspense, useCallback, useContext, useMemo } from 'react';
+import { useLocation } from 'react-router-dom';
+import store from 'store';
+import styled from 'styled-components';
 
-import HelpWidget from '../HelpWidget'
-import { useTranslation } from '../translate'
-import useAppNavigation from '../useAppNavigation'
-import NotFound from './NotFound'
-import Status from './Status'
+import HelpWidget from '../HelpWidget';
+import { useTranslation } from '../translate';
+import useAppNavigation from '../useAppNavigation';
+import NotFound from './NotFound';
+import Status from './Status';
 
 interface Props {
-  className?: string
+  className?: string;
 }
 
-const sawGuideKey = 'sawGuideKey'
+const sawGuideKey = 'sawGuideKey';
 
 const NOT_FOUND: Route = {
   Component: NotFound,
   display: {
-    needsApi: undefined,
+    needsApi: undefined
   },
   isIgnored: false,
   name: 'unknown',
-  text: 'Unknown',
-}
+  text: 'Unknown'
+};
 
 function Content({ className }: Props): React.ReactElement<Props> {
-  const location = useLocation()
-  const { t } = useTranslation()
-  const { isApiConnected, isApiReady } = useApi()
-  const navigateTo = useAppNavigation()
-  const { queueAction, stqueue, txqueue } = useContext(StatusContext)
+  const location = useLocation();
+  const { t } = useTranslation();
+  const { isApiConnected, isApiReady } = useApi();
+  const navigateTo = useAppNavigation();
+  const { queueAction, stqueue, txqueue } = useContext(StatusContext);
   const {
     Component,
     display: { needsApi },
-    name,
+    name
   } = useMemo((): Route => {
-    const app = location.pathname.slice(1) || ''
-    const found = createRoutes(t).find((route) => !!(route && app.startsWith(route.name)))
+    const app = location.pathname.slice(1) || '';
+    const found = createRoutes(t).find(route => !!(route && app.startsWith(route.name)));
 
-    return found || NOT_FOUND
-  }, [location, t])
+    return found || NOT_FOUND;
+  }, [location, t]);
 
   const setSawGuide = useCallback((): void => {
-    store.set(sawGuideKey, true)
-  }, [])
+    store.set(sawGuideKey, true);
+  }, []);
 
   if (!isApiConnected && name !== 'settings') {
     return (
@@ -68,12 +68,12 @@ function Content({ className }: Props): React.ReactElement<Props> {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
-  const isLoading = needsApi && !isApiReady
+  const isLoading = needsApi && !isApiReady;
 
-  const sawGuide = !!store.get(sawGuideKey) || false
+  const sawGuide = !!store.get(sawGuideKey) || false;
 
   return (
     <div className={classes(className, isLoading && 'isLoading')}>
@@ -94,7 +94,7 @@ function Content({ className }: Props): React.ReactElement<Props> {
         <Status queueAction={queueAction} stqueue={stqueue} txqueue={txqueue} />
       </WithLoader>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(Content)`
@@ -142,4 +142,4 @@ export default React.memo(styled(Content)`
       }
     }
   }
-`)
+`);

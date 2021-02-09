@@ -1,25 +1,25 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Dropdown, Icon, Tooltip } from '@canvas-ui/react-components'
-import { ELEV_4_CSS } from '@canvas-ui/react-components/styles/constants'
-import { BareProps as Props } from '@canvas-ui/react-components/types'
-import { useApi, useEndpoints, useSettings } from '@canvas-ui/react-hooks'
-import { classes, useEndpointOptions } from '@canvas-ui/react-util'
-import React from 'react'
-import { NavLink } from 'react-router-dom'
-import styled from 'styled-components'
+import { Dropdown, Icon, Tooltip } from '@canvas-ui/react-components';
+import { ELEV_4_CSS } from '@canvas-ui/react-components/styles/constants';
+import { BareProps as Props } from '@canvas-ui/react-components/types';
+import { useApi, useEndpoints, useSettings } from '@canvas-ui/react-hooks';
+import { classes, useEndpointOptions } from '@canvas-ui/react-util';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { useTranslation } from '../translate'
+import { useTranslation } from '../translate';
 
 function Settings({ className }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const { isApiConnected } = useApi()
-  const { onChangeKey } = useSettings(true)
-  const endpointState = useEndpoints(onChangeKey('apiUrl'))
-  const endpointOptions = useEndpointOptions(endpointState, t, true)
+  const { t } = useTranslation();
+  const { isApiConnected } = useApi();
+  const { onChangeKey } = useSettings(true);
+  const endpointState = useEndpoints(onChangeKey('apiUrl'));
+  const endpointOptions = useEndpointOptions(endpointState, t, true);
 
-  const { onChangeUrl, url } = endpointState
+  const { onChangeUrl, url } = endpointState;
 
   return (
     <div className={`apps--SideBar-settings ${className || ''}`}>
@@ -35,7 +35,7 @@ function Settings({ className }: Props): React.ReactElement<Props> {
       </NavLink>
       <Tooltip place="top" text={t<string>('Settings')} trigger="settings-link" />
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(Settings)`
@@ -173,4 +173,4 @@ export default React.memo(styled(Settings)`
   //     }
   //   }
   // }
-`)
+`);

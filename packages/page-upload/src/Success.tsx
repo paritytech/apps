@@ -1,28 +1,28 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Code } from '@canvas-ui/page-contracts/types'
-import { Button, CodeCard } from '@canvas-ui/react-components'
-import React, { useEffect, useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import { Code } from '@canvas-ui/page-contracts/types';
+import { Button, CodeCard } from '@canvas-ui/react-components';
+import React, { useEffect, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { useTranslation } from './translate'
-import { ComponentProps as Props } from './types'
+import { useTranslation } from './translate';
+import { ComponentProps as Props } from './types';
 
 function Success({ allCodes, basePath, navigateTo }: Props): React.ReactElement<Props> | null {
-  const { id }: { id: string } = useParams()
-  const { t } = useTranslation()
+  const { id }: { id: string } = useParams();
+  const { t } = useTranslation();
 
-  const code = useMemo((): Code | null => allCodes.find(({ id: codeId }) => codeId === id) || null, [allCodes, id])
+  const code = useMemo((): Code | null => allCodes.find(({ id: codeId }) => codeId === id) || null, [allCodes, id]);
 
   useEffect((): void => {
     if (!code) {
-      navigateTo.upload()
+      navigateTo.upload();
     }
-  }, [code, navigateTo])
+  }, [code, navigateTo]);
 
   if (!code) {
-    return null
+    return null;
   }
 
   return (
@@ -43,7 +43,7 @@ function Success({ allCodes, basePath, navigateTo }: Props): React.ReactElement<
         </Button.Group>
       </section>
     </>
-  )
+  );
 }
 
-export default React.memo(Success)
+export default React.memo(Success);

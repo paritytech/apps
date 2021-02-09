@@ -120,4 +120,4 @@ async function main() {
 
 main()
   .catch(console.error)
-  .finally(() => process.exit())
+  .finally(() => process.exit());

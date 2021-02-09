@@ -1,23 +1,23 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button } from '@canvas-ui/react-components'
-import React, { useCallback, useEffect, useState } from 'react'
+import { Button } from '@canvas-ui/react-components';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import { isUndefined } from '@polkadot/util'
+import { isUndefined } from '@polkadot/util';
 
-import getInitValue from '../initValue'
-import { useTranslation } from '../translate'
-import { ParamDef, Props, RawParam } from '../types'
-import Params from '../'
-import Base from './Base'
-import useParamDefs from './useParamDefs'
+import getInitValue from '../initValue';
+import { useTranslation } from '../translate';
+import { ParamDef, Props, RawParam } from '../types';
+import Params from '../';
+import Base from './Base';
+import useParamDefs from './useParamDefs';
 
 function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
   return {
     name: `${index}: ${name || type.type}`,
-    type,
-  }
+    type
+  };
 }
 
 function Vector({
@@ -28,27 +28,27 @@ function Vector({
   onChange,
   overrides,
   type,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> | null {
-  const { t } = useTranslation()
-  const inputParams = useParamDefs(type)
-  const [count, setCount] = useState(0)
-  const [params, setParams] = useState<ParamDef[]>([])
-  const [values, setValues] = useState<RawParam[]>([])
+  const { t } = useTranslation();
+  const inputParams = useParamDefs(type);
+  const [count, setCount] = useState(0);
+  const [params, setParams] = useState<ParamDef[]>([]);
+  const [values, setValues] = useState<RawParam[]>([]);
 
   // build up the list of parameters we are using
   useEffect((): void => {
     if (inputParams.length) {
-      const max = isDisabled ? ((defaultValue.value as RawParam[]) || []).length : count
-      const params: ParamDef[] = []
+      const max = isDisabled ? ((defaultValue.value as RawParam[]) || []).length : count;
+      const params: ParamDef[] = [];
 
       for (let index = 0; index < max; index++) {
-        params.push(generateParam(inputParams, index))
+        params.push(generateParam(inputParams, index));
       }
 
-      setParams(params)
+      setParams(params);
     }
-  }, [count, defaultValue, isDisabled, inputParams])
+  }, [count, defaultValue, isDisabled, inputParams]);
 
   // when !isDisable, generating an input list based on count
   useEffect((): void => {
@@ -56,18 +56,18 @@ function Vector({
       inputParams.length &&
       setValues((values): RawParam[] => {
         if (values.length === count) {
-          return values
+          return values;
         }
 
         while (values.length < count) {
-          const value = getInitValue(inputParams[0].type)
+          const value = getInitValue(inputParams[0].type);
 
-          values.push({ isValid: !isUndefined(value), value })
+          values.push({ isValid: !isUndefined(value), value });
         }
 
-        return values.slice(0, count)
-      })
-  }, [count, inputParams, isDisabled])
+        return values.slice(0, count);
+      });
+  }, [count, inputParams, isDisabled]);
 
   // when isDisabled, set the values based on the defaultValue input
   useEffect((): void => {
@@ -76,20 +76,20 @@ function Vector({
         ((defaultValue.value as RawParam[]) || []).map((value: RawParam) =>
           isUndefined(value) || isUndefined(value.isValid) ? { isValid: !isUndefined(value), value } : value
         )
-      )
-  }, [defaultValue, isDisabled])
+      );
+  }, [defaultValue, isDisabled]);
 
   // when our values has changed, alert upstream
   useEffect((): void => {
     onChange &&
       onChange({
         isValid: values.reduce((result: boolean, { isValid }) => result && isValid, true),
-        value: values.map(({ value }) => value),
-      })
-  }, [values, onChange])
+        value: values.map(({ value }) => value)
+      });
+  }, [values, onChange]);
 
-  const _rowAdd = useCallback((): void => setCount((count) => count + 1), [])
-  const _rowRemove = useCallback((): void => setCount((count) => count - 1), [])
+  const _rowAdd = useCallback((): void => setCount(count => count + 1), []);
+  const _rowRemove = useCallback((): void => setCount(count => count - 1), []);
 
   return (
     <Base className={className} isOuter label={label} withLabel={withLabel}>
@@ -101,7 +101,7 @@ function Vector({
       )}
       <Params isDisabled={isDisabled} onChange={setValues} overrides={overrides} params={params} values={values} />
     </Base>
-  )
+  );
 }
 
-export default React.memo(Vector)
+export default React.memo(Vector);

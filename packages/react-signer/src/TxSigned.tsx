@@ -1,29 +1,29 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { QueueTx } from '@canvas-ui/react-api/Status/types'
-import { Button, ErrorBoundary, Modal, Output, Toggle } from '@canvas-ui/react-components'
-import useSendTx from '@canvas-ui/react-components/useSendTx'
-import { useApi, useToggle } from '@canvas-ui/react-hooks'
-import React, { useState } from 'react'
-import styled from 'styled-components'
+import { QueueTx } from '@canvas-ui/react-api/Status/types';
+import { Button, ErrorBoundary, Modal, Output, Toggle } from '@canvas-ui/react-components';
+import useSendTx from '@canvas-ui/react-components/useSendTx';
+import { useApi, useToggle } from '@canvas-ui/react-hooks';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 
-import Address from './Address'
-import Qr from './Qr'
-import SignFields from './SignFields'
-import Tip from './Tip'
-import Transaction from './Transaction'
-import { useTranslation } from './translate'
+import Address from './Address';
+import Qr from './Qr';
+import SignFields from './SignFields';
+import Tip from './Tip';
+import Transaction from './Transaction';
+import { useTranslation } from './translate';
 
 interface Props {
-  className?: string
-  currentItem: QueueTx
-  requestAddress: string
+  className?: string;
+  currentItem: QueueTx;
+  requestAddress: string;
 }
 
 function TxSigned({ className, currentItem, requestAddress }: Props): React.ReactElement<Props> | null {
-  const { api } = useApi()
-  const { t } = useTranslation()
+  const { api } = useApi();
+  const { t } = useTranslation();
   const {
     addQrSignature,
     flags,
@@ -38,10 +38,10 @@ function TxSigned({ className, currentItem, requestAddress }: Props): React.Reac
     setSenderInfo,
     setSignedOptions,
     setTip,
-    signedTx,
-  } = useSendTx(currentItem, requestAddress)
-  const [isRenderError, toggleRenderError] = useToggle()
-  const [isSubmit, setIsSubmit] = useState(true)
+    signedTx
+  } = useSendTx(currentItem, requestAddress);
+  const [isRenderError, toggleRenderError] = useToggle();
+  const [isSubmit, setIsSubmit] = useState(true);
 
   return (
     <>
@@ -110,7 +110,7 @@ function TxSigned({ className, currentItem, requestAddress }: Props): React.Reac
         )}
       </Modal.Actions>
     </>
-  )
+  );
 }
 
 export default React.memo(styled(TxSigned)`
@@ -122,4 +122,4 @@ export default React.memo(styled(TxSigned)`
   .ui--Checks {
     margin-top: 0.75rem;
   }
-`)
+`);

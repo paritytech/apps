@@ -1,27 +1,27 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, ContractCard } from '@canvas-ui/react-components'
-import { ComponentProps as Props } from '@canvas-ui/react-components/types'
-import { useContract } from '@canvas-ui/react-hooks'
-import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { Button, ContractCard } from '@canvas-ui/react-components';
+import { ComponentProps as Props } from '@canvas-ui/react-components/types';
+import { useContract } from '@canvas-ui/react-hooks';
+import React, { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import { useTranslation } from './translate'
+import { useTranslation } from './translate';
 
 function Success({ basePath, navigateTo }: Props): React.ReactElement<Props> | null {
-  const { t } = useTranslation()
-  const { address }: { address: string } = useParams()
-  const contract = useContract(address)
+  const { t } = useTranslation();
+  const { address }: { address: string } = useParams();
+  const contract = useContract(address);
 
   useEffect((): void => {
     if (!contract) {
-      navigateTo.deploy()
+      navigateTo.deploy();
     }
-  }, [contract, navigateTo])
+  }, [contract, navigateTo]);
 
   if (!contract) {
-    return null
+    return null;
   }
 
   return (
@@ -38,7 +38,7 @@ function Success({ basePath, navigateTo }: Props): React.ReactElement<Props> | n
         </Button.Group>
       </section>
     </>
-  )
+  );
 }
 
-export default React.memo(Success)
+export default React.memo(Success);

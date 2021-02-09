@@ -1,67 +1,67 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { QueueStatus, QueueTx, QueueTxStatus } from '@canvas-ui/react-api/Status/types'
-import type { IconName } from '@fortawesome/fontawesome-svg-core'
+import type { QueueStatus, QueueTx, QueueTxStatus } from '@canvas-ui/react-api/Status/types';
+import type { IconName } from '@fortawesome/fontawesome-svg-core';
 
-import { STATUS_COMPLETE } from '@canvas-ui/react-api/Status/constants'
-import StatusContext from '@canvas-ui/react-api/Status/Context'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
-import styled from 'styled-components'
+import { STATUS_COMPLETE } from '@canvas-ui/react-api/Status/constants';
+import StatusContext from '@canvas-ui/react-api/Status/Context';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import AddressMini from '../AddressMini'
-import Button from '../Button'
-import Icon from '../Icon'
-import Spinner from '../Spinner'
-import { ELEV_4_CSS } from '../styles/constants'
-import { useTranslation } from '../translate'
+import AddressMini from '../AddressMini';
+import Button from '../Button';
+import Icon from '../Icon';
+import Spinner from '../Spinner';
+import { ELEV_4_CSS } from '../styles/constants';
+import { useTranslation } from '../translate';
 
 interface Props {
-  className?: string
+  className?: string;
 }
 
 function iconName(status: string): IconName {
   switch (status) {
     case 'error':
-      return 'ban'
+      return 'ban';
 
     case 'event':
-      return 'assistive-listening-systems'
+      return 'assistive-listening-systems';
 
     case 'received':
-      return 'telegram-plane'
+      return 'telegram-plane';
 
     default:
-      return 'check'
+      return 'check';
   }
 }
 
 function signerIconName(status: QueueTxStatus): IconName {
   switch (status) {
     case 'cancelled':
-      return 'ban'
+      return 'ban';
 
     case 'completed':
     case 'inblock':
     case 'finalized':
     case 'sent':
-      return 'check'
+      return 'check';
 
     case 'dropped':
     case 'invalid':
     case 'usurped':
-      return 'arrow-down'
+      return 'arrow-down';
 
     case 'error':
     case 'finalitytimeout':
-      return 'exclamation-triangle'
+      return 'exclamation-triangle';
 
     case 'queued':
       // case 'retracted':
-      return 'random'
+      return 'random';
 
     default:
-      return 'spinner'
+      return 'spinner';
   }
 }
 
@@ -84,22 +84,22 @@ function renderStatus({ account, action, id, message, removeItem, status }: Queu
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function renderItem({ error, extrinsic, id, removeItem, rpc, status }: QueueTx): React.ReactNode {
-  let { method, section } = rpc
+  let { method, section } = rpc;
 
   if (extrinsic) {
-    const found = extrinsic.registry.findMetaCall(extrinsic.callIndex)
+    const found = extrinsic.registry.findMetaCall(extrinsic.callIndex);
 
     if (found.section !== 'unknown') {
-      method = found.method
-      section = found.section
+      method = found.method;
+      section = found.section;
     }
   }
 
-  const icon = signerIconName(status) as 'ban' | 'spinner'
+  const icon = signerIconName(status) as 'ban' | 'spinner';
 
   return (
     <div className={`item ${status}`} key={id}>
@@ -116,40 +116,40 @@ function renderItem({ error, extrinsic, id, removeItem, rpc, status }: QueueTx):
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function filterSt(stqueue?: QueueStatus[]): QueueStatus[] {
-  return (stqueue || []).filter(({ isCompleted }) => !isCompleted)
+  return (stqueue || []).filter(({ isCompleted }) => !isCompleted);
 }
 
 function filterTx(txqueue?: QueueTx[]): [QueueTx[], QueueTx[]] {
-  const allTx = (txqueue || []).filter(({ status }) => !['completed', 'incomplete'].includes(status))
+  const allTx = (txqueue || []).filter(({ status }) => !['completed', 'incomplete'].includes(status));
 
-  return [allTx, allTx.filter(({ status }) => STATUS_COMPLETE.includes(status))]
+  return [allTx, allTx.filter(({ status }) => STATUS_COMPLETE.includes(status))];
 }
 
 function Status({ className = '' }: Props): React.ReactElement<Props> | null {
-  const { stqueue, txqueue } = useContext(StatusContext)
-  const [allSt, setAllSt] = useState<QueueStatus[]>([])
-  const [[allTx, completedTx], setAllTx] = useState<[QueueTx[], QueueTx[]]>([[], []])
-  const { t } = useTranslation()
+  const { stqueue, txqueue } = useContext(StatusContext);
+  const [allSt, setAllSt] = useState<QueueStatus[]>([]);
+  const [[allTx, completedTx], setAllTx] = useState<[QueueTx[], QueueTx[]]>([[], []]);
+  const { t } = useTranslation();
 
   useEffect((): void => {
-    setAllSt(filterSt(stqueue))
-  }, [stqueue])
+    setAllSt(filterSt(stqueue));
+  }, [stqueue]);
 
   useEffect((): void => {
-    setAllTx(filterTx(txqueue))
-  }, [txqueue])
+    setAllTx(filterTx(txqueue));
+  }, [txqueue]);
 
   const _onDismiss = useCallback((): void => {
-    allSt.map((s) => s.removeItem())
-    completedTx.map((t) => t.removeItem())
-  }, [allSt, completedTx])
+    allSt.map(s => s.removeItem());
+    completedTx.map(t => t.removeItem());
+  }, [allSt, completedTx]);
 
   if (!allSt.length && !allTx.length) {
-    return null
+    return null;
   }
 
   return (
@@ -162,7 +162,7 @@ function Status({ className = '' }: Props): React.ReactElement<Props> | null {
       {allTx.map(renderItem)}
       {allSt.map(renderStatus)}
     </div>
-  )
+  );
 }
 
 export default React.memo(
@@ -279,4 +279,4 @@ z-index: 1001;
 }
 `
   )
-)
+);

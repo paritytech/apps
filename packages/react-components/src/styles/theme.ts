@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { css } from 'styled-components'
+import { css } from 'styled-components';
 
-import { ELEV_2_CSS, ELEV_3_CSS } from './constants'
+import { ELEV_2_CSS, ELEV_3_CSS } from './constants';
 
 /* highlighted buttons, orange */
-export const colorBtnHighlight = '#2477B3'
+export const colorBtnHighlight = '#2477B3';
 
 export default css`
   :root {
@@ -170,4 +170,4 @@ export default css`
       color: var(--grey80);
     }
   }
-`
+`;

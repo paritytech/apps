@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Modal } from '@canvas-ui/react-components'
-import { BareProps as Props } from '@canvas-ui/react-components/types'
-import React from 'react'
-import styled from 'styled-components'
+import { Modal } from '@canvas-ui/react-components';
+import { BareProps as Props } from '@canvas-ui/react-components/types';
+import React from 'react';
+import styled from 'styled-components';
 
-import { useTranslation } from './translate'
-import TxSigned from './TxSigned'
-import TxUnsigned from './TxUnsigned'
-import usePendingTx from './usePendingTx'
+import { useTranslation } from './translate';
+import TxSigned from './TxSigned';
+import TxUnsigned from './TxUnsigned';
+import usePendingTx from './usePendingTx';
 
 function Signer({ children, className = '' }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const { currentItem, requestAddress } = usePendingTx()
+  const { t } = useTranslation();
+  const { currentItem, requestAddress } = usePendingTx();
 
   return (
     <>
@@ -28,7 +28,7 @@ function Signer({ children, className = '' }: Props): React.ReactElement<Props> 
         </Modal>
       )}
     </>
-  )
+  );
 }
 
 export default React.memo(styled(Signer)`
@@ -36,4 +36,4 @@ export default React.memo(styled(Signer)`
     position: absolute;
     left: 1.5rem;
   }
-`)
+`);

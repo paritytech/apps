@@ -1,25 +1,25 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import React from 'react'
-import styled from 'styled-components'
+import { classes } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import { AbiMessage } from '@polkadot/api-contract/types'
-import { encodeTypeDef, TypeRegistry } from '@polkadot/types'
-import { CodecArg } from '@polkadot/types/types'
+import { AbiMessage } from '@polkadot/api-contract/types';
+import { encodeTypeDef, TypeRegistry } from '@polkadot/types';
+import { CodecArg } from '@polkadot/types/types';
 
-import Icon from './Icon'
-import MessageArg from './MessageArg'
-import Tooltip from './Tooltip'
-import { useTranslation } from './translate'
-import { BareProps } from './types'
+import Icon from './Icon';
+import MessageArg from './MessageArg';
+import Tooltip from './Tooltip';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  message: AbiMessage
-  params?: CodecArg[]
-  registry: TypeRegistry
-  withTooltip?: boolean
+  message: AbiMessage;
+  params?: CodecArg[];
+  registry: TypeRegistry;
+  withTooltip?: boolean;
 }
 
 function MessageSignature({
@@ -27,9 +27,9 @@ function MessageSignature({
   message: { args, identifier, isConstructor, isMutating, isPayable, returnType },
   params = [],
   registry,
-  withTooltip = false,
+  withTooltip = false
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className={classes(className, isConstructor && 'isConstructor')}>
@@ -41,7 +41,7 @@ function MessageSignature({
               <MessageArg arg={arg} param={params[index]} registry={registry} />
               {index < args.length - 1 && ', '}
             </React.Fragment>
-          )
+          );
         }
       )}
       )
@@ -51,7 +51,7 @@ function MessageSignature({
           <span className="ui--MessageSignature-returnType">
             {encodeTypeDef({
               ...returnType,
-              ...((returnType.displayName || '').length > 0 ? { displayName: returnType.displayName } : {}),
+              ...((returnType.displayName || '').length > 0 ? { displayName: returnType.displayName } : {})
             })}
           </span>
         </>
@@ -69,7 +69,7 @@ function MessageSignature({
         </>
       )}
     </div>
-  )
+  );
 }
 
 export default React.memo(
@@ -99,4 +99,4 @@ export default React.memo(
     .ui--MessageSignature-returnType {
     }
   `
-)
+);

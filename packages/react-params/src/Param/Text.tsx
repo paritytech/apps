@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Input } from '@canvas-ui/react-components'
-import React, { useCallback, useState } from 'react'
+import { Input } from '@canvas-ui/react-components';
+import React, { useCallback, useState } from 'react';
 
-import { Props } from '../types'
-import Bare from './Bare'
+import { Props } from '../types';
+import Bare from './Bare';
 
 function Text({
   className = '',
@@ -16,25 +16,25 @@ function Text({
   onChange,
   onEnter,
   onEscape,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
-  const [isValid, setIsValid] = useState(false)
+  const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
     (value: string): void => {
-      const isValid = value.length !== 0
+      const isValid = value.length !== 0;
 
       onChange &&
         onChange({
           isValid,
-          value,
-        })
-      setIsValid(isValid)
+          value
+        });
+      setIsValid(isValid);
     },
     [onChange]
-  )
+  );
 
-  const defaultValue = ((value as string) || '').toString()
+  const defaultValue = ((value as string) || '').toString();
 
   return (
     <Bare className={className}>
@@ -52,7 +52,7 @@ function Text({
         withLabel={withLabel}
       />
     </Bare>
-  )
+  );
 }
 
-export default React.memo(Text)
+export default React.memo(Text);

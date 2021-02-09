@@ -1,32 +1,32 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from '@canvas-ui/react-api'
+import { registry } from '@canvas-ui/react-api';
 
-import { createType, getTypeDef, Raw } from '@polkadot/types'
-import { TypeDef, TypeDefInfo } from '@polkadot/types/types'
-import { BN_ZERO, isBn } from '@polkadot/util'
+import { createType, getTypeDef, Raw } from '@polkadot/types';
+import { TypeDef, TypeDefInfo } from '@polkadot/types/types';
+import { BN_ZERO, isBn } from '@polkadot/util';
 
-const warnList: string[] = []
+const warnList: string[] = [];
 
 export default function getInitValue(def: TypeDef): unknown {
   if (def.info === TypeDefInfo.Vec) {
-    return [getInitValue(def.sub as TypeDef)]
+    return [getInitValue(def.sub as TypeDef)];
   } else if (def.info === TypeDefInfo.Tuple) {
-    return Array.isArray(def.sub) ? def.sub.map((def) => getInitValue(def)) : []
+    return Array.isArray(def.sub) ? def.sub.map(def => getInitValue(def)) : [];
   } else if (def.info === TypeDefInfo.Struct) {
     return Array.isArray(def.sub)
       ? def.sub.reduce((result: Record<string, unknown>, def): Record<string, unknown> => {
-          result[def.name as string] = getInitValue(def)
+          result[def.name as string] = getInitValue(def);
 
-          return result
+          return result;
         }, {})
-      : {}
+      : {};
   } else if (def.info === TypeDefInfo.Enum) {
-    return Array.isArray(def.sub) ? { [def.sub[0].name as string]: getInitValue(def.sub[0]) } : {}
+    return Array.isArray(def.sub) ? { [def.sub[0].name as string]: getInitValue(def.sub[0]) } : {};
   }
 
-  const type = [TypeDefInfo.Compact, TypeDefInfo.Option].includes(def.info) ? (def.sub as TypeDef).type : def.type
+  const type = [TypeDefInfo.Compact, TypeDefInfo.Option].includes(def.info) ? (def.sub as TypeDef).type : def.type;
 
   switch (type) {
     case 'AccountIndex':
@@ -52,39 +52,39 @@ export default function getInitValue(def: TypeDef): unknown {
     case 'u64':
     case 'u128':
     case 'VoteIndex':
-      return BN_ZERO
+      return BN_ZERO;
 
     case 'bool':
-      return false
+      return false;
 
     case 'Bytes':
-      return undefined
+      return undefined;
 
     case 'String':
     case 'Text':
-      return ''
+      return '';
 
     case 'Moment':
-      return BN_ZERO
+      return BN_ZERO;
 
     case 'Vote':
-      return -1
+      return -1;
 
     case 'VoteThreshold':
-      return 0
+      return 0;
 
     case 'BlockHash':
     case 'CodeHash':
     case 'Hash':
     case 'H256':
-      return createType(registry, 'H256')
+      return createType(registry, 'H256');
 
     case 'H512':
-      return createType(registry, 'H512')
+      return createType(registry, 'H512');
 
     case 'Raw':
     case 'Keys':
-      return ''
+      return '';
 
     case 'AccountId':
     case 'AccountIdOf':
@@ -100,40 +100,42 @@ export default function getInitValue(def: TypeDef): unknown {
     case 'SessionKey':
     case 'StorageKey':
     case 'ValidatorId':
-      return undefined
+      return undefined;
 
     case 'Extrinsic':
-      return new Raw(registry)
+      return new Raw(registry);
 
     case 'Null':
-      return null
+      return null;
 
     default: {
-      let error: string | null = null
+      let error: string | null = null;
 
       try {
-        const instance = createType(registry, type as 'u32')
-        const raw = getTypeDef(instance.toRawType())
+        const instance = createType(registry, type as 'u32');
+        const raw = getTypeDef(instance.toRawType());
 
         if (isBn(instance)) {
-          return BN_ZERO
+          return BN_ZERO;
         } else if ([TypeDefInfo.Struct].includes(raw.info)) {
-          return undefined
+          return undefined;
         } else if ([TypeDefInfo.Enum, TypeDefInfo.Tuple].includes(raw.info)) {
-          return getInitValue(raw)
+          return getInitValue(raw);
         }
       } catch (e) {
-        error = (e as Error).message
+        error = (e as Error).message;
       }
 
       // we only want to want once, not spam
       if (!warnList.includes(type)) {
-        warnList.push(type)
-        error && console.error(`params: initValue: ${error}`)
-        console.info(`params: initValue: No default value for type ${type} from ${JSON.stringify(def)}, using defaults`)
+        warnList.push(type);
+        error && console.error(`params: initValue: ${error}`);
+        console.info(
+          `params: initValue: No default value for type ${type} from ${JSON.stringify(def)}, using defaults`
+        );
       }
 
-      return '0x'
+      return '0x';
     }
   }
 }

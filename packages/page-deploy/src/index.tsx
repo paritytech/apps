@@ -1,19 +1,19 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCodes } from '@canvas-ui/page-contracts'
-import { WithLoader } from '@canvas-ui/react-components'
-import { AppProps as Props } from '@canvas-ui/react-components/types'
-import React, { useMemo } from 'react'
-import { Route, Switch } from 'react-router'
+import { useCodes } from '@canvas-ui/page-contracts';
+import { WithLoader } from '@canvas-ui/react-components';
+import { AppProps as Props } from '@canvas-ui/react-components/types';
+import React, { useMemo } from 'react';
+import { Route, Switch } from 'react-router';
 
-import Codes from './Codes'
-import New from './New'
-import Success from './Success'
-import { ComponentProps } from './types'
+import Codes from './Codes';
+import New from './New';
+import Success from './Success';
+import { ComponentProps } from './types';
 
 function DeployApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
-  const { allCodes, hasCodes, isLoading, updated } = useCodes()
+  const { allCodes, hasCodes, isLoading, updated } = useCodes();
 
   const componentProps = useMemo(
     (): ComponentProps => ({
@@ -22,10 +22,10 @@ function DeployApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
       hasCodes,
       isLoading,
       navigateTo,
-      updated,
+      updated
     }),
     [allCodes, basePath, hasCodes, isLoading, navigateTo, updated]
-  )
+  );
 
   return (
     <main className="deploy--App">
@@ -43,7 +43,7 @@ function DeployApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
         </Switch>
       </WithLoader>
     </main>
-  )
+  );
 }
 
-export default React.memo(DeployApp)
+export default React.memo(DeployApp);

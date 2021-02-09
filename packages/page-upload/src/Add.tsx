@@ -1,60 +1,60 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { store, useAbi, useCodes } from '@canvas-ui/page-contracts'
-import { Button, Input, InputABI, InputName } from '@canvas-ui/react-components'
-import { ComponentProps as Props } from '@canvas-ui/react-components/types'
-import { useApi, useCall, useFile, useNonEmptyString, useNotification } from '@canvas-ui/react-hooks'
-import { truncate } from '@canvas-ui/react-util'
-import React, { useCallback, useMemo } from 'react'
-import styled from 'styled-components'
+import { store, useAbi, useCodes } from '@canvas-ui/page-contracts';
+import { Button, Input, InputABI, InputName } from '@canvas-ui/react-components';
+import { ComponentProps as Props } from '@canvas-ui/react-components/types';
+import { useApi, useCall, useFile, useNonEmptyString, useNotification } from '@canvas-ui/react-hooks';
+import { truncate } from '@canvas-ui/react-util';
+import React, { useCallback, useMemo } from 'react';
+import styled from 'styled-components';
 
-import { Option } from '@polkadot/types'
-import { PrefabWasmModule } from '@polkadot/types/interfaces'
-import { isHex } from '@polkadot/util'
+import { Option } from '@polkadot/types';
+import { PrefabWasmModule } from '@polkadot/types/interfaces';
+import { isHex } from '@polkadot/util';
 
-import { useTranslation } from './translate'
+import { useTranslation } from './translate';
 
 function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const { api } = useApi()
-  const showNotification = useNotification()
-  const [codeHash, setCodeHash, , , isCodeHashTouched] = useNonEmptyString()
+  const { t } = useTranslation();
+  const { api } = useApi();
+  const showNotification = useNotification();
+  const [codeHash, setCodeHash, , , isCodeHashTouched] = useNonEmptyString();
   const codeStorage = useCall<Option<PrefabWasmModule>>((api.query.contracts || api.query.contract).codeStorage, [
-    codeHash,
-  ])
-  const [name, setName, isNameValid, isNameError] = useNonEmptyString()
-  const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi()
-  const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi })
-  const { hasCodes } = useCodes()
+    codeHash
+  ]);
+  const [name, setName, isNameValid, isNameError] = useNonEmptyString();
+  const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
+  const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
+  const { hasCodes } = useCodes();
   const [isCodeHashValid, status] = useMemo((): [boolean, React.ReactNode | null] => {
-    const isCodeHashValidHex = !!codeHash && isHex(codeHash) && codeHash.length === 66
-    const isCodeHashOnChain = !!codeStorage && codeStorage.isSome
-    const isCodeAlreadyStored = !!codeHash && hasCodes && store.isHashSaved(codeHash)
-    const isCodeHashValid = isCodeHashValidHex && isCodeHashOnChain && !isCodeAlreadyStored
+    const isCodeHashValidHex = !!codeHash && isHex(codeHash) && codeHash.length === 66;
+    const isCodeHashOnChain = !!codeStorage && codeStorage.isSome;
+    const isCodeAlreadyStored = !!codeHash && hasCodes && store.isHashSaved(codeHash);
+    const isCodeHashValid = isCodeHashValidHex && isCodeHashOnChain && !isCodeAlreadyStored;
 
-    let status = null
+    let status = null;
 
     if (isCodeHashTouched) {
       if (!isCodeHashValidHex) {
-        status = t<string>('The code hash is not a valid hex hash')
+        status = t<string>('The code hash is not a valid hex hash');
       } else if (!isCodeHashOnChain) {
-        status = t<string>('Unable to find on-chain WASM code for the supplied code hash')
+        status = t<string>('Unable to find on-chain WASM code for the supplied code hash');
       } else if (isCodeAlreadyStored) {
-        status = t<string>("You have already added this code hash to this device's storage")
+        status = t<string>("You have already added this code hash to this device's storage");
       } else if (isCodeHashValid) {
-        status = t<string>('Valid')
+        status = t<string>('Valid');
       }
     }
 
-    return [isCodeHashValid, status]
-  }, [codeHash, codeStorage, hasCodes, isCodeHashTouched, t])
+    return [isCodeHashValid, status];
+  }, [codeHash, codeStorage, hasCodes, isCodeHashTouched, t]);
 
-  const isValid = useMemo((): boolean => isCodeHashValid && isNameValid, [isCodeHashValid, isNameValid])
+  const isValid = useMemo((): boolean => isCodeHashValid && isNameValid, [isCodeHashValid, isNameValid]);
 
   const _onSave = useCallback((): void => {
     if (!codeHash || !name || !abi) {
-      return
+      return;
     }
 
     store
@@ -63,21 +63,21 @@ function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
         showNotification({
           action: truncate(codeHash, 12),
           message: t<string>('code bundle added'),
-          status: 'success',
-        })
+          status: 'success'
+        });
 
-        navigateTo.uploadSuccess(id)()
+        navigateTo.uploadSuccess(id)();
       })
       .catch((error): void => {
-        console.error('Unable to save code', error)
+        console.error('Unable to save code', error);
 
         showNotification({
           action: truncate(codeHash, 12),
           message: (error as Error).message,
-          status: 'error',
-        })
-      })
-  }, [abi, codeHash, name, navigateTo, showNotification, t])
+          status: 'error'
+        });
+      });
+  }, [abi, codeHash, name, navigateTo, showNotification, t]);
 
   return (
     <>
@@ -120,7 +120,7 @@ function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
         </Button.Group>
       </section>
     </>
-  )
+  );
 }
 
 export default styled(React.memo(Add))`
@@ -137,4 +137,4 @@ export default styled(React.memo(Add))`
       color: var(--green-primary);
     }
   }
-`
+`;

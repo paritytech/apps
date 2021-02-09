@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
-import Labelled from '../Labelled'
+import Labelled from '../Labelled';
 
 interface Props {
-  children: React.ReactNode
-  className?: string
-  help?: React.ReactNode
-  label: React.ReactNode
-  withLabel?: boolean
+  children: React.ReactNode;
+  className?: string;
+  help?: React.ReactNode;
+  label: React.ReactNode;
+  withLabel?: boolean;
 }
 
 function LinkedWrapper({ children, className = '', help, label, withLabel }: Props): React.ReactElement<Props> {
@@ -21,7 +21,7 @@ function LinkedWrapper({ children, className = '', help, label, withLabel }: Pro
         <div className="ui--DropdownLinked ui--row">{children}</div>
       </Labelled>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(LinkedWrapper)`
@@ -61,4 +61,4 @@ export default React.memo(styled(LinkedWrapper)`
     text-align: right;
     text-overflow: ellipsis;
   }
-`)
+`);

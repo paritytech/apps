@@ -1,28 +1,28 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import { VoidFn } from '@canvas-ui/react-util/types'
-import Tippy from '@tippyjs/react'
-import React, { useMemo } from 'react'
-import styled from 'styled-components'
-import { followCursor } from 'tippy.js'
+import { classes } from '@canvas-ui/react-util';
+import { VoidFn } from '@canvas-ui/react-util/types';
+import Tippy from '@tippyjs/react';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
+import { followCursor } from 'tippy.js';
 
-import { AbiMessage } from '@polkadot/api-contract/types'
-import { Registry } from '@polkadot/types/types'
+import { AbiMessage } from '@polkadot/api-contract/types';
+import { Registry } from '@polkadot/types/types';
 
-import { ELEV_3_CSS } from './styles/constants'
-import Button from './Button'
-import Docs from './Docs'
-import MessageSignature from './MessageSignature'
-import { useTranslation } from './translate'
-import { BareProps } from './types'
+import { ELEV_3_CSS } from './styles/constants';
+import Button from './Button';
+import Docs from './Docs';
+import MessageSignature from './MessageSignature';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  isConstructor?: boolean
-  onSelect?: VoidFn
-  message: AbiMessage
-  registry: Registry
+  isConstructor?: boolean;
+  onSelect?: VoidFn;
+  message: AbiMessage;
+  registry: Registry;
 }
 
 // const Tooltip = styled(ReactTooltip)`
@@ -33,15 +33,15 @@ export interface Props extends BareProps {
 // `;
 
 function Message({ className, isConstructor, message, onSelect, registry }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const { docs, identifier } = message
+  const { t } = useTranslation();
+  const { docs, identifier } = message;
 
   const signature = useMemo(
     (): React.ReactNode => (
       <MessageSignature isConstructor={isConstructor} message={message} registry={registry} withTooltip />
     ),
     [isConstructor, message, registry]
-  )
+  );
 
   return (
     <div className={classes(className, !onSelect && 'exempt-hover', isConstructor && 'isConstructor')} key={identifier}>
@@ -71,7 +71,7 @@ function Message({ className, isConstructor, message, onSelect, registry }: Prop
         </div>
       </Tippy>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(Message)`
@@ -132,4 +132,4 @@ export default React.memo(styled(Message)`
       font-weight: normal;
     }
   }
-`)
+`);

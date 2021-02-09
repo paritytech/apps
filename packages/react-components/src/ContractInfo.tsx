@@ -3,25 +3,25 @@
 
 // import { PromiseContract as Contract } from '@polkadot/api-contract';
 // import { CodeStored } from '@canvas-ui/apps/types';
-import { useAccountInfo } from '@canvas-ui/react-hooks'
-import { truncate } from '@canvas-ui/react-util'
-import React from 'react'
-import styled from 'styled-components'
+import { useAccountInfo } from '@canvas-ui/react-hooks';
+import { truncate } from '@canvas-ui/react-util';
+import React from 'react';
+import styled from 'styled-components';
 
-import CopyButton from './CopyButton'
-import EditButton from './EditButton'
-import IdentityIcon from './IdentityIcon'
-import Input from './Input'
-import ItemInfo from './ItemInfo'
-import { BareProps } from './types'
+import CopyButton from './CopyButton';
+import EditButton from './EditButton';
+import IdentityIcon from './IdentityIcon';
+import Input from './Input';
+import ItemInfo from './ItemInfo';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  address: string
-  isEditable?: boolean
+  address: string;
+  isEditable?: boolean;
 }
 
 function ContractInfo({ address, children, className, isEditable }: Props): React.ReactElement<Props> {
-  const { isEditingName, name, onSaveName, setName, toggleIsEditingName } = useAccountInfo(address, true)
+  const { isEditingName, name, onSaveName, setName, toggleIsEditingName } = useAccountInfo(address, true);
 
   return (
     <ItemInfo
@@ -53,7 +53,7 @@ function ContractInfo({ address, children, className, isEditable }: Props): Reac
     >
       {children}
     </ItemInfo>
-  )
+  );
 }
 
 export default styled(React.memo(ContractInfo))`
@@ -77,4 +77,4 @@ export default styled(React.memo(ContractInfo))`
       }
     }
   }
-`
+`;

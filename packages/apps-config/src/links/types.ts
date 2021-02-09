@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/apps-config authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import BN from 'bn.js'
+import BN from 'bn.js';
 
 export type LinkTypes =
   | 'address'
@@ -11,12 +11,12 @@ export type LinkTypes =
   | 'proposal'
   | 'referendum'
   | 'techcomm'
-  | 'treasury'
+  | 'treasury';
 
 export interface ExternalDef {
-  chains: Record<string, string>
-  isActive: boolean
-  paths: Partial<Record<LinkTypes, string>>
-  url: string
-  create: (chain: string, path: string, data: BN | number | string, hash?: string) => string
+  chains: Record<string, string>;
+  isActive: boolean;
+  paths: Partial<Record<LinkTypes, string>>;
+  url: string;
+  create: (chain: string, path: string, data: BN | number | string, hash?: string) => string;
 }

@@ -1,36 +1,36 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import ChartJs from 'chart.js'
-import React, { useEffect, useState } from 'react'
-import { HorizontalBar } from 'react-chartjs-2'
+import ChartJs from 'chart.js';
+import React, { useEffect, useState } from 'react';
+import { HorizontalBar } from 'react-chartjs-2';
 
-import { bnToBn, isNumber } from '@polkadot/util'
+import { bnToBn, isNumber } from '@polkadot/util';
 
-import { HorizBarProps, HorizBarValue } from './types'
+import { HorizBarProps, HorizBarValue } from './types';
 
 interface State {
-  chartData?: ChartJs.ChartData
-  chartOptions?: ChartJs.ChartOptions
-  jsonValues?: string
+  chartData?: ChartJs.ChartData;
+  chartOptions?: ChartJs.ChartOptions;
+  jsonValues?: string;
 }
 
 interface TooltipItem {
-  index: number
+  index: number;
 }
 
 interface Config {
-  labels: string[]
+  labels: string[];
   datasets: {
-    data: number[]
-    backgroundColor: string[]
-    hoverBackgroundColor: string[]
-  }[]
+    data: number[];
+    backgroundColor: string[];
+    hoverBackgroundColor: string[];
+  }[];
 }
 
 const alphaColor = (hexColor: string): string =>
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-  ChartJs.helpers.color(hexColor).alpha(0.65).rgbString()
+  ChartJs.helpers.color(hexColor).alpha(0.65).rgbString();
 
 function calculateOptions(
   aspectRatio: number,
@@ -41,26 +41,26 @@ function calculateOptions(
 ): State {
   const chartData = values.reduce(
     (data, { colors: [normalColor = '#00f', hoverColor], label, value }): Config => {
-      const dataset = data.datasets[0]
+      const dataset = data.datasets[0];
 
-      dataset.backgroundColor.push(alphaColor(normalColor))
-      dataset.hoverBackgroundColor.push(alphaColor(hoverColor || normalColor))
-      dataset.data.push(isNumber(value) ? value : bnToBn(value).toNumber())
-      data.labels.push(label)
+      dataset.backgroundColor.push(alphaColor(normalColor));
+      dataset.hoverBackgroundColor.push(alphaColor(hoverColor || normalColor));
+      dataset.data.push(isNumber(value) ? value : bnToBn(value).toNumber());
+      data.labels.push(label);
 
-      return data
+      return data;
     },
     {
       datasets: [
         {
           backgroundColor: [] as string[],
           data: [] as number[],
-          hoverBackgroundColor: [] as string[],
-        },
+          hoverBackgroundColor: [] as string[]
+        }
       ],
-      labels: [] as string[],
+      labels: [] as string[]
     }
-  )
+  );
 
   return {
     chartData,
@@ -69,23 +69,23 @@ function calculateOptions(
       aspectRatio,
       // no need for the legend, expect the labels contain everything
       legend: {
-        display: false,
+        display: false
       },
       scales: {
         xAxes: [
           {
-            ticks: showLabels ? { beginAtZero: true, max } : { display: false },
-          },
-        ],
+            ticks: showLabels ? { beginAtZero: true, max } : { display: false }
+          }
+        ]
       },
       tooltips: {
         callbacks: {
-          label: (item: TooltipItem): string => values[item.index].tooltip || values[item.index].label,
-        },
-      },
+          label: (item: TooltipItem): string => values[item.index].tooltip || values[item.index].label
+        }
+      }
     },
-    jsonValues,
-  }
+    jsonValues
+  };
 }
 
 function ChartHorizBar({
@@ -93,20 +93,20 @@ function ChartHorizBar({
   className = '',
   max = 100,
   showLabels = false,
-  values,
+  values
 }: HorizBarProps): React.ReactElement<HorizBarProps> | null {
-  const [{ chartData, chartOptions, jsonValues }, setState] = useState<State>({})
+  const [{ chartData, chartOptions, jsonValues }, setState] = useState<State>({});
 
   useEffect((): void => {
-    const newJsonValues = JSON.stringify(values)
+    const newJsonValues = JSON.stringify(values);
 
     if (newJsonValues !== jsonValues) {
-      setState(calculateOptions(aspectRatio, values, newJsonValues, max, showLabels))
+      setState(calculateOptions(aspectRatio, values, newJsonValues, max, showLabels));
     }
-  }, [aspectRatio, jsonValues, max, showLabels, values])
+  }, [aspectRatio, jsonValues, max, showLabels, values]);
 
   if (!chartData) {
-    return null
+    return null;
   }
 
   // HACK on width/height to get the aspectRatio to work
@@ -119,7 +119,7 @@ function ChartHorizBar({
         width={(null as unknown) as number}
       />
     </div>
-  )
+  );
 }
 
-export default React.memo(ChartHorizBar)
+export default React.memo(ChartHorizBar);

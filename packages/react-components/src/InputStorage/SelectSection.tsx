@@ -1,21 +1,21 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import { DropdownOptions } from '@canvas-ui/react-util/types'
-import React from 'react'
+import { classes } from '@canvas-ui/react-util';
+import { DropdownOptions } from '@canvas-ui/react-util/types';
+import React from 'react';
 
-import { QueryableStorageEntry } from '@polkadot/api/types'
+import { QueryableStorageEntry } from '@polkadot/api/types';
 
-import Dropdown from '../Dropdown'
-import { BareProps } from '../types'
+import Dropdown from '../Dropdown';
+import { BareProps } from '../types';
 
 interface Props extends BareProps {
-  defaultValue?: QueryableStorageEntry<'promise'>
-  isError?: boolean
-  onChange: (value: string) => void
-  options: DropdownOptions
-  value: QueryableStorageEntry<'promise'>
+  defaultValue?: QueryableStorageEntry<'promise'>;
+  isError?: boolean;
+  onChange: (value: string) => void;
+  options: DropdownOptions;
+  value: QueryableStorageEntry<'promise'>;
 }
 
 function SelectSection({
@@ -25,8 +25,8 @@ function SelectSection({
   onChange,
   options,
   value: {
-    creator: { section },
-  },
+    creator: { section }
+  }
 }: Props): React.ReactElement<Props> {
   return (
     <Dropdown
@@ -38,7 +38,7 @@ function SelectSection({
       value={section}
       withLabel={false}
     />
-  )
+  );
 }
 
-export default React.memo(SelectSection)
+export default React.memo(SelectSection);

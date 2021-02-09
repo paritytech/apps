@@ -1,21 +1,21 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
-import Markdown from 'react-markdown'
-import styled from 'styled-components'
+import React from 'react';
+import Markdown from 'react-markdown';
+import styled from 'styled-components';
 
-import { ELEV_2_CSS, ELEV_3_CSS } from './styles/constants'
-import { useTranslation } from './translate'
-import { BareProps } from './types'
+import { ELEV_2_CSS, ELEV_3_CSS } from './styles/constants';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  docs?: string[]
-  signature: React.ReactNode
+  docs?: string[];
+  signature: React.ReactNode;
 }
 
 function Docs({ className, docs, signature }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className={className}>
@@ -24,7 +24,7 @@ function Docs({ className, docs, signature }: Props): React.ReactElement<Props> 
         {docs && docs.length > 0 ? <Markdown>{docs.join('\n')}</Markdown> : <i>{t('No documentation provided')}</i>}
       </div>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(Docs)`
@@ -62,4 +62,4 @@ export default React.memo(styled(Docs)`
       margin-bottom: 0.5rem;
     }
   }
-`)
+`);

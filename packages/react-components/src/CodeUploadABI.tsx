@@ -1,43 +1,43 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useAbi } from '@canvas-ui/page-contracts'
-import { useFile, useNotification, useToggle } from '@canvas-ui/react-hooks'
-import { FileState } from '@canvas-ui/react-hooks/types'
-import { truncate } from '@canvas-ui/react-util'
-import React, { useCallback } from 'react'
+import { useAbi } from '@canvas-ui/page-contracts';
+import { useFile, useNotification, useToggle } from '@canvas-ui/react-hooks';
+import { FileState } from '@canvas-ui/react-hooks/types';
+import { truncate } from '@canvas-ui/react-util';
+import React, { useCallback } from 'react';
 
-import Button from './Button'
-import InputABI from './InputABI'
-import Modal from './Modal'
-import { useTranslation } from './translate'
-import { BareProps } from './types'
+import Button from './Button';
+import InputABI from './InputABI';
+import Modal from './Modal';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  codeHash: string
-  label: React.ReactNode
-  onSave: (_: FileState) => void
+  codeHash: string;
+  label: React.ReactNode;
+  onSave: (_: FileState) => void;
 }
 
 function CodeUploadABI({ codeHash, label, onSave }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const showNotification = useNotification()
-  const [isOpen, toggleIsOpen] = useToggle()
-  const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi()
-  const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi })
+  const { t } = useTranslation();
+  const showNotification = useNotification();
+  const [isOpen, toggleIsOpen] = useToggle();
+  const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
+  const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
 
   const _onSave = useCallback((): void => {
     if (abiFile) {
-      onSave(abiFile)
+      onSave(abiFile);
 
       showNotification({
         action: truncate(codeHash, 12),
         message: t<string>('code bundle ABI updated'),
-        status: 'success',
-      })
-      toggleIsOpen()
+        status: 'success'
+      });
+      toggleIsOpen();
     }
-  }, [abiFile, codeHash, onSave, showNotification, t, toggleIsOpen])
+  }, [abiFile, codeHash, onSave, showNotification, t, toggleIsOpen]);
 
   return (
     <>
@@ -63,7 +63,7 @@ function CodeUploadABI({ codeHash, label, onSave }: Props): React.ReactElement<P
         </Modal.Actions>
       </Modal>
     </>
-  )
+  );
 }
 
-export default React.memo(CodeUploadABI)
+export default React.memo(CodeUploadABI);

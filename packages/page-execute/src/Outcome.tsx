@@ -1,26 +1,26 @@
 // Copyright 2017-2021 @canvas-ui/app-contracts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, IdentityIcon, MessageSignature, Output } from '@canvas-ui/react-components'
-import { BareProps } from '@canvas-ui/react-components/types'
-import React from 'react'
-import styled from 'styled-components'
+import { Button, IdentityIcon, MessageSignature, Output } from '@canvas-ui/react-components';
+import { BareProps } from '@canvas-ui/react-components/types';
+import React from 'react';
+import styled from 'styled-components';
 
-import { TypeRegistry } from '@polkadot/types'
+import { TypeRegistry } from '@polkadot/types';
 
-import { CallResult } from './types'
+import { CallResult } from './types';
 
 interface Props extends BareProps {
-  onClear?: () => void
-  outcome: CallResult
-  registry: TypeRegistry
+  onClear?: () => void;
+  outcome: CallResult;
+  registry: TypeRegistry;
 }
 
 function Outcome({
   className,
   onClear,
   outcome: { from, message, output, params, result, when },
-  registry,
+  registry
 }: Props): React.ReactElement<Props> | null {
   return (
     <div className={className}>
@@ -41,7 +41,7 @@ function Outcome({
         withLabel={false}
       />
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(Outcome)`
@@ -81,4 +81,4 @@ export default React.memo(styled(Outcome)`
       }
     }
   }
-`)
+`);

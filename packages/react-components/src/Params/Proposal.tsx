@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/app-extrinsics authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from '@canvas-ui/react-api'
-import { useApi } from '@canvas-ui/react-hooks'
-import { Props, RawParam } from '@canvas-ui/react-params/types'
-import React, { useCallback } from 'react'
+import { registry } from '@canvas-ui/react-api';
+import { useApi } from '@canvas-ui/react-hooks';
+import { Props, RawParam } from '@canvas-ui/react-params/types';
+import React, { useCallback } from 'react';
 
-import ExtrinsicDisplay from './Extrinsic'
+import ExtrinsicDisplay from './Extrinsic';
 
 function ProposalDisplay({
   className = '',
@@ -16,25 +16,25 @@ function ProposalDisplay({
   onChange,
   onEnter,
   onEscape,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
-  const { apiDefaultTxSudo } = useApi()
+  const { apiDefaultTxSudo } = useApi();
   const _onChange = useCallback(
     ({ isValid, value }: RawParam): void => {
-      let proposal = null
+      let proposal = null;
 
       if (isValid && value) {
-        proposal = registry.createType('Proposal', value)
+        proposal = registry.createType('Proposal', value);
       }
 
       onChange &&
         onChange({
           isValid,
-          value: proposal,
-        })
+          value: proposal
+        });
     },
     [onChange]
-  )
+  );
 
   return (
     <ExtrinsicDisplay
@@ -49,7 +49,7 @@ function ProposalDisplay({
       onEscape={onEscape}
       withLabel={withLabel}
     />
-  )
+  );
 }
 
-export default React.memo(ProposalDisplay)
+export default React.memo(ProposalDisplay);

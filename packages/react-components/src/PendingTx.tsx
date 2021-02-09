@@ -1,29 +1,29 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry as baseRegistry } from '@canvas-ui/react-api'
-import { QueueTx } from '@canvas-ui/react-api/Status/types'
-import { truncate } from '@canvas-ui/react-util'
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import styled from 'styled-components'
+import { registry as baseRegistry } from '@canvas-ui/react-api';
+import { QueueTx } from '@canvas-ui/react-api/Status/types';
+import { truncate } from '@canvas-ui/react-util';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import styled from 'styled-components';
 
-import { TypeRegistry } from '@polkadot/types'
-import { TypeDef } from '@polkadot/types/types'
+import { TypeRegistry } from '@polkadot/types';
+import { TypeDef } from '@polkadot/types/types';
 
-import { ELEV_2_CSS } from './styles/constants'
-import { useTranslation } from './translate'
-import { BareProps } from './types'
-import useSendTx from './useSendTx'
-import { Button, Data, InputAddress, Labelled } from '.'
+import { ELEV_2_CSS } from './styles/constants';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
+import useSendTx from './useSendTx';
+import { Button, Data, InputAddress, Labelled } from '.';
 
 interface Props extends BareProps {
-  additionalDetails: Record<string, any>
-  currentItem: QueueTx | null
-  instructions: React.ReactNode
-  isSendable: boolean
-  onError: () => void
-  registry?: TypeRegistry
-  requestAddress: string
+  additionalDetails: Record<string, any>;
+  currentItem: QueueTx | null;
+  instructions: React.ReactNode;
+  isSendable: boolean;
+  onError: () => void;
+  registry?: TypeRegistry;
+  requestAddress: string;
 }
 
 function PendingTx({
@@ -33,36 +33,36 @@ function PendingTx({
   currentItem,
   instructions,
   registry,
-  requestAddress,
+  requestAddress
 }: Props): React.ReactElement<Props> | null {
-  const { t } = useTranslation()
-  const willSend = useRef(false)
-  const { onCancel, onSend, tx } = useSendTx(currentItem, requestAddress)
-  const isSigning = !!currentItem?.extrinsic
+  const { t } = useTranslation();
+  const willSend = useRef(false);
+  const { onCancel, onSend, tx } = useSendTx(currentItem, requestAddress);
+  const isSigning = !!currentItem?.extrinsic;
 
   const _onSend = useCallback(async (): Promise<void> => {
-    willSend.current = true
-    await onSend()
-  }, [onSend])
+    willSend.current = true;
+    await onSend();
+  }, [onSend]);
 
   useEffect((): (() => void) => {
     return function (): void {
       if (!willSend.current) {
-        onCancel()
+        onCancel();
       }
-    }
-  }, [onCancel, tx])
+    };
+  }, [onCancel, tx]);
 
   const content = useMemo((): React.ReactNode | null => {
     if (!currentItem?.extrinsic) {
-      return null
+      return null;
     }
 
-    const { accountId, extrinsic } = currentItem
+    const { accountId, extrinsic } = currentItem;
 
-    const { meta, method, section } = baseRegistry.findMetaCall(extrinsic.callIndex)
+    const { meta, method, section } = baseRegistry.findMetaCall(extrinsic.callIndex);
 
-    let details: React.ReactNode = null
+    let details: React.ReactNode = null;
 
     switch (`${section}.${method}`) {
       case 'contracts.putCode':
@@ -76,8 +76,8 @@ function PendingTx({
               {truncate(extrinsic.args[0].toString())}
             </Labelled>
           </div>
-        )
-        break
+        );
+        break;
       case 'contracts.instantiate':
         details = (
           <div className="details">
@@ -98,7 +98,7 @@ function PendingTx({
                   <Labelled isIndented isLabelMonospace isMonospace key={`arg-${index}`} label={arg}>
                     <Data isTrimmed registry={registry} type={type} value={value} />
                   </Labelled>
-                )
+                );
               }
             )}
             <Labelled label={t<string>('Endowment')}>{truncate(extrinsic.args[0].toString())}</Labelled>
@@ -110,8 +110,8 @@ function PendingTx({
               {truncate(extrinsic.args[3].toString())}
             </Labelled>
           </div>
-        )
-        break
+        );
+        break;
       case 'contracts.call':
         details = (
           <div className="details">
@@ -138,7 +138,7 @@ function PendingTx({
                   <Labelled isIndented isLabelMonospace isMonospace key={`arg-${index}`} label={arg}>
                     <Data isTrimmed registry={registry} type={type} value={value} />
                   </Labelled>
-                )
+                );
               }
             )}
             <Labelled label={t<string>('Endowment')}>{truncate(extrinsic.args[1].toString())}</Labelled>
@@ -147,10 +147,10 @@ function PendingTx({
               {truncate(extrinsic.args[3].toString())}
             </Labelled>
           </div>
-        )
-        break
+        );
+        break;
       default:
-        break
+        break;
     }
 
     return (
@@ -163,8 +163,8 @@ function PendingTx({
         </header>
         <section>{details}</section>
       </>
-    )
-  }, [currentItem, additionalDetails, registry, t])
+    );
+  }, [currentItem, additionalDetails, registry, t]);
 
   return (
     <div className={className}>
@@ -181,7 +181,7 @@ function PendingTx({
       </div>
       <div style={{ display: isSigning ? 'none' : 'block' }}>{children}</div>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(PendingTx)`
@@ -202,4 +202,4 @@ export default React.memo(styled(PendingTx)`
   .buttons-submit {
     margin: 1rem 0;
   }
-`)
+`);

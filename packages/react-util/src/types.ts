@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export interface DropdownOption {
-  className?: string
-  key?: string
-  text: React.ReactNode
-  value: string
+  className?: string;
+  key?: string;
+  text: React.ReactNode;
+  value: string;
 }
 
-export type DropdownOptions = DropdownOption[]
+export type DropdownOptions = DropdownOption[];
 
-export type StringOrNull = string | null
+export type StringOrNull = string | null;
 
-export type VoidFn = () => void
+export type VoidFn = () => void;

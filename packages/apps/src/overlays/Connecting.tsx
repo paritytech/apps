@@ -1,27 +1,27 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi } from '@canvas-ui/react-hooks'
-import { faGlobe } from '@fortawesome/free-solid-svg-icons'
-import React from 'react'
+import { useApi } from '@canvas-ui/react-hooks';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 
-import settings from '@polkadot/ui-settings'
+import settings from '@polkadot/ui-settings';
 
-import { useTranslation } from '../translate'
-import BaseOverlay from './Base'
+import { useTranslation } from '../translate';
+import BaseOverlay from './Base';
 
-const wsUrl = settings.apiUrl
-const isWs = typeof wsUrl === 'string' && wsUrl.startsWith('ws://')
-const isWsLocal = typeof wsUrl === 'string' && wsUrl.includes('127.0.0.1')
-const isHttps = window.location.protocol.startsWith('https:')
+const wsUrl = settings.apiUrl;
+const isWs = typeof wsUrl === 'string' && wsUrl.startsWith('ws://');
+const isWsLocal = typeof wsUrl === 'string' && wsUrl.includes('127.0.0.1');
+const isHttps = window.location.protocol.startsWith('https:');
 
 interface Props {
-  className?: string
+  className?: string;
 }
 
 function Connecting({ className }: Props): React.ReactElement<Props> | null {
-  const { t } = useTranslation()
-  const { isApiConnected, isWaitingInjected } = useApi()
+  const { t } = useTranslation();
+  const { isApiConnected, isWaitingInjected } = useApi();
 
   if (isWaitingInjected) {
     return (
@@ -32,7 +32,7 @@ function Connecting({ className }: Props): React.ReactElement<Props> | null {
           )}
         </div>
       </BaseOverlay>
-    )
+    );
   } else if (!isApiConnected) {
     return (
       <BaseOverlay className={className} icon={faGlobe} type="error">
@@ -50,10 +50,10 @@ function Connecting({ className }: Props): React.ReactElement<Props> | null {
           </div>
         ) : undefined}
       </BaseOverlay>
-    )
+    );
   }
 
-  return null
+  return null;
 }
 
-export default React.memo(Connecting)
+export default React.memo(Connecting);

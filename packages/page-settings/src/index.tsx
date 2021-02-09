@@ -1,36 +1,36 @@
 // Copyright 2017-2021 @canvas-ui/app-settings authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, Dropdown, Input, Toggle } from '@canvas-ui/react-components'
-import { BareProps as Props } from '@canvas-ui/react-components/types'
-import { useEndpoints, useSettings } from '@canvas-ui/react-hooks'
-import { classes, useEndpointOptions } from '@canvas-ui/react-util'
-import React, { useMemo } from 'react'
-import styled from 'styled-components'
+import { Button, Dropdown, Input, Toggle } from '@canvas-ui/react-components';
+import { BareProps as Props } from '@canvas-ui/react-components/types';
+import { useEndpoints, useSettings } from '@canvas-ui/react-hooks';
+import { classes, useEndpointOptions } from '@canvas-ui/react-util';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
 
-import { useTranslation } from './translate'
+import { useTranslation } from './translate';
 
 function SettingsApp({ className }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const { isChanged, onChangeKey, save, saveAndReload } = useSettings()
-  const endpointState = useEndpoints(onChangeKey('apiUrl'))
-  const endpointOptions = useEndpointOptions(endpointState, t)
+  const { t } = useTranslation();
+  const { isChanged, onChangeKey, save, saveAndReload } = useSettings();
+  const endpointState = useEndpoints(onChangeKey('apiUrl'));
+  const endpointOptions = useEndpointOptions(endpointState, t);
 
-  const { isCustom, isValid, onChangeCustom, onChangeUrl, url } = endpointState
+  const { isCustom, isValid, onChangeCustom, onChangeUrl, url } = endpointState;
 
   const themeOptions = useMemo(
     () => [
       {
         text: t<string>('Dark theme'),
-        value: true,
+        value: true
       },
       {
         text: t<string>('Light theme'),
-        value: false,
-      },
+        value: false
+      }
     ],
     [t]
-  )
+  );
 
   return (
     <main className={classes('settings--App', className)}>
@@ -75,11 +75,11 @@ function SettingsApp({ className }: Props): React.ReactElement<Props> {
         </Button.Group>
       </footer>
     </main>
-  )
+  );
 }
 
 export default styled(React.memo(SettingsApp))`
   .custom-url {
     margin-top: 0.5rem;
   }
-`
+`;

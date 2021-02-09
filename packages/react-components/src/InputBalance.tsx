@@ -1,38 +1,38 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import BN from 'bn.js'
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import BN from 'bn.js';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { BN_TEN, BN_THOUSAND, formatBalance, isBn } from '@polkadot/util'
+import { BN_TEN, BN_THOUSAND, formatBalance, isBn } from '@polkadot/util';
 
-import { BitLengthOption } from './constants'
-import InputNumber from './InputNumber'
-import { BareProps, BitLength } from './types'
+import { BitLengthOption } from './constants';
+import InputNumber from './InputNumber';
+import { BareProps, BitLength } from './types';
 
 interface Props extends BareProps {
-  autoFocus?: boolean
-  defaultValue?: BN | string
-  help?: React.ReactNode
-  isDisabled?: boolean
-  isError?: boolean
-  isFull?: boolean
-  isZeroable?: boolean
-  label?: React.ReactNode
-  labelExtra?: React.ReactNode
-  maxValue?: BN
-  onChange?: (value?: BN) => void
-  onEnter?: () => void
-  onEscape?: () => void
-  placeholder?: string
-  value?: BN
-  withEllipsis?: boolean
-  withLabel?: boolean
-  withMax?: boolean
+  autoFocus?: boolean;
+  defaultValue?: BN | string;
+  help?: React.ReactNode;
+  isDisabled?: boolean;
+  isError?: boolean;
+  isFull?: boolean;
+  isZeroable?: boolean;
+  label?: React.ReactNode;
+  labelExtra?: React.ReactNode;
+  maxValue?: BN;
+  onChange?: (value?: BN) => void;
+  onEnter?: () => void;
+  onEscape?: () => void;
+  placeholder?: string;
+  value?: BN;
+  withEllipsis?: boolean;
+  withLabel?: boolean;
+  withMax?: boolean;
 }
 
-const DEFAULT_BITLENGTH = BitLengthOption.CHAIN_SPEC as BitLength
+const DEFAULT_BITLENGTH = BitLengthOption.CHAIN_SPEC as BitLength;
 
 function reformat(value: string | BN, isDisabled?: boolean): string {
   if (isBn(value)) {
@@ -41,22 +41,22 @@ function reformat(value: string | BN, isDisabled?: boolean): string {
         .mul(BN_THOUSAND)
         .div(BN_TEN.pow(new BN(formatBalance.getDefaults().decimals)))
         .toNumber() / 1000
-    ).toFixed(3)
+    ).toFixed(3);
 
     while (fmt.length !== 1 && ['.', '0'].includes(fmt[fmt.length - 1])) {
-      const isLast = fmt.endsWith('.')
+      const isLast = fmt.endsWith('.');
 
-      fmt = fmt.substr(0, fmt.length - 1)
+      fmt = fmt.substr(0, fmt.length - 1);
 
       if (isLast) {
-        break
+        break;
       }
     }
 
-    return fmt
+    return fmt;
   }
 
-  return formatBalance(value, { forceUnit: '-', withSi: false }).replace(',', isDisabled ? ',' : '')
+  return formatBalance(value, { forceUnit: '-', withSi: false }).replace(',', isDisabled ? ',' : '');
 }
 
 function InputBalance({
@@ -78,13 +78,13 @@ function InputBalance({
   value,
   withEllipsis,
   withLabel,
-  withMax,
+  withMax
 }: Props): React.ReactElement<Props> {
-  const [defaultValue, setDefaultValue] = useState<string | undefined>()
+  const [defaultValue, setDefaultValue] = useState<string | undefined>();
 
   useEffect((): void => {
-    inDefault && setDefaultValue(reformat(inDefault, isDisabled))
-  }, [inDefault, isDisabled])
+    inDefault && setDefaultValue(reformat(inDefault, isDisabled));
+  }, [inDefault, isDisabled]);
 
   return (
     <InputNumber
@@ -110,7 +110,7 @@ function InputBalance({
       withLabel={withLabel}
       withMax={withMax}
     />
-  )
+  );
 }
 
 export default React.memo(styled(InputBalance)`
@@ -124,4 +124,4 @@ export default React.memo(styled(InputBalance)`
     border-style: solid;
     opacity: 1 !important;
   }
-`)
+`);

@@ -1,51 +1,51 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useNotification, useToggle } from '@canvas-ui/react-hooks'
-import React, { useCallback } from 'react'
-import styled from 'styled-components'
+import { useNotification, useToggle } from '@canvas-ui/react-hooks';
+import React, { useCallback } from 'react';
+import styled from 'styled-components';
 
-import keyring from '@polkadot/ui-keyring'
+import keyring from '@polkadot/ui-keyring';
 
-import Button from './Button'
-import ContractInfo from './ContractInfo'
-import Modal from './Modal'
-import { useTranslation } from './translate'
-import { BareProps } from './types'
+import Button from './Button';
+import ContractInfo from './ContractInfo';
+import Modal from './Modal';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  address: string
+  address: string;
 }
 
 function ContractForget({ address, className }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const showNotification = useNotification()
-  const [isOpen, toggleIsOpen] = useToggle()
+  const { t } = useTranslation();
+  const showNotification = useNotification();
+  const [isOpen, toggleIsOpen] = useToggle();
 
   const _onForget = useCallback((): void => {
     if (!address) {
-      return
+      return;
     }
 
     try {
-      keyring.forgetContract(address.toString())
+      keyring.forgetContract(address.toString());
 
       showNotification({
         account: address,
         action: 'forget',
         message: t<string>('contract removed'),
-        status: 'success',
-      })
-      toggleIsOpen()
+        status: 'success'
+      });
+      toggleIsOpen();
     } catch (error) {
       showNotification({
         account: address,
         action: 'forget',
         message: (error as Error).message,
-        status: 'error',
-      })
+        status: 'error'
+      });
     }
-  }, [address, showNotification, t, toggleIsOpen])
+  }, [address, showNotification, t, toggleIsOpen]);
 
   return (
     <>
@@ -70,7 +70,7 @@ function ContractForget({ address, className }: Props): React.ReactElement<Props
         </Modal.Actions>
       </Modal>
     </>
-  )
+  );
 }
 
 export default styled(React.memo(ContractForget))`
@@ -79,4 +79,4 @@ export default styled(React.memo(ContractForget))`
     margin-top: 1.5rem;
     padding-top: 1.5rem;
   }
-`
+`;

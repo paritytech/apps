@@ -1,78 +1,78 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import BN from 'bn.js'
-import ChartJs from 'chart.js'
-import React, { useEffect, useState } from 'react'
-import * as Chart from 'react-chartjs-2'
+import BN from 'bn.js';
+import ChartJs from 'chart.js';
+import React, { useEffect, useState } from 'react';
+import * as Chart from 'react-chartjs-2';
 
-import { LineProps } from './types'
+import { LineProps } from './types';
 
 interface State {
-  chartData?: ChartJs.ChartData
-  chartOptions?: ChartJs.ChartOptions
+  chartData?: ChartJs.ChartData;
+  chartOptions?: ChartJs.ChartOptions;
 }
 
 interface Dataset {
-  data: number[]
-  fill: boolean
-  label: string
-  backgroundColor: string
-  borderColor: string
-  hoverBackgroundColor: string
+  data: number[];
+  fill: boolean;
+  label: string;
+  backgroundColor: string;
+  borderColor: string;
+  hoverBackgroundColor: string;
 }
 
 interface Config {
-  labels: string[]
-  datasets: Dataset[]
+  labels: string[];
+  datasets: Dataset[];
 }
 
 // Ok, this does exists, but the export if not there in the typings - so it works,
 //  but we have to jiggle around here to get it to actually compile :(
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
-;(Chart as any).Chart.pluginService.register({
+(Chart as any).Chart.pluginService.register({
   beforeDraw: ({
     chart: { ctx },
-    chartArea,
+    chartArea
   }: {
     chart: {
       ctx: {
-        fillStyle: string
-        fillRect: (left: number, top: number, width: number, height: number) => void
-        restore: () => void
-        save: () => void
-      }
-    }
-    chartArea: { bottom: number; left: number; right: number; top: number }
+        fillStyle: string;
+        fillRect: (left: number, top: number, width: number, height: number) => void;
+        restore: () => void;
+        save: () => void;
+      };
+    };
+    chartArea: { bottom: number; left: number; right: number; top: number };
   }) => {
-    ctx.save()
-    ctx.fillStyle = '#fff'
-    ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top)
-    ctx.restore()
-  },
-})
+    ctx.save();
+    ctx.fillStyle = '#fff';
+    ctx.fillRect(chartArea.left, chartArea.top, chartArea.right - chartArea.left, chartArea.bottom - chartArea.top);
+    ctx.restore();
+  }
+});
 
-const COLORS = ['#ff8c00', '#008c8c', '#8c008c']
+const COLORS = ['#ff8c00', '#008c8c', '#8c008c'];
 
 const alphaColor = (hexColor: string): string =>
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-  ChartJs.helpers.color(hexColor).alpha(0.65).rgbString()
+  ChartJs.helpers.color(hexColor).alpha(0.65).rgbString();
 
 const chartOptions = {
   // no need for the legend, expect the labels contain everything
   legend: {
-    display: false,
+    display: false
   },
   scales: {
     xAxes: [
       {
         ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
-  },
-}
+          beginAtZero: true
+        }
+      }
+    ]
+  }
+};
 
 function calculateOptions(
   colors: (string | undefined)[] = [],
@@ -82,8 +82,8 @@ function calculateOptions(
 ): State {
   const chartData = values.reduce(
     (chartData, values, index): Config => {
-      const color = colors[index] || alphaColor(COLORS[index])
-      const data = values.map((value): number => (BN.isBN(value) ? value.toNumber() : value))
+      const color = colors[index] || alphaColor(COLORS[index]);
+      const data = values.map((value): number => (BN.isBN(value) ? value.toNumber() : value));
 
       chartData.datasets.push({
         backgroundColor: color,
@@ -91,18 +91,18 @@ function calculateOptions(
         data,
         fill: false,
         hoverBackgroundColor: color,
-        label: legends[index],
-      })
+        label: legends[index]
+      });
 
-      return chartData
+      return chartData;
     },
     { datasets: [] as Dataset[], labels }
-  )
+  );
 
   return {
     chartData,
-    chartOptions,
-  }
+    chartOptions
+  };
 }
 
 function LineChart({
@@ -110,23 +110,23 @@ function LineChart({
   colors,
   labels,
   legends,
-  values,
+  values
 }: LineProps): React.ReactElement<LineProps> | null {
-  const [{ chartData, chartOptions }, setState] = useState<State>({})
+  const [{ chartData, chartOptions }, setState] = useState<State>({});
 
   useEffect((): void => {
-    setState(calculateOptions(colors, legends, labels, values))
-  }, [colors, labels, legends, values])
+    setState(calculateOptions(colors, legends, labels, values));
+  }, [colors, labels, legends, values]);
 
   if (!chartData) {
-    return null
+    return null;
   }
 
   return (
     <div className={className}>
       <Chart.Line data={chartData} options={chartOptions} />
     </div>
-  )
+  );
 }
 
-export default React.memo(LineChart)
+export default React.memo(LineChart);

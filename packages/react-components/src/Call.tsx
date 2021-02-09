@@ -1,46 +1,46 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import Params from '@canvas-ui/react-params'
-import { FormatBalance } from '@canvas-ui/react-query'
-import { classes } from '@canvas-ui/react-util'
-import BN from 'bn.js'
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import Params from '@canvas-ui/react-params';
+import { FormatBalance } from '@canvas-ui/react-query';
+import { classes } from '@canvas-ui/react-util';
+import BN from 'bn.js';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { GenericCall, getTypeDef } from '@polkadot/types'
-import { Hash } from '@polkadot/types/interfaces'
-import { Codec, IExtrinsic, IMethod, TypeDef } from '@polkadot/types/types'
+import { GenericCall, getTypeDef } from '@polkadot/types';
+import { Hash } from '@polkadot/types/interfaces';
+import { Codec, IExtrinsic, IMethod, TypeDef } from '@polkadot/types/types';
 
-import Static from './Static'
-import { useTranslation } from './translate'
-import { BareProps } from './types'
+import Static from './Static';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  children?: React.ReactNode
-  labelHash?: React.ReactNode
-  mortality?: string
-  onError?: () => void
-  value: IExtrinsic | IMethod
-  withBorder?: boolean
-  withHash?: boolean
-  tip?: BN
+  children?: React.ReactNode;
+  labelHash?: React.ReactNode;
+  mortality?: string;
+  onError?: () => void;
+  value: IExtrinsic | IMethod;
+  withBorder?: boolean;
+  withHash?: boolean;
+  tip?: BN;
 }
 
 interface Param {
-  name: string
-  type: TypeDef
+  name: string;
+  type: TypeDef;
 }
 
 interface Value {
-  isValid: boolean
-  value: Codec
+  isValid: boolean;
+  value: Codec;
 }
 
 interface Extracted {
-  hash: Hash | null
-  params: Param[]
-  values: Value[]
+  hash: Hash | null;
+  params: Param[];
+  values: Value[];
 }
 
 function Call({
@@ -52,28 +52,28 @@ function Call({
   tip,
   value,
   withBorder,
-  withHash,
+  withHash
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const [{ hash, params, values }, setExtracted] = useState<Extracted>({ hash: null, params: [], values: [] })
+  const { t } = useTranslation();
+  const [{ hash, params, values }, setExtracted] = useState<Extracted>({ hash: null, params: [], values: [] });
 
   useEffect((): void => {
     const params = GenericCall.filterOrigin(value.meta).map(
       ({ name, type }): Param => ({
         name: name.toString(),
-        type: getTypeDef(type.toString()),
+        type: getTypeDef(type.toString())
       })
-    )
+    );
     const values = value.args.map(
       (value): Value => ({
         isValid: true,
-        value,
+        value
       })
-    )
-    const hash = withHash ? value.hash : null
+    );
+    const hash = withHash ? value.hash : null;
 
-    setExtracted({ hash, params, values })
-  }, [value, withHash])
+    setExtracted({ hash, params, values });
+  }, [value, withHash]);
 
   return (
     <div className={classes('ui--Extrinsic', className)}>
@@ -97,7 +97,7 @@ function Call({
         )}
       </div>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(Call)`
@@ -119,4 +119,4 @@ export default React.memo(styled(Call)`
       }
     }
   }
-`)
+`);

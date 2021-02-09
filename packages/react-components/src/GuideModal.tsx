@@ -1,45 +1,45 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useToggle } from '@canvas-ui/react-hooks'
-import { classes } from '@canvas-ui/react-util'
-import { VoidFn } from '@canvas-ui/react-util/types'
-import React, { useCallback, useMemo, useState } from 'react'
-import styled from 'styled-components'
+import { useToggle } from '@canvas-ui/react-hooks';
+import { classes } from '@canvas-ui/react-util';
+import { VoidFn } from '@canvas-ui/react-util/types';
+import React, { useCallback, useMemo, useState } from 'react';
+import styled from 'styled-components';
 
-import Button from './Button'
-import Modal from './Modal'
-import { useTranslation } from './translate'
-import { BareProps } from './types'
+import Button from './Button';
+import Modal from './Modal';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Page {
-  content: React.ReactNode
-  header: React.ReactNode
+  content: React.ReactNode;
+  header: React.ReactNode;
 }
 
 interface Props extends BareProps {
-  onClose: VoidFn
+  onClose: VoidFn;
 }
 
 function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const [isOpen, toggleIsOpen] = useToggle(true)
-  const [index, setIndex] = useState(0)
+  const { t } = useTranslation();
+  const [isOpen, toggleIsOpen] = useToggle(true);
+  const [index, setIndex] = useState(0);
 
-  const incrementIndex = useCallback((): void => setIndex(index + 1), [index])
+  const incrementIndex = useCallback((): void => setIndex(index + 1), [index]);
 
-  const decrementIndex = useCallback((): void => setIndex(index - 1), [index])
+  const decrementIndex = useCallback((): void => setIndex(index - 1), [index]);
 
   const _setIndex = useCallback((index: number): (() => void) => {
     return function () {
-      setIndex(index)
-    }
-  }, [])
+      setIndex(index);
+    };
+  }, []);
 
   const _onClose = useCallback((): void => {
-    toggleIsOpen()
-    onClose && onClose()
-  }, [onClose, toggleIsOpen])
+    toggleIsOpen();
+    onClose && onClose();
+  }, [onClose, toggleIsOpen]);
 
   const pages = useMemo(
     (): Page[] => [
@@ -62,7 +62,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
             </p>
           </>
         ),
-        header: t<string>('About Canvas smart contracts'),
+        header: t<string>('About Canvas smart contracts')
       },
       {
         content: (
@@ -79,7 +79,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
             </p>
           </>
         ),
-        header: t<string>('Upload'),
+        header: t<string>('Upload')
       },
       {
         content: (
@@ -94,7 +94,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
             </p>
           </>
         ),
-        header: t<string>('Deploy'),
+        header: t<string>('Deploy')
       },
       {
         content: (
@@ -111,14 +111,14 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
             </p>
           </>
         ),
-        header: t<string>('Execute'),
-      },
+        header: t<string>('Execute')
+      }
     ],
     [t]
-  )
+  );
 
   const [header, content] = useMemo((): [React.ReactNode, React.ReactNode] => {
-    const { content, header } = pages[index]
+    const { content, header } = pages[index];
 
     return [
       header,
@@ -133,16 +133,16 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
                   key={`guide-page-${pageIndex}`}
                   onClick={_setIndex(pageIndex)}
                 />
-              )
+              );
             }
           )}
         </div>
-      </>,
-    ]
-  }, [index, pages, _setIndex])
+      </>
+    ];
+  }, [index, pages, _setIndex]);
 
-  const isFirstPage = index === 0
-  const isLastPage = index === pages.length - 1
+  const isFirstPage = index === 0;
+  const isLastPage = index === pages.length - 1;
 
   return (
     <Modal className={className} isOpen={isOpen} onClose={_onClose}>
@@ -159,7 +159,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
         />
       </Modal.Actions>
     </Modal>
-  )
+  );
 }
 
 export default styled(React.memo(GuideModal))`
@@ -199,4 +199,4 @@ export default styled(React.memo(GuideModal))`
       }
     }
   }
-`
+`;

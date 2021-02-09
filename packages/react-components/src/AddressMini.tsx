@@ -1,40 +1,40 @@
 // Copyright 2017-2021 @canvas-ui/app-staking authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes, toShortAddress } from '@canvas-ui/react-util'
-import BN from 'bn.js'
-import React from 'react'
-import styled from 'styled-components'
+import { classes, toShortAddress } from '@canvas-ui/react-util';
+import BN from 'bn.js';
+import React from 'react';
+import styled from 'styled-components';
 
-import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces'
-import { KeyringItemType } from '@polkadot/ui-keyring/types'
+import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
+import { KeyringItemType } from '@polkadot/ui-keyring/types';
 
-import AccountName from './AccountName'
-import BalanceDisplay from './Balance'
-import BondedDisplay from './Bonded'
-import IdentityIcon from './IdentityIcon'
-import { BareProps } from './types'
+import AccountName from './AccountName';
+import BalanceDisplay from './Balance';
+import BondedDisplay from './Bonded';
+import IdentityIcon from './IdentityIcon';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  balance?: BN | BN[]
-  bonded?: BN | BN[]
-  children?: React.ReactNode
-  iconInfo?: React.ReactNode
-  isPadded?: boolean
-  isShort?: boolean
-  label?: React.ReactNode
-  labelBalance?: React.ReactNode
-  noLookup?: boolean
-  summary?: React.ReactNode
-  type?: KeyringItemType
-  value?: AccountId | AccountIndex | Address | string | null | Uint8Array
-  withAddress?: boolean
-  withBalance?: boolean
-  withBonded?: boolean
-  withLockedVote?: boolean
-  withSidebar?: boolean
-  withName?: boolean
-  withShrink?: boolean
+  balance?: BN | BN[];
+  bonded?: BN | BN[];
+  children?: React.ReactNode;
+  iconInfo?: React.ReactNode;
+  isPadded?: boolean;
+  isShort?: boolean;
+  label?: React.ReactNode;
+  labelBalance?: React.ReactNode;
+  noLookup?: boolean;
+  summary?: React.ReactNode;
+  type?: KeyringItemType;
+  value?: AccountId | AccountIndex | Address | string | null | Uint8Array;
+  withAddress?: boolean;
+  withBalance?: boolean;
+  withBonded?: boolean;
+  withLockedVote?: boolean;
+  withSidebar?: boolean;
+  withName?: boolean;
+  withShrink?: boolean;
 }
 
 function AddressMini({
@@ -54,10 +54,10 @@ function AddressMini({
   withBonded = false,
   withName = true,
   withShrink = false,
-  withSidebar = true,
+  withSidebar = true
 }: Props): React.ReactElement<Props> | null {
   if (!value) {
-    return null
+    return null;
   }
 
   return (
@@ -85,7 +85,7 @@ function AddressMini({
         {summary && <div className="ui--AddressMini-summary">{summary}</div>}
       </div>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(AddressMini)`
@@ -168,4 +168,4 @@ export default React.memo(styled(AddressMini)`
     margin-top: -0.5rem;
     text-align: left;
   }
-`)
+`);

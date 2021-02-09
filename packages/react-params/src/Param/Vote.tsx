@@ -1,24 +1,24 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Dropdown } from '@canvas-ui/react-components'
-import BN from 'bn.js'
-import React, { useRef } from 'react'
+import { Dropdown } from '@canvas-ui/react-components';
+import BN from 'bn.js';
+import React, { useRef } from 'react';
 
-import { GenericVote } from '@polkadot/types'
+import { GenericVote } from '@polkadot/types';
 
-import { useTranslation } from '../translate'
-import { Props } from '../types'
-import Bare from './Bare'
+import { useTranslation } from '../translate';
+import { Props } from '../types';
+import Bare from './Bare';
 
 function doChange(onChange?: (value: any) => void): (_: number) => void {
   return function (value: number): void {
     onChange &&
       onChange({
         isValid: true,
-        value,
-      })
-  }
+        value
+      });
+  };
 }
 
 function Vote({
@@ -27,14 +27,14 @@ function Vote({
   isDisabled,
   isError,
   onChange,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const optAyeRef = useRef([
     { text: t<string>('Nay'), value: 0 },
-    { text: t<string>('Aye'), value: -1 },
-  ])
+    { text: t<string>('Aye'), value: -1 }
+  ]);
 
   const optConvRef = useRef([
     { text: t<string>('None'), value: 0 },
@@ -43,12 +43,12 @@ function Vote({
     { text: t<string>('Locked3x'), value: 3 },
     { text: t<string>('Locked4x'), value: 4 },
     { text: t<string>('Locked5x'), value: 5 },
-    { text: t<string>('Locked6x'), value: 6 },
-  ])
+    { text: t<string>('Locked6x'), value: 6 }
+  ]);
 
   const defaultValue =
-    value instanceof BN ? value.toNumber() : value instanceof GenericVote ? (value.isAye ? -1 : 0) : (value as number)
-  const defaultConv = value instanceof GenericVote ? value.conviction.index : 0
+    value instanceof BN ? value.toNumber() : value instanceof GenericVote ? (value.isAye ? -1 : 0) : (value as number);
+  const defaultConv = value instanceof GenericVote ? value.conviction.index : 0;
 
   return (
     <Bare className={className}>
@@ -74,7 +74,7 @@ function Vote({
         />
       )}
     </Bare>
-  )
+  );
 }
 
-export default React.memo(Vote)
+export default React.memo(Vote);

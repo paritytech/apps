@@ -1,100 +1,100 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { store, useAbi } from '@canvas-ui/page-contracts'
-import { registry } from '@canvas-ui/react-api'
-import { Button, Input, InputABI, InputAddress, InputFile, TxButton } from '@canvas-ui/react-components'
-import PendingTx from '@canvas-ui/react-components/PendingTx'
-import { ComponentProps as Props } from '@canvas-ui/react-components/types'
-import { useAccountId, useApi, useFile, useNonEmptyString } from '@canvas-ui/react-hooks'
-import { FileState } from '@canvas-ui/react-hooks/types'
-import usePendingTx from '@canvas-ui/react-signer/usePendingTx'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { store, useAbi } from '@canvas-ui/page-contracts';
+import { registry } from '@canvas-ui/react-api';
+import { Button, Input, InputABI, InputAddress, InputFile, TxButton } from '@canvas-ui/react-components';
+import PendingTx from '@canvas-ui/react-components/PendingTx';
+import { ComponentProps as Props } from '@canvas-ui/react-components/types';
+import { useAccountId, useApi, useFile, useNonEmptyString } from '@canvas-ui/react-hooks';
+import { FileState } from '@canvas-ui/react-hooks/types';
+import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { SubmittableResult } from '@polkadot/api'
-import { compactAddLength, isNull, isWasm } from '@polkadot/util'
+import { SubmittableResult } from '@polkadot/api';
+import { compactAddLength, isNull, isWasm } from '@polkadot/util';
 
-import { useTranslation } from './translate'
+import { useTranslation } from './translate';
 
 function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const { api } = useApi()
-  const [accountId, setAccountId] = useAccountId()
-  const [name, setName, isNameValid, isNameError] = useNonEmptyString()
-  const currentName = useRef(name)
+  const { t } = useTranslation();
+  const { api } = useApi();
+  const [accountId, setAccountId] = useAccountId();
+  const [name, setName, isNameValid, isNameError] = useNonEmptyString();
+  const currentName = useRef(name);
   const [wasmFromFile, setWasmFromFile, isWasmFromFileSupplied, isWasmFromFileValid] = useFile({
     onChange: ({ name }: FileState): void => {
       if (currentName.current === '') {
-        setName(name)
+        setName(name);
       }
     },
-    validate: (file: FileState) => file?.data.subarray(0, 4).toString() === '0,97,115,109',
-  })
-  const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi()
-  const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi })
+    validate: (file: FileState) => file?.data.subarray(0, 4).toString() === '0,97,115,109'
+  });
+  const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
+  const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
 
-  const [[wasm, isWasmValid], setWasm] = useState<[Uint8Array | null, boolean]>([null, false])
+  const [[wasm, isWasmValid], setWasm] = useState<[Uint8Array | null, boolean]>([null, false]);
 
   useEffect((): void => {
     if (abi && isWasm(abi.project.source.wasm)) {
-      setWasm([abi.project.source.wasm, true])
+      setWasm([abi.project.source.wasm, true]);
 
       if (currentName.current === '') {
-        setName(`${abi.project.contract.name.toString()}.contract`)
+        setName(`${abi.project.contract.name.toString()}.contract`);
       }
 
-      return
+      return;
     }
 
     if (wasmFromFile && isWasmFromFileSupplied && isWasmFromFileValid) {
-      setWasm([compactAddLength(wasmFromFile.data), true])
+      setWasm([compactAddLength(wasmFromFile.data), true]);
 
-      return
+      return;
     }
 
-    setWasm([null, false])
-  }, [abi, wasmFromFile, isWasmFromFileValid, isWasmFromFileSupplied, setName])
+    setWasm([null, false]);
+  }, [abi, wasmFromFile, isWasmFromFileValid, isWasmFromFileSupplied, setName]);
 
-  const pendingTx = usePendingTx('contracts.putCode')
+  const pendingTx = usePendingTx('contracts.putCode');
 
   const isSubmittable = useMemo(
     (): boolean => !!accountId && !isNull(name) && isNameValid && isWasmValid && (!isAbiSupplied || isAbiValid),
     [accountId, name, isAbiSupplied, isAbiValid, isNameValid, isWasmValid]
-  )
+  );
 
   const _onChangeName = useCallback(
     (name: string | null): void => {
-      setName(name)
-      currentName.current = name
+      setName(name);
+      currentName.current = name;
     },
     [setName]
-  )
+  );
 
   const _onSuccess = useCallback(
     (result: SubmittableResult): void => {
-      const section = api.tx.contracts ? 'contracts' : 'contract'
-      const record = result.findRecord(section, 'CodeStored')
+      const section = api.tx.contracts ? 'contracts' : 'contract';
+      const record = result.findRecord(section, 'CodeStored');
 
       if (record) {
-        const codeHash = record.event.data[0]
+        const codeHash = record.event.data[0];
 
         if (!codeHash || !name) {
-          return
+          return;
         }
 
         store
           .saveCode({ abi: abi?.json || undefined, codeHash: codeHash.toHex(), name, tags: [] })
           .then((id): void => navigateTo.uploadSuccess(id)())
           .catch((error: any): void => {
-            console.error('Unable to save code', error)
-          })
+            console.error('Unable to save code', error);
+          });
       }
     },
     [api, abi, name, navigateTo]
-  )
+  );
 
-  const additionalDetails = useMemo((): Record<string, string> => ({ name: name || '' }), [name])
+  const additionalDetails = useMemo((): Record<string, string> => ({ name: name || '' }), [name]);
   // const preparedWasm = useMemo((): Uint8Array | null => wasm ? compactAddLength(wasm.data) : null, [wasm]);
 
   return (
@@ -169,7 +169,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
         </Button.Group>
       </section>
     </PendingTx>
-  )
+  );
 }
 
-export default React.memo(Upload)
+export default React.memo(Upload);

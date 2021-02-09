@@ -1,56 +1,56 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
-import store from 'store'
+import React from 'react';
+import store from 'store';
 
-import Dropdown from './Dropdown'
-import { BareProps } from './types'
+import Dropdown from './Dropdown';
+import { BareProps } from './types';
 
 interface Option {
-  key: string
-  text: string
-  value: string
+  key: string;
+  text: string;
+  value: string;
 }
 
 interface Props extends BareProps {
-  allowAdd?: boolean
-  defaultValue?: string[]
-  help?: React.ReactNode
-  isDisabled?: boolean
-  isError?: boolean
-  label?: React.ReactNode
-  onBlur?: () => void
-  onChange?: (value: string[]) => void
-  onClose?: () => void
-  openOnFocus?: boolean
-  placeholder?: string
-  searchInput?: { autoFocus: boolean }
-  value?: string[]
-  withLabel?: boolean
+  allowAdd?: boolean;
+  defaultValue?: string[];
+  help?: React.ReactNode;
+  isDisabled?: boolean;
+  isError?: boolean;
+  label?: React.ReactNode;
+  onBlur?: () => void;
+  onChange?: (value: string[]) => void;
+  onClose?: () => void;
+  openOnFocus?: boolean;
+  placeholder?: string;
+  searchInput?: { autoFocus: boolean };
+  value?: string[];
+  withLabel?: boolean;
 }
 
 function loadTags(): string[] {
-  return ((store.get('tags') as string[]) || ['Default']).sort()
+  return ((store.get('tags') as string[]) || ['Default']).sort();
 }
 
 function valueToOption(value: string): Option {
-  return { key: value, text: value, value }
+  return { key: value, text: value, value };
 }
 
-const tags = loadTags()
-const options = tags.map(valueToOption)
+const tags = loadTags();
+const options = tags.map(valueToOption);
 
 function saveTags(tags: string[]): void {
-  store.set('tags', tags.sort())
+  store.set('tags', tags.sort());
 }
 
 function onAddTag(value: string): void {
-  tags.push(value)
+  tags.push(value);
 
-  options.push(valueToOption(value))
+  options.push(valueToOption(value));
 
-  saveTags(tags)
+  saveTags(tags);
 }
 
 function InputTags({
@@ -67,7 +67,7 @@ function InputTags({
   placeholder,
   searchInput,
   value,
-  withLabel,
+  withLabel
 }: Props): React.ReactElement<Props> {
   return (
     <Dropdown
@@ -89,7 +89,7 @@ function InputTags({
       value={value}
       withLabel={withLabel}
     />
-  )
+  );
 }
 
-export default React.memo(InputTags)
+export default React.memo(InputTags);

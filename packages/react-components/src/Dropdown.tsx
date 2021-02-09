@@ -1,47 +1,47 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
-import SUIButton from 'semantic-ui-react/dist/commonjs/elements/Button/Button'
-import SUIDropdown, { DropdownProps } from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown'
-import styled from 'styled-components'
+import { classes } from '@canvas-ui/react-util';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import SUIButton from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
+import SUIDropdown, { DropdownProps } from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
+import styled from 'styled-components';
 
-import { isUndefined } from '@polkadot/util'
+import { isUndefined } from '@polkadot/util';
 
-import Labelled from './Labelled'
-import { BareProps } from './types'
+import Labelled from './Labelled';
+import { BareProps } from './types';
 
 interface Props<Option> extends BareProps {
-  allowAdd?: boolean
-  defaultValue?: any
-  dropdownClassName?: string
-  help?: React.ReactNode
-  isButton?: boolean
-  isDisabled?: boolean
-  isError?: boolean
-  isFull?: boolean
-  isMultiple?: boolean
-  label?: React.ReactNode
-  labelExtra?: React.ReactNode
-  onAdd?: (value: any) => void
-  onBlur?: () => void
-  onChange?: (value: any) => void
-  onClose?: () => void
-  onSearch?: (filteredOptions: any[], query: string) => Option[]
-  options: Option[]
-  placeholder?: string
-  renderLabel?: (item: any) => any
-  searchInput?: { autoFocus: boolean }
-  transform?: (value: any) => any
-  value?: any
-  withEllipsis?: boolean
-  withLabel?: boolean
+  allowAdd?: boolean;
+  defaultValue?: any;
+  dropdownClassName?: string;
+  help?: React.ReactNode;
+  isButton?: boolean;
+  isDisabled?: boolean;
+  isError?: boolean;
+  isFull?: boolean;
+  isMultiple?: boolean;
+  label?: React.ReactNode;
+  labelExtra?: React.ReactNode;
+  onAdd?: (value: any) => void;
+  onBlur?: () => void;
+  onChange?: (value: any) => void;
+  onClose?: () => void;
+  onSearch?: (filteredOptions: any[], query: string) => Option[];
+  options: Option[];
+  placeholder?: string;
+  renderLabel?: (item: any) => any;
+  searchInput?: { autoFocus: boolean };
+  transform?: (value: any) => any;
+  value?: any;
+  withEllipsis?: boolean;
+  withLabel?: boolean;
 }
 
 export type IDropdown<Option> = React.ComponentType<Props<Option>> & {
-  Header: React.ComponentType<{ content: React.ReactNode }>
-}
+  Header: React.ComponentType<{ content: React.ReactNode }>;
+};
 
 function BaseDropdown<Option>({
   allowAdd = false,
@@ -69,39 +69,39 @@ function BaseDropdown<Option>({
   transform,
   value,
   withEllipsis,
-  withLabel,
+  withLabel
 }: Props<Option>): React.ReactElement<Props<Option>> {
-  const lastUpdate = useRef<string>('')
-  const [stored, setStored] = useState<string | undefined>()
+  const lastUpdate = useRef<string>('');
+  const [stored, setStored] = useState<string | undefined>();
 
   const _setStored = useCallback(
     (value: string): void => {
-      const json = JSON.stringify({ v: value })
+      const json = JSON.stringify({ v: value });
 
       if (lastUpdate.current !== json) {
-        lastUpdate.current = json
+        lastUpdate.current = json;
 
-        setStored(value)
+        setStored(value);
 
-        onChange && onChange(transform ? transform(value) : value)
+        onChange && onChange(transform ? transform(value) : value);
       }
     },
     [onChange, transform]
-  )
+  );
 
   useEffect((): void => {
-    _setStored(isUndefined(value) ? defaultValue : value)
-  }, [_setStored, defaultValue, value])
+    _setStored(isUndefined(value) ? defaultValue : value);
+  }, [_setStored, defaultValue, value]);
 
   const _onAdd = useCallback(
     (_: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps): void => onAdd && onAdd(value),
     [onAdd]
-  )
+  );
 
   const _onChange = useCallback(
     (_: React.SyntheticEvent<HTMLElement> | null, { value }: DropdownProps): void => _setStored(value as string),
     [_setStored]
-  )
+  );
 
   const dropdown = (
     <SUIDropdown
@@ -125,7 +125,7 @@ function BaseDropdown<Option>({
       selection
       value={stored}
     />
-  )
+  );
 
   return isButton ? (
     <SUIButton.Group primary>{dropdown}</SUIButton.Group>
@@ -142,7 +142,7 @@ function BaseDropdown<Option>({
       {dropdown}
       {children}
     </Labelled>
-  )
+  );
 }
 
 const Dropdown = (React.memo(styled(BaseDropdown)`
@@ -206,9 +206,9 @@ const Dropdown = (React.memo(styled(BaseDropdown)`
       }
     }
   }
-`) as unknown) as IDropdown<any>
+`) as unknown) as IDropdown<any>;
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-;(Dropdown as any).Header = SUIDropdown.Header
+(Dropdown as any).Header = SUIDropdown.Header;
 
-export default Dropdown
+export default Dropdown;

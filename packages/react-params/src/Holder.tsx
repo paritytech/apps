@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
-  children?: React.ReactNode
-  className?: string
-  withBorder?: boolean
-  withPadding?: boolean
+  children?: React.ReactNode;
+  className?: string;
+  withBorder?: boolean;
+  withPadding?: boolean;
 }
 
 function Holder({ children, className = '', withBorder, withPadding }: Props): React.ReactElement<Props> {
@@ -20,7 +20,7 @@ function Holder({ children, className = '', withBorder, withPadding }: Props): R
     >
       {children}
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(Holder)`
@@ -101,4 +101,4 @@ export default React.memo(styled(Holder)`
   .ui--Params {
     margin-top: 1.5rem;
   }
-`)
+`);

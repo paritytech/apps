@@ -1,41 +1,41 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi, useCall } from '@canvas-ui/react-hooks'
-import { getAddressName } from '@canvas-ui/react-util'
-import React, { useCallback, useEffect, useState } from 'react'
-import styled from 'styled-components'
+import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { getAddressName } from '@canvas-ui/react-util';
+import React, { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import { DeriveAccountInfo } from '@polkadot/api-derive/types'
+import { DeriveAccountInfo } from '@polkadot/api-derive/types';
 
-import AddressMini from './AddressMini'
-import Toggle from './Toggle'
+import AddressMini from './AddressMini';
+import Toggle from './Toggle';
 
 interface Props {
-  address: string
-  className?: string
-  isHidden?: boolean
-  filter?: string
-  noLookup?: boolean
-  noToggle?: boolean
-  onChange?: (isChecked: boolean) => void
-  value?: boolean
+  address: string;
+  className?: string;
+  isHidden?: boolean;
+  filter?: string;
+  noLookup?: boolean;
+  noToggle?: boolean;
+  onChange?: (isChecked: boolean) => void;
+  value?: boolean;
 }
 
 function getIsFiltered(address: string, filter?: string, info?: DeriveAccountInfo): boolean {
   if (!filter || address.includes(filter)) {
-    return false
+    return false;
   }
 
-  const [, , extracted] = getAddressName(address)
-  const filterLower = filter.toLowerCase()
+  const [, , extracted] = getAddressName(address);
+  const filterLower = filter.toLowerCase();
 
   if (extracted.toLowerCase().includes(filterLower)) {
-    return false
+    return false;
   }
 
   if (info) {
-    const { accountId, accountIndex, identity, nickname } = info
+    const { accountId, accountIndex, identity, nickname } = info;
 
     if (
       identity.display?.toLowerCase().includes(filterLower) ||
@@ -43,11 +43,11 @@ function getIsFiltered(address: string, filter?: string, info?: DeriveAccountInf
       accountIndex?.toString().includes(filter) ||
       nickname?.toLowerCase().includes(filterLower)
     ) {
-      return false
+      return false;
     }
   }
 
-  return true
+  return true;
 }
 
 function AddressToggle({
@@ -58,17 +58,17 @@ function AddressToggle({
   noLookup,
   noToggle,
   onChange,
-  value,
+  value
 }: Props): React.ReactElement<Props> | null {
-  const { api } = useApi()
-  const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [address])
-  const [isFiltered, setIsFiltered] = useState(false)
+  const { api } = useApi();
+  const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [address]);
+  const [isFiltered, setIsFiltered] = useState(false);
 
   useEffect((): void => {
-    setIsFiltered(getIsFiltered(address, filter, info))
-  }, [address, filter, info])
+    setIsFiltered(getIsFiltered(address, filter, info));
+  }, [address, filter, info]);
 
-  const _onClick = useCallback((): void => onChange && onChange(!value), [onChange, value])
+  const _onClick = useCallback((): void => onChange && onChange(!value), [onChange, value]);
 
   return (
     <div
@@ -84,7 +84,7 @@ function AddressToggle({
         </div>
       )}
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(AddressToggle)`
@@ -135,4 +135,4 @@ export default React.memo(styled(AddressToggle)`
       opacity: 1;
     }
   }
-`)
+`);

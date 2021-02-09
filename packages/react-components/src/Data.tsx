@@ -1,31 +1,31 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry as baseRegistry } from '@canvas-ui/react-api'
-import { truncate } from '@canvas-ui/react-util'
-import React, { useMemo } from 'react'
-import styled from 'styled-components'
+import { registry as baseRegistry } from '@canvas-ui/react-api';
+import { truncate } from '@canvas-ui/react-util';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
 
-import { createTypeUnsafe, Option } from '@polkadot/types'
-import { AnyJson, Codec, Registry, TypeDef, TypeDefInfo } from '@polkadot/types/types'
-import { isNull } from '@polkadot/util'
+import { createTypeUnsafe, Option } from '@polkadot/types';
+import { AnyJson, Codec, Registry, TypeDef, TypeDefInfo } from '@polkadot/types/types';
+import { isNull } from '@polkadot/util';
 
-import AddressSmall from './AddressMini'
-import Labelled from './Labelled'
-import { BareProps } from './types'
+import AddressSmall from './AddressMini';
+import Labelled from './Labelled';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  asJson?: boolean
-  isTrimmed?: boolean
-  registry?: Registry
-  type?: TypeDef
-  value?: AnyJson | null
+  asJson?: boolean;
+  isTrimmed?: boolean;
+  registry?: Registry;
+  type?: TypeDef;
+  value?: AnyJson | null;
 }
 
-const TRUNCATE_TO = 16
+const TRUNCATE_TO = 16;
 
 function formatData(registry: Registry, data: AnyJson, type: TypeDef | undefined): Codec {
-  return createTypeUnsafe(registry, type?.displayName || type?.type || 'Raw', [data])
+  return createTypeUnsafe(registry, type?.displayName || type?.type || 'Raw', [data]);
 }
 
 function Field({ name, value }: { name: string; value: React.ReactNode }): React.ReactElement {
@@ -34,7 +34,7 @@ function Field({ name, value }: { name: string; value: React.ReactNode }): React
       <div className="key">{name}:</div>
       <div className="value">{value}</div>
     </div>
-  )
+  );
 }
 
 function Data({
@@ -42,29 +42,29 @@ function Data({
   className,
   registry = baseRegistry,
   type,
-  value,
+  value
 }: Props): React.ReactElement<Props> | null {
   const content = useMemo((): React.ReactNode => {
     if (isNull(value) || (Array.isArray(value) && value.length === 0)) {
-      return '()'
+      return '()';
     }
 
-    const codec = formatData(registry, value, type)
+    const codec = formatData(registry, value, type);
 
     if (!type || type.displayName === 'Hash') {
-      return truncate(codec.toHex(), TRUNCATE_TO)
+      return truncate(codec.toHex(), TRUNCATE_TO);
     }
 
     if (type.type === 'AccountId') {
-      return value ? <AddressSmall className="account-id" value={value.toString()} /> : null
+      return value ? <AddressSmall className="account-id" value={value.toString()} /> : null;
     }
 
     if (type.info === TypeDefInfo.Option && value instanceof Option) {
-      const isSome = value.isSome
-      const subType = type.sub as TypeDef
+      const isSome = value.isSome;
+      const subType = type.sub as TypeDef;
 
       if (asJson) {
-        return `${isSome ? 'Some' : 'None'}${isSome ? `(${value.toString()})` : ''}`
+        return `${isSome ? 'Some' : 'None'}${isSome ? `(${value.toString()})` : ''}`;
       }
 
       return (
@@ -80,21 +80,21 @@ function Data({
             </>
           )}
         </div>
-      )
+      );
     }
 
     if (type.info === TypeDefInfo.Plain) {
-      return truncate(value?.toString() || '()', TRUNCATE_TO)
+      return truncate(value?.toString() || '()', TRUNCATE_TO);
     }
 
     if (type.info === TypeDefInfo.Enum) {
-      const json = (value as unknown) as Record<string, AnyJson>
-      const [variant, subValue] = Object.entries(json)[0]
-      const isNull = !!subValue && typeof subValue === 'object' && Object.entries(subValue)[0] === null
-      const subType = (type.sub as TypeDef[]).find(({ name }) => name === variant)
+      const json = (value as unknown) as Record<string, AnyJson>;
+      const [variant, subValue] = Object.entries(json)[0];
+      const isNull = !!subValue && typeof subValue === 'object' && Object.entries(subValue)[0] === null;
+      const subType = (type.sub as TypeDef[]).find(({ name }) => name === variant);
 
       if (asJson) {
-        return `${variant}: ${JSON.stringify(formatData(registry, subValue, subType).toJSON()) || '()'}`
+        return `${variant}: ${JSON.stringify(formatData(registry, subValue, subType).toJSON()) || '()'}`;
       }
 
       return (
@@ -111,20 +111,20 @@ function Data({
             }
           />
         </Labelled>
-      )
+      );
     }
 
     if (type.info === TypeDefInfo.Struct) {
-      const struct = value as Record<string, AnyJson>
+      const struct = value as Record<string, AnyJson>;
 
       if (asJson) {
-        return JSON.stringify(struct)
+        return JSON.stringify(struct);
       }
 
       return (
         <Labelled isIndented isSmall withLabel={false}>
           {Object.entries(struct).map(([key, field], index) => {
-            const subType = (type.sub as TypeDef[])[index]
+            const subType = (type.sub as TypeDef[])[index];
 
             return (
               <Field
@@ -139,27 +139,27 @@ function Data({
                   />
                 }
               />
-            )
+            );
           })}
         </Labelled>
-      )
+      );
     }
 
     if (type.sub && [TypeDefInfo.Vec, TypeDefInfo.VecFixed].includes(type.info)) {
-      const sub = type.sub as TypeDef
+      const sub = type.sub as TypeDef;
 
       if (sub.type === 'u8') {
-        return truncate(codec.toHex(), TRUNCATE_TO)
+        return truncate(codec.toHex(), TRUNCATE_TO);
       }
 
-      const array = codec.toJSON() as AnyJson[]
+      const array = codec.toJSON() as AnyJson[];
 
       if (!Array.isArray(array)) {
-        return null
+        return null;
       }
 
       if (asJson) {
-        return JSON.stringify(array)
+        return JSON.stringify(array);
       }
 
       return (
@@ -171,16 +171,16 @@ function Data({
                 name={`${index}`}
                 value={<Data asJson registry={registry} type={sub} value={element} />}
               />
-            )
+            );
           })}
         </Labelled>
-      )
+      );
     }
 
-    return truncate(codec.toHex(), TRUNCATE_TO)
-  }, [asJson, value, registry, type])
+    return truncate(codec.toHex(), TRUNCATE_TO);
+  }, [asJson, value, registry, type]);
 
-  return <div className={className}>{content || null}</div>
+  return <div className={className}>{content || null}</div>;
 }
 
 export default React.memo(styled(Data)`
@@ -209,4 +209,4 @@ export default React.memo(styled(Data)`
       margin: 1rem 0 1rem 2rem;
     }
   }
-`)
+`);

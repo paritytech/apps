@@ -1,30 +1,30 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import createRoutes from '@canvas-ui/apps-routing'
-import { Routes } from '@canvas-ui/apps-routing/types'
-import { media, Menu } from '@canvas-ui/react-components'
-import React, { useMemo } from 'react'
-import { Responsive } from 'semantic-ui-react'
-import styled from 'styled-components'
+import createRoutes from '@canvas-ui/apps-routing';
+import { Routes } from '@canvas-ui/apps-routing/types';
+import { media, Menu } from '@canvas-ui/react-components';
+import React, { useMemo } from 'react';
+import { Responsive } from 'semantic-ui-react';
+import styled from 'styled-components';
 
-import { useTranslation } from '../translate'
-import Item from './Item'
-import Settings from './Settings'
+import { useTranslation } from '../translate';
+import Item from './Item';
+import Settings from './Settings';
 
 interface Props {
-  className?: string
-  collapse: () => void
-  handleResize: () => void
-  isCollapsed: boolean
-  isMenuOpen: boolean
-  toggleMenu: () => void
+  className?: string;
+  collapse: () => void;
+  handleResize: () => void;
+  isCollapsed: boolean;
+  isMenuOpen: boolean;
+  toggleMenu: () => void;
 }
 
 function SideBar({ className = '', handleResize, isCollapsed }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
-  const routing = useMemo<Routes>(() => createRoutes(t), [t])
+  const routing = useMemo<Routes>(() => createRoutes(t), [t]);
 
   return (
     <Responsive
@@ -47,10 +47,10 @@ function SideBar({ className = '', handleResize, isCollapsed }: Props): React.Re
         <Settings />
       </div>
     </Responsive>
-  )
+  );
 }
 
-const sideBorderWidth = '0.65rem'
+const sideBorderWidth = '0.65rem';
 
 export default React.memo(styled(SideBar)`
   display: flex;
@@ -183,4 +183,4 @@ export default React.memo(styled(SideBar)`
       top: -2.9rem !important;
     `}
   }
-`)
+`);

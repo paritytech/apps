@@ -1,27 +1,27 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { DropdownOption, DropdownOptions } from '@canvas-ui/react-util/types'
-import React from 'react'
+import { DropdownOption, DropdownOptions } from '@canvas-ui/react-util/types';
+import React from 'react';
 
-import { ApiPromise } from '@polkadot/api'
+import { ApiPromise } from '@polkadot/api';
 
 export default function createOptions(api: ApiPromise, sectionName: string): DropdownOptions {
-  const section = api.tx[sectionName]
+  const section = api.tx[sectionName];
 
   if (!section || Object.keys(section).length === 0) {
-    return []
+    return [];
   }
 
   return Object.keys(section)
     .sort()
     .map(
       (value): DropdownOption => {
-        const method = section[value]
+        const method = section[value];
         const inputs = method.meta.args
           .filter((arg): boolean => arg.type.toString() !== 'Origin')
           .map((arg): string => arg.name.toString())
-          .join(', ')
+          .join(', ');
 
         return {
           className: 'ui--DropdownLinked-Item',
@@ -32,10 +32,10 @@ export default function createOptions(api: ApiPromise, sectionName: string): Dro
             </div>,
             <div className="ui--DropdownLinked-Item-text" key={`${sectionName}_${value}:text`}>
               {(method.meta.documentation[0] || value).toString()}
-            </div>,
+            </div>
           ],
-          value,
-        }
+          value
+        };
       }
-    )
+    );
 }

@@ -1,18 +1,18 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { SubmittableExtrinsic } from '@polkadot/api/types'
-import type { TxButtonProps as Props } from './types'
+import type { SubmittableExtrinsic } from '@polkadot/api/types';
+import type { TxButtonProps as Props } from './types';
 
-import StatusContext from '@canvas-ui/react-api/Status/Context'
-import { useIsMountedRef } from '@canvas-ui/react-hooks'
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import StatusContext from '@canvas-ui/react-api/Status/Context';
+import { useIsMountedRef } from '@canvas-ui/react-hooks';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
-import { SubmittableResult } from '@polkadot/api'
-import { assert, isFunction } from '@polkadot/util'
+import { SubmittableResult } from '@polkadot/api';
+import { assert, isFunction } from '@polkadot/util';
 
-import Button from './Button'
-import { useTranslation } from './translate'
+import Button from './Button';
+import { useTranslation } from './translate';
 
 function TxButton({
   accountId,
@@ -36,52 +36,52 @@ function TxButton({
   tooltip,
   tx,
   withSpinner,
-  withoutLink,
+  withoutLink
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const mountedRef = useIsMountedRef()
-  const { queueExtrinsic } = useContext(StatusContext)
-  const [isSending, setIsSending] = useState(false)
-  const [isStarted, setIsStarted] = useState(false)
+  const { t } = useTranslation();
+  const mountedRef = useIsMountedRef();
+  const { queueExtrinsic } = useContext(StatusContext);
+  const [isSending, setIsSending] = useState(false);
+  const [isStarted, setIsStarted] = useState(false);
 
   useEffect((): void => {
-    isStarted && onStart && onStart()
-  }, [isStarted, onStart])
+    isStarted && onStart && onStart();
+  }, [isStarted, onStart]);
 
   const _onFailed = useCallback(
     (result: SubmittableResult | null): void => {
-      mountedRef.current && setIsSending(false)
+      mountedRef.current && setIsSending(false);
 
-      onFailed && onFailed(result)
+      onFailed && onFailed(result);
     },
     [onFailed, setIsSending, mountedRef]
-  )
+  );
 
   const _onSuccess = useCallback(
     (result: SubmittableResult): void => {
-      mountedRef.current && setIsSending(false)
+      mountedRef.current && setIsSending(false);
 
-      onSuccess && onSuccess(result)
+      onSuccess && onSuccess(result);
     },
     [onSuccess, setIsSending, mountedRef]
-  )
+  );
 
   const _onStart = useCallback((): void => {
-    mountedRef.current && setIsStarted(true)
-  }, [setIsStarted, mountedRef])
+    mountedRef.current && setIsStarted(true);
+  }, [setIsStarted, mountedRef]);
 
   const _onSend = useCallback((): void => {
-    let extrinsics: SubmittableExtrinsic<'promise'>[] | undefined
+    let extrinsics: SubmittableExtrinsic<'promise'>[] | undefined;
 
     if (propsExtrinsic) {
-      extrinsics = Array.isArray(propsExtrinsic) ? propsExtrinsic : [propsExtrinsic]
+      extrinsics = Array.isArray(propsExtrinsic) ? propsExtrinsic : [propsExtrinsic];
     } else if (tx) {
-      extrinsics = [tx(...(isFunction(params) ? params() : params || []))]
+      extrinsics = [tx(...(isFunction(params) ? params() : params || []))];
     }
 
-    assert(extrinsics?.length, 'Expected generated extrinsic passed to TxButton')
+    assert(extrinsics?.length, 'Expected generated extrinsic passed to TxButton');
 
-    mountedRef.current && withSpinner && setIsSending(true)
+    mountedRef.current && withSpinner && setIsSending(true);
 
     extrinsics.forEach((extrinsic): void => {
       queueExtrinsic({
@@ -91,11 +91,11 @@ function TxButton({
         txFailedCb: withSpinner ? _onFailed : onFailed,
         txStartCb: _onStart,
         txSuccessCb: withSpinner ? _onSuccess : onSuccess,
-        txUpdateCb: onUpdate,
-      })
-    })
+        txUpdateCb: onUpdate
+      });
+    });
 
-    onClick && onClick()
+    onClick && onClick();
   }, [
     _onFailed,
     _onStart,
@@ -112,11 +112,11 @@ function TxButton({
     setIsSending,
     tx,
     withSpinner,
-    mountedRef,
-  ])
+    mountedRef
+  ]);
 
   if (onSendRef) {
-    onSendRef.current = _onSend
+    onSendRef.current = _onSend;
   }
 
   return (
@@ -138,7 +138,7 @@ function TxButton({
       tooltip={tooltip}
       withoutLink={withoutLink}
     />
-  )
+  );
 }
 
-export default React.memo(TxButton)
+export default React.memo(TxButton);

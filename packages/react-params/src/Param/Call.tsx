@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Call, Static } from '@canvas-ui/react-components'
-import React from 'react'
+import { Call, Static } from '@canvas-ui/react-components';
+import React from 'react';
 
-import { Extrinsic } from '@polkadot/types/interfaces'
+import { Extrinsic } from '@polkadot/types/interfaces';
 
-import { Props } from '../types'
-import Bare from './Bare'
-import Unknown from './Unknown'
+import { Props } from '../types';
+import Bare from './Bare';
+import Unknown from './Unknown';
 
 function CallDisplay(props: Props): React.ReactElement<Props> {
   const {
@@ -16,15 +16,15 @@ function CallDisplay(props: Props): React.ReactElement<Props> {
     defaultValue: { value },
     isDisabled,
     label,
-    withLabel,
-  } = props
+    withLabel
+  } = props;
 
   if (!isDisabled) {
-    return <Unknown {...props} />
+    return <Unknown {...props} />;
   }
 
-  const call = value as Extrinsic
-  const { method, section } = call.registry.findMetaCall(call.callIndex)
+  const call = value as Extrinsic;
+  const { method, section } = call.registry.findMetaCall(call.callIndex);
 
   return (
     <Bare>
@@ -33,7 +33,7 @@ function CallDisplay(props: Props): React.ReactElement<Props> {
       </Static>
       <Call value={call} />
     </Bare>
-  )
+  );
 }
 
-export default React.memo(CallDisplay)
+export default React.memo(CallDisplay);

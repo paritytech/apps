@@ -1,24 +1,24 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useDebounce } from '@canvas-ui/react-hooks'
-import React, { useCallback, useEffect, useState } from 'react'
-import styled from 'styled-components'
+import { useDebounce } from '@canvas-ui/react-hooks';
+import React, { useCallback, useEffect, useState } from 'react';
+import styled from 'styled-components';
 
-import Input from '../Input'
-import { useTranslation } from '../translate'
-import Available from './Available'
-import Selected from './Selected'
+import Input from '../Input';
+import { useTranslation } from '../translate';
+import Available from './Available';
+import Selected from './Selected';
 
 interface Props {
-  available: string[]
-  availableLabel: React.ReactNode
-  className?: string
-  defaultValue?: string[]
-  help: React.ReactNode
-  maxCount: number
-  onChange: (values: string[]) => void
-  valueLabel: React.ReactNode
+  available: string[];
+  availableLabel: React.ReactNode;
+  className?: string;
+  defaultValue?: string[];
+  help: React.ReactNode;
+  maxCount: number;
+  onChange: (values: string[]) => void;
+  valueLabel: React.ReactNode;
 }
 
 // import { DragDropContext, Droppable, DraggableLocation, DroppableProvided, DropResult } from 'react-beautiful-dnd';
@@ -83,20 +83,20 @@ function InputAddressMulti({
   defaultValue,
   maxCount,
   onChange,
-  valueLabel,
+  valueLabel
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const [_filter, setFilter] = useState<string>('')
-  const [selected, setSelected] = useState<string[]>([])
-  const filter = useDebounce(_filter)
+  const { t } = useTranslation();
+  const [_filter, setFilter] = useState<string>('');
+  const [selected, setSelected] = useState<string[]>([]);
+  const filter = useDebounce(_filter);
 
   useEffect((): void => {
-    defaultValue && setSelected(defaultValue)
-  }, [defaultValue])
+    defaultValue && setSelected(defaultValue);
+  }, [defaultValue]);
 
   useEffect((): void => {
-    selected && onChange(selected)
-  }, [onChange, selected])
+    selected && onChange(selected);
+  }, [onChange, selected]);
 
   const _onSelect = useCallback(
     (address: string): void =>
@@ -104,15 +104,15 @@ function InputAddressMulti({
         !selected.includes(address) && selected.length < maxCount ? selected.concat(address) : selected
       ),
     [maxCount]
-  )
+  );
 
   const _onDeselect = useCallback(
     (address: string): void =>
       setSelected((selected: string[]) =>
-        selected.includes(address) ? selected.filter((a) => a !== address) : selected
+        selected.includes(address) ? selected.filter(a => a !== address) : selected
       ),
     []
-  )
+  );
 
   return (
     <div className={`ui--InputAddressMulti ${className}`}>
@@ -153,7 +153,7 @@ function InputAddressMulti({
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(InputAddressMulti)`
@@ -196,4 +196,4 @@ export default React.memo(styled(InputAddressMulti)`
       }
     }
   }
-`)
+`);

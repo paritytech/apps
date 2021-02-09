@@ -1,10 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Hash } from '@polkadot/types/interfaces'
-import { Codec } from '@polkadot/types/types'
+import { Hash } from '@polkadot/types/interfaces';
+import { Codec } from '@polkadot/types/types';
 
-type AtQuery<I extends any[]> = (hash: string | Uint8Array, ...params: I) => Promise<Codec>
+type AtQuery<I extends any[]> = (hash: string | Uint8Array, ...params: I) => Promise<Codec>;
 
 export default async function getHistoric<T extends Codec, I extends any[] = any[]>(
   atQuery: AtQuery<I>,
@@ -14,5 +14,5 @@ export default async function getHistoric<T extends Codec, I extends any[] = any
   return Promise.all(hashes.map((hash): Promise<T> => atQuery(hash, ...params) as Promise<T>)).then((results): [
     Hash,
     T
-  ][] => results.map((value, index): [Hash, T] => [hashes[index], value]))
+  ][] => results.map((value, index): [Hash, T] => [hashes[index], value]));
 }

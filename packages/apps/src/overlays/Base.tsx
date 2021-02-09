@@ -1,25 +1,25 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Icon as IconType, IconName } from '@fortawesome/fontawesome-svg-core'
+import type { Icon as IconType, IconName } from '@fortawesome/fontawesome-svg-core';
 
-import { Icon } from '@canvas-ui/react-components'
-import { useToggle } from '@canvas-ui/react-hooks'
-import React from 'react'
-import styled from 'styled-components'
+import { Icon } from '@canvas-ui/react-components';
+import { useToggle } from '@canvas-ui/react-hooks';
+import React from 'react';
+import styled from 'styled-components';
 
 interface Props {
-  children: React.ReactNode
-  className?: string
-  icon: IconName | IconType
-  type: 'error' | 'info'
+  children: React.ReactNode;
+  className?: string;
+  icon: IconName | IconType;
+  type: 'error' | 'info';
 }
 
 function BaseOverlay({ children, className = '', icon, type }: Props): React.ReactElement<Props> | null {
-  const [isHidden, toggleHidden] = useToggle()
+  const [isHidden, toggleHidden] = useToggle();
 
   if (isHidden) {
-    return null
+    return null;
   }
 
   return (
@@ -30,7 +30,7 @@ function BaseOverlay({ children, className = '', icon, type }: Props): React.Rea
         <Icon className="closeIcon" icon="close" onClick={toggleHidden} />
       </div>
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(BaseOverlay)`
@@ -82,4 +82,4 @@ export default React.memo(styled(BaseOverlay)`
     right: 0.75em;
     top: 0.75em;
   }
-`)
+`);

@@ -1,25 +1,25 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Columar } from '@canvas-ui/react-components'
-import { BareProps } from '@canvas-ui/react-components/types'
-import React from 'react'
-import styled from 'styled-components'
+import { Columar } from '@canvas-ui/react-components';
+import { BareProps } from '@canvas-ui/react-components/types';
+import React from 'react';
+import styled from 'styled-components';
 
-import { QrDisplayPayload, QrScanSignature } from '@polkadot/react-qr'
+import { QrDisplayPayload, QrScanSignature } from '@polkadot/react-qr';
 
 interface Props extends BareProps {
-  address: string
-  className?: string
-  genesisHash: Uint8Array
-  isHashed: boolean
-  isScanning: boolean
-  onSignature: (signature: { signature: string }) => void
-  payload: Uint8Array
+  address: string;
+  className?: string;
+  genesisHash: Uint8Array;
+  isHashed: boolean;
+  isScanning: boolean;
+  onSignature: (signature: { signature: string }) => void;
+  payload: Uint8Array;
 }
 
-const CMD_HASH = 1
-const CMD_MORTAL = 2
+const CMD_HASH = 1;
+const CMD_MORTAL = 2;
 
 function Qr({ address, className, genesisHash, isHashed, onSignature, payload }: Props): React.ReactElement<Props> {
   return (
@@ -40,7 +40,7 @@ function Qr({ address, className, genesisHash, isHashed, onSignature, payload }:
         </div>
       </Columar.Column>
     </Columar>
-  )
+  );
 }
 
 export default React.memo(styled(Qr)`
@@ -48,4 +48,4 @@ export default React.memo(styled(Qr)`
     margin: 0 auto;
     max-width: 30rem;
   }
-`)
+`);

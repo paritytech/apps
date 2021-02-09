@@ -5,8 +5,8 @@ export function typesFromDefs(definitions: Record<string, { types: Record<string
   return Object.values(definitions).reduce(
     (res: Record<string, any>, { types }): Record<string, any> => ({
       ...res,
-      ...types,
+      ...types
     }),
     {}
-  )
+  );
 }

@@ -1,17 +1,17 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { Button, ContractCard } from '@canvas-ui/react-components'
-import { useApi } from '@canvas-ui/react-hooks'
-import { getContractForAddress } from '@canvas-ui/react-util'
-import React, { useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import { Button, ContractCard } from '@canvas-ui/react-components';
+import { useApi } from '@canvas-ui/react-hooks';
+import { getContractForAddress } from '@canvas-ui/react-util';
+import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { ContractPromise as Contract } from '@polkadot/api-contract'
+import { ContractPromise as Contract } from '@polkadot/api-contract';
 
-import { useTranslation } from './translate'
-import { ComponentProps as Props } from './types'
+import { useTranslation } from './translate';
+import { ComponentProps as Props } from './types';
 
 // function filterContracts (api: ApiPromise, keyringContracts: string[] = []): ContractPromise[] {
 //   return keyringContracts
@@ -25,10 +25,10 @@ function Contracts({
   className,
   contracts: contractAddresses,
   hasContracts,
-  navigateTo,
+  navigateTo
 }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
-  const { api } = useApi()
+  const { t } = useTranslation();
+  const { api } = useApi();
   const contracts = useMemo((): Contract[] | null => {
     return (
       accounts &&
@@ -36,8 +36,8 @@ function Contracts({
       (contractAddresses
         .map((address): Contract | null => getContractForAddress(api, address))
         .filter((contract: Contract | null): boolean => !!contract) as Contract[])
-    )
-  }, [accounts, api, contractAddresses])
+    );
+  }, [accounts, api, contractAddresses]);
 
   return (
     <div className={className}>
@@ -76,7 +76,7 @@ function Contracts({
         </div>
       </section>
     </div>
-  )
+  );
 }
 
 export default styled(React.memo(Contracts))`
@@ -85,4 +85,4 @@ export default styled(React.memo(Contracts))`
       margin-bottom: 0.9rem;
     }
   }
-`
+`;

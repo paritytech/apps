@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import React, { useMemo, useRef } from 'react'
+import { classes } from '@canvas-ui/react-util';
+import React, { useMemo, useRef } from 'react';
 
-import { encodeTypeDef } from '@polkadot/types'
-import { isUndefined } from '@polkadot/util'
+import { encodeTypeDef } from '@polkadot/types';
+import { isUndefined } from '@polkadot/util';
 
-import { Props as CProps, Props } from '../types'
-import findComponent from './findComponent'
-import Static from './Static'
+import { Props as CProps, Props } from '../types';
+import findComponent from './findComponent';
+import Static from './Static';
 
 function Param({
   className = '',
@@ -22,17 +22,17 @@ function Param({
   onEnter,
   onEscape,
   overrides,
-  type,
+  type
 }: Props): React.ReactElement<Props> | null {
-  const compRef = useRef<React.ComponentType<CProps> | null>(findComponent(type, overrides))
+  const compRef = useRef<React.ComponentType<CProps> | null>(findComponent(type, overrides));
 
   const label = useMemo(() => (isUndefined(name) ? encodeTypeDef(type) : `${name}: ${encodeTypeDef(type)}`), [
     name,
-    type,
-  ])
+    type
+  ]);
 
   if (!compRef.current) {
-    return null
+    return null;
   }
 
   return isOptional ? (
@@ -52,7 +52,7 @@ function Param({
       overrides={overrides}
       type={type}
     />
-  )
+  );
 }
 
-export default React.memo(Param)
+export default React.memo(Param);

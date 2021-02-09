@@ -1,25 +1,25 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { toAddress as addressToAddress } from '@canvas-ui/react-util'
-import React, { useCallback, useState } from 'react'
-import styled from 'styled-components'
+import { toAddress as addressToAddress } from '@canvas-ui/react-util';
+import React, { useCallback, useState } from 'react';
+import styled from 'styled-components';
 
-import IdentityIcon from './IdentityIcon'
-import Input from './Input'
-import { BareProps } from './types'
+import IdentityIcon from './IdentityIcon';
+import Input from './Input';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  autoFocus?: boolean
-  children?: React.ReactNode
-  defaultValue?: string | null
-  help?: React.ReactNode
-  isError?: boolean
-  isFull?: boolean
-  label?: React.ReactNode
-  onChange?: (address: string | null) => void
-  onEnter?: () => void
-  onEscape?: () => void
+  autoFocus?: boolean;
+  children?: React.ReactNode;
+  defaultValue?: string | null;
+  help?: React.ReactNode;
+  isError?: boolean;
+  isFull?: boolean;
+  label?: React.ReactNode;
+  onChange?: (address: string | null) => void;
+  onEnter?: () => void;
+  onEscape?: () => void;
 }
 
 function InputAddressSimple({
@@ -33,20 +33,20 @@ function InputAddressSimple({
   label,
   onChange,
   onEnter,
-  onEscape,
+  onEscape
 }: Props): React.ReactElement<Props> {
-  const [address, setAddress] = useState<string | null>(defaultValue || null)
+  const [address, setAddress] = useState<string | null>(defaultValue || null);
 
   const _onChange = useCallback(
     (_address: string): void => {
-      const address = addressToAddress(_address) || null
+      const address = addressToAddress(_address) || null;
 
-      setAddress(address)
+      setAddress(address);
 
-      onChange && onChange(address)
+      onChange && onChange(address);
     },
     [onChange]
-  )
+  );
 
   return (
     <div className={className}>
@@ -65,7 +65,7 @@ function InputAddressSimple({
       </Input>
       <IdentityIcon className="ui--InputAddressSimpleIcon" size={32} value={address} />
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(InputAddressSimple)`
@@ -79,4 +79,4 @@ export default React.memo(styled(InputAddressSimple)`
     position: absolute;
     top: 1rem;
   }
-`)
+`);

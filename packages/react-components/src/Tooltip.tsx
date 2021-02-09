@@ -1,31 +1,31 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import React, { useEffect, useState } from 'react'
-import ReactDOM from 'react-dom'
-import ReactTooltip from 'react-tooltip'
-import styled from 'styled-components'
+import { classes } from '@canvas-ui/react-util';
+import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
+import ReactTooltip from 'react-tooltip';
+import styled from 'styled-components';
 
-import { BareProps } from './types'
+import { BareProps } from './types';
 
 const rootElement =
   typeof document === 'undefined'
     ? null // This hack is required for server side rendering
-    : document.getElementById('tooltips')
+    : document.getElementById('tooltips');
 
 interface Props extends BareProps {
-  dataFor?: string
-  effect?: 'solid' | 'float'
+  dataFor?: string;
+  effect?: 'solid' | 'float';
   offset?: {
-    bottom?: number
-    left?: number
-    right?: number
-    top?: number
-  }
-  place?: 'bottom' | 'top' | 'right' | 'left'
-  text: React.ReactNode
-  trigger: string
+    bottom?: number;
+    left?: number;
+    right?: number;
+    top?: number;
+  };
+  place?: 'bottom' | 'top' | 'right' | 'left';
+  text: React.ReactNode;
+  trigger: string;
 }
 
 function Tooltip({
@@ -34,21 +34,21 @@ function Tooltip({
   offset,
   place = 'top',
   text,
-  trigger,
+  trigger
 }: Props): React.ReactElement<Props> | null {
   const [tooltipContainer] = useState(
     typeof document === 'undefined'
       ? ({} as HTMLElement) // This hack is required for server side rendering
       : document.createElement('div')
-  )
+  );
 
   useEffect((): (() => void) => {
-    rootElement && rootElement.appendChild(tooltipContainer)
+    rootElement && rootElement.appendChild(tooltipContainer);
 
     return (): void => {
-      rootElement && rootElement.removeChild(tooltipContainer)
-    }
-  }, [tooltipContainer])
+      rootElement && rootElement.removeChild(tooltipContainer);
+    };
+  }, [tooltipContainer]);
 
   return ReactDOM.createPortal(
     <ReactTooltip
@@ -61,7 +61,7 @@ function Tooltip({
       {className?.includes('address') ? <div>{text}</div> : text}
     </ReactTooltip>,
     tooltipContainer
-  )
+  );
 }
 
 export default React.memo(styled(Tooltip)`
@@ -109,4 +109,4 @@ export default React.memo(styled(Tooltip)`
   .row + .row {
     margin-top: 0.5rem;
   }
-`)
+`);

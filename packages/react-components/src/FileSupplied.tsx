@@ -1,24 +1,24 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { classes } from '@canvas-ui/react-util'
-import { faFile, faTrashAlt } from '@fortawesome/free-regular-svg-icons'
-import React, { MouseEvent } from 'react'
-import styled from 'styled-components'
+import { classes } from '@canvas-ui/react-util';
+import { faFile, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
+import React, { MouseEvent } from 'react';
+import styled from 'styled-components';
 
-import Icon from './Icon'
-import { useTranslation } from './translate'
-import { BareProps } from './types'
+import Icon from './Icon';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 
 interface Props extends BareProps {
-  errorText?: React.ReactNode
-  isError?: boolean
-  onRemove: (event: MouseEvent<HTMLDivElement>) => void
-  text: React.ReactNode
+  errorText?: React.ReactNode;
+  isError?: boolean;
+  onRemove: (event: MouseEvent<HTMLDivElement>) => void;
+  text: React.ReactNode;
 }
 
 function FileSupplied({ className, errorText, isError, onRemove, text }: Props): React.ReactElement<Props> {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <div className={classes(isError && 'isError', className)}>
@@ -29,7 +29,7 @@ function FileSupplied({ className, errorText, isError, onRemove, text }: Props):
       </div>
       <Icon className="file-remove" icon={faTrashAlt} onClick={onRemove} />
     </div>
-  )
+  );
 }
 
 export default React.memo(styled(FileSupplied)`
@@ -68,4 +68,4 @@ export default React.memo(styled(FileSupplied)`
       color: var(--red-primary);
     }
   }
-`)
+`);
