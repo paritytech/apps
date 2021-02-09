@@ -1,19 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import {
-  Button,
-  ContractParams,
-  Dropdown,
-  IconLink,
-  InputAddress,
-  InputBalance,
-  InputMegaGas,
-  MessageArg,
-  MessageSignature,
-  PendingTx,
-  TxButton
-} from '@canvas-ui/react-components';
+import { Button, ContractParams, Dropdown, IconLink, InputAddress, InputBalance, InputMegaGas, MessageArg, MessageSignature, PendingTx, TxButton } from '@canvas-ui/react-components';
 import { ComponentProps as Props } from '@canvas-ui/react-components/types';
 import { useAccountId, useAccountInfo, useApi, useFormField, useGasWeight } from '@canvas-ui/react-hooks';
 import { useTxParams } from '@canvas-ui/react-params';
@@ -71,9 +59,7 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
 
   const [params, values = [], setValues] = useTxParams(contract?.abi?.messages[messageIndex].args || []);
   const encoder = useCallback((): Uint8Array | null => {
-    return contract?.abi?.messages[messageIndex]
-      ? ((contract.abi.messages[messageIndex].toU8a(extractValues(values || [])) as unknown) as Uint8Array)
-      : null;
+    return contract?.abi?.messages[messageIndex] ? ((contract.abi.messages[messageIndex].toU8a(extractValues(values || [])) as unknown) as Uint8Array) : null;
   }, [contract?.abi?.messages, messageIndex, values]);
 
   useEffect((): void => {
@@ -158,10 +144,7 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
   );
   // Clear all previous contract execution results
   const _onClearAllOutcomes = () => setOutcomes([]);
-  const isValid = useMemo(
-    (): boolean => !!accountId && !!contract && !!contract.address && !!contract.abi && isWeightValid && isPaymentValid,
-    [accountId, contract, isPaymentValid, isWeightValid]
-  );
+  const isValid = useMemo((): boolean => !!accountId && !!contract && !!contract.address && !!contract.abi && isWeightValid && isPaymentValid, [accountId, contract, isPaymentValid, isWeightValid]);
 
   const additionalDetails = useMemo(
     (): Record<string, any> => ({
@@ -183,39 +166,21 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
   }
 
   return (
-    <PendingTx
-      additionalDetails={additionalDetails}
-      instructions={t<string>('Sign and submit to call the contract message with the above parameters.')}
-      registry={contract?.registry}
-      {...pendingTx}
-    >
+    <PendingTx additionalDetails={additionalDetails} instructions={t<string>('Sign and submit to call the contract message with the above parameters.')} registry={contract?.registry} {...pendingTx}>
       <div className={className}>
         <header>
           <h1>
             {t<string>('Execute {{name}}', { replace: { name } })}
           </h1>
-          <div className="instructions">
-            {t<string>('Using the unique code hash you can add on-chain contract code for you to deploy.')}
-          </div>
+          <div className="instructions">{t<string>('Using the unique code hash you can add on-chain contract code for you to deploy.')}</div>
         </header>
         <section className={className}>
           {contract && (
             <>
-              <InputAddress
-                defaultValue={accountId}
-                help={t<string>(
-                  'Specify the user account to use for this contract call. And fees will be deducted from this account.'
-                )}
-                label={t<string>('Call from Account')}
-                onChange={setAccountId}
-                type="account"
-                value={accountId}
-              />
+              <InputAddress defaultValue={accountId} help={t<string>('Specify the user account to use for this contract call. And fees will be deducted from this account.')} label={t<string>('Call from Account')} onChange={setAccountId} type="account" value={accountId} />
               <Dropdown
                 defaultValue={messageIndex}
-                help={t<string>(
-                  'The message to send to this contract. Parameters are adjusted based on the ABI provided.'
-                )}
+                help={t<string>('The message to send to this contract. Parameters are adjusted based on the ABI provided.')}
                 isError={messageIndex >= contract?.abi?.messages.length}
                 label={t<string>('Message to Send')}
                 onChange={setMessageIndex}
@@ -225,11 +190,7 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
               <ContractParams onChange={setValues} params={params} values={values} />
               <InputBalance
                 className="retain-appearance"
-                help={t<string>(
-                  contract.abi.messages[messageIndex].isPayable
-                    ? 'The balance to transfer to the contract as part of this call.'
-                    : 'This message is not payable.'
-                )}
+                help={t<string>(contract.abi.messages[messageIndex].isPayable ? 'The balance to transfer to the contract as part of this call.' : 'This message is not payable.')}
                 isDisabled={!contract.abi.messages[messageIndex].isPayable}
                 isError={isPaymentError}
                 isZeroable
@@ -237,15 +198,7 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
                 onChange={setPayment}
                 value={payment}
               />
-              <InputMegaGas
-                estimatedWeight={estimatedWeight}
-                help={t<string>(
-                  'The maximum amount of gas to use for this contract call. If the call requires more, it will fail.'
-                )}
-                isCall
-                label={t<string>('Maximum Gas Allowed')}
-                weight={useWeightHook}
-              />
+              <InputMegaGas estimatedWeight={estimatedWeight} help={t<string>('The maximum amount of gas to use for this contract call. If the call requires more, it will fail.')} isCall label={t<string>('Maximum Gas Allowed')} weight={useWeightHook} />
               <Dropdown
                 onChange={setUseRpc}
                 options={[
@@ -264,40 +217,19 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
           )}
           <Button.Group>
             <Button label={t<string>('Cancel')} onClick={navigateTo.execute} />
-            {useRpc ? (
-              <Button isDisabled={!isValid} isPrimary label={t<string>('Call')} onClick={_onSubmitRpc} />
-            ) : (
-              <TxButton
-                accountId={accountId}
-                isDisabled={!isValid}
-                isPrimary
-                label={t<string>('Call')}
-                params={_constructTx}
-                tx={api.tx.contracts.call}
-              />
-            )}
+            {useRpc ? <Button isDisabled={!isValid} isPrimary label={t<string>('Call')} onClick={_onSubmitRpc} /> : <TxButton accountId={accountId} isDisabled={!isValid} isPrimary label={t<string>('Call')} params={_constructTx} tx={api.tx.contracts.call} />}
           </Button.Group>
         </section>
         {outcomes.length > 0 && (
           <footer>
             <h3>
               {t<string>('Call results')}
-              <IconLink
-                className="clear-all"
-                icon="close"
-                label={t<string>('Clear all')}
-                onClick={_onClearAllOutcomes}
-              />
+              <IconLink className="clear-all" icon="close" label={t<string>('Clear all')} onClick={_onClearAllOutcomes} />
             </h3>
             <div className="outcomes">
               {outcomes.map(
                 (outcome, index): React.ReactNode => (
-                  <Outcome
-                    key={`outcome-${index}`}
-                    onClear={_onClearOutcome(index)}
-                    outcome={outcome}
-                    registry={contract.registry}
-                  />
+                  <Outcome key={`outcome-${index}`} onClear={_onClearOutcome(index)} outcome={outcome} registry={contract.registry} />
                 )
               )}
             </div>

@@ -36,15 +36,7 @@ function Item({ isCollapsed, onClick, route }: Props): React.ReactElement<Props>
 
   return (
     <Menu.Item className="apps--SideBar-Item">
-      <NavLink
-        activeClassName="apps--SideBar-Item-NavLink-active ui--highlight--border"
-        className="apps--SideBar-Item-NavLink"
-        data-for={`nav-${name}`}
-        data-tip
-        data-tip-disable={!isCollapsed}
-        onClick={onClick}
-        to={`/${name}`}
-      >
+      <NavLink activeClassName="apps--SideBar-Item-NavLink-active ui--highlight--border" className="apps--SideBar-Item-NavLink" data-for={`nav-${name}`} data-tip data-tip-disable={!isCollapsed} onClick={onClick} to={`/${name}`}>
         {body}
       </NavLink>
     </Menu.Item>

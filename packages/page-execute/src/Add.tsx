@@ -62,11 +62,7 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
     return [isAddressValid, status];
   }, [isAddress, isAddressTouched, isNotAdded, isStored, t]);
 
-  const isValid = useMemo((): boolean => isAbiValid && isAddressValid && isNameValid, [
-    isAddressValid,
-    isAbiValid,
-    isNameValid
-  ]);
+  const isValid = useMemo((): boolean => isAbiValid && isAddressValid && isNameValid, [isAddressValid, isAbiValid, isNameValid]);
 
   const _onAdd = useCallback((): void => {
     if (!address || !abi || !name) {
@@ -109,35 +105,12 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
     <div className={className}>
       <header>
         <h1>{t<string>('Add Existing Contract')}</h1>
-        <div className="instructions">
-          {t<string>(
-            'Using the existing contract address of a deployed contract instance you can add a contract to call to the UI.'
-          )}
-        </div>
+        <div className="instructions">{t<string>('Using the existing contract address of a deployed contract instance you can add a contract to call to the UI.')}</div>
       </header>
       <section>
-        <Input
-          autoFocus
-          isError={isAddressTouched && !isAddressValid}
-          label={t<string>('Contract Address')}
-          onChange={setAddress}
-          status={status}
-          value={address || ''}
-          withStatus
-        />
+        <Input autoFocus isError={isAddressTouched && !isAddressValid} label={t<string>('Contract Address')} onChange={setAddress} status={status} value={address || ''} withStatus />
         <InputName isContract isError={isNameError} onChange={setName} value={name || undefined} />
-        <InputABI
-          abi={abi}
-          errorText={errorText}
-          file={abiFile}
-          isContract
-          isError={isAbiError}
-          isRequired
-          isSupplied={isAbiSupplied}
-          isValid={isAbiValid}
-          setFile={setAbiFile}
-          withLabel
-        />
+        <InputABI abi={abi} errorText={errorText} file={abiFile} isContract isError={isAbiError} isRequired isSupplied={isAbiSupplied} isValid={isAbiValid} setFile={setAbiFile} withLabel />
         <Button.Group>
           <Button isDisabled={!isValid} isPrimary label={t<string>('Save')} onClick={_onAdd} />
           <Button label={t<string>('Cancel')} onClick={navigateTo.execute} />

@@ -30,21 +30,7 @@ interface Props extends BareProps {
   withLabel?: boolean;
 }
 
-function Output({
-  children,
-  className = '',
-  help,
-  isError,
-  isFull,
-  isHidden,
-  isTrimmed,
-  label,
-  registry,
-  type,
-  value,
-  withCopy = false,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function Output({ children, className = '', help, isError, isFull, isHidden, isTrimmed, label, registry, type, value, withCopy = false, withLabel }: Props): React.ReactElement<Props> {
   return (
     <Labelled className={className} help={help} isFull={isFull} isHidden={isHidden} label={label} withLabel={withLabel}>
       <div className={classes('ui--output', isError && 'error', 'monospace')}>

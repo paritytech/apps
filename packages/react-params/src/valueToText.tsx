@@ -36,12 +36,7 @@ function toString(value: any): string {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default function valueToText(
-  type: string,
-  value: Codec | undefined | null,
-  swallowError = true,
-  contentShorten = true
-): React.ReactNode {
+export default function valueToText(type: string, value: Codec | undefined | null, swallowError = true, contentShorten = true): React.ReactNode {
   if (isNull(value) || isUndefined(value)) {
     return div({}, '<unknown>');
   }

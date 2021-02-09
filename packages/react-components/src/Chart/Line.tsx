@@ -74,12 +74,7 @@ const chartOptions = {
   }
 };
 
-function calculateOptions(
-  colors: (string | undefined)[] = [],
-  legends: string[],
-  labels: string[],
-  values: (number | BN)[][]
-): State {
+function calculateOptions(colors: (string | undefined)[] = [], legends: string[], labels: string[], values: (number | BN)[][]): State {
   const chartData = values.reduce(
     (chartData, values, index): Config => {
       const color = colors[index] || alphaColor(COLORS[index]);
@@ -105,13 +100,7 @@ function calculateOptions(
   };
 }
 
-function LineChart({
-  className = '',
-  colors,
-  labels,
-  legends,
-  values
-}: LineProps): React.ReactElement<LineProps> | null {
+function LineChart({ className = '', colors, labels, legends, values }: LineProps): React.ReactElement<LineProps> | null {
   const [{ chartData, chartOptions }, setState] = useState<State>({});
 
   useEffect((): void => {

@@ -20,16 +20,7 @@ function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
   };
 }
 
-function Vector({
-  className = '',
-  defaultValue,
-  isDisabled = false,
-  label,
-  onChange,
-  overrides,
-  type,
-  withLabel
-}: Props): React.ReactElement<Props> | null {
+function Vector({ className = '', defaultValue, isDisabled = false, label, onChange, overrides, type, withLabel }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const inputParams = useParamDefs(type);
   const [count, setCount] = useState(0);
@@ -71,12 +62,7 @@ function Vector({
 
   // when isDisabled, set the values based on the defaultValue input
   useEffect((): void => {
-    isDisabled &&
-      setValues(
-        ((defaultValue.value as RawParam[]) || []).map((value: RawParam) =>
-          isUndefined(value) || isUndefined(value.isValid) ? { isValid: !isUndefined(value), value } : value
-        )
-      );
+    isDisabled && setValues(((defaultValue.value as RawParam[]) || []).map((value: RawParam) => (isUndefined(value) || isUndefined(value.isValid) ? { isValid: !isUndefined(value), value } : value)));
   }, [defaultValue, isDisabled]);
 
   // when our values has changed, alert upstream

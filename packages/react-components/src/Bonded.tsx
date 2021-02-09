@@ -25,11 +25,7 @@ function BondedDisplay(props: Props): React.ReactElement<Props> | null {
     return null;
   }
 
-  return bonded ? (
-    <>{renderProvided({ className, label, value: bonded })}</>
-  ) : (
-    <Bonded className={classes('ui--Bonded', className)} label={label} params={params} />
-  );
+  return bonded ? <>{renderProvided({ className, label, value: bonded })}</> : <Bonded className={classes('ui--Bonded', className)} label={label} params={params} />;
 }
 
 export default React.memo(BondedDisplay);

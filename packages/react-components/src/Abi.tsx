@@ -32,8 +32,7 @@ function Abi({ abi, className, withConstructors = false }: Props): React.ReactEl
         <div className="contract-info">
           <div className="name">{name.toString()}</div>
           <div className="details">
-            {t<string>('version')} {version.toString()} {t<string>('by')}{' '}
-            {authors.map(author => author.toString()).join(', ')}
+            {t<string>('version')} {version.toString()} {t<string>('by')} {authors.map(author => author.toString()).join(', ')}
           </div>
         </div>
       </Expander>

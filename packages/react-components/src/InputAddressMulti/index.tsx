@@ -76,15 +76,7 @@ interface Props {
 
 // NOTE Drag code above, disabled since it has massive performance implications
 
-function InputAddressMulti({
-  available,
-  availableLabel,
-  className = '',
-  defaultValue,
-  maxCount,
-  onChange,
-  valueLabel
-}: Props): React.ReactElement<Props> {
+function InputAddressMulti({ available, availableLabel, className = '', defaultValue, maxCount, onChange, valueLabel }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [_filter, setFilter] = useState<string>('');
   const [selected, setSelected] = useState<string[]>([]);
@@ -98,32 +90,13 @@ function InputAddressMulti({
     selected && onChange(selected);
   }, [onChange, selected]);
 
-  const _onSelect = useCallback(
-    (address: string): void =>
-      setSelected((selected: string[]) =>
-        !selected.includes(address) && selected.length < maxCount ? selected.concat(address) : selected
-      ),
-    [maxCount]
-  );
+  const _onSelect = useCallback((address: string): void => setSelected((selected: string[]) => (!selected.includes(address) && selected.length < maxCount ? selected.concat(address) : selected)), [maxCount]);
 
-  const _onDeselect = useCallback(
-    (address: string): void =>
-      setSelected((selected: string[]) =>
-        selected.includes(address) ? selected.filter(a => a !== address) : selected
-      ),
-    []
-  );
+  const _onDeselect = useCallback((address: string): void => setSelected((selected: string[]) => (selected.includes(address) ? selected.filter(a => a !== address) : selected)), []);
 
   return (
     <div className={`ui--InputAddressMulti ${className}`}>
-      <Input
-        autoFocus
-        className="ui--InputAddressMulti-Input label-small"
-        onChange={setFilter}
-        placeholder={t<string>('filter by name, address, or account index')}
-        value={_filter}
-        withLabel={false}
-      />
+      <Input autoFocus className="ui--InputAddressMulti-Input label-small" onChange={setFilter} placeholder={t<string>('filter by name, address, or account index')} value={_filter} withLabel={false} />
       <div className="ui--InputAddressMulti-columns">
         <div className="ui--InputAddressMulti-column">
           <label>{valueLabel}</label>
@@ -140,13 +113,7 @@ function InputAddressMulti({
           <div className="ui--InputAddressMulti-items">
             {available.map(
               (address): React.ReactNode => (
-                <Available
-                  address={address}
-                  filter={filter}
-                  isHidden={selected?.includes(address)}
-                  key={address}
-                  onSelect={_onSelect}
-                />
+                <Available address={address} filter={filter} isHidden={selected?.includes(address)} key={address} onSelect={_onSelect} />
               )
             )}
           </div>

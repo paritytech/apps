@@ -45,11 +45,7 @@ export default function useSettings(reloadOnChange?: boolean): UseSettings {
     }
   }, [reloadOnChange, settings]);
 
-  const onChangeKey = useCallback(
-    (key: keyof SettingsStruct) => <T extends string | number>(value: T): void =>
-      setSettings(settings => ({ ...settings, [key]: value })),
-    []
-  );
+  const onChangeKey = useCallback((key: keyof SettingsStruct) => <T extends string | number>(value: T): void => setSettings(settings => ({ ...settings, [key]: value })), []);
   const _saveAndReload = useCallback((): void => saveAndReload(settings), [settings]);
   const _save = useCallback((): void => {
     save(settings);

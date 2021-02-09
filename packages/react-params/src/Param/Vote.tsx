@@ -21,14 +21,7 @@ function doChange(onChange?: (value: any) => void): (_: number) => void {
   };
 }
 
-function Vote({
-  className = '',
-  defaultValue: { value },
-  isDisabled,
-  isError,
-  onChange,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function Vote({ className = '', defaultValue: { value }, isDisabled, isError, onChange, withLabel }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const optAyeRef = useRef([
@@ -46,33 +39,13 @@ function Vote({
     { text: t<string>('Locked6x'), value: 6 }
   ]);
 
-  const defaultValue =
-    value instanceof BN ? value.toNumber() : value instanceof GenericVote ? (value.isAye ? -1 : 0) : (value as number);
+  const defaultValue = value instanceof BN ? value.toNumber() : value instanceof GenericVote ? (value.isAye ? -1 : 0) : (value as number);
   const defaultConv = value instanceof GenericVote ? value.conviction.index : 0;
 
   return (
     <Bare className={className}>
-      <Dropdown
-        className="full"
-        defaultValue={defaultValue}
-        isDisabled={isDisabled}
-        isError={isError}
-        label={t<string>('aye: bool')}
-        onChange={doChange(onChange)}
-        options={optAyeRef.current}
-        withLabel={withLabel}
-      />
-      {isDisabled && (
-        <Dropdown
-          className="full"
-          defaultValue={defaultConv}
-          isDisabled={isDisabled}
-          isError={isError}
-          label={t<string>('conviction: Conviction')}
-          options={optConvRef.current}
-          withLabel={withLabel}
-        />
-      )}
+      <Dropdown className="full" defaultValue={defaultValue} isDisabled={isDisabled} isError={isError} label={t<string>('aye: bool')} onChange={doChange(onChange)} options={optAyeRef.current} withLabel={withLabel} />
+      {isDisabled && <Dropdown className="full" defaultValue={defaultConv} isDisabled={isDisabled} isError={isError} label={t<string>('conviction: Conviction')} options={optConvRef.current} withLabel={withLabel} />}
     </Bare>
   );
 }

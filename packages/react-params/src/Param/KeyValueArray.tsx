@@ -49,17 +49,7 @@ function parseFile(raw: Uint8Array): Parsed {
   };
 }
 
-function KeyValueArray({
-  className = '',
-  defaultValue,
-  isDisabled,
-  isError,
-  label,
-  onChange,
-  onEnter,
-  onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function KeyValueArray({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [placeholder, setPlaceholder] = useState<string>(t(EMPTY_PLACEHOLDER));
 
@@ -101,18 +91,7 @@ function KeyValueArray({
             ([key, value]): React.ReactNode => {
               const keyHex = u8aToHex(key.toU8a(true));
 
-              return (
-                <Bytes
-                  defaultValue={({ value } as unknown) as RawParam}
-                  isDisabled
-                  key={keyHex}
-                  label={keyHex}
-                  name={keyHex}
-                  onEnter={onEnter}
-                  onEscape={onEscape}
-                  type={BYTES_TYPE}
-                />
-              );
+              return <Bytes defaultValue={({ value } as unknown) as RawParam} isDisabled key={keyHex} label={keyHex} name={keyHex} onEnter={onEnter} onEscape={onEscape} type={BYTES_TYPE} />;
             }
           )}
         </div>
@@ -120,17 +99,7 @@ function KeyValueArray({
     );
   }
 
-  return (
-    <File
-      className={className}
-      isDisabled={isDisabled}
-      isError={isError}
-      label={label}
-      onChange={_onChange}
-      placeholder={placeholder}
-      withLabel={withLabel}
-    />
-  );
+  return <File className={className} isDisabled={isDisabled} isError={isError} label={label} onChange={_onChange} placeholder={placeholder} withLabel={withLabel} />;
 }
 
 export default React.memo(KeyValueArray);

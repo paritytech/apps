@@ -82,11 +82,7 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
                 console.log(blockOneHash.toString());
                 console.log(blockOneHashRef);
 
-                if (
-                  chainName === 'Development' &&
-                  blockOneHashRef &&
-                  (JSON.parse(blockOneHashRef) as string) !== blockOneHash.toString()
-                ) {
+                if (chainName === 'Development' && blockOneHashRef && (JSON.parse(blockOneHashRef) as string) !== blockOneHash.toString()) {
                   setIsChainPurged(true);
                 }
 
@@ -134,10 +130,7 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
 
   useEffect((): void => {
     if (queryPoints) {
-      const entries = [...queryPoints.individual.entries()].map(([accountId, points]) => [
-        accountId.toString(),
-        formatNumber(points)
-      ]);
+      const entries = [...queryPoints.individual.entries()].map(([accountId, points]) => [accountId.toString(), formatNumber(points)]);
       const current = Object.keys(eraPoints);
 
       // we have an update, clear all previous

@@ -32,14 +32,7 @@ export function createParam(hex: string | String, length = -1): StateParam {
   };
 }
 
-function KeyValue({
-  className = '',
-  isDisabled,
-  label,
-  onChange,
-  onEnter,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function KeyValue({ className = '', isDisabled, label, onChange, onEnter, withLabel }: Props): React.ReactElement<Props> {
   const [, setIsValid] = useState(false);
   const [key, setKey] = useState<StateParam>({ isValid: false, u8a: new Uint8Array([]) });
   const [value, setValue] = useState<StateParam>({ isValid: false, u8a: new Uint8Array([]) });
@@ -60,26 +53,8 @@ function KeyValue({
 
   return (
     <Bare className={className}>
-      <Input
-        className="medium"
-        isDisabled={isDisabled}
-        isError={!key.isValid}
-        label={label}
-        onChange={_onChangeKey}
-        placeholder="0x..."
-        type="text"
-        withLabel={withLabel}
-      />
-      <Input
-        className="medium"
-        isDisabled={isDisabled}
-        isError={!value.isValid}
-        onChange={_onChangeValue}
-        onEnter={onEnter}
-        placeholder="0x..."
-        type="text"
-        withLabel={withLabel}
-      />
+      <Input className="medium" isDisabled={isDisabled} isError={!key.isValid} label={label} onChange={_onChangeKey} placeholder="0x..." type="text" withLabel={withLabel} />
+      <Input className="medium" isDisabled={isDisabled} isError={!value.isValid} onChange={_onChangeValue} onEnter={onEnter} placeholder="0x..." type="text" withLabel={withLabel} />
     </Bare>
   );
 }

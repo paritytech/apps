@@ -46,14 +46,7 @@ function IdentityIcon({ className = '', onCopy, prefix, size = 24, theme, value 
 
   return (
     <div className={`ui--IdentityIcon-Outer ${className}`}>
-      <BaseIdentityIcon
-        isHighlight={isValidator}
-        onCopy={_onCopy}
-        prefix={prefix}
-        size={size}
-        theme={thisTheme as 'substrate'}
-        value={address}
-      />
+      <BaseIdentityIcon isHighlight={isValidator} onCopy={_onCopy} prefix={prefix} size={size} theme={thisTheme as 'substrate'} value={address} />
     </div>
   );
 }

@@ -22,19 +22,7 @@ interface Props extends BareProps {
   onEscape?: () => void;
 }
 
-function InputAddressSimple({
-  autoFocus,
-  children,
-  className = '',
-  defaultValue,
-  help,
-  isError,
-  isFull,
-  label,
-  onChange,
-  onEnter,
-  onEscape
-}: Props): React.ReactElement<Props> {
+function InputAddressSimple({ autoFocus, children, className = '', defaultValue, help, isError, isFull, label, onChange, onEnter, onEscape }: Props): React.ReactElement<Props> {
   const [address, setAddress] = useState<string | null>(defaultValue || null);
 
   const _onChange = useCallback(
@@ -50,17 +38,7 @@ function InputAddressSimple({
 
   return (
     <div className={className}>
-      <Input
-        autoFocus={autoFocus}
-        defaultValue={defaultValue}
-        help={help}
-        isError={isError || !address}
-        isFull={isFull}
-        label={label}
-        onChange={_onChange}
-        onEnter={onEnter}
-        onEscape={onEscape}
-      >
+      <Input autoFocus={autoFocus} defaultValue={defaultValue} help={help} isError={isError || !address} isFull={isFull} label={label} onChange={_onChange} onEnter={onEnter} onEscape={onEscape}>
         {children}
       </Input>
       <IdentityIcon className="ui--InputAddressSimpleIcon" size={32} value={address} />

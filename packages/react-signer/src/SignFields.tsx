@@ -55,21 +55,10 @@ function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<
             onChange={_setNonce}
             value={nonce}
           />
-          <InputNumber
-            isDisabled={!!signedTx}
-            isZeroable
-            label={t<string>('Lifetime (# of blocks)')}
-            labelExtra={t<string>('Set to 0 to make transaction immortal')}
-            onChange={_setBlocks}
-            value={blocks}
-          />
+          <InputNumber isDisabled={!!signedTx} isZeroable label={t<string>('Lifetime (# of blocks)')} labelExtra={t<string>('Set to 0 to make transaction immortal')} onChange={_setBlocks} value={blocks} />
         </Modal.Column>
         <Modal.Column>
-          <p>
-            {t<string>(
-              'Override any applicable values for the specific signed output. These will be used to construct and display the signed transaction.'
-            )}
-          </p>
+          <p>{t<string>('Override any applicable values for the specific signed output. These will be used to construct and display the signed transaction.')}</p>
         </Modal.Column>
       </Modal.Columns>
       {!!signedTx && (
@@ -77,11 +66,7 @@ function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<
           <Modal.Column>
             <Output isFull isTrimmed label={t<string>('Signed transaction')} value={signedTx} withCopy />
           </Modal.Column>
-          <Modal.Column>
-            {t<string>(
-              'The actual fully constructed signed output. This can be used for submission via other channels.'
-            )}
-          </Modal.Column>
+          <Modal.Column>{t<string>('The actual fully constructed signed output. This can be used for submission via other channels.')}</Modal.Column>
         </Modal.Columns>
       )}
     </>

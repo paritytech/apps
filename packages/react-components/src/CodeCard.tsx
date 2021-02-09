@@ -23,13 +23,7 @@ interface Props extends ComponentProps {
   onForget?: VoidFn;
 }
 
-function CodeCard({
-  className,
-  code,
-  code: { id },
-  navigateTo,
-  onForget: _onForget
-}: Props): React.ReactElement<Props> {
+function CodeCard({ className, code, code: { id }, navigateTo, onForget: _onForget }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [, , setIsAbiOpen] = useToggle();
   const { abi, isAbiSupplied, onChangeAbi } = useAbi(code);
@@ -59,13 +53,7 @@ function CodeCard({
       </CodeInfo>
       <div className="footer">
         <Button.Group>
-          {abi?.project.source.wasm && abi.project.source.wasm.length === 0 && (
-            <CodeUploadABI
-              codeHash={code.codeHash}
-              label={t(isAbiSupplied ? 'Edit ABI' : 'Add ABI')}
-              onSave={onSaveABI}
-            />
-          )}
+          {abi?.project.source.wasm && abi.project.source.wasm.length === 0 && <CodeUploadABI codeHash={code.codeHash} label={t(isAbiSupplied ? 'Edit ABI' : 'Add ABI')} onSave={onSaveABI} />}
           <CodeForget code={code} onForget={onForget} />
           <Button isDisabled={!isAbiSupplied} isPrimary label={t<string>('Deploy')} onClick={onDeploy} />
         </Button.Group>

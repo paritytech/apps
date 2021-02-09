@@ -11,13 +11,7 @@ const SKIP_NS = ['app-123code', 'app-dashboard', 'app-i18n', 'translation'].map(
 function getEntries(langRoot) {
   return fs
     .readdirSync(langRoot)
-    .filter(
-      entry =>
-        !['.', '..'].includes(entry) &&
-        fs.lstatSync(path.join(langRoot, entry)).isFile() &&
-        entry.endsWith('.json') &&
-        !['index.json'].includes(entry)
-    )
+    .filter(entry => !['.', '..'].includes(entry) && fs.lstatSync(path.join(langRoot, entry)).isFile() && entry.endsWith('.json') && !['index.json'].includes(entry))
     .sort();
 }
 

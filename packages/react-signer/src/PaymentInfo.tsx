@@ -47,8 +47,7 @@ function PaymentInfo({ accountId, className = '', extrinsic }: Props): React.Rea
       className={className}
       summary={
         <Trans i18nKey="feesForSubmission">
-          Fees of <span className="highlight">{formatBalance(dispatchInfo.partialFee, { withSiFull: true })}</span> will
-          be applied to the submission
+          Fees of <span className="highlight">{formatBalance(dispatchInfo.partialFee, { withSiFull: true })}</span> will be applied to the submission
         </Trans>
       }
       withDot

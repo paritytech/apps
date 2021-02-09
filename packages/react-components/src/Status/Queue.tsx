@@ -3,17 +3,7 @@
 
 import { STATUS_COMPLETE } from '@canvas-ui/react-api/Status/constants';
 import { QueueProvider } from '@canvas-ui/react-api/Status/Context';
-import {
-  ActionStatus,
-  PartialQueueTxExtrinsic,
-  PartialQueueTxRpc,
-  QueueStatus,
-  QueueTx,
-  QueueTxExtrinsic,
-  QueueTxRpc,
-  QueueTxStatus,
-  SignerCallback
-} from '@canvas-ui/react-api/Status/types';
+import { ActionStatus, PartialQueueTxExtrinsic, PartialQueueTxRpc, QueueStatus, QueueTx, QueueTxExtrinsic, QueueTxRpc, QueueTxStatus, SignerCallback } from '@canvas-ui/react-api/Status/types';
 import registry from '@canvas-ui/react-api/typeRegistry';
 import React, { useCallback, useRef, useState } from 'react';
 
@@ -53,10 +43,7 @@ function mergeStatus(status: ActionStatus[]): ActionStatus[] {
 
       return result;
     }, [])
-    .map(
-      ({ count, status }): ActionStatus =>
-        count === 1 ? status : { ...status, action: `${status.action} (x${count})` }
-    );
+    .map(({ count, status }): ActionStatus => (count === 1 ? status : { ...status, action: `${status.action} (x${count})` }));
 }
 
 function extractEvents(result?: SubmittableResult): ActionStatus[] {
@@ -116,10 +103,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
   const addToTxQueue = useCallback(
     (value: QueueTxExtrinsic | QueueTxRpc | QueueTx): void => {
       const id = ++nextId;
-      const removeItem = (): void =>
-        setTxQueue([
-          ...txRef.current.map((item): QueueTx => (item.id === id ? { ...item, status: 'completed' } : item))
-        ]);
+      const removeItem = (): void => setTxQueue([...txRef.current.map((item): QueueTx => (item.id === id ? { ...item, status: 'completed' } : item))]);
 
       setTxQueue([
         ...txRef.current,
@@ -160,20 +144,13 @@ function Queue({ children }: Props): React.ReactElement<Props> {
     },
     [setStQueue]
   );
-  const queueExtrinsic = useCallback((value: PartialQueueTxExtrinsic): void => addToTxQueue({ ...value }), [
-    addToTxQueue
-  ]);
+  const queueExtrinsic = useCallback((value: PartialQueueTxExtrinsic): void => addToTxQueue({ ...value }), [addToTxQueue]);
   const queuePayload = useCallback(
     (payload: SignerPayloadJSON, signerCb: SignerCallback): void =>
       addToTxQueue({
         accountId: payload.address,
         // this is not great, but the Extrinsic we don't need a submittable
-        extrinsic: (createType(
-          registry,
-          'Extrinsic',
-          { method: createType(registry, 'Call', payload.method) },
-          { version: payload.version }
-        ) as unknown) as SubmittableExtrinsic,
+        extrinsic: (createType(registry, 'Extrinsic', { method: createType(registry, 'Call', payload.method) }, { version: payload.version }) as unknown) as SubmittableExtrinsic,
         payload,
         signerCb
       }),

@@ -24,32 +24,15 @@ interface Props extends BareProps {
 function Progress({ className = '', color = 'blue', percent, total, value }: Props): React.ReactElement<Props> | null {
   const _total = bnToBn(total);
   const _value = bnToBn(value);
-  const calculated = _total.gtn(0)
-    ? (100.0 * _value.toNumber()) / _total.toNumber()
-    : isBn(percent)
-    ? percent.toNumber()
-    : percent;
+  const calculated = _total.gtn(0) ? (100.0 * _value.toNumber()) / _total.toNumber() : isBn(percent) ? percent.toNumber() : percent;
 
   if (isUndefined(calculated) || calculated < 0) {
     return null;
   }
 
-  const rainbow =
-    color === 'auto' || color === 'autoReverse'
-      ? calculated > 66.6
-        ? color === 'auto'
-          ? 'green'
-          : 'red'
-        : calculated > 33.3
-        ? 'orange'
-        : color === 'auto'
-        ? 'red'
-        : 'green'
-      : color;
+  const rainbow = color === 'auto' || color === 'autoReverse' ? (calculated > 66.6 ? (color === 'auto' ? 'green' : 'red') : calculated > 33.3 ? 'orange' : color === 'auto' ? 'red' : 'green') : color;
 
-  return (
-    <SUIProgress className={classes('ui--Progress', className)} color={rainbow} percent={calculated} size="tiny" />
-  );
+  return <SUIProgress className={classes('ui--Progress', className)} color={rainbow} percent={calculated} size="tiny" />;
 }
 
 export default React.memo(Progress);

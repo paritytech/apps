@@ -93,15 +93,9 @@ function BaseDropdown<Option>({
     _setStored(isUndefined(value) ? defaultValue : value);
   }, [_setStored, defaultValue, value]);
 
-  const _onAdd = useCallback(
-    (_: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps): void => onAdd && onAdd(value),
-    [onAdd]
-  );
+  const _onAdd = useCallback((_: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps): void => onAdd && onAdd(value), [onAdd]);
 
-  const _onChange = useCallback(
-    (_: React.SyntheticEvent<HTMLElement> | null, { value }: DropdownProps): void => _setStored(value as string),
-    [_setStored]
-  );
+  const _onChange = useCallback((_: React.SyntheticEvent<HTMLElement> | null, { value }: DropdownProps): void => _setStored(value as string), [_setStored]);
 
   const dropdown = (
     <SUIDropdown
@@ -130,15 +124,7 @@ function BaseDropdown<Option>({
   return isButton ? (
     <SUIButton.Group primary>{dropdown}</SUIButton.Group>
   ) : (
-    <Labelled
-      className={classes('ui--Dropdown', className)}
-      help={help}
-      isFull={isFull}
-      label={label}
-      labelExtra={labelExtra}
-      withEllipsis={withEllipsis}
-      withLabel={withLabel}
-    >
+    <Labelled className={classes('ui--Dropdown', className)} help={help} isFull={isFull} label={label} labelExtra={labelExtra} withEllipsis={withEllipsis} withLabel={withLabel}>
       {dropdown}
       {children}
     </Labelled>

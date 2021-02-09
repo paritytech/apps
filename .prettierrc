@@ -4,5 +4,6 @@
   "arrowParens": "avoid",
   "quoteProps": "as-needed",
   "endOfLine": "lf",
-  "trailingComma": "none"
+  "trailingComma": "none",
+  "printWidth": 300
 }

@@ -108,8 +108,7 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
 
 async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiState> {
   const { injectedAccounts, properties, systemChain, systemChainType, systemName, systemVersion } = await retrieve(api);
-  const ss58Format =
-    uiSettings.prefix === -1 ? properties.ss58Format.unwrapOr(DEFAULT_SS58).toNumber() : uiSettings.prefix;
+  const ss58Format = uiSettings.prefix === -1 ? properties.ss58Format.unwrapOr(DEFAULT_SS58).toNumber() : uiSettings.prefix;
   const tokenSymbol = properties.tokenSymbol.unwrapOr(undefined)?.toString();
   const tokenDecimals = properties.tokenDecimals.unwrapOr(DEFAULT_DECIMALS).toNumber();
   const isDevelopment = systemChainType.isDevelopment || systemChainType.isLocal || isTestChain(systemChain);
@@ -168,10 +167,7 @@ function Api({ children, store, url }: Props): React.ReactElement<Props> | null 
   const [isApiConnected, setIsApiConnected] = useState(false);
   const [isApiInitialized, setIsApiInitialized] = useState(false);
   const [extensions, setExtensions] = useState<InjectedExtension[] | undefined>();
-  const props = useMemo<ApiProps>(
-    () => ({ ...state, api, extensions, isApiConnected, isApiInitialized, isWaitingInjected: !extensions }),
-    [extensions, isApiConnected, isApiInitialized, state]
-  );
+  const props = useMemo<ApiProps>(() => ({ ...state, api, extensions, isApiConnected, isApiInitialized, isWaitingInjected: !extensions }), [extensions, isApiConnected, isApiInitialized, state]);
 
   // initial initialization
   useEffect((): void => {

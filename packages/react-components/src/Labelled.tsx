@@ -127,38 +127,13 @@ const Wrapper = styled.div`
   }
 `;
 
-function Labelled({
-  className = '',
-  children,
-  help,
-  isFull,
-  isHidden,
-  isIndented,
-  isLabelMonospace,
-  isMonospace,
-  isOuter,
-  isSmall,
-  label = defaultLabel,
-  labelExtra,
-  withEllipsis,
-  withLabel = true
-}: Props): React.ReactElement<Props> | null {
+function Labelled({ className = '', children, help, isFull, isHidden, isIndented, isLabelMonospace, isMonospace, isOuter, isSmall, label = defaultLabel, labelExtra, withEllipsis, withLabel = true }: Props): React.ReactElement<Props> | null {
   if (isHidden) {
     return null;
   }
 
   return (
-    <Wrapper
-      className={classes(
-        'ui--Labelled',
-        isIndented && 'label-indented',
-        isSmall && 'label-small',
-        isFull && 'label-full',
-        isMonospace && 'label-monospace',
-        isOuter && 'label-outer',
-        className
-      )}
-    >
+    <Wrapper className={classes('ui--Labelled', isIndented && 'label-indented', isSmall && 'label-small', isFull && 'label-full', isMonospace && 'label-monospace', isOuter && 'label-outer', className)}>
       {withLabel && (
         <label>
           <div className={classes(withEllipsis && 'withEllipsis', isLabelMonospace && 'isMonospace')}>{label}</div>

@@ -12,11 +12,7 @@ module.exports = function findPackages() {
     .filter(entry => {
       const pkgPath = path.join(pkgRoot, entry);
 
-      return (
-        !['.', '..'].includes(entry) &&
-        fs.lstatSync(pkgPath).isDirectory() &&
-        fs.existsSync(path.join(pkgPath, 'package.json'))
-      );
+      return !['.', '..'].includes(entry) && fs.lstatSync(pkgPath).isDirectory() && fs.existsSync(path.join(pkgPath, 'package.json'));
     })
     .map(dir => {
       const jsonPath = path.join(pkgRoot, dir, 'package.json');

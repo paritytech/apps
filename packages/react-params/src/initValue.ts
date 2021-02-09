@@ -130,9 +130,7 @@ export default function getInitValue(def: TypeDef): unknown {
       if (!warnList.includes(type)) {
         warnList.push(type);
         error && console.error(`params: initValue: ${error}`);
-        console.info(
-          `params: initValue: No default value for type ${type} from ${JSON.stringify(def)}, using defaults`
-        );
+        console.info(`params: initValue: No default value for type ${type} from ${JSON.stringify(def)}, using defaults`);
       }
 
       return '0x';

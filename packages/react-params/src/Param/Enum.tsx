@@ -46,13 +46,7 @@ function EnumParam(props: Props): React.ReactElement<Props> {
   }, [type]);
 
   useEffect((): void => {
-    setInitialValue(
-      defaultValue && defaultValue.value
-        ? defaultValue.value instanceof Enum
-          ? defaultValue.value.type
-          : Object.keys(defaultValue.value as Record<string, unknown>)[0]
-        : null
-    );
+    setInitialValue(defaultValue && defaultValue.value ? (defaultValue.value instanceof Enum ? defaultValue.value.type : Object.keys(defaultValue.value as Record<string, unknown>)[0]) : null);
   }, [defaultValue]);
 
   const _onChange = useCallback(
@@ -82,17 +76,7 @@ function EnumParam(props: Props): React.ReactElement<Props> {
 
   return (
     <Bare className={className}>
-      <Dropdown
-        className="full"
-        defaultValue={initialValue}
-        isDisabled={isDisabled}
-        isError={isError}
-        label={label}
-        onChange={_onChange}
-        options={options}
-        withEllipsis
-        withLabel={withLabel}
-      />
+      <Dropdown className="full" defaultValue={initialValue} isDisabled={isDisabled} isError={isError} label={label} onChange={_onChange} options={options} withEllipsis withLabel={withLabel} />
       {current && <Params onChange={_onChangeParam} overrides={overrides} params={current} />}
     </Bare>
   );

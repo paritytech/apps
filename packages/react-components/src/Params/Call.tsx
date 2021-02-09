@@ -9,16 +9,7 @@ import { SubmittableExtrinsicFunction } from '@polkadot/api/types';
 
 import Extrinsic from './Extrinsic';
 
-function Call({
-  className = '',
-  isDisabled,
-  isError,
-  label,
-  onChange,
-  onEnter,
-  onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function Call({ className = '', isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
   const { api, apiDefaultTx } = useApi();
 
   const defaultValue = ((): SubmittableExtrinsicFunction<'promise'> => {
@@ -29,20 +20,7 @@ function Call({
     }
   })();
 
-  return (
-    <Extrinsic
-      className={className}
-      defaultValue={defaultValue}
-      isDisabled={isDisabled}
-      isError={isError}
-      isPrivate={false}
-      label={label}
-      onChange={onChange}
-      onEnter={onEnter}
-      onEscape={onEscape}
-      withLabel={withLabel}
-    />
-  );
+  return <Extrinsic className={className} defaultValue={defaultValue} isDisabled={isDisabled} isError={isError} isPrivate={false} label={label} onChange={onChange} onEnter={onEnter} onEscape={onEscape} withLabel={withLabel} />;
 }
 
 export default React.memo(Call);

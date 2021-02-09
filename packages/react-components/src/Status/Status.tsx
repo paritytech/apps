@@ -75,9 +75,7 @@ function renderStatus({ account, action, id, message, removeItem, status }: Queu
             <Icon icon={iconName(status)} />
           </div>
           <div className="desc">
-            <div className="header">
-              {Array.isArray(action) ? action.map((action, index) => <div key={index}>{action}</div>) : action}
-            </div>
+            <div className="header">{Array.isArray(action) ? action.map((action, index) => <div key={index}>{action}</div>) : action}</div>
             {account && <AddressMini value={account} />}
             <div className="status">{message}</div>
           </div>

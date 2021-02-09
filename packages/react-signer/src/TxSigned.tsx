@@ -48,34 +48,19 @@ function TxSigned({ className, currentItem, requestAddress }: Props): React.Reac
       <Modal.Content className={className}>
         <ErrorBoundary onError={toggleRenderError}>
           {isQrVisible ? (
-            <Qr
-              address={qrAddress}
-              genesisHash={api.genesisHash}
-              isHashed={isQrHashed}
-              onSignature={addQrSignature}
-              payload={qrPayload}
-            />
+            <Qr address={qrAddress} genesisHash={api.genesisHash} isHashed={isQrHashed} onSignature={addQrSignature} payload={qrPayload} />
           ) : (
             <>
               <Transaction currentItem={currentItem} onError={toggleRenderError} />
-              <Address
-                currentItem={currentItem}
-                onChange={setSenderInfo}
-                passwordError={passwordError}
-                requestAddress={requestAddress}
-              />
+              <Address currentItem={currentItem} onChange={setSenderInfo} passwordError={passwordError} requestAddress={requestAddress} />
               {!currentItem.payload && <Tip onChange={setTip} />}
-              {!isSubmit && (
-                <SignFields address={senderInfo.signAddress} onChange={setSignedOptions} signedTx={signedTx} />
-              )}
+              {!isSubmit && <SignFields address={senderInfo.signAddress} onChange={setSignedOptions} signedTx={signedTx} />}
               {isSubmit && !senderInfo.isMultiCall && multiCall && (
                 <Modal.Columns>
                   <Modal.Column>
                     <Output isFull isTrimmed label={t<string>('multisig call data')} value={multiCall} withCopy />
                   </Modal.Column>
-                  <Modal.Column>
-                    {t<string>('The call data that can be supplied to a final call to multi approvals')}
-                  </Modal.Column>
+                  <Modal.Column>{t<string>('The call data that can be supplied to a final call to multi approvals')}</Modal.Column>
                 </Modal.Columns>
               )}
             </>
@@ -89,23 +74,11 @@ function TxSigned({ className, currentItem, requestAddress }: Props): React.Reac
               icon={flags.isQr ? 'qrcode' : 'sign-in'}
               isDisabled={!senderInfo.signAddress || isRenderError}
               isPrimary
-              label={
-                flags.isQr
-                  ? t<string>('Sign via Qr')
-                  : isSubmit
-                  ? t<string>('Sign and Submit')
-                  : t<string>('Sign (no submission)')
-              }
+              label={flags.isQr ? t<string>('Sign via Qr') : isSubmit ? t<string>('Sign and Submit') : t<string>('Sign (no submission)')}
               onClick={isSubmit ? (currentItem.payload ? onSendPayload : onSend) : onSign}
               tabIndex={2}
             />
-            <Toggle
-              className="signToggle"
-              isDisabled={isQrVisible || !!currentItem.payload}
-              label={isSubmit ? t<string>('Sign and Submit') : t<string>('Sign (no submission)')}
-              onChange={setIsSubmit}
-              value={isSubmit}
-            />
+            <Toggle className="signToggle" isDisabled={isQrVisible || !!currentItem.payload} label={isSubmit ? t<string>('Sign and Submit') : t<string>('Sign (no submission)')} onChange={setIsSubmit} value={isSubmit} />
           </>
         )}
       </Modal.Actions>

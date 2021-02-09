@@ -48,16 +48,7 @@ function Unlock({ address, className, error, onChange, onEnter, tabIndex }: Prop
   return (
     <Modal.Columns className={className}>
       <Modal.Column>
-        <Password
-          autoFocus
-          isError={!!error}
-          label={t<string>('unlock account with password')}
-          labelExtra={error && <div className="errorLabel">{t<string>('wrong password supplied')}</div>}
-          onChange={setPassword}
-          onEnter={onEnter}
-          tabIndex={tabIndex}
-          value={password}
-        />
+        <Password autoFocus isError={!!error} label={t<string>('unlock account with password')} labelExtra={error && <div className="errorLabel">{t<string>('wrong password supplied')}</div>} onChange={setPassword} onEnter={onEnter} tabIndex={tabIndex} value={password} />
       </Modal.Column>
       <Modal.Column>
         <p>{t<string>('Unlock the sending account to allow signing of this transaction.')}</p>

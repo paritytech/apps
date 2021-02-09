@@ -59,12 +59,7 @@ export function recodeAddress(address: string | Uint8Array): string {
   return keyring.encodeAddress(keyring.decodeAddress(address));
 }
 
-export function handleTxResults(
-  handler: 'send' | 'signAndSend',
-  queueSetTxStatus: QueueTxMessageSetStatus,
-  { id, txFailedCb = NOOP, txSuccessCb = NOOP, txUpdateCb = NOOP }: QueueTx,
-  unsubscribe: () => void
-): (result: SubmittableResult) => void {
+export function handleTxResults(handler: 'send' | 'signAndSend', queueSetTxStatus: QueueTxMessageSetStatus, { id, txFailedCb = NOOP, txSuccessCb = NOOP, txUpdateCb = NOOP }: QueueTx, unsubscribe: () => void): (result: SubmittableResult) => void {
   return (result: SubmittableResult): void => {
     if (!result || !result.status) {
       return;

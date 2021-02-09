@@ -32,24 +32,7 @@ function ContractInfo({ address, children, className, isEditable }: Props): Reac
           {truncate(address.toString(), 16)}
         </CopyButton>
       }
-      title={
-        isEditable && isEditingName ? (
-          <Input
-            autoFocus
-            className="name-editor"
-            isError={name === ''}
-            onBlur={onSaveName}
-            onChange={setName}
-            onEnter
-            value={name}
-            withLabel={false}
-          />
-        ) : isEditable ? (
-          <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
-        ) : (
-          name
-        )
-      }
+      title={isEditable && isEditingName ? <Input autoFocus className="name-editor" isError={name === ''} onBlur={onSaveName} onChange={setName} onEnter value={name} withLabel={false} /> : isEditable ? <EditButton onClick={toggleIsEditingName}>{name}</EditButton> : name}
     >
       {children}
     </ItemInfo>

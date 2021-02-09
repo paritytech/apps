@@ -24,14 +24,7 @@ interface Props extends BareProps {
   withButton: boolean;
 }
 
-function CopyButton({
-  children,
-  className,
-  icon = 'copy',
-  isAddress = false,
-  value,
-  withButton = true
-}: Props): React.ReactElement<Props> {
+function CopyButton({ children, className, icon = 'copy', isAddress = false, value, withButton = true }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const showNotification = useNotification();
 

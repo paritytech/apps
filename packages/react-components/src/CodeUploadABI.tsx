@@ -45,18 +45,7 @@ function CodeUploadABI({ codeHash, label, onSave }: Props): React.ReactElement<P
       <Modal isOpen={isOpen} onClose={toggleIsOpen}>
         <Modal.Header>{t<string>('Upload ABI')}</Modal.Header>
         <Modal.Content>
-          <InputABI
-            abi={abi}
-            errorText={errorText}
-            file={abiFile}
-            isError={isAbiError}
-            isSupplied={isAbiSupplied}
-            isValid={isAbiValid}
-            onChange={onChangeAbi}
-            onRemove={onRemoveAbi}
-            setFile={setAbiFile}
-            withLabel={false}
-          />
+          <InputABI abi={abi} errorText={errorText} file={abiFile} isError={isAbiError} isSupplied={isAbiSupplied} isValid={isAbiValid} onChange={onChangeAbi} onRemove={onRemoveAbi} setFile={setAbiFile} withLabel={false} />
         </Modal.Content>
         <Modal.Actions onCancel={toggleIsOpen}>
           <Button isDisabled={!abiFile || !isAbiValid} isPrimary label={t<string>('Save')} onClick={_onSave} />

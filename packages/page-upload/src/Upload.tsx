@@ -58,10 +58,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
 
   const pendingTx = usePendingTx('contracts.putCode');
 
-  const isSubmittable = useMemo(
-    (): boolean => !!accountId && !isNull(name) && isNameValid && isWasmValid && (!isAbiSupplied || isAbiValid),
-    [accountId, name, isAbiSupplied, isAbiValid, isNameValid, isWasmValid]
-  );
+  const isSubmittable = useMemo((): boolean => !!accountId && !isNull(name) && isNameValid && isWasmValid && (!isAbiSupplied || isAbiValid), [accountId, name, isAbiSupplied, isAbiValid, isNameValid, isWasmValid]);
 
   const _onChangeName = useCallback(
     (name: string | null): void => {
@@ -98,12 +95,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
   // const preparedWasm = useMemo((): Uint8Array | null => wasm ? compactAddLength(wasm.data) : null, [wasm]);
 
   return (
-    <PendingTx
-      additionalDetails={additionalDetails}
-      instructions={t<string>('Sign and submit to upload this code bundle on the chain.')}
-      registry={registry}
-      {...pendingTx}
-    >
+    <PendingTx additionalDetails={additionalDetails} instructions={t<string>('Sign and submit to upload this code bundle on the chain.')} registry={registry} {...pendingTx}>
       <header>
         <h1>{t<string>('Upload WASM Code Blob')}</h1>
         <div className="instructions">
@@ -112,60 +104,21 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
         </div>
       </header>
       <section>
-        <InputAddress
-          help={t<string>(
-            'Specify the user account to use for this deployment. Any fees will be deducted from this account.'
-          )}
-          isInput={false}
-          label={t<string>('Account')}
-          onChange={setAccountId}
-          type="account"
-          value={accountId}
-        />
-        <Input
-          help={t<string>('A name for this WASM code to help users distinguish. Only used for display purposes.')}
-          isError={isNameError}
-          label={t<string>('Name')}
-          onChange={_onChangeName}
-          placeholder={t<string>('Give your bundle a descriptive name')}
-          value={name}
-        />
-        <InputABI
-          abi={abi}
-          errorText={errorText}
-          file={abiFile}
-          isError={isAbiError}
-          isSupplied={isAbiSupplied}
-          isValid={isAbiValid}
-          setFile={setAbiFile}
-          withLabel
-        />
+        <InputAddress help={t<string>('Specify the user account to use for this deployment. Any fees will be deducted from this account.')} isInput={false} label={t<string>('Account')} onChange={setAccountId} type="account" value={accountId} />
+        <Input help={t<string>('A name for this WASM code to help users distinguish. Only used for display purposes.')} isError={isNameError} label={t<string>('Name')} onChange={_onChangeName} placeholder={t<string>('Give your bundle a descriptive name')} value={name} />
+        <InputABI abi={abi} errorText={errorText} file={abiFile} isError={isAbiError} isSupplied={isAbiSupplied} isValid={isAbiValid} setFile={setAbiFile} withLabel />
         {abi?.project.source.wasm && abi.project.source.wasm.length === 0 && (
           <InputFile
-            help={t<string>(
-              'The compiled WASM for the contract that you wish to deploy. Each unique code blob will be attached with a code hash that can be used to create new instances.'
-            )}
+            help={t<string>('The compiled WASM for the contract that you wish to deploy. Each unique code blob will be attached with a code hash that can be used to create new instances.')}
             isError={isWasmFromFileSupplied && !isWasmFromFileValid}
             label={t<string>('Upload Wasm Blob')}
             onChange={setWasmFromFile}
-            placeholder={
-              wasmFromFile && !isWasmFromFileValid
-                ? t<string>('The code is not recognized as being in valid WASM format')
-                : null
-            }
+            placeholder={wasmFromFile && !isWasmFromFileValid ? t<string>('The code is not recognized as being in valid WASM format') : null}
             value={wasmFromFile}
           />
         )}
         <Button.Group>
-          <TxButton
-            accountId={accountId}
-            isDisabled={!isSubmittable}
-            isPrimary
-            label={t<string>('Upload')}
-            onSuccess={_onSuccess}
-            params={[wasm]}
-            tx={api.tx.contracts.putCode}
-          />
+          <TxButton accountId={accountId} isDisabled={!isSubmittable} isPrimary label={t<string>('Upload')} onSuccess={_onSuccess} params={[wasm]} tx={api.tx.contracts.putCode} />
         </Button.Group>
       </section>
     </PendingTx>

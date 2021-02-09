@@ -28,12 +28,7 @@ export function createIdenticon({ info, text, value }: Option, overrides: string
   return {
     text: (
       <div className="ui--Dropdown-item" key={value}>
-        <IdentityIcon
-          className="ui--Dropdown-icon"
-          size={32}
-          theme={info && overrides.includes(info) ? (override as 'empty') : (info as 'substrate')}
-          value="5F9999K9UgTUgSsbXZQcEmRMvQqwJoBUHMv9e1k2MdgghuRA"
-        />
+        <IdentityIcon className="ui--Dropdown-icon" size={32} theme={info && overrides.includes(info) ? (override as 'empty') : (info as 'substrate')} value="5F9999K9UgTUgSsbXZQcEmRMvQqwJoBUHMv9e1k2MdgghuRA" />
         <div className="ui--Dropdown-name">{text}</div>
       </div>
     ),

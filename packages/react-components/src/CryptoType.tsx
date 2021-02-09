@@ -22,19 +22,7 @@ function CryptoType({ accountId, className = '', label = '' }: Props): React.Rea
       const current = accountId ? keyring.getPair(accountId.toString()) : null;
 
       if (current) {
-        setType(
-          current.meta.isInjected
-            ? 'injected'
-            : current.meta.isHardware
-            ? (current.meta.hardwareType as string) || 'hardware'
-            : current.meta.isExternal
-            ? current.meta.isMultisig
-              ? 'multisig'
-              : current.meta.isProxied
-              ? 'proxied'
-              : 'external'
-            : current.type
-        );
+        setType(current.meta.isInjected ? 'injected' : current.meta.isHardware ? (current.meta.hardwareType as string) || 'hardware' : current.meta.isExternal ? (current.meta.isMultisig ? 'multisig' : current.meta.isProxied ? 'proxied' : 'external') : current.type);
       }
     } catch (error) {
       // cannot determine, keep unknown

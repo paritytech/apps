@@ -14,30 +14,7 @@ import { assert, isFunction } from '@polkadot/util';
 import Button from './Button';
 import { useTranslation } from './translate';
 
-function TxButton({
-  accountId,
-  className = '',
-  extrinsic: propsExtrinsic,
-  icon,
-  isBasic,
-  isBusy,
-  isDisabled,
-  isIcon,
-  isPrimary,
-  isUnsigned,
-  label,
-  onClick,
-  onFailed,
-  onSendRef,
-  onStart,
-  onSuccess,
-  onUpdate,
-  params,
-  tooltip,
-  tx,
-  withSpinner,
-  withoutLink
-}: Props): React.ReactElement<Props> {
+function TxButton({ accountId, className = '', extrinsic: propsExtrinsic, icon, isBasic, isBusy, isDisabled, isIcon, isPrimary, isUnsigned, label, onClick, onFailed, onSendRef, onStart, onSuccess, onUpdate, params, tooltip, tx, withSpinner, withoutLink }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const mountedRef = useIsMountedRef();
   const { queueExtrinsic } = useContext(StatusContext);
@@ -96,24 +73,7 @@ function TxButton({
     });
 
     onClick && onClick();
-  }, [
-    _onFailed,
-    _onStart,
-    _onSuccess,
-    accountId,
-    isUnsigned,
-    onClick,
-    onFailed,
-    onSuccess,
-    onUpdate,
-    params,
-    propsExtrinsic,
-    queueExtrinsic,
-    setIsSending,
-    tx,
-    withSpinner,
-    mountedRef
-  ]);
+  }, [_onFailed, _onStart, _onSuccess, accountId, isUnsigned, onClick, onFailed, onSuccess, onUpdate, params, propsExtrinsic, queueExtrinsic, setIsSending, tx, withSpinner, mountedRef]);
 
   if (onSendRef) {
     onSendRef.current = _onSend;
@@ -125,12 +85,7 @@ function TxButton({
       icon={icon}
       isBasic={isBasic}
       isBusy={isBusy}
-      isDisabled={
-        isSending ||
-        isDisabled ||
-        (!isUnsigned && !accountId) ||
-        (tx ? false : Array.isArray(propsExtrinsic) ? propsExtrinsic.length === 0 : !propsExtrinsic)
-      }
+      isDisabled={isSending || isDisabled || (!isUnsigned && !accountId) || (tx ? false : Array.isArray(propsExtrinsic) ? propsExtrinsic.length === 0 : !propsExtrinsic)}
       isIcon={isIcon && !!icon}
       isPrimary={isPrimary}
       label={label || (isIcon ? '' : t<string>('Submit'))}

@@ -29,11 +29,7 @@ function Success({ allCodes, basePath, navigateTo }: Props): React.ReactElement<
     <>
       <header>
         <h1>{t<string>('Code successfully put on chain')}</h1>
-        <div className="instructions">
-          {t<string>(
-            'Your code bundle has been put succesfully in the chain’s storage. A unique code hash has been returned.'
-          )}
-        </div>
+        <div className="instructions">{t<string>('Your code bundle has been put succesfully in the chain’s storage. A unique code hash has been returned.')}</div>
       </header>
       <section>
         <CodeCard basePath={basePath} code={code} navigateTo={navigateTo} onForget={(): void => navigateTo.upload()} />

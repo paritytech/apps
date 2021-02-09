@@ -32,13 +32,7 @@ const alphaColor = (hexColor: string): string =>
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   ChartJs.helpers.color(hexColor).alpha(0.65).rgbString();
 
-function calculateOptions(
-  aspectRatio: number,
-  values: HorizBarValue[],
-  jsonValues: string,
-  max: number,
-  showLabels: boolean
-): State {
+function calculateOptions(aspectRatio: number, values: HorizBarValue[], jsonValues: string, max: number, showLabels: boolean): State {
   const chartData = values.reduce(
     (data, { colors: [normalColor = '#00f', hoverColor], label, value }): Config => {
       const dataset = data.datasets[0];
@@ -88,13 +82,7 @@ function calculateOptions(
   };
 }
 
-function ChartHorizBar({
-  aspectRatio = 8,
-  className = '',
-  max = 100,
-  showLabels = false,
-  values
-}: HorizBarProps): React.ReactElement<HorizBarProps> | null {
+function ChartHorizBar({ aspectRatio = 8, className = '', max = 100, showLabels = false, values }: HorizBarProps): React.ReactElement<HorizBarProps> | null {
   const [{ chartData, chartOptions, jsonValues }, setState] = useState<State>({});
 
   useEffect((): void => {
@@ -112,12 +100,7 @@ function ChartHorizBar({
   // HACK on width/height to get the aspectRatio to work
   return (
     <div className={className}>
-      <HorizontalBar
-        data={chartData}
-        height={(null as unknown) as number}
-        options={chartOptions}
-        width={(null as unknown) as number}
-      />
+      <HorizontalBar data={chartData} height={(null as unknown) as number} options={chartOptions} width={(null as unknown) as number} />
     </div>
   );
 }

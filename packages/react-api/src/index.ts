@@ -7,18 +7,4 @@ import { withApi, withCallDiv, withCalls, withMulti, withObservable } from './ho
 import { clearLedger, getLedger, isLedger, isLedgerCapable } from './ledger';
 import registry from './typeRegistry';
 
-export {
-  api,
-  Api,
-  ApiContext,
-  registry,
-  withApi,
-  withCalls,
-  withCallDiv,
-  withMulti,
-  withObservable,
-  clearLedger,
-  getLedger,
-  isLedger,
-  isLedgerCapable
-};
+export { api, Api, ApiContext, registry, withApi, withCalls, withCallDiv, withMulti, withObservable, clearLedger, getLedger, isLedger, isLedgerCapable };

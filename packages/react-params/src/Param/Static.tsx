@@ -27,13 +27,7 @@ function StaticParam({ asHex, children, className = '', defaultValue, label }: P
     (defaultValue.value as string) &&
     (asHex
       ? (defaultValue.value as Codec).toHex()
-      : JSON.stringify(
-          (defaultValue.value as { toHuman?: () => unknown }).toHuman
-            ? (defaultValue.value as Codec).toHuman()
-            : defaultValue.value,
-          null,
-          2
-        )
+      : JSON.stringify((defaultValue.value as { toHuman?: () => unknown }).toHuman ? (defaultValue.value as Codec).toHuman() : defaultValue.value, null, 2)
           .replace(/"/g, '')
           .replace(/\\/g, '')
           .replace(/\],\[/g, '],\n['));

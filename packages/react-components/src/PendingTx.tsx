@@ -26,15 +26,7 @@ interface Props extends BareProps {
   requestAddress: string;
 }
 
-function PendingTx({
-  additionalDetails,
-  children,
-  className,
-  currentItem,
-  instructions,
-  registry,
-  requestAddress
-}: Props): React.ReactElement<Props> | null {
+function PendingTx({ additionalDetails, children, className, currentItem, instructions, registry, requestAddress }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const willSend = useRef(false);
   const { onCancel, onSend, tx } = useSendTx(currentItem, requestAddress);
@@ -90,10 +82,7 @@ function PendingTx({
               {additionalDetails.constructor}
             </Labelled>
             {(additionalDetails.params as { arg: React.ReactNode; type: TypeDef; value: string }[]).map(
-              (
-                { arg, type, value }: { arg: React.ReactNode; type: TypeDef; value: string },
-                index
-              ): React.ReactNode => {
+              ({ arg, type, value }: { arg: React.ReactNode; type: TypeDef; value: string }, index): React.ReactNode => {
                 return (
                   <Labelled isIndented isLabelMonospace isMonospace key={`arg-${index}`} label={arg}>
                     <Data isTrimmed registry={registry} type={type} value={value} />
@@ -119,21 +108,13 @@ function PendingTx({
               <InputAddress defaultValue={accountId} isDisabled value={accountId} withLabel={false} />
             </Labelled>
             <Labelled label={t<string>('Contract to Call')}>
-              <InputAddress
-                defaultValue={extrinsic.args[0].toString()}
-                isDisabled
-                value={extrinsic.args[0].toString()}
-                withLabel={false}
-              />
+              <InputAddress defaultValue={extrinsic.args[0].toString()} isDisabled value={extrinsic.args[0].toString()} withLabel={false} />
             </Labelled>
             <Labelled isMonospace label={t<string>('Message to Call')}>
               {additionalDetails.message}
             </Labelled>
             {(additionalDetails.params as { arg: React.ReactNode; type: TypeDef; value: string }[]).map(
-              (
-                { arg, type, value }: { arg: React.ReactNode; type: TypeDef; value: string },
-                index
-              ): React.ReactNode => {
+              ({ arg, type, value }: { arg: React.ReactNode; type: TypeDef; value: string }, index): React.ReactNode => {
                 return (
                   <Labelled isIndented isLabelMonospace isMonospace key={`arg-${index}`} label={arg}>
                     <Data isTrimmed registry={registry} type={type} value={value} />

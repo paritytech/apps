@@ -34,17 +34,7 @@ function SelectKey(props: Props): React.ReactElement<Props> | null {
     return null;
   }
 
-  return (
-    <Dropdown
-      className={classes('ui--DropdownLinked-Items', className)}
-      isError={isError}
-      onChange={onChange}
-      options={options}
-      transform={transform(api, props)}
-      value={value.creator.method}
-      withLabel={false}
-    />
-  );
+  return <Dropdown className={classes('ui--DropdownLinked-Items', className)} isError={isError} onChange={onChange} options={options} transform={transform(api, props)} value={value.creator.method} withLabel={false} />;
 }
 
 export default React.memo(SelectKey);

@@ -68,15 +68,7 @@ function AddressMini({
         {iconInfo && <div className="ui--AddressMini-icon-info">{iconInfo}</div>}
       </div>
       <div className="ui--AddressMini-info">
-        {withAddress && (
-          <div className="ui--AddressMini-address">
-            {withName ? (
-              <AccountName noLookup={noLookup} value={value} withSidebar={withSidebar} />
-            ) : (
-              toShortAddress(value)
-            )}
-          </div>
-        )}
+        {withAddress && <div className="ui--AddressMini-address">{withName ? <AccountName noLookup={noLookup} value={value} withSidebar={withSidebar} /> : toShortAddress(value)}</div>}
         {children}
       </div>
       <div className="ui--AddressMini-balances">

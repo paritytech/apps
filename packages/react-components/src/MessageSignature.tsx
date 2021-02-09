@@ -22,13 +22,7 @@ export interface Props extends BareProps {
   withTooltip?: boolean;
 }
 
-function MessageSignature({
-  className,
-  message: { args, identifier, isConstructor, isMutating, isPayable, returnType },
-  params = [],
-  registry,
-  withTooltip = false
-}: Props): React.ReactElement<Props> {
+function MessageSignature({ className, message: { args, identifier, isConstructor, isMutating, isPayable, returnType }, params = [], registry, withTooltip = false }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (

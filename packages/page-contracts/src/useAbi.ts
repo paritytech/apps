@@ -37,13 +37,7 @@ interface AbiSpecOutdated {
 export default function useAbi(source: Code | null = null, isRequired = false): UseAbi {
   const { api } = useApi();
   const { t } = useTranslation();
-  const initialState: State = source
-    ? [
-        source.abi ? new Abi(source.abi, api.registry.getChainProperties()) : null,
-        !!source?.abi,
-        !isRequired || !!source.abi
-      ]
-    : [null, false, false];
+  const initialState: State = source ? [source.abi ? new Abi(source.abi, api.registry.getChainProperties()) : null, !!source?.abi, !isRequired || !!source.abi] : [null, false, false];
   const [[abi, isAbiSupplied, isAbiValid], setAbi] = useState<State>(initialState);
   const [[isAbiError, errorText], setError] = useState<[boolean, string | null]>([false, null]);
 

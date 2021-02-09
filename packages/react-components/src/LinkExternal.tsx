@@ -59,13 +59,7 @@ function genLinks(systemChain: string, { data, hash, type, withShort }: Props): 
 function LinkExternal({ className = '', data, hash, type, withShort }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { systemChain } = useApi();
-  const links = useMemo(() => genLinks(systemChain, { data, hash, type, withShort }), [
-    systemChain,
-    data,
-    hash,
-    type,
-    withShort
-  ]);
+  const links = useMemo(() => genLinks(systemChain, { data, hash, type, withShort }), [systemChain, data, hash, type, withShort]);
 
   if (!links.length) {
     return null;

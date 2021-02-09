@@ -104,11 +104,7 @@ export function extractIpfsDetails(): State {
   // get url and check to see if we are ipfs/ipns
   const [url] = window.location.href.split('#');
 
-  return url.includes(LOCAL_IPFS)
-    ? extractLocalIpfs(url)
-    : url.includes(LOCAL_IPNS)
-    ? extractLocalIpns(url)
-    : extractOther(url);
+  return url.includes(LOCAL_IPFS) ? extractLocalIpfs(url) : url.includes(LOCAL_IPNS) ? extractLocalIpns(url) : extractOther(url);
 }
 
 export default function useIpfs(): State {

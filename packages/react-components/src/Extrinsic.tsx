@@ -41,17 +41,7 @@ function getParams({ meta }: SubmittableExtrinsicFunction<'promise'>): { name: s
   }));
 }
 
-function ExtrinsicDisplay({
-  defaultValue,
-  isDisabled,
-  isError,
-  isPrivate,
-  label,
-  onChange,
-  onEnter,
-  onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function ExtrinsicDisplay({ defaultValue, isDisabled, isError, isPrivate, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
   const [extrinsic, setCall] = useState<CallState>({ fn: defaultValue, params: getParams(defaultValue) });
   const [values, setValues] = useState<RawParam[]>([]);
 
@@ -60,10 +50,7 @@ function ExtrinsicDisplay({
   }, [extrinsic]);
 
   useEffect((): void => {
-    const isValid = values.reduce(
-      (isValid, value): boolean => isValid && !isUndefined(value) && !isUndefined(value.value) && value.isValid,
-      extrinsic.params.length === values.length
-    );
+    const isValid = values.reduce((isValid, value): boolean => isValid && !isUndefined(value) && !isUndefined(value.value) && value.isValid, extrinsic.params.length === values.length);
 
     let method;
 
@@ -78,10 +65,7 @@ function ExtrinsicDisplay({
     onChange(method);
   }, [extrinsic, onChange, values]);
 
-  const _onChangeMethod = useCallback(
-    (fn: SubmittableExtrinsicFunction<'promise'>): void => setCall({ fn, params: getParams(fn) }),
-    []
-  );
+  const _onChangeMethod = useCallback((fn: SubmittableExtrinsicFunction<'promise'>): void => setCall({ fn, params: getParams(fn) }), []);
 
   const {
     fn: { meta, method, section },
@@ -90,24 +74,8 @@ function ExtrinsicDisplay({
 
   return (
     <div className="extrinsics--Extrinsic">
-      <InputExtrinsic
-        defaultValue={defaultValue}
-        help={meta?.documentation.join(' ')}
-        isDisabled={isDisabled}
-        isError={isError}
-        isPrivate={isPrivate}
-        label={label}
-        onChange={_onChangeMethod}
-        withLabel={withLabel}
-      />
-      <Params
-        key={`${section}.${method}:params` /* force re-render on change */}
-        onChange={setValues}
-        onEnter={onEnter}
-        onEscape={onEscape}
-        overrides={paramComponents}
-        params={params}
-      />
+      <InputExtrinsic defaultValue={defaultValue} help={meta?.documentation.join(' ')} isDisabled={isDisabled} isError={isError} isPrivate={isPrivate} label={label} onChange={_onChangeMethod} withLabel={withLabel} />
+      <Params key={`${section}.${method}:params` /* force re-render on change */} onChange={setValues} onEnter={onEnter} onEscape={onEscape} overrides={paramComponents} params={params} />
     </div>
   );
 }

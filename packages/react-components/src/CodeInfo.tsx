@@ -50,24 +50,7 @@ function CodeInfo({ children, className, code: { codeHash, id, name }, isEditabl
           <CopyButton value={codeHash}>{truncate(codeHash || '', 16)}</CopyButton>
         </>
       }
-      title={
-        isEditable && isEditingName ? (
-          <Input
-            autoFocus
-            className="name-editor"
-            isError={isNewNameError}
-            onBlur={onSaveName}
-            onChange={setNewName}
-            onEnter
-            value={newName}
-            withLabel={false}
-          />
-        ) : isEditable ? (
-          <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
-        ) : (
-          name
-        )
-      }
+      title={isEditable && isEditingName ? <Input autoFocus className="name-editor" isError={isNewNameError} onBlur={onSaveName} onChange={setNewName} onEnter value={newName} withLabel={false} /> : isEditable ? <EditButton onClick={toggleIsEditingName}>{name}</EditButton> : name}
     >
       {children}
     </ItemInfo>

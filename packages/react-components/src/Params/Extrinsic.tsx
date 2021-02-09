@@ -21,18 +21,7 @@ interface Props extends BareProps {
   withLabel?: boolean;
 }
 
-function ExtrinsicDisplay({
-  className = '',
-  defaultValue,
-  isDisabled,
-  isError,
-  isPrivate,
-  label,
-  onChange,
-  onEnter,
-  onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function ExtrinsicDisplay({ className = '', defaultValue, isDisabled, isError, isPrivate, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
     (method?: SubmittableExtrinsic<'promise'>): void =>
       onChange &&
@@ -43,20 +32,7 @@ function ExtrinsicDisplay({
     [onChange]
   );
 
-  return (
-    <BaseExtrinsic
-      className={className}
-      defaultValue={defaultValue}
-      isDisabled={isDisabled}
-      isError={isError}
-      isPrivate={isPrivate}
-      label={label}
-      onChange={_onChange}
-      onEnter={onEnter}
-      onEscape={onEscape}
-      withLabel={withLabel}
-    />
-  );
+  return <BaseExtrinsic className={className} defaultValue={defaultValue} isDisabled={isDisabled} isError={isError} isPrivate={isPrivate} label={label} onChange={_onChange} onEnter={onEnter} onEscape={onEscape} withLabel={withLabel} />;
 }
 
 export default React.memo(ExtrinsicDisplay);

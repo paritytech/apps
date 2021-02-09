@@ -59,21 +59,7 @@ function convertResult(result: ArrayBuffer): Uint8Array {
   return data;
 }
 
-function InputFile({
-  accept,
-  children,
-  className,
-  errorText,
-  help,
-  isDisabled,
-  isError = false,
-  label,
-  onChange,
-  onRemove,
-  value = null,
-  withEllipsis,
-  withLabel
-}: InputFileProps): React.ReactElement<InputFileProps> {
+function InputFile({ accept, children, className, errorText, help, isDisabled, isError = false, label, onChange, onRemove, value = null, withEllipsis, withLabel }: InputFileProps): React.ReactElement<InputFileProps> {
   const { t } = useTranslation();
   const dropRef = createRef<DropzoneRef>();
 

@@ -19,25 +19,13 @@ interface Props extends BareProps {
   value?: string;
 }
 
-function InputName({
-  className,
-  isBusy,
-  isContract,
-  isError,
-  onChange,
-  onEnter,
-  value = ''
-}: Props): React.ReactElement<Props> {
+function InputName({ className, isBusy, isContract, isError, onChange, onEnter, value = '' }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (
     <Input
       className={className}
-      help={t(
-        isContract
-          ? 'A name for the deployed contract to help users distinguish. Only used for display purposes.'
-          : 'A name for this WASM code to help users distinguish. Only used for display purposes.'
-      )}
+      help={t(isContract ? 'A name for the deployed contract to help users distinguish. Only used for display purposes.' : 'A name for this WASM code to help users distinguish. Only used for display purposes.')}
       isDisabled={isBusy}
       isError={isError}
       label={t(isContract ? 'Contract Name' : 'Code Bundle Name')}

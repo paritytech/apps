@@ -16,12 +16,7 @@ interface Props extends BareProps {
   registry: TypeRegistry;
 }
 
-function Outcome({
-  className,
-  onClear,
-  outcome: { from, message, output, params, result, when },
-  registry
-}: Props): React.ReactElement<Props> | null {
+function Outcome({ className, onClear, outcome: { from, message, output, params, result, when }, registry }: Props): React.ReactElement<Props> | null {
   return (
     <div className={className}>
       <div className="info">
@@ -32,14 +27,7 @@ function Outcome({
         </span>
         <Button className="icon-button clear-btn" icon="times" isPrimary onClick={onClear} />
       </div>
-      <Output
-        isError={!result.isOk}
-        registry={registry}
-        type={message.returnType}
-        value={output}
-        withCopy
-        withLabel={false}
-      />
+      <Output isError={!result.isOk} registry={registry} type={message.returnType} value={output} withCopy withLabel={false} />
     </div>
   );
 }

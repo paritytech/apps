@@ -26,12 +26,7 @@ function Qr({ address, className, genesisHash, isHashed, onSignature, payload }:
     <Columar className={className}>
       <Columar.Column>
         <div className="qrDisplay">
-          <QrDisplayPayload
-            address={address}
-            cmd={isHashed ? CMD_HASH : CMD_MORTAL}
-            genesisHash={genesisHash}
-            payload={payload}
-          />
+          <QrDisplayPayload address={address} cmd={isHashed ? CMD_HASH : CMD_MORTAL} genesisHash={genesisHash} payload={payload} />
         </div>
       </Columar.Column>
       <Columar.Column>

@@ -20,9 +20,7 @@ function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const showNotification = useNotification();
   const [codeHash, setCodeHash, , , isCodeHashTouched] = useNonEmptyString();
-  const codeStorage = useCall<Option<PrefabWasmModule>>((api.query.contracts || api.query.contract).codeStorage, [
-    codeHash
-  ]);
+  const codeStorage = useCall<Option<PrefabWasmModule>>((api.query.contracts || api.query.contract).codeStorage, [codeHash]);
   const [name, setName, isNameValid, isNameError] = useNonEmptyString();
   const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
@@ -83,37 +81,12 @@ function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
     <>
       <header>
         <h1>{t<string>('Add Existing Code Hash')}</h1>
-        <div className="instructions">
-          {t<string>('Using the unique code hash you can add on-chain contract code for you to deploy.')}
-        </div>
+        <div className="instructions">{t<string>('Using the unique code hash you can add on-chain contract code for you to deploy.')}</div>
       </header>
       <section className={className}>
-        <Input
-          autoFocus
-          help={t<string>('Code hash for the on-chain deployed code')}
-          isError={isCodeHashTouched && !isCodeHashValid}
-          label={t<string>('Code Hash')}
-          onChange={setCodeHash}
-          status={status}
-          value={codeHash}
-          withStatus
-        />
-        <InputName
-          isError={isNameError}
-          onChange={setName}
-          placeholder={t<string>('Give your bundle a descriptive name')}
-          value={name || undefined}
-        />
-        <InputABI
-          abi={abi}
-          errorText={errorText}
-          file={abiFile}
-          isError={isAbiError}
-          isSupplied={isAbiSupplied}
-          isValid={isAbiValid}
-          setFile={setAbiFile}
-          withLabel
-        />
+        <Input autoFocus help={t<string>('Code hash for the on-chain deployed code')} isError={isCodeHashTouched && !isCodeHashValid} label={t<string>('Code Hash')} onChange={setCodeHash} status={status} value={codeHash} withStatus />
+        <InputName isError={isNameError} onChange={setName} placeholder={t<string>('Give your bundle a descriptive name')} value={name || undefined} />
+        <InputABI abi={abi} errorText={errorText} file={abiFile} isError={isAbiError} isSupplied={isAbiSupplied} isValid={isAbiValid} setFile={setAbiFile} withLabel />
         <Button.Group>
           <Button isDisabled={!isValid} isPrimary label={t<string>('Save')} onClick={_onSave} />
           <Button label={t<string>('Cancel')} onClick={navigateTo.upload} />

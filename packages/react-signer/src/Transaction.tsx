@@ -19,13 +19,7 @@ interface Props {
   tip?: BN;
 }
 
-function Transaction({
-  className,
-  currentItem: { accountId, extrinsic, isUnsigned, payload },
-  isSendable,
-  onError,
-  tip
-}: Props): React.ReactElement<Props> | null {
+function Transaction({ className, currentItem: { accountId, extrinsic, isUnsigned, payload }, isSendable, onError, tip }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
 
   if (!extrinsic) {
@@ -52,22 +46,10 @@ function Transaction({
         >
           <Call onError={onError} value={extrinsic} withBorder={false} />
         </Expander>
-        {!isUnsigned && !payload && (
-          <PaymentInfo
-            accountId={accountId}
-            className="tx-details"
-            extrinsic={extrinsic}
-            isSendable={isSendable}
-            tip={tip}
-          />
-        )}
+        {!isUnsigned && !payload && <PaymentInfo accountId={accountId} className="tx-details" extrinsic={extrinsic} isSendable={isSendable} tip={tip} />}
       </Modal.Column>
       <Modal.Column>
-        <p>
-          {t<string>(
-            'The details of the transaction including the type, the description (as available from the chain metadata) as well as any parameters and fee estimations (as available) for the specific type of call.'
-          )}
-        </p>
+        <p>{t<string>('The details of the transaction including the type, the description (as available from the chain metadata) as well as any parameters and fee estimations (as available) for the specific type of call.')}</p>
       </Modal.Column>
     </Modal.Columns>
   );
