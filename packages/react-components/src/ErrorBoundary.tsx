@@ -59,8 +59,8 @@ class ErrorBoundary extends React.Component<Props> {
         )}
       </article>
     ) : (
-      children
-    );
+        children
+      );
   }
 }
 

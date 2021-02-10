@@ -60,42 +60,42 @@ function TxSigned({
               payload={qrPayload}
             />
           ) : (
-            <>
-              <Transaction currentItem={currentItem} onError={toggleRenderError} />
-              <Address
-                currentItem={currentItem}
-                onChange={setSenderInfo}
-                passwordError={passwordError}
-                requestAddress={requestAddress}
-              />
-              {!currentItem.payload && <Tip onChange={setTip} />}
-              {!isSubmit && (
-                <SignFields
-                  address={senderInfo.signAddress}
-                  onChange={setSignedOptions}
-                  signedTx={signedTx}
+              <>
+                <Transaction currentItem={currentItem} onError={toggleRenderError} />
+                <Address
+                  currentItem={currentItem}
+                  onChange={setSenderInfo}
+                  passwordError={passwordError}
+                  requestAddress={requestAddress}
                 />
-              )}
-              {isSubmit && !senderInfo.isMultiCall && multiCall && (
-                <Modal.Columns>
-                  <Modal.Column>
-                    <Output
-                      isFull
-                      isTrimmed
-                      label={t<string>('multisig call data')}
-                      value={multiCall}
-                      withCopy
-                    />
-                  </Modal.Column>
-                  <Modal.Column>
-                    {t<string>(
-                      'The call data that can be supplied to a final call to multi approvals'
-                    )}
-                  </Modal.Column>
-                </Modal.Columns>
-              )}
-            </>
-          )}
+                {!currentItem.payload && <Tip onChange={setTip} />}
+                {!isSubmit && (
+                  <SignFields
+                    address={senderInfo.signAddress}
+                    onChange={setSignedOptions}
+                    signedTx={signedTx}
+                  />
+                )}
+                {isSubmit && !senderInfo.isMultiCall && multiCall && (
+                  <Modal.Columns>
+                    <Modal.Column>
+                      <Output
+                        isFull
+                        isTrimmed
+                        label={t<string>('multisig call data')}
+                        value={multiCall}
+                        withCopy
+                      />
+                    </Modal.Column>
+                    <Modal.Column>
+                      {t<string>(
+                        'The call data that can be supplied to a final call to multi approvals'
+                      )}
+                    </Modal.Column>
+                  </Modal.Columns>
+                )}
+              </>
+            )}
         </ErrorBoundary>
       </Modal.Content>
       <Modal.Actions onCancel={onCancel}>
@@ -109,8 +109,8 @@ function TxSigned({
                 flags.isQr
                   ? t<string>('Sign via Qr')
                   : isSubmit
-                  ? t<string>('Sign and Submit')
-                  : t<string>('Sign (no submission)')
+                    ? t<string>('Sign and Submit')
+                    : t<string>('Sign (no submission)')
               }
               onClick={isSubmit ? (currentItem.payload ? onSendPayload : onSend) : onSign}
               tabIndex={2}

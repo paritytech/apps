@@ -55,8 +55,8 @@ function ContractInfo({
         ) : isEditable ? (
           <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
         ) : (
-          name
-        )
+              name
+            )
       }
     >
       {children}

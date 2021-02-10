@@ -26,12 +26,12 @@ export default function useEndpointOptions(
       })),
       ...(isCustom
         ? [
-            {
-              key: url,
-              text: <div className={className}>{t<string>('Custom Node')}</div>,
-              value: url
-            }
-          ]
+          {
+            key: url,
+            text: <div className={className}>{t<string>('Custom Node')}</div>,
+            value: url
+          }
+        ]
         : [])
     ],
     [className, isCustom, t, url, useShortText]

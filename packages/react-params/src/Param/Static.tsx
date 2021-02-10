@@ -34,15 +34,15 @@ function StaticParam({
     (asHex
       ? (defaultValue.value as Codec).toHex()
       : JSON.stringify(
-          (defaultValue.value as { toHuman?: () => unknown }).toHuman
-            ? (defaultValue.value as Codec).toHuman()
-            : defaultValue.value,
-          null,
-          2
-        )
-          .replace(/"/g, '')
-          .replace(/\\/g, '')
-          .replace(/\],\[/g, '],\n['));
+        (defaultValue.value as { toHuman?: () => unknown }).toHuman
+          ? (defaultValue.value as Codec).toHuman()
+          : defaultValue.value,
+        null,
+        2
+      )
+        .replace(/"/g, '')
+        .replace(/\\/g, '')
+        .replace(/\],\[/g, '],\n['));
 
   return (
     <Bare className={className}>

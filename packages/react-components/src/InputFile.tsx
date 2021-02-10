@@ -136,13 +136,13 @@ function InputFile({
                 <div>{t<string>('Click to select or drag & drop to upload file.')}</div>
               </>
             ) : (
-              <FileSupplied
-                errorText={errorText}
-                isError={isError}
-                onRemove={_onRemove}
-                text={value.name}
-              />
-            )}
+                <FileSupplied
+                  errorText={errorText}
+                  isError={isError}
+                  onRemove={_onRemove}
+                  text={value.name}
+                />
+              )}
             {children && <div className="children">{children}</div>}
           </div>
         );
@@ -155,8 +155,8 @@ function InputFile({
       {dropZone}
     </Labelled>
   ) : (
-    dropZone
-  );
+      dropZone
+    );
 }
 
 export default React.memo(styled(InputFile)`

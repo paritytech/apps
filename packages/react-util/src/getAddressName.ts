@@ -17,6 +17,6 @@ export default function getAddressName(
   return meta.name
     ? [false, false, meta.name.toUpperCase()]
     : defaultName
-    ? [false, true, defaultName.toUpperCase()]
-    : [true, false, toShortAddress(address)];
+      ? [false, true, defaultName.toUpperCase()]
+      : [true, false, toShortAddress(address)];
 }

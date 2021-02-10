@@ -19,9 +19,8 @@ function Holder({
 }: Props): React.ReactElement<Props> {
   return (
     <div
-      className={`ui--Params ${className} ${withBorder ? 'withBorder' : 'withoutBorder'} ${
-        withPadding ? 'withPadding' : ''
-      }`}
+      className={`ui--Params ${className} ${withBorder ? 'withBorder' : 'withoutBorder'} ${withPadding ? 'withPadding' : ''
+        }`}
     >
       {children}
     </div>

@@ -62,9 +62,8 @@ function Expander({
 
   return (
     <div
-      className={`ui--Expander ${isExpanded ? 'isExpanded' : ''} ${
-        hasContent ? 'hasContent' : ''
-      } ${className}`}
+      className={`ui--Expander ${isExpanded ? 'isExpanded' : ''} ${hasContent ? 'hasContent' : ''
+        } ${className}`}
     >
       <div className="ui--Expander-summary" onClick={toggleExpanded}>
         <div className="ui--Expander-summary-header">

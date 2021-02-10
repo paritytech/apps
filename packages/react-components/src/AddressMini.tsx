@@ -80,8 +80,8 @@ function AddressMini({
             {withName ? (
               <AccountName noLookup={noLookup} value={value} withSidebar={withSidebar} />
             ) : (
-              toShortAddress(value)
-            )}
+                toShortAddress(value)
+              )}
           </div>
         )}
         {children}

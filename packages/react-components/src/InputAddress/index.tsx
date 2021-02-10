@@ -272,8 +272,8 @@ function InputAddress({
         isDisabled || (defaultValue && hasValue(defaultValue))
           ? defaultValue
           : hasValue(lastValue)
-          ? lastValue
-          : lastOption && lastOption.value
+            ? lastValue
+            : lastOption && lastOption.value
       ),
     [defaultValue, hasValue, isDisabled, lastOption, lastValue]
   );
@@ -282,8 +282,8 @@ function InputAddress({
     return options
       ? options.map((o): Option => createItem(o))
       : isDisabled && actualValue
-      ? [createOption(actualValue)]
-      : filteredOptions;
+        ? [createOption(actualValue)]
+        : filteredOptions;
   }, [actualValue, filteredOptions, isDisabled, options]);
   const _defaultValue = useMemo(
     () => (isMultiple || !isUndefined(value) ? undefined : actualValue),

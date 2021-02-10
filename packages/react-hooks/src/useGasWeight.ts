@@ -31,12 +31,12 @@ export default function useWeight(): UseWeight {
     (value?: BN | undefined) =>
       _setMegaGas(
         value ||
-          (api.consts.system.blockWeights
-            ? api.consts.system.blockWeights.perClass.normal.maxExtrinsic
-            : (api.consts.system.maximumBlockWeight as Weight)
-          )
-            .div(BN_MILLION)
-            .div(BN_TEN)
+        (api.consts.system.blockWeights
+          ? api.consts.system.blockWeights.perClass.normal.maxExtrinsic
+          : (api.consts.system.maximumBlockWeight as Weight)
+        )
+          .div(BN_MILLION)
+          .div(BN_TEN)
       ),
     [api]
   );

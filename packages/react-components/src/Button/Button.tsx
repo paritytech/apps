@@ -39,15 +39,11 @@ function Button({
 
   return (
     <button
-      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${
-        isCircular ? ' isCircular' : ''
-      }${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${
-        isBusy || isDisabled ? ' isDisabled' : ''
-      }${isBusy ? ' isBusy' : ''}${isNegative ? ' isNegative' : ''}${
-        isPrimary ? ' isPrimary' : ''
-      }${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${
-        withoutLink ? ' withoutLink' : ''
-      } ${className}`}
+      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${isCircular ? ' isCircular' : ''
+        }${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${isBusy || isDisabled ? ' isDisabled' : ''
+        }${isBusy ? ' isBusy' : ''}${isNegative ? ' isNegative' : ''}${isPrimary ? ' isPrimary' : ''
+        }${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${withoutLink ? ' withoutLink' : ''
+        } ${className}`}
       onClick={_onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

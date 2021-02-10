@@ -12,7 +12,7 @@ import { Props } from '../types';
 import Bare from './Bare';
 
 function doChange(onChange?: (value: any) => void): (_: number) => void {
-  return function (value: number): void {
+  return function(value: number): void {
     onChange &&
       onChange({
         isValid: true,
@@ -50,10 +50,10 @@ function Vote({
     value instanceof BN
       ? value.toNumber()
       : value instanceof GenericVote
-      ? value.isAye
-        ? -1
-        : 0
-      : (value as number);
+        ? value.isAye
+          ? -1
+          : 0
+        : (value as number);
   const defaultConv = value instanceof GenericVote ? value.conviction.index : 0;
 
   return (

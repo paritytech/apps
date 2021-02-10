@@ -63,18 +63,18 @@ function Amount({
           withLabel={withLabel}
         />
       ) : (
-        <InputNumber
-          bitLength={bitLength}
-          className="full"
-          defaultValue={defaultValue}
-          isError={isError}
-          isZeroable
-          label={label}
-          onChange={_onChange}
-          onEnter={onEnter}
-          withLabel={withLabel}
-        />
-      )}
+          <InputNumber
+            bitLength={bitLength}
+            className="full"
+            defaultValue={defaultValue}
+            isError={isError}
+            isZeroable
+            label={label}
+            onChange={_onChange}
+            onEnter={onEnter}
+            withLabel={withLabel}
+          />
+        )}
     </Bare>
   );
 }

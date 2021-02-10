@@ -92,9 +92,8 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
             address,
             meta: {
               ...meta,
-              name: `${meta.name || 'unknown'} (${
-                meta.source === 'polkadot-js' ? 'extension' : meta.source
-              })`,
+              name: `${meta.name || 'unknown'} (${meta.source === 'polkadot-js' ? 'extension' : meta.source
+                })`,
               whenCreated
             }
           })

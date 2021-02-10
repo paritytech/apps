@@ -16,17 +16,17 @@ interface Props {
   isTooltip?: boolean;
   onClick?: () => void;
   type:
-    | 'counter'
-    | 'online'
-    | 'offline'
-    | 'next'
-    | 'runnerup'
-    | 'selected'
-    | 'green'
-    | 'blue'
-    | 'brown'
-    | 'gray'
-    | 'purple';
+  | 'counter'
+  | 'online'
+  | 'offline'
+  | 'next'
+  | 'runnerup'
+  | 'selected'
+  | 'green'
+  | 'blue'
+  | 'brown'
+  | 'gray'
+  | 'purple';
 }
 
 let badgeId = 0;
@@ -46,9 +46,8 @@ function Badge({
 
   return (
     <div
-      className={`ui--Badge ${isGray ? 'isGray' : ''} ${isInline ? 'isInline' : ''} ${
-        isTooltip ? 'isTooltip' : ''
-      } ${isSmall ? 'isSmall' : ''} ${onClick ? 'isClickable' : ''} ${type} ${className}`}
+      className={`ui--Badge ${isGray ? 'isGray' : ''} ${isInline ? 'isInline' : ''} ${isTooltip ? 'isTooltip' : ''
+        } ${isSmall ? 'isSmall' : ''} ${onClick ? 'isClickable' : ''} ${type} ${className}`}
       data-for={trigger}
       data-tip={true}
       data-tip-disable={!isTooltip}

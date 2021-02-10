@@ -24,8 +24,8 @@ function Docs({ className, docs, signature }: Props): React.ReactElement<Props> 
         {docs && docs.length > 0 ? (
           <Markdown>{docs.join('\n')}</Markdown>
         ) : (
-          <i>{t('No documentation provided')}</i>
-        )}
+            <i>{t('No documentation provided')}</i>
+          )}
       </div>
     </div>
   );

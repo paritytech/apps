@@ -47,14 +47,14 @@ function Contracts({
           {hasContracts ? (
             t<string>('Call messages on deployed contracts.')
           ) : (
-            <>
-              {t<string>('You can add an existing contract by')}{' '}
-              <Link to={'/execute/add'}>{t<string>('adding its address')}</Link>
-              {`. ${t<string>('Or deploy from a')} `}
-              <Link to={'/deploy'}>{t<string>('code bundle')}</Link>
-              {'.'}
-            </>
-          )}
+              <>
+                {t<string>('You can add an existing contract by')}{' '}
+                <Link to={'/execute/add'}>{t<string>('adding its address')}</Link>
+                {`. ${t<string>('Or deploy from a')} `}
+                <Link to={'/deploy'}>{t<string>('code bundle')}</Link>
+                {'.'}
+              </>
+            )}
         </div>
       </header>
       <section>

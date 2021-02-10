@@ -79,9 +79,8 @@ function Apps({ className = '' }: Props): React.ReactElement<Props> {
       <ScrollToTop />
       <GlobalStyle uiHighlight={defaultColor || uiHighlight} />
       <div
-        className={`apps--Wrapper ${isCollapsed ? 'collapsed' : 'expanded'} ${
-          isMenuOpen ? 'menu-open' : ''
-        } theme--default ${className}`}
+        className={`apps--Wrapper ${isCollapsed ? 'collapsed' : 'expanded'} ${isMenuOpen ? 'menu-open' : ''
+          } theme--default ${className}`}
       >
         <div
           className={`apps--Menu-bg ${isMenuOpen ? 'open' : 'closed'}`}

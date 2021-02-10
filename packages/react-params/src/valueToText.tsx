@@ -60,13 +60,13 @@ export default function valueToText(
       : // HACK Handle Keys as hex-only (this should go away once the node value is
       // consistently swapped to `Bytes`)
       type === 'Vec<(ValidatorId,Keys)>'
-      ? toString(formatKeys((value as unknown) as [ValidatorId, Keys][]))
-      : value instanceof Raw
-      ? value.isEmpty
-        ? '<empty>'
-        : value.toString()
-      : value instanceof Option && value.isNone
-      ? '<none>'
-      : toString(toHuman(value))
+        ? toString(formatKeys((value as unknown) as [ValidatorId, Keys][]))
+        : value instanceof Raw
+          ? value.isEmpty
+            ? '<empty>'
+            : value.toString()
+          : value instanceof Option && value.isNone
+            ? '<none>'
+            : toString(toHuman(value))
   );
 }

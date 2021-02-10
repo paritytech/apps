@@ -35,8 +35,8 @@ function MessageArg({ arg, param, registry }: Props): React.ReactElement<Props> 
             <Data registry={registry} type={arg.type} value={param} />
           </b>
         ) : (
-          encodeTypeDef(arg.type)
-        )}
+            encodeTypeDef(arg.type)
+          )}
       </span>
     </>
   );

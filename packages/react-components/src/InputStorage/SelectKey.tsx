@@ -23,7 +23,7 @@ function transform(
   api: ApiPromise,
   { value }: Props
 ): (method: string) => QueryableStorageEntry<'promise'> {
-  return function (method: string): QueryableStorageEntry<'promise'> {
+  return function(method: string): QueryableStorageEntry<'promise'> {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return api.query[value.creator.section]
       ? (api.query[value.creator.section][method] as any)

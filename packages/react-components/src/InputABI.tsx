@@ -68,11 +68,11 @@ function InputABI(props: Props): React.ReactElement<Props> {
 
   const help = isContract
     ? t<string>(
-        'The ABI or .contract bundle for the WASM code. Since we will be making a call into the code, the ABI is required and stored for future operations such as sending messages.'
-      )
+      'The ABI or .contract bundle for the WASM code. Since we will be making a call into the code, the ABI is required and stored for future operations such as sending messages.'
+    )
     : t<string>(
-        'The .contract bundle or ABI for the WASM code. If using an ABI, you will need to upload the generated WASM file separately.'
-      );
+      'The .contract bundle or ABI for the WASM code. If using an ABI, you will need to upload the generated WASM file separately.'
+    );
   const label = isRequired ? 'Upload ABI' : 'Upload Contract Bundle';
 
   return (

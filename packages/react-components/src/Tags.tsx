@@ -43,8 +43,8 @@ function Tags({
       value.length ? (
         value.map((tag): React.ReactNode => <Tag color={color} key={tag} label={tag} size={size} />)
       ) : (
-        <label>{t<string>('no tags')}</label>
-      ),
+          <label>{t<string>('no tags')}</label>
+        ),
     [color, size, t, value]
   );
 
@@ -67,10 +67,10 @@ function Tags({
           withLabel={false}
         />
       ) : (
-        <div className="tags--toggle">
-          {isEditable ? <EditButton onClick={onToggleIsEditing}>{contents}</EditButton> : contents}
-        </div>
-      )}
+          <div className="tags--toggle">
+            {isEditable ? <EditButton onClick={onToggleIsEditing}>{contents}</EditButton> : contents}
+          </div>
+        )}
       {children}
     </div>
   );

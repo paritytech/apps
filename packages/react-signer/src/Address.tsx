@@ -143,17 +143,17 @@ async function queryForMultisig(
 
     return multi
       ? {
-          address,
-          isMultiCall: multi.approvals.length + 1 >= threshold,
-          who,
-          whoFilter: who.filter(w => !multi.approvals.some(a => a.eq(w)))
-        }
+        address,
+        isMultiCall: multi.approvals.length + 1 >= threshold,
+        who,
+        whoFilter: who.filter(w => !multi.approvals.some(a => a.eq(w)))
+      }
       : {
-          address,
-          isMultiCall: false,
-          who,
-          whoFilter: who
-        };
+        address,
+        isMultiCall: false,
+        who,
+        whoFilter: who
+      };
   }
 
   return null;
@@ -173,13 +173,13 @@ async function queryForProxy(
     const proxies =
       api.tx.proxy.addProxy.meta.args.length === 3
         ? (_proxies as ProxyDefinition[]).map(({ delegate, proxyType }): [string, ProxyType] => [
-            delegate.toString(),
-            proxyType
-          ])
+          delegate.toString(),
+          proxyType
+        ])
         : (_proxies as [AccountId, ProxyType][]).map(([delegate, proxyType]): [
-            string,
-            ProxyType
-          ] => [delegate.toString(), proxyType]);
+          string,
+          ProxyType
+        ] => [delegate.toString(), proxyType]);
     const proxiesFilter = filterProxies(allAccounts, tx, proxies);
 
     if (proxiesFilter.length) {

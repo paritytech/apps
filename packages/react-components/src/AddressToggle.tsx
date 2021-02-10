@@ -72,9 +72,8 @@ function AddressToggle({
 
   return (
     <div
-      className={`ui--AddressToggle ${className} ${value || noToggle ? 'isAye' : 'isNay'} ${
-        isHidden || isFiltered ? 'isHidden' : ''
-      }`}
+      className={`ui--AddressToggle ${className} ${value || noToggle ? 'isAye' : 'isNay'} ${isHidden || isFiltered ? 'isHidden' : ''
+        }`}
       onClick={_onClick}
     >
       <AddressMini

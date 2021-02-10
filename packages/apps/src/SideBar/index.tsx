@@ -44,8 +44,8 @@ function SideBar({ className = '', handleResize, isCollapsed }: Props): React.Re
                     route={route}
                   />
                 ) : (
-                  <Menu.Divider hidden key={index} />
-                )
+                    <Menu.Divider hidden key={index} />
+                  )
             )}
           </div>
         </Menu>

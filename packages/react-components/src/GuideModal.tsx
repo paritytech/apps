@@ -31,7 +31,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
   const decrementIndex = useCallback((): void => setIndex(index - 1), [index]);
 
   const _setIndex = useCallback((index: number): (() => void) => {
-    return function () {
+    return function() {
       setIndex(index);
     };
   }, []);

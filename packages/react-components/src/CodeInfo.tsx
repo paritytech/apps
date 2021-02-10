@@ -70,8 +70,8 @@ function CodeInfo({
         ) : isEditable ? (
           <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
         ) : (
-          name
-        )
+              name
+            )
       }
     >
       {children}

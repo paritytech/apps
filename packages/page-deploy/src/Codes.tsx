@@ -34,14 +34,14 @@ function Codes({
               {'.'}
             </>
           ) : (
-            <>
-              {t<string>('You can add an existing code bundle by')}{' '}
-              <Link to={'/upload/add'}>{t<string>('using its code hash')}</Link>
-              {` ${t<string>('or by')} `}
-              <Link to={'/upload'}>{t<string>('uploading a new Wasm blob')}</Link>
-              {'.'}
-            </>
-          )}
+              <>
+                {t<string>('You can add an existing code bundle by')}{' '}
+                <Link to={'/upload/add'}>{t<string>('using its code hash')}</Link>
+                {` ${t<string>('or by')} `}
+                <Link to={'/upload'}>{t<string>('uploading a new Wasm blob')}</Link>
+                {'.'}
+              </>
+            )}
         </div>
       </header>
       <section>

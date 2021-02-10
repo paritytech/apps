@@ -197,11 +197,11 @@ function Queue({ children }: Props): React.ReactElement<Props> {
           (item): QueueTx =>
             item.id === id
               ? {
-                  ...item,
-                  error: error === undefined ? item.error : error,
-                  result: result === undefined ? (item.result as SubmittableResult) : result,
-                  status: item.status === 'completed' ? item.status : status
-                }
+                ...item,
+                error: error === undefined ? item.error : error,
+                result: result === undefined ? (item.result as SubmittableResult) : result,
+                status: item.status === 'completed' ? item.status : status
+              }
               : item
         )
       ]);

@@ -30,8 +30,8 @@ function WithLoader({
           </Loader>
         </div>
       ) : (
-        children
-      )}
+          children
+        )}
     </>
   );
 }

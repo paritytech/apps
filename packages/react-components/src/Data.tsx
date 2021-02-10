@@ -95,9 +95,8 @@ function Data({
       const subType = (type.sub as TypeDef[]).find(({ name }) => name === variant);
 
       if (asJson) {
-        return `${variant}: ${
-          JSON.stringify(formatData(registry, subValue, subType).toJSON()) || '()'
-        }`;
+        return `${variant}: ${JSON.stringify(formatData(registry, subValue, subType).toJSON()) || '()'
+          }`;
       }
 
       return (
@@ -109,8 +108,8 @@ function Data({
               isNull ? (
                 Object.keys(subValue as Record<string, AnyJson>)[0]
               ) : (
-                <Data asJson registry={registry} type={subType} value={subValue} />
-              )
+                  <Data asJson registry={registry} type={subType} value={subValue} />
+                )
             }
           />
         </Labelled>

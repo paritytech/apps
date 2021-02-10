@@ -26,14 +26,14 @@ function CryptoType({ accountId, className = '', label = '' }: Props): React.Rea
           current.meta.isInjected
             ? 'injected'
             : current.meta.isHardware
-            ? (current.meta.hardwareType as string) || 'hardware'
-            : current.meta.isExternal
-            ? current.meta.isMultisig
-              ? 'multisig'
-              : current.meta.isProxied
-              ? 'proxied'
-              : 'external'
-            : current.type
+              ? (current.meta.hardwareType as string) || 'hardware'
+              : current.meta.isExternal
+                ? current.meta.isMultisig
+                  ? 'multisig'
+                  : current.meta.isProxied
+                    ? 'proxied'
+                    : 'external'
+                : current.type
         );
       }
     } catch (error) {

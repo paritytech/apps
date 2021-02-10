@@ -87,8 +87,8 @@ function BaseBytes({
       ? isDisabled && isU8a(value) && isAscii(value)
         ? u8aToString(value)
         : isHex(value)
-        ? value
-        : u8aToHex(value as Uint8Array, isDisabled ? 256 : -1)
+          ? value
+          : u8aToHex(value as Uint8Array, isDisabled ? 256 : -1)
       : undefined
   );
   const [isValid, setIsValid] = useState(false);

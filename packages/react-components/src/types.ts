@@ -174,7 +174,7 @@ export interface WithBasePath {
   basePath: string;
 }
 
-export interface ComponentProps extends BareProps, WithBasePath, WithAppNavigation {}
+export interface ComponentProps extends BareProps, WithBasePath, WithAppNavigation { }
 
 export interface AppProps extends BareProps, WithBasePath, WithAppNavigation {
   onStatusChange: (status: ActionStatus) => void;

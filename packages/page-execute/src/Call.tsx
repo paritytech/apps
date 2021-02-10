@@ -43,16 +43,16 @@ type Options = { key: string; text: React.ReactNode; value: number }[];
 function getCallMessageOptions(callContract: Contract | null): Options {
   return callContract
     ? callContract.abi.messages.map((message, index): {
-        key: string;
-        text: React.ReactNode;
-        value: number;
-      } => {
-        return {
-          key: message.identifier,
-          text: <MessageSignature message={message} registry={callContract.registry} />,
-          value: index
-        };
-      })
+      key: string;
+      text: React.ReactNode;
+      value: number;
+    } => {
+      return {
+        key: message.identifier,
+        text: <MessageSignature message={message} registry={callContract.registry} />,
+        value: index
+      };
+    })
     : [];
 }
 
@@ -85,8 +85,8 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
   const encoder = useCallback((): Uint8Array | null => {
     return contract?.abi?.messages[messageIndex]
       ? ((contract.abi.messages[messageIndex].toU8a(
-          extractValues(values || [])
-        ) as unknown) as Uint8Array)
+        extractValues(values || [])
+      ) as unknown) as Uint8Array)
       : null;
   }, [contract?.abi?.messages, messageIndex, values]);
 
@@ -300,15 +300,15 @@ function Call({ className, navigateTo }: Props): React.ReactElement<Props> | nul
                 onClick={_onSubmitRpc}
               />
             ) : (
-              <TxButton
-                accountId={accountId}
-                isDisabled={!isValid}
-                isPrimary
-                label={t<string>('Call')}
-                params={_constructTx}
-                tx={api.tx.contracts.call}
-              />
-            )}
+                <TxButton
+                  accountId={accountId}
+                  isDisabled={!isValid}
+                  isPrimary
+                  label={t<string>('Call')}
+                  params={_constructTx}
+                  tx={api.tx.contracts.call}
+                />
+              )}
           </Button.Group>
         </section>
         {outcomes.length > 0 && (

@@ -144,8 +144,8 @@ export default function withCall<P extends ApiProps>(
         const values = isUndefined(paramValue)
           ? params
           : params.concat(
-              Array.isArray(paramValue) && !(paramValue as any).toU8a ? paramValue : [paramValue]
-            );
+            Array.isArray(paramValue) && !(paramValue as any).toU8a ? paramValue : [paramValue]
+          );
 
         return [true, values];
       }

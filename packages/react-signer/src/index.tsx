@@ -23,8 +23,8 @@ function Signer({ children, className = '' }: Props): React.ReactElement<Props> 
           {currentItem.isUnsigned ? (
             <TxUnsigned currentItem={currentItem} />
           ) : (
-            <TxSigned currentItem={currentItem} requestAddress={requestAddress} />
-          )}
+              <TxSigned currentItem={currentItem} requestAddress={requestAddress} />
+            )}
         </Modal>
       )}
     </>

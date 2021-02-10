@@ -25,8 +25,8 @@ export default function createOptions(api: ApiPromise, sectionName: string): Dro
         const input = type.isMap
           ? type.asMap.key.toString()
           : type.isDoubleMap
-          ? `${type.asDoubleMap.key1.toString()}, ${type.asDoubleMap.key2.toString()}`
-          : '';
+            ? `${type.asDoubleMap.key1.toString()}, ${type.asDoubleMap.key2.toString()}`
+            : '';
         const output = method.meta.modifier.isOptional
           ? `Option<${unwrapStorageType(type)}>`
           : unwrapStorageType(type);

@@ -3,4 +3,4 @@
 
 import { ComponentProps as ComponentPropsBase, WithCodes } from '@canvas-ui/page-contracts/types';
 
-export interface ComponentProps extends ComponentPropsBase, WithCodes {}
+export interface ComponentProps extends ComponentPropsBase, WithCodes { }

@@ -38,21 +38,21 @@ function Param({
   return isOptional ? (
     <Static defaultValue={defaultValue} label={label} type={type} />
   ) : (
-    <compRef.current
-      className={classes('ui--Param', className)}
-      defaultValue={defaultValue}
-      isDisabled={isDisabled}
-      isInOption={isInOption}
-      key={`${name || 'unknown'}:${type.toString()}`}
-      label={label}
-      name={name}
-      onChange={onChange}
-      onEnter={onEnter}
-      onEscape={onEscape}
-      overrides={overrides}
-      type={type}
-    />
-  );
+      <compRef.current
+        className={classes('ui--Param', className)}
+        defaultValue={defaultValue}
+        isDisabled={isDisabled}
+        isInOption={isInOption}
+        key={`${name || 'unknown'}:${type.toString()}`}
+        label={label}
+        name={name}
+        onChange={onChange}
+        onEnter={onEnter}
+        onEscape={onEscape}
+        overrides={overrides}
+        type={type}
+      />
+    );
 }
 
 export default React.memo(Param);

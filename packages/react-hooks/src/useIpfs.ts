@@ -107,8 +107,8 @@ export function extractIpfsDetails(): State {
   return url.includes(LOCAL_IPFS)
     ? extractLocalIpfs(url)
     : url.includes(LOCAL_IPNS)
-    ? extractLocalIpns(url)
-    : extractOther(url);
+      ? extractLocalIpns(url)
+      : extractOther(url);
 }
 
 export default function useIpfs(): State {

@@ -97,8 +97,8 @@ function extractName(
             <span className="sub">/{displaySecond}</span>
           </>
         ) : (
-          displayFirst
-        )}
+            displayFirst
+          )}
       </span>
     </div>
   );
@@ -139,8 +139,8 @@ function extractIdentity(address: string, identity: DeriveAccountRegistration): 
       <span className="sub">/{displayName}</span>
     </span>
   ) : (
-    <span className={`name ${isGood ? 'isGood' : ''}`}>{displayName}</span>
-  );
+      <span className={`name ${isGood ? 'isGood' : ''}`}>{displayName}</span>
+    );
   const infoElem = (
     <Icon icon={identity.parent ? 'caret square up outline' : isGood ? 'check' : 'minus'} />
   );

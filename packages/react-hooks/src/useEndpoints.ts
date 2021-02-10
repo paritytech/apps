@@ -62,10 +62,10 @@ export default function useEndpoints(onChange?: (_: string) => void): UseEndpoin
           isCustom
             ? info.url
             : ((
-                createEndpoints(t).find(({ value }) => value === info.url) || {
-                  value: 'ws://127.0.0.1:9944'
-                }
-              ).value as string)
+              createEndpoints(t).find(({ value }) => value === info.url) || {
+                value: 'ws://127.0.0.1:9944'
+              }
+            ).value as string)
         ),
         isCustom
       }),

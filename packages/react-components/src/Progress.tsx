@@ -33,8 +33,8 @@ function Progress({
   const calculated = _total.gtn(0)
     ? (100.0 * _value.toNumber()) / _total.toNumber()
     : isBn(percent)
-    ? percent.toNumber()
-    : percent;
+      ? percent.toNumber()
+      : percent;
 
   if (isUndefined(calculated) || calculated < 0) {
     return null;
@@ -47,10 +47,10 @@ function Progress({
           ? 'green'
           : 'red'
         : calculated > 33.3
-        ? 'orange'
-        : color === 'auto'
-        ? 'red'
-        : 'green'
+          ? 'orange'
+          : color === 'auto'
+            ? 'red'
+            : 'green'
       : color;
 
   return (

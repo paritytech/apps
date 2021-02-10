@@ -113,9 +113,9 @@ function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Pro
 
             return identifier
               ? blueprint.tx[identifier](
-                  { gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment },
-                  ...extractValues(values)
-                )
+                { gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment },
+                ...extractValues(values)
+              )
               : null;
           } catch (error) {
             console.error(error);
