@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { InputNumber, Modal, Output } from '@canvas-ui/react-components';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import BN from 'bn.js';
 import React, { useCallback, useEffect, useState } from 'react';
 

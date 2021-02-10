@@ -16,7 +16,7 @@ import {
 } from '@canvas-ui/react-components';
 import { ComponentProps as Props } from '@canvas-ui/react-components/types';
 import { useAccountId, useAccountInfo, useFormField, useGasWeight } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { useTxParams } from '@canvas-ui/react-params';
 import { extractValues } from '@canvas-ui/react-params/values';
 import usePendingTx from '@canvas-ui/react-signer/usePendingTx';

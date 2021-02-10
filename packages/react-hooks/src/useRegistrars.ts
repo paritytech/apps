@@ -7,7 +7,7 @@ import { Option } from '@polkadot/types';
 import { RegistrarInfo } from '@polkadot/types/interfaces';
 
 import useAccounts from './useAccounts';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import useCall from './useCall';
 
 interface RegistrarNull {

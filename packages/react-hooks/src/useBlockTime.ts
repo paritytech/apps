@@ -10,7 +10,7 @@ import { useMemo } from 'react';
 import { BN_ONE, extractTime } from '@polkadot/util';
 
 import { useTranslation } from './translate';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 
 type Result = [number, string];
 

@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { DropdownOptions } from '@canvas-ui/react-util/types';
 import React, { useCallback, useState } from 'react';
 

@@ -3,7 +3,7 @@
 
 import { BareProps } from '@canvas-ui/react-api/types';
 import { useCall } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import BN from 'bn.js';
 import React from 'react';
 

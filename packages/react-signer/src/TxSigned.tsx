@@ -5,7 +5,7 @@ import { QueueTx } from '@canvas-ui/react-api/Status/types';
 import { Button, ErrorBoundary, Modal, Output, Toggle } from '@canvas-ui/react-components';
 import useSendTx from '@canvas-ui/react-components/useSendTx';
 import { useToggle } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 

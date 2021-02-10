@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useCall } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { getAddressName } from '@canvas-ui/react-util';
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';

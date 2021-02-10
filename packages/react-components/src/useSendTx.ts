@@ -4,7 +4,7 @@
 import { registry } from '@canvas-ui/react-api';
 import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { QueueTx, QueueTxMessageSetStatus } from '@canvas-ui/react-api/Status/types';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import ledgerSigner from '@canvas-ui/react-signer/LedgerSigner';
 import { AddressFlags, AddressProxy } from '@canvas-ui/react-signer/types';
 import { extractExternal, handleTxResults } from '@canvas-ui/react-signer/util';

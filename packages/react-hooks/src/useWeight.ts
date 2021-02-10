@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { Call } from '@polkadot/types/interfaces';
 import { BN_ZERO } from '@polkadot/util';
 
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import useIsMountedRef from './useIsMountedRef';
 
 // a random address that we are using for our queries

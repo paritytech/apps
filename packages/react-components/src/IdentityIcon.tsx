@@ -3,7 +3,7 @@
 
 import { getSystemIcon } from '@canvas-ui/apps-config/ui';
 import { useNotification } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { ValidatorsContext } from '@canvas-ui/react-query';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';

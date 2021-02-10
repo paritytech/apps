@@ -11,7 +11,7 @@ import { KeyringJson$Meta } from '@polkadot/ui-keyring/types';
 import { AddressFlags, AddressIdentity, UseAccountInfo } from './types';
 import useAccounts from './useAccounts';
 import useAddresses from './useAddresses';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import useCall from './useCall';
 import useToggle from './useToggle';
 

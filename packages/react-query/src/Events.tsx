@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import React, { useEffect, useState } from 'react';
 
 import { BlockNumber, EventRecord } from '@polkadot/types/interfaces';

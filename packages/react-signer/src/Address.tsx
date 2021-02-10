@@ -4,7 +4,7 @@
 import { QueueTx } from '@canvas-ui/react-api/Status/types';
 import { InputAddress, Modal, Toggle } from '@canvas-ui/react-components';
 import { useAccounts, useIsMountedRef } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ApiPromise } from '@polkadot/api';

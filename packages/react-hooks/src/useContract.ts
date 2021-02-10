@@ -7,7 +7,7 @@ import { useMemo } from 'react';
 import { ContractPromise as Contract } from '@polkadot/api-contract';
 import keyring from '@polkadot/ui-keyring';
 
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 
 export default function useContract(address: StringOrNull): Contract | null {
   const { api } = useApi();

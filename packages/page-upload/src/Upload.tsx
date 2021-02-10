@@ -14,7 +14,7 @@ import {
 import PendingTx from '@canvas-ui/react-components/PendingTx';
 import { ComponentProps as Props } from '@canvas-ui/react-components/types';
 import { useAccountId, useFile, useNonEmptyString } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { FileState } from '@canvas-ui/react-hooks/types';
 import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';

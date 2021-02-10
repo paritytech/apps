@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 

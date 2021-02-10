@@ -3,7 +3,7 @@
 
 // TODO: We have a lot shared between this and InputExtrinsic & InputStorage
 
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { DropdownOptions } from '@canvas-ui/react-util/types';
 import React, { useCallback, useEffect, useState } from 'react';
 

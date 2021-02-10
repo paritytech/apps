@@ -3,7 +3,7 @@
 
 import { Expander } from '@canvas-ui/react-components';
 import { useIsMountedRef } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import BN from 'bn.js';
 import React, { useEffect, useState } from 'react';
 import { Trans } from 'react-i18next';

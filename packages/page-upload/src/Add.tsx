@@ -5,7 +5,7 @@ import { store, useAbi, useCodes } from '@canvas-ui/page-contracts';
 import { Button, Input, InputABI, InputName } from '@canvas-ui/react-components';
 import { ComponentProps as Props } from '@canvas-ui/react-components/types';
 import { useCall, useFile, useNonEmptyString, useNotification } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { truncate } from '@canvas-ui/react-util';
 import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';

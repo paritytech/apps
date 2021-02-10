@@ -6,7 +6,7 @@ import { Route } from '@canvas-ui/apps-routing/types';
 import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { ErrorBoundary, GuideModal, Icon, WithLoader } from '@canvas-ui/react-components';
 import { ELEV_3_CSS } from '@canvas-ui/react-components/styles/constants';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { classes } from '@canvas-ui/react-util';
 import React, { Suspense, useCallback, useContext, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';

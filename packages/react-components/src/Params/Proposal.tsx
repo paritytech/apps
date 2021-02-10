@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { registry } from '@canvas-ui/react-api';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { Props, RawParam } from '@canvas-ui/react-params/types';
 import React, { useCallback } from 'react';
 

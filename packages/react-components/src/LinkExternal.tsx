@@ -3,7 +3,7 @@
 
 import linked from '@canvas-ui/apps-config/links';
 import { LinkTypes } from '@canvas-ui/apps-config/links/types';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import BN from 'bn.js';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';

@@ -7,7 +7,7 @@ import { ScrollToTop } from '@canvas-ui/react-components';
 import { PORTAL_ID } from '@canvas-ui/react-components/InputAddressMulti/SelectedDrag';
 import GlobalStyle from '@canvas-ui/react-components/styles';
 import { BareProps as Props } from '@canvas-ui/react-components/types';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import React, { useCallback, useMemo, useState } from 'react';
 import store from 'store';
 import styled from 'styled-components';

@@ -5,7 +5,7 @@ import { registry } from '@canvas-ui/react-api';
 import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { QueueTx, QueueTxMessageSetStatus, QueueTxResult } from '@canvas-ui/react-api/Status/types';
 import { useScrollToTop } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
 import { ApiPromise } from '@polkadot/api';

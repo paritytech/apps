@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Button, ContractCard } from '@canvas-ui/react-components';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { getContractForAddress } from '@canvas-ui/react-util';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';

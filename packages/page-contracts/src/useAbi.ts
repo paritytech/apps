@@ -3,7 +3,7 @@
 
 import { useTranslation } from '@canvas-ui/react-hooks/translate';
 import { FileState } from '@canvas-ui/react-hooks/types';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { VoidFn } from '@canvas-ui/react-util/types';
 import { useCallback, useEffect, useState } from 'react';
 

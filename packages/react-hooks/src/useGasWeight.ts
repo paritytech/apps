@@ -9,7 +9,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { BN_TEN, BN_ZERO } from '@polkadot/util';
 
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import useBlockTime from './useBlockTime';
 
 const BN_MILLION = new BN(1_000_000);

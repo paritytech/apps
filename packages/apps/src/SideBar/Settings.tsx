@@ -5,7 +5,7 @@ import { Dropdown, Icon, Tooltip } from '@canvas-ui/react-components';
 import { ELEV_4_CSS } from '@canvas-ui/react-components/styles/constants';
 import { BareProps as Props } from '@canvas-ui/react-components/types';
 import { useEndpoints, useSettings } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { classes, useEndpointOptions } from '@canvas-ui/react-util';
 import React from 'react';
 import { NavLink } from 'react-router-dom';

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { createEndpoints } from '@canvas-ui/apps-config/settings';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import { UseEndpoints } from './types';
 import { TFunction } from 'i18next';
 import React, { useMemo } from 'react';

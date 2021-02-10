@@ -9,7 +9,7 @@ import {
 } from '@canvas-ui/react-api/Status/types';
 import StatusDisplay from '@canvas-ui/react-components/Status/Status';
 import { useAccounts, useCall } from '@canvas-ui/react-hooks';
-import useApi from '@canvas-ui/react-api/useApi';
+import { useApi } from '@canvas-ui/react-api';
 import React, { useEffect } from 'react';
 
 import { EventRecord } from '@polkadot/types/interfaces';
