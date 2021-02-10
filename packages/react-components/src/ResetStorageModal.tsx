@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { store } from '@canvas-ui/page-contracts';
-import Button from '@canvas-ui/react-components/Button';
-import Modal from '@canvas-ui/react-components/Modal';
-import { useTranslation } from '@canvas-ui/react-components/translate';
-import { BareProps } from '@canvas-ui/react-components/types';
+import Button from './Button';
+import Modal from './Modal';
+import { useTranslation } from './translate';
+import { BareProps } from './types';
 import { useToggle } from '@canvas-ui/react-hooks';
 import React, { useCallback } from 'react';
 
