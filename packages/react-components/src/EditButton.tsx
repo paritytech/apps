@@ -18,17 +18,18 @@ interface Props extends BareProps {
   size ?: IconProps['size'];
 }
 
-function EditButton ({
-  children,
+function EditButton ({ children,
   className,
   icon = 'edit',
-  onClick
-} : Props) : React.ReactElement<Props> {
+  onClick } : Props) : React.ReactElement<Props> {
   return (
-    <div className={className} onClick={onClick}>
+    <div className={className}
+      onClick={onClick}>
       {children}
-      <span className="editSpan">
-        <Button className="icon-button show-on-hover" icon={icon} isIcon />
+      <span className='editSpan'>
+        <Button className='icon-button show-on-hover'
+          icon={icon}
+          isIcon />
       </span>
     </div>
   );

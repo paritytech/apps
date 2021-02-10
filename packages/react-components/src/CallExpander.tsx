@@ -17,13 +17,11 @@ interface Props {
   withHash ?: boolean;
 }
 
-function CallExpander ({
-  children,
+function CallExpander ({ children,
   className = '',
   labelHash,
   value,
-  withHash
-} : Props) : React.ReactElement<Props> {
+  withHash } : Props) : React.ReactElement<Props> {
   const { meta, method, section } = registry.findMetaCall(value.callIndex);
 
   return (
@@ -32,7 +30,9 @@ function CallExpander ({
         {section}.{method}
       </div>
       <Expander summaryMeta={meta}>
-        <CallDisplay labelHash={labelHash} value={value} withHash={withHash} />
+        <CallDisplay labelHash={labelHash}
+          value={value}
+          withHash={withHash} />
         {children}
       </Expander>
     </div>

@@ -49,8 +49,12 @@ function ContractForget ({ address, className } : Props) : React.ReactElement<Pr
 
   return (
     <>
-      <Button isNegative label={t<string>('Forget')} onClick={toggleIsOpen} />
-      <Modal className={className} isOpen={isOpen} onClose={toggleIsOpen}>
+      <Button isNegative
+        label={t<string>('Forget')}
+        onClick={toggleIsOpen} />
+      <Modal className={className}
+        isOpen={isOpen}
+        onClose={toggleIsOpen}>
         <Modal.Header>{t<string>('Forget contract?')}</Modal.Header>
         <Modal.Content>
           <p>
@@ -63,10 +67,13 @@ function ContractForget ({ address, className } : Props) : React.ReactElement<Pr
               'This operation does not remove the history of the contract from the chain, nor any associated funds from its account. The forget operation only limits your access to the contract on this browser.'
             )}
           </p>
-          <ContractInfo address={address} className="forget-contract" />
+          <ContractInfo address={address}
+            className='forget-contract' />
         </Modal.Content>
         <Modal.Actions onCancel={toggleIsOpen}>
-          <Button isPrimary label={t<string>('Forget')} onClick={_onForget} />
+          <Button isPrimary
+            label={t<string>('Forget')}
+            onClick={_onForget} />
         </Modal.Actions>
       </Modal>
     </>

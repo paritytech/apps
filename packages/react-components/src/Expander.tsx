@@ -37,16 +37,14 @@ function formatMeta (meta ?: Meta) : React.ReactNode | null {
   return firstEmpty === -1 ? strings.join(' ') : strings.slice(0, firstEmpty).join(' ');
 }
 
-function Expander ({
-  children,
+function Expander ({ children,
   className = '',
   isOpen,
   summary,
   summaryMeta,
   summarySub,
   withDot,
-  withHidden
-} : Props) : React.ReactElement<Props> {
+  withHidden } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isExpanded, toggleExpanded] = useToggle(isOpen);
   const headerMain = useMemo(() => summary || formatMeta(summaryMeta), [summary, summaryMeta]);
@@ -63,21 +61,26 @@ function Expander ({
   return (
     <div
       className={`ui--Expander ${isExpanded ? 'isExpanded' : ''} ${hasContent ? 'hasContent' : ''
-        } ${className}`}
+      } ${className}`}
     >
-      <div className="ui--Expander-summary" onClick={toggleExpanded}>
-        <div className="ui--Expander-summary-header">
-          {hasContent ? (
-            <Icon icon={isExpanded ? 'angle-double-down' : 'angle-double-right'} />
-          ) : withDot ? (
-            <Icon icon={faCircle} />
-          ) : undefined}
+      <div className='ui--Expander-summary'
+        onClick={toggleExpanded}>
+        <div className='ui--Expander-summary-header'>
+          {hasContent
+            ? (
+              <Icon icon={isExpanded ? 'angle-double-down' : 'angle-double-right'} />
+            )
+            : withDot
+              ? (
+                <Icon icon={faCircle} />
+              )
+              : undefined}
           {headerMain || t<string>('Details')}
         </div>
-        {headerSub && <div className="ui--Expander-summary-sub">{headerSub}</div>}
+        {headerSub && <div className='ui--Expander-summary-sub'>{headerSub}</div>}
       </div>
       {hasContent && (isExpanded || withHidden) && (
-        <div className="ui--Expander-content">{children}</div>
+        <div className='ui--Expander-content'>{children}</div>
       )}
     </div>
   );

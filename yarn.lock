@@ -1521,7 +1521,6 @@ __metadata:
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks"
     "@canvas-ui/react-params": "workspace:packages/react-params"
     "@canvas-ui/react-query": "workspace:packages/react-query"
-    "@canvas-ui/react-signer": "workspace:packages/react-signer"
     "@canvas-ui/react-util": "workspace:packages/react-util"
     "@fortawesome/fontawesome-svg-core": ^1.2.32
     "@fortawesome/free-regular-svg-icons": ^5.15.1
@@ -3540,7 +3539,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:latest":
+"@typescript-eslint/eslint-plugin@npm:^4.15.0":
   version: 4.15.0
   resolution: "@typescript-eslint/eslint-plugin@npm:4.15.0"
   dependencies:
@@ -3668,6 +3667,23 @@ __metadata:
     typescript:
       optional: true
   checksum: 17289e48d281a04b1a43d09a8098acf86a1fef06297533cf7f54863cb1cf897b3b5f0b050c4eb1fc5c26bd3ab723cae0ac3ac9ecfafb16eccea63279c7bf299e
+  languageName: node
+  linkType: hard
+
+"@typescript-eslint/parser@npm:^4.15.0":
+  version: 4.15.0
+  resolution: "@typescript-eslint/parser@npm:4.15.0"
+  dependencies:
+    "@typescript-eslint/scope-manager": 4.15.0
+    "@typescript-eslint/types": 4.15.0
+    "@typescript-eslint/typescript-estree": 4.15.0
+    debug: ^4.1.1
+  peerDependencies:
+    eslint: ^5.0.0 || ^6.0.0 || ^7.0.0
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: 23b879a98cbb34481fcd82cf2320ad65238d0203a31b564fcf019cca80560dcd597292951e5301db75a4e2d6e4c483c5a57d14795feffa74b4bbc5aa4e66da4b
   languageName: node
   linkType: hard
 
@@ -5928,7 +5944,8 @@ __metadata:
     "@types/store": ^2.0.2
     "@types/styled-components": ^5.1.0
     "@types/styled-theming": ^2.2.3
-    "@typescript-eslint/eslint-plugin": latest
+    "@typescript-eslint/eslint-plugin": ^4.15.0
+    "@typescript-eslint/parser": ^4.15.0
     concurrently: ^5.2.0
     devtron: ^1.4.0
     dnslink-cloudflare: ^2.0.4
@@ -5936,6 +5953,13 @@ __metadata:
     electron-builder: ^22.7.0
     electron-builder-notarize: ^1.1.2
     eslint: ^7.19.0
+    eslint-config-strongloop: ^2.1.0
+    eslint-plugin-header: ^3.1.1
+    eslint-plugin-import: ^2.22.1
+    eslint-plugin-react: ^7.22.0
+    eslint-plugin-react-hooks: ^4.2.0
+    eslint-plugin-simple-import-sort: ^7.0.0
+    eslint-plugin-sort-destructure-keys: ^1.3.5
     gh-pages: ^3.1.0
     i18next-scanner: ^2.11.0
     prettier: ^2.2.1
@@ -8576,6 +8600,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"eslint-config-strongloop@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "eslint-config-strongloop@npm:2.1.0"
+  checksum: f8c6914668bc9fa90e0fbf93b2093aecfce5696845914b856152e40aa0fd2cadb331b3a37525af026e3e8ba3f69ff579ec10316f3229da8ef3a6e13d7e8a3b61
+  languageName: node
+  linkType: hard
+
 "eslint-import-resolver-node@npm:^0.3.4":
   version: 0.3.4
   resolution: "eslint-import-resolver-node@npm:0.3.4"
@@ -8614,6 +8645,15 @@ __metadata:
   peerDependencies:
     eslint: ">=7.7.0"
   checksum: 087d4b25e1e61e8654ea7e7d588a144e6ef00ad408ee62b27e8ac10a83b13af6a000aaf19c725da5a9237e23201f02c37c58ea8ca744cdf3150489d81c296414
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-header@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "eslint-plugin-header@npm:3.1.1"
+  peerDependencies:
+    eslint: ">=7.7.0"
+  checksum: 1abbc57478059975667ba1757644fc839b726aef7da6fb6d5fa5b24d5bde6d0811f6761ec439348beeae881d5c9227329c43ca01016c366532b0e4a249f0c10c
   languageName: node
   linkType: hard
 

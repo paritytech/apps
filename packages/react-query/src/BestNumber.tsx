@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useApi } from '@canvas-ui/react-api';
 import { BareProps } from '@canvas-ui/react-api/types';
 import { useCall } from '@canvas-ui/react-hooks';
-import { useApi } from '@canvas-ui/react-api';
 import React from 'react';
 
 import { BlockNumber } from '@polkadot/types/interfaces';
@@ -15,12 +15,10 @@ interface Props extends BareProps {
   withPound?: boolean;
 }
 
-function BestNumber({
-  children,
+function BestNumber ({ children,
   className = '',
   label,
-  withPound
-}: Props): React.ReactElement<Props> {
+  withPound }: Props): React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const bestNumber = useCall<BlockNumber>(isApiReady && api.derive.chain.bestNumber, []);
 

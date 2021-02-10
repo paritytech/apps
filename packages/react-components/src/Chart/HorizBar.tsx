@@ -89,13 +89,11 @@ function calculateOptions (
   };
 }
 
-function ChartHorizBar ({
-  aspectRatio = 8,
+function ChartHorizBar ({ aspectRatio = 8,
   className = '',
   max = 100,
   showLabels = false,
-  values
-} : HorizBarProps) : React.ReactElement<HorizBarProps> | null {
+  values } : HorizBarProps) : React.ReactElement<HorizBarProps> | null {
   const [{ chartData, chartOptions, jsonValues }, setState] = useState<State>({});
 
   useEffect(() : void => {

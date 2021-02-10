@@ -4,7 +4,7 @@
 import { useState } from 'react';
 
 const KNOWN = ['ipfs', 'ipns'];
-const SECTIONS = KNOWN.map(part => `/${part}/`);
+const SECTIONS = KNOWN.map((part) => `/${part}/`);
 const LOCAL_IPFS = '.ipfs.localhost';
 const LOCAL_IPNS = '.ipns.localhost';
 
@@ -58,7 +58,7 @@ function extractLocalIpns (url : string) : State {
 }
 
 function extractOther (url : string) : State {
-  const isIpfs = SECTIONS.some(part => url.includes(part));
+  const isIpfs = SECTIONS.some((part) => url.includes(part));
   const isIpns = url.includes(SECTIONS[1]);
 
   // individual sections, with the index of the ipfs portion

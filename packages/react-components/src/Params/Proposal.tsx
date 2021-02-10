@@ -1,23 +1,20 @@
 // Copyright 2017-2021 @canvas-ui/app-extrinsics authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from '@canvas-ui/react-api';
-import { useApi } from '@canvas-ui/react-api';
+import { registry, useApi } from '@canvas-ui/react-api';
 import { Props, RawParam } from '@canvas-ui/react-params/types';
 import React, { useCallback } from 'react';
 
 import ExtrinsicDisplay from './Extrinsic';
 
-function ProposalDisplay({
-  className = '',
+function ProposalDisplay ({ className = '',
   isDisabled,
   isError,
   label,
   onChange,
   onEnter,
   onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+  withLabel }: Props): React.ReactElement<Props> {
   const { apiDefaultTxSudo } = useApi();
   const _onChange = useCallback(
     ({ isValid, value }: RawParam): void => {

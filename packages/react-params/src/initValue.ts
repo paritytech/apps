@@ -13,7 +13,7 @@ export default function getInitValue (def : TypeDef) : unknown {
   if (def.info === TypeDefInfo.Vec) {
     return [getInitValue(def.sub as TypeDef)];
   } else if (def.info === TypeDefInfo.Tuple) {
-    return Array.isArray(def.sub) ? def.sub.map(def => getInitValue(def)) : [];
+    return Array.isArray(def.sub) ? def.sub.map((def) => getInitValue(def)) : [];
   } else if (def.info === TypeDefInfo.Struct) {
     return Array.isArray(def.sub)
       ? def.sub.reduce((result : Record<string, unknown>, def) : Record<string, unknown> => {

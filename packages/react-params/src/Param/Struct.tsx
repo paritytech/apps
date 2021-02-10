@@ -19,8 +19,8 @@ function StructParam (props : Props) : React.ReactElement<Props> {
         onChange({
           isValid: values.reduce((result : boolean, { isValid }) => result && isValid, true),
           value: params.reduce((value : Record<string, unknown>, { name }, index) : Record<
-            string,
-            unknown
+          string,
+          unknown
           > => {
             value[name as string] = values[index].value;
 
@@ -36,9 +36,13 @@ function StructParam (props : Props) : React.ReactElement<Props> {
   }
 
   return (
-    <div className="ui--Params-Struct">
-      <Base className={className} label={label} withLabel={withLabel} />
-      <Params onChange={_onChangeParams} overrides={overrides} params={params} />
+    <div className='ui--Params-Struct'>
+      <Base className={className}
+        label={label}
+        withLabel={withLabel} />
+      <Params onChange={_onChangeParams}
+        overrides={overrides}
+        params={params} />
     </div>
   );
 }

@@ -19,11 +19,13 @@ function Docs ({ className, docs, signature } : Props) : React.ReactElement<Prop
 
   return (
     <div className={className}>
-      <div className="header">{signature}</div>
-      <div className="body">
-        {docs && docs.length > 0 ? (
-          <Markdown>{docs.join('\n')}</Markdown>
-        ) : (
+      <div className='header'>{signature}</div>
+      <div className='body'>
+        {docs && docs.length > 0
+          ? (
+            <Markdown>{docs.join('\n')}</Markdown>
+          )
+          : (
             <i>{t('No documentation provided')}</i>
           )}
       </div>

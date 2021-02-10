@@ -1,14 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { ConstructTxFn } from '@canvas-ui/react-hooks/types';
 import type { StringOrNull } from '@canvas-ui/react-api/types';
+import type { ConstructTxFn } from '@canvas-ui/react-hooks/types';
 import type { Icon as IconType, IconName } from '@fortawesome/fontawesome-svg-core';
 import type { SubmittableExtrinsic } from '@polkadot/api/types';
 
 import { ActionStatus, TxCallback, TxFailedCallback } from '@canvas-ui/react-api/Status/types';
-import { TxState } from '@canvas-ui/react-hooks/types';
 import { VoidFn } from '@canvas-ui/react-api/types';
+import { TxState } from '@canvas-ui/react-hooks/types';
 import { WithTranslation } from 'react-i18next';
 
 // import { ButtonProps as SUIButtonProps } from 'semantic-ui-react/dist/commonjs/elements/Button/Button';

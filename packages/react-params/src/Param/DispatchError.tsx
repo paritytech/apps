@@ -55,9 +55,15 @@ function ErrorDisplay (props : Props) : React.ReactElement<Props> {
 
   return (
     <Static {...props}>
-      <Input className="full" isDisabled label={t<string>('type')} value={type} />
+      <Input className='full'
+        isDisabled
+        label={t<string>('type')}
+        value={type} />
       {details && (
-        <Input className="full" isDisabled label={t<string>('details')} value={details} />
+        <Input className='full'
+          isDisabled
+          label={t<string>('details')}
+          value={details} />
       )}
     </Static>
   );

@@ -31,13 +31,11 @@ interface Props extends BareProps {
   withLabel ?: boolean;
 }
 
-function renderMessages ({
-  abi,
+function renderMessages ({ abi,
   isDisabled,
   onRemove,
   onSelectConstructor,
-  withLabel
-} : Props) : React.ReactNode {
+  withLabel } : Props) : React.ReactNode {
   return (
     <Messages
       abi={abi}
@@ -51,8 +49,7 @@ function renderMessages ({
 }
 
 function InputABI (props : Props) : React.ReactElement<Props> {
-  const {
-    abi,
+  const { abi,
     className,
     errorText,
     file,
@@ -62,8 +59,7 @@ function InputABI (props : Props) : React.ReactElement<Props> {
     isRequired = false,
     isValid,
     setFile,
-    withLabel
-  } = props;
+    withLabel } = props;
   const { t } = useTranslation();
 
   const help = isContract

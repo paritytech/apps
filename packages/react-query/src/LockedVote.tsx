@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useApi } from '@canvas-ui/react-api';
 import { BareProps } from '@canvas-ui/react-api/types';
 import { useCall } from '@canvas-ui/react-hooks';
-import { useApi } from '@canvas-ui/react-api';
 import React from 'react';
 
 import { DeriveCouncilVote } from '@polkadot/api-derive/types';
@@ -17,12 +17,10 @@ interface Props extends BareProps {
   params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
 }
 
-function LockedVote({
-  children,
+function LockedVote ({ children,
   className = '',
   label,
-  params
-}: Props): React.ReactElement<Props> | null {
+  params }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveCouncilVote>(api.derive.council.votesOf, [params]);
 
@@ -31,7 +29,9 @@ function LockedVote({
   }
 
   return (
-    <FormatBalance className={className} label={label} value={info?.stake}>
+    <FormatBalance className={className}
+      label={label}
+      value={info?.stake}>
       {children}
     </FormatBalance>
   );

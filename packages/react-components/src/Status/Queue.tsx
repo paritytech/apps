@@ -3,8 +3,7 @@
 
 import { STATUS_COMPLETE } from '@canvas-ui/react-api/Status/constants';
 import { QueueProvider } from '@canvas-ui/react-api/Status/Context';
-import {
-  ActionStatus,
+import { ActionStatus,
   PartialQueueTxExtrinsic,
   PartialQueueTxRpc,
   QueueStatus,
@@ -12,8 +11,7 @@ import {
   QueueTxExtrinsic,
   QueueTxRpc,
   QueueTxStatus,
-  SignerCallback
-} from '@canvas-ui/react-api/Status/types';
+  SignerCallback } from '@canvas-ui/react-api/Status/types';
 import registry from '@canvas-ui/react-api/typeRegistry';
 import React, { useCallback, useRef, useState } from 'react';
 

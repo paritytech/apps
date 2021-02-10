@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { KeyringItemType } from '@polkadot/ui-keyring/types';
-
 import getAddressMeta from '@canvas-ui/react-api/getAddressMeta';
 
-export default function getAddressTags(
+import { KeyringItemType } from '@polkadot/ui-keyring/types';
+
+export default function getAddressTags (
   address: string,
   type: KeyringItemType | null = null
 ): string[] {

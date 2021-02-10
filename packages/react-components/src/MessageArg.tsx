@@ -30,11 +30,15 @@ function MessageArg ({ arg, param, registry } : Props) : React.ReactElement<Prop
         </>
       )}
       <span>
-        {param ? (
-          <b>
-            <Data registry={registry} type={arg.type} value={param} />
-          </b>
-        ) : (
+        {param
+          ? (
+            <b>
+              <Data registry={registry}
+                type={arg.type}
+                value={param} />
+            </b>
+          )
+          : (
             encodeTypeDef(arg.type)
           )}
       </span>

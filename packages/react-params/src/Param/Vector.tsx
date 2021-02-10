@@ -20,16 +20,14 @@ function generateParam ([{ name, type }] : ParamDef[], index : number) : ParamDe
   };
 }
 
-function Vector ({
-  className = '',
+function Vector ({ className = '',
   defaultValue,
   isDisabled = false,
   label,
   onChange,
   overrides,
   type,
-  withLabel
-} : Props) : React.ReactElement<Props> | null {
+  withLabel } : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const inputParams = useParamDefs(type);
   const [count, setCount] = useState(0);
@@ -90,16 +88,21 @@ function Vector ({
       });
   }, [values, onChange]);
 
-  const _rowAdd = useCallback(() : void => setCount(count => count + 1), []);
-  const _rowRemove = useCallback(() : void => setCount(count => count - 1), []);
+  const _rowAdd = useCallback(() : void => setCount((count) => count + 1), []);
+  const _rowRemove = useCallback(() : void => setCount((count) => count - 1), []);
 
   return (
-    <Base className={className} isOuter label={label} withLabel={withLabel}>
+    <Base className={className}
+      isOuter
+      label={label}
+      withLabel={withLabel}>
       {!isDisabled && (
-        <div className="ui--Param-Vector-buttons">
-          <Button icon="plus" label={t<string>('Add item')} onClick={_rowAdd} />
+        <div className='ui--Param-Vector-buttons'>
+          <Button icon='plus'
+            label={t<string>('Add item')}
+            onClick={_rowAdd} />
           <Button
-            icon="minus"
+            icon='minus'
             isDisabled={values.length === 0}
             label={t<string>('Remove item')}
             onClick={_rowRemove}

@@ -27,18 +27,23 @@ function Item ({ isCollapsed, onClick, route } : Props) : React.ReactElement<Pro
 
   const body = (
     <>
-      <span className="text">{text}</span>
-      {!!count && <Badge info={count} isInline type="counter" />}
-      <Tooltip offset={TOOLTIP_OFFSET} place="right" text={text} trigger={`nav-${name}`} />
-      <Icon icon="chevron-right" />
+      <span className='text'>{text}</span>
+      {!!count && <Badge info={count}
+        isInline
+        type='counter' />}
+      <Tooltip offset={TOOLTIP_OFFSET}
+        place='right'
+        text={text}
+        trigger={`nav-${name}`} />
+      <Icon icon='chevron-right' />
     </>
   );
 
   return (
-    <Menu.Item className="apps--SideBar-Item">
+    <Menu.Item className='apps--SideBar-Item'>
       <NavLink
-        activeClassName="apps--SideBar-Item-NavLink-active ui--highlight--border"
-        className="apps--SideBar-Item-NavLink"
+        activeClassName='apps--SideBar-Item-NavLink-active ui--highlight--border'
+        className='apps--SideBar-Item-NavLink'
         data-for={`nav-${name}`}
         data-tip
         data-tip-disable={!isCollapsed}

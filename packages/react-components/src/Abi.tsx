@@ -22,22 +22,24 @@ function Abi ({ abi, className, withConstructors = false } : Props) : React.Reac
   const { t } = useTranslation();
   const [isInfoOpen, toggleIsInfoOpen] = useToggle();
   const [isAbiOpen, toggleIsAbiOpen] = useToggle();
-  const {
-    contract: { authors, name, version }
-  } = abi.project;
+  const { contract: { authors, name, version } } = abi.project;
 
   return (
     <div className={className}>
-      <Expander isOpen={isInfoOpen} onClick={toggleIsInfoOpen} summary={t<string>('Info')}>
-        <div className="contract-info">
-          <div className="name">{name.toString()}</div>
-          <div className="details">
+      <Expander isOpen={isInfoOpen}
+        onClick={toggleIsInfoOpen}
+        summary={t<string>('Info')}>
+        <div className='contract-info'>
+          <div className='name'>{name.toString()}</div>
+          <div className='details'>
             {t<string>('version')} {version.toString()} {t<string>('by')}{' '}
-            {authors.map(author => author.toString()).join(', ')}
+            {authors.map((author) => author.toString()).join(', ')}
           </div>
         </div>
       </Expander>
-      <Expander isOpen={isAbiOpen} onClick={toggleIsAbiOpen} summary={t<string>('ABI')}>
+      <Expander isOpen={isAbiOpen}
+        onClick={toggleIsAbiOpen}
+        summary={t<string>('ABI')}>
         <Messages
           abi={abi}
           isLabelled={false}

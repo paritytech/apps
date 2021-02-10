@@ -18,16 +18,14 @@ function generateParam ([{ name, type }] : ParamDef[], index : number) : ParamDe
   };
 }
 
-function VectorFixed ({
-  className = '',
+function VectorFixed ({ className = '',
   defaultValue,
   isDisabled = false,
   label,
   onChange,
   overrides,
   type,
-  withLabel
-} : Props) : React.ReactElement<Props> | null {
+  withLabel } : Props) : React.ReactElement<Props> | null {
   const inputParams = useParamDefs(type);
   const [params, setParams] = useState<ParamDef[]>([]);
   const [values, setValues] = useState<RawParam[]>([]);
@@ -90,7 +88,10 @@ function VectorFixed ({
   }, [values, onChange]);
 
   return (
-    <Base className={className} isOuter label={label} withLabel={withLabel}>
+    <Base className={className}
+      isOuter
+      label={label}
+      withLabel={withLabel}>
       <Params
         isDisabled={isDisabled}
         onChange={setValues}

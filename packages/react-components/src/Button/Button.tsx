@@ -10,8 +10,7 @@ import styled from 'styled-components';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
 
-function Button ({
-  children,
+function Button ({ children,
   className = '',
   icon,
   isBasic,
@@ -29,8 +28,7 @@ function Button ({
   onMouseEnter,
   onMouseLeave,
   tabIndex,
-  withoutLink
-} : ButtonProps) : React.ReactElement<ButtonProps> {
+  withoutLink } : ButtonProps) : React.ReactElement<ButtonProps> {
   const _onClick = useCallback(() => !(isBusy || isDisabled) && onClick && onClick(), [
     isBusy,
     isDisabled,
@@ -40,10 +38,10 @@ function Button ({
   return (
     <button
       className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${isCircular ? ' isCircular' : ''
-        }${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${isBusy || isDisabled ? ' isDisabled' : ''
-        }${isBusy ? ' isBusy' : ''}${isNegative ? ' isNegative' : ''}${isPrimary ? ' isPrimary' : ''
-        }${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${withoutLink ? ' withoutLink' : ''
-        } ${className}`}
+      }${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${isBusy || isDisabled ? ' isDisabled' : ''
+      }${isBusy ? ' isBusy' : ''}${isNegative ? ' isNegative' : ''}${isPrimary ? ' isPrimary' : ''
+      }${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${withoutLink ? ' withoutLink' : ''
+      } ${className}`}
       onClick={_onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
@@ -52,7 +50,8 @@ function Button ({
       {icon && <Icon icon={icon} />}
       {label}
       {children}
-      <Spinner className="ui--Button-spinner" variant="cover" />
+      <Spinner className='ui--Button-spinner'
+        variant='cover' />
     </button>
   );
 }

@@ -28,19 +28,22 @@ function Success ({ basePath, navigateTo } : Props) : React.ReactElement<Props> 
     <>
       <header>
         <h1>{t<string>('Contract successfully deployed')}</h1>
-        <div className="instructions">
+        <div className='instructions'>
           {t<string>('Your contract has been successfully deployed on chain.')}
         </div>
       </header>
       <section>
-        <ContractCard basePath={basePath} contract={contract} navigateTo={navigateTo} />
+        <ContractCard basePath={basePath}
+          contract={contract}
+          navigateTo={navigateTo} />
         <Button.Group>
           <Button
             isPrimary
             label={t<string>('Execute Contract')}
             onClick={navigateTo.executeCall(address)}
           />
-          <Button label={t<string>('Deploy Another Contract')} onClick={navigateTo.deploy} />
+          <Button label={t<string>('Deploy Another Contract')}
+            onClick={navigateTo.deploy} />
         </Button.Group>
       </section>
     </>

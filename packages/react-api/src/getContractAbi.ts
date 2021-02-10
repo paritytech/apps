@@ -1,13 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { api } from './api';
-
 import { Abi } from '@polkadot/api-contract';
 
+import { api } from './api';
 import getAddressMeta from './getAddressMeta';
 
-export default function getContractAbi(address: string | null): Abi | null {
+export default function getContractAbi (address: string | null): Abi | null {
   if (!address) {
     return null;
   }

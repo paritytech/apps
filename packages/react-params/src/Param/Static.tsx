@@ -20,13 +20,11 @@ interface Props {
   withLabel ?: boolean;
 }
 
-function StaticParam ({
-  asHex,
+function StaticParam ({ asHex,
   children,
   className = '',
   defaultValue,
-  label
-} : Props) : React.ReactElement<Props> {
+  label } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const value =
     defaultValue &&
@@ -46,7 +44,9 @@ function StaticParam ({
 
   return (
     <Bare className={className}>
-      <Static className="full" label={label} value={<pre>{value || t<string>('<empty>')}</pre>} />
+      <Static className='full'
+        label={label}
+        value={<pre>{value || t<string>('<empty>')}</pre>} />
       {children}
     </Bare>
   );

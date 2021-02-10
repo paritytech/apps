@@ -76,15 +76,13 @@ interface Props {
 
 // NOTE Drag code above, disabled since it has massive performance implications
 
-function InputAddressMulti ({
-  available,
+function InputAddressMulti ({ available,
   availableLabel,
   className = '',
   defaultValue,
   maxCount,
   onChange,
-  valueLabel
-} : Props) : React.ReactElement<Props> {
+  valueLabel } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [_filter, setFilter] = useState<string>('');
   const [selected, setSelected] = useState<string[]>([]);
@@ -111,7 +109,7 @@ function InputAddressMulti ({
   const _onDeselect = useCallback(
     (address : string) : void =>
       setSelected((selected : string[]) =>
-        selected.includes(address) ? selected.filter(a => a !== address) : selected
+        selected.includes(address) ? selected.filter((a) => a !== address) : selected
       ),
     []
   );
@@ -120,16 +118,16 @@ function InputAddressMulti ({
     <div className={`ui--InputAddressMulti ${className}`}>
       <Input
         autoFocus
-        className="ui--InputAddressMulti-Input label-small"
+        className='ui--InputAddressMulti-Input label-small'
         onChange={setFilter}
         placeholder={t<string>('filter by name, address, or account index')}
         value={_filter}
         withLabel={false}
       />
-      <div className="ui--InputAddressMulti-columns">
-        <div className="ui--InputAddressMulti-column">
+      <div className='ui--InputAddressMulti-columns'>
+        <div className='ui--InputAddressMulti-column'>
           <label>{valueLabel}</label>
-          <div className="ui--InputAddressMulti-items">
+          <div className='ui--InputAddressMulti-items'>
             {selected.map(
               (address) : React.ReactNode => (
                 <Selected
@@ -142,9 +140,9 @@ function InputAddressMulti ({
             )}
           </div>
         </div>
-        <div className="ui--InputAddressMulti-column">
+        <div className='ui--InputAddressMulti-column'>
           <label>{availableLabel}</label>
-          <div className="ui--InputAddressMulti-items">
+          <div className='ui--InputAddressMulti-items'>
             {available.map(
               (address) : React.ReactNode => (
                 <Available

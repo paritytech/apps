@@ -11,13 +11,11 @@ import Bare from './Bare';
 import Unknown from './Unknown';
 
 function CallDisplay (props : Props) : React.ReactElement<Props> {
-  const {
-    className = '',
+  const { className = '',
     defaultValue: { value },
     isDisabled,
     label,
-    withLabel
-  } = props;
+    withLabel } = props;
 
   if (!isDisabled) {
     return <Unknown {...props} />;
@@ -28,7 +26,9 @@ function CallDisplay (props : Props) : React.ReactElement<Props> {
 
   return (
     <Bare>
-      <Static className={`${className} full`} label={label} withLabel={withLabel}>
+      <Static className={`${className} full`}
+        label={label}
+        withLabel={withLabel}>
         {section}.{method}
       </Static>
       <Call value={call} />

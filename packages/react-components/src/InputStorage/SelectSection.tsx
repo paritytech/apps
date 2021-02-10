@@ -18,16 +18,12 @@ interface Props extends BareProps {
   value : QueryableStorageEntry<'promise'>;
 }
 
-function SelectSection ({
-  className = '',
+function SelectSection ({ className = '',
   defaultValue,
   isError,
   onChange,
   options,
-  value: {
-    creator: { section }
-  }
-} : Props) : React.ReactElement<Props> {
+  value: { creator: { section } } } : Props) : React.ReactElement<Props> {
   return (
     <Dropdown
       className={classes('ui--DropdownLinked-Sections', className)}

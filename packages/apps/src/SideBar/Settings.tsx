@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useApi } from '@canvas-ui/react-api';
 import { Dropdown, Icon, Tooltip } from '@canvas-ui/react-components';
 import { ELEV_4_CSS } from '@canvas-ui/react-components/styles/constants';
 import { BareProps as Props } from '@canvas-ui/react-components/types';
 import { useEndpoints, useSettings } from '@canvas-ui/react-hooks';
-import { useApi } from '@canvas-ui/react-api';
 import { classes, useEndpointOptions } from '@canvas-ui/react-util';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
@@ -13,7 +13,7 @@ import styled from 'styled-components';
 
 import { useTranslation } from '../translate';
 
-function Settings({ className }: Props): React.ReactElement<Props> {
+function Settings ({ className }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { isApiConnected } = useApi();
   const { onChangeKey } = useSettings(true);
@@ -31,10 +31,15 @@ function Settings({ className }: Props): React.ReactElement<Props> {
         options={endpointOptions}
         withLabel={false}
       />
-      <NavLink className="settings-link" data-for="settings-link" data-tip to="/settings">
-        <Icon icon="cog" />
+      <NavLink className='settings-link'
+        data-for='settings-link'
+        data-tip
+        to='/settings'>
+        <Icon icon='cog' />
       </NavLink>
-      <Tooltip place="top" text={t<string>('Settings')} trigger="settings-link" />
+      <Tooltip place='top'
+        text={t<string>('Settings')}
+        trigger='settings-link' />
     </div>
   );
 }

@@ -62,8 +62,7 @@ function reformat (value : string | BN, isDisabled ?: boolean) : string {
   );
 }
 
-function InputBalance ({
-  autoFocus,
+function InputBalance ({ autoFocus,
   className = '',
   defaultValue: inDefault,
   help,
@@ -81,8 +80,7 @@ function InputBalance ({
   value,
   withEllipsis,
   withLabel,
-  withMax
-} : Props) : React.ReactElement<Props> {
+  withMax } : Props) : React.ReactElement<Props> {
   const [defaultValue, setDefaultValue] = useState<string | undefined>();
 
   useEffect(() : void => {

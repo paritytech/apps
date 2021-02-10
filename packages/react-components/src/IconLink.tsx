@@ -16,17 +16,19 @@ interface Props extends BareProps {
   onClick : () => void;
 }
 
-function IconLink ({
-  className = '',
+function IconLink ({ className = '',
   href,
   icon,
   label,
   onClick,
   rel,
-  target
-} : Props) : React.ReactElement<Props> {
+  target } : Props) : React.ReactElement<Props> {
   return (
-    <a className={className} href={href} onClick={onClick} rel={rel} target={target}>
+    <a className={className}
+      href={href}
+      onClick={onClick}
+      rel={rel}
+      target={target}>
       {icon && <Icon className={icon} />}
       {label}
     </a>

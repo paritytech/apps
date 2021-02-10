@@ -28,7 +28,9 @@ function EventDisplay ({ children, className = '', value } : Props) : React.Reac
   return (
     <div className={classes('ui--Event', className)}>
       {children}
-      <Params isDisabled params={params} values={values} />
+      <Params isDisabled
+        params={params}
+        values={values} />
     </div>
   );
 }

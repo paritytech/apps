@@ -1,8 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { InputNumber, Modal, Output } from '@canvas-ui/react-components';
 import { useApi } from '@canvas-ui/react-api';
+import { InputNumber, Modal, Output } from '@canvas-ui/react-components';
 import BN from 'bn.js';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -18,7 +18,7 @@ interface Props {
   signedTx: string | null;
 }
 
-function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<Props> {
+function SignFields ({ address, onChange, signedTx }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [blocks, setBlocks] = useState(new BN(64));
   const [nonce, setNonce] = useState(BN_ZERO);

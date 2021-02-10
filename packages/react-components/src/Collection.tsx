@@ -42,8 +42,8 @@ export const collectionStyles = `
 export default class Collection<
   P extends CollectionProps,
   S extends CollectionState
-  > extends React.PureComponent<P, S> {
-  constructor(props : P) {
+> extends React.PureComponent<P, S> {
+  constructor (props : P) {
     super(props);
 
     this.state = {
@@ -82,9 +82,9 @@ export default class Collection<
     }
 
     return (
-      <div className="ui--Collection-header">
+      <div className='ui--Collection-header'>
         <h1>{headerText}</h1>
-        {buttons && <div className="ui--Collection-buttons">{buttons}</div>}
+        {buttons && <div className='ui--Collection-buttons'>{buttons}</div>}
       </div>
     );
   }
@@ -98,7 +98,7 @@ export default class Collection<
 
     return (
       <article>
-        <div className="ui--Collection-lowercase">{emptyText}</div>
+        <div className='ui--Collection-lowercase'>{emptyText}</div>
       </article>
     );
   }

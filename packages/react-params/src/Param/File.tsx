@@ -17,15 +17,13 @@ interface Props {
   withLabel ?: boolean;
 }
 
-function File ({
-  className = '',
+function File ({ className = '',
   isDisabled,
   isError = false,
   label,
   onChange,
   placeholder,
-  withLabel
-} : Props) : React.ReactElement<Props> {
+  withLabel } : Props) : React.ReactElement<Props> {
   return (
     <Bare className={className}>
       <InputFile

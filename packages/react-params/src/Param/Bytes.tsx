@@ -12,8 +12,7 @@ import { Props } from '../types';
 import BaseBytes from './BaseBytes';
 import File from './File';
 
-function Bytes ({
-  className = '',
+function Bytes ({ className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -23,8 +22,7 @@ function Bytes ({
   onEnter,
   onEscape,
   type,
-  withLabel
-} : Props) : React.ReactElement<Props> {
+  withLabel } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isValid, setIsValid] = useState(false);
   const [isFileDrop, setFileInput] = useState(false);
@@ -46,15 +44,17 @@ function Bytes ({
 
   return (
     <div className={className}>
-      {!isDisabled && isFileDrop ? (
-        <File
-          isDisabled={isDisabled}
-          isError={isError || !isValid}
-          label={label}
-          onChange={_onChangeFile}
-          withLabel={withLabel}
-        />
-      ) : (
+      {!isDisabled && isFileDrop
+        ? (
+          <File
+            isDisabled={isDisabled}
+            isError={isError || !isValid}
+            label={label}
+            onChange={_onChangeFile}
+            withLabel={withLabel}
+          />
+        )
+        : (
           <BaseBytes
             defaultValue={defaultValue}
             isDisabled={isDisabled}

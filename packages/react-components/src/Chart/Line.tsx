@@ -31,10 +31,8 @@ interface Config {
 //  but we have to jiggle around here to get it to actually compile :(
 // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-call
 (Chart as any).Chart.pluginService.register({
-  beforeDraw: ({
-    chart: { ctx },
-    chartArea
-  } : {
+  beforeDraw: ({ chart: { ctx },
+    chartArea } : {
     chart : {
       ctx : {
         fillStyle : string;
@@ -110,13 +108,11 @@ function calculateOptions (
   };
 }
 
-function LineChart ({
-  className = '',
+function LineChart ({ className = '',
   colors,
   labels,
   legends,
-  values
-} : LineProps) : React.ReactElement<LineProps> | null {
+  values } : LineProps) : React.ReactElement<LineProps> | null {
   const [{ chartData, chartOptions }, setState] = useState<State>({});
 
   useEffect(() : void => {
@@ -129,7 +125,8 @@ function LineChart ({
 
   return (
     <div className={className}>
-      <Chart.Line data={chartData} options={chartOptions} />
+      <Chart.Line data={chartData}
+        options={chartOptions} />
     </div>
   );
 }

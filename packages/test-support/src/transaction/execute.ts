@@ -14,10 +14,8 @@ export async function execute (
 ) : Promise<void> {
   let currentTxDone = false;
 
-  function sendStatusCb ({
-    events = [],
-    status
-  } : {
+  function sendStatusCb ({ events = [],
+    status } : {
     events ?: EventRecord[];
     status : ExtrinsicStatus;
   }) {

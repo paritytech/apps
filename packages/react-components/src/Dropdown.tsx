@@ -4,9 +4,7 @@
 import { classes } from '@canvas-ui/react-util';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import SUIButton from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import SUIDropdown, {
-  DropdownProps
-} from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
+import SUIDropdown, { DropdownProps } from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
 import styled from 'styled-components';
 
 import { isUndefined } from '@polkadot/util';
@@ -45,8 +43,7 @@ export type IDropdown<Option> = React.ComponentType<Props<Option>> & {
   Header : React.ComponentType<{ content : React.ReactNode }>;
 };
 
-function BaseDropdown<Option> ({
-  allowAdd = false,
+function BaseDropdown<Option> ({ allowAdd = false,
   children,
   className = '',
   defaultValue,
@@ -71,8 +68,7 @@ function BaseDropdown<Option> ({
   transform,
   value,
   withEllipsis,
-  withLabel
-} : Props<Option>) : React.ReactElement<Props<Option>> {
+  withLabel } : Props<Option>) : React.ReactElement<Props<Option>> {
   const lastUpdate = useRef<string>('');
   const [stored, setStored] = useState<string | undefined>();
 
@@ -130,9 +126,11 @@ function BaseDropdown<Option> ({
     />
   );
 
-  return isButton ? (
-    <SUIButton.Group primary>{dropdown}</SUIButton.Group>
-  ) : (
+  return isButton
+    ? (
+      <SUIButton.Group primary>{dropdown}</SUIButton.Group>
+    )
+    : (
       <Labelled
         className={classes('ui--Dropdown', className)}
         help={help}

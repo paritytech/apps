@@ -49,16 +49,18 @@ class ErrorBoundary extends React.Component<Props> {
     const { error } = this.state;
     const displayError = errorProps || error;
 
-    return displayError ? (
-      <article className="error extraMargin">
-        {t<string>(
-          'Uncaught error. Something went wrong with the query and rendering of this component. {{message}}',
-          {
-            replace: { message: displayError.message }
-          }
-        )}
-      </article>
-    ) : (
+    return displayError
+      ? (
+        <article className='error extraMargin'>
+          {t<string>(
+            'Uncaught error. Something went wrong with the query and rendering of this component. {{message}}',
+            {
+              replace: { message: displayError.message }
+            }
+          )}
+        </article>
+      )
+      : (
         children
       );
   }

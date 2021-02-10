@@ -3,11 +3,11 @@
 
 import Api, { api } from './Api';
 import ApiContext from './ApiContext';
+import getContractAbi from './getContractAbi';
 import { withApi, withCallDiv, withCalls, withMulti, withObservable } from './hoc';
 import { clearLedger, getLedger, isLedger, isLedgerCapable } from './ledger';
 import registry from './typeRegistry';
 import { default as useApi } from './useApi';
-import getContractAbi from './getContractAbi';
 
 export {
   api,

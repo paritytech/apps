@@ -31,20 +31,24 @@ function SideBar ({ className = '', handleResize, isCollapsed } : Props) : React
       className={`apps--SideBar-Wrapper ${className} ${isCollapsed ? 'collapsed' : 'expanded'}`}
       onUpdate={handleResize}
     >
-      <div className="apps--SideBar">
-        <Menu secondary vertical>
-          <div className="apps--SideBar-Scroll">
+      <div className='apps--SideBar'>
+        <Menu secondary
+          vertical>
+          <div className='apps--SideBar-Scroll'>
             {routing.map(
               (route, index) : React.ReactNode =>
-                route ? (
-                  <Item
-                    isCollapsed={isCollapsed}
-                    key={route.name}
-                    onClick={handleResize}
-                    route={route}
-                  />
-                ) : (
-                    <Menu.Divider hidden key={index} />
+                route
+                  ? (
+                    <Item
+                      isCollapsed={isCollapsed}
+                      key={route.name}
+                      onClick={handleResize}
+                      route={route}
+                    />
+                  )
+                  : (
+                    <Menu.Divider hidden
+                      key={index} />
                   )
             )}
           </div>

@@ -52,8 +52,7 @@ function parseFile (raw : Uint8Array) : Parsed {
   };
 }
 
-function KeyValueArray ({
-  className = '',
+function KeyValueArray ({ className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -61,8 +60,7 @@ function KeyValueArray ({
   onChange,
   onEnter,
   onEscape,
-  withLabel
-} : Props) : React.ReactElement<Props> {
+  withLabel } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [placeholder, setPlaceholder] = useState<string>(t(EMPTY_PLACEHOLDER));
 
@@ -96,10 +94,11 @@ function KeyValueArray ({
 
     return (
       <>
-        <Base className={className} label={label}>
+        <Base className={className}
+          label={label}>
           <div />
         </Base>
-        <div className="ui--Params">
+        <div className='ui--Params'>
           {pairs.map(
             ([key, value]) : React.ReactNode => {
               const keyHex = u8aToHex(key.toU8a(true));

@@ -11,8 +11,7 @@ import { Props as CProps, Props } from '../types';
 import findComponent from './findComponent';
 import Static from './Static';
 
-function Param ({
-  className = '',
+function Param ({ className = '',
   defaultValue,
   isDisabled,
   isInOption,
@@ -22,8 +21,7 @@ function Param ({
   onEnter,
   onEscape,
   overrides,
-  type
-} : Props) : React.ReactElement<Props> | null {
+  type } : Props) : React.ReactElement<Props> | null {
   const compRef = useRef<React.ComponentType<CProps> | null>(findComponent(type, overrides));
 
   const label = useMemo(
@@ -35,9 +33,13 @@ function Param ({
     return null;
   }
 
-  return isOptional ? (
-    <Static defaultValue={defaultValue} label={label} type={type} />
-  ) : (
+  return isOptional
+    ? (
+      <Static defaultValue={defaultValue}
+        label={label}
+        type={type} />
+    )
+    : (
       <compRef.current
         className={classes('ui--Param', className)}
         defaultValue={defaultValue}

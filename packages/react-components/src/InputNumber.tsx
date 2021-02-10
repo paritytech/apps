@@ -156,8 +156,7 @@ function getValues (
     : getValuesFromString(value, si, bitLength, isZeroable, maxValue);
 }
 
-function InputNumber ({
-  autoFocus,
+function InputNumber ({ autoFocus,
   bitLength = DEFAULT_BITLENGTH,
   children,
   className,
@@ -177,8 +176,7 @@ function InputNumber ({
   onEnter,
   onEscape,
   placeholder,
-  value: propsValue
-} : Props) : React.ReactElement<Props> {
+  value: propsValue } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [si, setSi] = useState<SiDef | null>(isSi ? formatBalance.findSi('-') : null);
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
@@ -273,12 +271,12 @@ function InputNumber ({
       onKeyUp={_onKeyUp}
       onPaste={_onPaste}
       placeholder={placeholder || t<string>('Positive number')}
-      type="text"
+      type='text'
       value={value}
     >
       {!!si && (
         <Dropdown
-          className="siDropdown"
+          className='siDropdown'
           defaultValue={si.value}
           isButton
           onChange={_onSelectSiUnit}

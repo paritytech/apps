@@ -30,8 +30,7 @@ interface Props extends BareProps {
   withLabel ?: boolean;
 }
 
-function Output ({
-  children,
+function Output ({ children,
   className = '',
   help,
   isError,
@@ -43,8 +42,7 @@ function Output ({
   type,
   value,
   withCopy = false,
-  withLabel
-} : Props) : React.ReactElement<Props> {
+  withLabel } : Props) : React.ReactElement<Props> {
   return (
     <Labelled
       className={className}
@@ -55,13 +53,21 @@ function Output ({
       withLabel={withLabel}
     >
       <div className={classes('ui--output', isError && 'error', 'monospace')}>
-        <Data isTrimmed={isTrimmed} registry={registry} type={type} value={value?.toJSON()} />
+        <Data isTrimmed={isTrimmed}
+          registry={registry}
+          type={type}
+          value={value?.toJSON()} />
         {children}
-        {withCopy ? (
-          <CopyButton className="copy-output" value={value?.toString() || ''} withButton={false}>
-            <Icon className="copy-output" icon="copy" />
-          </CopyButton>
-        ) : null}
+        {withCopy
+          ? (
+            <CopyButton className='copy-output'
+              value={value?.toString() || ''}
+              withButton={false}>
+              <Icon className='copy-output'
+                icon='copy' />
+            </CopyButton>
+          )
+          : null}
       </div>
     </Labelled>
   );

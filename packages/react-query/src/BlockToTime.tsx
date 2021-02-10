@@ -12,12 +12,10 @@ interface Props extends BareProps {
   label ?: React.ReactNode;
 }
 
-function BlockToTime ({
-  blocks,
+function BlockToTime ({ blocks,
   children,
   className = '',
-  label
-} : Props) : React.ReactElement<Props> | null {
+  label } : Props) : React.ReactElement<Props> | null {
   const [, text] = useBlockTime(blocks);
 
   if (blocks?.ltn(0)) {

@@ -9,7 +9,7 @@ export class MemoryStore implements KeyringStore {
   private accounts : AccountsMap = {};
 
   all (cb : (key : string, value : KeyringJson) => void) : void {
-    Object.keys(this.accounts).forEach(accountsKey => cb(accountsKey, this.accounts[accountsKey]));
+    Object.keys(this.accounts).forEach((accountsKey) => cb(accountsKey, this.accounts[accountsKey]));
   }
 
   get (key : string, cb : (value : KeyringJson) => void) : void {

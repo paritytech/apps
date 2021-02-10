@@ -1,6 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useApi } from '@canvas-ui/react-api';
 import { StringOrNull } from '@canvas-ui/react-api/types';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -11,7 +12,6 @@ import { KeyringJson$Meta } from '@polkadot/ui-keyring/types';
 import { AddressFlags, AddressIdentity, UseAccountInfo } from './types';
 import useAccounts from './useAccounts';
 import useAddresses from './useAddresses';
-import { useApi } from '@canvas-ui/react-api';
 import useCall from './useCall';
 import useToggle from './useToggle';
 
@@ -32,7 +32,7 @@ const IS_NONE = {
   isTechCommittee: false
 };
 
-export default function useAccountInfo(value: string | null, isContract = false): UseAccountInfo {
+export default function useAccountInfo (value: string | null, isContract = false): UseAccountInfo {
   const { api } = useApi();
   const { isAccount } = useAccounts();
   const { isAddress } = useAddresses();
@@ -50,7 +50,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
 
   useEffect((): void => {
     accountFlags &&
-      setFlags(flags => ({
+      setFlags((flags) => ({
         ...flags,
         ...accountFlags
       }));

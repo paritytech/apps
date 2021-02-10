@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useApi } from '@canvas-ui/react-api';
 import { BareProps } from '@canvas-ui/react-api/types';
 import { useCall } from '@canvas-ui/react-hooks';
-import { useApi } from '@canvas-ui/react-api';
 import BN from 'bn.js';
 import React, { useEffect, useState } from 'react';
 
@@ -16,7 +16,7 @@ interface Props extends BareProps {
   label?: React.ReactNode;
 }
 
-function TimeNow({ children, className = '', label }: Props): React.ReactElement<Props> {
+function TimeNow ({ children, className = '', label }: Props): React.ReactElement<Props> {
   const { api, isSubstrateV2 } = useApi();
   const timestamp = useCall<Moment>(api.query.timestamp.now, []);
   const [now, setNow] = useState<BN | undefined>();

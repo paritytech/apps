@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useAbi } from '@canvas-ui/page-contracts';
+import { useApi } from '@canvas-ui/react-api';
 import { Button, Input, InputABI, InputName } from '@canvas-ui/react-components';
 import { useCall, useFile, useNonEmptyString, useNotification } from '@canvas-ui/react-hooks';
-import { useApi } from '@canvas-ui/react-api';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
@@ -15,22 +15,20 @@ import keyring from '@polkadot/ui-keyring';
 import { useTranslation } from './translate';
 import { ComponentProps as Props } from './types';
 
-function Add({ className, isContract, navigateTo }: Props): React.ReactElement<Props> {
+function Add ({ className, isContract, navigateTo }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const showNotification = useNotification();
   const [address, setAddress, , , isAddressTouched] = useNonEmptyString();
   const contractInfo = useCall<Option<ContractInfo>>(api.query.contracts.contractInfoOf, [address]);
   const [name, setName, isNameValid, isNameError] = useNonEmptyString('New Contract');
-  const {
-    abi,
+  const { abi,
     errorText,
     isAbiError,
     isAbiSupplied,
     isAbiValid,
     onChangeAbi,
-    onRemoveAbi
-  } = useAbi();
+    onRemoveAbi } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
   const [isAddress, setIsAddress] = useState(false);
   const [isStored, setIsStored] = useState(false);
@@ -118,7 +116,7 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
     <div className={className}>
       <header>
         <h1>{t<string>('Add Existing Contract')}</h1>
-        <div className="instructions">
+        <div className='instructions'>
           {t<string>(
             'Using the existing contract address of a deployed contract instance you can add a contract to call to the UI.'
           )}
@@ -134,7 +132,10 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
           value={address || ''}
           withStatus
         />
-        <InputName isContract isError={isNameError} onChange={setName} value={name || undefined} />
+        <InputName isContract
+          isError={isNameError}
+          onChange={setName}
+          value={name || undefined} />
         <InputABI
           abi={abi}
           errorText={errorText}
@@ -148,8 +149,12 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
           withLabel
         />
         <Button.Group>
-          <Button isDisabled={!isValid} isPrimary label={t<string>('Save')} onClick={_onAdd} />
-          <Button label={t<string>('Cancel')} onClick={navigateTo.execute} />
+          <Button isDisabled={!isValid}
+            isPrimary
+            label={t<string>('Save')}
+            onClick={_onAdd} />
+          <Button label={t<string>('Cancel')}
+            onClick={navigateTo.execute} />
         </Button.Group>
       </section>
     </div>

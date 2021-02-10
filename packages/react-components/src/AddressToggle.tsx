@@ -1,8 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCall } from '@canvas-ui/react-hooks';
 import { useApi } from '@canvas-ui/react-api';
+import { useCall } from '@canvas-ui/react-hooks';
 import { getAddressName } from '@canvas-ui/react-util';
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -23,7 +23,7 @@ interface Props {
   value?: boolean;
 }
 
-function getIsFiltered(address: string, filter?: string, info?: DeriveAccountInfo): boolean {
+function getIsFiltered (address: string, filter?: string, info?: DeriveAccountInfo): boolean {
   if (!filter || address.includes(filter)) {
     return false;
   }
@@ -51,16 +51,14 @@ function getIsFiltered(address: string, filter?: string, info?: DeriveAccountInf
   return true;
 }
 
-function AddressToggle({
-  address,
+function AddressToggle ({ address,
   className = '',
   filter,
   isHidden,
   noLookup,
   noToggle,
   onChange,
-  value
-}: Props): React.ReactElement<Props> | null {
+  value }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [address]);
   const [isFiltered, setIsFiltered] = useState(false);
@@ -79,14 +77,15 @@ function AddressToggle({
       onClick={_onClick}
     >
       <AddressMini
-        className="ui--AddressToggle-address"
+        className='ui--AddressToggle-address'
         noLookup={noLookup}
         value={address}
         withSidebar={false}
       />
       {!noToggle && (
-        <div className="ui--AddressToggle-toggle">
-          <Toggle label="" value={value} />
+        <div className='ui--AddressToggle-toggle'>
+          <Toggle label=''
+            value={value} />
         </div>
       )}
     </div>

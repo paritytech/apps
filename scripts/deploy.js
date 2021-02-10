@@ -11,7 +11,7 @@ const options = {
 
 console.log(options);
 
-ghpages.publish('packages/apps/build', options, error => {
+ghpages.publish('packages/apps/build', options, (error) => {
   if (error) {
     process.stderr.write(`${error.message}\n`, () => process.exit(1));
   } else {

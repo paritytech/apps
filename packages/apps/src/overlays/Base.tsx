@@ -15,12 +15,10 @@ interface Props {
   type : 'error' | 'info';
 }
 
-function BaseOverlay ({
-  children,
+function BaseOverlay ({ children,
   className = '',
   icon,
-  type
-} : Props) : React.ReactElement<Props> | null {
+  type } : Props) : React.ReactElement<Props> | null {
   const [isHidden, toggleHidden] = useToggle();
 
   if (isHidden) {
@@ -29,10 +27,12 @@ function BaseOverlay ({
 
   return (
     <div className={`${className} ${type === 'error' ? 'isError' : 'isInfo'}`}>
-      <div className="content">
+      <div className='content'>
         <Icon icon={icon} />
-        <div className="contentItem">{children}</div>
-        <Icon className="closeIcon" icon="close" onClick={toggleHidden} />
+        <div className='contentItem'>{children}</div>
+        <Icon className='closeIcon'
+          icon='close'
+          onClick={toggleHidden} />
       </div>
     </div>
   );

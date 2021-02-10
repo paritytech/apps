@@ -53,8 +53,7 @@ function onAddTag (value : string) : void {
   saveTags(tags);
 }
 
-function InputTags ({
-  allowAdd = true,
+function InputTags ({ allowAdd = true,
   className = '',
   defaultValue,
   help,
@@ -67,8 +66,7 @@ function InputTags ({
   placeholder,
   searchInput,
   value,
-  withLabel
-} : Props) : React.ReactElement<Props> {
+  withLabel } : Props) : React.ReactElement<Props> {
   return (
     <Dropdown
       allowAdd={allowAdd && !isDisabled}

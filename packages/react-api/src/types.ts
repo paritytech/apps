@@ -53,12 +53,12 @@ export interface CallState {
 export type CallProps = ApiProps & CallState;
 
 export type BaseProps<T> = BareProps &
-  CallProps &
-  ChangeProps & {
-    children?: React.ReactNode;
-    label?: string;
-    render?: (value?: T) => React.ReactNode;
-  };
+CallProps &
+ChangeProps & {
+  children?: React.ReactNode;
+  label?: string;
+  render?: (value?: T) => React.ReactNode;
+};
 
 export type Formatter = (value?: any) => string;
 

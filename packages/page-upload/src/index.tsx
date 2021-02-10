@@ -19,7 +19,7 @@ function UploadApp ({ basePath, navigateTo } : Props) : React.ReactElement<Props
   );
 
   return (
-    <main className="upload--App">
+    <main className='upload--App'>
       <Switch>
         <Route path={`${basePath}/add`}>
           <Add {...componentProps} />

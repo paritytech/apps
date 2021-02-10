@@ -7,7 +7,7 @@ const typescript = require('typescript');
 
 const findPackages = require('./scripts/findPackages');
 
-function transform(file, enc, done) {
+function transform (file, enc, done) {
   const { ext } = path.parse(file.path);
 
   if (ext === '.tsx') {

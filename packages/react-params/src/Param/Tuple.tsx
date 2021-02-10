@@ -29,9 +29,13 @@ function Tuple (props : Props) : React.ReactElement<Props> {
   }
 
   return (
-    <div className="ui--Params-Tuple">
-      <Base className={className} label={label} withLabel={withLabel} />
-      <Params onChange={_onChangeParams} overrides={overrides} params={params} />
+    <div className='ui--Params-Tuple'>
+      <Base className={className}
+        label={label}
+        withLabel={withLabel} />
+      <Params onChange={_onChangeParams}
+        overrides={overrides}
+        params={params} />
     </div>
   );
 }

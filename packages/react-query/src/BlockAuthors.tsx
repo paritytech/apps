@@ -1,14 +1,15 @@
 // Copyright 2017-2020 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import ResetStorageModal from './ResetStorageModal';
-import { useCall } from '@canvas-ui/react-hooks';
 import { useApi } from '@canvas-ui/react-api';
+import { useCall } from '@canvas-ui/react-hooks';
 import React, { useEffect, useState } from 'react';
 
 import { HeaderExtended } from '@polkadot/api-derive';
 import { EraRewardPoints } from '@polkadot/types/interfaces';
 import { formatNumber } from '@polkadot/util';
+
+import ResetStorageModal from './ResetStorageModal';
 
 export interface Authors {
   byAuthor: Record<string, string>;
@@ -35,7 +36,7 @@ const BlockAuthorsContext: React.Context<Authors> = React.createContext<Authors>
 });
 const ValidatorsContext: React.Context<string[]> = React.createContext<string[]>([]);
 
-function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
+function BlockAuthorsBase ({ children }: Props): React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const queryPoints = useCall<EraRewardPoints>(isApiReady && api.derive.staking?.currentPoints, []);
   const [state, setState] = useState<Authors>({
@@ -59,7 +60,7 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
         api.query.session &&
           api.query.session
             .validators((validatorIds): void => {
-              setValidators(validatorIds.map(validatorId => validatorId.toString()));
+              setValidators(validatorIds.map((validatorId) => validatorId.toString()));
             })
             .catch(console.error);
 

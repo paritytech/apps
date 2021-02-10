@@ -23,15 +23,13 @@ function CodeUploadABI ({ codeHash, label, onSave } : Props) : React.ReactElemen
   const { t } = useTranslation();
   const showNotification = useNotification();
   const [isOpen, toggleIsOpen] = useToggle();
-  const {
-    abi,
+  const { abi,
     errorText,
     isAbiError,
     isAbiSupplied,
     isAbiValid,
     onChangeAbi,
-    onRemoveAbi
-  } = useAbi();
+    onRemoveAbi } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
 
   const _onSave = useCallback(() : void => {
@@ -49,8 +47,10 @@ function CodeUploadABI ({ codeHash, label, onSave } : Props) : React.ReactElemen
 
   return (
     <>
-      <Button label={label} onClick={toggleIsOpen} />
-      <Modal isOpen={isOpen} onClose={toggleIsOpen}>
+      <Button label={label}
+        onClick={toggleIsOpen} />
+      <Modal isOpen={isOpen}
+        onClose={toggleIsOpen}>
         <Modal.Header>{t<string>('Upload ABI')}</Modal.Header>
         <Modal.Content>
           <InputABI

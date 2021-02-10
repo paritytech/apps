@@ -16,11 +16,9 @@ interface Options {
   labels : string[];
 }
 
-function ChartDoughnut ({
-  className = '',
+function ChartDoughnut ({ className = '',
   size = 100,
-  values
-} : DoughnutProps) : React.ReactElement<DoughnutProps> {
+  values } : DoughnutProps) : React.ReactElement<DoughnutProps> {
   const options : Options = {
     colorHover: [],
     colorNormal: [],

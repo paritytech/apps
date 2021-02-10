@@ -1,11 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useCall } from '@canvas-ui/react-hooks';
 import { useApi } from '@canvas-ui/react-api';
+import { useCall } from '@canvas-ui/react-hooks';
 import React, { useEffect, useState } from 'react';
 
-function WarmUp(): React.ReactElement {
+function WarmUp (): React.ReactElement {
   const { api, isApiReady } = useApi();
   const indexes = useCall<unknown>(isApiReady && api.derive.accounts?.indexes, []);
   const registrars = useCall<unknown>(isApiReady && api.query.identity?.registrars, []);

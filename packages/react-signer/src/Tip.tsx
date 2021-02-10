@@ -27,7 +27,7 @@ function Tip ({ className, onChange } : Props) : React.ReactElement<Props> | nul
     <Modal.Columns className={className}>
       <Modal.Column>
         <Toggle
-          className="tipToggle"
+          className='tipToggle'
           label={
             showTip
               ? t<string>('Include an optional tip for faster processing')

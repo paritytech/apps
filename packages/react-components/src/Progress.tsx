@@ -21,13 +21,11 @@ interface Props extends BareProps {
   value ?: UInt | BN | number;
 }
 
-function Progress ({
-  className = '',
+function Progress ({ className = '',
   color = 'blue',
   percent,
   total,
-  value
-} : Props) : React.ReactElement<Props> | null {
+  value } : Props) : React.ReactElement<Props> | null {
   const _total = bnToBn(total);
   const _value = bnToBn(value);
   const calculated = _total.gtn(0)
@@ -58,7 +56,7 @@ function Progress ({
       className={classes('ui--Progress', className)}
       color={rainbow}
       percent={calculated}
-      size="tiny"
+      size='tiny'
     />
   );
 }

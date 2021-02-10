@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { store, useAbi } from '@canvas-ui/page-contracts';
+import { VoidFn } from '@canvas-ui/react-api/types';
 import { useToggle } from '@canvas-ui/react-hooks';
 import { FileState } from '@canvas-ui/react-hooks/types';
-import { VoidFn } from '@canvas-ui/react-api/types';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
@@ -23,13 +23,11 @@ interface Props extends ComponentProps {
   onForget?: VoidFn;
 }
 
-function CodeCard({
-  className,
+function CodeCard ({ className,
   code,
   code: { id },
   navigateTo,
-  onForget: _onForget
-}: Props): React.ReactElement<Props> {
+  onForget: _onForget }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [, , setIsAbiOpen] = useToggle();
   const { abi, isAbiSupplied, onChangeAbi } = useAbi(code);
@@ -54,10 +52,12 @@ function CodeCard({
 
   return (
     <Card className={className}>
-      <CodeInfo code={code} isEditable>
-        {isAbiSupplied && abi && <Abi abi={abi} withConstructors />}
+      <CodeInfo code={code}
+        isEditable>
+        {isAbiSupplied && abi && <Abi abi={abi}
+          withConstructors />}
       </CodeInfo>
-      <div className="footer">
+      <div className='footer'>
         <Button.Group>
           {abi?.project.source.wasm && abi.project.source.wasm.length === 0 && (
             <CodeUploadABI
@@ -66,7 +66,8 @@ function CodeCard({
               onSave={onSaveABI}
             />
           )}
-          <CodeForget code={code} onForget={onForget} />
+          <CodeForget code={code}
+            onForget={onForget} />
           <Button
             isDisabled={!isAbiSupplied}
             isPrimary

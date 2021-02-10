@@ -21,18 +21,16 @@ interface Props extends BareProps {
 const CMD_HASH = 1;
 const CMD_MORTAL = 2;
 
-function Qr ({
-  address,
+function Qr ({ address,
   className,
   genesisHash,
   isHashed,
   onSignature,
-  payload
-} : Props) : React.ReactElement<Props> {
+  payload } : Props) : React.ReactElement<Props> {
   return (
     <Columar className={className}>
       <Columar.Column>
-        <div className="qrDisplay">
+        <div className='qrDisplay'>
           <QrDisplayPayload
             address={address}
             cmd={isHashed ? CMD_HASH : CMD_MORTAL}
@@ -42,7 +40,7 @@ function Qr ({
         </div>
       </Columar.Column>
       <Columar.Column>
-        <div className="qrDisplay">
+        <div className='qrDisplay'>
           <QrScanSignature onScan={onSignature} />
         </div>
       </Columar.Column>

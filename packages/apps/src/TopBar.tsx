@@ -17,12 +17,12 @@ function TopBar ({ className } : Props) : React.ReactElement<Props> {
       <div>
         <NodeName />
         &nbsp;
-        <NodeVersion label="v" />
+        <NodeVersion label='v' />
       </div>
       <div>
         <Chain />
         &nbsp;
-        <BestNumber label="#" />
+        <BestNumber label='#' />
       </div>
     </div>
   );

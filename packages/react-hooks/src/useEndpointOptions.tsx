@@ -3,13 +3,13 @@
 
 import { createEndpoints } from '@canvas-ui/apps-config/settings';
 import { useApi } from '@canvas-ui/react-api';
-import { UseEndpoints } from './types';
+import classes from '@canvas-ui/react-util/classes';
 import { TFunction } from 'i18next';
 import React, { useMemo } from 'react';
 
-import classes from '@canvas-ui/react-util/classes';
+import { UseEndpoints } from './types';
 
-export default function useEndpointOptions(
+export default function useEndpointOptions (
   { isCustom, url }: UseEndpoints,
   t: TFunction,
   useShortText?: boolean
@@ -26,12 +26,12 @@ export default function useEndpointOptions(
       })),
       ...(isCustom
         ? [
-            {
-              key: url,
-              text: <div className={className}>{t<string>('Custom Node')}</div>,
-              value: url
-            }
-          ]
+          {
+            key: url,
+            text: <div className={className}>{t<string>('Custom Node')}</div>,
+            value: url
+          }
+        ]
         : [])
     ],
     [className, isCustom, t, url, useShortText]

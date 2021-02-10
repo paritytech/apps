@@ -1,13 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useApi } from '@canvas-ui/react-api';
 import { useEffect, useState } from 'react';
 
 import { Option } from '@polkadot/types';
 import { RegistrarInfo } from '@polkadot/types/interfaces';
 
 import useAccounts from './useAccounts';
-import { useApi } from '@canvas-ui/react-api';
 import useCall from './useCall';
 
 interface RegistrarNull {
@@ -26,7 +26,7 @@ interface State {
   skipQuery?: boolean;
 }
 
-export default function useRegistrars(skipQuery?: boolean): State {
+export default function useRegistrars (skipQuery?: boolean): State {
   const { api } = useApi();
   const { allAccounts, hasAccounts } = useAccounts();
   const query = useCall<Option<RegistrarInfo>[]>(

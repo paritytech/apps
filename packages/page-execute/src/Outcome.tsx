@@ -16,21 +16,24 @@ interface Props extends BareProps {
   registry : TypeRegistry;
 }
 
-function Outcome ({
-  className,
+function Outcome ({ className,
   onClear,
   outcome: { from, message, output, params, result, when },
-  registry
-} : Props) : React.ReactElement<Props> | null {
+  registry } : Props) : React.ReactElement<Props> | null {
   return (
     <div className={className}>
-      <div className="info">
+      <div className='info'>
         <IdentityIcon value={from} />
-        <MessageSignature message={message} params={params} registry={registry} />
-        <span className="date-time">
+        <MessageSignature message={message}
+          params={params}
+          registry={registry} />
+        <span className='date-time'>
           {when.toLocaleDateString()} {when.toLocaleTimeString()}
         </span>
-        <Button className="icon-button clear-btn" icon="times" isPrimary onClick={onClear} />
+        <Button className='icon-button clear-btn'
+          icon='times'
+          isPrimary
+          onClick={onClear} />
       </div>
       <Output
         isError={!result.isOk}

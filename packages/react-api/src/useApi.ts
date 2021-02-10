@@ -3,9 +3,10 @@
 
 import type { ApiProps } from './types';
 
-import ApiContext from './ApiContext';
 import { useContext } from 'react';
 
-export default function useApi(): ApiProps {
+import ApiContext from './ApiContext';
+
+export default function useApi (): ApiProps {
   return useContext(ApiContext);
 }

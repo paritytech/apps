@@ -8,8 +8,7 @@ import BaseBytes from './BaseBytes';
 import Static from './Static';
 
 function Unknown (props : Props) : React.ReactElement<Props> {
-  const {
-    className = '',
+  const { className = '',
     defaultValue,
     isDisabled,
     isError,
@@ -18,8 +17,7 @@ function Unknown (props : Props) : React.ReactElement<Props> {
     onChange,
     onEnter,
     onEscape,
-    type
-  } = props;
+    type } = props;
 
   if (isDisabled) {
     return <Static {...props} />;

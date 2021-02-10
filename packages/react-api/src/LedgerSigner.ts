@@ -1,16 +1,16 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { getLedger, registry } from '.';
-
 import { Signer, SignerResult } from '@polkadot/api/types';
 import { createType } from '@polkadot/types';
 import { SignerPayloadJSON } from '@polkadot/types/types';
 
+import { getLedger, registry } from '.';
+
 let id = 0;
 
 export class LedgerSigner implements Signer {
-  public async signPayload(payload: SignerPayloadJSON): Promise<SignerResult> {
+  public async signPayload (payload: SignerPayloadJSON): Promise<SignerResult> {
     const raw = createType(registry, 'ExtrinsicPayload', payload, { version: payload.version });
     const { signature } = await getLedger().sign(raw.toU8a(true));
 

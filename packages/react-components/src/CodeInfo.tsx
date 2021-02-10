@@ -21,12 +21,10 @@ interface Props extends BareProps {
   isEditable ?: boolean;
 }
 
-function CodeInfo ({
-  children,
+function CodeInfo ({ children,
   className,
   code: { codeHash, id, name },
-  isEditable
-} : Props) : React.ReactElement<Props> {
+  isEditable } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [newName, setNewName, isNewNameValid, isNewNameError] = useNonEmptyString(name);
   const [isEditingName, toggleIsEditingName] = useToggle();
@@ -47,7 +45,9 @@ function CodeInfo ({
   return (
     <ItemInfo
       className={className}
-      icon={<Icon className="code-icon" icon={faFile} size="2x" />}
+      icon={<Icon className='code-icon'
+        icon={faFile}
+        size='2x' />}
       subtitle={
         <>
           {t<string>('Code hash')}
@@ -56,20 +56,24 @@ function CodeInfo ({
         </>
       }
       title={
-        isEditable && isEditingName ? (
-          <Input
-            autoFocus
-            className="name-editor"
-            isError={isNewNameError}
-            onBlur={onSaveName}
-            onChange={setNewName}
-            onEnter
-            value={newName}
-            withLabel={false}
-          />
-        ) : isEditable ? (
-          <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
-        ) : (
+        isEditable && isEditingName
+          ? (
+            <Input
+              autoFocus
+              className='name-editor'
+              isError={isNewNameError}
+              onBlur={onSaveName}
+              onChange={setNewName}
+              onEnter
+              value={newName}
+              withLabel={false}
+            />
+          )
+          : isEditable
+            ? (
+              <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
+            )
+            : (
               name
             )
       }

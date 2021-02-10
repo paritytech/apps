@@ -7,11 +7,11 @@ const path = require('path');
 const defaults = {};
 const i18nRoot = path.join(__dirname, '../packages/apps/public/locales');
 
-function getEntries(langRoot) {
+function getEntries (langRoot) {
   return fs
     .readdirSync(langRoot)
     .filter(
-      entry =>
+      (entry) =>
         !['.', '..'].includes(entry) &&
         fs.lstatSync(path.join(langRoot, entry)).isFile() &&
         entry.endsWith('.json') &&
@@ -20,19 +20,19 @@ function getEntries(langRoot) {
     .sort();
 }
 
-function checkLanguage(lang) {
+function checkLanguage (lang) {
   console.log(`*** Checking ${lang}`);
 
   const langRoot = path.join(i18nRoot, lang);
   const entries = getEntries(langRoot);
   const roots = Object.keys(defaults);
-  const missing = roots.filter(entry => !entries.includes(entry));
+  const missing = roots.filter((entry) => !entries.includes(entry));
 
   if (missing.length) {
     console.log(`\ttop-level missing ${missing.length}: ${missing.join(', ')}`);
   }
 
-  entries.forEach(entry => {
+  entries.forEach((entry) => {
     const json = require(path.join(langRoot, entry));
     const keys = Object.keys(json);
     const root = defaults[entry];
@@ -43,27 +43,27 @@ function checkLanguage(lang) {
       return;
     }
 
-    const missing = root.filter(key => !keys.includes(key));
-    const extra = keys.filter(key => !root.includes(key));
+    const missing = root.filter((key) => !keys.includes(key));
+    const extra = keys.filter((key) => !root.includes(key));
 
     if (missing.length) {
       console.log(`\t> ${entry} ${missing.length} keys missing`);
 
-      missing.forEach(key => console.log(`\t\t${key}`));
+      missing.forEach((key) => console.log(`\t\t${key}`));
     }
 
     if (extra.length) {
       console.log(`\t> ${entry} ${extra.length} keys extra`);
 
-      extra.forEach(key => console.log(`\t\t${key}`));
+      extra.forEach((key) => console.log(`\t\t${key}`));
     }
   });
 }
 
-function checkLanguages() {
+function checkLanguages () {
   fs.readdirSync(i18nRoot)
     .filter(
-      entry =>
+      (entry) =>
         !['.', '..'].includes(entry) &&
         fs.lstatSync(path.join(i18nRoot, entry)).isDirectory() &&
         entry !== 'en'
@@ -72,10 +72,10 @@ function checkLanguages() {
     .forEach(checkLanguage);
 }
 
-function initDefault() {
+function initDefault () {
   const enRoot = path.join(i18nRoot, 'en');
 
-  getEntries(enRoot).forEach(entry => {
+  getEntries(enRoot).forEach((entry) => {
     const json = require(path.join(enRoot, entry));
     const keys = Object.keys(json);
 

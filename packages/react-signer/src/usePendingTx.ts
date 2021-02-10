@@ -1,11 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { registry } from '@canvas-ui/react-api';
+import { registry, useApi } from '@canvas-ui/react-api';
 import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { QueueTx, QueueTxMessageSetStatus, QueueTxResult } from '@canvas-ui/react-api/Status/types';
 import { useScrollToTop } from '@canvas-ui/react-hooks';
-import { useApi } from '@canvas-ui/react-api';
 import { useContext, useEffect, useMemo, useState } from 'react';
 
 import { ApiPromise } from '@polkadot/api';
@@ -18,15 +17,15 @@ export interface ItemState {
   requestAddress: string | null;
 }
 
-async function submitRpc(
+async function submitRpc (
   api: ApiPromise,
   { method, section }: DefinitionRpcExt,
   values: any[]
 ): Promise<QueueTxResult> {
   try {
     const rpc = api.rpc as Record<
-      string,
-      Record<string, (...params: unknown[]) => Promise<unknown>>
+    string,
+    Record<string, (...params: unknown[]) => Promise<unknown>>
     >;
 
     assert(
@@ -52,7 +51,7 @@ async function submitRpc(
   }
 }
 
-async function sendRpc(
+async function sendRpc (
   api: ApiPromise,
   queueSetTxStatus: QueueTxMessageSetStatus,
   { id, rpc, values = [] }: QueueTx
@@ -67,7 +66,7 @@ async function sendRpc(
   }
 }
 
-function extractCurrent(
+function extractCurrent (
   api: ApiPromise,
   queueSetTxStatus: QueueTxMessageSetStatus,
   txqueue: QueueTx[],
@@ -95,7 +94,7 @@ function extractCurrent(
   };
 }
 
-export default function usePendingTx(signature?: string): ItemState {
+export default function usePendingTx (signature?: string): ItemState {
   const scrollToTop = useScrollToTop();
   const { api } = useApi();
   const { queueSetTxStatus, txqueue } = useContext(StatusContext);

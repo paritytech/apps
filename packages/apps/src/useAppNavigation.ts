@@ -10,7 +10,7 @@ export default function useAppNavigation () : AppNavigation {
 
   const navigator = useCallback(
     (path : string) : (() => void) => {
-      return function() : void {
+      return function () : void {
         history.push(path);
       };
     },

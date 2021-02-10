@@ -5,7 +5,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 
 function NotFound () : React.ReactElement {
-  return <Redirect to="/upload" />;
+  return <Redirect to='/upload' />;
 }
 
 export default React.memo(NotFound);

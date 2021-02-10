@@ -18,13 +18,11 @@ export default function withCallDiv<T> (endpoint : string, options : Options = {
     defaultProps : DefaultProps = {}
   ) : React.ComponentType<any> => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    function Inner ({
-      callResult,
+    function Inner ({ callResult,
       callUpdated,
       children,
       className = defaultProps.className,
-      label = ''
-    } : any) : React.ReactElement<Props<T>> {
+      label = '' } : any) : React.ReactElement<Props<T>> {
       return (
         <div
           {...defaultProps}

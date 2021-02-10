@@ -3,6 +3,7 @@
 
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 
+import { useApi } from '@canvas-ui/react-api';
 import { timeToString } from '@canvas-ui/react-util';
 import BN from 'bn.js';
 import { useMemo } from 'react';
@@ -10,13 +11,12 @@ import { useMemo } from 'react';
 import { BN_ONE, extractTime } from '@polkadot/util';
 
 import { useTranslation } from './translate';
-import { useApi } from '@canvas-ui/react-api';
 
 type Result = [number, string];
 
 const DEFAULT_TIME = new BN(6000);
 
-export default function useBlockTime(blocks = BN_ONE): Result {
+export default function useBlockTime (blocks = BN_ONE): Result {
   const { t } = useTranslation();
   const { api } = useApi();
 

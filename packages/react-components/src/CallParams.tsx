@@ -14,12 +14,10 @@ interface Props {
   onEnter ?: () => void;
 }
 
-function CallParams ({
-  isDisabled,
+function CallParams ({ isDisabled,
   onChange,
   onEnter,
-  params: propParams
-} : Props) : React.ReactElement<Props> | null {
+  params: propParams } : Props) : React.ReactElement<Props> | null {
   const [params, setParams] = useState<AbiParam[]>([]);
 
   useEffect(() : void => {
@@ -36,7 +34,10 @@ function CallParams ({
   }
 
   return (
-    <UIParams isDisabled={isDisabled} onChange={_onChange} onEnter={onEnter} params={params} />
+    <UIParams isDisabled={isDisabled}
+      onChange={_onChange}
+      onEnter={onEnter}
+      params={params} />
   );
 }
 

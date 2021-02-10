@@ -19,7 +19,7 @@ interface Props extends BareProps {
 }
 
 function transform ({ value: { section } } : Props) : (method : string) => DefinitionRpcExt {
-  return function(method : string) : DefinitionRpcExt {
+  return function (method : string) : DefinitionRpcExt {
     return jsonrpc[section][method];
   };
 }

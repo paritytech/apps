@@ -3,11 +3,11 @@
 
 import { getSystemChainColor } from '@canvas-ui/apps-config/ui';
 import { defaultColor } from '@canvas-ui/apps-config/ui/general';
+import { useApi } from '@canvas-ui/react-api';
 import { ScrollToTop } from '@canvas-ui/react-components';
 import { PORTAL_ID } from '@canvas-ui/react-components/InputAddressMulti/SelectedDrag';
 import GlobalStyle from '@canvas-ui/react-components/styles';
 import { BareProps as Props } from '@canvas-ui/react-components/types';
-import { useApi } from '@canvas-ui/react-api';
 import React, { useCallback, useMemo, useState } from 'react';
 import store from 'store';
 import styled from 'styled-components';
@@ -24,11 +24,11 @@ interface SidebarState {
   transition: SideBarTransition;
 }
 
-function saveSidebar(sidebar: SidebarState): SidebarState {
+function saveSidebar (sidebar: SidebarState): SidebarState {
   return store.set('sidebar', sidebar) as SidebarState;
 }
 
-function Apps({ className = '' }: Props): React.ReactElement<Props> {
+function Apps ({ className = '' }: Props): React.ReactElement<Props> {
   const { systemChain, systemName } = useApi();
   const [sidebar, setSidebar] = useState<SidebarState>({
     isCollapsed: false,

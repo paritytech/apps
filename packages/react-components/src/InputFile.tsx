@@ -59,8 +59,7 @@ function convertResult (result : ArrayBuffer) : Uint8Array {
   return data;
 }
 
-function InputFile ({
-  accept,
+function InputFile ({ accept,
   children,
   className,
   errorText,
@@ -72,8 +71,7 @@ function InputFile ({
   onRemove,
   value = null,
   withEllipsis,
-  withLabel
-} : InputFileProps) : React.ReactElement<InputFileProps> {
+  withLabel } : InputFileProps) : React.ReactElement<InputFileProps> {
   const { t } = useTranslation();
   const dropRef = createRef<DropzoneRef>();
 
@@ -115,7 +113,11 @@ function InputFile ({
   );
 
   const dropZone = (
-    <Dropzone accept={accept} disabled={isDisabled} multiple={false} onDrop={_onDrop} ref={dropRef}>
+    <Dropzone accept={accept}
+      disabled={isDisabled}
+      multiple={false}
+      onDrop={_onDrop}
+      ref={dropRef}>
       {({ getInputProps, getRootProps }) : JSX.Element => {
         const rootProps = getRootProps({
           className: classes(
@@ -130,12 +132,15 @@ function InputFile ({
         return (
           <div {...rootProps}>
             <input {...inputProps} />
-            {!value ? (
-              <>
-                <Icon icon="upload" size="2x" />
-                <div>{t<string>('Click to select or drag & drop to upload file.')}</div>
-              </>
-            ) : (
+            {!value
+              ? (
+                <>
+                  <Icon icon='upload'
+                    size='2x' />
+                  <div>{t<string>('Click to select or drag & drop to upload file.')}</div>
+                </>
+              )
+              : (
                 <FileSupplied
                   errorText={errorText}
                   isError={isError}
@@ -143,18 +148,23 @@ function InputFile ({
                   text={value.name}
                 />
               )}
-            {children && <div className="children">{children}</div>}
+            {children && <div className='children'>{children}</div>}
           </div>
         );
       }}
     </Dropzone>
   );
 
-  return label ? (
-    <Labelled help={help} label={label} withEllipsis={withEllipsis} withLabel={withLabel}>
-      {dropZone}
-    </Labelled>
-  ) : (
+  return label
+    ? (
+      <Labelled help={help}
+        label={label}
+        withEllipsis={withEllipsis}
+        withLabel={withLabel}>
+        {dropZone}
+      </Labelled>
+    )
+    : (
       dropZone
     );
 }

@@ -11,12 +11,14 @@ import uiSettings from '@polkadot/ui-settings';
 
 export function createOption ({ isHeader, text, value } : Option) : Option | React.ReactNode {
   if (isHeader) {
-    return <Dropdown.Header content={text} key={text as string} />;
+    return <Dropdown.Header content={text}
+      key={text as string} />;
   }
 
   return {
     text: (
-      <div className="ui--Dropdown-item" key={value}>
+      <div className='ui--Dropdown-item'
+        key={value}>
         {text}
       </div>
     ),
@@ -31,14 +33,15 @@ export function createIdenticon (
 ) : Option {
   return {
     text: (
-      <div className="ui--Dropdown-item" key={value}>
+      <div className='ui--Dropdown-item'
+        key={value}>
         <IdentityIcon
-          className="ui--Dropdown-icon"
+          className='ui--Dropdown-icon'
           size={32}
           theme={info && overrides.includes(info) ? (override as 'empty') : (info as 'substrate')}
-          value="5F9999K9UgTUgSsbXZQcEmRMvQqwJoBUHMv9e1k2MdgghuRA"
+          value='5F9999K9UgTUgSsbXZQcEmRMvQqwJoBUHMv9e1k2MdgghuRA'
         />
-        <div className="ui--Dropdown-name">{text}</div>
+        <div className='ui--Dropdown-name'>{text}</div>
       </div>
     ),
     value

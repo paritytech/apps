@@ -44,7 +44,7 @@ function extractParams (
 ) : [string, CallParams | null] {
   return [
     JSON.stringify({ f: (fn as { name : string })?.name, p: params }),
-    params.length === 0 || !params.some(param => isNull(param) || isUndefined(param))
+    params.length === 0 || !params.some((param) => isNull(param) || isUndefined(param))
       ? paramMap(params)
       : null
   ];
@@ -55,7 +55,7 @@ function unsubscribe (tracker : TrackerRef) : void {
   tracker.current.isActive = false;
 
   if (tracker.current.subscriber) {
-    tracker.current.subscriber.then(unsubFn => unsubFn()).catch(console.error);
+    tracker.current.subscriber.then((unsubFn) => unsubFn()).catch(console.error);
     tracker.current.subscriber = null;
   }
 }

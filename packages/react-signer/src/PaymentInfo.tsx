@@ -1,9 +1,9 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useApi } from '@canvas-ui/react-api';
 import { Expander } from '@canvas-ui/react-components';
 import { useIsMountedRef } from '@canvas-ui/react-hooks';
-import { useApi } from '@canvas-ui/react-api';
 import BN from 'bn.js';
 import React, { useEffect, useState } from 'react';
 import { Trans } from 'react-i18next';
@@ -21,11 +21,9 @@ interface Props {
   tip?: BN;
 }
 
-function PaymentInfo({
-  accountId,
+function PaymentInfo ({ accountId,
   className = '',
-  extrinsic
-}: Props): React.ReactElement<Props> | null {
+  extrinsic }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const [dispatchInfo, setDispatchInfo] = useState<RuntimeDispatchInfo | null>(null);
   const mountedRef = useIsMountedRef();
@@ -51,9 +49,9 @@ function PaymentInfo({
     <Expander
       className={className}
       summary={
-        <Trans i18nKey="feesForSubmission">
+        <Trans i18nKey='feesForSubmission'>
           Fees of{' '}
-          <span className="highlight">
+          <span className='highlight'>
             {formatBalance(dispatchInfo.partialFee, { withSiFull: true })}
           </span>{' '}
           will be applied to the submission

@@ -11,7 +11,7 @@ function flatten (key : string | null, value ?: unknown) : unknown {
   }
 
   if (Array.isArray(value)) {
-    return value.map(item => flatten(null, item));
+    return value.map((item) => flatten(null, item));
   }
 
   return value;

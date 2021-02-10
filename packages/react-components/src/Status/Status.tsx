@@ -65,30 +65,31 @@ function signerIconName (status : QueueTxStatus) : IconName {
   }
 }
 
-function renderStatus ({
-  account,
+function renderStatus ({ account,
   action,
   id,
   message,
   removeItem,
-  status
-} : QueueStatus) : React.ReactNode {
+  status } : QueueStatus) : React.ReactNode {
   return (
-    <div className={`item ${status}`} key={id}>
-      <div className="wrapper">
-        <div className="container">
-          <Icon className="close-button" icon="times" onClick={removeItem} />
-          <div className="short">
+    <div className={`item ${status}`}
+      key={id}>
+      <div className='wrapper'>
+        <div className='container'>
+          <Icon className='close-button'
+            icon='times'
+            onClick={removeItem} />
+          <div className='short'>
             <Icon icon={iconName(status)} />
           </div>
-          <div className="desc">
-            <div className="header">
+          <div className='desc'>
+            <div className='header'>
               {Array.isArray(action)
                 ? action.map((action, index) => <div key={index}>{action}</div>)
                 : action}
             </div>
             {account && <AddressMini value={account} />}
-            <div className="status">{message}</div>
+            <div className='status'>{message}</div>
           </div>
         </div>
       </div>
@@ -111,20 +112,23 @@ function renderItem ({ error, extrinsic, id, removeItem, rpc, status } : QueueTx
   const icon = signerIconName(status) as 'ban' | 'spinner';
 
   return (
-    <div className={`item ${status}`} key={id}>
-      <div className="wrapper">
-        <div className="container">
+    <div className={`item ${status}`}
+      key={id}>
+      <div className='wrapper'>
+        <div className='container'>
           {STATUS_COMPLETE.includes(status) && (
-            <Icon className="close-button" icon="times" onClick={removeItem} />
+            <Icon className='close-button'
+              icon='times'
+              onClick={removeItem} />
           )}
-          <div className="short">
-            {icon === 'spinner' ? <Spinner variant="push" /> : <Icon icon={icon} />}
+          <div className='short'>
+            {icon === 'spinner' ? <Spinner variant='push' /> : <Icon icon={icon} />}
           </div>
-          <div className="desc">
-            <div className="header">
+          <div className='desc'>
+            <div className='header'>
               {section}.{method}
             </div>
-            <div className="status">{error ? error.message || error : status}</div>
+            <div className='status'>{error ? error.message || error : status}</div>
           </div>
         </div>
       </div>
@@ -159,8 +163,8 @@ function Status ({ className = '' } : Props) : React.ReactElement<Props> | null 
   }, [txqueue]);
 
   const _onDismiss = useCallback(() : void => {
-    allSt.map(s => s.removeItem());
-    completedTx.map(t => t.removeItem());
+    allSt.map((s) => s.removeItem());
+    completedTx.map((t) => t.removeItem());
   }, [allSt, completedTx]);
 
   if (!allSt.length && !allTx.length) {
@@ -170,9 +174,9 @@ function Status ({ className = '' } : Props) : React.ReactElement<Props> | null 
   return (
     <div className={`ui--Status ${className}`}>
       {allSt.length + completedTx.length > 1 && (
-        <div className="dismiss">
+        <div className='dismiss'>
           <Button
-            icon="times"
+            icon='times'
             isFull
             isPrimary
             label={t<string>('Dismiss all notifications')}

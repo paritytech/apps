@@ -19,14 +19,12 @@ interface Props extends BareProps {
   value : SubmittableExtrinsicFunction<'promise'>;
 }
 
-function SelectMethod ({
-  api,
+function SelectMethod ({ api,
   className = '',
   isError,
   onChange,
   options,
-  value
-} : Props) : React.ReactElement<Props> | null {
+  value } : Props) : React.ReactElement<Props> | null {
   const transform = useCallback(
     (method : string) : SubmittableExtrinsicFunction<'promise'> => api.tx[value.section][method],
     [api, value]

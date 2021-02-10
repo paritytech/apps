@@ -10,13 +10,11 @@ interface Props extends UseTxParams {
   onEnter ?: () => void;
 }
 
-function Params ({
-  isDisabled,
+function Params ({ isDisabled,
   onChange,
   onEnter,
   params = [],
-  values
-} : Props) : React.ReactElement<Props> | null {
+  values } : Props) : React.ReactElement<Props> | null {
   if (!params.length) {
     return null;
   }

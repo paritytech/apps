@@ -13,21 +13,19 @@ interface Props {
   variant ?: 'app' | 'push' | 'mini' | 'cover';
 }
 
-function Spinner ({
-  className = '',
+function Spinner ({ className = '',
   label,
-  variant = 'app'
-} : Props) : React.ReactElement<Props> | null {
+  variant = 'app' } : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
 
   return (
     <div className={`${className} ui--Spinner ${variant}${variant === 'cover' ? ' isCover' : ''}`}>
       <Loader
         active
-        className="ui--highlight--spinner"
+        className='ui--highlight--spinner'
         indeterminate
-        inline="centered"
-        size="medium"
+        inline='centered'
+        size='medium'
       >
         {variant === 'app' && (label || t<string>('Retrieving data'))}
       </Loader>

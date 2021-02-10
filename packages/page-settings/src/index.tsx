@@ -47,14 +47,14 @@ function SettingsApp ({ className } : Props) : React.ReactElement<Props> {
         />
         <div>
           <Toggle
-            className="settings--customToggle"
+            className='settings--customToggle'
             defaultValue={isCustom}
             label={t<string>('Use custom endpoint')}
             onChange={onChangeCustom}
           />
           {isCustom && (
             <Input
-              className="custom-url"
+              className='custom-url'
               defaultValue={url}
               isError={!isValid}
               onChange={onChangeUrl}

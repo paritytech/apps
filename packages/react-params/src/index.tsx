@@ -77,16 +77,14 @@ class Params extends React.PureComponent<Props, State> {
   }
 
   public render () : React.ReactNode {
-    const {
-      children,
+    const { children,
       className = '',
       isDisabled,
       onEnter,
       onEscape,
       overrides,
       params,
-      withBorder = true
-    } = this.props;
+      withBorder = true } = this.props;
     const { values = this.props.values } = this.state;
 
     if (!values || !values.length) {
@@ -94,9 +92,10 @@ class Params extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Holder className={className} withBorder={withBorder}>
+      <Holder className={className}
+        withBorder={withBorder}>
         <ErrorBoundary onError={this.onRenderError}>
-          <div className="ui--Params-Content">
+          <div className='ui--Params-Content'>
             {values &&
               params.map(
                 ({ name, type } : ParamDef, index : number) : React.ReactNode => (

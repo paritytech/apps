@@ -4,11 +4,10 @@
 import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { QueueTx, QueueTxMessageSetStatus } from '@canvas-ui/react-api/Status/types';
 import { VoidFn } from '@canvas-ui/react-api/types';
+import { handleTxResults } from '@canvas-ui/react-api/utilFuncs';
 import { useCallback, useContext } from 'react';
 
 import { SubmittableExtrinsic } from '@polkadot/api/types';
-
-import { handleTxResults } from '@canvas-ui/react-api/utilFuncs';
 
 interface UseSendUnsigned {
   onCancel: VoidFn;
@@ -17,7 +16,7 @@ interface UseSendUnsigned {
 
 const NOOP = () => undefined;
 
-async function sendUnsigned(
+async function sendUnsigned (
   queueSetTxStatus: QueueTxMessageSetStatus,
   currentItem: QueueTx,
   tx: SubmittableExtrinsic<'promise'>
@@ -38,7 +37,7 @@ async function sendUnsigned(
   }
 }
 
-export default function useSendTx(currentItem: QueueTx): UseSendUnsigned {
+export default function useSendTx (currentItem: QueueTx): UseSendUnsigned {
   const { queueSetTxStatus } = useContext(StatusContext);
 
   const onCancel = useCallback((): void => {

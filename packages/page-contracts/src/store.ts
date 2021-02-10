@@ -67,7 +67,7 @@ class Store extends EventEmitter {
   }
 
   public forgetAll () : void {
-    Object.keys(this.allCode).forEach(id => {
+    Object.keys(this.allCode).forEach((id) => {
       this.forgetCode(id);
     });
   }

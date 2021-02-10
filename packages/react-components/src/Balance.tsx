@@ -33,7 +33,8 @@ export function renderProvided ({ className = '', label, value } : RenderProps) 
 
     if (total) {
       others = totals.map(
-        (balance, index) : React.ReactNode => <FormatBalance key={index} value={balance} />
+        (balance, index) : React.ReactNode => <FormatBalance key={index}
+          value={balance} />
       );
     }
   }
@@ -56,10 +57,14 @@ function BalanceDisplay (props : Props) : React.ReactElement<Props> | null {
     return null;
   }
 
-  return balance ? (
-    <>{renderProvided({ className, label, value: balance })}</>
-  ) : (
-      <Balance className={classes('ui--Balance', className)} label={label} params={params} />
+  return balance
+    ? (
+      <>{renderProvided({ className, label, value: balance })}</>
+    )
+    : (
+      <Balance className={classes('ui--Balance', className)}
+        label={label}
+        params={params} />
     );
 }
 

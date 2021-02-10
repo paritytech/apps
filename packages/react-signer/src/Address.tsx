@@ -1,30 +1,28 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useApi } from '@canvas-ui/react-api';
 import { QueueTx } from '@canvas-ui/react-api/Status/types';
+import { AddressFlags, AddressProxy } from '@canvas-ui/react-api/types';
+import { extractExternal } from '@canvas-ui/react-api/utilFuncs';
 import { InputAddress, Modal, Toggle } from '@canvas-ui/react-components';
 import { useAccounts, useIsMountedRef } from '@canvas-ui/react-hooks';
-import { useApi } from '@canvas-ui/react-api';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { ApiPromise } from '@polkadot/api';
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { Option, Vec } from '@polkadot/types';
-import {
-  AccountId,
+import { AccountId,
   BalanceOf,
   Call,
   Multisig,
   ProxyDefinition,
-  ProxyType
-} from '@polkadot/types/interfaces';
+  ProxyType } from '@polkadot/types/interfaces';
 import { ITuple } from '@polkadot/types/types';
 import { isFunction } from '@polkadot/util';
 
 import Password from './Password';
 import { useTranslation } from './translate';
-import { AddressFlags, AddressProxy } from '@canvas-ui/react-api/types';
-import { extractExternal } from '@canvas-ui/react-api/utilFuncs';
 
 interface Props {
   className?: string;
@@ -54,7 +52,7 @@ interface ProxyState {
   proxiesFilter: string[];
 }
 
-function findCall(tx: Call | SubmittableExtrinsic<'promise'>): { method: string; section: string } {
+function findCall (tx: Call | SubmittableExtrinsic<'promise'>): { method: string; section: string } {
   try {
     const { method, section } = tx.registry.findMetaCall(tx.callIndex);
 
@@ -64,14 +62,14 @@ function findCall(tx: Call | SubmittableExtrinsic<'promise'>): { method: string;
   }
 }
 
-function filterProxies(
+function filterProxies (
   allAccounts: string[],
   tx: Call | SubmittableExtrinsic<'promise'>,
   proxies: [string, ProxyType][]
 ): string[] {
   // check an array of calls to all have proxies as the address
   const checkCalls = (address: string, txs: Call[]): boolean =>
-    !txs.some(tx => !filterProxies(allAccounts, tx, proxies).includes(address));
+    !txs.some((tx) => !filterProxies(allAccounts, tx, proxies).includes(address));
 
   // get the call info
   const { method, section } = findCall(tx);
@@ -127,7 +125,7 @@ function filterProxies(
     .map(([address]) => address);
 }
 
-async function queryForMultisig(
+async function queryForMultisig (
   api: ApiPromise,
   requestAddress: string,
   proxyAddress: string | null,
@@ -144,23 +142,23 @@ async function queryForMultisig(
 
     return multi
       ? {
-          address,
-          isMultiCall: multi.approvals.length + 1 >= threshold,
-          who,
-          whoFilter: who.filter(w => !multi.approvals.some(a => a.eq(w)))
-        }
+        address,
+        isMultiCall: multi.approvals.length + 1 >= threshold,
+        who,
+        whoFilter: who.filter((w) => !multi.approvals.some((a) => a.eq(w)))
+      }
       : {
-          address,
-          isMultiCall: false,
-          who,
-          whoFilter: who
-        };
+        address,
+        isMultiCall: false,
+        who,
+        whoFilter: who
+      };
   }
 
   return null;
 }
 
-async function queryForProxy(
+async function queryForProxy (
   api: ApiPromise,
   allAccounts: string[],
   address: string,
@@ -169,18 +167,18 @@ async function queryForProxy(
   if (isFunction(api.query.proxy?.proxies)) {
     const { isProxied } = extractExternal(address);
     const [_proxies] = await api.query.proxy.proxies<
-      ITuple<[Vec<ITuple<[AccountId, ProxyType]> | ProxyDefinition>, BalanceOf]>
+    ITuple<[Vec<ITuple<[AccountId, ProxyType]> | ProxyDefinition>, BalanceOf]>
     >(address);
     const proxies =
       api.tx.proxy.addProxy.meta.args.length === 3
         ? (_proxies as ProxyDefinition[]).map(({ delegate, proxyType }): [string, ProxyType] => [
-            delegate.toString(),
-            proxyType
-          ])
+          delegate.toString(),
+          proxyType
+        ])
         : (_proxies as [AccountId, ProxyType][]).map(([delegate, proxyType]): [
-            string,
-            ProxyType
-          ] => [delegate.toString(), proxyType]);
+          string,
+          ProxyType
+        ] => [delegate.toString(), proxyType]);
     const proxiesFilter = filterProxies(allAccounts, tx, proxies);
 
     if (proxiesFilter.length) {
@@ -191,13 +189,11 @@ async function queryForProxy(
   return null;
 }
 
-function Address({
-  currentItem,
+function Address ({ currentItem,
   onChange,
   onEnter,
   passwordError,
-  requestAddress
-}: Props): React.ReactElement<Props> {
+  requestAddress }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const { allAccounts } = useAccounts();
@@ -236,7 +232,7 @@ function Address({
 
     currentItem.extrinsic &&
       queryForProxy(api, allAccounts, requestAddress, currentItem.extrinsic)
-        .then(info => mountedRef.current && setProxyInfo(info))
+        .then((info) => mountedRef.current && setProxyInfo(info))
         .catch(console.error);
   }, [allAccounts, api, currentItem, mountedRef, requestAddress]);
 
@@ -283,7 +279,7 @@ function Address({
       <Modal.Columns>
         <Modal.Column>
           <InputAddress
-            className="full"
+            className='full'
             defaultValue={requestAddress}
             isDisabled
             isInput
@@ -307,7 +303,7 @@ function Address({
               help={t('The proxy to be used for this transaction.')}
               label={t('proxy account')}
               onChange={setProxyAddress}
-              type="account"
+              type='account'
             />
           </Modal.Column>
           <Modal.Column>
@@ -327,7 +323,7 @@ function Address({
               help={t('The multisig signatory for this transaction.')}
               label={t('multisig signatory')}
               onChange={setMultiAddress}
-              type="account"
+              type='account'
             />
           </Modal.Column>
           <Modal.Column>
@@ -351,7 +347,7 @@ function Address({
         <Modal.Columns>
           <Modal.Column>
             <Toggle
-              className="tipToggle"
+              className='tipToggle'
               isDisabled={proxyInfo.isProxied}
               label={
                 isProxyActive
@@ -375,7 +371,7 @@ function Address({
         <Modal.Columns>
           <Modal.Column>
             <Toggle
-              className="tipToggle"
+              className='tipToggle'
               label={
                 isMultiCall
                   ? t<string>('Multisig message with call (for final approval)')

@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { getSystemIcon } from '@canvas-ui/apps-config/ui';
-import { useNotification } from '@canvas-ui/react-hooks';
 import { useApi } from '@canvas-ui/react-api';
+import { useNotification } from '@canvas-ui/react-hooks';
 import { ValidatorsContext } from '@canvas-ui/react-query';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -14,19 +14,17 @@ import uiSettings from '@polkadot/ui-settings';
 
 import { useTranslation } from './translate';
 
-export function getIdentityTheme(systemName: string): 'substrate' {
+export function getIdentityTheme (systemName: string): 'substrate' {
   return ((uiSettings.icon === 'default' && getSystemIcon(systemName)) ||
     uiSettings.icon) as 'substrate';
 }
 
-function IdentityIcon({
-  className = '',
+function IdentityIcon ({ className = '',
   onCopy,
   prefix,
   size = 24,
   theme,
-  value
-}: Props): React.ReactElement<Props> {
+  value }: Props): React.ReactElement<Props> {
   const { systemName } = useApi();
   const { t } = useTranslation();
   const showNotification = useNotification();

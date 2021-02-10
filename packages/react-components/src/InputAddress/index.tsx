@@ -2,10 +2,10 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { availableExtensions } from '@canvas-ui/apps-config/extensions';
-import { withMulti, withObservable } from '@canvas-ui/react-api/hoc';
 import { useApi } from '@canvas-ui/react-api';
-import { classes, getAddressName, toAddress as addressToAddress } from '@canvas-ui/react-util';
+import { withMulti, withObservable } from '@canvas-ui/react-api/hoc';
 import { StringOrNull } from '@canvas-ui/react-api/types';
+import { classes, getAddressName, toAddress as addressToAddress } from '@canvas-ui/react-util';
 import { detect } from 'detect-browser';
 import React, { useCallback, useMemo } from 'react';
 import store from 'store';
@@ -14,12 +14,10 @@ import styled from 'styled-components';
 import { keyring } from '@polkadot/ui-keyring';
 // import keyringOption from '@polkadot/ui-keyring/options';
 import { createOptionItem } from '@polkadot/ui-keyring/options/item';
-import {
-  KeyringOption$Type,
+import { KeyringOption$Type,
   KeyringOptions,
   KeyringSectionOption,
-  KeyringSectionOptions
-} from '@polkadot/ui-keyring/options/types';
+  KeyringSectionOptions } from '@polkadot/ui-keyring/options/types';
 import { isNull, isUndefined } from '@polkadot/util';
 
 import Dropdown from '../Dropdown';
@@ -73,7 +71,7 @@ const browserInfo = detect();
 const browserName: Browser | null = (browserInfo && (browserInfo.name as Browser)) || null;
 const isSupported = browserName && Object.keys(availableExtensions).includes(browserName);
 
-function transformToAddress(value?: string | Uint8Array | null): string | null {
+function transformToAddress (value?: string | Uint8Array | null): string | null {
   try {
     return addressToAddress(value) || null;
   } catch (error) {
@@ -83,7 +81,7 @@ function transformToAddress(value?: string | Uint8Array | null): string | null {
   return null;
 }
 
-function transformToAccountId(value: string): string | null {
+function transformToAccountId (value: string): string | null {
   if (!value) {
     return null;
   }
@@ -93,7 +91,7 @@ function transformToAccountId(value: string): string | null {
   return !accountId ? null : accountId;
 }
 
-function createOption(address: string): Option {
+function createOption (address: string): Option {
   let isRecent: boolean | undefined;
   const pair = keyring.getAccount(address);
   let name: string | undefined;
@@ -114,24 +112,24 @@ function createOption(address: string): Option {
   return createItem(createOptionItem(address, name), !isRecent);
 }
 
-function readOptions(): Record<string, Record<string, string>> {
+function readOptions (): Record<string, Record<string, string>> {
   return (store.get(STORAGE_KEY) as Record<string, Record<string, string>>) || { defaults: {} };
 }
 
-function getLastValue(type: KeyringOption$Type = DEFAULT_TYPE): string {
+function getLastValue (type: KeyringOption$Type = DEFAULT_TYPE): string {
   const options = readOptions();
 
   return options.defaults[type];
 }
 
-function setLastValue(type: KeyringOption$Type = DEFAULT_TYPE, value: string): void {
+function setLastValue (type: KeyringOption$Type = DEFAULT_TYPE, value: string): void {
   const options = readOptions();
 
   options.defaults[type] = value;
   store.set(STORAGE_KEY, options);
 }
 
-function renderLabel({ value }: KeyringSectionOption): React.ReactNode {
+function renderLabel ({ value }: KeyringSectionOption): React.ReactNode {
   if (!value) {
     return undefined;
   }
@@ -139,8 +137,7 @@ function renderLabel({ value }: KeyringSectionOption): React.ReactNode {
   return getAddressName(value);
 }
 
-function InputAddress({
-  className = '',
+function InputAddress ({ className = '',
   defaultValue,
   filter,
   help,
@@ -159,8 +156,7 @@ function InputAddress({
   type = DEFAULT_TYPE,
   value: propsValue,
   withEllipsis,
-  withLabel
-}: Props): React.ReactElement<Props> | null {
+  withLabel }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { hasInjectedAccounts } = useApi();
   const hasOptions = useMemo(
@@ -272,8 +268,8 @@ function InputAddress({
         isDisabled || (defaultValue && hasValue(defaultValue))
           ? defaultValue
           : hasValue(lastValue)
-          ? lastValue
-          : lastOption && lastOption.value
+            ? lastValue
+            : lastOption && lastOption.value
       ),
     [defaultValue, hasValue, isDisabled, lastOption, lastValue]
   );
@@ -282,8 +278,8 @@ function InputAddress({
     return options
       ? options.map((o): Option => createItem(o))
       : isDisabled && actualValue
-      ? [createOption(actualValue)]
-      : filteredOptions;
+        ? [createOption(actualValue)]
+        : filteredOptions;
   }, [actualValue, filteredOptions, isDisabled, options]);
   const _defaultValue = useMemo(
     () => (isMultiple || !isUndefined(value) ? undefined : actualValue),
@@ -323,8 +319,8 @@ function InputAddress({
                 {t('Please reload this app with the')}{' '}
                 <a
                   href={availableExtensions[browserName][0].link}
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  rel='noopener noreferrer'
+                  target='_blank'
                 >
                   {t('Polkadot extension')}
                 </a>{' '}

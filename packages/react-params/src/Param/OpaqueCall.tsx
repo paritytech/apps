@@ -17,7 +17,8 @@ function OpaqueCall (props : Props) : React.ReactElement<Props> {
 
   const value = registry.createType('Call', (props.defaultValue.value as Bytes).toHex());
 
-  return <CallDisplay {...props} defaultValue={{ isValid: true, value }} />;
+  return <CallDisplay {...props}
+    defaultValue={{ isValid: true, value }} />;
 }
 
 export default React.memo(OpaqueCall);

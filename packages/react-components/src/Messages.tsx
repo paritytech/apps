@@ -22,24 +22,26 @@ export interface Props extends BareProps {
 }
 
 function Messages (props : Props) : React.ReactElement<Props> {
-  const {
-    abi: { constructors, messages },
+  const { abi: { constructors, messages },
     className = '',
     isLabelled,
-    /* isRemovable, onRemove = NOOP, */ withConstructors
-  } = props;
+    /* isRemovable, onRemove = NOOP, */ withConstructors } = props;
 
   return (
     <div className={classes(className, 'ui--Messages', isLabelled && 'labelled')}>
       {withConstructors &&
         constructors.map(
           (constructor, index) : React.ReactNode => (
-            <Message isConstructor key={`constructor-${index}`} message={constructor} />
+            <Message isConstructor
+              key={`constructor-${index}`}
+              message={constructor} />
           )
         )}
       {messages.map(
         (message, index) : React.ReactNode => (
-          <Message isConstructor key={`message-${index}`} message={message} />
+          <Message isConstructor
+            key={`message-${index}`}
+            message={message} />
         )
       )}
     </div>

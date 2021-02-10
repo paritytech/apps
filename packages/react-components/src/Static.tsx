@@ -19,8 +19,7 @@ interface Props extends BareProps {
   withLabel ?: boolean;
 }
 
-function Static ({
-  children,
+function Static ({ children,
   className = '',
   defaultValue,
   help,
@@ -28,8 +27,7 @@ function Static ({
   isHidden,
   label,
   value,
-  withLabel
-} : Props) : React.ReactElement<Props> {
+  withLabel } : Props) : React.ReactElement<Props> {
   return (
     <Labelled
       className={className}
@@ -39,7 +37,7 @@ function Static ({
       label={label}
       withLabel={withLabel}
     >
-      <div className="ui--Static ui dropdown selection disabled">
+      <div className='ui--Static ui dropdown selection disabled'>
         {value || defaultValue}
         {children}
       </div>

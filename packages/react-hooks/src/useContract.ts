@@ -1,15 +1,14 @@
 // Copyright 2017-2021 @canvas-ui/app-contracts authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useApi } from '@canvas-ui/react-api';
 import { StringOrNull } from '@canvas-ui/react-api/types';
 import { useMemo } from 'react';
 
 import { ContractPromise as Contract } from '@polkadot/api-contract';
 import keyring from '@polkadot/ui-keyring';
 
-import { useApi } from '@canvas-ui/react-api';
-
-export default function useContract(address: StringOrNull): Contract | null {
+export default function useContract (address: StringOrNull): Contract | null {
   const { api } = useApi();
 
   return useMemo((): Contract | null => {

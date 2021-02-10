@@ -40,8 +40,7 @@ const errorred : Record<string, boolean> = {};
 
 export default function withCall<P extends ApiProps> (
   endpoint : string,
-  {
-    at,
+  { at,
     atProp,
     callOnResult,
     fallbacks,
@@ -53,8 +52,7 @@ export default function withCall<P extends ApiProps> (
     propName,
     skipIf = NO_SKIP,
     transform = echoTransform,
-    withIndicator = false
-  } : Options = {}
+    withIndicator = false } : Options = {}
 ) : (Inner : React.ComponentType<ApiProps>) => React.ComponentType<any> {
   return (
     Inner : React.ComponentType<ApiProps>
@@ -74,7 +72,7 @@ export default function withCall<P extends ApiProps> (
 
       private timerId = -1;
 
-      constructor(props : P) {
+      constructor (props : P) {
         super(props);
 
         const [, section, method] = endpoint.split('.');

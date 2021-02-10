@@ -28,7 +28,7 @@ function DeployApp ({ basePath, navigateTo } : Props) : React.ReactElement<Props
   );
 
   return (
-    <main className="deploy--App">
+    <main className='deploy--App'>
       <WithLoader isLoading={isLoading}>
         <Switch>
           <Route path={`${basePath}/new/:id?/:index?`}>

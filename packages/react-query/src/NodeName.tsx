@@ -1,8 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { BareProps } from '@canvas-ui/react-api/types';
 import { useApi } from '@canvas-ui/react-api';
+import { BareProps } from '@canvas-ui/react-api/types';
 import React from 'react';
 
 interface Props extends BareProps {
@@ -10,7 +10,7 @@ interface Props extends BareProps {
   label?: React.ReactNode;
 }
 
-function NodeName({ children, className = '', label }: Props): React.ReactElement<Props> {
+function NodeName ({ children, className = '', label }: Props): React.ReactElement<Props> {
   const { systemName } = useApi();
 
   return (

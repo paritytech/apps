@@ -7,8 +7,7 @@ import React, { useCallback, useState } from 'react';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function Text ({
-  className = '',
+function Text ({ className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -16,8 +15,7 @@ function Text ({
   onChange,
   onEnter,
   onEscape,
-  withLabel
-} : Props) : React.ReactElement<Props> {
+  withLabel } : Props) : React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
@@ -39,7 +37,7 @@ function Text ({
   return (
     <Bare className={className}>
       <Input
-        className="full"
+        className='full'
         defaultValue={defaultValue}
         isDisabled={isDisabled}
         isError={isError || !isValid}
@@ -47,8 +45,8 @@ function Text ({
         onChange={_onChange}
         onEnter={onEnter}
         onEscape={onEscape}
-        placeholder="<any string>"
-        type="text"
+        placeholder='<any string>'
+        type='text'
         withLabel={withLabel}
       />
     </Bare>
