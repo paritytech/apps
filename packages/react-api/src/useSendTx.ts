@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useApi } from '@canvas-ui/react-api';
-import ledgerSigner from '@canvas-ui/react-signer/LedgerSigner';
+import ledgerSigner from './LedgerSigner';
 import { AddressFlags, AddressProxy } from '@canvas-ui/react-signer/types';
 import { extractExternal, handleTxResults } from '@canvas-ui/react-signer/util';
 import { StringOrNull, VoidFn } from '@canvas-ui/react-api/types';

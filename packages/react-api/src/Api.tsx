@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-api authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import ApiSigner from '@canvas-ui/react-signer/ApiSigner';
+import ApiSigner from './ApiSigner';
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 
 import { ApiPromise } from '@polkadot/api/promise';
@@ -24,27 +24,27 @@ import registry from './typeRegistry';
 import { ApiProps, ApiState } from './types';
 
 interface Props {
-  children : React.ReactNode;
-  url ?: string;
-  store ?: KeyringStore;
+  children: React.ReactNode;
+  url?: string;
+  store?: KeyringStore;
 }
 
 interface InjectedAccountExt {
-  address : string;
-  meta : {
-    name : string;
-    source : string;
-    whenCreated : number;
+  address: string;
+  meta: {
+    name: string;
+    source: string;
+    whenCreated: number;
   };
 }
 
 interface ChainData {
-  injectedAccounts : InjectedAccountExt[];
-  properties : ChainProperties;
-  systemChain : string;
-  systemChainType : ChainType;
-  systemName : string;
-  systemVersion : string;
+  injectedAccounts: InjectedAccountExt[];
+  properties: ChainProperties;
+  systemChain: string;
+  systemChainType: ChainType;
+  systemName: string;
+  systemVersion: string;
 }
 
 // const injectedPromise = new Promise<InjectedExtension[]>((resolve): void => {
@@ -56,19 +56,19 @@ interface ChainData {
 const DEFAULT_DECIMALS = registry.createType('u32', 12);
 const DEFAULT_SS58 = registry.createType('u32', addressDefaults.prefix);
 const injectedPromise = web3Enable('polkadot-js/apps');
-let api : ApiPromise;
+let api: ApiPromise;
 
 export { api };
 
 export class TokenUnit {
   public static abbr = 'Unit';
 
-  public static setAbbr (abbr : string = TokenUnit.abbr) : void {
+  public static setAbbr(abbr: string = TokenUnit.abbr): void {
     TokenUnit.abbr = abbr;
   }
 }
 
-async function retrieve (api : ApiPromise) : Promise<ChainData> {
+async function retrieve(api: ApiPromise): Promise<ChainData> {
   const [
     properties,
     systemChain,
@@ -88,18 +88,19 @@ async function retrieve (api : ApiPromise) : Promise<ChainData> {
       .then(() => web3Accounts())
       .then(accounts =>
         accounts.map(
-          ({ address, meta }, whenCreated) : InjectedAccountExt => ({
+          ({ address, meta }, whenCreated): InjectedAccountExt => ({
             address,
             meta: {
               ...meta,
-              name: `${meta.name || 'unknown'} (${meta.source === 'polkadot-js' ? 'extension' : meta.source
-                })`,
+              name: `${meta.name || 'unknown'} (${
+                meta.source === 'polkadot-js' ? 'extension' : meta.source
+              })`,
               whenCreated
             }
           })
         )
       )
-      .catch((error) : InjectedAccountExt[] => {
+      .catch((error): InjectedAccountExt[] => {
         console.error('web3Enable', error);
 
         return [];
@@ -116,7 +117,7 @@ async function retrieve (api : ApiPromise) : Promise<ChainData> {
   };
 }
 
-async function loadOnReady (api : ApiPromise, store ?: KeyringStore) : Promise<ApiState> {
+async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiState> {
   const {
     injectedAccounts,
     properties,
@@ -186,7 +187,7 @@ async function loadOnReady (api : ApiPromise, store ?: KeyringStore) : Promise<A
   };
 }
 
-function Api ({ children, store, url } : Props) : React.ReactElement<Props> | null {
+function Api({ children, store, url }: Props): React.ReactElement<Props> | null {
   const { queuePayload, queueSetTxStatus } = useContext(StatusContext);
   const [state, setState] = useState<ApiState>(({ isApiReady: false } as unknown) as ApiState);
   const [isApiConnected, setIsApiConnected] = useState(false);
@@ -205,7 +206,7 @@ function Api ({ children, store, url } : Props) : React.ReactElement<Props> | nu
   );
 
   // initial initialization
-  useEffect(() : void => {
+  useEffect((): void => {
     const provider = new WsProvider(url);
     const signer = new ApiSigner(queuePayload, queueSetTxStatus);
 
@@ -215,7 +216,7 @@ function Api ({ children, store, url } : Props) : React.ReactElement<Props> | nu
     api.on('disconnected', () => setIsApiConnected(false));
     api.on(
       'ready',
-      async () : Promise<void> => {
+      async (): Promise<void> => {
         try {
           setState(await loadOnReady(api, store));
         } catch (error) {
