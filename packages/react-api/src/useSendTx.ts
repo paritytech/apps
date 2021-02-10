@@ -1,12 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi } from '@canvas-ui/react-api';
+import useApi from './useApi';
 import ledgerSigner from './LedgerSigner';
-import { AddressFlags } from '@canvas-ui/react-signer/types';
-import { AddressProxy } from './types';
+import { AddressFlags, AddressProxy, StringOrNull, VoidFn } from './types';
 import { extractExternal, handleTxResults } from '@canvas-ui/react-signer/util';
-import { StringOrNull, VoidFn } from '@canvas-ui/react-api/types';
 import BN from 'bn.js';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 

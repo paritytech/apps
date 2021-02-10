@@ -3,17 +3,6 @@
 
 import { SignerResult } from '@polkadot/api/types';
 
-export interface AddressFlags {
-  hardwareType?: string;
-  isHardware: boolean;
-  isMultisig: boolean;
-  isProxied: boolean;
-  isQr: boolean;
-  isUnlockable: boolean;
-  threshold: number;
-  who: string[];
-}
-
 export interface QrState {
   isQrHashed: boolean;
   qrAddress: string;

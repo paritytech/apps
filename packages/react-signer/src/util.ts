@@ -6,11 +6,11 @@ import { QueueTx, QueueTxMessageSetStatus, QueueTxStatus } from '@canvas-ui/reac
 import { SubmittableResult } from '@polkadot/api';
 import keyring from '@polkadot/ui-keyring';
 
-import { AddressFlags } from './types';
+import { AddressFlags } from '@canvas-ui/react-api/types';
 
 const NOOP = () => undefined;
 
-export function extractExternal (accountId : string | null) : AddressFlags {
+export function extractExternal(accountId: string | null): AddressFlags {
   if (!accountId) {
     return {
       isHardware: false,
@@ -56,17 +56,17 @@ export function extractExternal (accountId : string | null) : AddressFlags {
   };
 }
 
-export function recodeAddress (address : string | Uint8Array) : string {
+export function recodeAddress(address: string | Uint8Array): string {
   return keyring.encodeAddress(keyring.decodeAddress(address));
 }
 
-export function handleTxResults (
-  handler : 'send' | 'signAndSend',
-  queueSetTxStatus : QueueTxMessageSetStatus,
-  { id, txFailedCb = NOOP, txSuccessCb = NOOP, txUpdateCb = NOOP } : QueueTx,
-  unsubscribe : () => void
-) : (result : SubmittableResult) => void {
-  return (result : SubmittableResult) : void => {
+export function handleTxResults(
+  handler: 'send' | 'signAndSend',
+  queueSetTxStatus: QueueTxMessageSetStatus,
+  { id, txFailedCb = NOOP, txSuccessCb = NOOP, txUpdateCb = NOOP }: QueueTx,
+  unsubscribe: () => void
+): (result: SubmittableResult) => void {
+  return (result: SubmittableResult): void => {
     if (!result || !result.status) {
       return;
     }
@@ -81,7 +81,7 @@ export function handleTxResults (
     if (result.status.isFinalized || result.status.isInBlock) {
       result.events
         .filter(({ event: { section } }) => section === 'system')
-        .forEach(({ event: { method } }) : void => {
+        .forEach(({ event: { method } }): void => {
           if (method === 'ExtrinsicFailed') {
             txFailedCb(result);
           } else if (method === 'ExtrinsicSuccess') {
