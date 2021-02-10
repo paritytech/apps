@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from './translate';
 import { ComponentProps as Props } from './types';
 
-function Success({ allCodes, basePath, navigateTo }: Props): React.ReactElement<Props> | null {
+function Success ({ allCodes, basePath, navigateTo }: Props): React.ReactElement<Props> | null {
   const { id }: { id: string } = useParams();
   const { t } = useTranslation();
 
@@ -32,7 +32,7 @@ function Success({ allCodes, basePath, navigateTo }: Props): React.ReactElement<
     <>
       <header>
         <h1>{t<string>('Code successfully put on chain')}</h1>
-        <div className="instructions">
+        <div className='instructions'>
           {t<string>(
             'Your code bundle has been put succesfully in the chain’s storage. A unique code hash has been returned.'
           )}
@@ -46,8 +46,11 @@ function Success({ allCodes, basePath, navigateTo }: Props): React.ReactElement<
           onForget={(): void => navigateTo.upload()}
         />
         <Button.Group>
-          <Button isPrimary label={t<string>('Deploy Code')} onClick={navigateTo.deployNew(id)} />
-          <Button label={t<string>('Upload Another Code Bundle')} onClick={navigateTo.upload} />
+          <Button isPrimary
+            label={t<string>('Deploy Code')}
+            onClick={navigateTo.deployNew(id)} />
+          <Button label={t<string>('Upload Another Code Bundle')}
+            onClick={navigateTo.upload} />
         </Button.Group>
       </section>
     </>
