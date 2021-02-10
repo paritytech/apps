@@ -8,10 +8,10 @@ import React, { useCallback } from 'react';
 // import { VoidFn } from '@canvas-ui/react-api/types';
 import keyring from '@polkadot/ui-keyring';
 
-import Button from '../../react-components/src/Button';
-import Modal from '../../react-components/src/Modal';
-import { useTranslation } from '../../react-components/src/translate';
-import { BareProps } from '../../react-components/src/types';
+import Button from '@canvas-ui/react-components/Button';
+import Modal from '@canvas-ui/react-components/Modal';
+import { useTranslation } from '@canvas-ui/react-components/translate';
+import { BareProps } from '@canvas-ui/react-components/types';
 
 function ResetStorageModal({ className }: BareProps): React.ReactElement<BareProps> {
   const { t } = useTranslation();
