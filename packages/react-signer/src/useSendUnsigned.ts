@@ -8,7 +8,7 @@ import { useCallback, useContext } from 'react';
 
 import { SubmittableExtrinsic } from '@polkadot/api/types';
 
-import { handleTxResults } from './util';
+import { handleTxResults } from '@canvas-ui/react-api/utilFuncs';
 
 interface UseSendUnsigned {
   onCancel: VoidFn;

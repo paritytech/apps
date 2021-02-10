@@ -7,7 +7,7 @@ import { QueueTx, QueueTxMessageSetStatus } from '@canvas-ui/react-api/Status/ty
 import { useApi } from '@canvas-ui/react-api';
 import ledgerSigner from '@canvas-ui/react-api/LedgerSigner';
 import { AddressFlags, AddressProxy } from '@canvas-ui/react-api/types';
-import { extractExternal, handleTxResults } from '@canvas-ui/react-signer/util';
+import { extractExternal, handleTxResults } from '@canvas-ui/react-api/utilFuncs';
 import { StringOrNull, VoidFn } from '@canvas-ui/react-api/types';
 import BN from 'bn.js';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';

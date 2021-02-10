@@ -1,12 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/react-signer authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { QueueTx, QueueTxMessageSetStatus, QueueTxStatus } from '@canvas-ui/react-api/Status/types';
+import { QueueTx, QueueTxMessageSetStatus, QueueTxStatus } from './Status/types';
 
 import { SubmittableResult } from '@polkadot/api';
 import keyring from '@polkadot/ui-keyring';
 
-import { AddressFlags } from '@canvas-ui/react-api/types';
+import { AddressFlags } from './types';
 
 const NOOP = () => undefined;
 
