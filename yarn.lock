@@ -1629,6 +1629,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@canvas-ui/types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "@canvas-ui/types@workspace:packages/types"
+  dependencies:
+    "@canvas-ui/react-hooks": "workspace:packages/react-hooks"
+    "@testing-library/react": ^11.2.3
+    testcontainers: ^6.4.1
+  languageName: unknown
+  linkType: soft
+
 "@cnakazawa/watch@npm:^1.0.3":
   version: 1.0.4
   resolution: "@cnakazawa/watch@npm:1.0.4"

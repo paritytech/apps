@@ -71,7 +71,7 @@
     "clean:i18n": "rm -rf packages/apps/public/locales/en && mkdir -p packages/apps/public/locales/en",
     "lint": "polkadot-dev-run-lint",
     "lint:css": "stylelint './packages/**/src/**/*.tsx'",
-    "format": "eslint . --ext 'js,jsx,ts,tsx' --fix",
+    "format": "eslint --config .eslintrc.js --ext 'js,jsx,ts,tsx' --fix",
     "postinstall": "polkadot-dev-yarn-only",
     "postinstall:electron": "electron-builder install-app-deps",
     "test": "polkadot-dev-run-test packages/apps/src --passWithNoTests",
