@@ -4,7 +4,7 @@
 import { registry } from '@canvas-ui/react-api';
 import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { QueueTx, QueueTxMessageSetStatus } from '@canvas-ui/react-api/Status/types';
-import { useApi } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import ledgerSigner from '@canvas-ui/react-signer/LedgerSigner';
 import { AddressFlags, AddressProxy } from '@canvas-ui/react-signer/types';
 import { extractExternal, handleTxResults } from '@canvas-ui/react-signer/util';
@@ -25,43 +25,43 @@ import { assert, BN_ZERO } from '@polkadot/util';
 import { blake2AsU8a } from '@polkadot/util-crypto';
 
 interface UseSendTx {
-  addQrSignature : (_ : { signature : string }) => void;
-  flags : AddressFlags;
-  multiCall : StringOrNull;
-  onCancel : VoidFn;
-  onSend : () => Promise<void>;
-  onSendPayload : VoidFn;
-  onSendUnsigned : () => Promise<void>;
-  onSign : () => Promise<void>;
-  passwordError : StringOrNull;
-  qrState : QrState;
-  senderInfo : AddressProxy;
-  setFlags : React.Dispatch<AddressFlags>;
-  setMultiCall : React.Dispatch<StringOrNull>;
-  setPasswordError : React.Dispatch<StringOrNull>;
-  setQrState : React.Dispatch<QrState>;
-  setSenderInfo : React.Dispatch<AddressProxy>;
-  setSignedOptions : React.Dispatch<Partial<SignerOptions>>;
-  setSignedTx : React.Dispatch<StringOrNull>;
-  setTip : React.Dispatch<BN>;
-  signedOptions : Partial<SignerOptions>;
-  signedTx : StringOrNull;
-  tip : BN;
-  tx : QueueTx | null;
+  addQrSignature: (_: { signature: string }) => void;
+  flags: AddressFlags;
+  multiCall: StringOrNull;
+  onCancel: VoidFn;
+  onSend: () => Promise<void>;
+  onSendPayload: VoidFn;
+  onSendUnsigned: () => Promise<void>;
+  onSign: () => Promise<void>;
+  passwordError: StringOrNull;
+  qrState: QrState;
+  senderInfo: AddressProxy;
+  setFlags: React.Dispatch<AddressFlags>;
+  setMultiCall: React.Dispatch<StringOrNull>;
+  setPasswordError: React.Dispatch<StringOrNull>;
+  setQrState: React.Dispatch<QrState>;
+  setSenderInfo: React.Dispatch<AddressProxy>;
+  setSignedOptions: React.Dispatch<Partial<SignerOptions>>;
+  setSignedTx: React.Dispatch<StringOrNull>;
+  setTip: React.Dispatch<BN>;
+  signedOptions: Partial<SignerOptions>;
+  signedTx: StringOrNull;
+  tip: BN;
+  tx: QueueTx | null;
 }
 
 interface QrState {
-  isQrHashed : boolean;
-  isQrVisible : boolean;
-  qrAddress : string;
-  qrPayload : Uint8Array;
-  qrResolve ?: (result : SignerResult) => void;
-  qrReject ?: (error : Error) => void;
+  isQrHashed: boolean;
+  isQrVisible: boolean;
+  qrAddress: string;
+  qrPayload: Uint8Array;
+  qrResolve?: (result: SignerResult) => void;
+  qrReject?: (error: Error) => void;
 }
 
 const NOOP = () => undefined;
 
-function unlockAccount ({ signAddress, signPassword } : AddressProxy) : string | null {
+function unlockAccount({ signAddress, signPassword }: AddressProxy): string | null {
   let publicKey;
 
   try {
@@ -85,20 +85,20 @@ function unlockAccount ({ signAddress, signPassword } : AddressProxy) : string |
   return null;
 }
 
-async function signAndSend (
-  queueSetTxStatus : QueueTxMessageSetStatus,
-  currentItem : QueueTx,
-  tx : SubmittableExtrinsic<'promise'>,
-  pairOrAddress : KeyringPair | string,
-  options : Partial<SignerOptions>
-) : Promise<void> {
+async function signAndSend(
+  queueSetTxStatus: QueueTxMessageSetStatus,
+  currentItem: QueueTx,
+  tx: SubmittableExtrinsic<'promise'>,
+  pairOrAddress: KeyringPair | string,
+  options: Partial<SignerOptions>
+): Promise<void> {
   currentItem.txStartCb && currentItem.txStartCb();
 
   try {
     const unsubscribe = await tx.signAndSend(
       pairOrAddress,
       options,
-      handleTxResults('signAndSend', queueSetTxStatus, currentItem, () : void => {
+      handleTxResults('signAndSend', queueSetTxStatus, currentItem, (): void => {
         unsubscribe();
       })
     );
@@ -110,16 +110,16 @@ async function signAndSend (
   }
 }
 
-async function sendUnsigned (
-  queueSetTxStatus : QueueTxMessageSetStatus,
-  currentItem : QueueTx,
-  tx : SubmittableExtrinsic<'promise'>
-) : Promise<void> {
+async function sendUnsigned(
+  queueSetTxStatus: QueueTxMessageSetStatus,
+  currentItem: QueueTx,
+  tx: SubmittableExtrinsic<'promise'>
+): Promise<void> {
   currentItem.txStartCb && currentItem.txStartCb();
 
   try {
     const unsubscribe = await tx.send(
-      handleTxResults('send', queueSetTxStatus, currentItem, () : void => {
+      handleTxResults('send', queueSetTxStatus, currentItem, (): void => {
         unsubscribe();
       })
     );
@@ -131,13 +131,13 @@ async function sendUnsigned (
   }
 }
 
-async function signAsync (
-  queueSetTxStatus : QueueTxMessageSetStatus,
-  { id, txFailedCb = NOOP, txStartCb = NOOP } : QueueTx,
-  tx : SubmittableExtrinsic<'promise'>,
-  pairOrAddress : KeyringPair | string,
-  options : Partial<SignerOptions>
-) : Promise<string | null> {
+async function signAsync(
+  queueSetTxStatus: QueueTxMessageSetStatus,
+  { id, txFailedCb = NOOP, txStartCb = NOOP }: QueueTx,
+  tx: SubmittableExtrinsic<'promise'>,
+  pairOrAddress: KeyringPair | string,
+  options: Partial<SignerOptions>
+): Promise<string | null> {
   txStartCb();
 
   try {
@@ -151,11 +151,11 @@ async function signAsync (
   return null;
 }
 
-function signQrPayload (
-  setQrState : (state : QrState) => void
-) : (payload : SignerPayloadJSON) => Promise<SignerResult> {
-  return (payload : SignerPayloadJSON) : Promise<SignerResult> =>
-    new Promise((resolve, reject) : void => {
+function signQrPayload(
+  setQrState: (state: QrState) => void
+): (payload: SignerPayloadJSON) => Promise<SignerResult> {
+  return (payload: SignerPayloadJSON): Promise<SignerResult> =>
+    new Promise((resolve, reject): void => {
       // limit size of the transaction
       const isQrHashed = payload.method.length > 5000;
       const wrapper = registry.createType('ExtrinsicPayload', payload, {
@@ -174,11 +174,11 @@ function signQrPayload (
     });
 }
 
-async function wrapTx (
-  api : ApiPromise,
-  currentItem : QueueTx,
-  { isMultiCall, multiRoot, proxyRoot, signAddress } : AddressProxy
-) : Promise<SubmittableExtrinsic<'promise'>> {
+async function wrapTx(
+  api: ApiPromise,
+  currentItem: QueueTx,
+  { isMultiCall, multiRoot, proxyRoot, signAddress }: AddressProxy
+): Promise<SubmittableExtrinsic<'promise'>> {
   let tx = currentItem.extrinsic as SubmittableExtrinsic<'promise'>;
 
   if (proxyRoot) {
@@ -194,7 +194,7 @@ async function wrapTx (
     const { weight } = await tx.paymentInfo(multiRoot);
     const { threshold, who } = extractExternal(multiRoot);
     const others = who.filter(w => w !== signAddress);
-    let timepoint : Timepoint | null = null;
+    let timepoint: Timepoint | null = null;
 
     if (info.isSome) {
       timepoint = info.unwrap().when;
@@ -203,20 +203,20 @@ async function wrapTx (
     tx = isMultiCall
       ? api.tx[multiModule].asMulti.meta.args.length === 6
         ? // We are doing toHex here since we have a Vec<u8> input
-        api.tx[multiModule].asMulti(
-          threshold,
-          others,
-          timepoint,
-          tx.method.toHex(),
-          false,
-          weight
-        )
+          api.tx[multiModule].asMulti(
+            threshold,
+            others,
+            timepoint,
+            tx.method.toHex(),
+            false,
+            weight
+          )
         : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        api.tx[multiModule].asMulti(threshold, others, timepoint, tx.method)
+          // @ts-ignore
+          api.tx[multiModule].asMulti(threshold, others, timepoint, tx.method)
       : api.tx[multiModule].approveAsMulti.meta.args.length === 5
-        ? api.tx[multiModule].approveAsMulti(threshold, others, timepoint, tx.method.hash, weight)
-        : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      ? api.tx[multiModule].approveAsMulti(threshold, others, timepoint, tx.method.hash, weight)
+      : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         api.tx[multiModule].approveAsMulti(threshold, others, timepoint, tx.method.hash);
   }
@@ -224,11 +224,11 @@ async function wrapTx (
   return tx;
 }
 
-async function extractParams (
-  address : string,
-  options : Partial<SignerOptions>,
-  setQrState : (state : QrState) => void
-) : Promise<['qr' | 'signing', KeyringPair | string, Partial<SignerOptions>]> {
+async function extractParams(
+  address: string,
+  options: Partial<SignerOptions>,
+  setQrState: (state: QrState) => void
+): Promise<['qr' | 'signing', KeyringPair | string, Partial<SignerOptions>]> {
   const pair = keyring.getPair(address);
   const {
     meta: { isExternal, isHardware, isInjected, source }
@@ -251,8 +251,8 @@ async function extractParams (
 
 let qrId = 0;
 
-export default function useSendTx (source : QueueTx | null, requestAddress : string) : UseSendTx {
-  const currentItem = useMemo(() : QueueTx | null => source, [source]);
+export default function useSendTx(source: QueueTx | null, requestAddress: string): UseSendTx {
+  const currentItem = useMemo((): QueueTx | null => source, [source]);
   const { api } = useApi();
   const { queueSetTxStatus } = useContext(StatusContext);
   const [flags, setFlags] = useState(extractExternal(requestAddress));
@@ -279,7 +279,7 @@ export default function useSendTx (source : QueueTx | null, requestAddress : str
   const [tip, setTip] = useState(BN_ZERO);
   const { qrResolve } = qrState;
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setSenderInfo({
       isMultiCall: false,
       isUnlockCached: false,
@@ -290,13 +290,13 @@ export default function useSendTx (source : QueueTx | null, requestAddress : str
     });
   }, [requestAddress]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setFlags(extractExternal(senderInfo.signAddress));
     setPasswordError(null);
   }, [senderInfo]);
 
   // when we are sending the hash only, get the wrapped call for display (proxies if required)
-  useEffect(() : void => {
+  useEffect((): void => {
     setMultiCall(
       currentItem?.extrinsic && senderInfo.multiRoot
         ? senderInfo.proxyRoot
@@ -307,7 +307,7 @@ export default function useSendTx (source : QueueTx | null, requestAddress : str
   }, [api, currentItem, senderInfo]);
 
   const addQrSignature = useCallback(
-    ({ signature } : { signature : string }) =>
+    ({ signature }: { signature: string }) =>
       qrResolve &&
       qrResolve({
         id: ++qrId,
@@ -316,7 +316,7 @@ export default function useSendTx (source : QueueTx | null, requestAddress : str
     [qrResolve]
   );
 
-  const onCancel = useCallback(() : void => {
+  const onCancel = useCallback((): void => {
     if (currentItem) {
       const { id, signerCb = NOOP, txFailedCb = NOOP } = currentItem;
 
@@ -326,7 +326,7 @@ export default function useSendTx (source : QueueTx | null, requestAddress : str
     }
   }, [currentItem, queueSetTxStatus]);
 
-  const _unlock = useCallback(() : boolean => {
+  const _unlock = useCallback((): boolean => {
     const passwordError =
       senderInfo.signAddress && flags.isUnlockable ? unlockAccount(senderInfo) : null;
 
@@ -335,7 +335,7 @@ export default function useSendTx (source : QueueTx | null, requestAddress : str
     return !passwordError;
   }, [flags, senderInfo]);
 
-  const onSendPayload = useCallback(() : void => {
+  const onSendPayload = useCallback((): void => {
     if (_unlock() && senderInfo.signAddress && currentItem?.payload) {
       const { id, payload, signerCb = NOOP } = currentItem;
       const pair = keyring.getPair(senderInfo.signAddress);
@@ -348,7 +348,7 @@ export default function useSendTx (source : QueueTx | null, requestAddress : str
     }
   }, [_unlock, currentItem, queueSetTxStatus, senderInfo]);
 
-  const onSend = useCallback(async () : Promise<void> => {
+  const onSend = useCallback(async (): Promise<void> => {
     if (_unlock() && currentItem?.extrinsic && senderInfo.signAddress) {
       const [tx, [status, pairOrAddress, options]] = await Promise.all([
         wrapTx(api, currentItem, senderInfo),
@@ -360,13 +360,13 @@ export default function useSendTx (source : QueueTx | null, requestAddress : str
     }
   }, [_unlock, api, currentItem, queueSetTxStatus, senderInfo, tip]);
 
-  const onSendUnsigned = useCallback(async () : Promise<void> => {
+  const onSendUnsigned = useCallback(async (): Promise<void> => {
     if (currentItem?.extrinsic) {
       await sendUnsigned(queueSetTxStatus, currentItem, currentItem.extrinsic);
     }
   }, [currentItem, queueSetTxStatus]);
 
-  const onSign = useCallback(async () : Promise<void> => {
+  const onSign = useCallback(async (): Promise<void> => {
     if (_unlock() && currentItem && senderInfo.signAddress) {
       const [tx, [, pairOrAddress, options]] = await Promise.all([
         wrapTx(api, currentItem, senderInfo),

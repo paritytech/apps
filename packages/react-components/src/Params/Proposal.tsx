@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { registry } from '@canvas-ui/react-api';
-import { useApi } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import { Props, RawParam } from '@canvas-ui/react-params/types';
 import React, { useCallback } from 'react';
 
 import ExtrinsicDisplay from './Extrinsic';
 
-function ProposalDisplay ({
+function ProposalDisplay({
   className = '',
   isDisabled,
   isError,
@@ -17,10 +17,10 @@ function ProposalDisplay ({
   onEnter,
   onEscape,
   withLabel
-} : Props) : React.ReactElement<Props> {
+}: Props): React.ReactElement<Props> {
   const { apiDefaultTxSudo } = useApi();
   const _onChange = useCallback(
-    ({ isValid, value } : RawParam) : void => {
+    ({ isValid, value }: RawParam): void => {
       let proposal = null;
 
       if (isValid && value) {

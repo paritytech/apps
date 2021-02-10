@@ -4,7 +4,8 @@
 import { QueueTx } from '@canvas-ui/react-api/Status/types';
 import { Button, ErrorBoundary, Modal, Output, Toggle } from '@canvas-ui/react-components';
 import useSendTx from '@canvas-ui/react-components/useSendTx';
-import { useApi, useToggle } from '@canvas-ui/react-hooks';
+import { useToggle } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -16,16 +17,16 @@ import Transaction from './Transaction';
 import { useTranslation } from './translate';
 
 interface Props {
-  className ?: string;
-  currentItem : QueueTx;
-  requestAddress : string;
+  className?: string;
+  currentItem: QueueTx;
+  requestAddress: string;
 }
 
-function TxSigned ({
+function TxSigned({
   className,
   currentItem,
   requestAddress
-} : Props) : React.ReactElement<Props> | null {
+}: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const { t } = useTranslation();
   const {
@@ -60,42 +61,42 @@ function TxSigned ({
               payload={qrPayload}
             />
           ) : (
-              <>
-                <Transaction currentItem={currentItem} onError={toggleRenderError} />
-                <Address
-                  currentItem={currentItem}
-                  onChange={setSenderInfo}
-                  passwordError={passwordError}
-                  requestAddress={requestAddress}
+            <>
+              <Transaction currentItem={currentItem} onError={toggleRenderError} />
+              <Address
+                currentItem={currentItem}
+                onChange={setSenderInfo}
+                passwordError={passwordError}
+                requestAddress={requestAddress}
+              />
+              {!currentItem.payload && <Tip onChange={setTip} />}
+              {!isSubmit && (
+                <SignFields
+                  address={senderInfo.signAddress}
+                  onChange={setSignedOptions}
+                  signedTx={signedTx}
                 />
-                {!currentItem.payload && <Tip onChange={setTip} />}
-                {!isSubmit && (
-                  <SignFields
-                    address={senderInfo.signAddress}
-                    onChange={setSignedOptions}
-                    signedTx={signedTx}
-                  />
-                )}
-                {isSubmit && !senderInfo.isMultiCall && multiCall && (
-                  <Modal.Columns>
-                    <Modal.Column>
-                      <Output
-                        isFull
-                        isTrimmed
-                        label={t<string>('multisig call data')}
-                        value={multiCall}
-                        withCopy
-                      />
-                    </Modal.Column>
-                    <Modal.Column>
-                      {t<string>(
-                        'The call data that can be supplied to a final call to multi approvals'
-                      )}
-                    </Modal.Column>
-                  </Modal.Columns>
-                )}
-              </>
-            )}
+              )}
+              {isSubmit && !senderInfo.isMultiCall && multiCall && (
+                <Modal.Columns>
+                  <Modal.Column>
+                    <Output
+                      isFull
+                      isTrimmed
+                      label={t<string>('multisig call data')}
+                      value={multiCall}
+                      withCopy
+                    />
+                  </Modal.Column>
+                  <Modal.Column>
+                    {t<string>(
+                      'The call data that can be supplied to a final call to multi approvals'
+                    )}
+                  </Modal.Column>
+                </Modal.Columns>
+              )}
+            </>
+          )}
         </ErrorBoundary>
       </Modal.Content>
       <Modal.Actions onCancel={onCancel}>
@@ -109,8 +110,8 @@ function TxSigned ({
                 flags.isQr
                   ? t<string>('Sign via Qr')
                   : isSubmit
-                    ? t<string>('Sign and Submit')
-                    : t<string>('Sign (no submission)')
+                  ? t<string>('Sign and Submit')
+                  : t<string>('Sign (no submission)')
               }
               onClick={isSubmit ? (currentItem.payload ? onSendPayload : onSend) : onSign}
               tabIndex={2}

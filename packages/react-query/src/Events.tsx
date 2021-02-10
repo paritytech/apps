@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import React, { useEffect, useState } from 'react';
 
 import { BlockNumber, EventRecord } from '@polkadot/types/interfaces';
@@ -9,40 +9,40 @@ import { stringToU8a } from '@polkadot/util';
 import { xxhashAsHex } from '@polkadot/util-crypto';
 
 interface IndexedEvent {
-  index : number;
-  record : EventRecord;
+  index: number;
+  record: EventRecord;
 }
 
 interface KeyedEvent extends IndexedEvent {
-  blockHash : string;
-  blockNumber : BlockNumber;
-  key : string;
+  blockHash: string;
+  blockNumber: BlockNumber;
+  key: string;
 }
 
 type Events = KeyedEvent[];
 
 interface Props {
-  children : React.ReactNode;
+  children: React.ReactNode;
 }
 
 const MAX_EVENTS = 50;
 
-const EventsContext : React.Context<Events> = React.createContext<Events>([]);
+const EventsContext: React.Context<Events> = React.createContext<Events>([]);
 
-function EventsBase ({ children } : Props) : React.ReactElement<Props> {
+function EventsBase({ children }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [state, setState] = useState<Events>([]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     // No unsub, global context - destroyed on app close
     api.isReady
-      .then(() : void => {
-        let prevBlockHash : string | null = null;
-        let prevEventHash : string | null = null;
+      .then((): void => {
+        let prevBlockHash: string | null = null;
+        let prevEventHash: string | null = null;
 
         api.query.system
-          .events((records) : void => {
-            const newEvents : IndexedEvent[] = records
+          .events((records): void => {
+            const newEvents: IndexedEvent[] = records
               .map((record, index) => ({ index, record }))
               .filter(
                 ({
@@ -59,7 +59,7 @@ function EventsBase ({ children } : Props) : React.ReactElement<Props> {
               // retrieve the last header, this will map to the current state
               api.rpc.chain
                 .getHeader()
-                .then((header) : void => {
+                .then((header): void => {
                   const blockNumber = header.number.unwrap();
                   const blockHash = header.hash.toHex();
 
@@ -69,7 +69,7 @@ function EventsBase ({ children } : Props) : React.ReactElement<Props> {
                     setState(events =>
                       [
                         ...newEvents.map(
-                          ({ index, record }) : KeyedEvent => ({
+                          ({ index, record }): KeyedEvent => ({
                             blockHash,
                             blockNumber,
                             index,

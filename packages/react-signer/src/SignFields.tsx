@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { InputNumber, Modal, Output } from '@canvas-ui/react-components';
-import { useApi } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import BN from 'bn.js';
 import React, { useCallback, useEffect, useState } from 'react';
 
@@ -12,19 +12,19 @@ import { BN_ZERO } from '@polkadot/util';
 import { useTranslation } from './translate';
 
 interface Props {
-  address : string | null;
-  className ?: string;
-  onChange : (signedOptions : Partial<SignerOptions>) => void;
-  signedTx : string | null;
+  address: string | null;
+  className?: string;
+  onChange: (signedOptions: Partial<SignerOptions>) => void;
+  signedTx: string | null;
 }
 
-function SignFields ({ address, onChange, signedTx } : Props) : React.ReactElement<Props> {
+function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [blocks, setBlocks] = useState(new BN(64));
   const [nonce, setNonce] = useState(BN_ZERO);
   const { t } = useTranslation();
 
-  useEffect(() : void => {
+  useEffect((): void => {
     address &&
       api.derive.balances
         .account(address)
@@ -32,7 +32,7 @@ function SignFields ({ address, onChange, signedTx } : Props) : React.ReactEleme
         .catch(console.error);
   }, [address, api]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     onChange({ era: blocks.toNumber(), nonce });
   }, [blocks, nonce, onChange]);

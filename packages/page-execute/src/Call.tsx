@@ -15,13 +15,8 @@ import {
   TxButton
 } from '@canvas-ui/react-components';
 import { ComponentProps as Props } from '@canvas-ui/react-components/types';
-import {
-  useAccountId,
-  useAccountInfo,
-  useApi,
-  useFormField,
-  useGasWeight
-} from '@canvas-ui/react-hooks';
+import { useAccountId, useAccountInfo, useFormField, useGasWeight } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import { useTxParams } from '@canvas-ui/react-params';
 import { extractValues } from '@canvas-ui/react-params/values';
 import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
@@ -38,26 +33,26 @@ import Outcome from './Outcome';
 import { useTranslation } from './translate';
 import { CallResult } from './types';
 
-type Options = { key : string; text : React.ReactNode; value : number }[];
+type Options = { key: string; text: React.ReactNode; value: number }[];
 
-function getCallMessageOptions (callContract : Contract | null) : Options {
+function getCallMessageOptions(callContract: Contract | null): Options {
   return callContract
-    ? callContract.abi.messages.map((message, index) : {
-      key : string;
-      text : React.ReactNode;
-      value : number;
-    } => {
-      return {
-        key: message.identifier,
-        text: <MessageSignature message={message} registry={callContract.registry} />,
-        value: index
-      };
-    })
+    ? callContract.abi.messages.map((message, index): {
+        key: string;
+        text: React.ReactNode;
+        value: number;
+      } => {
+        return {
+          key: message.identifier,
+          text: <MessageSignature message={message} registry={callContract.registry} />,
+          value: index
+        };
+      })
     : [];
 }
 
-function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | null {
-  const pageParams : { address ?: string; messageIndex ?: string } = useParams();
+function Call({ className, navigateTo }: Props): React.ReactElement<Props> | null {
+  const pageParams: { address?: string; messageIndex?: string } = useParams();
   const { api } = useApi();
   const { t } = useTranslation();
   const { name } = useAccountInfo(pageParams.address?.toString() || null, true);
@@ -66,7 +61,7 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
   const [messageIndex, setMessageIndex] = useState(parseInt(pageParams.messageIndex || '0', 10));
   const [outcomes, setOutcomes] = useState<CallResult[]>([]);
 
-  const [contract, hasRpc] = useMemo(() : [Contract | null, boolean] => {
+  const [contract, hasRpc] = useMemo((): [Contract | null, boolean] => {
     try {
       const contract = getContractForAddress(api, pageParams.address || null);
       const hasRpc = contract?.hasRpcContractsCall || false;
@@ -82,15 +77,15 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
   const [params, values = [], setValues] = useTxParams(
     contract?.abi?.messages[messageIndex].args || []
   );
-  const encoder = useCallback(() : Uint8Array | null => {
+  const encoder = useCallback((): Uint8Array | null => {
     return contract?.abi?.messages[messageIndex]
       ? ((contract.abi.messages[messageIndex].toU8a(
-        extractValues(values || [])
-      ) as unknown) as Uint8Array)
+          extractValues(values || [])
+        ) as unknown) as Uint8Array)
       : null;
   }, [contract?.abi?.messages, messageIndex, values]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     const newMessage = contract?.abi?.messages[messageIndex] || null;
 
     if (hasRpc) {
@@ -109,7 +104,7 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
   const useWeightHook = useGasWeight();
   const { isValid: isWeightValid, setMegaGas, weightToString } = useWeightHook;
 
-  useEffect(() : void => {
+  useEffect((): void => {
     if (!accountId || !contract?.abi?.messages[messageIndex] || !values || !payment) return;
 
     const message = contract.abi.messages[messageIndex];
@@ -131,13 +126,13 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
       });
   }, [accountId, contract, contract?.abi?.messages, messageIndex, payment, setMegaGas, values]);
 
-  const messageOptions = useMemo(() : Options => getCallMessageOptions(contract), [contract]);
+  const messageOptions = useMemo((): Options => getCallMessageOptions(contract), [contract]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setOutcomes([]);
   }, [contract]);
 
-  const _constructTx = useCallback(() : any[] => {
+  const _constructTx = useCallback((): any[] => {
     const data = encoder();
 
     if (!accountId || !data || !contract || !contract.address) {
@@ -147,14 +142,14 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
     return [contract.address.toString(), payment, weightToString, data];
   }, [accountId, contract, encoder, payment, weightToString]);
 
-  const _onSubmitRpc = useCallback(() : void => {
+  const _onSubmitRpc = useCallback((): void => {
     if (!accountId || !contract || !payment || !weightToString) return;
 
     !!contract &&
       contract
         .read(messageIndex, 0, weightToString, ...extractValues(values))
         .send(accountId)
-        .then((result) : void => {
+        .then((result): void => {
           setOutcomes([
             {
               ...result,
@@ -169,7 +164,7 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
   }, [accountId, contract, messageIndex, payment, weightToString, outcomes, values]);
 
   const _onClearOutcome = useCallback(
-    (outcomeIndex : number) => () : void => {
+    (outcomeIndex: number) => (): void => {
       setOutcomes(outcomes.slice(0, outcomeIndex).concat(outcomes.slice(outcomeIndex + 1)));
     },
     [outcomes]
@@ -177,7 +172,7 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
   // Clear all previous contract execution results
   const _onClearAllOutcomes = () => setOutcomes([]);
   const isValid = useMemo(
-    () : boolean =>
+    (): boolean =>
       !!accountId &&
       !!contract &&
       !!contract.address &&
@@ -188,7 +183,7 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
   );
 
   const additionalDetails = useMemo(
-    () : Record<string, any> => ({
+    (): Record<string, any> => ({
       // data: data ? u8aToHex(data) : null,
       message: messageOptions[messageIndex]?.text,
       name: name || '',
@@ -300,15 +295,15 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
                 onClick={_onSubmitRpc}
               />
             ) : (
-                <TxButton
-                  accountId={accountId}
-                  isDisabled={!isValid}
-                  isPrimary
-                  label={t<string>('Call')}
-                  params={_constructTx}
-                  tx={api.tx.contracts.call}
-                />
-              )}
+              <TxButton
+                accountId={accountId}
+                isDisabled={!isValid}
+                isPrimary
+                label={t<string>('Call')}
+                params={_constructTx}
+                tx={api.tx.contracts.call}
+              />
+            )}
           </Button.Group>
         </section>
         {outcomes.length > 0 && (
@@ -324,7 +319,7 @@ function Call ({ className, navigateTo } : Props) : React.ReactElement<Props> | 
             </h3>
             <div className="outcomes">
               {outcomes.map(
-                (outcome, index) : React.ReactNode => (
+                (outcome, index): React.ReactNode => (
                   <Outcome
                     key={`outcome-${index}`}
                     onClear={_onClearOutcome(index)}

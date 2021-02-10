@@ -1,10 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { useCall } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import React, { useEffect, useState } from 'react';
 
-function WarmUp () : React.ReactElement {
+function WarmUp(): React.ReactElement {
   const { api, isApiReady } = useApi();
   const indexes = useCall<unknown>(isApiReady && api.derive.accounts?.indexes, []);
   const registrars = useCall<unknown>(isApiReady && api.query.identity?.registrars, []);
@@ -12,7 +13,7 @@ function WarmUp () : React.ReactElement {
   const issuance = useCall<unknown>(isApiReady && api.query.balances?.totalIssuance, []);
   const [hasValues, setHasValues] = useState(false);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setHasValues(!!indexes || !!issuance || !!registrars || !!staking);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

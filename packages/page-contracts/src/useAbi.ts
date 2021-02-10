@@ -3,7 +3,7 @@
 
 import { useTranslation } from '@canvas-ui/react-hooks/translate';
 import { FileState } from '@canvas-ui/react-hooks/types';
-import useApi from '@canvas-ui/react-hooks/useApi';
+import useApi from '@canvas-ui/react-api/useApi';
 import { VoidFn } from '@canvas-ui/react-util/types';
 import { useCallback, useEffect, useState } from 'react';
 
@@ -15,39 +15,39 @@ import store from './store';
 import { Code } from './types';
 
 interface UseAbi {
-  abi : Abi | null;
-  errorText : string | null;
-  isAbiError : boolean;
-  isAbiValid : boolean;
-  isAbiSupplied : boolean;
-  onChangeAbi : (_ : FileState) => void;
-  onRemoveAbi : VoidFn;
+  abi: Abi | null;
+  errorText: string | null;
+  isAbiError: boolean;
+  isAbiValid: boolean;
+  isAbiSupplied: boolean;
+  onChangeAbi: (_: FileState) => void;
+  onRemoveAbi: VoidFn;
 }
 
 type State = [Abi | null, boolean, boolean];
 
 interface AbiSpecOutdated {
-  deploy ?: any;
-  messages ?: any;
-  registry ?: {
-    strings ?: any;
+  deploy?: any;
+  messages?: any;
+  registry?: {
+    strings?: any;
   };
 }
 
-export default function useAbi (source : Code | null = null, isRequired = false) : UseAbi {
+export default function useAbi(source: Code | null = null, isRequired = false): UseAbi {
   const { api } = useApi();
   const { t } = useTranslation();
-  const initialState : State = source
+  const initialState: State = source
     ? [
-      source.abi ? new Abi(source.abi, api.registry.getChainProperties()) : null,
-      !!source?.abi,
-      !isRequired || !!source.abi
-    ]
+        source.abi ? new Abi(source.abi, api.registry.getChainProperties()) : null,
+        !!source?.abi,
+        !isRequired || !!source.abi
+      ]
     : [null, false, false];
   const [[abi, isAbiSupplied, isAbiValid], setAbi] = useState<State>(initialState);
   const [[isAbiError, errorText], setError] = useState<[boolean, string | null]>([false, null]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     if (!!source?.abi && abi?.json !== source.abi) {
       setAbi([
         new Abi(source.abi, api.registry.getChainProperties()),
@@ -58,7 +58,7 @@ export default function useAbi (source : Code | null = null, isRequired = false)
   }, [abi, api.registry, source, isRequired]);
 
   const onChangeAbi = useCallback(
-    ({ data } : FileState) : void => {
+    ({ data }: FileState): void => {
       const json = u8aToString(data);
 
       try {
@@ -85,7 +85,7 @@ export default function useAbi (source : Code | null = null, isRequired = false)
     [api.registry, source, t]
   );
 
-  const onRemoveAbi = useCallback(() : void => {
+  const onRemoveAbi = useCallback((): void => {
     setAbi([null, false, false]);
     setError([false, null]);
 

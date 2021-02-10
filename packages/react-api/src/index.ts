@@ -6,6 +6,7 @@ import ApiContext from './ApiContext';
 import { withApi, withCallDiv, withCalls, withMulti, withObservable } from './hoc';
 import { clearLedger, getLedger, isLedger, isLedgerCapable } from './ledger';
 import registry from './typeRegistry';
+import { default as useApi } from './useApi';
 
 export {
   api,
@@ -20,5 +21,6 @@ export {
   clearLedger,
   getLedger,
   isLedger,
-  isLedgerCapable
+  isLedgerCapable,
+  useApi
 };

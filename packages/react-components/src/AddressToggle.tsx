@@ -1,7 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { useCall } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import { getAddressName } from '@canvas-ui/react-util';
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -12,17 +13,17 @@ import AddressMini from './AddressMini';
 import Toggle from './Toggle';
 
 interface Props {
-  address : string;
-  className ?: string;
-  isHidden ?: boolean;
-  filter ?: string;
-  noLookup ?: boolean;
-  noToggle ?: boolean;
-  onChange ?: (isChecked : boolean) => void;
-  value ?: boolean;
+  address: string;
+  className?: string;
+  isHidden?: boolean;
+  filter?: string;
+  noLookup?: boolean;
+  noToggle?: boolean;
+  onChange?: (isChecked: boolean) => void;
+  value?: boolean;
 }
 
-function getIsFiltered (address : string, filter ?: string, info ?: DeriveAccountInfo) : boolean {
+function getIsFiltered(address: string, filter?: string, info?: DeriveAccountInfo): boolean {
   if (!filter || address.includes(filter)) {
     return false;
   }
@@ -50,7 +51,7 @@ function getIsFiltered (address : string, filter ?: string, info ?: DeriveAccoun
   return true;
 }
 
-function AddressToggle ({
+function AddressToggle({
   address,
   className = '',
   filter,
@@ -59,21 +60,22 @@ function AddressToggle ({
   noToggle,
   onChange,
   value
-} : Props) : React.ReactElement<Props> | null {
+}: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [address]);
   const [isFiltered, setIsFiltered] = useState(false);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setIsFiltered(getIsFiltered(address, filter, info));
   }, [address, filter, info]);
 
-  const _onClick = useCallback(() : void => onChange && onChange(!value), [onChange, value]);
+  const _onClick = useCallback((): void => onChange && onChange(!value), [onChange, value]);
 
   return (
     <div
-      className={`ui--AddressToggle ${className} ${value || noToggle ? 'isAye' : 'isNay'} ${isHidden || isFiltered ? 'isHidden' : ''
-        }`}
+      className={`ui--AddressToggle ${className} ${value || noToggle ? 'isAye' : 'isNay'} ${
+        isHidden || isFiltered ? 'isHidden' : ''
+      }`}
       onClick={_onClick}
     >
       <AddressMini

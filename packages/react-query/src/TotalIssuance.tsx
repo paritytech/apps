@@ -2,17 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { BareProps } from '@canvas-ui/react-api/types';
-import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { useCall } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import React from 'react';
 
 import FormatBalance from './FormatBalance';
 
 interface Props extends BareProps {
-  children ?: React.ReactNode;
-  label ?: React.ReactNode;
+  children?: React.ReactNode;
+  label?: React.ReactNode;
 }
 
-function TotalIssuance ({ children, className = '', label } : Props) : React.ReactElement<Props> {
+function TotalIssuance({ children, className = '', label }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const totalIssuance = useCall<string>(api.query.balances?.totalIssuance, []);
 

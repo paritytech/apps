@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { BareProps } from '@canvas-ui/react-api/types';
-import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { useCall } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import React from 'react';
 
 import { Option } from '@polkadot/types';
@@ -11,26 +12,26 @@ import { AccountId, AccountIndex, Address, StakingLedger } from '@polkadot/types
 import FormatBalance from './FormatBalance';
 
 interface Props extends BareProps {
-  children ?: React.ReactNode;
-  params ?: AccountId | AccountIndex | Address | string | Uint8Array | null;
-  label ?: React.ReactNode;
+  children?: React.ReactNode;
+  params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
+  label?: React.ReactNode;
 }
 
-function BondedDisplay ({
+function BondedDisplay({
   children,
   className = '',
   label,
   params
-} : Props) : React.ReactElement<Props> {
+}: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const controllerId = useCall<AccountId | null>(api.query.staking.bonded, [params], {
-    transform: (value : Option<AccountId>) => value.unwrapOr(null)
+    transform: (value: Option<AccountId>) => value.unwrapOr(null)
   });
   const stakingLedger = useCall<StakingLedger | null>(
     controllerId && api.query.staking.ledger,
     [controllerId],
     {
-      transform: (value : Option<StakingLedger>) => value.unwrapOr(null)
+      transform: (value: Option<StakingLedger>) => value.unwrapOr(null)
     }
   );
 

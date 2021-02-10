@@ -22,11 +22,11 @@ import {
 import { ELEV_2_CSS } from '@canvas-ui/react-components/styles/constants';
 import {
   useAccountId,
-  useApi,
   useGasWeight,
   useNonEmptyString,
   useNonZeroBn
 } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import { useTxParams } from '@canvas-ui/react-params';
 import { extractValues } from '@canvas-ui/react-params/values';
 import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
@@ -47,20 +47,20 @@ import { randomAsHex } from '@polkadot/util-crypto';
 import { useTranslation } from './translate';
 import { ComponentProps as Props } from './types';
 
-type ConstructOptions = { key : string; text : React.ReactNode; value : string }[];
+type ConstructOptions = { key: string; text: React.ReactNode; value: string }[];
 
 const ENDOWMENT = new BN(1e15);
 
-function defaultContractName (name ?: string) {
+function defaultContractName(name?: string) {
   return name ? `${name} (instance)` : '';
 }
 
-function New ({ allCodes, className, navigateTo } : Props) : React.ReactElement<Props> | null {
-  const { id, index = '0' } : { id : string; index ?: string } = useParams();
+function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Props> | null {
+  const { id, index = '0' }: { id: string; index?: string } = useParams();
   const { t } = useTranslation();
   const { api } = useApi();
-  const code = useMemo(() : Code | null => {
-    return allCodes.find((code : Code) => id === code.id) || null;
+  const code = useMemo((): Code | null => {
+    return allCodes.find((code: Code) => id === code.id) || null;
   }, [allCodes, id]);
   const useWeightHook = useGasWeight();
   const { isValid: isWeightValid, weight, weightToString } = useWeightHook;
@@ -81,7 +81,7 @@ function New ({ allCodes, className, navigateTo } : Props) : React.ReactElement<
     [api, code?.codeHash, abi, isAbiValid]
   );
 
-  const constructOptions = useMemo(() : ConstructOptions => {
+  const constructOptions = useMemo((): ConstructOptions => {
     if (!abi) {
       return [];
     }
@@ -96,7 +96,7 @@ function New ({ allCodes, className, navigateTo } : Props) : React.ReactElement<
   }, [abi]);
 
   const isValid = useMemo(
-    () : boolean => isNameValid && isEndowmentValid && isWeightValid && !!accountId,
+    (): boolean => isNameValid && isEndowmentValid && isWeightValid && !!accountId,
     [accountId, isEndowmentValid, isNameValid, isWeightValid]
   );
 
@@ -104,18 +104,18 @@ function New ({ allCodes, className, navigateTo } : Props) : React.ReactElement<
     abi?.constructors[constructorIndex].args || []
   );
 
-  useEffect(() : void => {
+  useEffect((): void => {
     endowment &&
-      setInitTx(() : SubmittableExtrinsic<'promise'> | null => {
+      setInitTx((): SubmittableExtrinsic<'promise'> | null => {
         if (blueprint) {
           try {
             const identifier = abi?.constructors[constructorIndex].identifier;
 
             return identifier
               ? blueprint.tx[identifier](
-                { gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment },
-                ...extractValues(values)
-              )
+                  { gasLimit: weightToString, salt: withSalt ? salt : null, value: endowment },
+                  ...extractValues(values)
+                )
               : null;
           } catch (error) {
             console.error(error);
@@ -128,12 +128,12 @@ function New ({ allCodes, className, navigateTo } : Props) : React.ReactElement<
       });
   }, [abi, blueprint, constructorIndex, endowment, values, weightToString, salt, withSalt]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setName(t(defaultContractName(code?.name)));
   }, [code, setName, t]);
 
   const _onSuccess = useCallback(
-    (result : SubmittableResult) : void => {
+    (result: SubmittableResult): void => {
       const section = api.tx.contracts ? 'contracts' : 'contract';
       const records = result.filterRecords(section, 'Instantiated');
 
@@ -158,7 +158,7 @@ function New ({ allCodes, className, navigateTo } : Props) : React.ReactElement<
   );
 
   const additionalDetails = useMemo(
-    () : Record<string, any> => ({
+    (): Record<string, any> => ({
       constructor: constructOptions[constructorIndex]?.text,
       // data: encoder ? u8aToHex(encoder()) : null,
       name: name || '',
@@ -172,7 +172,7 @@ function New ({ allCodes, className, navigateTo } : Props) : React.ReactElement<
     [abi?.registry, name, constructOptions, constructorIndex, params, values, weight]
   );
 
-  useEffect(() : void => {
+  useEffect((): void => {
     if (!abi) {
       navigateTo.deploy();
     }

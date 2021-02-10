@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { BareProps } from '@canvas-ui/react-api/types';
-import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { useCall } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import BN from 'bn.js';
 import React from 'react';
 
@@ -10,13 +11,13 @@ import { DeriveBalancesAll } from '@polkadot/api-derive/types';
 import { formatNumber } from '@polkadot/util';
 
 interface Props extends BareProps {
-  callOnResult ?: (accountNonce : BN) => void;
-  children ?: React.ReactNode;
-  label ?: React.ReactNode;
-  params ?: string | null;
+  callOnResult?: (accountNonce: BN) => void;
+  children?: React.ReactNode;
+  label?: React.ReactNode;
+  params?: string | null;
 }
 
-function Nonce ({ children, className = '', label, params } : Props) : React.ReactElement<Props> {
+function Nonce({ children, className = '', label, params }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const allBalances = useCall<DeriveBalancesAll>(api.derive.balances.all, [params]);
 

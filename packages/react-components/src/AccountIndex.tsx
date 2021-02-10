@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { BareProps } from '@canvas-ui/react-api/types';
-import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { useCall } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -10,24 +11,24 @@ import { DeriveAccountInfo } from '@polkadot/api-derive/types';
 import { AccountId, Address } from '@polkadot/types/interfaces';
 
 interface Props extends BareProps {
-  children ?: React.ReactNode;
-  defaultValue ?: string;
-  label ?: React.ReactNode;
-  value ?: string | AccountId | Address | null | Uint8Array;
+  children?: React.ReactNode;
+  defaultValue?: string;
+  label?: React.ReactNode;
+  value?: string | AccountId | Address | null | Uint8Array;
 }
 
-function AccountIndex ({
+function AccountIndex({
   children,
   className = '',
   defaultValue,
   label,
   value
-} : Props) : React.ReactElement<Props> | null {
+}: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(api.derive.accounts.info, [value]);
   const [accountIndex, setAccountIndex] = useState<string | null>(null);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     const { accountIndex } = info || {};
 
     if (accountIndex) {

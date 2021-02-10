@@ -2,18 +2,18 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { createEndpoints } from '@canvas-ui/apps-config/settings';
-import useApi from './useApi';
+import useApi from '@canvas-ui/react-api/useApi';
 import { UseEndpoints } from './types';
 import { TFunction } from 'i18next';
 import React, { useMemo } from 'react';
 
 import classes from '@canvas-ui/react-util/classes';
 
-export default function useEndpointOptions (
-  { isCustom, url } : UseEndpoints,
-  t : TFunction,
-  useShortText ?: boolean
-) : React.ReactNode[] {
+export default function useEndpointOptions(
+  { isCustom, url }: UseEndpoints,
+  t: TFunction,
+  useShortText?: boolean
+): React.ReactNode[] {
   const { isApiConnected } = useApi();
   const className = classes('chain-option', !isApiConnected && 'isDisconnected');
 
@@ -26,12 +26,12 @@ export default function useEndpointOptions (
       })),
       ...(isCustom
         ? [
-          {
-            key: url,
-            text: <div className={className}>{t<string>('Custom Node')}</div>,
-            value: url
-          }
-        ]
+            {
+              key: url,
+              text: <div className={className}>{t<string>('Custom Node')}</div>,
+              value: url
+            }
+          ]
         : [])
     ],
     [className, isCustom, t, url, useShortText]

@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/app-extrinsics authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import { Props } from '@canvas-ui/react-params/types';
 import React from 'react';
 
@@ -9,7 +9,7 @@ import { SubmittableExtrinsicFunction } from '@polkadot/api/types';
 
 import Extrinsic from './Extrinsic';
 
-function Call ({
+function Call({
   className = '',
   isDisabled,
   isError,
@@ -18,10 +18,10 @@ function Call ({
   onEnter,
   onEscape,
   withLabel
-} : Props) : React.ReactElement<Props> {
+}: Props): React.ReactElement<Props> {
   const { api, apiDefaultTx } = useApi();
 
-  const defaultValue = (() : SubmittableExtrinsicFunction<'promise'> => {
+  const defaultValue = ((): SubmittableExtrinsicFunction<'promise'> => {
     try {
       return api.tx.balances.transfer;
     } catch (error) {

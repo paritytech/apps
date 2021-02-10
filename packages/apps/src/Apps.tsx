@@ -7,7 +7,7 @@ import { ScrollToTop } from '@canvas-ui/react-components';
 import { PORTAL_ID } from '@canvas-ui/react-components/InputAddressMulti/SelectedDrag';
 import GlobalStyle from '@canvas-ui/react-components/styles';
 import { BareProps as Props } from '@canvas-ui/react-components/types';
-import { useApi } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import React, { useCallback, useMemo, useState } from 'react';
 import store from 'store';
 import styled from 'styled-components';
@@ -18,17 +18,17 @@ import SideBar from './SideBar';
 import WarmUp from './WarmUp';
 
 interface SidebarState {
-  isCollapsed : boolean;
-  isMenu : boolean;
-  isMenuOpen : boolean;
-  transition : SideBarTransition;
+  isCollapsed: boolean;
+  isMenu: boolean;
+  isMenuOpen: boolean;
+  transition: SideBarTransition;
 }
 
-function saveSidebar (sidebar : SidebarState) : SidebarState {
+function saveSidebar(sidebar: SidebarState): SidebarState {
   return store.set('sidebar', sidebar) as SidebarState;
 }
 
-function Apps ({ className = '' } : Props) : React.ReactElement<Props> {
+function Apps({ className = '' }: Props): React.ReactElement<Props> {
   const { systemChain, systemName } = useApi();
   const [sidebar, setSidebar] = useState<SidebarState>({
     isCollapsed: false,
@@ -38,31 +38,31 @@ function Apps ({ className = '' } : Props) : React.ReactElement<Props> {
     isMenu: window.innerWidth < SIDEBAR_MENU_THRESHOLD
   });
   const uiHighlight = useMemo(
-    () : string | undefined => getSystemChainColor(systemChain, systemName),
+    (): string | undefined => getSystemChainColor(systemChain, systemName),
     [systemChain, systemName]
   );
 
   const _collapse = useCallback(
-    () : void =>
-      setSidebar((sidebar : SidebarState) =>
+    (): void =>
+      setSidebar((sidebar: SidebarState) =>
         saveSidebar({ ...sidebar, isCollapsed: !sidebar.isCollapsed })
       ),
     []
   );
   const _toggleMenu = useCallback(
-    () : void =>
-      setSidebar((sidebar : SidebarState) =>
+    (): void =>
+      setSidebar((sidebar: SidebarState) =>
         saveSidebar({ ...sidebar, isCollapsed: false, isMenuOpen: true })
       ),
     []
   );
-  const _handleResize = useCallback(() : void => {
+  const _handleResize = useCallback((): void => {
     const transition =
       window.innerWidth < SIDEBAR_MENU_THRESHOLD
         ? SideBarTransition.MINIMISED_AND_EXPANDED
         : SideBarTransition.EXPANDED_AND_MAXIMISED;
 
-    setSidebar((sidebar : SidebarState) =>
+    setSidebar((sidebar: SidebarState) =>
       saveSidebar({
         ...sidebar,
         isMenu: transition === SideBarTransition.MINIMISED_AND_EXPANDED,
@@ -79,8 +79,9 @@ function Apps ({ className = '' } : Props) : React.ReactElement<Props> {
       <ScrollToTop />
       <GlobalStyle uiHighlight={defaultColor || uiHighlight} />
       <div
-        className={`apps--Wrapper ${isCollapsed ? 'collapsed' : 'expanded'} ${isMenuOpen ? 'menu-open' : ''
-          } theme--default ${className}`}
+        className={`apps--Wrapper ${isCollapsed ? 'collapsed' : 'expanded'} ${
+          isMenuOpen ? 'menu-open' : ''
+        } theme--default ${className}`}
       >
         <div
           className={`apps--Menu-bg ${isMenuOpen ? 'open' : 'closed'}`}

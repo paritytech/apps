@@ -2,15 +2,15 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { BareProps } from '@canvas-ui/react-api/types';
-import { useApi } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import React from 'react';
 
 interface Props extends BareProps {
-  children ?: React.ReactNode;
-  label ?: React.ReactNode;
+  children?: React.ReactNode;
+  label?: React.ReactNode;
 }
 
-function NodeVersion ({ children, className = '', label } : Props) : React.ReactElement<Props> {
+function NodeVersion({ children, className = '', label }: Props): React.ReactElement<Props> {
   const { systemVersion } = useApi();
 
   return (

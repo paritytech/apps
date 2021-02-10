@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Button, ContractCard } from '@canvas-ui/react-components';
-import { useApi } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import { getContractForAddress } from '@canvas-ui/react-util';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -19,23 +19,23 @@ import { ComponentProps as Props } from './types';
 //     .filter((contract): contract is Contract => !!contract);
 // }
 
-function Contracts ({
+function Contracts({
   accounts,
   basePath,
   className,
   contracts: contractAddresses,
   hasContracts,
   navigateTo
-} : Props) : React.ReactElement<Props> {
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
-  const contracts = useMemo(() : Contract[] | null => {
+  const contracts = useMemo((): Contract[] | null => {
     return (
       accounts &&
       contractAddresses &&
       (contractAddresses
-        .map((address) : Contract | null => getContractForAddress(api, address))
-        .filter((contract : Contract | null) : boolean => !!contract) as Contract[])
+        .map((address): Contract | null => getContractForAddress(api, address))
+        .filter((contract: Contract | null): boolean => !!contract) as Contract[])
     );
   }, [accounts, api, contractAddresses]);
 
@@ -47,21 +47,21 @@ function Contracts ({
           {hasContracts ? (
             t<string>('Call messages on deployed contracts.')
           ) : (
-              <>
-                {t<string>('You can add an existing contract by')}{' '}
-                <Link to={'/execute/add'}>{t<string>('adding its address')}</Link>
-                {`. ${t<string>('Or deploy from a')} `}
-                <Link to={'/deploy'}>{t<string>('code bundle')}</Link>
-                {'.'}
-              </>
-            )}
+            <>
+              {t<string>('You can add an existing contract by')}{' '}
+              <Link to={'/execute/add'}>{t<string>('adding its address')}</Link>
+              {`. ${t<string>('Or deploy from a')} `}
+              <Link to={'/deploy'}>{t<string>('code bundle')}</Link>
+              {'.'}
+            </>
+          )}
         </div>
       </header>
       <section>
         <div className="content">
           {hasContracts && <h3>{t<string>('Deployed Contracts')}</h3>}
           {contracts?.map(
-            (contract) : React.ReactNode => (
+            (contract): React.ReactNode => (
               <ContractCard
                 basePath={basePath}
                 contract={contract}

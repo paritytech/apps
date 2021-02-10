@@ -4,13 +4,8 @@
 import { store, useAbi, useCodes } from '@canvas-ui/page-contracts';
 import { Button, Input, InputABI, InputName } from '@canvas-ui/react-components';
 import { ComponentProps as Props } from '@canvas-ui/react-components/types';
-import {
-  useApi,
-  useCall,
-  useFile,
-  useNonEmptyString,
-  useNotification
-} from '@canvas-ui/react-hooks';
+import { useCall, useFile, useNonEmptyString, useNotification } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import { truncate } from '@canvas-ui/react-util';
 import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
@@ -21,7 +16,7 @@ import { isHex } from '@polkadot/util';
 
 import { useTranslation } from './translate';
 
-function Add ({ className, navigateTo } : Props) : React.ReactElement<Props> {
+function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const showNotification = useNotification();
@@ -42,7 +37,7 @@ function Add ({ className, navigateTo } : Props) : React.ReactElement<Props> {
   } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
   const { hasCodes } = useCodes();
-  const [isCodeHashValid, status] = useMemo(() : [boolean, React.ReactNode | null] => {
+  const [isCodeHashValid, status] = useMemo((): [boolean, React.ReactNode | null] => {
     const isCodeHashValidHex = !!codeHash && isHex(codeHash) && codeHash.length === 66;
     const isCodeHashOnChain = !!codeStorage && codeStorage.isSome;
     const isCodeAlreadyStored = !!codeHash && hasCodes && store.isHashSaved(codeHash);
@@ -65,19 +60,19 @@ function Add ({ className, navigateTo } : Props) : React.ReactElement<Props> {
     return [isCodeHashValid, status];
   }, [codeHash, codeStorage, hasCodes, isCodeHashTouched, t]);
 
-  const isValid = useMemo(() : boolean => isCodeHashValid && isNameValid, [
+  const isValid = useMemo((): boolean => isCodeHashValid && isNameValid, [
     isCodeHashValid,
     isNameValid
   ]);
 
-  const _onSave = useCallback(() : void => {
+  const _onSave = useCallback((): void => {
     if (!codeHash || !name || !abi) {
       return;
     }
 
     store
       .saveCode({ abi: abi.json, codeHash, name, tags: [] })
-      .then((id) : void => {
+      .then((id): void => {
         showNotification({
           action: truncate(codeHash, 12),
           message: t<string>('code bundle added'),
@@ -86,7 +81,7 @@ function Add ({ className, navigateTo } : Props) : React.ReactElement<Props> {
 
         navigateTo.uploadSuccess(id)();
       })
-      .catch((error) : void => {
+      .catch((error): void => {
         console.error('Unable to save code', error);
 
         showNotification({

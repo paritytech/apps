@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/apps authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { useApi } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
 
@@ -16,10 +16,10 @@ const isWsLocal = typeof wsUrl === 'string' && wsUrl.includes('127.0.0.1');
 const isHttps = window.location.protocol.startsWith('https:');
 
 interface Props {
-  className ?: string;
+  className?: string;
 }
 
-function Connecting ({ className } : Props) : React.ReactElement<Props> | null {
+function Connecting({ className }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { isApiConnected, isWaitingInjected } = useApi();
 

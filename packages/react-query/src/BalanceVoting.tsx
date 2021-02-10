@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { BareProps } from '@canvas-ui/react-api/types';
-import { useApi, useCall } from '@canvas-ui/react-hooks';
+import { useCall } from '@canvas-ui/react-hooks';
+import useApi from '@canvas-ui/react-api/useApi';
 import React from 'react';
 
 import { DeriveBalancesAll } from '@polkadot/api-derive/types';
@@ -11,17 +12,17 @@ import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
 import FormatBalance from './FormatBalance';
 
 interface Props extends BareProps {
-  children ?: React.ReactNode;
-  label ?: React.ReactNode;
-  params ?: AccountId | AccountIndex | Address | string | Uint8Array | null;
+  children?: React.ReactNode;
+  label?: React.ReactNode;
+  params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
 }
 
-function BalanceVoting ({
+function BalanceVoting({
   children,
   className = '',
   label,
   params
-} : Props) : React.ReactElement<Props> {
+}: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const allBalances = useCall<DeriveBalancesAll>(api.derive.balances.all, [params]);
 
