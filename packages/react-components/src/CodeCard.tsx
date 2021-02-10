@@ -4,7 +4,7 @@
 import { store, useAbi } from '@canvas-ui/page-contracts';
 import { useToggle } from '@canvas-ui/react-hooks';
 import { FileState } from '@canvas-ui/react-hooks/types';
-import { VoidFn } from '@canvas-ui/react-util/types';
+import { VoidFn } from '@canvas-ui/react-api/types';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
@@ -19,33 +19,33 @@ import { useTranslation } from './translate';
 import { Code, ComponentProps } from './types';
 
 interface Props extends ComponentProps {
-  code : Code;
-  onForget ?: VoidFn;
+  code: Code;
+  onForget?: VoidFn;
 }
 
-function CodeCard ({
+function CodeCard({
   className,
   code,
   code: { id },
   navigateTo,
   onForget: _onForget
-} : Props) : React.ReactElement<Props> {
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [, , setIsAbiOpen] = useToggle();
   const { abi, isAbiSupplied, onChangeAbi } = useAbi(code);
 
-  const onDeploy = useCallback(() : void => {
+  const onDeploy = useCallback((): void => {
     navigateTo.deployNew(id)();
   }, [id, navigateTo]);
 
-  const onForget = useCallback(() : void => {
+  const onForget = useCallback((): void => {
     store.forgetCode(id);
 
     _onForget && _onForget();
   }, [id, _onForget]);
 
   const onSaveABI = useCallback(
-    (file : FileState) : void => {
+    (file: FileState): void => {
       onChangeAbi(file);
       setIsAbiOpen(true);
     },

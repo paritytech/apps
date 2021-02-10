@@ -5,7 +5,7 @@ import { availableExtensions } from '@canvas-ui/apps-config/extensions';
 import { withMulti, withObservable } from '@canvas-ui/react-api/hoc';
 import { useApi } from '@canvas-ui/react-api';
 import { classes, getAddressName, toAddress as addressToAddress } from '@canvas-ui/react-util';
-import { StringOrNull } from '@canvas-ui/react-util/types';
+import { StringOrNull } from '@canvas-ui/react-api/types';
 import { detect } from 'detect-browser';
 import React, { useCallback, useMemo } from 'react';
 import store from 'store';

@@ -7,6 +7,7 @@ import { withApi, withCallDiv, withCalls, withMulti, withObservable } from './ho
 import { clearLedger, getLedger, isLedger, isLedgerCapable } from './ledger';
 import registry from './typeRegistry';
 import { default as useApi } from './useApi';
+import getContractAbi from './getContractAbi';
 
 export {
   api,
@@ -22,5 +23,6 @@ export {
   getLedger,
   isLedger,
   isLedgerCapable,
-  useApi
+  useApi,
+  getContractAbi
 };

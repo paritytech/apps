@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { StringOrNull } from '@canvas-ui/react-util/types';
+import { StringOrNull } from '@canvas-ui/react-api/types';
 import { useCallback, useEffect, useState } from 'react';
 
 import { DeriveAccountFlags, DeriveAccountInfo } from '@polkadot/api-derive/types';

@@ -3,7 +3,7 @@
 
 import { useNotification, useToggle } from '@canvas-ui/react-hooks';
 import { truncate } from '@canvas-ui/react-util';
-import { VoidFn } from '@canvas-ui/react-util/types';
+import { VoidFn } from '@canvas-ui/react-api/types';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
@@ -14,16 +14,16 @@ import { useTranslation } from './translate';
 import { BareProps, Code } from './types';
 
 interface Props extends BareProps {
-  code : Code;
-  onForget : VoidFn;
+  code: Code;
+  onForget: VoidFn;
 }
 
-function CodeForget ({ className, code, onForget } : Props) : React.ReactElement<Props> {
+function CodeForget({ className, code, onForget }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const showNotification = useNotification();
   const [isOpen, toggleIsOpen] = useToggle();
 
-  const _onForget = useCallback(() : void => {
+  const _onForget = useCallback((): void => {
     onForget();
     toggleIsOpen();
 

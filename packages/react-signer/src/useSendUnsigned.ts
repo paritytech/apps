@@ -3,7 +3,7 @@
 
 import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { QueueTx, QueueTxMessageSetStatus } from '@canvas-ui/react-api/Status/types';
-import { VoidFn } from '@canvas-ui/react-util/types';
+import { VoidFn } from '@canvas-ui/react-api/types';
 import { useCallback, useContext } from 'react';
 
 import { SubmittableExtrinsic } from '@polkadot/api/types';
@@ -11,22 +11,22 @@ import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { handleTxResults } from './util';
 
 interface UseSendUnsigned {
-  onCancel : VoidFn;
-  onSendUnsigned : () => Promise<void>;
+  onCancel: VoidFn;
+  onSendUnsigned: () => Promise<void>;
 }
 
 const NOOP = () => undefined;
 
-async function sendUnsigned (
-  queueSetTxStatus : QueueTxMessageSetStatus,
-  currentItem : QueueTx,
-  tx : SubmittableExtrinsic<'promise'>
-) : Promise<void> {
+async function sendUnsigned(
+  queueSetTxStatus: QueueTxMessageSetStatus,
+  currentItem: QueueTx,
+  tx: SubmittableExtrinsic<'promise'>
+): Promise<void> {
   currentItem.txStartCb && currentItem.txStartCb();
 
   try {
     const unsubscribe = await tx.send(
-      handleTxResults('send', queueSetTxStatus, currentItem, () : void => {
+      handleTxResults('send', queueSetTxStatus, currentItem, (): void => {
         unsubscribe();
       })
     );
@@ -38,10 +38,10 @@ async function sendUnsigned (
   }
 }
 
-export default function useSendTx (currentItem : QueueTx) : UseSendUnsigned {
+export default function useSendTx(currentItem: QueueTx): UseSendUnsigned {
   const { queueSetTxStatus } = useContext(StatusContext);
 
-  const onCancel = useCallback(() : void => {
+  const onCancel = useCallback((): void => {
     if (currentItem) {
       const { id, signerCb = NOOP, txFailedCb = NOOP } = currentItem;
 
@@ -51,7 +51,7 @@ export default function useSendTx (currentItem : QueueTx) : UseSendUnsigned {
     }
   }, [currentItem, queueSetTxStatus]);
 
-  const onSendUnsigned = useCallback(async () : Promise<void> => {
+  const onSendUnsigned = useCallback(async (): Promise<void> => {
     if (currentItem.extrinsic) {
       await sendUnsigned(queueSetTxStatus, currentItem, currentItem.extrinsic);
     }

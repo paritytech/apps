@@ -5,7 +5,7 @@ import { store } from '@canvas-ui/page-contracts';
 import { useToggle } from '@canvas-ui/react-hooks';
 import React, { useCallback } from 'react';
 
-// import { VoidFn } from '@canvas-ui/react-util/types';
+// import { VoidFn } from '@canvas-ui/react-api/types';
 import keyring from '@polkadot/ui-keyring';
 
 import Button from '../../react-components/src/Button';

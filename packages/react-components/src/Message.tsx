@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { classes } from '@canvas-ui/react-util';
-import { VoidFn } from '@canvas-ui/react-util/types';
+import { VoidFn } from '@canvas-ui/react-api/types';
 import Tippy from '@tippyjs/react';
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
@@ -19,10 +19,10 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  isConstructor ?: boolean;
-  onSelect ?: VoidFn;
-  message : AbiMessage;
-  registry : Registry;
+  isConstructor?: boolean;
+  onSelect?: VoidFn;
+  message: AbiMessage;
+  registry: Registry;
 }
 
 // const Tooltip = styled(ReactTooltip)`
@@ -32,18 +32,18 @@ export interface Props extends BareProps {
 //   margin: 0 !important;
 // `;
 
-function Message ({
+function Message({
   className,
   isConstructor,
   message,
   onSelect,
   registry
-} : Props) : React.ReactElement<Props> {
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { docs, identifier } = message;
 
   const signature = useMemo(
-    () : React.ReactNode => (
+    (): React.ReactNode => (
       <MessageSignature
         isConstructor={isConstructor}
         message={message}

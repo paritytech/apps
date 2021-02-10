@@ -5,7 +5,7 @@ import { useApi } from '@canvas-ui/react-api';
 import ledgerSigner from '@canvas-ui/react-signer/LedgerSigner';
 import { AddressFlags, AddressProxy } from '@canvas-ui/react-signer/types';
 import { extractExternal, handleTxResults } from '@canvas-ui/react-signer/util';
-import { StringOrNull, VoidFn } from '@canvas-ui/react-util/types';
+import { StringOrNull, VoidFn } from '@canvas-ui/react-api/types';
 import BN from 'bn.js';
 import { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
