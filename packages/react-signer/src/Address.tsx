@@ -23,7 +23,8 @@ import { isFunction } from '@polkadot/util';
 
 import Password from './Password';
 import { useTranslation } from './translate';
-import { AddressFlags, AddressProxy } from './types';
+import { AddressFlags } from './types';
+import { AddressProxy } from '@canvas-ui/react-api/types';
 import { extractExternal } from './util';
 
 interface Props {

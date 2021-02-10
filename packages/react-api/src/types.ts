@@ -67,3 +67,12 @@ export type Environment = 'web' | 'app';
 export type StringOrNull = string | null;
 
 export type VoidFn = () => void;
+
+export interface AddressProxy {
+  isMultiCall: boolean;
+  isUnlockCached: boolean;
+  multiRoot: string | null;
+  proxyRoot: string | null;
+  signAddress: string | null;
+  signPassword: string;
+}

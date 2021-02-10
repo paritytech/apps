@@ -3,7 +3,8 @@
 
 import { useApi } from '@canvas-ui/react-api';
 import ledgerSigner from './LedgerSigner';
-import { AddressFlags, AddressProxy } from '@canvas-ui/react-signer/types';
+import { AddressFlags } from '@canvas-ui/react-signer/types';
+import { AddressProxy } from './types';
 import { extractExternal, handleTxResults } from '@canvas-ui/react-signer/util';
 import { StringOrNull, VoidFn } from '@canvas-ui/react-api/types';
 import BN from 'bn.js';
