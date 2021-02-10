@@ -11,10 +11,10 @@ import { useTranslation } from '../translate';
 import { BareProps } from '../types';
 
 interface Props extends BareProps {
-  address: string;
-  isUppercase: boolean;
-  name: string;
-  style?: Record<string, string>;
+  address : string;
+  isUppercase : boolean;
+  name : string;
+  style ?: Record<string, string>;
 }
 
 const styles = `
@@ -54,7 +54,7 @@ const styles = `
   }
 `;
 
-function KeyPairNone({ className }: BareProps): React.ReactElement<BareProps> {
+function KeyPairNone ({ className } : BareProps) : React.ReactElement<BareProps> {
   const { t } = useTranslation();
 
   return (
@@ -68,7 +68,7 @@ function KeyPairNone({ className }: BareProps): React.ReactElement<BareProps> {
   );
 }
 
-function KeyPair({ address, className }: Props): React.ReactElement<Props> {
+function KeyPair ({ address, className } : Props) : React.ReactElement<Props> {
   return (
     <div className={['ui--KeyPair', className].join(' ')}>
       <IdentityIcon className="icon" value={address} />

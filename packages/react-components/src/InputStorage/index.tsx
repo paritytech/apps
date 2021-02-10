@@ -16,23 +16,23 @@ import SelectKey from './SelectKey';
 import SelectSection from './SelectSection';
 
 interface Props {
-  className?: string;
-  defaultValue: QueryableStorageEntry<'promise'>;
-  help?: React.ReactNode;
-  isError?: boolean;
-  label: React.ReactNode;
-  onChange?: (value: QueryableStorageEntry<'promise'>) => void;
-  withLabel?: boolean;
+  className ?: string;
+  defaultValue : QueryableStorageEntry<'promise'>;
+  help ?: React.ReactNode;
+  isError ?: boolean;
+  label : React.ReactNode;
+  onChange ?: (value : QueryableStorageEntry<'promise'>) => void;
+  withLabel ?: boolean;
 }
 
-function InputStorage({
+function InputStorage ({
   className = '',
   defaultValue,
   help,
   label,
   onChange,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { api } = useApi();
   const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(
     keyOptions(api, defaultValue.creator.section)
@@ -41,7 +41,7 @@ function InputStorage({
   const [value, setValue] = useState<QueryableStorageEntry<'promise'>>(() => defaultValue);
 
   const _onKeyChange = useCallback(
-    (newValue: QueryableStorageEntry<'promise'>): void => {
+    (newValue : QueryableStorageEntry<'promise'>) : void => {
       if (
         value.creator.section === newValue.creator.section &&
         value.creator.method === newValue.creator.method
@@ -57,7 +57,7 @@ function InputStorage({
   );
 
   const _onSectionChange = useCallback(
-    (section: string): void => {
+    (section : string) : void => {
       if (section === value.creator.section) {
         return;
       }

@@ -6,11 +6,11 @@ import { useApi } from '@canvas-ui/react-hooks';
 import React from 'react';
 
 interface Props extends BareProps {
-  children?: React.ReactNode;
-  label?: React.ReactNode;
+  children ?: React.ReactNode;
+  label ?: React.ReactNode;
 }
 
-function NodeName({ children, className = '', label }: Props): React.ReactElement<Props> {
+function NodeName ({ children, className = '', label } : Props) : React.ReactElement<Props> {
   const { systemName } = useApi();
 
   return (

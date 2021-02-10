@@ -9,12 +9,12 @@ import { useParams } from 'react-router-dom';
 
 import { useTranslation } from './translate';
 
-function Success({ basePath, navigateTo }: Props): React.ReactElement<Props> | null {
+function Success ({ basePath, navigateTo } : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
-  const { address }: { address: string } = useParams();
+  const { address } : { address : string } = useParams();
   const contract = useContract(address);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     if (!contract) {
       navigateTo.deploy();
     }

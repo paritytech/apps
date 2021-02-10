@@ -6,7 +6,7 @@ import React from 'react';
 
 import { ApiPromise } from '@polkadot/api';
 
-export default function createOptions(api: ApiPromise, sectionName: string): DropdownOptions {
+export default function createOptions (api : ApiPromise, sectionName : string) : DropdownOptions {
   const section = api.tx[sectionName];
 
   if (!section || Object.keys(section).length === 0) {
@@ -16,11 +16,11 @@ export default function createOptions(api: ApiPromise, sectionName: string): Dro
   return Object.keys(section)
     .sort()
     .map(
-      (value): DropdownOption => {
+      (value) : DropdownOption => {
         const method = section[value];
         const inputs = method.meta.args
-          .filter((arg): boolean => arg.type.toString() !== 'Origin')
-          .map((arg): string => arg.name.toString())
+          .filter((arg) : boolean => arg.type.toString() !== 'Origin')
+          .map((arg) : string => arg.name.toString())
           .join(', ');
 
         return {

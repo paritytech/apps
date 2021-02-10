@@ -15,35 +15,35 @@ import paramComponents from './Params';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  defaultValue: SubmittableExtrinsicFunction<'promise'>;
-  isDisabled?: boolean;
-  isError?: boolean;
-  isPrivate?: boolean;
-  label?: React.ReactNode;
-  onChange: (method?: SubmittableExtrinsic<'promise'>) => void;
-  onEnter?: () => void;
-  onEscape?: () => void;
-  withLabel?: boolean;
+  defaultValue : SubmittableExtrinsicFunction<'promise'>;
+  isDisabled ?: boolean;
+  isError ?: boolean;
+  isPrivate ?: boolean;
+  label ?: React.ReactNode;
+  onChange : (method ?: SubmittableExtrinsic<'promise'>) => void;
+  onEnter ?: () => void;
+  onEscape ?: () => void;
+  withLabel ?: boolean;
 }
 
 interface CallState {
-  fn: SubmittableExtrinsicFunction<'promise'>;
-  params: {
-    name: string;
-    type: TypeDef;
+  fn : SubmittableExtrinsicFunction<'promise'>;
+  params : {
+    name : string;
+    type : TypeDef;
   }[];
 }
 
-function getParams({
+function getParams ({
   meta
-}: SubmittableExtrinsicFunction<'promise'>): { name: string; type: TypeDef }[] {
-  return GenericCall.filterOrigin(meta).map((arg): { name: string; type: TypeDef } => ({
+} : SubmittableExtrinsicFunction<'promise'>) : { name : string; type : TypeDef }[] {
+  return GenericCall.filterOrigin(meta).map((arg) : { name : string; type : TypeDef } => ({
     name: arg.name.toString(),
     type: getTypeDef(arg.type.toString())
   }));
 }
 
-function ExtrinsicDisplay({
+function ExtrinsicDisplay ({
   defaultValue,
   isDisabled,
   isError,
@@ -53,20 +53,20 @@ function ExtrinsicDisplay({
   onEnter,
   onEscape,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [extrinsic, setCall] = useState<CallState>({
     fn: defaultValue,
     params: getParams(defaultValue)
   });
   const [values, setValues] = useState<RawParam[]>([]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     setValues([]);
   }, [extrinsic]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     const isValid = values.reduce(
-      (isValid, value): boolean =>
+      (isValid, value) : boolean =>
         isValid && !isUndefined(value) && !isUndefined(value.value) && value.isValid,
       extrinsic.params.length === values.length
     );
@@ -75,7 +75,7 @@ function ExtrinsicDisplay({
 
     if (isValid) {
       try {
-        method = extrinsic.fn(...values.map(({ value }): any => value));
+        method = extrinsic.fn(...values.map(({ value }) : any => value));
       } catch (error) {
         // swallow
       }
@@ -85,7 +85,7 @@ function ExtrinsicDisplay({
   }, [extrinsic, onChange, values]);
 
   const _onChangeMethod = useCallback(
-    (fn: SubmittableExtrinsicFunction<'promise'>): void => setCall({ fn, params: getParams(fn) }),
+    (fn : SubmittableExtrinsicFunction<'promise'>) : void => setCall({ fn, params: getParams(fn) }),
     []
   );
 

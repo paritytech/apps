@@ -5,7 +5,7 @@ import { registry } from '@canvas-ui/react-api';
 
 import { Proposal } from '@polkadot/types/interfaces';
 
-export default function isTreasuryProposalVote(proposal?: Proposal | null): boolean {
+export default function isTreasuryProposalVote (proposal ?: Proposal | null) : boolean {
   if (!proposal) {
     return false;
   }

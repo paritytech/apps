@@ -16,10 +16,10 @@ const isWsLocal = typeof wsUrl === 'string' && wsUrl.includes('127.0.0.1');
 const isHttps = window.location.protocol.startsWith('https:');
 
 interface Props {
-  className?: string;
+  className ?: string;
 }
 
-function Connecting({ className }: Props): React.ReactElement<Props> | null {
+function Connecting ({ className } : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { isApiConnected, isWaitingInjected } = useApi();
 

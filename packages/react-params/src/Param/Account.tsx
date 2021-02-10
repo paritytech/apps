@@ -9,7 +9,7 @@ import keyring from '@polkadot/ui-keyring';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function Account({
+function Account ({
   className = '',
   defaultValue: { value },
   isDisabled,
@@ -18,11 +18,11 @@ function Account({
   label,
   onChange,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [defaultValue] = useState((value as string)?.toString());
 
   const _onChange = useCallback(
-    (value?: string | null): void => {
+    (value ?: string | null) : void => {
       let isValid = false;
 
       if (value) {

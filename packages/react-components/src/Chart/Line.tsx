@@ -9,22 +9,22 @@ import * as Chart from 'react-chartjs-2';
 import { LineProps } from './types';
 
 interface State {
-  chartData?: ChartJs.ChartData;
-  chartOptions?: ChartJs.ChartOptions;
+  chartData ?: ChartJs.ChartData;
+  chartOptions ?: ChartJs.ChartOptions;
 }
 
 interface Dataset {
-  data: number[];
-  fill: boolean;
-  label: string;
-  backgroundColor: string;
-  borderColor: string;
-  hoverBackgroundColor: string;
+  data : number[];
+  fill : boolean;
+  label : string;
+  backgroundColor : string;
+  borderColor : string;
+  hoverBackgroundColor : string;
 }
 
 interface Config {
-  labels: string[];
-  datasets: Dataset[];
+  labels : string[];
+  datasets : Dataset[];
 }
 
 // Ok, this does exists, but the export if not there in the typings - so it works,
@@ -34,16 +34,16 @@ interface Config {
   beforeDraw: ({
     chart: { ctx },
     chartArea
-  }: {
-    chart: {
-      ctx: {
-        fillStyle: string;
-        fillRect: (left: number, top: number, width: number, height: number) => void;
-        restore: () => void;
-        save: () => void;
+  } : {
+    chart : {
+      ctx : {
+        fillStyle : string;
+        fillRect : (left : number, top : number, width : number, height : number) => void;
+        restore : () => void;
+        save : () => void;
       };
     };
-    chartArea: { bottom: number; left: number; right: number; top: number };
+    chartArea : { bottom : number; left : number; right : number; top : number };
   }) => {
     ctx.save();
     ctx.fillStyle = '#fff';
@@ -59,7 +59,7 @@ interface Config {
 
 const COLORS = ['#ff8c00', '#008c8c', '#8c008c'];
 
-const alphaColor = (hexColor: string): string =>
+const alphaColor = (hexColor : string) : string =>
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   ChartJs.helpers.color(hexColor).alpha(0.65).rgbString();
 
@@ -79,16 +79,16 @@ const chartOptions = {
   }
 };
 
-function calculateOptions(
-  colors: (string | undefined)[] = [],
-  legends: string[],
-  labels: string[],
-  values: (number | BN)[][]
-): State {
+function calculateOptions (
+  colors : (string | undefined)[] = [],
+  legends : string[],
+  labels : string[],
+  values : (number | BN)[][]
+) : State {
   const chartData = values.reduce(
-    (chartData, values, index): Config => {
+    (chartData, values, index) : Config => {
       const color = colors[index] || alphaColor(COLORS[index]);
-      const data = values.map((value): number => (BN.isBN(value) ? value.toNumber() : value));
+      const data = values.map((value) : number => (BN.isBN(value) ? value.toNumber() : value));
 
       chartData.datasets.push({
         backgroundColor: color,
@@ -110,16 +110,16 @@ function calculateOptions(
   };
 }
 
-function LineChart({
+function LineChart ({
   className = '',
   colors,
   labels,
   legends,
   values
-}: LineProps): React.ReactElement<LineProps> | null {
+} : LineProps) : React.ReactElement<LineProps> | null {
   const [{ chartData, chartOptions }, setState] = useState<State>({});
 
-  useEffect((): void => {
+  useEffect(() : void => {
     setState(calculateOptions(colors, legends, labels, values));
   }, [colors, labels, legends, values]);
 

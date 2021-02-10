@@ -11,7 +11,7 @@ import TxSigned from './TxSigned';
 import TxUnsigned from './TxUnsigned';
 import usePendingTx from './usePendingTx';
 
-function Signer({ children, className = '' }: Props): React.ReactElement<Props> {
+function Signer ({ children, className = '' } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const { currentItem, requestAddress } = usePendingTx();
 

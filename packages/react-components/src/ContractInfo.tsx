@@ -16,16 +16,16 @@ import ItemInfo from './ItemInfo';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  address: string;
-  isEditable?: boolean;
+  address : string;
+  isEditable ?: boolean;
 }
 
-function ContractInfo({
+function ContractInfo ({
   address,
   children,
   className,
   isEditable
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { isEditingName, name, onSaveName, setName, toggleIsEditingName } = useAccountInfo(
     address,
     true

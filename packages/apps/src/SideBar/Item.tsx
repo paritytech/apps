@@ -6,17 +6,17 @@ import { Badge, Icon, Menu, Tooltip } from '@canvas-ui/react-components';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-const DUMMY_COUNTER = (): null => null;
+const DUMMY_COUNTER = () : null => null;
 
 interface Props {
-  isCollapsed: boolean;
-  onClick: () => void;
-  route: Route;
+  isCollapsed : boolean;
+  onClick : () => void;
+  route : Route;
 }
 
 const TOOLTIP_OFFSET = { right: -4 };
 
-function Item({ isCollapsed, onClick, route }: Props): React.ReactElement<Props> | null {
+function Item ({ isCollapsed, onClick, route } : Props) : React.ReactElement<Props> | null {
   if (route.isIgnored) {
     return null;
   }

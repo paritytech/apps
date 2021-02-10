@@ -12,7 +12,7 @@ import { bnToBn, formatNumber, isUndefined } from '@polkadot/util';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function Amount({
+function Amount ({
   className = '',
   defaultValue: { value },
   isDisabled,
@@ -22,7 +22,7 @@ function Amount({
   onEnter,
   type,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const defaultValue = useMemo(
     () =>
       isDisabled
@@ -33,7 +33,7 @@ function Amount({
     [isDisabled, value]
   );
 
-  const bitLength = useMemo((): number => {
+  const bitLength = useMemo(() : number => {
     try {
       return registry.createType(type.type as 'u32').bitLength();
     } catch (error) {
@@ -42,7 +42,7 @@ function Amount({
   }, [type]);
 
   const _onChange = useCallback(
-    (value?: BN) =>
+    (value ?: BN) =>
       onChange &&
       onChange({
         isValid: !isUndefined(value),

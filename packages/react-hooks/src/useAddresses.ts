@@ -8,12 +8,12 @@ import { keyring } from '@polkadot/ui-keyring';
 import useIsMountedRef from './useIsMountedRef';
 
 interface UseAccounts {
-  allAddresses: string[];
-  hasAddresses: boolean;
-  isAddress: (address: string) => boolean;
+  allAddresses : string[];
+  hasAddresses : boolean;
+  isAddress : (address : string) => boolean;
 }
 
-export default function useAccounts(): UseAccounts {
+export default function useAccounts () : UseAccounts {
   const mountedRef = useIsMountedRef();
   const [state, setState] = useState<UseAccounts>({
     allAddresses: [],
@@ -21,18 +21,18 @@ export default function useAccounts(): UseAccounts {
     isAddress: () => false
   });
 
-  useEffect((): (() => void) => {
-    const subscription = keyring.addresses.subject.subscribe((addresses): void => {
+  useEffect(() : (() => void) => {
+    const subscription = keyring.addresses.subject.subscribe((addresses) : void => {
       if (mountedRef.current) {
         const allAddresses = addresses ? Object.keys(addresses) : [];
         const hasAddresses = allAddresses.length !== 0;
-        const isAddress = (address: string): boolean => allAddresses.includes(address.toString());
+        const isAddress = (address : string) : boolean => allAddresses.includes(address.toString());
 
         setState({ allAddresses, hasAddresses, isAddress });
       }
     });
 
-    return (): void => {
+    return () : void => {
       setTimeout(() => subscription.unsubscribe(), 0);
     };
   }, [mountedRef]);

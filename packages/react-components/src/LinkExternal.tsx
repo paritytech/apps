@@ -12,20 +12,20 @@ import Tooltip from './Tooltip';
 import { useTranslation } from './translate';
 
 interface Props {
-  className?: string;
-  data: BN | number | string;
-  hash?: string;
-  type: LinkTypes;
-  withShort?: boolean;
+  className ?: string;
+  data : BN | number | string;
+  hash ?: string;
+  type : LinkTypes;
+  withShort ?: boolean;
 }
 
-function shortName(name: string): string {
+function shortName (name : string) : string {
   return `${name[0]}${name[name.length - 1]}`;
 }
 
-function genLinks(systemChain: string, { data, hash, type, withShort }: Props): React.ReactNode[] {
+function genLinks (systemChain : string, { data, hash, type, withShort } : Props) : React.ReactNode[] {
   return Object.entries(linked)
-    .map(([name, { chains, create, isActive, paths, url }]): React.ReactNode | null => {
+    .map(([name, { chains, create, isActive, paths, url }]) : React.ReactNode | null => {
       const extChain = chains[systemChain];
       const extPath = paths[type];
 
@@ -60,16 +60,16 @@ function genLinks(systemChain: string, { data, hash, type, withShort }: Props): 
         </a>
       );
     })
-    .filter((node): node is React.ReactNode => !!node);
+    .filter((node) : node is React.ReactNode => !!node);
 }
 
-function LinkExternal({
+function LinkExternal ({
   className = '',
   data,
   hash,
   type,
   withShort
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { systemChain } = useApi();
   const links = useMemo(() => genLinks(systemChain, { data, hash, type, withShort }), [

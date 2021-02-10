@@ -16,7 +16,7 @@ import type { Environment } from '../types';
 //   return navigator?.userAgent?.indexOf('Electron') >= 0;
 // }
 
-export default function getEnvironment(): Environment {
+export default function getEnvironment () : Environment {
   // if (isElectron()) {
   //   return 'app';
   // }

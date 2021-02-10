@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 // overrides based on the actual software node type
-const identityNodes: Record<string, string> = [
+const identityNodes : Record<string, string> = [
   ['centrifuge chain', 'polkadot'],
   ['edgeware-node', 'substrate'],
   ['joystream-node', 'beachball'],
@@ -11,7 +11,7 @@ const identityNodes: Record<string, string> = [
   ['polkadot-js', 'polkadot'],
   ['substrate-node', 'substrate']
 ].reduce(
-  (icons, [spec, icon]): Record<string, string> => ({
+  (icons, [spec, icon]) : Record<string, string> => ({
     ...icons,
     [spec.toLowerCase().replace(/-/g, ' ')]: icon
   }),

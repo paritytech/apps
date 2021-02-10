@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 import { useTranslation } from './translate';
 
-function SettingsApp({ className }: Props): React.ReactElement<Props> {
+function SettingsApp ({ className } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const { isChanged, onChangeKey, save, saveAndReload } = useSettings();
   const endpointState = useEndpoints(onChangeKey('apiUrl'));

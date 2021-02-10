@@ -36,13 +36,13 @@ import Vote from './Vote';
 import VoteThreshold from './VoteThreshold';
 
 interface TypeToComponent {
-  c: React.ComponentType<any>;
-  t: string[];
+  c : React.ComponentType<any>;
+  t : string[];
 }
 
 const SPECIAL_TYPES = ['AccountId', 'AccountIndex', 'Address', 'Balance'];
 
-const componentDef: TypeToComponent[] = [
+const componentDef : TypeToComponent[] = [
   {
     c: Account,
     t: [
@@ -109,17 +109,17 @@ const componentDef: TypeToComponent[] = [
   { c: Unknown, t: ['Unknown'] }
 ];
 
-const components: ComponentMap = componentDef.reduce((components, { c, t }): ComponentMap => {
-  t.forEach((type): void => {
+const components : ComponentMap = componentDef.reduce((components, { c, t }) : ComponentMap => {
+  t.forEach((type) : void => {
     components[type] = c;
   });
 
   return components;
 }, ({} as unknown) as ComponentMap);
 
-const warnList: string[] = [];
+const warnList : string[] = [];
 
-function fromDef({ displayName, info, sub, type }: TypeDef): string {
+function fromDef ({ displayName, info, sub, type } : TypeDef) : string {
   if (displayName && SPECIAL_TYPES.includes(displayName)) {
     return displayName;
   }
@@ -163,17 +163,17 @@ function fromDef({ displayName, info, sub, type }: TypeDef): string {
   }
 }
 
-export default function findComponent(
-  def: TypeDef,
-  overrides: ComponentMap = {}
-): React.ComponentType<Props> {
-  const findOne = (type: string): React.ComponentType<Props> | null =>
+export default function findComponent (
+  def : TypeDef,
+  overrides : ComponentMap = {}
+) : React.ComponentType<Props> {
+  const findOne = (type : string) : React.ComponentType<Props> | null =>
     overrides[type] || components[type];
   const type = fromDef(def);
   let Component = findOne(type);
 
   if (!Component) {
-    let error: string | null = null;
+    let error : string | null = null;
 
     try {
       const instance = registry.createType(type as 'u32');

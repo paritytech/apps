@@ -10,11 +10,11 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  docs?: string[];
-  signature: React.ReactNode;
+  docs ?: string[];
+  signature : React.ReactNode;
 }
 
-function Docs({ className, docs, signature }: Props): React.ReactElement<Props> {
+function Docs ({ className, docs, signature } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (

@@ -9,17 +9,17 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  isBusy?: boolean;
-  isContract?: boolean;
-  isError?: boolean;
-  isDisabled?: boolean;
-  onChange: (_: string) => void;
-  onEnter?: VoidFn;
-  placeholder?: string;
-  value?: string;
+  isBusy ?: boolean;
+  isContract ?: boolean;
+  isError ?: boolean;
+  isDisabled ?: boolean;
+  onChange : (_ : string) => void;
+  onEnter ?: VoidFn;
+  placeholder ?: string;
+  value ?: string;
 }
 
-function InputName({
+function InputName ({
   className,
   isBusy,
   isContract,
@@ -27,7 +27,7 @@ function InputName({
   onChange,
   onEnter,
   value = ''
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (

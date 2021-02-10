@@ -12,7 +12,7 @@ import styled from 'styled-components';
 
 import { useTranslation } from '../translate';
 
-function Settings({ className }: Props): React.ReactElement<Props> {
+function Settings ({ className } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const { isApiConnected } = useApi();
   const { onChangeKey } = useSettings(true);

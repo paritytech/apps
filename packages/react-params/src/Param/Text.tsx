@@ -7,7 +7,7 @@ import React, { useCallback, useState } from 'react';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function Text({
+function Text ({
   className = '',
   defaultValue: { value },
   isDisabled,
@@ -17,11 +17,11 @@ function Text({
   onEnter,
   onEscape,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
-    (value: string): void => {
+    (value : string) : void => {
       const isValid = value.length !== 0;
 
       onChange &&

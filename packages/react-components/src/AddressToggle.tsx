@@ -12,17 +12,17 @@ import AddressMini from './AddressMini';
 import Toggle from './Toggle';
 
 interface Props {
-  address: string;
-  className?: string;
-  isHidden?: boolean;
-  filter?: string;
-  noLookup?: boolean;
-  noToggle?: boolean;
-  onChange?: (isChecked: boolean) => void;
-  value?: boolean;
+  address : string;
+  className ?: string;
+  isHidden ?: boolean;
+  filter ?: string;
+  noLookup ?: boolean;
+  noToggle ?: boolean;
+  onChange ?: (isChecked : boolean) => void;
+  value ?: boolean;
 }
 
-function getIsFiltered(address: string, filter?: string, info?: DeriveAccountInfo): boolean {
+function getIsFiltered (address : string, filter ?: string, info ?: DeriveAccountInfo) : boolean {
   if (!filter || address.includes(filter)) {
     return false;
   }
@@ -50,7 +50,7 @@ function getIsFiltered(address: string, filter?: string, info?: DeriveAccountInf
   return true;
 }
 
-function AddressToggle({
+function AddressToggle ({
   address,
   className = '',
   filter,
@@ -59,16 +59,16 @@ function AddressToggle({
   noToggle,
   onChange,
   value
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [address]);
   const [isFiltered, setIsFiltered] = useState(false);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     setIsFiltered(getIsFiltered(address, filter, info));
   }, [address, filter, info]);
 
-  const _onClick = useCallback((): void => onChange && onChange(!value), [onChange, value]);
+  const _onClick = useCallback(() : void => onChange && onChange(!value), [onChange, value]);
 
   return (
     <div

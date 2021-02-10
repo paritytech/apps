@@ -15,18 +15,18 @@ import { Hash } from '@polkadot/types/interfaces';
 import { SignerPayloadJSON } from '@polkadot/types/types';
 
 export default class ApiSigner implements Signer {
-  readonly #queuePayload: QueueTxPayloadAdd;
+  readonly #queuePayload : QueueTxPayloadAdd;
 
-  readonly #queueSetTxStatus: QueueTxMessageSetStatus;
+  readonly #queueSetTxStatus : QueueTxMessageSetStatus;
 
-  constructor(queuePayload: QueueTxPayloadAdd, queueSetTxStatus: QueueTxMessageSetStatus) {
+  constructor(queuePayload : QueueTxPayloadAdd, queueSetTxStatus : QueueTxMessageSetStatus) {
     this.#queuePayload = queuePayload;
     this.#queueSetTxStatus = queueSetTxStatus;
   }
 
-  public async signPayload(payload: SignerPayloadJSON): Promise<SignerResult> {
-    return new Promise((resolve, reject): void => {
-      this.#queuePayload(payload, (id: number, result: SignerResult | null): void => {
+  public async signPayload (payload : SignerPayloadJSON) : Promise<SignerResult> {
+    return new Promise((resolve, reject) : void => {
+      this.#queuePayload(payload, (id : number, result : SignerResult | null) : void => {
         if (result) {
           resolve(result);
         } else {
@@ -36,7 +36,7 @@ export default class ApiSigner implements Signer {
     });
   }
 
-  public update(id: number, result: Hash | SubmittableResult): void {
+  public update (id : number, result : Hash | SubmittableResult) : void {
     if (result instanceof ClassOf(registry, 'Hash')) {
       this.#queueSetTxStatus(id, 'sent', result.toHex());
     } else {

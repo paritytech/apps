@@ -11,17 +11,17 @@ import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
 import FormatBalance from './FormatBalance';
 
 interface Props extends BareProps {
-  children?: React.ReactNode;
-  label?: React.ReactNode;
-  params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
+  children ?: React.ReactNode;
+  label ?: React.ReactNode;
+  params ?: AccountId | AccountIndex | Address | string | Uint8Array | null;
 }
 
-function LockedVote({
+function LockedVote ({
   children,
   className = '',
   label,
   params
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveCouncilVote>(api.derive.council.votesOf, [params]);
 

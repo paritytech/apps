@@ -6,10 +6,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  className?: string;
+  className ?: string;
 }
 
-const HelpWidget = ({ className }: Props) => {
+const HelpWidget = ({ className } : Props) => {
   const [visible, setVisible] = useState(false);
 
   const handleClick = () => {

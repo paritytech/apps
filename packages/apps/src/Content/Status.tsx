@@ -19,20 +19,20 @@ import { xxhashAsHex } from '@polkadot/util-crypto';
 import { useTranslation } from '../translate';
 
 interface Props {
-  optionsAll?: KeyringOptions;
-  queueAction: QueueAction$Add;
-  stqueue: QueueStatus[];
-  txqueue: QueueTx[];
+  optionsAll ?: KeyringOptions;
+  queueAction : QueueAction$Add;
+  stqueue : QueueStatus[];
+  txqueue : QueueTx[];
 }
 
-let prevEventHash: string;
+let prevEventHash : string;
 
-function filterEvents(
-  allAccounts: string[],
-  t: <T = string>(key: string, opts?: Record<string, unknown>) => T,
-  optionsAll?: KeyringOptions,
-  events?: EventRecord[]
-): ActionStatus[] | null {
+function filterEvents (
+  allAccounts : string[],
+  t : <T = string>(key : string, opts ?: Record<string, unknown>) => T,
+  optionsAll ?: KeyringOptions,
+  events ?: EventRecord[]
+) : ActionStatus[] | null {
   const eventHash = xxhashAsHex(stringToU8a(JSON.stringify(events)));
 
   if (!optionsAll || !events || eventHash === prevEventHash) {
@@ -42,7 +42,7 @@ function filterEvents(
   prevEventHash = eventHash;
 
   return events
-    .map(({ event: { data, method, section } }): ActionStatus | null => {
+    .map(({ event: { data, method, section } }) : ActionStatus | null => {
       if (section === 'balances' && method === 'Transfer') {
         const account = data[1].toString();
 
@@ -70,16 +70,16 @@ function filterEvents(
 
       return null;
     })
-    .filter((item): item is ActionStatus => !!item);
+    .filter((item) : item is ActionStatus => !!item);
 }
 
-function Status({ optionsAll, queueAction, stqueue, txqueue }: Props): React.ReactElement<Props> {
+function Status ({ optionsAll, queueAction, stqueue, txqueue } : Props) : React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const { allAccounts } = useAccounts();
   const { t } = useTranslation();
   const events = useCall<EventRecord[]>(isApiReady && api.query.system?.events, []);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     const filtered = filterEvents(allAccounts, t, optionsAll, events);
 
     filtered && queueAction(filtered);

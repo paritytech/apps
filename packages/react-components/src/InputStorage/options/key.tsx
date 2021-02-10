@@ -9,7 +9,7 @@ import React from 'react';
 import { ApiPromise } from '@polkadot/api';
 import { unwrapStorageType } from '@polkadot/types/primitive/StorageKey';
 
-export default function createOptions(api: ApiPromise, sectionName: string): DropdownOptions {
+export default function createOptions (api : ApiPromise, sectionName : string) : DropdownOptions {
   const section = api.query[sectionName];
 
   if (!section || Object.keys(section).length === 0) {
@@ -19,7 +19,7 @@ export default function createOptions(api: ApiPromise, sectionName: string): Dro
   return Object.keys(section)
     .sort()
     .map(
-      (value): DropdownOption => {
+      (value) : DropdownOption => {
         const method = (section[value] as unknown) as StorageEntry;
         const type = method.meta.type;
         const input = type.isMap

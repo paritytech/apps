@@ -10,19 +10,19 @@ import Input from './Input';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  autoFocus?: boolean;
-  children?: React.ReactNode;
-  defaultValue?: string | null;
-  help?: React.ReactNode;
-  isError?: boolean;
-  isFull?: boolean;
-  label?: React.ReactNode;
-  onChange?: (address: string | null) => void;
-  onEnter?: () => void;
-  onEscape?: () => void;
+  autoFocus ?: boolean;
+  children ?: React.ReactNode;
+  defaultValue ?: string | null;
+  help ?: React.ReactNode;
+  isError ?: boolean;
+  isFull ?: boolean;
+  label ?: React.ReactNode;
+  onChange ?: (address : string | null) => void;
+  onEnter ?: () => void;
+  onEscape ?: () => void;
 }
 
-function InputAddressSimple({
+function InputAddressSimple ({
   autoFocus,
   children,
   className = '',
@@ -34,11 +34,11 @@ function InputAddressSimple({
   onChange,
   onEnter,
   onEscape
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [address, setAddress] = useState<string | null>(defaultValue || null);
 
   const _onChange = useCallback(
-    (_address: string): void => {
+    (_address : string) : void => {
       const address = addressToAddress(_address) || null;
 
       setAddress(address);

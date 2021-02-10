@@ -13,19 +13,19 @@ import { assert, isFunction } from '@polkadot/util';
 import { format } from '@polkadot/util/logger';
 
 export interface ItemState {
-  currentItem: QueueTx | null;
-  requestAddress: string | null;
+  currentItem : QueueTx | null;
+  requestAddress : string | null;
 }
 
-async function submitRpc(
-  api: ApiPromise,
-  { method, section }: DefinitionRpcExt,
-  values: any[]
-): Promise<QueueTxResult> {
+async function submitRpc (
+  api : ApiPromise,
+  { method, section } : DefinitionRpcExt,
+  values : any[]
+) : Promise<QueueTxResult> {
   try {
     const rpc = api.rpc as Record<
       string,
-      Record<string, (...params: unknown[]) => Promise<unknown>>
+      Record<string, (...params : unknown[]) => Promise<unknown>>
     >;
 
     assert(
@@ -51,11 +51,11 @@ async function submitRpc(
   }
 }
 
-async function sendRpc(
-  api: ApiPromise,
-  queueSetTxStatus: QueueTxMessageSetStatus,
-  { id, rpc, values = [] }: QueueTx
-): Promise<void> {
+async function sendRpc (
+  api : ApiPromise,
+  queueSetTxStatus : QueueTxMessageSetStatus,
+  { id, rpc, values = [] } : QueueTx
+) : Promise<void> {
   if (rpc) {
     queueSetTxStatus(id, 'sending');
 
@@ -66,12 +66,12 @@ async function sendRpc(
   }
 }
 
-function extractCurrent(
-  api: ApiPromise,
-  queueSetTxStatus: QueueTxMessageSetStatus,
-  txqueue: QueueTx[],
-  filter?: string
-): ItemState {
+function extractCurrent (
+  api : ApiPromise,
+  queueSetTxStatus : QueueTxMessageSetStatus,
+  txqueue : QueueTx[],
+  filter ?: string
+) : ItemState {
   const nextItem = txqueue.find(({ status }) => ['queued', 'qr'].includes(status)) || null;
   let currentItem = null;
 
@@ -94,23 +94,23 @@ function extractCurrent(
   };
 }
 
-export default function usePendingTx(signature?: string): ItemState {
+export default function usePendingTx (signature ?: string) : ItemState {
   const scrollToTop = useScrollToTop();
   const { api } = useApi();
   const { queueSetTxStatus, txqueue } = useContext(StatusContext);
   const [item, setItem] = useState<ItemState>({ currentItem: null, requestAddress: null });
 
-  const extracted = useMemo((): ItemState => {
+  const extracted = useMemo(() : ItemState => {
     return extractCurrent(api, queueSetTxStatus, txqueue, signature);
   }, [api, queueSetTxStatus, signature, txqueue]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     if (extracted.currentItem !== item.currentItem) {
       setItem(extracted);
     }
   }, [extracted, item.currentItem]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     scrollToTop();
   }, [item, scrollToTop]);
 

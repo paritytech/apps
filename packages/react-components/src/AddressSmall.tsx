@@ -12,18 +12,18 @@ import AccountName from './AccountName';
 import IdentityIcon from './IdentityIcon';
 
 interface Props {
-  children?: React.ReactNode;
-  className?: string;
-  defaultName?: string;
-  onClickName?: () => void;
-  overrideName?: React.ReactNode;
-  withIndex?: boolean;
-  withSidebar?: boolean;
-  toggle?: unknown;
-  value?: string | Address | AccountId | null | Uint8Array;
+  children ?: React.ReactNode;
+  className ?: string;
+  defaultName ?: string;
+  onClickName ?: () => void;
+  overrideName ?: React.ReactNode;
+  withIndex ?: boolean;
+  withSidebar ?: boolean;
+  toggle ?: unknown;
+  value ?: string | Address | AccountId | null | Uint8Array;
 }
 
-function AddressSmall({
+function AddressSmall ({
   children,
   className = '',
   defaultName,
@@ -33,7 +33,7 @@ function AddressSmall({
   value,
   withIndex,
   withSidebar = true
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <div className={`ui--AddressSmall ${className}`}>
       <IdentityIcon value={value as Uint8Array} />

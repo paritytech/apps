@@ -6,7 +6,7 @@ import { ComponentMap } from '@canvas-ui/react-params/types';
 import Call from './Call';
 import Proposal from './Proposal';
 
-const components: ComponentMap = {
+const components : ComponentMap = {
   Call,
   Proposal
 };

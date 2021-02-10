@@ -10,37 +10,37 @@ import { bnToBn, isNumber } from '@polkadot/util';
 import { HorizBarProps, HorizBarValue } from './types';
 
 interface State {
-  chartData?: ChartJs.ChartData;
-  chartOptions?: ChartJs.ChartOptions;
-  jsonValues?: string;
+  chartData ?: ChartJs.ChartData;
+  chartOptions ?: ChartJs.ChartOptions;
+  jsonValues ?: string;
 }
 
 interface TooltipItem {
-  index: number;
+  index : number;
 }
 
 interface Config {
-  labels: string[];
-  datasets: {
-    data: number[];
-    backgroundColor: string[];
-    hoverBackgroundColor: string[];
+  labels : string[];
+  datasets : {
+    data : number[];
+    backgroundColor : string[];
+    hoverBackgroundColor : string[];
   }[];
 }
 
-const alphaColor = (hexColor: string): string =>
+const alphaColor = (hexColor : string) : string =>
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return,@typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
   ChartJs.helpers.color(hexColor).alpha(0.65).rgbString();
 
-function calculateOptions(
-  aspectRatio: number,
-  values: HorizBarValue[],
-  jsonValues: string,
-  max: number,
-  showLabels: boolean
-): State {
+function calculateOptions (
+  aspectRatio : number,
+  values : HorizBarValue[],
+  jsonValues : string,
+  max : number,
+  showLabels : boolean
+) : State {
   const chartData = values.reduce(
-    (data, { colors: [normalColor = '#00f', hoverColor], label, value }): Config => {
+    (data, { colors: [normalColor = '#00f', hoverColor], label, value }) : Config => {
       const dataset = data.datasets[0];
 
       dataset.backgroundColor.push(alphaColor(normalColor));
@@ -80,7 +80,7 @@ function calculateOptions(
       },
       tooltips: {
         callbacks: {
-          label: (item: TooltipItem): string =>
+          label: (item : TooltipItem) : string =>
             values[item.index].tooltip || values[item.index].label
         }
       }
@@ -89,16 +89,16 @@ function calculateOptions(
   };
 }
 
-function ChartHorizBar({
+function ChartHorizBar ({
   aspectRatio = 8,
   className = '',
   max = 100,
   showLabels = false,
   values
-}: HorizBarProps): React.ReactElement<HorizBarProps> | null {
+} : HorizBarProps) : React.ReactElement<HorizBarProps> | null {
   const [{ chartData, chartOptions, jsonValues }, setState] = useState<State>({});
 
-  useEffect((): void => {
+  useEffect(() : void => {
     const newJsonValues = JSON.stringify(values);
 
     if (newJsonValues !== jsonValues) {

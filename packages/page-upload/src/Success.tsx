@@ -9,16 +9,16 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from './translate';
 import { ComponentProps as Props } from './types';
 
-function Success({ allCodes, basePath, navigateTo }: Props): React.ReactElement<Props> | null {
-  const { id }: { id: string } = useParams();
+function Success ({ allCodes, basePath, navigateTo } : Props) : React.ReactElement<Props> | null {
+  const { id } : { id : string } = useParams();
   const { t } = useTranslation();
 
   const code = useMemo(
-    (): Code | null => allCodes.find(({ id: codeId }) => codeId === id) || null,
+    () : Code | null => allCodes.find(({ id: codeId }) => codeId === id) || null,
     [allCodes, id]
   );
 
-  useEffect((): void => {
+  useEffect(() : void => {
     if (!code) {
       navigateTo.upload();
     }
@@ -43,7 +43,7 @@ function Success({ allCodes, basePath, navigateTo }: Props): React.ReactElement<
           basePath={basePath}
           code={code}
           navigateTo={navigateTo}
-          onForget={(): void => navigateTo.upload()}
+          onForget={() : void => navigateTo.upload()}
         />
         <Button.Group>
           <Button isPrimary label={t<string>('Deploy Code')} onClick={navigateTo.deployNew(id)} />

@@ -9,18 +9,18 @@ import Icon from './Icon';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  icon?: boolean;
-  isError?: boolean;
-  isValid?: boolean;
-  text: React.ReactNode;
+  icon ?: boolean;
+  isError ?: boolean;
+  isValid ?: boolean;
+  text : React.ReactNode;
 }
 
-function InputStatus({
+function InputStatus ({
   className,
   isError = false,
   isValid = false,
   text = null
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <div className={classes(className, isError && 'isError')}>
       {!!text && <Icon icon={!isValid ? 'exclamation-circle' : 'check-circle'} />}

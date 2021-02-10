@@ -13,48 +13,48 @@ import { intervalObservable, isEqual, triggerChange } from '../util';
 import { DefaultProps, HOC, Options, RenderFn } from './types';
 
 interface State extends CallState {
-  subscriptions: { unsubscribe: () => void }[];
+  subscriptions : { unsubscribe : () => void }[];
 }
 
-export default function withObservable<T, P>(
-  observable: Observable<P>,
-  { callOnResult, propName = 'value', transform = echoTransform }: Options = {}
-): HOC {
+export default function withObservable<T, P> (
+  observable : Observable<P>,
+  { callOnResult, propName = 'value', transform = echoTransform } : Options = {}
+) : HOC {
   return (
-    Inner: React.ComponentType<any>,
-    defaultProps: DefaultProps = {},
-    render?: RenderFn
-  ): React.ComponentType<any> => {
+    Inner : React.ComponentType<any>,
+    defaultProps : DefaultProps = {},
+    render ?: RenderFn
+  ) : React.ComponentType<any> => {
     return class WithObservable extends React.Component<any, State> {
       private isActive = true;
 
-      public state: State = {
+      public state : State = {
         callResult: undefined,
         callUpdated: false,
         callUpdatedAt: 0,
         subscriptions: []
       };
 
-      public componentDidMount(): void {
+      public componentDidMount () : void {
         this.setState({
           subscriptions: [
             observable
               .pipe(
                 map(transform),
-                catchError((): Observable<any> => of(undefined))
+                catchError(() : Observable<any> => of(undefined))
               )
-              .subscribe((value: any): void => this.triggerUpdate(this.props, value)),
+              .subscribe((value : any) : void => this.triggerUpdate(this.props, value)),
             intervalObservable(this)
           ]
         });
       }
 
-      public componentWillUnmount(): void {
+      public componentWillUnmount () : void {
         this.isActive = false;
-        this.state.subscriptions.forEach((subscription): void => subscription.unsubscribe());
+        this.state.subscriptions.forEach((subscription) : void => subscription.unsubscribe());
       }
 
-      private triggerUpdate = (props: P, callResult?: T): void => {
+      private triggerUpdate = (props : P, callResult ?: T) : void => {
         try {
           if (!this.isActive || isEqual(callResult, this.state.callResult)) {
             return;
@@ -77,7 +77,7 @@ export default function withObservable<T, P>(
         }
       };
 
-      public render(): React.ReactNode {
+      public render () : React.ReactNode {
         const { children } = this.props;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const { callResult, callUpdated, callUpdatedAt } = this.state;

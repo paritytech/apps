@@ -5,18 +5,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  children?: React.ReactNode;
-  className?: string;
-  withBorder?: boolean;
-  withPadding?: boolean;
+  children ?: React.ReactNode;
+  className ?: string;
+  withBorder ?: boolean;
+  withPadding ?: boolean;
 }
 
-function Holder({
+function Holder ({
   children,
   className = '',
   withBorder,
   withPadding
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <div
       className={`ui--Params ${className} ${withBorder ? 'withBorder' : 'withoutBorder'} ${withPadding ? 'withPadding' : ''

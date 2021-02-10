@@ -17,33 +17,33 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  children?: React.ReactNode;
-  labelHash?: React.ReactNode;
-  mortality?: string;
-  onError?: () => void;
-  value: IExtrinsic | IMethod;
-  withBorder?: boolean;
-  withHash?: boolean;
-  tip?: BN;
+  children ?: React.ReactNode;
+  labelHash ?: React.ReactNode;
+  mortality ?: string;
+  onError ?: () => void;
+  value : IExtrinsic | IMethod;
+  withBorder ?: boolean;
+  withHash ?: boolean;
+  tip ?: BN;
 }
 
 interface Param {
-  name: string;
-  type: TypeDef;
+  name : string;
+  type : TypeDef;
 }
 
 interface Value {
-  isValid: boolean;
-  value: Codec;
+  isValid : boolean;
+  value : Codec;
 }
 
 interface Extracted {
-  hash: Hash | null;
-  params: Param[];
-  values: Value[];
+  hash : Hash | null;
+  params : Param[];
+  values : Value[];
 }
 
-function Call({
+function Call ({
   children,
   className = '',
   labelHash,
@@ -53,7 +53,7 @@ function Call({
   value,
   withBorder,
   withHash
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [{ hash, params, values }, setExtracted] = useState<Extracted>({
     hash: null,
@@ -61,15 +61,15 @@ function Call({
     values: []
   });
 
-  useEffect((): void => {
+  useEffect(() : void => {
     const params = GenericCall.filterOrigin(value.meta).map(
-      ({ name, type }): Param => ({
+      ({ name, type }) : Param => ({
         name: name.toString(),
         type: getTypeDef(type.toString())
       })
     );
     const values = value.args.map(
-      (value): Value => ({
+      (value) : Value => ({
         isValid: true,
         value
       })

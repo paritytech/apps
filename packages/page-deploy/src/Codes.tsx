@@ -9,13 +9,13 @@ import styled from 'styled-components';
 import { useTranslation } from './translate';
 import { ComponentProps as Props } from './types';
 
-function Codes({
+function Codes ({
   allCodes,
   basePath,
   className,
   hasCodes,
   navigateTo
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (
@@ -48,7 +48,7 @@ function Codes({
         <div className="content">
           {hasCodes && <h3>{t<string>('Code Bundles')}</h3>}
           {allCodes.map(
-            (code): React.ReactNode => (
+            (code) : React.ReactNode => (
               <CodeCard
                 basePath={basePath}
                 code={code}

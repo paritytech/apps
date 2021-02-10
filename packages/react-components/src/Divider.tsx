@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { BareProps as Props } from './types';
 
-function Divider({ className }: Props): React.ReactElement<Props> {
+function Divider ({ className } : Props) : React.ReactElement<Props> {
   return <div className={className} />;
 }
 

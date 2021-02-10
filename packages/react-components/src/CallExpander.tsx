@@ -10,20 +10,20 @@ import CallDisplay from './Call';
 import Expander from './Expander';
 
 interface Props {
-  children?: React.ReactNode;
-  className?: string;
-  labelHash?: React.ReactNode;
-  value: Call;
-  withHash?: boolean;
+  children ?: React.ReactNode;
+  className ?: string;
+  labelHash ?: React.ReactNode;
+  value : Call;
+  withHash ?: boolean;
 }
 
-function CallExpander({
+function CallExpander ({
   children,
   className = '',
   labelHash,
   value,
   withHash
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { meta, method, section } = registry.findMetaCall(value.callIndex);
 
   return (

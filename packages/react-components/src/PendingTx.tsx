@@ -17,16 +17,16 @@ import useSendTx from './useSendTx';
 import { Button, Data, InputAddress, Labelled } from '.';
 
 interface Props extends BareProps {
-  additionalDetails: Record<string, any>;
-  currentItem: QueueTx | null;
-  instructions: React.ReactNode;
-  isSendable: boolean;
-  onError: () => void;
-  registry?: TypeRegistry;
-  requestAddress: string;
+  additionalDetails : Record<string, any>;
+  currentItem : QueueTx | null;
+  instructions : React.ReactNode;
+  isSendable : boolean;
+  onError : () => void;
+  registry ?: TypeRegistry;
+  requestAddress : string;
 }
 
-function PendingTx({
+function PendingTx ({
   additionalDetails,
   children,
   className,
@@ -34,26 +34,26 @@ function PendingTx({
   instructions,
   registry,
   requestAddress
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const willSend = useRef(false);
   const { onCancel, onSend, tx } = useSendTx(currentItem, requestAddress);
   const isSigning = !!currentItem?.extrinsic;
 
-  const _onSend = useCallback(async (): Promise<void> => {
+  const _onSend = useCallback(async () : Promise<void> => {
     willSend.current = true;
     await onSend();
   }, [onSend]);
 
-  useEffect((): (() => void) => {
-    return function(): void {
+  useEffect(() : (() => void) => {
+    return function() : void {
       if (!willSend.current) {
         onCancel();
       }
     };
   }, [onCancel, tx]);
 
-  const content = useMemo((): React.ReactNode | null => {
+  const content = useMemo(() : React.ReactNode | null => {
     if (!currentItem?.extrinsic) {
       return null;
     }
@@ -62,7 +62,7 @@ function PendingTx({
 
     const { meta, method, section } = baseRegistry.findMetaCall(extrinsic.callIndex);
 
-    let details: React.ReactNode = null;
+    let details : React.ReactNode = null;
 
     switch (`${section}.${method}`) {
       case 'contracts.putCode':
@@ -100,14 +100,14 @@ function PendingTx({
               {additionalDetails.constructor}
             </Labelled>
             {(additionalDetails.params as {
-              arg: React.ReactNode;
-              type: TypeDef;
-              value: string;
+              arg : React.ReactNode;
+              type : TypeDef;
+              value : string;
             }[]).map(
               (
-                { arg, type, value }: { arg: React.ReactNode; type: TypeDef; value: string },
+                { arg, type, value } : { arg : React.ReactNode; type : TypeDef; value : string },
                 index
-              ): React.ReactNode => {
+              ) : React.ReactNode => {
                 return (
                   <Labelled
                     isIndented
@@ -159,14 +159,14 @@ function PendingTx({
               {additionalDetails.message}
             </Labelled>
             {(additionalDetails.params as {
-              arg: React.ReactNode;
-              type: TypeDef;
-              value: string;
+              arg : React.ReactNode;
+              type : TypeDef;
+              value : string;
             }[]).map(
               (
-                { arg, type, value }: { arg: React.ReactNode; type: TypeDef; value: string },
+                { arg, type, value } : { arg : React.ReactNode; type : TypeDef; value : string },
                 index
-              ): React.ReactNode => {
+              ) : React.ReactNode => {
                 return (
                   <Labelled
                     isIndented

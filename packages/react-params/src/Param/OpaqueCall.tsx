@@ -10,7 +10,7 @@ import { Props } from '../types';
 import CallDisplay from './Call';
 import Unknown from './Unknown';
 
-function OpaqueCall(props: Props): React.ReactElement<Props> {
+function OpaqueCall (props : Props) : React.ReactElement<Props> {
   if (!props.isDisabled) {
     return <Unknown {...props} />;
   }

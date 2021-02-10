@@ -11,17 +11,17 @@ import { TypeRegistry } from '@polkadot/types';
 import { CallResult } from './types';
 
 interface Props extends BareProps {
-  onClear?: () => void;
-  outcome: CallResult;
-  registry: TypeRegistry;
+  onClear ?: () => void;
+  outcome : CallResult;
+  registry : TypeRegistry;
 }
 
-function Outcome({
+function Outcome ({
   className,
   onClear,
   outcome: { from, message, output, params, result, when },
   registry
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   return (
     <div className={className}>
       <div className="info">

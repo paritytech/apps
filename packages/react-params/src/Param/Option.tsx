@@ -11,7 +11,7 @@ import { useTranslation } from '../translate';
 import { Props } from '../types';
 import Param from './index';
 
-function Option({
+function Option ({
   className = '',
   defaultValue,
   isDisabled,
@@ -20,11 +20,11 @@ function Option({
   onEnter,
   onEscape,
   type: { sub, withOptionActive }
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isActive, setIsActive] = useState(withOptionActive || false);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     !isActive &&
       onChange &&
       onChange({

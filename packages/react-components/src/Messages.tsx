@@ -11,17 +11,17 @@ import Message from './Message';
 import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  abi: Abi;
-  address?: string;
-  isLabelled?: boolean;
-  isRemovable: boolean;
-  onRemove?: () => void;
-  onSelect?: (messageIndex: number) => () => void;
-  onSelectConstructor?: (constructorIndex: number) => void;
-  withConstructors?: boolean;
+  abi : Abi;
+  address ?: string;
+  isLabelled ?: boolean;
+  isRemovable : boolean;
+  onRemove ?: () => void;
+  onSelect ?: (messageIndex : number) => () => void;
+  onSelectConstructor ?: (constructorIndex : number) => void;
+  withConstructors ?: boolean;
 }
 
-function Messages(props: Props): React.ReactElement<Props> {
+function Messages (props : Props) : React.ReactElement<Props> {
   const {
     abi: { constructors, messages },
     className = '',
@@ -33,12 +33,12 @@ function Messages(props: Props): React.ReactElement<Props> {
     <div className={classes(className, 'ui--Messages', isLabelled && 'labelled')}>
       {withConstructors &&
         constructors.map(
-          (constructor, index): React.ReactNode => (
+          (constructor, index) : React.ReactNode => (
             <Message isConstructor key={`constructor-${index}`} message={constructor} />
           )
         )}
       {messages.map(
-        (message, index): React.ReactNode => (
+        (message, index) : React.ReactNode => (
           <Message isConstructor key={`message-${index}`} message={message} />
         )
       )}

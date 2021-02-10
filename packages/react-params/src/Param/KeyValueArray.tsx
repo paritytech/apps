@@ -15,8 +15,8 @@ import File from './File';
 import { createParam } from './KeyValue';
 
 interface Parsed {
-  isValid: boolean;
-  value: [Uint8Array, Uint8Array][];
+  isValid : boolean;
+  value : [Uint8Array, Uint8Array][];
 }
 
 const BYTES_TYPE = {
@@ -26,11 +26,11 @@ const BYTES_TYPE = {
 
 const EMPTY_PLACEHOLDER = 'click to select or drag and drop JSON key/value (hex-encoded) file';
 
-function parseFile(raw: Uint8Array): Parsed {
+function parseFile (raw : Uint8Array) : Parsed {
   const json = JSON.parse(u8aToString(raw)) as Record<string, string>;
   const keys = Object.keys(json);
   let isValid = keys.length !== 0;
-  const value = keys.map((key): [Uint8Array, Uint8Array] => {
+  const value = keys.map((key) : [Uint8Array, Uint8Array] => {
     const value = json[key];
 
     assert(
@@ -52,7 +52,7 @@ function parseFile(raw: Uint8Array): Parsed {
   };
 }
 
-function KeyValueArray({
+function KeyValueArray ({
   className = '',
   defaultValue,
   isDisabled,
@@ -62,13 +62,13 @@ function KeyValueArray({
   onEnter,
   onEscape,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [placeholder, setPlaceholder] = useState<string>(t(EMPTY_PLACEHOLDER));
 
   const _onChange = useCallback(
-    (raw: Uint8Array): void => {
-      let encoded: Parsed = { isValid: false, value: [] };
+    (raw : Uint8Array) : void => {
+      let encoded : Parsed = { isValid: false, value: [] };
 
       try {
         encoded = parseFile(raw);
@@ -101,7 +101,7 @@ function KeyValueArray({
         </Base>
         <div className="ui--Params">
           {pairs.map(
-            ([key, value]): React.ReactNode => {
+            ([key, value]) : React.ReactNode => {
               const keyHex = u8aToHex(key.toU8a(true));
 
               return (

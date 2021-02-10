@@ -10,18 +10,18 @@ import Icon from './Icon';
 import Tooltip from './Tooltip';
 
 interface Props {
-  help: React.ReactNode;
-  icon?: IconName;
-  className?: string;
+  help : React.ReactNode;
+  icon ?: IconName;
+  className ?: string;
 }
 
 let id = 0;
 
-function LabelHelp({
+function LabelHelp ({
   className = '',
   help,
   icon = 'question-circle'
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [trigger] = useState(`label-help-${++id}`);
 
   return (

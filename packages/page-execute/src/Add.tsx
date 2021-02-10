@@ -20,7 +20,7 @@ import keyring from '@polkadot/ui-keyring';
 import { useTranslation } from './translate';
 import { ComponentProps as Props } from './types';
 
-function Add({ className, isContract, navigateTo }: Props): React.ReactElement<Props> {
+function Add ({ className, isContract, navigateTo } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const showNotification = useNotification();
@@ -41,7 +41,7 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
   const [isStored, setIsStored] = useState(false);
   const [isNotAdded, setIsNotAdded] = useState(false);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     try {
       keyring.decodeAddress(address || '');
       setIsAddress(true);
@@ -52,11 +52,11 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
     }
   }, [address, isContract]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     setIsStored(!!contractInfo?.isSome);
   }, [contractInfo?.isSome]);
 
-  const [isAddressValid, status] = useMemo((): [boolean, React.ReactNode | null] => {
+  const [isAddressValid, status] = useMemo(() : [boolean, React.ReactNode | null] => {
     const isAddressValid = isAddress && isStored && isNotAdded;
 
     let status = null;
@@ -76,13 +76,13 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
     return [isAddressValid, status];
   }, [isAddress, isAddressTouched, isNotAdded, isStored, t]);
 
-  const isValid = useMemo((): boolean => isAbiValid && isAddressValid && isNameValid, [
+  const isValid = useMemo(() : boolean => isAbiValid && isAddressValid && isNameValid, [
     isAddressValid,
     isAbiValid,
     isNameValid
   ]);
 
-  const _onAdd = useCallback((): void => {
+  const _onAdd = useCallback(() : void => {
     if (!address || !abi || !name) {
       return;
     }

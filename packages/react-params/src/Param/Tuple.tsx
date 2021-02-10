@@ -9,15 +9,15 @@ import Base from './Base';
 import Static from './Static';
 import useParamDefs from './useParamDefs';
 
-function Tuple(props: Props): React.ReactElement<Props> {
+function Tuple (props : Props) : React.ReactElement<Props> {
   const params = useParamDefs(props.type);
   const { className = '', isDisabled, label, onChange, overrides, withLabel } = props;
 
   const _onChangeParams = useCallback(
-    (values: RawParam[]): void => {
+    (values : RawParam[]) : void => {
       onChange &&
         onChange({
-          isValid: values.reduce((result: boolean, { isValid }) => result && isValid, true),
+          isValid: values.reduce((result : boolean, { isValid }) => result && isValid, true),
           value: values.map(({ value }) => value)
         });
     },

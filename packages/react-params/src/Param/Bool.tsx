@@ -8,7 +8,7 @@ import { useTranslation } from '../translate';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function BoolParam({
+function BoolParam ({
   className = '',
   defaultValue: { value },
   isDisabled,
@@ -16,7 +16,7 @@ function BoolParam({
   label,
   onChange,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [defaultValue] = useState(value instanceof Boolean ? value.valueOf() : (value as boolean));
 
@@ -29,7 +29,7 @@ function BoolParam({
   );
 
   const _onChange = useCallback(
-    (value: boolean) =>
+    (value : boolean) =>
       onChange &&
       onChange({
         isValid: true,

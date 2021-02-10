@@ -8,12 +8,12 @@ import Button from '../Button';
 import { useTranslation } from '../translate';
 import { ActionsProps } from './types';
 
-function Actions({
+function Actions ({
   cancelLabel,
   children,
   className,
   onCancel
-}: ActionsProps): React.ReactElement<ActionsProps> {
+} : ActionsProps) : React.ReactElement<ActionsProps> {
   const { t } = useTranslation();
 
   return (

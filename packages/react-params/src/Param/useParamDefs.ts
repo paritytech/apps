@@ -9,7 +9,7 @@ import { TypeDef } from '@polkadot/types/types';
 
 import { ParamDef } from '../types';
 
-function expandDef(td: TypeDef): TypeDef {
+function expandDef (td : TypeDef) : TypeDef {
   try {
     return getTypeDef(registry.createType(td.type as 'u32').toRawType());
   } catch (e) {
@@ -17,10 +17,10 @@ function expandDef(td: TypeDef): TypeDef {
   }
 }
 
-export default function useParamDefs(type: TypeDef): ParamDef[] {
+export default function useParamDefs (type : TypeDef) : ParamDef[] {
   const [params, setParams] = useState<ParamDef[]>([]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     const typeDef = expandDef(type);
 
     if (!typeDef.sub) {
@@ -29,7 +29,7 @@ export default function useParamDefs(type: TypeDef): ParamDef[] {
 
     setParams(
       (Array.isArray(typeDef.sub) ? typeDef.sub : [typeDef.sub]).map(
-        (td): ParamDef => ({
+        (td) : ParamDef => ({
           length: typeDef.length,
           name: td.name,
           type: td // expandDef(td)

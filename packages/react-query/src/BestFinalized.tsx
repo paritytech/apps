@@ -9,11 +9,11 @@ import { BlockNumber } from '@polkadot/types/interfaces';
 import { formatNumber } from '@polkadot/util';
 
 interface Props extends BareProps {
-  children?: React.ReactNode;
-  label?: React.ReactNode;
+  children ?: React.ReactNode;
+  label ?: React.ReactNode;
 }
 
-function BestFinalized({ children, className = '', label }: Props): React.ReactElement<Props> {
+function BestFinalized ({ children, className = '', label } : Props) : React.ReactElement<Props> {
   const { api } = useApi();
   const bestNumberFinalized = useCall<BlockNumber>(api.derive.chain.bestNumberFinalized, []);
 

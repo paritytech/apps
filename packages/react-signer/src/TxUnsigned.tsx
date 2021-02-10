@@ -11,11 +11,11 @@ import { useTranslation } from './translate';
 import useSendUnsigned from './useSendUnsigned';
 
 interface Props {
-  className?: string;
-  currentItem: QueueTx;
+  className ?: string;
+  currentItem : QueueTx;
 }
 
-function TxUnsigned({ className, currentItem }: Props): React.ReactElement<Props> | null {
+function TxUnsigned ({ className, currentItem } : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { onCancel, onSendUnsigned } = useSendUnsigned(currentItem);
   const [isRenderError, toggleRenderError] = useToggle();

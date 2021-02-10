@@ -9,10 +9,10 @@ import keyring from '@polkadot/ui-keyring';
 
 import useApi from './useApi';
 
-export default function useContract(address: StringOrNull): Contract | null {
+export default function useContract (address : StringOrNull) : Contract | null {
   const { api } = useApi();
 
-  return useMemo((): Contract | null => {
+  return useMemo(() : Contract | null => {
     if (!address) {
       return null;
     }

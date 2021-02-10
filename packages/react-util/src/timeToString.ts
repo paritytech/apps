@@ -7,10 +7,10 @@ import { TFunction } from 'i18next';
 
 import { Time } from '@polkadot/util/types';
 
-export default function timeToString(
-  t: TFunction,
-  { days, hours, minutes, seconds }: Time
-): string {
+export default function timeToString (
+  t : TFunction,
+  { days, hours, minutes, seconds } : Time
+) : string {
   return [
     days ? (days > 1 ? t<string>('{{days}} days', { replace: { days } }) : t('1 day')) : null,
     hours ? (hours > 1 ? t<string>('{{hours}} hrs', { replace: { hours } }) : t('1 hr')) : null,
@@ -21,7 +21,7 @@ export default function timeToString(
       : null,
     seconds ? (seconds > 1 ? t<string>('{{seconds}} s', { replace: { seconds } }) : t('1 s')) : null
   ]
-    .filter((value): value is string => !!value)
+    .filter((value) : value is string => !!value)
     .slice(0, 2)
     .join(' ');
 }

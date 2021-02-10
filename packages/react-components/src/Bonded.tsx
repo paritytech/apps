@@ -12,13 +12,13 @@ import { renderProvided } from './Balance';
 import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  bonded?: BN | BN[];
-  label?: React.ReactNode;
-  params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
-  withLabel?: boolean;
+  bonded ?: BN | BN[];
+  label ?: React.ReactNode;
+  params ?: AccountId | AccountIndex | Address | string | Uint8Array | null;
+  withLabel ?: boolean;
 }
 
-function BondedDisplay(props: Props): React.ReactElement<Props> | null {
+function BondedDisplay (props : Props) : React.ReactElement<Props> | null {
   const { bonded, className = '', label, params } = props;
 
   if (!params) {

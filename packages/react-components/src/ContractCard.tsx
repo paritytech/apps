@@ -15,17 +15,17 @@ import { useTranslation } from './translate';
 import { ComponentProps } from './types';
 
 interface Props extends ComponentProps {
-  contract: Contract;
+  contract : Contract;
 }
 
-function ContractCard({
+function ContractCard ({
   className,
   contract: { abi, address },
   navigateTo
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
 
-  const onExecute = useCallback((): void => {
+  const onExecute = useCallback(() : void => {
     navigateTo.executeCall(address.toString())();
   }, [address, navigateTo]);
 

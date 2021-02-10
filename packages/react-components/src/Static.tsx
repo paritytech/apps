@@ -7,19 +7,19 @@ import Labelled from './Labelled';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  children?: React.ReactNode;
-  defaultValue?: any;
-  help?: React.ReactNode;
-  isDisabled?: boolean;
-  isError?: boolean;
-  isFull?: boolean;
-  isHidden?: boolean;
-  label?: React.ReactNode;
-  value?: React.ReactNode;
-  withLabel?: boolean;
+  children ?: React.ReactNode;
+  defaultValue ?: any;
+  help ?: React.ReactNode;
+  isDisabled ?: boolean;
+  isError ?: boolean;
+  isFull ?: boolean;
+  isHidden ?: boolean;
+  label ?: React.ReactNode;
+  value ?: React.ReactNode;
+  withLabel ?: boolean;
 }
 
-function Static({
+function Static ({
   children,
   className = '',
   defaultValue,
@@ -29,7 +29,7 @@ function Static({
   label,
   value,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <Labelled
       className={className}

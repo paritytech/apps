@@ -10,31 +10,31 @@ import { EraRewardPoints } from '@polkadot/types/interfaces';
 import { formatNumber } from '@polkadot/util';
 
 export interface Authors {
-  byAuthor: Record<string, string>;
-  eraPoints: Record<string, string>;
-  lastBlockAuthors: string[];
-  lastBlockNumber?: string;
-  lastHeader?: HeaderExtended;
-  lastHeaders: HeaderExtended[];
+  byAuthor : Record<string, string>;
+  eraPoints : Record<string, string>;
+  lastBlockAuthors : string[];
+  lastBlockNumber ?: string;
+  lastHeader ?: HeaderExtended;
+  lastHeaders : HeaderExtended[];
 }
 
 interface Props {
-  children: React.ReactNode;
+  children : React.ReactNode;
 }
 
 const MAX_HEADERS = 50;
 
-const byAuthor: Record<string, string> = {};
-const eraPoints: Record<string, string> = {};
-const BlockAuthorsContext: React.Context<Authors> = React.createContext<Authors>({
+const byAuthor : Record<string, string> = {};
+const eraPoints : Record<string, string> = {};
+const BlockAuthorsContext : React.Context<Authors> = React.createContext<Authors>({
   byAuthor,
   eraPoints,
   lastBlockAuthors: [],
   lastHeaders: []
 });
-const ValidatorsContext: React.Context<string[]> = React.createContext<string[]>([]);
+const ValidatorsContext : React.Context<string[]> = React.createContext<string[]>([]);
 
-function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
+function BlockAuthorsBase ({ children } : Props) : React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const queryPoints = useCall<EraRewardPoints>(isApiReady && api.derive.staking?.currentPoints, []);
   const [state, setState] = useState<Authors>({
@@ -46,18 +46,18 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
   const [validators, setValidators] = useState<string[]>([]);
   const [isChainPurged, setIsChainPurged] = useState(false);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     // No unsub, global context - destroyed on app close
     api.isReady
-      .then((): void => {
-        let lastHeaders: HeaderExtended[] = [];
-        let lastBlockAuthors: string[] = [];
+      .then(() : void => {
+        let lastHeaders : HeaderExtended[] = [];
+        let lastBlockAuthors : string[] = [];
         let lastBlockNumber = '';
 
         // subscribe to all validators
         api.query.session &&
           api.query.session
-            .validators((validatorIds): void => {
+            .validators((validatorIds) : void => {
               setValidators(validatorIds.map(validatorId => validatorId.toString()));
             })
             .catch(console.error);
@@ -77,7 +77,7 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
         // subscribe to new headers
         api.derive.chain
           .subscribeNewHeads(
-            async (lastHeader): Promise<void> => {
+            async (lastHeader) : Promise<void> => {
               if (lastHeader?.number) {
                 const blockNumber = lastHeader.number.unwrap();
                 const thisBlockAuthor = lastHeader.author?.toString();
@@ -113,11 +113,11 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
 
                 lastHeaders = lastHeaders
                   .filter(
-                    (old, index): boolean =>
+                    (old, index) : boolean =>
                       index < MAX_HEADERS && old.number.unwrap().lt(blockNumber)
                   )
                   .reduce(
-                    (next, header): HeaderExtended[] => {
+                    (next, header) : HeaderExtended[] => {
                       next.push(header);
 
                       return next;
@@ -143,7 +143,7 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     if (queryPoints) {
       const entries = [...queryPoints.individual.entries()].map(([accountId, points]) => [
         accountId.toString(),
@@ -153,12 +153,12 @@ function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
 
       // we have an update, clear all previous
       if (current.length !== entries.length) {
-        current.forEach((accountId): void => {
+        current.forEach((accountId) : void => {
           delete eraPoints[accountId];
         });
       }
 
-      entries.forEach(([accountId, points]): void => {
+      entries.forEach(([accountId, points]) : void => {
         eraPoints[accountId] = points;
       });
     }

@@ -6,19 +6,19 @@ import React, { useCallback } from 'react';
 import AddressToggle from '../AddressToggle';
 
 interface Props {
-  address: string;
-  filter: string;
-  isHidden?: boolean;
-  onSelect: (address: string) => void;
+  address : string;
+  filter : string;
+  isHidden ?: boolean;
+  onSelect : (address : string) => void;
 }
 
-function Available({
+function Available ({
   address,
   filter,
   isHidden,
   onSelect
-}: Props): React.ReactElement<Props> | null {
-  const _onSelect = useCallback((): void => onSelect(address), [address, onSelect]);
+} : Props) : React.ReactElement<Props> | null {
+  const _onSelect = useCallback(() : void => onSelect(address), [address, onSelect]);
 
   if (isHidden) {
     return null;

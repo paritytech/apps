@@ -9,22 +9,22 @@ import LabelHelp from './LabelHelp';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  help?: React.ReactNode;
-  isHidden?: boolean;
-  isFull?: boolean;
-  isIndented?: boolean;
-  isLabelMonospace?: boolean;
-  isMonospace?: boolean;
-  isOuter?: boolean;
-  isSmall?: boolean;
-  label?: React.ReactNode;
-  labelExtra?: React.ReactNode;
-  children: React.ReactNode;
-  withEllipsis?: boolean;
-  withLabel?: boolean;
+  help ?: React.ReactNode;
+  isHidden ?: boolean;
+  isFull ?: boolean;
+  isIndented ?: boolean;
+  isLabelMonospace ?: boolean;
+  isMonospace ?: boolean;
+  isOuter ?: boolean;
+  isSmall ?: boolean;
+  label ?: React.ReactNode;
+  labelExtra ?: React.ReactNode;
+  children : React.ReactNode;
+  withEllipsis ?: boolean;
+  withLabel ?: boolean;
 }
 
-const defaultLabel: React.ReactNode = <div>&nbsp;</div>;
+const defaultLabel : React.ReactNode = <div>&nbsp;</div>;
 
 const Wrapper = styled.div`
   display: block;
@@ -127,7 +127,7 @@ const Wrapper = styled.div`
   }
 `;
 
-function Labelled({
+function Labelled ({
   className = '',
   children,
   help,
@@ -142,7 +142,7 @@ function Labelled({
   labelExtra,
   withEllipsis,
   withLabel = true
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   if (isHidden) {
     return null;
   }

@@ -14,7 +14,7 @@ import useBlockTime from './useBlockTime';
 
 const BN_MILLION = new BN(1_000_000);
 
-export default function useWeight(): UseWeight {
+export default function useWeight () : UseWeight {
   const { api } = useApi();
   const [blockTime] = useBlockTime();
   const [megaGas, _setMegaGas] = useState<BN>(
@@ -28,7 +28,7 @@ export default function useWeight(): UseWeight {
   const [isEmpty, setIsEmpty] = useState(false);
 
   const setMegaGas = useCallback(
-    (value?: BN | undefined) =>
+    (value ?: BN | undefined) =>
       _setMegaGas(
         value ||
         (api.consts.system.blockWeights
@@ -41,7 +41,7 @@ export default function useWeight(): UseWeight {
     [api]
   );
 
-  return useMemo((): UseWeight => {
+  return useMemo(() : UseWeight => {
     let executionTime = 0;
     let percentage = 0;
     let weight = BN_ZERO;

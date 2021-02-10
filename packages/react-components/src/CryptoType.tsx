@@ -10,14 +10,14 @@ import keyring from '@polkadot/ui-keyring';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  accountId: AccountId | AccountIndex | Address | string | Uint8Array | null;
-  label?: string;
+  accountId : AccountId | AccountIndex | Address | string | Uint8Array | null;
+  label ?: string;
 }
 
-function CryptoType({ accountId, className = '', label = '' }: Props): React.ReactElement<Props> {
+function CryptoType ({ accountId, className = '', label = '' } : Props) : React.ReactElement<Props> {
   const [type, setType] = useState('unknown');
 
-  useEffect((): void => {
+  useEffect(() : void => {
     try {
       const current = accountId ? keyring.getPair(accountId.toString()) : null;
 

@@ -9,19 +9,19 @@ import Param from './Param';
 import { ComponentMap, RawParam, RawParamOnChangeValue, RawParams } from './types';
 
 interface Props {
-  defaultValue: RawParam;
-  index: number;
-  isDisabled?: boolean;
-  name?: string;
-  onChange: (index: number, value: RawParamOnChangeValue) => void;
-  onEnter?: () => void;
-  onEscape?: () => void;
-  overrides?: ComponentMap;
-  type: TypeDef;
-  values?: RawParams | null;
+  defaultValue : RawParam;
+  index : number;
+  isDisabled ?: boolean;
+  name ?: string;
+  onChange : (index : number, value : RawParamOnChangeValue) => void;
+  onEnter ?: () => void;
+  onEscape ?: () => void;
+  overrides ?: ComponentMap;
+  type : TypeDef;
+  values ?: RawParams | null;
 }
 
-function ParamComp({
+function ParamComp ({
   defaultValue,
   index,
   isDisabled,
@@ -31,8 +31,8 @@ function ParamComp({
   onEscape,
   overrides,
   type
-}: Props): React.ReactElement<Props> {
-  const _onChange = useCallback((value: RawParamOnChangeValue): void => onChange(index, value), [
+} : Props) : React.ReactElement<Props> {
+  const _onChange = useCallback((value : RawParamOnChangeValue) : void => onChange(index, value), [
     index,
     onChange
   ]);

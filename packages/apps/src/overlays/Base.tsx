@@ -9,18 +9,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  children: React.ReactNode;
-  className?: string;
-  icon: IconName | IconType;
-  type: 'error' | 'info';
+  children : React.ReactNode;
+  className ?: string;
+  icon : IconName | IconType;
+  type : 'error' | 'info';
 }
 
-function BaseOverlay({
+function BaseOverlay ({
   children,
   className = '',
   icon,
   type
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const [isHidden, toggleHidden] = useToggle();
 
   if (isHidden) {

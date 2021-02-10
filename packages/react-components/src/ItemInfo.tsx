@@ -8,18 +8,18 @@ import styled from 'styled-components';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  icon: React.ReactNode;
-  subtitle?: React.ReactNode;
-  title?: React.ReactNode;
+  icon : React.ReactNode;
+  subtitle ?: React.ReactNode;
+  title ?: React.ReactNode;
 }
 
-function ItemInfo({
+function ItemInfo ({
   children,
   className,
   icon,
   subtitle,
   title
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <div className={className}>
       <div className="item-icon">{icon}</div>

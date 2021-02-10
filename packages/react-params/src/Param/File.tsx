@@ -7,17 +7,17 @@ import React from 'react';
 import Bare from './Bare';
 
 interface Props {
-  className?: string;
-  defaultValue?: any;
-  isDisabled?: boolean;
-  isError?: boolean;
-  label?: React.ReactNode;
-  onChange?: (contents: Uint8Array) => void;
-  placeholder?: string;
-  withLabel?: boolean;
+  className ?: string;
+  defaultValue ?: any;
+  isDisabled ?: boolean;
+  isError ?: boolean;
+  label ?: React.ReactNode;
+  onChange ?: (contents : Uint8Array) => void;
+  placeholder ?: string;
+  withLabel ?: boolean;
 }
 
-function File({
+function File ({
   className = '',
   isDisabled,
   isError = false,
@@ -25,7 +25,7 @@ function File({
   onChange,
   placeholder,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <Bare className={className}>
       <InputFile

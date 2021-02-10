@@ -13,31 +13,31 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Meta {
-  documentation: Text[];
+  documentation : Text[];
 }
 
 export interface Props extends BareProps {
-  children?: React.ReactNode;
-  isOpen?: boolean;
-  summary?: React.ReactNode;
-  summaryMeta?: Meta;
-  summarySub?: React.ReactNode;
-  withDot?: boolean;
-  withHidden?: boolean;
+  children ?: React.ReactNode;
+  isOpen ?: boolean;
+  summary ?: React.ReactNode;
+  summaryMeta ?: Meta;
+  summarySub ?: React.ReactNode;
+  withDot ?: boolean;
+  withHidden ?: boolean;
 }
 
-function formatMeta(meta?: Meta): React.ReactNode | null {
+function formatMeta (meta ?: Meta) : React.ReactNode | null {
   if (!meta || !meta.documentation.length) {
     return null;
   }
 
-  const strings = meta.documentation.map((doc): string => doc.toString().trim());
-  const firstEmpty = strings.findIndex((doc): boolean => !doc.length);
+  const strings = meta.documentation.map((doc) : string => doc.toString().trim());
+  const firstEmpty = strings.findIndex((doc) : boolean => !doc.length);
 
   return firstEmpty === -1 ? strings.join(' ') : strings.slice(0, firstEmpty).join(' ');
 }
 
-function Expander({
+function Expander ({
   children,
   className = '',
   isOpen,
@@ -46,7 +46,7 @@ function Expander({
   summarySub,
   withDot,
   withHidden
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isExpanded, toggleExpanded] = useToggle(isOpen);
   const headerMain = useMemo(() => summary || formatMeta(summaryMeta), [summary, summaryMeta]);
@@ -56,7 +56,7 @@ function Expander({
     summarySub
   ]);
   const hasContent = useMemo(
-    (): boolean => !!children && (!Array.isArray(children) || children.length !== 0),
+    () : boolean => !!children && (!Array.isArray(children) || children.length !== 0),
     [children]
   );
 

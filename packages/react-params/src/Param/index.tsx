@@ -11,7 +11,7 @@ import { Props as CProps, Props } from '../types';
 import findComponent from './findComponent';
 import Static from './Static';
 
-function Param({
+function Param ({
   className = '',
   defaultValue,
   isDisabled,
@@ -23,7 +23,7 @@ function Param({
   onEscape,
   overrides,
   type
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const compRef = useRef<React.ComponentType<CProps> | null>(findComponent(type, overrides));
 
   const label = useMemo(

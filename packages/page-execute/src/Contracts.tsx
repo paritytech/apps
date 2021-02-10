@@ -19,23 +19,23 @@ import { ComponentProps as Props } from './types';
 //     .filter((contract): contract is Contract => !!contract);
 // }
 
-function Contracts({
+function Contracts ({
   accounts,
   basePath,
   className,
   contracts: contractAddresses,
   hasContracts,
   navigateTo
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
-  const contracts = useMemo((): Contract[] | null => {
+  const contracts = useMemo(() : Contract[] | null => {
     return (
       accounts &&
       contractAddresses &&
       (contractAddresses
-        .map((address): Contract | null => getContractForAddress(api, address))
-        .filter((contract: Contract | null): boolean => !!contract) as Contract[])
+        .map((address) : Contract | null => getContractForAddress(api, address))
+        .filter((contract : Contract | null) : boolean => !!contract) as Contract[])
     );
   }, [accounts, api, contractAddresses]);
 
@@ -61,7 +61,7 @@ function Contracts({
         <div className="content">
           {hasContracts && <h3>{t<string>('Deployed Contracts')}</h3>}
           {contracts?.map(
-            (contract): React.ReactNode => (
+            (contract) : React.ReactNode => (
               <ContractCard
                 basePath={basePath}
                 contract={contract}

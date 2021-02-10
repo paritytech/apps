@@ -13,36 +13,36 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Page {
-  content: React.ReactNode;
-  header: React.ReactNode;
+  content : React.ReactNode;
+  header : React.ReactNode;
 }
 
 interface Props extends BareProps {
-  onClose: VoidFn;
+  onClose : VoidFn;
 }
 
-function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
+function GuideModal ({ className, onClose } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle(true);
   const [index, setIndex] = useState(0);
 
-  const incrementIndex = useCallback((): void => setIndex(index + 1), [index]);
+  const incrementIndex = useCallback(() : void => setIndex(index + 1), [index]);
 
-  const decrementIndex = useCallback((): void => setIndex(index - 1), [index]);
+  const decrementIndex = useCallback(() : void => setIndex(index - 1), [index]);
 
-  const _setIndex = useCallback((index: number): (() => void) => {
+  const _setIndex = useCallback((index : number) : (() => void) => {
     return function() {
       setIndex(index);
     };
   }, []);
 
-  const _onClose = useCallback((): void => {
+  const _onClose = useCallback(() : void => {
     toggleIsOpen();
     onClose && onClose();
   }, [onClose, toggleIsOpen]);
 
   const pages = useMemo(
-    (): Page[] => [
+    () : Page[] => [
       {
         content: (
           <>
@@ -123,7 +123,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
     [t]
   );
 
-  const [header, content] = useMemo((): [React.ReactNode, React.ReactNode] => {
+  const [header, content] = useMemo(() : [React.ReactNode, React.ReactNode] => {
     const { content, header } = pages[index];
 
     return [
@@ -132,7 +132,7 @@ function GuideModal({ className, onClose }: Props): React.ReactElement<Props> {
         {content}
         <div className="page-control">
           {pages.map(
-            (_, pageIndex): React.ReactNode => {
+            (_, pageIndex) : React.ReactNode => {
               return (
                 <div
                   className={classes('page', index === pageIndex && 'isActive')}

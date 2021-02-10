@@ -8,10 +8,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  className?: string;
+  className ?: string;
 }
 
-function TopBar({ className }: Props): React.ReactElement<Props> {
+function TopBar ({ className } : Props) : React.ReactElement<Props> {
   return (
     <div className={className}>
       <div>

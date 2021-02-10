@@ -12,18 +12,18 @@ import Button from './Button';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  children?: React.ReactNode;
-  icon?: IconName;
-  onClick: VoidFn;
-  size?: IconProps['size'];
+  children ?: React.ReactNode;
+  icon ?: IconName;
+  onClick : VoidFn;
+  size ?: IconProps['size'];
 }
 
-function EditButton({
+function EditButton ({
   children,
   className,
   icon = 'edit',
   onClick
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <div className={className} onClick={onClick}>
       {children}

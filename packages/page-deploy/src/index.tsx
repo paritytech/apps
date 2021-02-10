@@ -12,11 +12,11 @@ import New from './New';
 import Success from './Success';
 import { ComponentProps } from './types';
 
-function DeployApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
+function DeployApp ({ basePath, navigateTo } : Props) : React.ReactElement<Props> {
   const { allCodes, hasCodes, isLoading, updated } = useCodes();
 
   const componentProps = useMemo(
-    (): ComponentProps => ({
+    () : ComponentProps => ({
       allCodes,
       basePath,
       hasCodes,

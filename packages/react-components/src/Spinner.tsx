@@ -8,16 +8,16 @@ import styled from 'styled-components';
 import { useTranslation } from './translate';
 
 interface Props {
-  className?: string;
-  label?: React.ReactNode;
-  variant?: 'app' | 'push' | 'mini' | 'cover';
+  className ?: string;
+  label ?: React.ReactNode;
+  variant ?: 'app' | 'push' | 'mini' | 'cover';
 }
 
-function Spinner({
+function Spinner ({
   className = '',
   label,
   variant = 'app'
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
 
   return (

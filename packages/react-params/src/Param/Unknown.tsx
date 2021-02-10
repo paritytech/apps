@@ -7,7 +7,7 @@ import { Props } from '../types';
 import BaseBytes from './BaseBytes';
 import Static from './Static';
 
-function Unknown(props: Props): React.ReactElement<Props> {
+function Unknown (props : Props) : React.ReactElement<Props> {
   const {
     className = '',
     defaultValue,

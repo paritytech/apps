@@ -14,49 +14,49 @@ import SelectMethod from './SelectMethod';
 import SelectSection from './SelectSection';
 
 interface Props {
-  className?: string;
-  defaultValue: SubmittableExtrinsicFunction<'promise'>;
-  help?: React.ReactNode;
-  isDisabled?: boolean;
-  isError?: boolean;
-  isPrivate?: boolean;
-  label: React.ReactNode;
-  onChange: (value: SubmittableExtrinsicFunction<'promise'>) => void;
-  withLabel?: boolean;
+  className ?: string;
+  defaultValue : SubmittableExtrinsicFunction<'promise'>;
+  help ?: React.ReactNode;
+  isDisabled ?: boolean;
+  isError ?: boolean;
+  isPrivate ?: boolean;
+  label : React.ReactNode;
+  onChange : (value : SubmittableExtrinsicFunction<'promise'>) => void;
+  withLabel ?: boolean;
 }
 
-function InputExtrinsic({
+function InputExtrinsic ({
   className = '',
   defaultValue,
   help,
   label,
   onChange,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { api } = useApi();
   const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(
     methodOptions(api, defaultValue.section)
   );
   const [optionsSection] = useState<DropdownOptions>(sectionOptions(api));
   const [value, setValue] = useState<SubmittableExtrinsicFunction<'promise'>>(
-    (): SubmittableExtrinsicFunction<'promise'> => defaultValue
+    () : SubmittableExtrinsicFunction<'promise'> => defaultValue
   );
 
   const _onKeyChange = useCallback(
-    (newValue: SubmittableExtrinsicFunction<'promise'>): void => {
+    (newValue : SubmittableExtrinsicFunction<'promise'>) : void => {
       if (value.section === newValue.section && value.method === newValue.method) {
         return;
       }
 
       // set this via callback, since the we are setting a function (alternatively... we have issues)
-      setValue((): SubmittableExtrinsicFunction<'promise'> => newValue);
+      setValue(() : SubmittableExtrinsicFunction<'promise'> => newValue);
       onChange(newValue);
     },
     [onChange, value]
   );
 
   const _onSectionChange = useCallback(
-    (section: string): void => {
+    (section : string) : void => {
       if (section === value.section) {
         return;
       }

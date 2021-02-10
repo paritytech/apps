@@ -14,47 +14,47 @@ import { BareProps } from './types';
 type Input$Type = 'number' | 'password' | 'text';
 
 interface Props extends BareProps {
-  autoFocus?: boolean;
-  children?: React.ReactNode;
-  defaultValue?: string | null;
-  help?: React.ReactNode;
-  icon?: React.ReactNode;
-  inputClassName?: string;
-  isAction?: boolean;
-  isDisabled?: boolean;
-  isDisabledError?: boolean;
-  isEditable?: boolean;
-  isError?: boolean;
-  isFull?: boolean;
-  isHidden?: boolean;
-  isInPlaceEditor?: boolean;
-  isReadOnly?: boolean;
-  label?: React.ReactNode;
-  labelExtra?: React.ReactNode;
-  max?: number;
-  maxLength?: number;
-  min?: number;
-  name?: string;
-  onEnter?: boolean | VoidFn;
-  onEscape?: () => void;
-  onChange?: (value: string) => void;
-  onBlur?: () => void;
-  onKeyDown?: (event: React.KeyboardEvent<Element>) => void;
-  onKeyUp?: (event: React.KeyboardEvent<Element>) => void;
-  onKeyPress?: (event: React.KeyboardEvent<Element>) => void;
-  onPaste?: (event: React.ClipboardEvent<Element>) => void;
-  placeholder?: string;
-  status?: React.ReactNode;
-  tabIndex?: number;
-  type?: Input$Type;
-  value?: string | null;
-  withLabel?: boolean;
-  withEllipsis?: boolean;
-  withStatus?: boolean;
+  autoFocus ?: boolean;
+  children ?: React.ReactNode;
+  defaultValue ?: string | null;
+  help ?: React.ReactNode;
+  icon ?: React.ReactNode;
+  inputClassName ?: string;
+  isAction ?: boolean;
+  isDisabled ?: boolean;
+  isDisabledError ?: boolean;
+  isEditable ?: boolean;
+  isError ?: boolean;
+  isFull ?: boolean;
+  isHidden ?: boolean;
+  isInPlaceEditor ?: boolean;
+  isReadOnly ?: boolean;
+  label ?: React.ReactNode;
+  labelExtra ?: React.ReactNode;
+  max ?: number;
+  maxLength ?: number;
+  min ?: number;
+  name ?: string;
+  onEnter ?: boolean | VoidFn;
+  onEscape ?: () => void;
+  onChange ?: (value : string) => void;
+  onBlur ?: () => void;
+  onKeyDown ?: (event : React.KeyboardEvent<Element>) => void;
+  onKeyUp ?: (event : React.KeyboardEvent<Element>) => void;
+  onKeyPress ?: (event : React.KeyboardEvent<Element>) => void;
+  onPaste ?: (event : React.ClipboardEvent<Element>) => void;
+  placeholder ?: string;
+  status ?: React.ReactNode;
+  tabIndex ?: number;
+  type ?: Input$Type;
+  value ?: string | null;
+  withLabel ?: boolean;
+  withEllipsis ?: boolean;
+  withStatus ?: boolean;
 }
 
 // Find decimal separator used in current locale
-const getDecimalSeparator = (): string => (1.1).toLocaleString().replace(/\d/g, '');
+const getDecimalSeparator = () : string => (1.1).toLocaleString().replace(/\d/g, '');
 
 // note: KeyboardEvent.keyCode and KeyboardEvent.which are deprecated
 const KEYS = {
@@ -75,20 +75,20 @@ const KEYS = {
   ZERO: '0'
 };
 
-const KEYS_PRE: any[] = [KEYS.ALT, KEYS.CMD, KEYS.CTRL];
+const KEYS_PRE : any[] = [KEYS.ALT, KEYS.CMD, KEYS.CTRL];
 
 // reference: degrade key to keyCode for cross-browser compatibility https://www.w3schools.com/jsref/event_key_keycode.asp
-const isCopy = (key: string, isPreKeyDown: boolean): boolean => isPreKeyDown && key === KEYS.C;
+const isCopy = (key : string, isPreKeyDown : boolean) : boolean => isPreKeyDown && key === KEYS.C;
 
-const isCut = (key: string, isPreKeyDown: boolean): boolean => isPreKeyDown && key === KEYS.X;
+const isCut = (key : string, isPreKeyDown : boolean) : boolean => isPreKeyDown && key === KEYS.X;
 
-const isPaste = (key: string, isPreKeyDown: boolean): boolean => isPreKeyDown && key === KEYS.V;
+const isPaste = (key : string, isPreKeyDown : boolean) : boolean => isPreKeyDown && key === KEYS.V;
 
-const isSelectAll = (key: string, isPreKeyDown: boolean): boolean => isPreKeyDown && key === KEYS.A;
+const isSelectAll = (key : string, isPreKeyDown : boolean) : boolean => isPreKeyDown && key === KEYS.A;
 
 let counter = 0;
 
-function Input({
+function Input ({
   autoFocus = false,
   children,
   className,
@@ -126,25 +126,25 @@ function Input({
   withEllipsis,
   withLabel,
   withStatus = false
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [stateName] = useState(`in_${counter++}_at_${Date.now()}`);
 
   const _onBlur = useCallback(() => onBlur && onBlur(), [onBlur]);
 
   const _onChange = useCallback(
-    ({ target }: React.SyntheticEvent<HTMLInputElement>): void => {
+    ({ target } : React.SyntheticEvent<HTMLInputElement>) : void => {
       onChange && onChange((target as HTMLInputElement).value);
     },
     [onChange]
   );
 
   const _onKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>): void => onKeyDown && onKeyDown(event),
+    (event : React.KeyboardEvent<HTMLInputElement>) : void => onKeyDown && onKeyDown(event),
     [onKeyDown]
   );
 
   const _onKeyUp = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    (event : React.KeyboardEvent<HTMLInputElement>) : void => {
       onKeyUp && onKeyUp(event);
 
       if (onEnter && event.keyCode === 13) {
@@ -161,7 +161,7 @@ function Input({
   );
 
   const _onPaste = useCallback(
-    (event: React.ClipboardEvent<HTMLInputElement>): void => onPaste && onPaste(event),
+    (event : React.ClipboardEvent<HTMLInputElement>) : void => onPaste && onPaste(event),
     [onPaste]
   );
 

@@ -13,19 +13,19 @@ import uiSettings from '@polkadot/ui-settings';
 
 import { useTranslation } from './translate';
 
-export function getIdentityTheme(systemName: string): 'substrate' {
+export function getIdentityTheme (systemName : string) : 'substrate' {
   return ((uiSettings.icon === 'default' && getSystemIcon(systemName)) ||
     uiSettings.icon) as 'substrate';
 }
 
-function IdentityIcon({
+function IdentityIcon ({
   className = '',
   onCopy,
   prefix,
   size = 24,
   theme,
   value
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { systemName } = useApi();
   const { t } = useTranslation();
   const showNotification = useNotification();
@@ -34,13 +34,13 @@ function IdentityIcon({
   const [address, setAddress] = useState(value?.toString());
   const thisTheme = theme || getIdentityTheme(systemName);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     value && setIsValidator(validators.includes(value.toString()));
     value && setAddress(value.toString());
   }, [value, validators]);
 
   const _onCopy = useCallback(
-    (account: string): void => {
+    (account : string) : void => {
       onCopy && onCopy(account);
       showNotification({
         account,

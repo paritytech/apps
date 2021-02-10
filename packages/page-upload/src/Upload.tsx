@@ -24,19 +24,19 @@ import { compactAddLength, isNull, isWasm } from '@polkadot/util';
 
 import { useTranslation } from './translate';
 
-function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
+function Upload ({ basePath, navigateTo } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const [accountId, setAccountId] = useAccountId();
   const [name, setName, isNameValid, isNameError] = useNonEmptyString();
   const currentName = useRef(name);
   const [wasmFromFile, setWasmFromFile, isWasmFromFileSupplied, isWasmFromFileValid] = useFile({
-    onChange: ({ name }: FileState): void => {
+    onChange: ({ name } : FileState) : void => {
       if (currentName.current === '') {
         setName(name);
       }
     },
-    validate: (file: FileState) => file?.data.subarray(0, 4).toString() === '0,97,115,109'
+    validate: (file : FileState) => file?.data.subarray(0, 4).toString() === '0,97,115,109'
   });
   const {
     abi,
@@ -51,7 +51,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
 
   const [[wasm, isWasmValid], setWasm] = useState<[Uint8Array | null, boolean]>([null, false]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     if (abi && isWasm(abi.project.source.wasm)) {
       setWasm([abi.project.source.wasm, true]);
 
@@ -74,13 +74,13 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
   const pendingTx = usePendingTx('contracts.putCode');
 
   const isSubmittable = useMemo(
-    (): boolean =>
+    () : boolean =>
       !!accountId && !isNull(name) && isNameValid && isWasmValid && (!isAbiSupplied || isAbiValid),
     [accountId, name, isAbiSupplied, isAbiValid, isNameValid, isWasmValid]
   );
 
   const _onChangeName = useCallback(
-    (name: string | null): void => {
+    (name : string | null) : void => {
       setName(name);
       currentName.current = name;
     },
@@ -88,7 +88,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
   );
 
   const _onSuccess = useCallback(
-    (result: SubmittableResult): void => {
+    (result : SubmittableResult) : void => {
       const section = api.tx.contracts ? 'contracts' : 'contract';
       const record = result.findRecord(section, 'CodeStored');
 
@@ -101,8 +101,8 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
 
         store
           .saveCode({ abi: abi?.json || undefined, codeHash: codeHash.toHex(), name, tags: [] })
-          .then((id): void => navigateTo.uploadSuccess(id)())
-          .catch((error: any): void => {
+          .then((id) : void => navigateTo.uploadSuccess(id)())
+          .catch((error : any) : void => {
             console.error('Unable to save code', error);
           });
       }
@@ -110,7 +110,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
     [api, abi, name, navigateTo]
   );
 
-  const additionalDetails = useMemo((): Record<string, string> => ({ name: name || '' }), [name]);
+  const additionalDetails = useMemo(() : Record<string, string> => ({ name: name || '' }), [name]);
   // const preparedWasm = useMemo((): Uint8Array | null => wasm ? compactAddLength(wasm.data) : null, [wasm]);
 
   return (

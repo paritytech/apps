@@ -10,7 +10,7 @@ import styled from 'styled-components';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
 
-function Button({
+function Button ({
   children,
   className = '',
   icon,
@@ -30,7 +30,7 @@ function Button({
   onMouseLeave,
   tabIndex,
   withoutLink
-}: ButtonProps): React.ReactElement<ButtonProps> {
+} : ButtonProps) : React.ReactElement<ButtonProps> {
   const _onClick = useCallback(() => !(isBusy || isDisabled) && onClick && onClick(), [
     isBusy,
     isDisabled,
@@ -61,7 +61,7 @@ const ICON_PADDING = 0.5;
 
 export default React.memo(
   styled(Button)(
-    ({ theme }: ThemeProps) => `
+    ({ theme } : ThemeProps) => `
   background: transparent;
   border-color: var(--grey30);
   border-width: 2px;

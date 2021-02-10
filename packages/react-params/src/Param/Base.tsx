@@ -8,23 +8,23 @@ import { Size } from '../types';
 import Bare from './Bare';
 
 interface Props {
-  children?: React.ReactNode;
-  className?: string;
-  isDisabled?: boolean;
-  isOuter?: boolean;
-  label?: React.ReactNode;
-  size?: Size;
-  withLabel?: boolean;
+  children ?: React.ReactNode;
+  className ?: string;
+  isDisabled ?: boolean;
+  isOuter ?: boolean;
+  label ?: React.ReactNode;
+  size ?: Size;
+  withLabel ?: boolean;
 }
 
-function Base({
+function Base ({
   children,
   className = '',
   isOuter,
   label,
   size = 'full',
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <Bare className={className}>
       <Labelled className={size} isOuter label={label} withEllipsis withLabel={withLabel}>

@@ -6,17 +6,17 @@ import { UseTxParams } from '@canvas-ui/react-params/types';
 import React from 'react';
 
 interface Props extends UseTxParams {
-  isDisabled?: boolean;
-  onEnter?: () => void;
+  isDisabled ?: boolean;
+  onEnter ?: () => void;
 }
 
-function Params({
+function Params ({
   isDisabled,
   onChange,
   onEnter,
   params = [],
   values
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   if (!params.length) {
     return null;
   }

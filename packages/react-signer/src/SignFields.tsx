@@ -12,19 +12,19 @@ import { BN_ZERO } from '@polkadot/util';
 import { useTranslation } from './translate';
 
 interface Props {
-  address: string | null;
-  className?: string;
-  onChange: (signedOptions: Partial<SignerOptions>) => void;
-  signedTx: string | null;
+  address : string | null;
+  className ?: string;
+  onChange : (signedOptions : Partial<SignerOptions>) => void;
+  signedTx : string | null;
 }
 
-function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<Props> {
+function SignFields ({ address, onChange, signedTx } : Props) : React.ReactElement<Props> {
   const { api } = useApi();
   const [blocks, setBlocks] = useState(new BN(64));
   const [nonce, setNonce] = useState(BN_ZERO);
   const { t } = useTranslation();
 
-  useEffect((): void => {
+  useEffect(() : void => {
     address &&
       api.derive.balances
         .account(address)
@@ -32,7 +32,7 @@ function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<
         .catch(console.error);
   }, [address, api]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     onChange({ era: blocks.toNumber(), nonce });
   }, [blocks, nonce, onChange]);

@@ -17,48 +17,48 @@ import SelectMethod from './SelectMethod';
 import SelectSection from './SelectSection';
 
 interface Props {
-  className?: string;
-  defaultValue: DefinitionRpcExt;
-  help?: React.ReactNode;
-  isError?: boolean;
-  label: React.ReactNode;
-  onChange?: (value: DefinitionRpcExt) => void;
-  withLabel?: boolean;
+  className ?: string;
+  defaultValue : DefinitionRpcExt;
+  help ?: React.ReactNode;
+  isError ?: boolean;
+  label : React.ReactNode;
+  onChange ?: (value : DefinitionRpcExt) => void;
+  withLabel ?: boolean;
 }
 
-function InputRpc({
+function InputRpc ({
   className = '',
   defaultValue,
   help,
   label,
   onChange,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { api } = useApi();
   const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(
     methodOptions(api, defaultValue.section)
   );
   const [optionsSection] = useState<DropdownOptions>(sectionOptions(api));
-  const [value, setValue] = useState<DefinitionRpcExt>((): DefinitionRpcExt => defaultValue);
+  const [value, setValue] = useState<DefinitionRpcExt>(() : DefinitionRpcExt => defaultValue);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     onChange && onChange(value);
   }, [onChange, value]);
 
   const _onMethodChange = useCallback(
-    (newValue: DefinitionRpcExt): void => {
+    (newValue : DefinitionRpcExt) : void => {
       if (value.section === newValue.section && value.method === newValue.method) {
         return;
       }
 
       // set via callback since the method is a function itself
-      setValue((): DefinitionRpcExt => newValue);
+      setValue(() : DefinitionRpcExt => newValue);
     },
     [value]
   );
 
   const _onSectionChange = useCallback(
-    (section: string): void => {
+    (section : string) : void => {
       if (section === value.section) {
         return;
       }

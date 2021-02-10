@@ -10,12 +10,12 @@ import { Props } from '../types';
 import Bare from './Bare';
 
 interface StateParam {
-  isValid: boolean;
-  u8a: Uint8Array;
+  isValid : boolean;
+  u8a : Uint8Array;
 }
 
 // eslint-disable-next-line @typescript-eslint/ban-types
-export function createParam(hex: string | String, length = -1): StateParam {
+export function createParam (hex : string | String, length = -1) : StateParam {
   let u8a;
 
   try {
@@ -32,19 +32,19 @@ export function createParam(hex: string | String, length = -1): StateParam {
   };
 }
 
-function KeyValue({
+function KeyValue ({
   className = '',
   isDisabled,
   label,
   onChange,
   onEnter,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [, setIsValid] = useState(false);
   const [key, setKey] = useState<StateParam>({ isValid: false, u8a: new Uint8Array([]) });
   const [value, setValue] = useState<StateParam>({ isValid: false, u8a: new Uint8Array([]) });
 
-  useEffect((): void => {
+  useEffect(() : void => {
     const isValid = key.isValid && value.isValid;
 
     onChange &&
@@ -55,8 +55,8 @@ function KeyValue({
     setIsValid(isValid);
   }, [key, onChange, value]);
 
-  const _onChangeKey = useCallback((key: string): void => setKey(createParam(key)), []);
-  const _onChangeValue = useCallback((value: string): void => setValue(createParam(value)), []);
+  const _onChangeKey = useCallback((key : string) : void => setKey(createParam(key)), []);
+  const _onChangeValue = useCallback((value : string) : void => setValue(createParam(value)), []);
 
   return (
     <Bare className={className}>

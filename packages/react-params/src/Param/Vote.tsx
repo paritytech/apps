@@ -11,8 +11,8 @@ import { useTranslation } from '../translate';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function doChange(onChange?: (value: any) => void): (_: number) => void {
-  return function(value: number): void {
+function doChange (onChange ?: (value : any) => void) : (_ : number) => void {
+  return function(value : number) : void {
     onChange &&
       onChange({
         isValid: true,
@@ -21,14 +21,14 @@ function doChange(onChange?: (value: any) => void): (_: number) => void {
   };
 }
 
-function Vote({
+function Vote ({
   className = '',
   defaultValue: { value },
   isDisabled,
   isError,
   onChange,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const optAyeRef = useRef([

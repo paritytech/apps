@@ -20,12 +20,12 @@ import NotFound from './NotFound';
 import Status from './Status';
 
 interface Props {
-  className?: string;
+  className ?: string;
 }
 
 const sawGuideKey = 'sawGuideKey';
 
-const NOT_FOUND: Route = {
+const NOT_FOUND : Route = {
   Component: NotFound,
   display: {
     needsApi: undefined
@@ -35,7 +35,7 @@ const NOT_FOUND: Route = {
   text: 'Unknown'
 };
 
-function Content({ className }: Props): React.ReactElement<Props> {
+function Content ({ className } : Props) : React.ReactElement<Props> {
   const location = useLocation();
   const { t } = useTranslation();
   const { isApiConnected, isApiReady } = useApi();
@@ -45,14 +45,14 @@ function Content({ className }: Props): React.ReactElement<Props> {
     Component,
     display: { needsApi },
     name
-  } = useMemo((): Route => {
+  } = useMemo(() : Route => {
     const app = location.pathname.slice(1) || '';
     const found = createRoutes(t).find(route => !!(route && app.startsWith(route.name)));
 
     return found || NOT_FOUND;
   }, [location, t]);
 
-  const setSawGuide = useCallback((): void => {
+  const setSawGuide = useCallback(() : void => {
     store.set(sawGuideKey, true);
   }, []);
 

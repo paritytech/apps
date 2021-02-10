@@ -14,11 +14,11 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  abi: InkAbi;
-  withConstructors?: boolean;
+  abi : InkAbi;
+  withConstructors ?: boolean;
 }
 
-function Abi({ abi, className, withConstructors = false }: Props): React.ReactElement<Props> {
+function Abi ({ abi, className, withConstructors = false } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isInfoOpen, toggleIsInfoOpen] = useToggle();
   const [isAbiOpen, toggleIsAbiOpen] = useToggle();

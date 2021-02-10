@@ -9,18 +9,18 @@ import { useCallback, useEffect, useState } from 'react';
 import uiSettings from '@polkadot/ui-settings';
 
 interface UseSettings {
-  isChanged: boolean | null;
-  onChangeKey: (key: keyof SettingsStruct) => <T extends string | number>(value: T) => void;
-  save: VoidFn;
-  saveAndReload: VoidFn;
-  settings: SettingsStruct;
+  isChanged : boolean | null;
+  onChangeKey : (key : keyof SettingsStruct) => <T extends string | number>(value : T) => void;
+  save : VoidFn;
+  saveAndReload : VoidFn;
+  settings : SettingsStruct;
 }
 
-export function save(settings: SettingsStruct): void {
+export function save (settings : SettingsStruct) : void {
   uiSettings.set(settings);
 }
 
-export function saveAndReload(settings: SettingsStruct): void {
+export function saveAndReload (settings : SettingsStruct) : void {
   save(settings);
 
   // HACK This is terribe, but since the API needs to re-connect, but since
@@ -28,12 +28,12 @@ export function saveAndReload(settings: SettingsStruct): void {
   window.location.reload();
 }
 
-export default function useSettings(reloadOnChange?: boolean): UseSettings {
+export default function useSettings (reloadOnChange ?: boolean) : UseSettings {
   // tri-state: null = nothing changed, false = no reload, true = reload required
   const [isChanged, setIsChanged] = useState<boolean | null>(null);
   const [settings, setSettings] = useState(uiSettings.get());
 
-  useEffect((): void => {
+  useEffect(() : void => {
     const prev = (uiSettings.get() as unknown) as Record<string, unknown>;
     const hasChanges = Object.entries(settings).some(([key, value]) => prev[key] !== value);
     const needsReload = prev.apiUrl !== settings.apiUrl || prev.prefix !== settings.prefix;
@@ -46,12 +46,12 @@ export default function useSettings(reloadOnChange?: boolean): UseSettings {
   }, [reloadOnChange, settings]);
 
   const onChangeKey = useCallback(
-    (key: keyof SettingsStruct) => <T extends string | number>(value: T): void =>
+    (key : keyof SettingsStruct) => <T extends string | number> (value : T) : void =>
       setSettings(settings => ({ ...settings, [key]: value })),
     []
   );
-  const _saveAndReload = useCallback((): void => saveAndReload(settings), [settings]);
-  const _save = useCallback((): void => {
+  const _saveAndReload = useCallback(() : void => saveAndReload(settings), [settings]);
+  const _save = useCallback(() : void => {
     save(settings);
     setIsChanged(null);
   }, [settings]);

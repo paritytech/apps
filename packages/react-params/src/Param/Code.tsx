@@ -9,7 +9,7 @@ import { Props } from '../types';
 import Bytes from './Bytes';
 import BytesFile from './File';
 
-function Code({
+function Code ({
   className = '',
   defaultValue,
   isDisabled,
@@ -20,11 +20,11 @@ function Code({
   onEscape,
   type,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
-    (value: Uint8Array): void => {
+    (value : Uint8Array) : void => {
       const isValid = isWasm(value);
 
       onChange && onChange({ isValid, value });

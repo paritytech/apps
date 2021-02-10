@@ -13,15 +13,15 @@ import Modal from './Modal';
 import { useTranslation } from './translate';
 import { BareProps } from './types';
 
-function ResetStorageModal({ className }: BareProps): React.ReactElement<BareProps> {
+function ResetStorageModal ({ className } : BareProps) : React.ReactElement<BareProps> {
   const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle(true);
 
-  const _onClose = useCallback((): void => {
+  const _onClose = useCallback(() : void => {
     toggleIsOpen();
   }, [toggleIsOpen]);
 
-  const _onReset = useCallback((): void => {
+  const _onReset = useCallback(() : void => {
     const existingContractList = keyring.getContracts();
 
     existingContractList.forEach(existingContract => {

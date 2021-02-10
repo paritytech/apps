@@ -11,14 +11,14 @@ import Params from '../';
 import Base from './Base';
 import useParamDefs from './useParamDefs';
 
-function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
+function generateParam ([{ name, type }] : ParamDef[], index : number) : ParamDef {
   return {
     name: `${index}: ${name || type.type}`,
     type
   };
 }
 
-function VectorFixed({
+function VectorFixed ({
   className = '',
   defaultValue,
   isDisabled = false,
@@ -27,17 +27,17 @@ function VectorFixed({
   overrides,
   type,
   withLabel
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const inputParams = useParamDefs(type);
   const [params, setParams] = useState<ParamDef[]>([]);
   const [values, setValues] = useState<RawParam[]>([]);
 
   // build up the list of parameters we are using
-  useEffect((): void => {
+  useEffect(() : void => {
     if (inputParams.length) {
       const count = inputParams[0].length || 1;
       const max = isDisabled ? ((defaultValue.value as RawParam[]) || []).length : count;
-      const params: ParamDef[] = [];
+      const params : ParamDef[] = [];
 
       for (let index = 0; index < max; index++) {
         params.push(generateParam(inputParams, index));
@@ -48,10 +48,10 @@ function VectorFixed({
   }, [defaultValue, isDisabled, inputParams]);
 
   // when !isDisable, generating an input list based on count
-  useEffect((): void => {
+  useEffect(() : void => {
     !isDisabled &&
       inputParams.length &&
-      setValues((values): RawParam[] => {
+      setValues((values) : RawParam[] => {
         const count = inputParams[0].length || 1;
 
         if (values.length === count) {
@@ -69,10 +69,10 @@ function VectorFixed({
   }, [inputParams, isDisabled]);
 
   // when isDisabled, set the values based on the defaultValue input
-  useEffect((): void => {
+  useEffect(() : void => {
     isDisabled &&
       setValues(
-        ((defaultValue.value as RawParam[]) || []).map((value: RawParam) =>
+        ((defaultValue.value as RawParam[]) || []).map((value : RawParam) =>
           isUndefined(value) || isUndefined(value.isValid)
             ? { isValid: !isUndefined(value), value }
             : value
@@ -81,10 +81,10 @@ function VectorFixed({
   }, [defaultValue, isDisabled]);
 
   // when our values has changed, alert upstream
-  useEffect((): void => {
+  useEffect(() : void => {
     onChange &&
       onChange({
-        isValid: values.reduce((result: boolean, { isValid }) => result && isValid, true),
+        isValid: values.reduce((result : boolean, { isValid }) => result && isValid, true),
         value: values.map(({ value }) => value)
       });
   }, [values, onChange]);

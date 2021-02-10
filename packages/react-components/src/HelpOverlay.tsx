@@ -10,10 +10,10 @@ import Icon from './Icon';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  md: string;
+  md : string;
 }
 
-function HelpOverlay({ className = '', md }: Props): React.ReactElement<Props> {
+function HelpOverlay ({ className = '', md } : Props) : React.ReactElement<Props> {
   const [isVisible, toggleVisible] = useToggle();
 
   return (

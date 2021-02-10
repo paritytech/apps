@@ -12,7 +12,7 @@ import { Props } from '../types';
 import BaseBytes from './BaseBytes';
 import File from './File';
 
-function Bytes({
+function Bytes ({
   className = '',
   defaultValue,
   isDisabled,
@@ -24,13 +24,13 @@ function Bytes({
   onEscape,
   type,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isValid, setIsValid] = useState(false);
   const [isFileDrop, setFileInput] = useState(false);
 
   const _onChangeFile = useCallback(
-    (value: Uint8Array): void => {
+    (value : Uint8Array) : void => {
       const isValid = value.length !== 0;
 
       onChange &&

@@ -15,19 +15,19 @@ type BaseColors = 'blue' | 'green' | 'red' | 'orange';
 export type Colors = 'auto' | 'autoReverse' | BaseColors;
 
 interface Props extends BareProps {
-  color?: Colors;
-  percent?: BN | number;
-  total?: UInt | BN | number;
-  value?: UInt | BN | number;
+  color ?: Colors;
+  percent ?: BN | number;
+  total ?: UInt | BN | number;
+  value ?: UInt | BN | number;
 }
 
-function Progress({
+function Progress ({
   className = '',
   color = 'blue',
   percent,
   total,
   value
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const _total = bnToBn(total);
   const _value = bnToBn(value);
   const calculated = _total.gtn(0)

@@ -6,7 +6,7 @@ import { WsProvider } from '@polkadot/rpc-provider';
 
 import { SUBSTRATE_PORT } from '../substrate';
 
-export async function createApi(): Promise<ApiPromise> {
+export async function createApi () : Promise<ApiPromise> {
   process.env.NODE_ENV = 'test';
 
   const provider = new WsProvider(`ws://127.0.0.1:${SUBSTRATE_PORT}`);

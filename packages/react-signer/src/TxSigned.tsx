@@ -16,16 +16,16 @@ import Transaction from './Transaction';
 import { useTranslation } from './translate';
 
 interface Props {
-  className?: string;
-  currentItem: QueueTx;
-  requestAddress: string;
+  className ?: string;
+  currentItem : QueueTx;
+  requestAddress : string;
 }
 
-function TxSigned({
+function TxSigned ({
   className,
   currentItem,
   requestAddress
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const { api } = useApi();
   const { t } = useTranslation();
   const {

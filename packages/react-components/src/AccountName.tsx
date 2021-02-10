@@ -16,19 +16,19 @@ import Badge from './Badge';
 import Icon from './Icon';
 
 interface Props extends BareProps {
-  children?: React.ReactNode;
-  defaultName?: string;
-  label?: React.ReactNode;
-  noLookup?: boolean;
-  onClick?: () => void;
-  override?: React.ReactNode;
+  children ?: React.ReactNode;
+  defaultName ?: string;
+  label ?: React.ReactNode;
+  noLookup ?: boolean;
+  onClick ?: () => void;
+  override ?: React.ReactNode;
   // this is used by app-account/addresses to toggle editing
-  toggle?: boolean;
-  value: AccountId | AccountIndex | Address | string | Uint8Array | null | undefined;
-  withSidebar?: boolean;
+  toggle ?: boolean;
+  value : AccountId | AccountIndex | Address | string | Uint8Array | null | undefined;
+  withSidebar ?: boolean;
 }
 
-const KNOWN: [AccountId, string][] = [
+const KNOWN : [AccountId, string][] = [
   [registry.createType('AccountId', stringToU8a('modlpy/socie'.padEnd(32, '\0'))), 'Society'],
   [registry.createType('AccountId', stringToU8a('modlpy/trsry'.padEnd(32, '\0'))), 'Treasury']
 ];
@@ -36,11 +36,11 @@ const KNOWN: [AccountId, string][] = [
 const displayCache = new Map<string, React.ReactNode>();
 const nameCache = new Map<string, [boolean, [React.ReactNode, React.ReactNode | null]]>();
 
-function defaultOrAddr(
+function defaultOrAddr (
   defaultName = '',
-  _address: AccountId | AccountIndex | Address | string | Uint8Array,
-  _accountIndex?: AccountIndex | null
-): [[React.ReactNode, React.ReactNode | null], boolean, boolean, boolean] {
+  _address : AccountId | AccountIndex | Address | string | Uint8Array,
+  _accountIndex ?: AccountIndex | null
+) : [[React.ReactNode, React.ReactNode | null], boolean, boolean, boolean] {
   const known = KNOWN.find(([known]) => known.eq(_address));
 
   if (known) {
@@ -70,11 +70,11 @@ function defaultOrAddr(
   return [[extracted, null], !isAddressExtracted, isAddressExtracted, false];
 }
 
-function extractName(
-  address: string,
-  accountIndex?: AccountIndex,
-  defaultName?: string
-): React.ReactNode {
+function extractName (
+  address : string,
+  accountIndex ?: AccountIndex,
+  defaultName ?: string
+) : React.ReactNode {
   const displayCached = displayCache.get(address);
 
   if (displayCached) {
@@ -104,11 +104,11 @@ function extractName(
   );
 }
 
-function createIdElem(
-  badgeType: 'green' | 'brown' | 'gray',
-  nameElem: React.ReactNode,
-  infoElem: React.ReactNode
-): React.ReactNode {
+function createIdElem (
+  badgeType : 'green' | 'brown' | 'gray',
+  nameElem : React.ReactNode,
+  infoElem : React.ReactNode
+) : React.ReactNode {
   return (
     <div className="via-identity">
       <Badge info={infoElem} isInline isSmall isTooltip type={badgeType} />
@@ -117,13 +117,13 @@ function createIdElem(
   );
 }
 
-function extractIdentity(address: string, identity: DeriveAccountRegistration): React.ReactNode {
-  const judgements = identity.judgements.filter(([, judgement]): boolean => !judgement.isFeePaid);
+function extractIdentity (address : string, identity : DeriveAccountRegistration) : React.ReactNode {
+  const judgements = identity.judgements.filter(([, judgement]) : boolean => !judgement.isFeePaid);
   const isGood = judgements.some(
-    ([, judgement]): boolean => judgement.isKnownGood || judgement.isReasonable
+    ([, judgement]) : boolean => judgement.isKnownGood || judgement.isReasonable
   );
   const isBad = judgements.some(
-    ([, judgement]): boolean => judgement.isErroneous || judgement.isLowQuality
+    ([, judgement]) : boolean => judgement.isErroneous || judgement.isLowQuality
   );
   const displayName = isGood
     ? identity.display
@@ -155,7 +155,7 @@ function extractIdentity(address: string, identity: DeriveAccountRegistration): 
   return createIdElem(badgeType, nameElem, infoElem);
 }
 
-function AccountName({
+function AccountName ({
   children,
   className = '',
   defaultName,
@@ -165,7 +165,7 @@ function AccountName({
   override,
   toggle,
   value
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [value]);
   const [name, setName] = useState<React.ReactNode>(() =>
@@ -173,7 +173,7 @@ function AccountName({
   );
 
   // set the actual nickname, local name, accountIndex, accountId
-  useEffect((): void => {
+  useEffect(() : void => {
     const { accountId, accountIndex, identity, nickname } = info || {};
     const cacheAddr = (accountId || value || '').toString();
 

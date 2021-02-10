@@ -5,12 +5,12 @@
 type Browser = 'chrome' | 'firefox';
 
 interface Extension {
-  desc: string;
-  link: string;
-  name: string;
+  desc : string;
+  link : string;
+  name : string;
 }
 
-const availableExtensions: Record<Browser, Extension[]> = [
+const availableExtensions : Record<Browser, Extension[]> = [
   {
     browsers: {
       chrome:
@@ -22,10 +22,10 @@ const availableExtensions: Record<Browser, Extension[]> = [
   }
 ].reduce(
   (
-    available: Record<Browser, Extension[]>,
+    available : Record<Browser, Extension[]>,
     { browsers, desc, name }
-  ): Record<Browser, Extension[]> => {
-    Object.entries(browsers).forEach(([browser, link]): void => {
+  ) : Record<Browser, Extension[]> => {
+    Object.entries(browsers).forEach(([browser, link]) : void => {
       available[browser as 'chrome'].push({ desc, link, name });
     });
 

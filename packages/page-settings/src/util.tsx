@@ -9,7 +9,7 @@ import React from 'react';
 
 import uiSettings from '@polkadot/ui-settings';
 
-export function createOption({ isHeader, text, value }: Option): Option | React.ReactNode {
+export function createOption ({ isHeader, text, value } : Option) : Option | React.ReactNode {
   if (isHeader) {
     return <Dropdown.Header content={text} key={text as string} />;
   }
@@ -24,11 +24,11 @@ export function createOption({ isHeader, text, value }: Option): Option | React.
   };
 }
 
-export function createIdenticon(
-  { info, text, value }: Option,
-  overrides: string[] = [],
+export function createIdenticon (
+  { info, text, value } : Option,
+  overrides : string[] = [],
   override = 'empty'
-): Option {
+) : Option {
   return {
     text: (
       <div className="ui--Dropdown-item" key={value}>
@@ -45,11 +45,11 @@ export function createIdenticon(
   };
 }
 
-export function save(settings: SettingsStruct): void {
+export function save (settings : SettingsStruct) : void {
   uiSettings.set(settings);
 }
 
-export function saveAndReload(settings: SettingsStruct): void {
+export function saveAndReload (settings : SettingsStruct) : void {
   save(settings);
 
   // HACK This is terribe, but since the API needs to re-connect, but since

@@ -14,16 +14,16 @@ import { useTranslation } from './translate';
 import { BareProps, Code } from './types';
 
 interface Props extends BareProps {
-  code: Code;
-  onForget: VoidFn;
+  code : Code;
+  onForget : VoidFn;
 }
 
-function CodeForget({ className, code, onForget }: Props): React.ReactElement<Props> {
+function CodeForget ({ className, code, onForget } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const showNotification = useNotification();
   const [isOpen, toggleIsOpen] = useToggle();
 
-  const _onForget = useCallback((): void => {
+  const _onForget = useCallback(() : void => {
     onForget();
     toggleIsOpen();
 

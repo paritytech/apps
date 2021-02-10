@@ -12,24 +12,24 @@ import { formatBalance } from '@polkadot/util';
 import { useTranslation } from './translate';
 
 interface Props extends BareProps {
-  children?: React.ReactNode;
-  isShort?: boolean;
-  label?: React.ReactNode;
-  labelPost?: React.ReactNode;
-  value?: Compact<any> | BN | string | null | 'all';
-  withSi?: boolean;
+  children ?: React.ReactNode;
+  isShort ?: boolean;
+  label ?: React.ReactNode;
+  labelPost ?: React.ReactNode;
+  value ?: Compact<any> | BN | string | null | 'all';
+  withSi ?: boolean;
 }
 
 // for million, 2 * 3-grouping + comma
 const M_LENGTH = 6 + 1;
 const K_LENGTH = 3 + 1;
 
-function format(
-  value: Compact<any> | BN | string,
-  currency: string,
-  withSi?: boolean,
-  _isShort?: boolean
-): React.ReactNode {
+function format (
+  value : Compact<any> | BN | string,
+  currency : string,
+  withSi ?: boolean,
+  _isShort ?: boolean
+) : React.ReactNode {
   const [prefix, postfix] = formatBalance(value, { forceUnit: '-', withSi: false }).split('.');
   const isShort = _isShort || (withSi && prefix.length >= K_LENGTH);
 
@@ -63,7 +63,7 @@ function format(
 //   return <>{prefix}.<span className='balance-postfix'>{`000${postfix || ''}`.slice(-3)}</span>{unit === '-' ? '' : unit}</>;
 // }
 
-function FormatBalance({
+function FormatBalance ({
   children,
   className = '',
   isShort,
@@ -71,7 +71,7 @@ function FormatBalance({
   labelPost,
   value,
   withSi
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [currency] = useState(formatBalance.getDefaults().unit);
 

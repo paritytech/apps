@@ -32,32 +32,32 @@ import { NoAccount } from './KeyPair';
 import { Option } from './types';
 
 interface Props extends BareProps {
-  defaultValue?: Uint8Array | string | null;
-  filter?: string[];
-  help?: React.ReactNode;
-  hideAddress?: boolean;
-  isDisabled?: boolean;
-  isError?: boolean;
-  isInput?: boolean;
-  isMultiple?: boolean;
-  label?: React.ReactNode;
-  labelExtra?: React.ReactNode;
-  onChange?: (value: string | null) => void;
-  onChangeMulti?: (value: string[]) => void;
-  options?: KeyringSectionOption[];
-  optionsAll?: Record<string, Option[]>;
-  placeholder?: string;
-  type?: KeyringOption$Type;
-  value?: string | Uint8Array | string[] | null;
-  withEllipsis?: boolean;
-  withLabel?: boolean;
+  defaultValue ?: Uint8Array | string | null;
+  filter ?: string[];
+  help ?: React.ReactNode;
+  hideAddress ?: boolean;
+  isDisabled ?: boolean;
+  isError ?: boolean;
+  isInput ?: boolean;
+  isMultiple ?: boolean;
+  label ?: React.ReactNode;
+  labelExtra ?: React.ReactNode;
+  onChange ?: (value : string | null) => void;
+  onChangeMulti ?: (value : string[]) => void;
+  options ?: KeyringSectionOption[];
+  optionsAll ?: Record<string, Option[]>;
+  placeholder ?: string;
+  type ?: KeyringOption$Type;
+  value ?: string | Uint8Array | string[] | null;
+  withEllipsis ?: boolean;
+  withLabel ?: boolean;
 }
 
 type Browser = 'chrome' | 'firefox';
 
 type ExportedType = React.ComponentType<Props> & {
-  createOption: (option: KeyringSectionOption, isUppercase?: boolean) => Option;
-  setLastValue: (type: KeyringOption$Type, value: string) => void;
+  createOption : (option : KeyringSectionOption, isUppercase ?: boolean) => Option;
+  setLastValue : (type : KeyringOption$Type, value : string) => void;
 };
 
 // interface State {
@@ -67,13 +67,13 @@ type ExportedType = React.ComponentType<Props> & {
 
 const STORAGE_KEY = 'options:InputAddress';
 const DEFAULT_TYPE = 'all';
-const MULTI_DEFAULT: string[] = [];
+const MULTI_DEFAULT : string[] = [];
 
 const browserInfo = detect();
-const browserName: Browser | null = (browserInfo && (browserInfo.name as Browser)) || null;
+const browserName : Browser | null = (browserInfo && (browserInfo.name as Browser)) || null;
 const isSupported = browserName && Object.keys(availableExtensions).includes(browserName);
 
-function transformToAddress(value?: string | Uint8Array | null): string | null {
+function transformToAddress (value ?: string | Uint8Array | null) : string | null {
   try {
     return addressToAddress(value) || null;
   } catch (error) {
@@ -83,7 +83,7 @@ function transformToAddress(value?: string | Uint8Array | null): string | null {
   return null;
 }
 
-function transformToAccountId(value: string): string | null {
+function transformToAccountId (value : string) : string | null {
   if (!value) {
     return null;
   }
@@ -93,10 +93,10 @@ function transformToAccountId(value: string): string | null {
   return !accountId ? null : accountId;
 }
 
-function createOption(address: string): Option {
-  let isRecent: boolean | undefined;
+function createOption (address : string) : Option {
+  let isRecent : boolean | undefined;
   const pair = keyring.getAccount(address);
-  let name: string | undefined;
+  let name : string | undefined;
 
   if (pair) {
     name = pair.meta.name;
@@ -114,24 +114,24 @@ function createOption(address: string): Option {
   return createItem(createOptionItem(address, name), !isRecent);
 }
 
-function readOptions(): Record<string, Record<string, string>> {
+function readOptions () : Record<string, Record<string, string>> {
   return (store.get(STORAGE_KEY) as Record<string, Record<string, string>>) || { defaults: {} };
 }
 
-function getLastValue(type: KeyringOption$Type = DEFAULT_TYPE): string {
+function getLastValue (type : KeyringOption$Type = DEFAULT_TYPE) : string {
   const options = readOptions();
 
   return options.defaults[type];
 }
 
-function setLastValue(type: KeyringOption$Type = DEFAULT_TYPE, value: string): void {
+function setLastValue (type : KeyringOption$Type = DEFAULT_TYPE, value : string) : void {
   const options = readOptions();
 
   options.defaults[type] = value;
   store.set(STORAGE_KEY, options);
 }
 
-function renderLabel({ value }: KeyringSectionOption): React.ReactNode {
+function renderLabel ({ value } : KeyringSectionOption) : React.ReactNode {
   if (!value) {
     return undefined;
   }
@@ -139,7 +139,7 @@ function renderLabel({ value }: KeyringSectionOption): React.ReactNode {
   return getAddressName(value);
 }
 
-function InputAddress({
+function InputAddress ({
   className = '',
   defaultValue,
   filter,
@@ -160,7 +160,7 @@ function InputAddress({
   value: propsValue,
   withEllipsis,
   withLabel
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { hasInjectedAccounts } = useApi();
   const hasOptions = useMemo(
@@ -170,7 +170,7 @@ function InputAddress({
     [options, optionsAll, type]
   );
 
-  const value = useMemo((): string | undefined | (string | undefined)[] => {
+  const value = useMemo(() : string | undefined | (string | undefined)[] => {
     try {
       return Array.isArray(propsValue)
         ? propsValue.map(addressToAddress)
@@ -180,27 +180,27 @@ function InputAddress({
     }
   }, [propsValue]);
 
-  const filteredOptions = useMemo((): Option[] => {
+  const filteredOptions = useMemo(() : Option[] => {
     return !optionsAll
       ? []
       : optionsAll[type].filter(({ value }) => !filter || (!!value && filter.includes(value)));
   }, [filter, optionsAll, type]);
 
-  const lastValue = useMemo((): string => getLastValue(type), [type]);
+  const lastValue = useMemo(() : string => getLastValue(type), [type]);
 
-  const lastOption = useMemo((): KeyringSectionOption | undefined => {
+  const lastOption = useMemo(() : KeyringSectionOption | undefined => {
     return filteredOptions.length ? filteredOptions[filteredOptions.length - 1] : undefined;
   }, [filteredOptions]);
 
   const hasValue = useCallback(
-    (test?: Uint8Array | string | null): boolean => {
+    (test ?: Uint8Array | string | null) : boolean => {
       return filteredOptions.some(({ value }) => test === value);
     },
     [filteredOptions]
   );
 
   const onChange = useCallback(
-    (address: string): void => {
+    (address : string) : void => {
       !filter && setLastValue(type, address);
 
       _onChange && _onChange(transformToAccountId(address));
@@ -209,12 +209,12 @@ function InputAddress({
   );
 
   const onChangeMulti = useCallback(
-    (addresses: string[]): void => {
+    (addresses : string[]) : void => {
       if (_onChangeMulti) {
         _onChangeMulti(
           addresses
             .map(transformToAccountId)
-            .filter((address): string => address as string) as string[]
+            .filter((address) : string => address as string) as string[]
         );
       }
     },
@@ -237,11 +237,11 @@ function InputAddress({
   // }
 
   const onSearch = useCallback(
-    (filteredOptions: KeyringSectionOptions, _query: string): KeyringSectionOptions => {
+    (filteredOptions : KeyringSectionOptions, _query : string) : KeyringSectionOptions => {
       const query = _query.trim();
       const queryLower = query.toLowerCase();
       const matches = filteredOptions.filter(
-        (item): boolean =>
+        (item) : boolean =>
           !!item.value &&
           ((item.name.toLowerCase && item.name.toLowerCase().includes(queryLower)) ||
             item.value.toLowerCase().includes(queryLower))
@@ -255,7 +255,7 @@ function InputAddress({
         }
       }
 
-      return matches.filter((item, index): boolean => {
+      return matches.filter((item, index) : boolean => {
         const isLast = index === matches.length - 1;
         const nextItem = matches[index + 1];
         const hasNext = nextItem && nextItem.value;
@@ -267,7 +267,7 @@ function InputAddress({
   );
 
   const actualValue = useMemo(
-    (): StringOrNull =>
+    () : StringOrNull =>
       transformToAddress(
         isDisabled || (defaultValue && hasValue(defaultValue))
           ? defaultValue
@@ -278,9 +278,9 @@ function InputAddress({
     [defaultValue, hasValue, isDisabled, lastOption, lastValue]
   );
 
-  const actualOptions = useMemo((): Option[] => {
+  const actualOptions = useMemo(() : Option[] => {
     return options
-      ? options.map((o): Option => createItem(o))
+      ? options.map((o) : Option => createItem(o))
       : isDisabled && actualValue
         ? [createOption(actualValue)]
         : filteredOptions;
@@ -407,13 +407,13 @@ const ExportedComponent = withMulti(
   `,
   withObservable(keyring.keyringOption.optionsSubject, {
     propName: 'optionsAll',
-    transform: (optionsAll: KeyringOptions): Record<string, (Option | React.ReactNode)[]> =>
+    transform: (optionsAll : KeyringOptions) : Record<string, (Option | React.ReactNode)[]> =>
       Object.entries(optionsAll).reduce(
         (
-          result: Record<string, (Option | React.ReactNode)[]>,
+          result : Record<string, (Option | React.ReactNode)[]>,
           [type, options]
-        ): Record<string, (Option | React.ReactNode)[]> => {
-          result[type] = options.map((option): Option | React.ReactNode =>
+        ) : Record<string, (Option | React.ReactNode)[]> => {
+          result[type] = options.map((option) : Option | React.ReactNode =>
             option.value === null ? createHeader(option) : createItem(option)
           );
 

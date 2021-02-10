@@ -15,22 +15,22 @@ import Labelled from './Labelled';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  children?: React.ReactNode;
-  help?: React.ReactNode;
-  isError?: boolean;
-  isFull?: boolean;
-  isHidden?: boolean;
-  isMonospace?: boolean;
-  isTrimmed?: boolean;
-  label?: React.ReactNode;
-  registry?: TypeRegistry;
-  type?: TypeDef | null;
-  value?: Codec;
-  withCopy?: boolean;
-  withLabel?: boolean;
+  children ?: React.ReactNode;
+  help ?: React.ReactNode;
+  isError ?: boolean;
+  isFull ?: boolean;
+  isHidden ?: boolean;
+  isMonospace ?: boolean;
+  isTrimmed ?: boolean;
+  label ?: React.ReactNode;
+  registry ?: TypeRegistry;
+  type ?: TypeDef | null;
+  value ?: Codec;
+  withCopy ?: boolean;
+  withLabel ?: boolean;
 }
 
-function Output({
+function Output ({
   children,
   className = '',
   help,
@@ -44,7 +44,7 @@ function Output({
   value,
   withCopy = false,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <Labelled
       className={className}

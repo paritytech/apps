@@ -12,19 +12,19 @@ import Tag from './Tag';
 import { useTranslation } from './translate';
 
 interface Props {
-  children?: React.ReactNode;
-  className?: string;
-  color?: 'green' | 'grey' | 'red';
-  isEditable?: boolean;
-  isEditing?: boolean;
-  onChange?: (_: string[]) => void;
-  onToggleIsEditing?: () => void;
-  onSave?: VoidFn;
-  size?: 'small' | 'tiny';
-  value: string[];
+  children ?: React.ReactNode;
+  className ?: string;
+  color ?: 'green' | 'grey' | 'red';
+  isEditable ?: boolean;
+  isEditing ?: boolean;
+  onChange ?: (_ : string[]) => void;
+  onToggleIsEditing ?: () => void;
+  onSave ?: VoidFn;
+  size ?: 'small' | 'tiny';
+  value : string[];
 }
 
-function Tags({
+function Tags ({
   children,
   className,
   color = 'grey',
@@ -35,20 +35,20 @@ function Tags({
   onToggleIsEditing,
   size = 'small',
   value
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const contents = useMemo(
-    (): React.ReactNode =>
+    () : React.ReactNode =>
       value.length ? (
-        value.map((tag): React.ReactNode => <Tag color={color} key={tag} label={tag} size={size} />)
+        value.map((tag) : React.ReactNode => <Tag color={color} key={tag} label={tag} size={size} />)
       ) : (
           <label>{t<string>('no tags')}</label>
         ),
     [color, size, t, value]
   );
 
-  const _onSave = useCallback((): void => {
+  const _onSave = useCallback(() : void => {
     onSave && onSave();
     onToggleIsEditing && onToggleIsEditing();
   }, [onSave, onToggleIsEditing]);

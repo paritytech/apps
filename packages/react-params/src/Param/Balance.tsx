@@ -8,7 +8,7 @@ import React, { useCallback, useState } from 'react';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function Balance({
+function Balance ({
   className = '',
   defaultValue: { value },
   isDisabled,
@@ -18,12 +18,12 @@ function Balance({
   onEnter,
   onEscape,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
   const [defaultValue] = useState(new BN(((value as BN) || '0').toString()).toString(10));
 
   const _onChange = useCallback(
-    (value?: BN): void => {
+    (value ?: BN) : void => {
       const isValid = !isError && !!value;
 
       onChange &&

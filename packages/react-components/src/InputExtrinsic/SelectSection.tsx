@@ -11,21 +11,21 @@ import Dropdown from '../Dropdown';
 import { BareProps } from '../types';
 
 interface Props extends BareProps {
-  defaultValue?: string;
-  isError?: boolean;
-  onChange: (value: string) => void;
-  options: DropdownOptions;
-  value: SubmittableExtrinsicFunction<'promise'>;
+  defaultValue ?: string;
+  isError ?: boolean;
+  onChange : (value : string) => void;
+  options : DropdownOptions;
+  value : SubmittableExtrinsicFunction<'promise'>;
 }
 
-function SelectSection({
+function SelectSection ({
   className = '',
   defaultValue,
   isError,
   onChange,
   options,
   value
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   return (
     <Dropdown
       className={classes('ui--DropdownLinked-Sections', className)}

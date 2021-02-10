@@ -16,22 +16,22 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  estimatedWeight?: BN;
-  help: React.ReactNode;
-  isCall?: boolean;
-  label: React.ReactNode;
-  weight: UseWeight;
+  estimatedWeight ?: BN;
+  help : React.ReactNode;
+  isCall ?: boolean;
+  label : React.ReactNode;
+  weight : UseWeight;
 }
 
 const MEGA = new BN(1_000_000);
 
-function InputMegaGas({
+function InputMegaGas ({
   className,
   estimatedWeight,
   help,
   isCall,
   weight: { executionTime, isValid, megaGas, percentage, setIsEmpty, setMegaGas }
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const [withEstimate, setWithEstimate] = useState(true);
@@ -40,11 +40,11 @@ function InputMegaGas({
     estimatedWeight
   ]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     withEstimate && estimatedMg && setMegaGas(estimatedMg);
   }, [estimatedMg, setMegaGas, withEstimate]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     setIsEmpty(withEstimate && !!isCall);
   }, [isCall, setIsEmpty, withEstimate]);
 

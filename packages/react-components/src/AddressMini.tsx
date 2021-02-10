@@ -16,28 +16,28 @@ import IdentityIcon from './IdentityIcon';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  balance?: BN | BN[];
-  bonded?: BN | BN[];
-  children?: React.ReactNode;
-  iconInfo?: React.ReactNode;
-  isPadded?: boolean;
-  isShort?: boolean;
-  label?: React.ReactNode;
-  labelBalance?: React.ReactNode;
-  noLookup?: boolean;
-  summary?: React.ReactNode;
-  type?: KeyringItemType;
-  value?: AccountId | AccountIndex | Address | string | null | Uint8Array;
-  withAddress?: boolean;
-  withBalance?: boolean;
-  withBonded?: boolean;
-  withLockedVote?: boolean;
-  withSidebar?: boolean;
-  withName?: boolean;
-  withShrink?: boolean;
+  balance ?: BN | BN[];
+  bonded ?: BN | BN[];
+  children ?: React.ReactNode;
+  iconInfo ?: React.ReactNode;
+  isPadded ?: boolean;
+  isShort ?: boolean;
+  label ?: React.ReactNode;
+  labelBalance ?: React.ReactNode;
+  noLookup ?: boolean;
+  summary ?: React.ReactNode;
+  type ?: KeyringItemType;
+  value ?: AccountId | AccountIndex | Address | string | null | Uint8Array;
+  withAddress ?: boolean;
+  withBalance ?: boolean;
+  withBonded ?: boolean;
+  withLockedVote ?: boolean;
+  withSidebar ?: boolean;
+  withName ?: boolean;
+  withShrink ?: boolean;
 }
 
-function AddressMini({
+function AddressMini ({
   balance,
   bonded,
   children,
@@ -55,7 +55,7 @@ function AddressMini({
   withName = true,
   withShrink = false,
   withSidebar = true
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   if (!value) {
     return null;
   }

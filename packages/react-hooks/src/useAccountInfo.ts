@@ -32,7 +32,7 @@ const IS_NONE = {
   isTechCommittee: false
 };
 
-export default function useAccountInfo(value: string | null, isContract = false): UseAccountInfo {
+export default function useAccountInfo (value : string | null, isContract = false) : UseAccountInfo {
   const { api } = useApi();
   const { isAccount } = useAccounts();
   const { isAddress } = useAddresses();
@@ -48,7 +48,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
   const [isEditingName, toggleIsEditingName] = useToggle();
   const [isEditingTags, toggleIsEditingTags] = useToggle();
 
-  useEffect((): void => {
+  useEffect(() : void => {
     accountFlags &&
       setFlags(flags => ({
         ...flags,
@@ -56,7 +56,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
       }));
   }, [accountFlags]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     const { accountIndex: anAccountIndex, identity, nickname } = accountInfo || {};
 
     if (anAccountIndex && accountIndex !== anAccountIndex.toString()) {
@@ -99,7 +99,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
     }
   }, [accountIndex, accountInfo, api]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     if (value) {
       const accountOrAddress = keyring.getAccount(value) || keyring.getAddress(value);
       const isOwned = isAccount(value);
@@ -107,7 +107,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
 
       setGenesisHash(accountOrAddress?.meta.genesisHash || null);
       setFlags(
-        (flags): AddressFlags => ({
+        (flags) : AddressFlags => ({
           ...flags,
           isDevelopment: accountOrAddress?.meta.isTesting || false,
           isEditable:
@@ -133,7 +133,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
     }
   }, [identity, isAccount, isAddress, value]);
 
-  const onSaveName = useCallback((): void => {
+  const onSaveName = useCallback(() : void => {
     if (isEditingName) {
       toggleIsEditingName();
     }
@@ -167,7 +167,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
     }
   }, [api, isContract, isEditingName, name, toggleIsEditingName, value]);
 
-  const onSaveTags = useCallback((): void => {
+  const onSaveTags = useCallback(() : void => {
     const meta = { tags, whenEdited: Date.now() };
 
     if (isContract) {
@@ -191,7 +191,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
     }
   }, [isContract, tags, value]);
 
-  const onForgetAddress = useCallback((): void => {
+  const onForgetAddress = useCallback(() : void => {
     if (isEditingName) {
       toggleIsEditingName();
     }
@@ -208,7 +208,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
   }, [isEditingName, isEditingTags, toggleIsEditingName, toggleIsEditingTags, value]);
 
   const onSetGenesisHash = useCallback(
-    (genesisHash: string | null): void => {
+    (genesisHash : string | null) : void => {
       if (value) {
         const account = keyring.getPair(value);
 
@@ -220,7 +220,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
     [value]
   );
 
-  const setTags = useCallback((tags: string[]): void => setSortedTags(tags.sort()), []);
+  const setTags = useCallback((tags : string[]) : void => setSortedTags(tags.sort()), []);
 
   return {
     accountIndex,

@@ -11,19 +11,19 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  errorText?: React.ReactNode;
-  isError?: boolean;
-  onRemove: (event: MouseEvent<HTMLDivElement>) => void;
-  text: React.ReactNode;
+  errorText ?: React.ReactNode;
+  isError ?: boolean;
+  onRemove : (event : MouseEvent<HTMLDivElement>) => void;
+  text : React.ReactNode;
 }
 
-function FileSupplied({
+function FileSupplied ({
   className,
   errorText,
   isError,
   onRemove,
   text
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (

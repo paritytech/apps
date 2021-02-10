@@ -13,31 +13,31 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  abi?: Abi | null;
-  errorText?: string | null;
-  file: FileState | null;
-  isContract?: boolean;
-  isError?: boolean;
-  isDisabled?: boolean;
-  isRequired?: boolean;
-  isValid?: boolean;
-  isSupplied?: boolean;
-  label?: React.ReactNode;
-  onRemove?: () => void;
-  onRemoved?: () => void;
-  onSelect?: () => void;
-  onSelectConstructor?: (constructorIndex?: number) => void;
-  setFile: React.Dispatch<FileState | null>;
-  withLabel?: boolean;
+  abi ?: Abi | null;
+  errorText ?: string | null;
+  file : FileState | null;
+  isContract ?: boolean;
+  isError ?: boolean;
+  isDisabled ?: boolean;
+  isRequired ?: boolean;
+  isValid ?: boolean;
+  isSupplied ?: boolean;
+  label ?: React.ReactNode;
+  onRemove ?: () => void;
+  onRemoved ?: () => void;
+  onSelect ?: () => void;
+  onSelectConstructor ?: (constructorIndex ?: number) => void;
+  setFile : React.Dispatch<FileState | null>;
+  withLabel ?: boolean;
 }
 
-function renderMessages({
+function renderMessages ({
   abi,
   isDisabled,
   onRemove,
   onSelectConstructor,
   withLabel
-}: Props): React.ReactNode {
+} : Props) : React.ReactNode {
   return (
     <Messages
       abi={abi}
@@ -50,7 +50,7 @@ function renderMessages({
   );
 }
 
-function InputABI(props: Props): React.ReactElement<Props> {
+function InputABI (props : Props) : React.ReactElement<Props> {
   const {
     abi,
     className,

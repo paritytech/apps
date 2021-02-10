@@ -10,15 +10,15 @@ import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
 import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  label?: React.ReactNode;
-  params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
+  label ?: React.ReactNode;
+  params ?: AccountId | AccountIndex | Address | string | Uint8Array | null;
 }
 
-function AvailableDisplay({
+function AvailableDisplay ({
   className = '',
   label,
   params
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   if (!params) {
     return null;
   }

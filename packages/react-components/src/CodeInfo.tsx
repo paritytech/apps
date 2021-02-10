@@ -17,21 +17,21 @@ import { useTranslation } from './translate';
 import { BareProps, Code } from './types';
 
 interface Props extends BareProps {
-  code: Code;
-  isEditable?: boolean;
+  code : Code;
+  isEditable ?: boolean;
 }
 
-function CodeInfo({
+function CodeInfo ({
   children,
   className,
   code: { codeHash, id, name },
   isEditable
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const [newName, setNewName, isNewNameValid, isNewNameError] = useNonEmptyString(name);
   const [isEditingName, toggleIsEditingName] = useToggle();
 
-  const onSaveName = useCallback((): void => {
+  const onSaveName = useCallback(() : void => {
     if (!isNewNameValid) {
       return;
     }
@@ -39,7 +39,7 @@ function CodeInfo({
     store
       .saveCode({ name: newName }, id)
       .then(toggleIsEditingName)
-      .catch((e): void => {
+      .catch((e) : void => {
         console.error(e);
       });
   }, [id, isNewNameValid, newName, toggleIsEditingName]);

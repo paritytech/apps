@@ -7,17 +7,17 @@ import BN from 'bn.js';
 import React from 'react';
 
 interface Props extends BareProps {
-  blocks?: BN;
-  children?: React.ReactNode;
-  label?: React.ReactNode;
+  blocks ?: BN;
+  children ?: React.ReactNode;
+  label ?: React.ReactNode;
 }
 
-function BlockToTime({
+function BlockToTime ({
   blocks,
   children,
   className = '',
   label
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const [, text] = useBlockTime(blocks);
 
   if (blocks?.ltn(0)) {

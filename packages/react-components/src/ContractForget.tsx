@@ -14,15 +14,15 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  address: string;
+  address : string;
 }
 
-function ContractForget({ address, className }: Props): React.ReactElement<Props> {
+function ContractForget ({ address, className } : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
   const showNotification = useNotification();
   const [isOpen, toggleIsOpen] = useToggle();
 
-  const _onForget = useCallback((): void => {
+  const _onForget = useCallback(() : void => {
     if (!address) {
       return;
     }

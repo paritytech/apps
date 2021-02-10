@@ -16,26 +16,26 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  message: AbiMessage;
-  params?: CodecArg[];
-  registry: TypeRegistry;
-  withTooltip?: boolean;
+  message : AbiMessage;
+  params ?: CodecArg[];
+  registry : TypeRegistry;
+  withTooltip ?: boolean;
 }
 
-function MessageSignature({
+function MessageSignature ({
   className,
   message: { args, identifier, isConstructor, isMutating, isPayable, returnType },
   params = [],
   registry,
   withTooltip = false
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (
     <div className={classes(className, isConstructor && 'isConstructor')}>
       <span className="ui--MessageSignature-name">{identifier}</span>(
       {args.map(
-        (arg, index): React.ReactNode => {
+        (arg, index) : React.ReactNode => {
           return (
             <React.Fragment key={arg.name}>
               <MessageArg arg={arg} param={params[index]} registry={registry} />

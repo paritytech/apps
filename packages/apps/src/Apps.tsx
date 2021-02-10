@@ -18,17 +18,17 @@ import SideBar from './SideBar';
 import WarmUp from './WarmUp';
 
 interface SidebarState {
-  isCollapsed: boolean;
-  isMenu: boolean;
-  isMenuOpen: boolean;
-  transition: SideBarTransition;
+  isCollapsed : boolean;
+  isMenu : boolean;
+  isMenuOpen : boolean;
+  transition : SideBarTransition;
 }
 
-function saveSidebar(sidebar: SidebarState): SidebarState {
+function saveSidebar (sidebar : SidebarState) : SidebarState {
   return store.set('sidebar', sidebar) as SidebarState;
 }
 
-function Apps({ className = '' }: Props): React.ReactElement<Props> {
+function Apps ({ className = '' } : Props) : React.ReactElement<Props> {
   const { systemChain, systemName } = useApi();
   const [sidebar, setSidebar] = useState<SidebarState>({
     isCollapsed: false,
@@ -38,31 +38,31 @@ function Apps({ className = '' }: Props): React.ReactElement<Props> {
     isMenu: window.innerWidth < SIDEBAR_MENU_THRESHOLD
   });
   const uiHighlight = useMemo(
-    (): string | undefined => getSystemChainColor(systemChain, systemName),
+    () : string | undefined => getSystemChainColor(systemChain, systemName),
     [systemChain, systemName]
   );
 
   const _collapse = useCallback(
-    (): void =>
-      setSidebar((sidebar: SidebarState) =>
+    () : void =>
+      setSidebar((sidebar : SidebarState) =>
         saveSidebar({ ...sidebar, isCollapsed: !sidebar.isCollapsed })
       ),
     []
   );
   const _toggleMenu = useCallback(
-    (): void =>
-      setSidebar((sidebar: SidebarState) =>
+    () : void =>
+      setSidebar((sidebar : SidebarState) =>
         saveSidebar({ ...sidebar, isCollapsed: false, isMenuOpen: true })
       ),
     []
   );
-  const _handleResize = useCallback((): void => {
+  const _handleResize = useCallback(() : void => {
     const transition =
       window.innerWidth < SIDEBAR_MENU_THRESHOLD
         ? SideBarTransition.MINIMISED_AND_EXPANDED
         : SideBarTransition.EXPANDED_AND_MAXIMISED;
 
-    setSidebar((sidebar: SidebarState) =>
+    setSidebar((sidebar : SidebarState) =>
       saveSidebar({
         ...sidebar,
         isMenu: transition === SideBarTransition.MINIMISED_AND_EXPANDED,

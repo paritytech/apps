@@ -6,19 +6,19 @@ import React from 'react';
 import { I18nProps } from './types';
 
 export interface CollectionProps extends I18nProps {
-  banner?: React.ReactNode;
-  buttons?: React.ReactNode;
-  children: React.ReactNode;
-  className?: string;
-  headerText?: React.ReactNode;
-  isEmpty?: boolean;
-  emptyText?: React.ReactNode;
-  showEmptyText?: boolean;
+  banner ?: React.ReactNode;
+  buttons ?: React.ReactNode;
+  children : React.ReactNode;
+  className ?: string;
+  headerText ?: React.ReactNode;
+  isEmpty ?: boolean;
+  emptyText ?: React.ReactNode;
+  showEmptyText ?: boolean;
 }
 
 export interface CollectionState {
-  isEmpty: boolean;
-  showHeader?: boolean;
+  isEmpty : boolean;
+  showHeader ?: boolean;
 }
 
 export const collectionStyles = `
@@ -43,7 +43,7 @@ export default class Collection<
   P extends CollectionProps,
   S extends CollectionState
   > extends React.PureComponent<P, S> {
-  constructor(props: P) {
+  constructor(props : P) {
     super(props);
 
     this.state = {
@@ -51,17 +51,17 @@ export default class Collection<
     } as S;
   }
 
-  private static isEmpty(children?: React.ReactNode): boolean {
+  private static isEmpty (children ?: React.ReactNode) : boolean {
     return !children || (Array.isArray(children) && children.length === 0);
   }
 
-  public static getDerivedStateFromProps({ children, isEmpty }: CollectionProps): CollectionState {
+  public static getDerivedStateFromProps ({ children, isEmpty } : CollectionProps) : CollectionState {
     return {
       isEmpty: isEmpty === undefined ? Collection.isEmpty(children) : isEmpty
     };
   }
 
-  public render(): React.ReactNode {
+  public render () : React.ReactNode {
     const { banner, className } = this.props;
     const { isEmpty, showHeader } = this.state;
 
@@ -74,7 +74,7 @@ export default class Collection<
     );
   }
 
-  protected renderHeader(): React.ReactNode {
+  protected renderHeader () : React.ReactNode {
     const { buttons, headerText } = this.props;
 
     if (!headerText && !buttons) {
@@ -89,7 +89,7 @@ export default class Collection<
     );
   }
 
-  protected renderEmpty(): React.ReactNode {
+  protected renderEmpty () : React.ReactNode {
     const { emptyText = this.props.t<string>('No items'), showEmptyText = true } = this.props;
 
     if (!showEmptyText) {
@@ -103,7 +103,7 @@ export default class Collection<
     );
   }
 
-  protected renderCollection(): React.ReactNode {
+  protected renderCollection () : React.ReactNode {
     const { children } = this.props;
 
     return children;

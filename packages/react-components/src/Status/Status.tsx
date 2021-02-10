@@ -17,10 +17,10 @@ import { ELEV_4_CSS } from '../styles/constants';
 import { useTranslation } from '../translate';
 
 interface Props {
-  className?: string;
+  className ?: string;
 }
 
-function iconName(status: string): IconName {
+function iconName (status : string) : IconName {
   switch (status) {
     case 'error':
       return 'ban';
@@ -36,7 +36,7 @@ function iconName(status: string): IconName {
   }
 }
 
-function signerIconName(status: QueueTxStatus): IconName {
+function signerIconName (status : QueueTxStatus) : IconName {
   switch (status) {
     case 'cancelled':
       return 'ban';
@@ -65,14 +65,14 @@ function signerIconName(status: QueueTxStatus): IconName {
   }
 }
 
-function renderStatus({
+function renderStatus ({
   account,
   action,
   id,
   message,
   removeItem,
   status
-}: QueueStatus): React.ReactNode {
+} : QueueStatus) : React.ReactNode {
   return (
     <div className={`item ${status}`} key={id}>
       <div className="wrapper">
@@ -96,7 +96,7 @@ function renderStatus({
   );
 }
 
-function renderItem({ error, extrinsic, id, removeItem, rpc, status }: QueueTx): React.ReactNode {
+function renderItem ({ error, extrinsic, id, removeItem, rpc, status } : QueueTx) : React.ReactNode {
   let { method, section } = rpc;
 
   if (extrinsic) {
@@ -132,11 +132,11 @@ function renderItem({ error, extrinsic, id, removeItem, rpc, status }: QueueTx):
   );
 }
 
-function filterSt(stqueue?: QueueStatus[]): QueueStatus[] {
+function filterSt (stqueue ?: QueueStatus[]) : QueueStatus[] {
   return (stqueue || []).filter(({ isCompleted }) => !isCompleted);
 }
 
-function filterTx(txqueue?: QueueTx[]): [QueueTx[], QueueTx[]] {
+function filterTx (txqueue ?: QueueTx[]) : [QueueTx[], QueueTx[]] {
   const allTx = (txqueue || []).filter(
     ({ status }) => !['completed', 'incomplete'].includes(status)
   );
@@ -144,21 +144,21 @@ function filterTx(txqueue?: QueueTx[]): [QueueTx[], QueueTx[]] {
   return [allTx, allTx.filter(({ status }) => STATUS_COMPLETE.includes(status))];
 }
 
-function Status({ className = '' }: Props): React.ReactElement<Props> | null {
+function Status ({ className = '' } : Props) : React.ReactElement<Props> | null {
   const { stqueue, txqueue } = useContext(StatusContext);
   const [allSt, setAllSt] = useState<QueueStatus[]>([]);
   const [[allTx, completedTx], setAllTx] = useState<[QueueTx[], QueueTx[]]>([[], []]);
   const { t } = useTranslation();
 
-  useEffect((): void => {
+  useEffect(() : void => {
     setAllSt(filterSt(stqueue));
   }, [stqueue]);
 
-  useEffect((): void => {
+  useEffect(() : void => {
     setAllTx(filterTx(txqueue));
   }, [txqueue]);
 
-  const _onDismiss = useCallback((): void => {
+  const _onDismiss = useCallback(() : void => {
     allSt.map(s => s.removeItem());
     completedTx.map(t => t.removeItem());
   }, [allSt, completedTx]);

@@ -9,7 +9,7 @@ import { Codec } from '@polkadot/types/types';
 import { Props } from '../types';
 import Bare from './Bare';
 
-function Raw({
+function Raw ({
   className = '',
   defaultValue: { value },
   isDisabled,
@@ -19,11 +19,11 @@ function Raw({
   onEnter,
   onEscape,
   withLabel
-}: Props): React.ReactElement<Props> {
+} : Props) : React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
-    (value: string): void => {
+    (value : string) : void => {
       const isValid = value.length !== 0;
 
       onChange &&
@@ -37,7 +37,7 @@ function Raw({
   );
 
   const defaultValue = value
-    ? (value as { toHex?: () => unknown }).toHex
+    ? (value as { toHex ?: () => unknown }).toHex
       ? (value as Codec).toHex()
       : value
     : '';

@@ -7,15 +7,15 @@ import styled from 'styled-components';
 import Tooltip from './Tooltip';
 
 interface Props {
-  className?: string;
-  hover?: React.ReactNode;
-  info: React.ReactNode;
-  isGray?: boolean;
-  isInline?: boolean;
-  isSmall?: boolean;
-  isTooltip?: boolean;
-  onClick?: () => void;
-  type:
+  className ?: string;
+  hover ?: React.ReactNode;
+  info : React.ReactNode;
+  isGray ?: boolean;
+  isInline ?: boolean;
+  isSmall ?: boolean;
+  isTooltip ?: boolean;
+  onClick ?: () => void;
+  type :
   | 'counter'
   | 'online'
   | 'offline'
@@ -31,7 +31,7 @@ interface Props {
 
 let badgeId = 0;
 
-function Badge({
+function Badge ({
   className = '',
   hover,
   info,
@@ -41,7 +41,7 @@ function Badge({
   isTooltip,
   onClick,
   type
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const [trigger] = useState(`badge-hover-${Date.now()}-${badgeId++}`);
 
   return (

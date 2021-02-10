@@ -15,20 +15,20 @@ import Labelled from './Labelled';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  asJson?: boolean;
-  isTrimmed?: boolean;
-  registry?: Registry;
-  type?: TypeDef;
-  value?: AnyJson | null;
+  asJson ?: boolean;
+  isTrimmed ?: boolean;
+  registry ?: Registry;
+  type ?: TypeDef;
+  value ?: AnyJson | null;
 }
 
 const TRUNCATE_TO = 16;
 
-function formatData(registry: Registry, data: AnyJson, type: TypeDef | undefined): Codec {
+function formatData (registry : Registry, data : AnyJson, type : TypeDef | undefined) : Codec {
   return createTypeUnsafe(registry, type?.displayName || type?.type || 'Raw', [data]);
 }
 
-function Field({ name, value }: { name: string; value: React.ReactNode }): React.ReactElement {
+function Field ({ name, value } : { name : string; value : React.ReactNode }) : React.ReactElement {
   return (
     <div className="field">
       <div className="key">{name}:</div>
@@ -37,14 +37,14 @@ function Field({ name, value }: { name: string; value: React.ReactNode }): React
   );
 }
 
-function Data({
+function Data ({
   asJson = false,
   className,
   registry = baseRegistry,
   type,
   value
-}: Props): React.ReactElement<Props> | null {
-  const content = useMemo((): React.ReactNode => {
+} : Props) : React.ReactElement<Props> | null {
+  const content = useMemo(() : React.ReactNode => {
     if (isNull(value) || (Array.isArray(value) && value.length === 0)) {
       return '()';
     }

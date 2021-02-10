@@ -29,7 +29,7 @@ if (!rootElement) {
 }
 
 // cleanups for old/unused storage items
-store.each((_, key): void => {
+store.each((_, key) : void => {
   if (key.startsWith('hooks:sessionSlashes:')) {
     store.remove(key);
   }

@@ -9,16 +9,16 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  isLoading?: boolean;
-  text?: React.ReactNode;
+  isLoading ?: boolean;
+  text ?: React.ReactNode;
 }
 
-function WithLoader({
+function WithLoader ({
   children = null,
   className,
   isLoading = false,
   text
-}: Props): React.ReactElement<Props> | null {
+} : Props) : React.ReactElement<Props> | null {
   const { t } = useTranslation();
 
   return (

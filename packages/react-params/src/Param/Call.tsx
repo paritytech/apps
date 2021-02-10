@@ -10,7 +10,7 @@ import { Props } from '../types';
 import Bare from './Bare';
 import Unknown from './Unknown';
 
-function CallDisplay(props: Props): React.ReactElement<Props> {
+function CallDisplay (props : Props) : React.ReactElement<Props> {
   const {
     className = '',
     defaultValue: { value },
