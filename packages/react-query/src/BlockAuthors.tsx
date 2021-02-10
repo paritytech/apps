@@ -1,7 +1,7 @@
 // Copyright 2017-2020 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ResetStorageModal } from '@canvas-ui/react-components';
+import ResetStorageModal from './ResetStorageModal';
 import { useCall } from '@canvas-ui/react-hooks';
 import { useApi } from '@canvas-ui/react-api';
 import React, { useEffect, useState } from 'react';

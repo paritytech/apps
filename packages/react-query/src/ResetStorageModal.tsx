@@ -8,20 +8,20 @@ import React, { useCallback } from 'react';
 // import { VoidFn } from '@canvas-ui/react-util/types';
 import keyring from '@polkadot/ui-keyring';
 
-import Button from './Button';
-import Modal from './Modal';
-import { useTranslation } from './translate';
-import { BareProps } from './types';
+import Button from '../../react-components/src/Button';
+import Modal from '../../react-components/src/Modal';
+import { useTranslation } from '../../react-components/src/translate';
+import { BareProps } from '../../react-components/src/types';
 
-function ResetStorageModal ({ className } : BareProps) : React.ReactElement<BareProps> {
+function ResetStorageModal({ className }: BareProps): React.ReactElement<BareProps> {
   const { t } = useTranslation();
   const [isOpen, toggleIsOpen] = useToggle(true);
 
-  const _onClose = useCallback(() : void => {
+  const _onClose = useCallback((): void => {
     toggleIsOpen();
   }, [toggleIsOpen]);
 
-  const _onReset = useCallback(() : void => {
+  const _onReset = useCallback((): void => {
     const existingContractList = keyring.getContracts();
 
     existingContractList.forEach(existingContract => {
