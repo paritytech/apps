@@ -14,7 +14,8 @@ import Icon from './Icon';
 import Input from './Input';
 import ItemInfo from './ItemInfo';
 import { useTranslation } from './translate';
-import { BareProps, Code } from './types';
+import { BareProps } from './types';
+import { Code } from '@canvas-ui/page-contracts/types'
 
 interface Props extends BareProps {
   code : Code;
