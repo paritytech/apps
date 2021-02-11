@@ -5,8 +5,8 @@ import React, { useCallback } from 'react';
 
 import { TypeDef } from '@polkadot/types/types';
 
-import Param from './Param';
-import { ComponentMap, RawParam, RawParamOnChangeValue, RawParams } from './types';
+import Param from './Params';
+import { ComponentMap, RawParam, RawParamOnChangeValue, RawParams } from '../types';
 
 interface Props {
   defaultValue : RawParam;

@@ -23,8 +23,8 @@ import { useAccountId,
   useGasWeight,
   useNonEmptyString,
   useNonZeroBn } from '@canvas-ui/react-hooks';
-import { useTxParams } from '@canvas-ui/react-params';
-import { extractValues } from '@canvas-ui/react-params/values';
+import useTxParams from '@canvas-ui/react-components/Params/useTxParams';
+import { extractValues } from '@canvas-ui/react-components/Params/values';
 import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
 import { truncate } from '@canvas-ui/react-util';
 import BN from 'bn.js';

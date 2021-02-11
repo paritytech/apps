@@ -8,7 +8,7 @@ import { Enum } from '@polkadot/types';
 import { TypeDef } from '@polkadot/types/types';
 
 import { ParamDef, Props, RawParam } from '@canvas-ui/react-components/types';
-import Params from '../';
+import Params from '@canvas-ui/react-components/Params';
 import Bare from './Bare';
 import Static from './Static';
 

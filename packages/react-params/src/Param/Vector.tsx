@@ -9,7 +9,7 @@ import { isUndefined } from '@polkadot/util';
 import getInitValue from '@canvas-ui/react-components/Params/initValue';
 import { useTranslation } from '../translate';
 import { ParamDef, Props, RawParam } from '@canvas-ui/react-components/types';
-import Params from '../';
+import Params from '@canvas-ui/react-components/Params';
 import Base from './Base';
 import useParamDefs from './useParamDefs';
 
