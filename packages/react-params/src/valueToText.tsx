@@ -6,7 +6,7 @@ import React from 'react';
 
 import { Option, Raw } from '@polkadot/types';
 import { Keys, ValidatorId } from '@polkadot/types/interfaces';
-import { Codec } from '@polkadot/types/types';
+import { Codec } from '@polkadot/types/types/codec';
 import { isFunction, isNull, isUndefined, u8aToHex } from '@polkadot/util';
 
 interface DivProps {

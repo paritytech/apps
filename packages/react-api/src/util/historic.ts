@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Hash } from '@polkadot/types/interfaces';
-import { Codec } from '@polkadot/types/types';
+import { Codec } from '@polkadot/types/types/codec';
 
 type AtQuery<I extends any[]> = (hash : string | Uint8Array, ...params : I) => Promise<Codec>;
 

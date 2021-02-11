@@ -4,7 +4,7 @@
 import { Input } from '@canvas-ui/react-components';
 import React, { useCallback, useState } from 'react';
 
-import { Codec } from '@polkadot/types/types';
+import { Codec } from '@polkadot/types/types/codec';
 
 import { Props } from '../types';
 import Bare from './Bare';
