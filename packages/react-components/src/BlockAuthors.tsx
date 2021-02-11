@@ -9,7 +9,7 @@ import { HeaderExtended } from '@polkadot/api-derive';
 import { EraRewardPoints } from '@polkadot/types/interfaces';
 import { formatNumber } from '@polkadot/util';
 
-import ResetStorageModal from '@canvas-ui/react-components/ResetStorageModal';
+import ResetStorageModal from './ResetStorageModal';
 
 export interface Authors {
   byAuthor: Record<string, string>;
