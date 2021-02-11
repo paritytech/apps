@@ -8,7 +8,7 @@ import { KeyValue as Pair } from '@polkadot/types/interfaces';
 import { assert, isHex, u8aToHex, u8aToString } from '@polkadot/util';
 
 import { useTranslation } from '../translate';
-import { Props, RawParam } from '../types';
+import { Props, RawParam } from '@canvas-ui/react-components/types';
 import Base from './Base';
 import Bytes from './Bytes';
 import File from './File';

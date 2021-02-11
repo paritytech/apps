@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import Params from '@canvas-ui/react-params';
-import { RawParam } from '@canvas-ui/react-params/types';
+import { RawParam } from './types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { SubmittableExtrinsic, SubmittableExtrinsicFunction } from '@polkadot/api/types';

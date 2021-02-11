@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ParamDef } from '@canvas-ui/react-params/types';
+import { ParamDef } from './types';
 import React from 'react';
 
 import { encodeTypeDef } from '@polkadot/types';

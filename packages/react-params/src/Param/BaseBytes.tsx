@@ -16,7 +16,7 @@ import { compactAddLength,
 import { decodeAddress } from '@polkadot/util-crypto';
 
 import { useTranslation } from '../translate';
-import { RawParam, RawParamOnChange, RawParamOnEnter, RawParamOnEscape, Size } from '../types';
+import { RawParam, RawParamOnChange, RawParamOnEnter, RawParamOnEscape, Size } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
 interface Props {
