@@ -1,7 +1,7 @@
 // Copyright 2017-2021 @canvas-ui/app-extrinsics authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import Params from '@canvas-ui/react-params';
+import Params from './Params/Params';
 import { RawParam } from './types';
 import React, { useCallback, useEffect, useState } from 'react';
 
