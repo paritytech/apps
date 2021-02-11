@@ -1597,6 +1597,7 @@ __metadata:
     "@canvas-ui/react-api": "workspace:packages/react-api"
     "@canvas-ui/react-components": "workspace:packages/react-components"
     "@canvas-ui/react-hooks": "workspace:packages/react-hooks"
+    "@polkadot/types": ^3.4.2-3
   languageName: unknown
   linkType: soft
 
