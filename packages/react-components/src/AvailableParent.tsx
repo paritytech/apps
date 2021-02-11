@@ -9,7 +9,7 @@ import React from 'react';
 import { DeriveBalancesAll } from '@polkadot/api-derive/types';
 import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
 
-import FormatBalance from '@canvas-ui/react-components/FormatBalance';
+import FormatBalance from './FormatBalance';
 
 interface Props extends BareProps {
   children?: React.ReactNode;
