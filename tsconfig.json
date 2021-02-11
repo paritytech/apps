@@ -106,12 +106,6 @@
       ],
       "@canvas-ui/test-support": [
         "packages/test-support/src"
-      ],
-      "@polkadot/types/*": [
-        "packages/types/src/*"
-      ],
-      "@polkadot/types": [
-        "packages/types/src"
       ]
     },
     "skipLibCheck": true,
