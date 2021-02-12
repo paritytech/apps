@@ -10,18 +10,19 @@ import BaseExtrinsic from '../Extrinsic';
 import { BareProps } from '../types';
 
 interface Props extends BareProps {
-  defaultValue : SubmittableExtrinsicFunction<'promise'>;
-  isDisabled ?: boolean;
-  isError ?: boolean;
-  isPrivate : boolean;
-  label : React.ReactNode;
-  onChange ?: RawParamOnChange;
-  onEnter ?: RawParamOnEnter;
-  onEscape ?: RawParamOnEscape;
-  withLabel ?: boolean;
+  defaultValue: SubmittableExtrinsicFunction<'promise'>;
+  isDisabled?: boolean;
+  isError?: boolean;
+  isPrivate: boolean;
+  label: React.ReactNode;
+  onChange?: RawParamOnChange;
+  onEnter?: RawParamOnEnter;
+  onEscape?: RawParamOnEscape;
+  withLabel?: boolean;
 }
 
-function ExtrinsicDisplay ({ className = '',
+function ExtrinsicDisplay({
+  className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -30,9 +31,10 @@ function ExtrinsicDisplay ({ className = '',
   onChange,
   onEnter,
   onEscape,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
-    (method ?: SubmittableExtrinsic<'promise'>) : void =>
+    (method?: SubmittableExtrinsic<'promise'>): void =>
       onChange &&
       onChange({
         isValid: !!method,

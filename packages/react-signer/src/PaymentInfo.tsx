@@ -21,9 +21,11 @@ interface Props {
   tip?: BN;
 }
 
-function PaymentInfo ({ accountId,
+function PaymentInfo({
+  accountId,
   className = '',
-  extrinsic }: Props): React.ReactElement<Props> | null {
+  extrinsic
+}: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const [dispatchInfo, setDispatchInfo] = useState<RuntimeDispatchInfo | null>(null);
   const mountedRef = useIsMountedRef();
@@ -49,9 +51,9 @@ function PaymentInfo ({ accountId,
     <Expander
       className={className}
       summary={
-        <Trans i18nKey='feesForSubmission'>
+        <Trans i18nKey="feesForSubmission">
           Fees of{' '}
-          <span className='highlight'>
+          <span className="highlight">
             {formatBalance(dispatchInfo.partialFee, { withSiFull: true })}
           </span>{' '}
           will be applied to the submission

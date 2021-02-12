@@ -8,27 +8,25 @@ import Icon from './Icon';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  href ?: string;
-  icon ?: string;
-  label ?: React.ReactNode;
-  rel ?: string;
-  target ?: string;
-  onClick : () => void;
+  href?: string;
+  icon?: string;
+  label?: React.ReactNode;
+  rel?: string;
+  target?: string;
+  onClick: () => void;
 }
 
-function IconLink ({ className = '',
+function IconLink({
+  className = '',
   href,
   icon,
   label,
   onClick,
   rel,
-  target } : Props) : React.ReactElement<Props> {
+  target
+}: Props): React.ReactElement<Props> {
   return (
-    <a className={className}
-      href={href}
-      onClick={onClick}
-      rel={rel}
-      target={target}>
+    <a className={className} href={href} onClick={onClick} rel={rel} target={target}>
       {icon && <Icon className={icon} />}
       {label}
     </a>

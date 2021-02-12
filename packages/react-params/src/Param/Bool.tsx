@@ -8,13 +8,15 @@ import { useTranslation } from '../translate';
 import { Props } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
-function BoolParam ({ className = '',
+function BoolParam({
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
   label,
   onChange,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [defaultValue] = useState(value instanceof Boolean ? value.valueOf() : (value as boolean));
 
@@ -27,7 +29,7 @@ function BoolParam ({ className = '',
   );
 
   const _onChange = useCallback(
-    (value : boolean) =>
+    (value: boolean) =>
       onChange &&
       onChange({
         isValid: true,
@@ -39,7 +41,7 @@ function BoolParam ({ className = '',
   return (
     <Bare className={className}>
       <Dropdown
-        className='full'
+        className="full"
         defaultValue={defaultValue}
         isDisabled={isDisabled}
         isError={isError}

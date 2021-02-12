@@ -11,16 +11,16 @@ import keyring from '@polkadot/ui-keyring';
 import { useTranslation } from './translate';
 
 interface Props {
-  address : string;
-  className ?: string;
-  error ?: string;
-  onChange : (password : string) => void;
-  onEnter ?: () => void;
-  password : string;
-  tabIndex ?: number;
+  address: string;
+  className?: string;
+  error?: string;
+  onChange: (password: string) => void;
+  onEnter?: () => void;
+  password: string;
+  tabIndex?: number;
 }
 
-function getPair (address ?: string | null) : KeyringPair | null {
+function getPair(address?: string | null): KeyringPair | null {
   try {
     return keyring.getPair(address as string);
   } catch (error) {
@@ -28,21 +28,23 @@ function getPair (address ?: string | null) : KeyringPair | null {
   }
 }
 
-function Unlock ({ address,
+function Unlock({
+  address,
   className,
   error,
   onChange,
   onEnter,
-  tabIndex } : Props) : React.ReactElement<Props> | null {
+  tabIndex
+}: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const [pair, setPair] = useState<KeyringPair | null>(null);
   const [password, setPassword] = useState('');
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setPair(getPair(address));
   }, [address]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     onChange(password);
   }, [onChange, password]);
 
@@ -58,7 +60,7 @@ function Unlock ({ address,
           isError={!!error}
           label={t<string>('unlock account with password')}
           labelExtra={
-            error && <div className='errorLabel'>{t<string>('wrong password supplied')}</div>
+            error && <div className="errorLabel">{t<string>('wrong password supplied')}</div>
           }
           onChange={setPassword}
           onEnter={onEnter}

@@ -15,9 +15,9 @@ import styled from 'styled-components';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  code : string;
-  isValid ?: boolean;
-  onEdit : (code : string) => void;
+  code: string;
+  isValid?: boolean;
+  onEdit: (code: string) => void;
 }
 
 /**
@@ -39,26 +39,26 @@ interface Props extends BareProps {
  *  />
  * ```
  */
-function Editor ({ className = '', code, isValid, onEdit } : Props) : React.ReactElement<Props> {
+function Editor({ className = '', code, isValid, onEdit }: Props): React.ReactElement<Props> {
   const [editorId] = useState(`flask-${Date.now()}`);
   const editorRef = useRef<CodeFlask | null>(null);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     const editor = new CodeFlask(`#${editorId}`, {
       language: 'js',
       lineNumbers: true
     });
 
     editor.updateCode(code);
-    (editor as any).editorRoot.addEventListener('keydown', () : void => {
-      ((editor as unknown) as Record<string, (value : unknown) => void>).onUpdate(onEdit);
+    (editor as any).editorRoot.addEventListener('keydown', (): void => {
+      ((editor as unknown) as Record<string, (value: unknown) => void>).onUpdate(onEdit);
     });
 
     editorRef.current = editor;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     editorRef.current && editorRef.current.updateCode(code);
   }, [code]);
 

@@ -14,7 +14,7 @@ import styled from 'styled-components';
 
 import { useTranslation } from '../translate';
 
-function Settings ({ className }: Props): React.ReactElement<Props> {
+function Settings({ className }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { isApiConnected } = useApi();
   const { onChangeKey } = useSettings(true);
@@ -32,15 +32,10 @@ function Settings ({ className }: Props): React.ReactElement<Props> {
         options={endpointOptions}
         withLabel={false}
       />
-      <NavLink className='settings-link'
-        data-for='settings-link'
-        data-tip
-        to='/settings'>
-        <Icon icon='cog' />
+      <NavLink className="settings-link" data-for="settings-link" data-tip to="/settings">
+        <Icon icon="cog" />
       </NavLink>
-      <Tooltip place='top'
-        text={t<string>('Settings')}
-        trigger='settings-link' />
+      <Tooltip place="top" text={t<string>('Settings')} trigger="settings-link" />
     </div>
   );
 }

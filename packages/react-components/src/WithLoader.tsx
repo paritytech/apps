@@ -9,33 +9,29 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  isLoading ?: boolean;
-  text ?: React.ReactNode;
+  isLoading?: boolean;
+  text?: React.ReactNode;
 }
 
-function WithLoader ({ children = null,
+function WithLoader({
+  children = null,
   className,
   isLoading = false,
-  text } : Props) : React.ReactElement<Props> | null {
+  text
+}: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
 
   return (
     <>
-      {isLoading
-        ? (
-          <div className={className}>
-            <Loader active
-              className='spinner'
-              indeterminate
-              inline='centered'
-              size='medium'>
-              {text || t<string>('Loading')}
-            </Loader>
-          </div>
-        )
-        : (
-          children
-        )}
+      {isLoading ? (
+        <div className={className}>
+          <Loader active className="spinner" indeterminate inline="centered" size="medium">
+            {text || t<string>('Loading')}
+          </Loader>
+        </div>
+      ) : (
+        children
+      )}
     </>
   );
 }

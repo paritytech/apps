@@ -9,8 +9,6 @@ tmp/
 .env.production.local
 .npmrc
 .yarn/*
-!.yarn/releases
-!.yarn/plugins
 .pnp.*
 cc-test-reporter
 package-lock.json

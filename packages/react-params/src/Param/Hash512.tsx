@@ -6,7 +6,8 @@ import React from 'react';
 import { Props } from '@canvas-ui/react-components/types';
 import BaseBytes from './BaseBytes';
 
-function Hash512 ({ className = '',
+function Hash512({
+  className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -16,7 +17,8 @@ function Hash512 ({ className = '',
   onEnter,
   onEscape,
   type,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   return (
     <BaseBytes
       className={className}

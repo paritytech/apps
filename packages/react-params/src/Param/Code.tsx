@@ -9,7 +9,8 @@ import { Props } from '@canvas-ui/react-components/types';
 import Bytes from './Bytes';
 import BytesFile from './File';
 
-function Code ({ className = '',
+function Code({
+  className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -18,11 +19,12 @@ function Code ({ className = '',
   onEnter,
   onEscape,
   type,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
-    (value : Uint8Array) : void => {
+    (value: Uint8Array): void => {
       const isValid = isWasm(value);
 
       onChange && onChange({ isValid, value });

@@ -5,21 +5,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  children : React.ReactNode;
-  className ?: string;
-  isError ?: boolean;
-  isSuccess ?: boolean;
-  withBottomMargin ?: boolean;
+  children: React.ReactNode;
+  className?: string;
+  isError?: boolean;
+  isSuccess?: boolean;
+  withBottomMargin?: boolean;
 }
 
-function Card ({ children,
+function Card({
+  children,
   className = '',
   isError,
   isSuccess,
-  withBottomMargin } : Props) : React.ReactElement<Props> {
+  withBottomMargin
+}: Props): React.ReactElement<Props> {
   return (
     <article
-      className={`ui--Card ${className} ${isError && !isSuccess ? 'error' : ''} ${!isError && isSuccess ? 'success' : ''
+      className={`ui--Card ${className} ${isError && !isSuccess ? 'error' : ''} ${
+        !isError && isSuccess ? 'success' : ''
       } ${withBottomMargin ? 'withBottomMargin' : ''}`}
     >
       {children}

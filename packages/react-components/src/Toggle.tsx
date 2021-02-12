@@ -8,25 +8,27 @@ import styled from 'styled-components';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  asSwitch ?: boolean;
-  defaultValue ?: boolean;
-  isDisabled ?: boolean;
-  label : React.ReactNode;
-  onChange ?: (isChecked : boolean) => void;
-  preventDefault ?: boolean;
-  value ?: boolean;
+  asSwitch?: boolean;
+  defaultValue?: boolean;
+  isDisabled?: boolean;
+  label: React.ReactNode;
+  onChange?: (isChecked: boolean) => void;
+  preventDefault?: boolean;
+  value?: boolean;
 }
 
-function Toggle ({ asSwitch = true,
+function Toggle({
+  asSwitch = true,
   className = '',
   defaultValue,
   isDisabled,
   label,
   onChange,
   preventDefault,
-  value } : Props) : React.ReactElement<Props> {
+  value
+}: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
-    (event : React.FormEvent<HTMLInputElement>, { checked } : any) : void => {
+    (event: React.FormEvent<HTMLInputElement>, { checked }: any): void => {
       if (preventDefault) {
         event.preventDefault();
         event.stopPropagation();

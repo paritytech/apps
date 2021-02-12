@@ -15,22 +15,24 @@ import Input from './Input';
 import ItemInfo from './ItemInfo';
 import { useTranslation } from './translate';
 import { BareProps } from './types';
-import { Code } from '@canvas-ui/page-contracts/types'
+import { Code } from '@canvas-ui/page-contracts/types';
 
 interface Props extends BareProps {
-  code : Code;
-  isEditable ?: boolean;
+  code: Code;
+  isEditable?: boolean;
 }
 
-function CodeInfo ({ children,
+function CodeInfo({
+  children,
   className,
   code: { codeHash, id, name },
-  isEditable } : Props) : React.ReactElement<Props> {
+  isEditable
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [newName, setNewName, isNewNameValid, isNewNameError] = useNonEmptyString(name);
   const [isEditingName, toggleIsEditingName] = useToggle();
 
-  const onSaveName = useCallback(() : void => {
+  const onSaveName = useCallback((): void => {
     if (!isNewNameValid) {
       return;
     }
@@ -38,7 +40,7 @@ function CodeInfo ({ children,
     store
       .saveCode({ name: newName }, id)
       .then(toggleIsEditingName)
-      .catch((e) : void => {
+      .catch((e): void => {
         console.error(e);
       });
   }, [id, isNewNameValid, newName, toggleIsEditingName]);
@@ -46,9 +48,7 @@ function CodeInfo ({ children,
   return (
     <ItemInfo
       className={className}
-      icon={<Icon className='code-icon'
-        icon={faFile}
-        size='2x' />}
+      icon={<Icon className="code-icon" icon={faFile} size="2x" />}
       subtitle={
         <>
           {t<string>('Code hash')}
@@ -57,26 +57,22 @@ function CodeInfo ({ children,
         </>
       }
       title={
-        isEditable && isEditingName
-          ? (
-            <Input
-              autoFocus
-              className='name-editor'
-              isError={isNewNameError}
-              onBlur={onSaveName}
-              onChange={setNewName}
-              onEnter
-              value={newName}
-              withLabel={false}
-            />
-          )
-          : isEditable
-            ? (
-              <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
-            )
-            : (
-              name
-            )
+        isEditable && isEditingName ? (
+          <Input
+            autoFocus
+            className="name-editor"
+            isError={isNewNameError}
+            onBlur={onSaveName}
+            onChange={setNewName}
+            onEnter
+            value={newName}
+            withLabel={false}
+          />
+        ) : isEditable ? (
+          <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
+        ) : (
+          name
+        )
       }
     >
       {children}

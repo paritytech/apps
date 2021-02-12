@@ -88,7 +88,8 @@ const isSelectAll = (key: string, isPreKeyDown: boolean): boolean => isPreKeyDow
 
 let counter = 0;
 
-function Input ({ autoFocus = false,
+function Input({
+  autoFocus = false,
   children,
   className,
   defaultValue,
@@ -124,7 +125,8 @@ function Input ({ autoFocus = false,
   value,
   withEllipsis,
   withLabel,
-  withStatus = false }: Props): React.ReactElement<Props> {
+  withStatus = false
+}: Props): React.ReactElement<Props> {
   const [stateName] = useState(`in_${counter++}_at_${Date.now()}`);
 
   const _onBlur = useCallback(() => onBlur && onBlur(), [onBlur]);
@@ -203,18 +205,16 @@ function Input ({ autoFocus = false,
         value={value}
       >
         <input
-          autoCapitalize='off'
+          autoCapitalize="off"
           autoComplete={type === 'password' ? 'new-password' : 'off'}
-          autoCorrect='off'
+          autoCorrect="off"
           onPaste={_onPaste}
           spellCheck={false}
         />
-        {isEditable && <i className='edit icon' />}
+        {isEditable && <i className="edit icon" />}
         {icon}
       </SUIInput>
-      {withStatus && <InputStatus isError={isError}
-        isValid={!isError}
-        text={status} />}
+      {withStatus && <InputStatus isError={isError} isValid={!isError} text={status} />}
       {children}
     </Labelled>
   );

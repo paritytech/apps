@@ -7,7 +7,8 @@ import React, { useCallback, useState } from 'react';
 import { Props } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
-function Text ({ className = '',
+function Text({
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -15,11 +16,12 @@ function Text ({ className = '',
   onChange,
   onEnter,
   onEscape,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
-    (value : string) : void => {
+    (value: string): void => {
       const isValid = value.length !== 0;
 
       onChange &&
@@ -37,7 +39,7 @@ function Text ({ className = '',
   return (
     <Bare className={className}>
       <Input
-        className='full'
+        className="full"
         defaultValue={defaultValue}
         isDisabled={isDisabled}
         isError={isError || !isValid}
@@ -45,8 +47,8 @@ function Text ({ className = '',
         onChange={_onChange}
         onEnter={onEnter}
         onEscape={onEscape}
-        placeholder='<any string>'
-        type='text'
+        placeholder="<any string>"
+        type="text"
         withLabel={withLabel}
       />
     </Bare>

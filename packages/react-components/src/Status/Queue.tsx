@@ -3,7 +3,8 @@
 
 import { STATUS_COMPLETE } from '@canvas-ui/react-api/Status/constants';
 import { QueueProvider } from '@canvas-ui/react-api/Status/Context';
-import { ActionStatus,
+import {
+  ActionStatus,
   PartialQueueTxExtrinsic,
   PartialQueueTxRpc,
   QueueStatus,
@@ -11,7 +12,8 @@ import { ActionStatus,
   QueueTxExtrinsic,
   QueueTxRpc,
   QueueTxStatus,
-  SignerCallback } from '@canvas-ui/react-api/Status/types';
+  SignerCallback
+} from '@canvas-ui/react-api/Status/types';
 import registry from '@canvas-ui/react-api/typeRegistry';
 import React, { useCallback, useRef, useState } from 'react';
 
@@ -25,12 +27,12 @@ import { ITuple, SignerPayloadJSON } from '@polkadot/types/types';
 import { BareProps } from '../types';
 
 export interface Props extends BareProps {
-  children : React.ReactNode;
+  children: React.ReactNode;
 }
 
 interface StatusCount {
-  count : number;
-  status : ActionStatus;
+  count: number;
+  status: ActionStatus;
 }
 
 let nextId = 0;
@@ -38,9 +40,9 @@ let nextId = 0;
 const REMOVE_TIMEOUT = 7500;
 const SUBMIT_RPC = jsonrpc.author.submitAndWatchExtrinsic;
 
-function mergeStatus (status : ActionStatus[]) : ActionStatus[] {
+function mergeStatus(status: ActionStatus[]): ActionStatus[] {
   return status
-    .reduce((result : StatusCount[], status) : StatusCount[] => {
+    .reduce((result: StatusCount[], status): StatusCount[] => {
       const prev = result.find(
         ({ status: prev }) => prev.action === status.action && prev.status === status.status
       );
@@ -54,19 +56,19 @@ function mergeStatus (status : ActionStatus[]) : ActionStatus[] {
       return result;
     }, [])
     .map(
-      ({ count, status }) : ActionStatus =>
+      ({ count, status }): ActionStatus =>
         count === 1 ? status : { ...status, action: `${status.action} (x${count})` }
     );
 }
 
-function extractEvents (result ?: SubmittableResult) : ActionStatus[] {
+function extractEvents(result?: SubmittableResult): ActionStatus[] {
   return mergeStatus(
     ((result && result.events) || [])
       // filter events handled globally, or those we are not interested in, these are
       // handled by the global overview, so don't add them here
-      .filter((record) : boolean => !!record.event && record.event.section !== 'democracy')
+      .filter((record): boolean => !!record.event && record.event.section !== 'democracy')
       .map(
-        ({ event: { data, method, section } }) : ActionStatus => {
+        ({ event: { data, method, section } }): ActionStatus => {
           if (section === 'system' && method === 'ExtrinsicFailed') {
             const [dispatchError] = (data as unknown) as ITuple<[DispatchError]>;
             let message = dispatchError.type;
@@ -101,27 +103,27 @@ function extractEvents (result ?: SubmittableResult) : ActionStatus[] {
   );
 }
 
-function Queue ({ children } : Props) : React.ReactElement<Props> {
+function Queue({ children }: Props): React.ReactElement<Props> {
   const [stqueue, _setStQueue] = useState<QueueStatus[]>([]);
   const [txqueue, _setTxQueue] = useState<QueueTx[]>([]);
   const stRef = useRef(stqueue);
   const txRef = useRef(txqueue);
 
-  const setStQueue = useCallback((st : QueueStatus[]) : void => {
+  const setStQueue = useCallback((st: QueueStatus[]): void => {
     stRef.current = st;
     _setStQueue(st);
   }, []);
-  const setTxQueue = useCallback((tx : QueueTx[]) : void => {
+  const setTxQueue = useCallback((tx: QueueTx[]): void => {
     txRef.current = tx;
     _setTxQueue(tx);
   }, []);
   const addToTxQueue = useCallback(
-    (value : QueueTxExtrinsic | QueueTxRpc | QueueTx) : void => {
+    (value: QueueTxExtrinsic | QueueTxRpc | QueueTx): void => {
       const id = ++nextId;
-      const removeItem = () : void =>
+      const removeItem = (): void =>
         setTxQueue([
           ...txRef.current.map(
-            (item) : QueueTx => (item.id === id ? { ...item, status: 'completed' } : item)
+            (item): QueueTx => (item.id === id ? { ...item, status: 'completed' } : item)
           )
         ]);
 
@@ -139,17 +141,17 @@ function Queue ({ children } : Props) : React.ReactElement<Props> {
     [setTxQueue]
   );
   const queueAction = useCallback(
-    (_status : ActionStatus | ActionStatus[]) : void => {
+    (_status: ActionStatus | ActionStatus[]): void => {
       const status = Array.isArray(_status) ? _status : [_status];
 
       status.length &&
         setStQueue([
           ...stRef.current,
           ...status.map(
-            (item) : QueueStatus => {
+            (item): QueueStatus => {
               const id = ++nextId;
-              const removeItem = () : void =>
-                setStQueue([...stRef.current.filter((item) : boolean => item.id !== id)]);
+              const removeItem = (): void =>
+                setStQueue([...stRef.current.filter((item): boolean => item.id !== id)]);
 
               setTimeout(removeItem, REMOVE_TIMEOUT);
 
@@ -166,11 +168,11 @@ function Queue ({ children } : Props) : React.ReactElement<Props> {
     [setStQueue]
   );
   const queueExtrinsic = useCallback(
-    (value : PartialQueueTxExtrinsic) : void => addToTxQueue({ ...value }),
+    (value: PartialQueueTxExtrinsic): void => addToTxQueue({ ...value }),
     [addToTxQueue]
   );
   const queuePayload = useCallback(
-    (payload : SignerPayloadJSON, signerCb : SignerCallback) : void =>
+    (payload: SignerPayloadJSON, signerCb: SignerCallback): void =>
       addToTxQueue({
         accountId: payload.address,
         // this is not great, but the Extrinsic we don't need a submittable
@@ -185,21 +187,21 @@ function Queue ({ children } : Props) : React.ReactElement<Props> {
       }),
     [addToTxQueue]
   );
-  const queueRpc = useCallback((value : PartialQueueTxRpc) : void => addToTxQueue({ ...value }), [
+  const queueRpc = useCallback((value: PartialQueueTxRpc): void => addToTxQueue({ ...value }), [
     addToTxQueue
   ]);
   const queueSetTxStatus = useCallback(
-    (id : number, status : QueueTxStatus, result ?: SubmittableResult, error ?: Error) : void => {
+    (id: number, status: QueueTxStatus, result?: SubmittableResult, error?: Error): void => {
       setTxQueue([
         ...txRef.current.map(
-          (item) : QueueTx =>
+          (item): QueueTx =>
             item.id === id
               ? {
-                ...item,
-                error: error === undefined ? item.error : error,
-                result: result === undefined ? (item.result as SubmittableResult) : result,
-                status: item.status === 'completed' ? item.status : status
-              }
+                  ...item,
+                  error: error === undefined ? item.error : error,
+                  result: result === undefined ? (item.result as SubmittableResult) : result,
+                  status: item.status === 'completed' ? item.status : status
+                }
               : item
         )
       ]);
@@ -207,8 +209,8 @@ function Queue ({ children } : Props) : React.ReactElement<Props> {
       queueAction(extractEvents(result));
 
       if (STATUS_COMPLETE.includes(status)) {
-        setTimeout(() : void => {
-          const item = txRef.current.find((item) : boolean => item.id === id);
+        setTimeout((): void => {
+          const item = txRef.current.find((item): boolean => item.id === id);
 
           item && item.removeItem();
         }, REMOVE_TIMEOUT);

@@ -19,13 +19,13 @@ import nodeSubstrate from './nodes/substrate-hexagon.svg';
 import emptyLogo from './empty.svg';
 
 // overrides based on the actual matched chain name
-const chainLogos : Record<string, any> = [
+const chainLogos: Record<string, any> = [
   ['Kusama', chainKusama], // new name after CC3
   ['Kusama CC1', chainKusama],
   ['Kusama CC2', chainKusama],
   ['Kusama CC3', chainKusama]
 ].reduce(
-  (logos, [chain, logo]) : Record<string, any> => ({
+  (logos, [chain, logo]): Record<string, any> => ({
     ...logos,
     [(chain as string).toLowerCase()]: logo
   }),
@@ -33,7 +33,7 @@ const chainLogos : Record<string, any> = [
 );
 
 // overrides based on the actual software node type (all '-' converted to ' ')
-const nodeLogos : Record<string, any> = [
+const nodeLogos: Record<string, any> = [
   ['centrifuge chain', nodeCentrifuge],
   ['Centrifuge Chain Node', nodeCentrifuge],
   ['Edgeware Node', nodeEdgeware],
@@ -45,7 +45,7 @@ const nodeLogos : Record<string, any> = [
   ['polkadot-js', nodePolkadotJs],
   ['substrate-node', nodeSubstrate]
 ].reduce(
-  (logos, [node, logo]) : Record<string, any> => ({
+  (logos, [node, logo]): Record<string, any> => ({
     ...logos,
     [(node as string).toLowerCase().replace(/-/g, ' ')]: logo
   }),
@@ -53,7 +53,7 @@ const nodeLogos : Record<string, any> = [
 );
 
 // overrides when we pass an explicit logo name
-const namedLogos : Record<string, any> = {
+const namedLogos: Record<string, any> = {
   alexander: nodePolkadot,
   centrifuge: nodeCentrifuge,
   edgeware: nodeEdgeware,
@@ -66,7 +66,7 @@ const namedLogos : Record<string, any> = {
 };
 
 // extension logos
-const extensionLogos : Record<string, any> = {
+const extensionLogos: Record<string, any> = {
   'polkadot-js': extensionPolkadotJs
 };
 

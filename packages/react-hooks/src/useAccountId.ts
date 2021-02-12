@@ -4,7 +4,7 @@
 import { StringOrNull } from '@canvas-ui/react-api/types';
 import { useCallback, useState } from 'react';
 
-export default function useAccountId (
+export default function useAccountId(
   initialValue: StringOrNull = null,
   onChangeAccountId?: (_: StringOrNull) => void
 ): [StringOrNull, (_: StringOrNull) => void] {

@@ -5,8 +5,8 @@ import React, { useEffect } from 'react';
 
 import { Props } from '@canvas-ui/react-components/types';
 
-function Null ({ onChange } : Props) : React.ReactElement<Props> | null {
-  useEffect(() : void => {
+function Null({ onChange }: Props): React.ReactElement<Props> | null {
+  useEffect((): void => {
     onChange &&
       onChange({
         isValid: true,

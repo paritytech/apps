@@ -10,15 +10,15 @@ import Columns from './Columns';
 import { ActionsProps, ColumnProps, ModalProps } from './types';
 
 type ModalType = React.FC<ModalProps> & {
-  Actions : React.FC<ActionsProps>;
-  Column : React.FC<ColumnProps>;
-  Columns : React.FC<ColumnProps>;
-  Content : typeof SUIModal.Content;
-  Header : typeof SUIModal.Header;
-  Description : typeof SUIModal.Description;
+  Actions: React.FC<ActionsProps>;
+  Column: React.FC<ColumnProps>;
+  Columns: React.FC<ColumnProps>;
+  Content: typeof SUIModal.Content;
+  Header: typeof SUIModal.Header;
+  Description: typeof SUIModal.Description;
 };
 
-function ModalBase (props : ModalProps) : React.ReactElement<ModalProps> {
+function ModalBase(props: ModalProps): React.ReactElement<ModalProps> {
   const { children, className = '', header, isOpen = true } = props;
 
   return (

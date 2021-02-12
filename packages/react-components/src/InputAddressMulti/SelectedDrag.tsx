@@ -8,21 +8,19 @@ import ReactDOM from 'react-dom';
 import AddressToggle from '../AddressToggle';
 
 interface Props {
-  address : string;
-  index : number;
-  onDeselect : (index : number) => void;
+  address: string;
+  index: number;
+  onDeselect: (index: number) => void;
 }
 
 export const PORTAL_ID = 'portals';
 
 const portal = document.getElementById(PORTAL_ID) as Element;
 
-function Selected ({ address, index, onDeselect } : Props) : React.ReactElement<Props> {
+function Selected({ address, index, onDeselect }: Props): React.ReactElement<Props> {
   return (
-    <Draggable draggableId={address}
-      index={index}
-      key={address}>
-      {(provided : DraggableProvided, snapshot : DraggableStateSnapshot) : React.ReactElement => {
+    <Draggable draggableId={address} index={index} key={address}>
+      {(provided: DraggableProvided, snapshot: DraggableStateSnapshot): React.ReactElement => {
         const element = (
           <div
             // eslint-disable-next-line @typescript-eslint/unbound-method

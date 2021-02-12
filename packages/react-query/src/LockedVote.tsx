@@ -17,10 +17,12 @@ interface Props extends BareProps {
   params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
 }
 
-function LockedVote ({ children,
+function LockedVote({
+  children,
   className = '',
   label,
-  params }: Props): React.ReactElement<Props> | null {
+  params
+}: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveCouncilVote>(api.derive.council.votesOf, [params]);
 
@@ -29,9 +31,7 @@ function LockedVote ({ children,
   }
 
   return (
-    <FormatBalance className={className}
-      label={label}
-      value={info?.stake}>
+    <FormatBalance className={className} label={label} value={info?.stake}>
       {children}
     </FormatBalance>
   );

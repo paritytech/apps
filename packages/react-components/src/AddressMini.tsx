@@ -16,28 +16,29 @@ import IdentityIcon from './IdentityIcon';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  balance ?: BN | BN[];
-  bonded ?: BN | BN[];
-  children ?: React.ReactNode;
-  iconInfo ?: React.ReactNode;
-  isPadded ?: boolean;
-  isShort ?: boolean;
-  label ?: React.ReactNode;
-  labelBalance ?: React.ReactNode;
-  noLookup ?: boolean;
-  summary ?: React.ReactNode;
-  type ?: KeyringItemType;
-  value ?: AccountId | AccountIndex | Address | string | null | Uint8Array;
-  withAddress ?: boolean;
-  withBalance ?: boolean;
-  withBonded ?: boolean;
-  withLockedVote ?: boolean;
-  withSidebar ?: boolean;
-  withName ?: boolean;
-  withShrink ?: boolean;
+  balance?: BN | BN[];
+  bonded?: BN | BN[];
+  children?: React.ReactNode;
+  iconInfo?: React.ReactNode;
+  isPadded?: boolean;
+  isShort?: boolean;
+  label?: React.ReactNode;
+  labelBalance?: React.ReactNode;
+  noLookup?: boolean;
+  summary?: React.ReactNode;
+  type?: KeyringItemType;
+  value?: AccountId | AccountIndex | Address | string | null | Uint8Array;
+  withAddress?: boolean;
+  withBalance?: boolean;
+  withBonded?: boolean;
+  withLockedVote?: boolean;
+  withSidebar?: boolean;
+  withName?: boolean;
+  withShrink?: boolean;
 }
 
-function AddressMini ({ balance,
+function AddressMini({
+  balance,
   bonded,
   children,
   className = '',
@@ -53,7 +54,8 @@ function AddressMini ({ balance,
   withBonded = false,
   withName = true,
   withShrink = false,
-  withSidebar = true } : Props) : React.ReactElement<Props> | null {
+  withSidebar = true
+}: Props): React.ReactElement<Props> | null {
   if (!value) {
     return null;
   }
@@ -67,35 +69,27 @@ function AddressMini ({ balance,
         className
       )}
     >
-      {label && <label className='ui--AddressMini-label'>{label}</label>}
-      <div className='ui--AddressMini-icon'>
+      {label && <label className="ui--AddressMini-label">{label}</label>}
+      <div className="ui--AddressMini-icon">
         <IdentityIcon value={value as Uint8Array} />
-        {iconInfo && <div className='ui--AddressMini-icon-info'>{iconInfo}</div>}
+        {iconInfo && <div className="ui--AddressMini-icon-info">{iconInfo}</div>}
       </div>
-      <div className='ui--AddressMini-info'>
+      <div className="ui--AddressMini-info">
         {withAddress && (
-          <div className='ui--AddressMini-address'>
-            {withName
-              ? (
-                <AccountName noLookup={noLookup}
-                  value={value}
-                  withSidebar={withSidebar} />
-              )
-              : (
-                toShortAddress(value)
-              )}
+          <div className="ui--AddressMini-address">
+            {withName ? (
+              <AccountName noLookup={noLookup} value={value} withSidebar={withSidebar} />
+            ) : (
+              toShortAddress(value)
+            )}
           </div>
         )}
         {children}
       </div>
-      <div className='ui--AddressMini-balances'>
-        {withBalance && <BalanceDisplay balance={balance}
-          label={labelBalance}
-          params={value} />}
-        {withBonded && <BondedDisplay bonded={bonded}
-          label=''
-          params={value} />}
-        {summary && <div className='ui--AddressMini-summary'>{summary}</div>}
+      <div className="ui--AddressMini-balances">
+        {withBalance && <BalanceDisplay balance={balance} label={labelBalance} params={value} />}
+        {withBonded && <BondedDisplay bonded={bonded} label="" params={value} />}
+        {summary && <div className="ui--AddressMini-summary">{summary}</div>}
       </div>
     </div>
   );

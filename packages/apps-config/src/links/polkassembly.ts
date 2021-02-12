@@ -8,7 +8,7 @@ export default {
     Kusama: 'kusama',
     'Kusama CC3': 'kusama'
   },
-  create: (chain : string, path : string, data : BN | number | string) : string =>
+  create: (chain: string, path: string, data: BN | number | string): string =>
     `https://${chain}.polkassembly.io/${path}/${data.toString()}`,
   isActive: true,
   paths: {

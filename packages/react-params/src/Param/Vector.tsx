@@ -13,21 +13,23 @@ import Params from '@canvas-ui/react-components/Params';
 import Base from './Base';
 import useParamDefs from './useParamDefs';
 
-function generateParam ([{ name, type }] : ParamDef[], index : number) : ParamDef {
+function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
   return {
     name: `${index}: ${name || type.type}`,
     type
   };
 }
 
-function Vector ({ className = '',
+function Vector({
+  className = '',
   defaultValue,
   isDisabled = false,
   label,
   onChange,
   overrides,
   type,
-  withLabel } : Props) : React.ReactElement<Props> | null {
+  withLabel
+}: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const inputParams = useParamDefs(type);
   const [count, setCount] = useState(0);
@@ -35,10 +37,10 @@ function Vector ({ className = '',
   const [values, setValues] = useState<RawParam[]>([]);
 
   // build up the list of parameters we are using
-  useEffect(() : void => {
+  useEffect((): void => {
     if (inputParams.length) {
       const max = isDisabled ? ((defaultValue.value as RawParam[]) || []).length : count;
-      const params : ParamDef[] = [];
+      const params: ParamDef[] = [];
 
       for (let index = 0; index < max; index++) {
         params.push(generateParam(inputParams, index));
@@ -49,10 +51,10 @@ function Vector ({ className = '',
   }, [count, defaultValue, isDisabled, inputParams]);
 
   // when !isDisable, generating an input list based on count
-  useEffect(() : void => {
+  useEffect((): void => {
     !isDisabled &&
       inputParams.length &&
-      setValues((values) : RawParam[] => {
+      setValues((values): RawParam[] => {
         if (values.length === count) {
           return values;
         }
@@ -68,10 +70,10 @@ function Vector ({ className = '',
   }, [count, inputParams, isDisabled]);
 
   // when isDisabled, set the values based on the defaultValue input
-  useEffect(() : void => {
+  useEffect((): void => {
     isDisabled &&
       setValues(
-        ((defaultValue.value as RawParam[]) || []).map((value : RawParam) =>
+        ((defaultValue.value as RawParam[]) || []).map((value: RawParam) =>
           isUndefined(value) || isUndefined(value.isValid)
             ? { isValid: !isUndefined(value), value }
             : value
@@ -80,29 +82,24 @@ function Vector ({ className = '',
   }, [defaultValue, isDisabled]);
 
   // when our values has changed, alert upstream
-  useEffect(() : void => {
+  useEffect((): void => {
     onChange &&
       onChange({
-        isValid: values.reduce((result : boolean, { isValid }) => result && isValid, true),
+        isValid: values.reduce((result: boolean, { isValid }) => result && isValid, true),
         value: values.map(({ value }) => value)
       });
   }, [values, onChange]);
 
-  const _rowAdd = useCallback(() : void => setCount((count) => count + 1), []);
-  const _rowRemove = useCallback(() : void => setCount((count) => count - 1), []);
+  const _rowAdd = useCallback((): void => setCount(count => count + 1), []);
+  const _rowRemove = useCallback((): void => setCount(count => count - 1), []);
 
   return (
-    <Base className={className}
-      isOuter
-      label={label}
-      withLabel={withLabel}>
+    <Base className={className} isOuter label={label} withLabel={withLabel}>
       {!isDisabled && (
-        <div className='ui--Param-Vector-buttons'>
-          <Button icon='plus'
-            label={t<string>('Add item')}
-            onClick={_rowAdd} />
+        <div className="ui--Param-Vector-buttons">
+          <Button icon="plus" label={t<string>('Add item')} onClick={_rowAdd} />
           <Button
-            icon='minus'
+            icon="minus"
             isDisabled={values.length === 0}
             label={t<string>('Remove item')}
             onClick={_rowRemove}

@@ -12,7 +12,8 @@ import { bnToBn, formatNumber, isUndefined } from '@polkadot/util';
 import { Props } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
-function Amount ({ className = '',
+function Amount({
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -20,7 +21,8 @@ function Amount ({ className = '',
   onChange,
   onEnter,
   type,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   const defaultValue = useMemo(
     () =>
       isDisabled
@@ -31,7 +33,7 @@ function Amount ({ className = '',
     [isDisabled, value]
   );
 
-  const bitLength = useMemo(() : number => {
+  const bitLength = useMemo((): number => {
     try {
       return registry.createType(type.type as 'u32').bitLength();
     } catch (error) {
@@ -40,7 +42,7 @@ function Amount ({ className = '',
   }, [type]);
 
   const _onChange = useCallback(
-    (value ?: BN) =>
+    (value?: BN) =>
       onChange &&
       onChange({
         isValid: !isUndefined(value),
@@ -51,30 +53,28 @@ function Amount ({ className = '',
 
   return (
     <Bare className={className}>
-      {isDisabled
-        ? (
-          <Input
-            className='full'
-            defaultValue={defaultValue}
-            isDisabled
-            label={label}
-            withEllipsis
-            withLabel={withLabel}
-          />
-        )
-        : (
-          <InputNumber
-            bitLength={bitLength}
-            className='full'
-            defaultValue={defaultValue}
-            isError={isError}
-            isZeroable
-            label={label}
-            onChange={_onChange}
-            onEnter={onEnter}
-            withLabel={withLabel}
-          />
-        )}
+      {isDisabled ? (
+        <Input
+          className="full"
+          defaultValue={defaultValue}
+          isDisabled
+          label={label}
+          withEllipsis
+          withLabel={withLabel}
+        />
+      ) : (
+        <InputNumber
+          bitLength={bitLength}
+          className="full"
+          defaultValue={defaultValue}
+          isError={isError}
+          isZeroable
+          label={label}
+          onChange={_onChange}
+          onEnter={onEnter}
+          withLabel={withLabel}
+        />
+      )}
     </Bare>
   );
 }

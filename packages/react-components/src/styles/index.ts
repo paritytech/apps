@@ -12,12 +12,12 @@ import cssSemantic from './semantic';
 import cssTheme from './theme';
 
 interface Props {
-  uiHighlight ?: string;
+  uiHighlight?: string;
 }
 
 const defaultHighlight = '#2477B3'; // #999
 
-const getHighlight = (props : Props) : string => props.uiHighlight || defaultHighlight;
+const getHighlight = (props: Props): string => props.uiHighlight || defaultHighlight;
 
 export * from './constants';
 
@@ -46,8 +46,8 @@ export default createGlobalStyle<Props>`
   }
 
   .ui--highlight--gradient {
-    background: ${(props : Props) : string =>
-    `linear-gradient(90deg, ${props.uiHighlight || defaultHighlight}, transparent)`};
+    background: ${(props: Props): string =>
+      `linear-gradient(90deg, ${props.uiHighlight || defaultHighlight}, transparent)`};
   }
 
   .ui--highlight--icon {

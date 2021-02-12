@@ -4,7 +4,9 @@
 import { classes } from '@canvas-ui/react-util';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import SUIButton from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import SUIDropdown, { DropdownProps } from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
+import SUIDropdown, {
+  DropdownProps
+} from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
 import styled from 'styled-components';
 
 import { isUndefined } from '@polkadot/util';
@@ -13,37 +15,38 @@ import Labelled from './Labelled';
 import { BareProps } from './types';
 
 interface Props<Option> extends BareProps {
-  allowAdd ?: boolean;
-  defaultValue ?: any;
-  dropdownClassName ?: string;
-  help ?: React.ReactNode;
-  isButton ?: boolean;
-  isDisabled ?: boolean;
-  isError ?: boolean;
-  isFull ?: boolean;
-  isMultiple ?: boolean;
-  label ?: React.ReactNode;
-  labelExtra ?: React.ReactNode;
-  onAdd ?: (value : any) => void;
-  onBlur ?: () => void;
-  onChange ?: (value : any) => void;
-  onClose ?: () => void;
-  onSearch ?: (filteredOptions : any[], query : string) => Option[];
-  options : Option[];
-  placeholder ?: string;
-  renderLabel ?: (item : any) => any;
-  searchInput ?: { autoFocus : boolean };
-  transform ?: (value : any) => any;
-  value ?: any;
-  withEllipsis ?: boolean;
-  withLabel ?: boolean;
+  allowAdd?: boolean;
+  defaultValue?: any;
+  dropdownClassName?: string;
+  help?: React.ReactNode;
+  isButton?: boolean;
+  isDisabled?: boolean;
+  isError?: boolean;
+  isFull?: boolean;
+  isMultiple?: boolean;
+  label?: React.ReactNode;
+  labelExtra?: React.ReactNode;
+  onAdd?: (value: any) => void;
+  onBlur?: () => void;
+  onChange?: (value: any) => void;
+  onClose?: () => void;
+  onSearch?: (filteredOptions: any[], query: string) => Option[];
+  options: Option[];
+  placeholder?: string;
+  renderLabel?: (item: any) => any;
+  searchInput?: { autoFocus: boolean };
+  transform?: (value: any) => any;
+  value?: any;
+  withEllipsis?: boolean;
+  withLabel?: boolean;
 }
 
 export type IDropdown<Option> = React.ComponentType<Props<Option>> & {
-  Header : React.ComponentType<{ content : React.ReactNode }>;
+  Header: React.ComponentType<{ content: React.ReactNode }>;
 };
 
-function BaseDropdown<Option> ({ allowAdd = false,
+function BaseDropdown<Option>({
+  allowAdd = false,
   children,
   className = '',
   defaultValue,
@@ -68,12 +71,13 @@ function BaseDropdown<Option> ({ allowAdd = false,
   transform,
   value,
   withEllipsis,
-  withLabel } : Props<Option>) : React.ReactElement<Props<Option>> {
+  withLabel
+}: Props<Option>): React.ReactElement<Props<Option>> {
   const lastUpdate = useRef<string>('');
   const [stored, setStored] = useState<string | undefined>();
 
   const _setStored = useCallback(
-    (value : string) : void => {
+    (value: string): void => {
       const json = JSON.stringify({ v: value });
 
       if (lastUpdate.current !== json) {
@@ -87,17 +91,17 @@ function BaseDropdown<Option> ({ allowAdd = false,
     [onChange, transform]
   );
 
-  useEffect(() : void => {
+  useEffect((): void => {
     _setStored(isUndefined(value) ? defaultValue : value);
   }, [_setStored, defaultValue, value]);
 
   const _onAdd = useCallback(
-    (_ : React.SyntheticEvent<HTMLElement>, { value } : DropdownProps) : void => onAdd && onAdd(value),
+    (_: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps): void => onAdd && onAdd(value),
     [onAdd]
   );
 
   const _onChange = useCallback(
-    (_ : React.SyntheticEvent<HTMLElement> | null, { value } : DropdownProps) : void =>
+    (_: React.SyntheticEvent<HTMLElement> | null, { value }: DropdownProps): void =>
       _setStored(value as string),
     [_setStored]
   );
@@ -126,24 +130,22 @@ function BaseDropdown<Option> ({ allowAdd = false,
     />
   );
 
-  return isButton
-    ? (
-      <SUIButton.Group primary>{dropdown}</SUIButton.Group>
-    )
-    : (
-      <Labelled
-        className={classes('ui--Dropdown', className)}
-        help={help}
-        isFull={isFull}
-        label={label}
-        labelExtra={labelExtra}
-        withEllipsis={withEllipsis}
-        withLabel={withLabel}
-      >
-        {dropdown}
-        {children}
-      </Labelled>
-    );
+  return isButton ? (
+    <SUIButton.Group primary>{dropdown}</SUIButton.Group>
+  ) : (
+    <Labelled
+      className={classes('ui--Dropdown', className)}
+      help={help}
+      isFull={isFull}
+      label={label}
+      labelExtra={labelExtra}
+      withEllipsis={withEllipsis}
+      withLabel={withLabel}
+    >
+      {dropdown}
+      {children}
+    </Labelled>
+  );
 }
 
 const Dropdown = (React.memo(styled(BaseDropdown)`

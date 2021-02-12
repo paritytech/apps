@@ -11,19 +11,23 @@ import Dropdown from '../Dropdown';
 import { BareProps } from '../types';
 
 interface Props extends BareProps {
-  defaultValue ?: QueryableStorageEntry<'promise'>;
-  isError ?: boolean;
-  onChange : (value : string) => void;
-  options : DropdownOptions;
-  value : QueryableStorageEntry<'promise'>;
+  defaultValue?: QueryableStorageEntry<'promise'>;
+  isError?: boolean;
+  onChange: (value: string) => void;
+  options: DropdownOptions;
+  value: QueryableStorageEntry<'promise'>;
 }
 
-function SelectSection ({ className = '',
+function SelectSection({
+  className = '',
   defaultValue,
   isError,
   onChange,
   options,
-  value: { creator: { section } } } : Props) : React.ReactElement<Props> {
+  value: {
+    creator: { section }
+  }
+}: Props): React.ReactElement<Props> {
   return (
     <Dropdown
       className={classes('ui--DropdownLinked-Sections', className)}

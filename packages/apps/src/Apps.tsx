@@ -24,11 +24,11 @@ interface SidebarState {
   transition: SideBarTransition;
 }
 
-function saveSidebar (sidebar: SidebarState): SidebarState {
+function saveSidebar(sidebar: SidebarState): SidebarState {
   return store.set('sidebar', sidebar) as SidebarState;
 }
 
-function Apps ({ className = '' }: Props): React.ReactElement<Props> {
+function Apps({ className = '' }: Props): React.ReactElement<Props> {
   const { systemChain, systemName } = useApi();
   const [sidebar, setSidebar] = useState<SidebarState>({
     isCollapsed: false,

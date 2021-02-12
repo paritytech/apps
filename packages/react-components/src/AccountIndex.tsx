@@ -17,11 +17,13 @@ interface Props extends BareProps {
   value?: string | AccountId | Address | null | Uint8Array;
 }
 
-function AccountIndex ({ children,
+function AccountIndex({
+  children,
   className = '',
   defaultValue,
   label,
-  value }: Props): React.ReactElement<Props> | null {
+  value
+}: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(api.derive.accounts.info, [value]);
   const [accountIndex, setAccountIndex] = useState<string | null>(null);
@@ -41,7 +43,7 @@ function AccountIndex ({ children,
   return (
     <div className={`ui--AccountIndex ${className}`}>
       {label || ''}
-      <div className='account-index'>{accountIndex || defaultValue || '-'}</div>
+      <div className="account-index">{accountIndex || defaultValue || '-'}</div>
       {children}
     </div>
   );

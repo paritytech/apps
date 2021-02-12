@@ -11,7 +11,7 @@ const webpack = require('webpack');
 
 const findPackages = require('../../scripts/findPackages');
 
-function mapChunks (name, regs, inc) {
+function mapChunks(name, regs, inc) {
   return regs.reduce(
     (result, test, index) => ({
       ...result,
@@ -26,7 +26,7 @@ function mapChunks (name, regs, inc) {
   );
 }
 
-function createWebpack (context, mode = 'production') {
+function createWebpack(context, mode = 'production') {
   const pkgJson = require(path.join(context, 'package.json'));
   const alias = findPackages().reduce((alias, { dir, name }) => {
     alias[name] = path.resolve(context, `../${dir}/src`);

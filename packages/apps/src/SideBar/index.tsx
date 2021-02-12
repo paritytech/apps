@@ -13,15 +13,15 @@ import Item from './Item';
 import Settings from './Settings';
 
 interface Props {
-  className ?: string;
-  collapse : () => void;
-  handleResize : () => void;
-  isCollapsed : boolean;
-  isMenuOpen : boolean;
-  toggleMenu : () => void;
+  className?: string;
+  collapse: () => void;
+  handleResize: () => void;
+  isCollapsed: boolean;
+  isMenuOpen: boolean;
+  toggleMenu: () => void;
 }
 
-function SideBar ({ className = '', handleResize, isCollapsed } : Props) : React.ReactElement<Props> {
+function SideBar({ className = '', handleResize, isCollapsed }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const routing = useMemo<Routes>(() => createRoutes(t), [t]);
@@ -31,25 +31,21 @@ function SideBar ({ className = '', handleResize, isCollapsed } : Props) : React
       className={`apps--SideBar-Wrapper ${className} ${isCollapsed ? 'collapsed' : 'expanded'}`}
       onUpdate={handleResize}
     >
-      <div className='apps--SideBar'>
-        <Menu secondary
-          vertical>
-          <div className='apps--SideBar-Scroll'>
+      <div className="apps--SideBar">
+        <Menu secondary vertical>
+          <div className="apps--SideBar-Scroll">
             {routing.map(
-              (route, index) : React.ReactNode =>
-                route
-                  ? (
-                    <Item
-                      isCollapsed={isCollapsed}
-                      key={route.name}
-                      onClick={handleResize}
-                      route={route}
-                    />
-                  )
-                  : (
-                    <Menu.Divider hidden
-                      key={index} />
-                  )
+              (route, index): React.ReactNode =>
+                route ? (
+                  <Item
+                    isCollapsed={isCollapsed}
+                    key={route.name}
+                    onClick={handleResize}
+                    route={route}
+                  />
+                ) : (
+                  <Menu.Divider hidden key={index} />
+                )
             )}
           </div>
         </Menu>

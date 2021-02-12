@@ -21,26 +21,27 @@ import { Options } from './types';
 
 // FIXME This is not correct, we need some junction of derive, query & consts
 interface Method {
-  (...params : any[]) : Promise<any>;
-  at : (hash : Uint8Array | string, ...params : any[]) => Promise<any>;
-  meta : any;
-  multi : (params : any[], cb : (value ?: any) => void) => Promise<any>;
+  (...params: any[]): Promise<any>;
+  at: (hash: Uint8Array | string, ...params: any[]) => Promise<any>;
+  meta: any;
+  multi: (params: any[], cb: (value?: any) => void) => Promise<any>;
 }
 
 type ApiMethodInfo = [Method, any[], string];
 
-const NOOP = () : void => {
+const NOOP = (): void => {
   // ignore
 };
 
-const NO_SKIP = () : boolean => false;
+const NO_SKIP = (): boolean => false;
 
 // a mapping of actual error messages that has already been shown
-const errorred : Record<string, boolean> = {};
+const errorred: Record<string, boolean> = {};
 
-export default function withCall<P extends ApiProps> (
-  endpoint : string,
-  { at,
+export default function withCall<P extends ApiProps>(
+  endpoint: string,
+  {
+    at,
     atProp,
     callOnResult,
     fallbacks,
@@ -52,27 +53,28 @@ export default function withCall<P extends ApiProps> (
     propName,
     skipIf = NO_SKIP,
     transform = echoTransform,
-    withIndicator = false } : Options = {}
-) : (Inner : React.ComponentType<ApiProps>) => React.ComponentType<any> {
+    withIndicator = false
+  }: Options = {}
+): (Inner: React.ComponentType<ApiProps>) => React.ComponentType<any> {
   return (
-    Inner : React.ComponentType<ApiProps>
-  ) : React.ComponentType<SubtractProps<P, ApiProps>> => {
+    Inner: React.ComponentType<ApiProps>
+  ): React.ComponentType<SubtractProps<P, ApiProps>> => {
     class WithPromise extends React.Component<P, State> {
-      public state : State = {
+      public state: State = {
         callResult: undefined,
         callUpdated: false,
         callUpdatedAt: 0
       };
 
-      private destroy ?: () => void;
+      private destroy?: () => void;
 
       private isActive = false;
 
-      private propName : string;
+      private propName: string;
 
       private timerId = -1;
 
-      constructor (props : P) {
+      constructor(props: P) {
         super(props);
 
         const [, section, method] = endpoint.split('.');
@@ -80,7 +82,7 @@ export default function withCall<P extends ApiProps> (
         this.propName = `${section}_${method}`;
       }
 
-      public componentDidUpdate (prevProps : any) : void {
+      public componentDidUpdate(prevProps: any): void {
         const oldParams = this.getParams(prevProps);
         const newParams = this.getParams(this.props);
 
@@ -89,11 +91,11 @@ export default function withCall<P extends ApiProps> (
         }
       }
 
-      public componentDidMount () : void {
+      public componentDidMount(): void {
         this.isActive = true;
 
         if (withIndicator) {
-          this.timerId = window.setInterval(() : void => {
+          this.timerId = window.setInterval((): void => {
             const elapsed = Date.now() - (this.state.callUpdatedAt || 0);
             const callUpdated = elapsed <= 1500;
 
@@ -105,12 +107,12 @@ export default function withCall<P extends ApiProps> (
 
         // The attachment takes time when a lot is available, set a timeout
         // to first handle the current queue before subscribing
-        setImmediate(() : void => {
+        setImmediate((): void => {
           this.subscribe(this.getParams(this.props)).then(NOOP).catch(NOOP);
         });
       }
 
-      public componentWillUnmount () : void {
+      public componentWillUnmount(): void {
         this.isActive = false;
 
         this.unsubscribe().then(NOOP).catch(NOOP);
@@ -120,13 +122,13 @@ export default function withCall<P extends ApiProps> (
         }
       }
 
-      private nextState (state : Partial<State>) : void {
+      private nextState(state: Partial<State>): void {
         if (this.isActive) {
           this.setState(state as State);
         }
       }
 
-      private getParams (props : any) : [boolean, any[]] {
+      private getParams(props: any): [boolean, any[]] {
         const paramValue = paramPick ? paramPick(props) : paramName ? props[paramName] : undefined;
 
         if (atProp) {
@@ -142,15 +144,15 @@ export default function withCall<P extends ApiProps> (
         const values = isUndefined(paramValue)
           ? params
           : params.concat(
-            Array.isArray(paramValue) && !(paramValue as any).toU8a ? paramValue : [paramValue]
-          );
+              Array.isArray(paramValue) && !(paramValue as any).toU8a ? paramValue : [paramValue]
+            );
 
         return [true, values];
       }
 
       private constructApiSection = (
-        endpoint : string
-      ) : [Record<string, Method>, string, string, string] => {
+        endpoint: string
+      ): [Record<string, Method>, string, string, string] => {
         const { api } = this.props;
         const [area, section, method, ...others] = endpoint.split('.');
 
@@ -169,17 +171,17 @@ export default function withCall<P extends ApiProps> (
         return [apiSection, area, section, method];
       };
 
-      private getApiMethod (newParams : any[]) : ApiMethodInfo {
+      private getApiMethod(newParams: any[]): ApiMethodInfo {
         if (endpoint === 'subscribe') {
           const [fn, ...params] = newParams;
 
           return [fn, params, 'subscribe'];
         }
 
-        const endpoints : string[] = [endpoint].concat(fallbacks || []);
+        const endpoints: string[] = [endpoint].concat(fallbacks || []);
         const expanded = endpoints.map(this.constructApiSection);
         const [apiSection, area, section, method] = expanded.find(
-          ([apiSection]) : boolean => !!apiSection
+          ([apiSection]): boolean => !!apiSection
         ) || [{}, expanded[0][1], expanded[0][2], expanded[0][3]];
 
         assert(apiSection && apiSection[method], `Unable to find api.${area}.${section}.${method}`);
@@ -198,13 +200,13 @@ export default function withCall<P extends ApiProps> (
         return [apiSection[method], newParams, method.startsWith('subscribe') ? 'subscribe' : area];
       }
 
-      private async subscribe ([isValid, newParams] : [boolean, any[]]) : Promise<void> {
+      private async subscribe([isValid, newParams]: [boolean, any[]]): Promise<void> {
         if (!isValid || skipIf(this.props)) {
           return;
         }
 
         const { api } = this.props;
-        let info : ApiMethodInfo | undefined;
+        let info: ApiMethodInfo | undefined;
 
         await api.isReady;
 
@@ -227,7 +229,7 @@ export default function withCall<P extends ApiProps> (
         }
 
         const [apiMethod, params, area] = info;
-        const updateCb = (value ?: any) : void => this.triggerUpdate(this.props, value);
+        const updateCb = (value?: any): void => this.triggerUpdate(this.props, value);
 
         await this.unsubscribe();
 
@@ -247,14 +249,14 @@ export default function withCall<P extends ApiProps> (
       }
 
       // eslint-disable-next-line @typescript-eslint/require-await
-      private async unsubscribe () : Promise<void> {
+      private async unsubscribe(): Promise<void> {
         if (this.destroy) {
           this.destroy();
           this.destroy = undefined;
         }
       }
 
-      private triggerUpdate (props : any, value ?: any) : void {
+      private triggerUpdate(props: any, value?: any): void {
         try {
           const callResult = (props.transform || transform)(value);
 
@@ -274,7 +276,7 @@ export default function withCall<P extends ApiProps> (
         }
       }
 
-      public render () : React.ReactNode {
+      public render(): React.ReactNode {
         const { callResult, callUpdated, callUpdatedAt } = this.state;
         const _props = {
           ...this.props,

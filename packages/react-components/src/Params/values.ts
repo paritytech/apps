@@ -7,7 +7,7 @@ import { isUndefined } from '@polkadot/util';
 import getInitValue from './initValue';
 import { RawParam } from '@canvas-ui/react-components/types';
 
-export function createValue (param : { type : TypeDef }) : RawParam {
+export function createValue(param: { type: TypeDef }): RawParam {
   const value = getInitValue(param.type);
 
   return {
@@ -16,10 +16,10 @@ export function createValue (param : { type : TypeDef }) : RawParam {
   };
 }
 
-export function extractValues (values : RawParam[]) : CodecArg[] {
+export function extractValues(values: RawParam[]): CodecArg[] {
   return values.map(({ value }) => value as CodecArg);
 }
 
-export default function createValues (params : { type : TypeDef }[]) : RawParam[] {
+export default function createValues(params: { type: TypeDef }[]): RawParam[] {
   return params.map(createValue);
 }

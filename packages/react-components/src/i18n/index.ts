@@ -78,14 +78,14 @@ i18n
     returnEmptyString: false,
     returnNull: false
   })
-  .catch((error : Error) : void => console.log('i18n: failure', error));
+  .catch((error: Error): void => console.log('i18n: failure', error));
 
-uiSettings.on('change', (settings) : void => {
+uiSettings.on('change', (settings): void => {
   i18n
     .changeLanguage(
       settings.i18nLang === LANGUAGE_DEFAULT
         ? // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-        i18n.services.languageDetector.detect()
+          i18n.services.languageDetector.detect()
         : settings.i18nLang
     )
     .catch(console.error);

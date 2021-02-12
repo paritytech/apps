@@ -30,14 +30,14 @@ if (!rootElement) {
 }
 
 // cleanups for old/unused storage items
-store.each((_, key) : void => {
+store.each((_, key): void => {
   if (key.startsWith('hooks:sessionSlashes:')) {
     store.remove(key);
   }
 });
 
 ReactDOM.render(
-  <Suspense fallback='...'>
+  <Suspense fallback="...">
     <ThemeProvider theme={theme}>
       <Queue>
         <Api url={settings.apiUrl}>

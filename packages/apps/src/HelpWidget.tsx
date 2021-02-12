@@ -6,10 +6,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  className ?: string;
+  className?: string;
 }
 
-const HelpWidget = ({ className } : Props) => {
+const HelpWidget = ({ className }: Props) => {
   const [visible, setVisible] = useState(false);
 
   const handleClick = () => {
@@ -20,28 +20,26 @@ const HelpWidget = ({ className } : Props) => {
     <div className={className}>
       {visible && (
         <div className={'help-menu'}>
-          <div className='help-menu-items'>
+          <div className="help-menu-items">
             <a
-              href='https://substrate.dev/docs/en/knowledgebase/smart-contracts/'
-              rel='noopener noreferrer'
-              target='blank'
+              href="https://substrate.dev/docs/en/knowledgebase/smart-contracts/"
+              rel="noopener noreferrer"
+              target="blank"
             >
               ink! smart contracts docs
             </a>
             <a
-              href='https://github.com/paritytech/canvas-ui'
-              rel='noopener noreferrer'
-              target='blank'
+              href="https://github.com/paritytech/canvas-ui"
+              rel="noopener noreferrer"
+              target="blank"
             >
               GitHub repository
             </a>
           </div>
-          <div className='imprint'>{moment.utc().year()} Parity Technologies</div>
+          <div className="imprint">{moment.utc().year()} Parity Technologies</div>
         </div>
       )}
-      <div className={'help-button'}
-        onClick={handleClick}
-        role='button'>
+      <div className={'help-button'} onClick={handleClick} role="button">
         ?
       </div>
     </div>

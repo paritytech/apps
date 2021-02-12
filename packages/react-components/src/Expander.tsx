@@ -13,38 +13,40 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Meta {
-  documentation : Text[];
+  documentation: Text[];
 }
 
 export interface Props extends BareProps {
-  children ?: React.ReactNode;
-  isOpen ?: boolean;
-  summary ?: React.ReactNode;
-  summaryMeta ?: Meta;
-  summarySub ?: React.ReactNode;
-  withDot ?: boolean;
-  withHidden ?: boolean;
+  children?: React.ReactNode;
+  isOpen?: boolean;
+  summary?: React.ReactNode;
+  summaryMeta?: Meta;
+  summarySub?: React.ReactNode;
+  withDot?: boolean;
+  withHidden?: boolean;
 }
 
-function formatMeta (meta ?: Meta) : React.ReactNode | null {
+function formatMeta(meta?: Meta): React.ReactNode | null {
   if (!meta || !meta.documentation.length) {
     return null;
   }
 
-  const strings = meta.documentation.map((doc) : string => doc.toString().trim());
-  const firstEmpty = strings.findIndex((doc) : boolean => !doc.length);
+  const strings = meta.documentation.map((doc): string => doc.toString().trim());
+  const firstEmpty = strings.findIndex((doc): boolean => !doc.length);
 
   return firstEmpty === -1 ? strings.join(' ') : strings.slice(0, firstEmpty).join(' ');
 }
 
-function Expander ({ children,
+function Expander({
+  children,
   className = '',
   isOpen,
   summary,
   summaryMeta,
   summarySub,
   withDot,
-  withHidden } : Props) : React.ReactElement<Props> {
+  withHidden
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isExpanded, toggleExpanded] = useToggle(isOpen);
   const headerMain = useMemo(() => summary || formatMeta(summaryMeta), [summary, summaryMeta]);
@@ -54,33 +56,29 @@ function Expander ({ children,
     summarySub
   ]);
   const hasContent = useMemo(
-    () : boolean => !!children && (!Array.isArray(children) || children.length !== 0),
+    (): boolean => !!children && (!Array.isArray(children) || children.length !== 0),
     [children]
   );
 
   return (
     <div
-      className={`ui--Expander ${isExpanded ? 'isExpanded' : ''} ${hasContent ? 'hasContent' : ''
+      className={`ui--Expander ${isExpanded ? 'isExpanded' : ''} ${
+        hasContent ? 'hasContent' : ''
       } ${className}`}
     >
-      <div className='ui--Expander-summary'
-        onClick={toggleExpanded}>
-        <div className='ui--Expander-summary-header'>
-          {hasContent
-            ? (
-              <Icon icon={isExpanded ? 'angle-double-down' : 'angle-double-right'} />
-            )
-            : withDot
-              ? (
-                <Icon icon={faCircle} />
-              )
-              : undefined}
+      <div className="ui--Expander-summary" onClick={toggleExpanded}>
+        <div className="ui--Expander-summary-header">
+          {hasContent ? (
+            <Icon icon={isExpanded ? 'angle-double-down' : 'angle-double-right'} />
+          ) : withDot ? (
+            <Icon icon={faCircle} />
+          ) : undefined}
           {headerMain || t<string>('Details')}
         </div>
-        {headerSub && <div className='ui--Expander-summary-sub'>{headerSub}</div>}
+        {headerSub && <div className="ui--Expander-summary-sub">{headerSub}</div>}
       </div>
       {hasContent && (isExpanded || withHidden) && (
-        <div className='ui--Expander-content'>{children}</div>
+        <div className="ui--Expander-content">{children}</div>
       )}
     </div>
   );

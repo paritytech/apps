@@ -8,7 +8,8 @@ import React, { useCallback, useState } from 'react';
 import { Props } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
-function Balance ({ className = '',
+function Balance({
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
@@ -16,12 +17,13 @@ function Balance ({ className = '',
   onChange,
   onEnter,
   onEscape,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
   const [defaultValue] = useState(new BN(((value as BN) || '0').toString()).toString(10));
 
   const _onChange = useCallback(
-    (value ?: BN) : void => {
+    (value?: BN): void => {
       const isValid = !isError && !!value;
 
       onChange &&
@@ -37,7 +39,7 @@ function Balance ({ className = '',
   return (
     <Bare className={className}>
       <InputBalance
-        className='full'
+        className="full"
         defaultValue={defaultValue}
         isDisabled={isDisabled}
         isError={isError || !isValid}

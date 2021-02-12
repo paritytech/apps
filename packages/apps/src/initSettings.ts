@@ -9,7 +9,7 @@ import store from 'store';
 
 import settings from '@polkadot/ui-settings';
 
-function getApiUrl () : string {
+function getApiUrl(): string {
   // we split here so that both these forms are allowed
   //  - http://localhost:3000/?rpc=wss://substrate-rpc.parity.io/#/explorer
   //  - http://localhost:3000/#/explorer?rpc=wss://substrate-rpc.parity.io
@@ -24,7 +24,7 @@ function getApiUrl () : string {
     return urlOptions.rpc.split('#')[0]; // https://polkadot.js.org/apps/?rpc=ws://127.0.0.1:9944#/explorer;
   }
 
-  const endpoints = createEndpoints(<T = string> () : T => ('' as unknown) as T);
+  const endpoints = createEndpoints(<T = string>(): T => ('' as unknown) as T);
   const { ipnsChain } = extractIpfsDetails();
 
   // check against ipns domains (could be expanded to others)
@@ -43,8 +43,8 @@ function getApiUrl () : string {
   return [stored.apiUrl, process.env.WS_URL].includes(settings.apiUrl)
     ? settings.apiUrl // keep as-is
     : fallbackUrl
-      ? (fallbackUrl.value as string) // grab the fallback
-      : 'ws://127.0.0.1:9944'; // nothing found, go local
+    ? (fallbackUrl.value as string) // grab the fallback
+    : 'ws://127.0.0.1:9944'; // nothing found, go local
 }
 
 const apiUrl = getApiUrl();

@@ -35,17 +35,19 @@ const NOT_FOUND: Route = {
   text: 'Unknown'
 };
 
-function Content ({ className }: Props): React.ReactElement<Props> {
+function Content({ className }: Props): React.ReactElement<Props> {
   const location = useLocation();
   const { t } = useTranslation();
   const { isApiConnected, isApiReady } = useApi();
   const navigateTo = useAppNavigation();
   const { queueAction, stqueue, txqueue } = useContext(StatusContext);
-  const { Component,
+  const {
+    Component,
     display: { needsApi },
-    name } = useMemo((): Route => {
+    name
+  } = useMemo((): Route => {
     const app = location.pathname.slice(1) || '';
-    const found = createRoutes(t).find((route) => !!(route && app.startsWith(route.name)));
+    const found = createRoutes(t).find(route => !!(route && app.startsWith(route.name)));
 
     return found || NOT_FOUND;
   }, [location, t]);
@@ -57,9 +59,9 @@ function Content ({ className }: Props): React.ReactElement<Props> {
   if (!isApiConnected && name !== 'settings') {
     return (
       <div className={className}>
-        <div className='disconnected'>
+        <div className="disconnected">
           <div>
-            <Icon icon='warning-circle' />
+            <Icon icon="warning-circle" />
             {t<string>('You are not connected to a node.')}
             <br />
             {t<string>(
@@ -77,8 +79,7 @@ function Content ({ className }: Props): React.ReactElement<Props> {
 
   return (
     <div className={classes(className, isLoading && 'isLoading')}>
-      <WithLoader isLoading={isLoading}
-        text={t<string>('Initializing connection')}>
+      <WithLoader isLoading={isLoading} text={t<string>('Initializing connection')}>
         <Suspense
           fallback={
             <WithLoader text={t<string>('Loading')}>
@@ -97,9 +98,7 @@ function Content ({ className }: Props): React.ReactElement<Props> {
             <HelpWidget />
           </ErrorBoundary>
         </Suspense>
-        <Status queueAction={queueAction}
-          stqueue={stqueue}
-          txqueue={txqueue} />
+        <Status queueAction={queueAction} stqueue={stqueue} txqueue={txqueue} />
       </WithLoader>
     </div>
   );

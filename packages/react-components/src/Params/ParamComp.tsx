@@ -9,19 +9,20 @@ import Param from './Params';
 import { ComponentMap, RawParam, RawParamOnChangeValue, RawParams } from '../types';
 
 interface Props {
-  defaultValue : RawParam;
-  index : number;
-  isDisabled ?: boolean;
-  name ?: string;
-  onChange : (index : number, value : RawParamOnChangeValue) => void;
-  onEnter ?: () => void;
-  onEscape ?: () => void;
-  overrides ?: ComponentMap;
-  type : TypeDef;
-  values ?: RawParams | null;
+  defaultValue: RawParam;
+  index: number;
+  isDisabled?: boolean;
+  name?: string;
+  onChange: (index: number, value: RawParamOnChangeValue) => void;
+  onEnter?: () => void;
+  onEscape?: () => void;
+  overrides?: ComponentMap;
+  type: TypeDef;
+  values?: RawParams | null;
 }
 
-function ParamComp ({ defaultValue,
+function ParamComp({
+  defaultValue,
   index,
   isDisabled,
   name,
@@ -29,14 +30,15 @@ function ParamComp ({ defaultValue,
   onEnter,
   onEscape,
   overrides,
-  type } : Props) : React.ReactElement<Props> {
-  const _onChange = useCallback((value : RawParamOnChangeValue) : void => onChange(index, value), [
+  type
+}: Props): React.ReactElement<Props> {
+  const _onChange = useCallback((value: RawParamOnChangeValue): void => onChange(index, value), [
     index,
     onChange
   ]);
 
   return (
-    <div className='ui--Param-composite'>
+    <div className="ui--Param-composite">
       <Param
         defaultValue={defaultValue}
         isDisabled={isDisabled}

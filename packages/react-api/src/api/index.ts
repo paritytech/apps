@@ -4,7 +4,7 @@
 import typesChain from './chain';
 import typesSpec from './spec';
 
-export function getChainTypes () : Record<string, string | Record<string, unknown>> {
+export function getChainTypes(): Record<string, string | Record<string, unknown>> {
   return {};
 }
 

@@ -10,7 +10,8 @@ import styled from 'styled-components';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
 
-function Button ({ children,
+function Button({
+  children,
   className = '',
   icon,
   isBasic,
@@ -28,7 +29,8 @@ function Button ({ children,
   onMouseEnter,
   onMouseLeave,
   tabIndex,
-  withoutLink } : ButtonProps) : React.ReactElement<ButtonProps> {
+  withoutLink
+}: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(() => !(isBusy || isDisabled) && onClick && onClick(), [
     isBusy,
     isDisabled,
@@ -37,10 +39,14 @@ function Button ({ children,
 
   return (
     <button
-      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${isCircular ? ' isCircular' : ''
-      }${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${isBusy || isDisabled ? ' isDisabled' : ''
-      }${isBusy ? ' isBusy' : ''}${isNegative ? ' isNegative' : ''}${isPrimary ? ' isPrimary' : ''
-      }${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${withoutLink ? ' withoutLink' : ''
+      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${
+        isCircular ? ' isCircular' : ''
+      }${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${
+        isBusy || isDisabled ? ' isDisabled' : ''
+      }${isBusy ? ' isBusy' : ''}${isNegative ? ' isNegative' : ''}${
+        isPrimary ? ' isPrimary' : ''
+      }${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${
+        withoutLink ? ' withoutLink' : ''
       } ${className}`}
       onClick={_onClick}
       onMouseEnter={onMouseEnter}
@@ -50,8 +56,7 @@ function Button ({ children,
       {icon && <Icon icon={icon} />}
       {label}
       {children}
-      <Spinner className='ui--Button-spinner'
-        variant='cover' />
+      <Spinner className="ui--Button-spinner" variant="cover" />
     </button>
   );
 }
@@ -60,7 +65,7 @@ const ICON_PADDING = 0.5;
 
 export default React.memo(
   styled(Button)(
-    ({ theme } : ThemeProps) => `
+    ({ theme }: ThemeProps) => `
   background: transparent;
   border-color: var(--grey30);
   border-width: 2px;

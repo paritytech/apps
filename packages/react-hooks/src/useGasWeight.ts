@@ -14,7 +14,7 @@ import useBlockTime from './useBlockTime';
 
 const BN_MILLION = new BN(1_000_000);
 
-export default function useWeight (): UseWeight {
+export default function useWeight(): UseWeight {
   const { api } = useApi();
   const [blockTime] = useBlockTime();
   const [megaGas, _setMegaGas] = useState<BN>(

@@ -10,26 +10,22 @@ import Icon from './Icon';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  md : string;
+  md: string;
 }
 
-function HelpOverlay ({ className = '', md } : Props) : React.ReactElement<Props> {
+function HelpOverlay({ className = '', md }: Props): React.ReactElement<Props> {
   const [isVisible, toggleVisible] = useToggle();
 
   return (
     <div className={className}>
-      <div className='help-button'>
-        <Icon icon='question-circle'
-          onClick={toggleVisible} />
+      <div className="help-button">
+        <Icon icon="question-circle" onClick={toggleVisible} />
       </div>
       <div className={`help-slideout ${isVisible ? 'open' : 'closed'}`}>
-        <div className='help-button'>
-          <Icon icon='close'
-            onClick={toggleVisible} />
+        <div className="help-button">
+          <Icon icon="close" onClick={toggleVisible} />
         </div>
-        <ReactMd className='help-content'
-          escapeHtml={false}
-          source={md} />
+        <ReactMd className="help-content" escapeHtml={false} source={md} />
       </div>
     </div>
   );

@@ -3,8 +3,8 @@
 
 import { useCallback } from 'react';
 
-export default function useScrollToTop () : () => void {
-  return useCallback(() : void => {
+export default function useScrollToTop(): () => void {
+  return useCallback((): void => {
     window.scrollTo(0, 0);
   }, []);
 }

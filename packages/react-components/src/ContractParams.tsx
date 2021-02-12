@@ -6,15 +6,17 @@ import { UseTxParams } from './types';
 import React from 'react';
 
 interface Props extends UseTxParams {
-  isDisabled ?: boolean;
-  onEnter ?: () => void;
+  isDisabled?: boolean;
+  onEnter?: () => void;
 }
 
-function Params ({ isDisabled,
+function Params({
+  isDisabled,
   onChange,
   onEnter,
   params = [],
-  values } : Props) : React.ReactElement<Props> | null {
+  values
+}: Props): React.ReactElement<Props> | null {
   if (!params.length) {
     return null;
   }

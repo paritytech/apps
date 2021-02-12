@@ -7,10 +7,10 @@ import React, { useEffect, useState } from 'react';
 
 import { bnToBn } from '@polkadot/util';
 
-type Ticker = (now : number) => void;
+type Ticker = (now: number) => void;
 
 interface Props extends BareProps {
-  value ?: BN | Date | number;
+  value?: BN | Date | number;
 }
 
 const TICK_TIMEOUT = 100;
@@ -19,7 +19,7 @@ const tickers = new Map<number, Ticker>();
 let lastNow = Date.now();
 let lastId = 0;
 
-function tick () : void {
+function tick(): void {
   lastNow = Date.now();
 
   for (const ticker of tickers.values()) {
@@ -29,7 +29,7 @@ function tick () : void {
   setTimeout(tick, TICK_TIMEOUT);
 }
 
-function getDisplayValue (now = 0, value : BN | Date | number = 0) : string {
+function getDisplayValue(now = 0, value: BN | Date | number = 0): string {
   const tsValue =
     (value && (value as Date).getTime
       ? (value as Date).getTime()
@@ -55,15 +55,15 @@ function getDisplayValue (now = 0, value : BN | Date | number = 0) : string {
 
 tick();
 
-function Elapsed ({ className = '', value } : Props) : React.ReactElement<Props> {
+function Elapsed({ className = '', value }: Props): React.ReactElement<Props> {
   const [now, setNow] = useState(lastNow);
 
-  useEffect(() : (() => void) => {
+  useEffect((): (() => void) => {
     const id = lastId++;
 
     tickers.set(id, setNow);
 
-    return () : void => {
+    return (): void => {
       tickers.delete(id);
     };
   }, []);

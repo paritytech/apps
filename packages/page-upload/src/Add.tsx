@@ -16,7 +16,7 @@ import { isHex } from '@polkadot/util';
 
 import { useTranslation } from './translate';
 
-function Add ({ className, navigateTo }: Props): React.ReactElement<Props> {
+function Add({ className, navigateTo }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const showNotification = useNotification();
@@ -26,13 +26,15 @@ function Add ({ className, navigateTo }: Props): React.ReactElement<Props> {
     [codeHash]
   );
   const [name, setName, isNameValid, isNameError] = useNonEmptyString();
-  const { abi,
+  const {
+    abi,
     errorText,
     isAbiError,
     isAbiSupplied,
     isAbiValid,
     onChangeAbi,
-    onRemoveAbi } = useAbi();
+    onRemoveAbi
+  } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
   const { hasCodes } = useCodes();
   const [isCodeHashValid, status] = useMemo((): [boolean, React.ReactNode | null] => {
@@ -94,7 +96,7 @@ function Add ({ className, navigateTo }: Props): React.ReactElement<Props> {
     <>
       <header>
         <h1>{t<string>('Add Existing Code Hash')}</h1>
-        <div className='instructions'>
+        <div className="instructions">
           {t<string>(
             'Using the unique code hash you can add on-chain contract code for you to deploy.'
           )}
@@ -128,12 +130,8 @@ function Add ({ className, navigateTo }: Props): React.ReactElement<Props> {
           withLabel
         />
         <Button.Group>
-          <Button isDisabled={!isValid}
-            isPrimary
-            label={t<string>('Save')}
-            onClick={_onSave} />
-          <Button label={t<string>('Cancel')}
-            onClick={navigateTo.upload} />
+          <Button isDisabled={!isValid} isPrimary label={t<string>('Save')} onClick={_onSave} />
+          <Button label={t<string>('Cancel')} onClick={navigateTo.upload} />
         </Button.Group>
       </section>
     </>

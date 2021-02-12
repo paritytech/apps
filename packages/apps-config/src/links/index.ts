@@ -7,7 +7,7 @@ import Polkassembly from './polkassembly';
 import Subscan from './subscan';
 import { ExternalDef } from './types';
 
-const externals : Record<string, ExternalDef> = {
+const externals: Record<string, ExternalDef> = {
   Commonwealth,
   Polkascan,
   Polkassembly,

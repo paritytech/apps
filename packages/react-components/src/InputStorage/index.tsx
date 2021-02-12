@@ -25,12 +25,14 @@ interface Props {
   withLabel?: boolean;
 }
 
-function InputStorage ({ className = '',
+function InputStorage({
+  className = '',
   defaultValue,
   help,
   label,
   onChange,
-  withLabel }: Props): React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(
     keyOptions(api, defaultValue.creator.section)
@@ -69,20 +71,14 @@ function InputStorage ({ className = '',
   );
 
   return (
-    <LinkedWrapper className={className}
-      help={help}
-      label={label}
-      withLabel={withLabel}>
+    <LinkedWrapper className={className} help={help} label={label} withLabel={withLabel}>
       <SelectSection
-        className='small'
+        className="small"
         onChange={_onSectionChange}
         options={optionsSection}
         value={value}
       />
-      <SelectKey className='large'
-        onChange={_onKeyChange}
-        options={optionsMethod}
-        value={value} />
+      <SelectKey className="large" onChange={_onKeyChange} options={optionsMethod} value={value} />
     </LinkedWrapper>
   );
 }

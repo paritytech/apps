@@ -191,38 +191,38 @@ export type RawParamValueArray = (RawParamValue | RawParamValue[])[];
 export type RawParamValues = RawParamValue | RawParamValueArray;
 
 export interface RawParam {
-  isValid : boolean;
-  value : RawParamValues;
+  isValid: boolean;
+  value: RawParamValues;
 }
 
 export interface RawParamOnChangeValue {
-  isValid : boolean;
-  value : RawParamValues;
+  isValid: boolean;
+  value: RawParamValues;
 }
 
-export type RawParamOnChange = (value : RawParamOnChangeValue) => void;
+export type RawParamOnChange = (value: RawParamOnChangeValue) => void;
 export type RawParamOnEnter = () => void;
 export type RawParamOnEscape = () => void;
 
 export type RawParams = RawParam[];
 
 export interface Props {
-  className ?: string;
-  defaultValue : RawParam;
-  isDisabled ?: boolean;
-  isError ?: boolean;
-  isInOption ?: boolean;
-  isReadOnly ?: boolean;
-  isOptional ?: boolean;
-  label ?: React.ReactNode;
-  name ?: string;
-  onChange ?: RawParamOnChange;
-  onEnter ?: RawParamOnEnter;
-  onEscape ?: RawParamOnEscape;
+  className?: string;
+  defaultValue: RawParam;
+  isDisabled?: boolean;
+  isError?: boolean;
+  isInOption?: boolean;
+  isReadOnly?: boolean;
+  isOptional?: boolean;
+  label?: React.ReactNode;
+  name?: string;
+  onChange?: RawParamOnChange;
+  onEnter?: RawParamOnEnter;
+  onEscape?: RawParamOnEscape;
   // eslint-disable-next-line no-use-before-define
-  overrides ?: ComponentMap;
-  type : TypeDef & { withOptionActive ?: boolean };
-  withLabel ?: boolean;
+  overrides?: ComponentMap;
+  type: TypeDef & { withOptionActive?: boolean };
+  withLabel?: boolean;
 }
 
 export type Size = 'full' | 'large' | 'medium' | 'small';
@@ -230,15 +230,15 @@ export type Size = 'full' | 'large' | 'medium' | 'small';
 export type ComponentMap = Record<string, React.ComponentType<Props>>;
 
 export interface ParamDef {
-  length ?: number;
-  name ?: string;
-  type : TypeDef;
+  length?: number;
+  name?: string;
+  type: TypeDef;
 }
 
 export interface UseTxParams {
-  params : ParamDef[];
-  values : RawParams;
-  onChange : React.Dispatch<RawParams>;
+  params: ParamDef[];
+  values: RawParams;
+  onChange: React.Dispatch<RawParams>;
 }
 
 export type UseTxParamsHook = [ParamDef[], RawParams, React.Dispatch<RawParams>];

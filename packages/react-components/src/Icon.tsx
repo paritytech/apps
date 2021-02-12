@@ -11,26 +11,28 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  className ?: string;
-  color ?: 'gray' | 'green' | 'normal' | 'orange' | 'red' | 'transparent' | 'white';
-  icon : IconName | IconType;
-  isSpinning ?: boolean;
-  onClick ?: () => void;
-  size ?: '1x' | '2x';
-  tooltip ?: string;
+  className?: string;
+  color?: 'gray' | 'green' | 'normal' | 'orange' | 'red' | 'transparent' | 'white';
+  icon: IconName | IconType;
+  isSpinning?: boolean;
+  onClick?: () => void;
+  size?: '1x' | '2x';
+  tooltip?: string;
 }
 
 // one-time init of FA libraries
 // library.add(far);
 library.add(fas);
 
-function Icon ({ className = '',
+function Icon({
+  className = '',
   color = 'normal',
   icon,
   isSpinning,
   onClick,
   size = '1x',
-  tooltip } : Props) : React.ReactElement<Props> {
+  tooltip
+}: Props): React.ReactElement<Props> {
   const extraProps = tooltip ? { 'data-for': tooltip, 'data-tip': true } : {};
 
   return (

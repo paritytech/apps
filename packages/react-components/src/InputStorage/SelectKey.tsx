@@ -19,7 +19,7 @@ interface Props extends BareProps {
   value: QueryableStorageEntry<'promise'>;
 }
 
-function transform (
+function transform(
   api: ApiPromise,
   { value }: Props
 ): (method: string) => QueryableStorageEntry<'promise'> {
@@ -31,7 +31,7 @@ function transform (
   };
 }
 
-function SelectKey (props: Props): React.ReactElement<Props> | null {
+function SelectKey(props: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const { className = '', isError, onChange, options, value } = props;
 

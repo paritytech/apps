@@ -14,7 +14,7 @@ const nodeEdgeware = '#0a95df';
 const nodeNodle = '#1ab394';
 
 // overrides based on the actual matched chain name
-const chainColors : Record<string, any> = [
+const chainColors: Record<string, any> = [
   ['Kulupu', chainKulupu],
   ['Kusama', chainKusama],
   ['Kusama CC1', chainKusama],
@@ -24,7 +24,7 @@ const chainColors : Record<string, any> = [
   ['Polkadot CC1', chainPolkadot],
   ['Westend', chainWestend]
 ].reduce(
-  (colors, [chain, color]) : Record<string, any> => ({
+  (colors, [chain, color]): Record<string, any> => ({
     ...colors,
     [chain.toLowerCase()]: color
   }),
@@ -32,7 +32,7 @@ const chainColors : Record<string, any> = [
 );
 
 // overrides based on the actual software node type (all '-' converted to ' ')
-const nodeColors : Record<string, any> = [
+const nodeColors: Record<string, any> = [
   ['centrifuge chain', nodeCentrifuge],
   ['edgeware node', nodeEdgeware],
   ['nodle chain node', nodeNodle]
@@ -40,7 +40,7 @@ const nodeColors : Record<string, any> = [
   // ['parity polkadot', emptyColor],
   // ['substrate node', emptyColor]
 ].reduce(
-  (colors, [node, color]) : Record<string, any> => ({
+  (colors, [node, color]): Record<string, any> => ({
     ...colors,
     [node.toLowerCase().replace(/-/g, ' ')]: color
   }),

@@ -15,12 +15,12 @@ export default class ApiSigner implements Signer {
 
   readonly #queueSetTxStatus: QueueTxMessageSetStatus;
 
-  constructor (queuePayload: QueueTxPayloadAdd, queueSetTxStatus: QueueTxMessageSetStatus) {
+  constructor(queuePayload: QueueTxPayloadAdd, queueSetTxStatus: QueueTxMessageSetStatus) {
     this.#queuePayload = queuePayload;
     this.#queueSetTxStatus = queueSetTxStatus;
   }
 
-  public async signPayload (payload: SignerPayloadJSON): Promise<SignerResult> {
+  public async signPayload(payload: SignerPayloadJSON): Promise<SignerResult> {
     return new Promise((resolve, reject): void => {
       this.#queuePayload(payload, (id: number, result: SignerResult | null): void => {
         if (result) {
@@ -32,7 +32,7 @@ export default class ApiSigner implements Signer {
     });
   }
 
-  public update (id: number, result: Hash | SubmittableResult): void {
+  public update(id: number, result: Hash | SubmittableResult): void {
     if (result instanceof ClassOf(registry, 'Hash')) {
       this.#queueSetTxStatus(id, 'sent', result.toHex());
     } else {

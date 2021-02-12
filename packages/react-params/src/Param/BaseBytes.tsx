@@ -5,43 +5,51 @@ import { Input } from '@canvas-ui/react-components';
 import React, { useCallback, useState } from 'react';
 
 import { TypeDef } from '@polkadot/types/types';
-import { compactAddLength,
+import {
+  compactAddLength,
   hexToU8a,
   isAscii,
   isHex,
   isU8a,
   stringToU8a,
   u8aToHex,
-  u8aToString } from '@polkadot/util';
+  u8aToString
+} from '@polkadot/util';
 import { decodeAddress } from '@polkadot/util-crypto';
 
 import { useTranslation } from '../translate';
-import { RawParam, RawParamOnChange, RawParamOnEnter, RawParamOnEscape, Size } from '@canvas-ui/react-components/types';
+import {
+  RawParam,
+  RawParamOnChange,
+  RawParamOnEnter,
+  RawParamOnEscape,
+  Size
+} from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
 interface Props {
-  asHex ?: boolean;
-  children ?: React.ReactNode;
-  className ?: string;
-  defaultValue : RawParam;
-  isDisabled ?: boolean;
-  isError ?: boolean;
-  label ?: React.ReactNode;
-  length ?: number;
-  name ?: string;
-  onChange ?: RawParamOnChange;
-  onEnter ?: RawParamOnEnter;
-  onEscape ?: RawParamOnEscape;
-  size ?: Size;
-  type : TypeDef & { withOptionActive ?: boolean };
-  validate ?: (u8a : Uint8Array) => boolean;
-  withLabel ?: boolean;
-  withLength ?: boolean;
+  asHex?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  defaultValue: RawParam;
+  isDisabled?: boolean;
+  isError?: boolean;
+  label?: React.ReactNode;
+  length?: number;
+  name?: string;
+  onChange?: RawParamOnChange;
+  onEnter?: RawParamOnEnter;
+  onEscape?: RawParamOnEscape;
+  size?: Size;
+  type: TypeDef & { withOptionActive?: boolean };
+  validate?: (u8a: Uint8Array) => boolean;
+  withLabel?: boolean;
+  withLength?: boolean;
 }
 
-const defaultValidate = () : boolean => true;
+const defaultValidate = (): boolean => true;
 
-function convertInput (value : string) : [boolean, Uint8Array] {
+function convertInput(value: string): [boolean, Uint8Array] {
   if (value === '0x') {
     return [true, new Uint8Array([])];
   } else if (value.startsWith('0x')) {
@@ -62,7 +70,8 @@ function convertInput (value : string) : [boolean, Uint8Array] {
   return isAscii(value) ? [true, stringToU8a(value)] : [value === '0x', new Uint8Array([])];
 }
 
-function BaseBytes ({ asHex,
+function BaseBytes({
+  asHex,
   children,
   className = '',
   defaultValue: { value },
@@ -76,21 +85,22 @@ function BaseBytes ({ asHex,
   size = 'full',
   validate = defaultValidate,
   withLabel,
-  withLength } : Props) : React.ReactElement<Props> {
+  withLength
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [defaultValue] = useState(
     value
       ? isDisabled && isU8a(value) && isAscii(value)
         ? u8aToString(value)
         : isHex(value)
-          ? value
-          : u8aToHex(value as Uint8Array, isDisabled ? 256 : -1)
+        ? value
+        : u8aToHex(value as Uint8Array, isDisabled ? 256 : -1)
       : undefined
   );
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
-    (hex : string) : void => {
+    (hex: string): void => {
       let [isValid, value] = convertInput(hex);
 
       isValid =
@@ -126,7 +136,7 @@ function BaseBytes ({ asHex,
         onEnter={onEnter}
         onEscape={onEscape}
         placeholder={t<string>('0x prefixed hex, e.g. 0x1234 or ascii data')}
-        type='text'
+        type="text"
         withEllipsis
         withLabel={withLabel}
       >

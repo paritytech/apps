@@ -7,24 +7,24 @@ import styled from 'styled-components';
 import Labelled from '../Labelled';
 
 interface Props {
-  children : React.ReactNode;
-  className ?: string;
-  help ?: React.ReactNode;
-  label : React.ReactNode;
-  withLabel ?: boolean;
+  children: React.ReactNode;
+  className?: string;
+  help?: React.ReactNode;
+  label: React.ReactNode;
+  withLabel?: boolean;
 }
 
-function LinkedWrapper ({ children,
+function LinkedWrapper({
+  children,
   className = '',
   help,
   label,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   return (
     <div className={className}>
-      <Labelled help={help}
-        label={label}
-        withLabel={withLabel}>
-        <div className='ui--DropdownLinked ui--row'>{children}</div>
+      <Labelled help={help} label={label} withLabel={withLabel}>
+        <div className="ui--DropdownLinked ui--row">{children}</div>
       </Labelled>
     </div>
   );

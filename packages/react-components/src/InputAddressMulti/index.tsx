@@ -11,14 +11,14 @@ import Available from './Available';
 import Selected from './Selected';
 
 interface Props {
-  available : string[];
-  availableLabel : React.ReactNode;
-  className ?: string;
-  defaultValue ?: string[];
-  help : React.ReactNode;
-  maxCount : number;
-  onChange : (values : string[]) => void;
-  valueLabel : React.ReactNode;
+  available: string[];
+  availableLabel: React.ReactNode;
+  className?: string;
+  defaultValue?: string[];
+  help: React.ReactNode;
+  maxCount: number;
+  onChange: (values: string[]) => void;
+  valueLabel: React.ReactNode;
 }
 
 // import { DragDropContext, Droppable, DraggableLocation, DroppableProvided, DropResult } from 'react-beautiful-dnd';
@@ -76,29 +76,31 @@ interface Props {
 
 // NOTE Drag code above, disabled since it has massive performance implications
 
-function InputAddressMulti ({ available,
+function InputAddressMulti({
+  available,
   availableLabel,
   className = '',
   defaultValue,
   maxCount,
   onChange,
-  valueLabel } : Props) : React.ReactElement<Props> {
+  valueLabel
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [_filter, setFilter] = useState<string>('');
   const [selected, setSelected] = useState<string[]>([]);
   const filter = useDebounce(_filter);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     defaultValue && setSelected(defaultValue);
   }, [defaultValue]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     selected && onChange(selected);
   }, [onChange, selected]);
 
   const _onSelect = useCallback(
-    (address : string) : void =>
-      setSelected((selected : string[]) =>
+    (address: string): void =>
+      setSelected((selected: string[]) =>
         !selected.includes(address) && selected.length < maxCount
           ? selected.concat(address)
           : selected
@@ -107,9 +109,9 @@ function InputAddressMulti ({ available,
   );
 
   const _onDeselect = useCallback(
-    (address : string) : void =>
-      setSelected((selected : string[]) =>
-        selected.includes(address) ? selected.filter((a) => a !== address) : selected
+    (address: string): void =>
+      setSelected((selected: string[]) =>
+        selected.includes(address) ? selected.filter(a => a !== address) : selected
       ),
     []
   );
@@ -118,18 +120,18 @@ function InputAddressMulti ({ available,
     <div className={`ui--InputAddressMulti ${className}`}>
       <Input
         autoFocus
-        className='ui--InputAddressMulti-Input label-small'
+        className="ui--InputAddressMulti-Input label-small"
         onChange={setFilter}
         placeholder={t<string>('filter by name, address, or account index')}
         value={_filter}
         withLabel={false}
       />
-      <div className='ui--InputAddressMulti-columns'>
-        <div className='ui--InputAddressMulti-column'>
+      <div className="ui--InputAddressMulti-columns">
+        <div className="ui--InputAddressMulti-column">
           <label>{valueLabel}</label>
-          <div className='ui--InputAddressMulti-items'>
+          <div className="ui--InputAddressMulti-items">
             {selected.map(
-              (address) : React.ReactNode => (
+              (address): React.ReactNode => (
                 <Selected
                   address={address}
                   filter={filter}
@@ -140,11 +142,11 @@ function InputAddressMulti ({ available,
             )}
           </div>
         </div>
-        <div className='ui--InputAddressMulti-column'>
+        <div className="ui--InputAddressMulti-column">
           <label>{availableLabel}</label>
-          <div className='ui--InputAddressMulti-items'>
+          <div className="ui--InputAddressMulti-items">
             {available.map(
-              (address) : React.ReactNode => (
+              (address): React.ReactNode => (
                 <Available
                   address={address}
                   filter={filter}

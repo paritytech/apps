@@ -7,7 +7,7 @@ import { StringOrNull } from '@canvas-ui/react-api/types';
 import { ApiPromise } from '@polkadot/api';
 import { ContractPromise as Contract } from '@polkadot/api-contract';
 
-export default function getContractForAddress (
+export default function getContractForAddress(
   api: ApiPromise,
   address: StringOrNull
 ): Contract | null {

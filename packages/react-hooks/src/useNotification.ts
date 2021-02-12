@@ -5,11 +5,11 @@ import StatusContext from '@canvas-ui/react-api/Status/Context';
 import { ActionStatus } from '@canvas-ui/react-api/Status/types';
 import { useCallback, useContext } from 'react';
 
-export default function useNotification () : (_ : ActionStatus) => void {
+export default function useNotification(): (_: ActionStatus) => void {
   const { queueAction } = useContext(StatusContext);
 
   return useCallback(
-    (action : ActionStatus) => {
+    (action: ActionStatus) => {
       queueAction(action);
     },
     [queueAction]

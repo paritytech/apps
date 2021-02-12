@@ -32,11 +32,13 @@ export interface Props extends BareProps {
 //   margin: 0 !important;
 // `;
 
-function Message ({ className,
+function Message({
+  className,
   isConstructor,
   message,
   onSelect,
-  registry }: Props): React.ReactElement<Props> {
+  registry
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { docs, identifier } = message;
 
@@ -58,23 +60,22 @@ function Message ({ className,
       key={identifier}
     >
       <Tippy
-        animation='fade'
+        animation="fade"
         arrow={false}
-        content={<Docs docs={docs}
-          signature={signature} />}
+        content={<Docs docs={docs} signature={signature} />}
         interactive
         offset={[30, 0]}
-        placement='bottom-start'
+        placement="bottom-start"
         plugins={[followCursor]}
-        theme='transparent'
-        trigger='mouseenter'
+        theme="transparent"
+        trigger="mouseenter"
       >
         <div style={{ height: '100%', padding: '0.5rem 1rem', width: '100%' }}>
           {signature}
           {!isConstructor && onSelect && (
-            <div className='accessory'>
+            <div className="accessory">
               <Button
-                className='execute'
+                className="execute"
                 icon={isConstructor ? 'cloud-upload' : 'play'}
                 onClick={onSelect}
                 tooltip={t<string>(

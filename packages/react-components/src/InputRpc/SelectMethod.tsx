@@ -12,19 +12,19 @@ import Dropdown from '../Dropdown';
 import { BareProps } from '../types';
 
 interface Props extends BareProps {
-  isError ?: boolean;
-  onChange : (value : DefinitionRpcExt) => void;
-  options : DropdownOptions;
-  value : DefinitionRpcExt;
+  isError?: boolean;
+  onChange: (value: DefinitionRpcExt) => void;
+  options: DropdownOptions;
+  value: DefinitionRpcExt;
 }
 
-function transform ({ value: { section } } : Props) : (method : string) => DefinitionRpcExt {
-  return function (method : string) : DefinitionRpcExt {
+function transform({ value: { section } }: Props): (method: string) => DefinitionRpcExt {
+  return function (method: string): DefinitionRpcExt {
     return jsonrpc[section][method];
   };
 }
 
-function SelectMethod (props : Props) : React.ReactElement<Props> | null {
+function SelectMethod(props: Props): React.ReactElement<Props> | null {
   const { className = '', isError, onChange, options, value } = props;
 
   if (!options.length) {

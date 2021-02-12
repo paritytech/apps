@@ -3,7 +3,7 @@
 
 import { QueueTxStatus } from './types';
 
-export const STATUS_COMPLETE : QueueTxStatus[] = [
+export const STATUS_COMPLETE: QueueTxStatus[] = [
   // status from subscription
   'finalitytimeout',
   'finalized',

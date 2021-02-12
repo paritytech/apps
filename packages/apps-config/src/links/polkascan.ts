@@ -12,7 +12,7 @@ export default {
     'Kusama CC3': 'kusama',
     'Polkadot CC1': 'polkadot-cc1'
   },
-  create: (chain : string, path : string, data : BN | number | string) : string =>
+  create: (chain: string, path: string, data: BN | number | string): string =>
     `https://polkascan.io/${chain}/${path}/${data.toString()}`,
   isActive: true,
   paths: {

@@ -14,7 +14,8 @@ import { assert, isFunction } from '@polkadot/util';
 import Button from './Button';
 import { useTranslation } from './translate';
 
-function TxButton ({ accountId,
+function TxButton({
+  accountId,
   className = '',
   extrinsic: propsExtrinsic,
   icon,
@@ -35,19 +36,20 @@ function TxButton ({ accountId,
   tooltip,
   tx,
   withSpinner,
-  withoutLink } : Props) : React.ReactElement<Props> {
+  withoutLink
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const mountedRef = useIsMountedRef();
   const { queueExtrinsic } = useContext(StatusContext);
   const [isSending, setIsSending] = useState(false);
   const [isStarted, setIsStarted] = useState(false);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     isStarted && onStart && onStart();
   }, [isStarted, onStart]);
 
   const _onFailed = useCallback(
-    (result : SubmittableResult | null) : void => {
+    (result: SubmittableResult | null): void => {
       mountedRef.current && setIsSending(false);
 
       onFailed && onFailed(result);
@@ -56,7 +58,7 @@ function TxButton ({ accountId,
   );
 
   const _onSuccess = useCallback(
-    (result : SubmittableResult) : void => {
+    (result: SubmittableResult): void => {
       mountedRef.current && setIsSending(false);
 
       onSuccess && onSuccess(result);
@@ -64,12 +66,12 @@ function TxButton ({ accountId,
     [onSuccess, setIsSending, mountedRef]
   );
 
-  const _onStart = useCallback(() : void => {
+  const _onStart = useCallback((): void => {
     mountedRef.current && setIsStarted(true);
   }, [setIsStarted, mountedRef]);
 
-  const _onSend = useCallback(() : void => {
-    let extrinsics : SubmittableExtrinsic<'promise'>[] | undefined;
+  const _onSend = useCallback((): void => {
+    let extrinsics: SubmittableExtrinsic<'promise'>[] | undefined;
 
     if (propsExtrinsic) {
       extrinsics = Array.isArray(propsExtrinsic) ? propsExtrinsic : [propsExtrinsic];
@@ -81,7 +83,7 @@ function TxButton ({ accountId,
 
     mountedRef.current && withSpinner && setIsSending(true);
 
-    extrinsics.forEach((extrinsic) : void => {
+    extrinsics.forEach((extrinsic): void => {
       queueExtrinsic({
         accountId: accountId && accountId.toString(),
         extrinsic,

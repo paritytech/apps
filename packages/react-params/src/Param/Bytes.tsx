@@ -12,7 +12,8 @@ import { Props } from '@canvas-ui/react-components/types';
 import BaseBytes from './BaseBytes';
 import File from './File';
 
-function Bytes ({ className = '',
+function Bytes({
+  className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -22,13 +23,14 @@ function Bytes ({ className = '',
   onEnter,
   onEscape,
   type,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isValid, setIsValid] = useState(false);
   const [isFileDrop, setFileInput] = useState(false);
 
   const _onChangeFile = useCallback(
-    (value : Uint8Array) : void => {
+    (value: Uint8Array): void => {
       const isValid = value.length !== 0;
 
       onChange &&
@@ -44,32 +46,30 @@ function Bytes ({ className = '',
 
   return (
     <div className={className}>
-      {!isDisabled && isFileDrop
-        ? (
-          <File
-            isDisabled={isDisabled}
-            isError={isError || !isValid}
-            label={label}
-            onChange={_onChangeFile}
-            withLabel={withLabel}
-          />
-        )
-        : (
-          <BaseBytes
-            defaultValue={defaultValue}
-            isDisabled={isDisabled}
-            isError={isError}
-            label={label}
-            length={-1}
-            name={name}
-            onChange={onChange}
-            onEnter={onEnter}
-            onEscape={onEscape}
-            type={type}
-            withLabel={withLabel}
-            withLength
-          />
-        )}
+      {!isDisabled && isFileDrop ? (
+        <File
+          isDisabled={isDisabled}
+          isError={isError || !isValid}
+          label={label}
+          onChange={_onChangeFile}
+          withLabel={withLabel}
+        />
+      ) : (
+        <BaseBytes
+          defaultValue={defaultValue}
+          isDisabled={isDisabled}
+          isError={isError}
+          label={label}
+          length={-1}
+          name={name}
+          onChange={onChange}
+          onEnter={onEnter}
+          onEscape={onEscape}
+          type={type}
+          withLabel={withLabel}
+          withLength
+        />
+      )}
       {!isDisabled && (
         <Toggle
           isOverlay

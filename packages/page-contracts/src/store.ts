@@ -10,30 +10,30 @@ import { Code } from './types';
 
 const KEY_CODE = 'code:';
 
-function newId () : string {
+function newId(): string {
   return nanoid(6);
 }
 
 class Store extends EventEmitter {
-  private allCode : Record<string, Code> = {};
+  private allCode: Record<string, Code> = {};
 
-  private hashToId : Record<string, string> = {};
+  private hashToId: Record<string, string> = {};
 
-  public get hasCode () : boolean {
+  public get hasCode(): boolean {
     return Object.keys(this.allCode).length !== 0;
   }
 
-  public isHashSaved (codeHash : string) : boolean {
+  public isHashSaved(codeHash: string): boolean {
     return !!this.hashToId[codeHash];
   }
 
   public isReady = false;
 
-  public getAllCode () : Code[] {
+  public getAllCode(): Code[] {
     return Object.values(this.allCode);
   }
 
-  public getCode (id : string) : Code | null {
+  public getCode(id: string): Code | null {
     return this.allCode[id] || null;
   }
 
@@ -42,7 +42,7 @@ class Store extends EventEmitter {
   // }
 
   // eslint-disable-next-line @typescript-eslint/require-await
-  public async saveCode (code : Pick<Code, never>, anId ?: string) : Promise<string> {
+  public async saveCode(code: Pick<Code, never>, anId?: string): Promise<string> {
     const id = anId || newId();
     const existing = anId ? this.getCode(anId) : null;
 
@@ -60,14 +60,14 @@ class Store extends EventEmitter {
     return id;
   }
 
-  public forgetCode (id : string) : void {
+  public forgetCode(id: string): void {
     store.remove(`${KEY_CODE}${id}`);
 
     this.removeCode(id);
   }
 
-  public forgetAll () : void {
-    Object.keys(this.allCode).forEach((id) => {
+  public forgetAll(): void {
+    Object.keys(this.allCode).forEach(id => {
       this.forgetCode(id);
     });
   }
@@ -79,13 +79,13 @@ class Store extends EventEmitter {
   //   this.removeCode(id);
   // }
 
-  public async loadAll () : Promise<void> {
+  public async loadAll(): Promise<void> {
     try {
       await api.isReady;
 
       const genesisHash = api.genesisHash.toHex();
 
-      store.each((json : Code, key : string) : void => {
+      store.each((json: Code, key: string): void => {
         if (json && json.genesisHash !== genesisHash) {
           return;
         }
@@ -102,7 +102,7 @@ class Store extends EventEmitter {
     }
   }
 
-  private addCode (id : string, json : Code) : void {
+  private addCode(id: string, json: Code): void {
     try {
       this.hashToId[json.codeHash] = id;
       this.allCode[id] = json;
@@ -113,7 +113,7 @@ class Store extends EventEmitter {
     }
   }
 
-  private removeCode (id : string) : void {
+  private removeCode(id: string): void {
     try {
       const { codeHash } = this.allCode[id];
 

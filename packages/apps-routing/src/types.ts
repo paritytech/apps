@@ -4,23 +4,23 @@
 import { AppProps, BareProps } from '@canvas-ui/react-components/types';
 
 export interface RouteProps extends AppProps, BareProps {
-  location : any;
+  location: any;
 }
 
 export interface Route {
-  Component : React.ComponentType<RouteProps>;
-  Modal ?: React.ComponentType<any>;
-  display : {
-    isHidden ?: boolean;
-    needsAccounts ?: boolean;
-    needsCodes ?: boolean;
-    needsApi ?: (string | string[])[];
-    needsSudo ?: boolean;
+  Component: React.ComponentType<RouteProps>;
+  Modal?: React.ComponentType<any>;
+  display: {
+    isHidden?: boolean;
+    needsAccounts?: boolean;
+    needsCodes?: boolean;
+    needsApi?: (string | string[])[];
+    needsSudo?: boolean;
   };
-  isIgnored ?: boolean;
-  name : string;
-  text : string;
-  useCounter ?: () => number | string | null;
+  isIgnored?: boolean;
+  name: string;
+  text: string;
+  useCounter?: () => number | string | null;
 }
 
 export type Routes = (Route | null)[];

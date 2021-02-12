@@ -7,31 +7,32 @@ import styled from 'styled-components';
 import Tooltip from './Tooltip';
 
 interface Props {
-  className ?: string;
-  hover ?: React.ReactNode;
-  info : React.ReactNode;
-  isGray ?: boolean;
-  isInline ?: boolean;
-  isSmall ?: boolean;
-  isTooltip ?: boolean;
-  onClick ?: () => void;
-  type :
-  | 'counter'
-  | 'online'
-  | 'offline'
-  | 'next'
-  | 'runnerup'
-  | 'selected'
-  | 'green'
-  | 'blue'
-  | 'brown'
-  | 'gray'
-  | 'purple';
+  className?: string;
+  hover?: React.ReactNode;
+  info: React.ReactNode;
+  isGray?: boolean;
+  isInline?: boolean;
+  isSmall?: boolean;
+  isTooltip?: boolean;
+  onClick?: () => void;
+  type:
+    | 'counter'
+    | 'online'
+    | 'offline'
+    | 'next'
+    | 'runnerup'
+    | 'selected'
+    | 'green'
+    | 'blue'
+    | 'brown'
+    | 'gray'
+    | 'purple';
 }
 
 let badgeId = 0;
 
-function Badge ({ className = '',
+function Badge({
+  className = '',
   hover,
   info,
   isGray,
@@ -39,22 +40,23 @@ function Badge ({ className = '',
   isSmall,
   isTooltip,
   onClick,
-  type } : Props) : React.ReactElement<Props> | null {
+  type
+}: Props): React.ReactElement<Props> | null {
   const [trigger] = useState(`badge-hover-${Date.now()}-${badgeId++}`);
 
   return (
     <div
-      className={`ui--Badge ${isGray ? 'isGray' : ''} ${isInline ? 'isInline' : ''} ${isTooltip ? 'isTooltip' : ''
+      className={`ui--Badge ${isGray ? 'isGray' : ''} ${isInline ? 'isInline' : ''} ${
+        isTooltip ? 'isTooltip' : ''
       } ${isSmall ? 'isSmall' : ''} ${onClick ? 'isClickable' : ''} ${type} ${className}`}
       data-for={trigger}
       data-tip={true}
       data-tip-disable={!isTooltip}
       onClick={onClick}
     >
-      <div className='badge'>{info}</div>
-      <div className='detail'>{hover}</div>
-      {hover && <Tooltip text={hover}
-        trigger={trigger} />}
+      <div className="badge">{info}</div>
+      <div className="detail">{hover}</div>
+      {hover && <Tooltip text={hover} trigger={trigger} />}
     </div>
   );
 }

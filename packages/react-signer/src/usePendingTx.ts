@@ -17,15 +17,15 @@ export interface ItemState {
   requestAddress: string | null;
 }
 
-async function submitRpc (
+async function submitRpc(
   api: ApiPromise,
   { method, section }: DefinitionRpcExt,
   values: any[]
 ): Promise<QueueTxResult> {
   try {
     const rpc = api.rpc as Record<
-    string,
-    Record<string, (...params: unknown[]) => Promise<unknown>>
+      string,
+      Record<string, (...params: unknown[]) => Promise<unknown>>
     >;
 
     assert(
@@ -51,7 +51,7 @@ async function submitRpc (
   }
 }
 
-async function sendRpc (
+async function sendRpc(
   api: ApiPromise,
   queueSetTxStatus: QueueTxMessageSetStatus,
   { id, rpc, values = [] }: QueueTx
@@ -66,7 +66,7 @@ async function sendRpc (
   }
 }
 
-function extractCurrent (
+function extractCurrent(
   api: ApiPromise,
   queueSetTxStatus: QueueTxMessageSetStatus,
   txqueue: QueueTx[],
@@ -94,7 +94,7 @@ function extractCurrent (
   };
 }
 
-export default function usePendingTx (signature?: string): ItemState {
+export default function usePendingTx(signature?: string): ItemState {
   const scrollToTop = useScrollToTop();
   const { api } = useApi();
   const { queueSetTxStatus, txqueue } = useContext(StatusContext);

@@ -11,8 +11,8 @@ import { useTranslation } from '../translate';
 import { Props } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
-function doChange (onChange ?: (value : any) => void) : (_ : number) => void {
-  return function (value : number) : void {
+function doChange(onChange?: (value: any) => void): (_: number) => void {
+  return function (value: number): void {
     onChange &&
       onChange({
         isValid: true,
@@ -21,12 +21,14 @@ function doChange (onChange ?: (value : any) => void) : (_ : number) => void {
   };
 }
 
-function Vote ({ className = '',
+function Vote({
+  className = '',
   defaultValue: { value },
   isDisabled,
   isError,
   onChange,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const optAyeRef = useRef([
@@ -48,16 +50,16 @@ function Vote ({ className = '',
     value instanceof BN
       ? value.toNumber()
       : value instanceof GenericVote
-        ? value.isAye
-          ? -1
-          : 0
-        : (value as number);
+      ? value.isAye
+        ? -1
+        : 0
+      : (value as number);
   const defaultConv = value instanceof GenericVote ? value.conviction.index : 0;
 
   return (
     <Bare className={className}>
       <Dropdown
-        className='full'
+        className="full"
         defaultValue={defaultValue}
         isDisabled={isDisabled}
         isError={isError}
@@ -68,7 +70,7 @@ function Vote ({ className = '',
       />
       {isDisabled && (
         <Dropdown
-          className='full'
+          className="full"
           defaultValue={defaultConv}
           isDisabled={isDisabled}
           isError={isError}

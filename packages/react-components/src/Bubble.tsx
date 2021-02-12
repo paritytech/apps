@@ -11,26 +11,26 @@ import Icon from './Icon';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  children : React.ReactNode;
-  color ?: SemanticCOLORS;
-  icon ?: SemanticICONS;
-  label ?: React.ReactNode;
+  children: React.ReactNode;
+  color?: SemanticCOLORS;
+  icon?: SemanticICONS;
+  label?: React.ReactNode;
 }
 
-function Bubble ({ children,
+function Bubble({
+  children,
   className = '',
   color,
   icon,
-  label } : Props) : React.ReactElement<Props> {
+  label
+}: Props): React.ReactElement<Props> {
   return (
-    <SUILabel className={classes('theme--default', 'ui--Bubble', className)}
-      color={color}>
-      <div className='ui--Bubble-header'>
-        {icon && <Icon icon={icon}
-          size='large' />}
-        {label && <div className='text'>{label}</div>}
+    <SUILabel className={classes('theme--default', 'ui--Bubble', className)} color={color}>
+      <div className="ui--Bubble-header">
+        {icon && <Icon icon={icon} size="large" />}
+        {label && <div className="text">{label}</div>}
       </div>
-      <div className='ui--Bubble-children'>{children}</div>
+      <div className="ui--Bubble-children">{children}</div>
     </SUILabel>
   );
 }

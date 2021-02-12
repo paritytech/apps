@@ -15,35 +15,37 @@ const rootElement =
     : document.getElementById('tooltips');
 
 interface Props extends BareProps {
-  dataFor ?: string;
-  effect ?: 'solid' | 'float';
-  offset ?: {
-    bottom ?: number;
-    left ?: number;
-    right ?: number;
-    top ?: number;
+  dataFor?: string;
+  effect?: 'solid' | 'float';
+  offset?: {
+    bottom?: number;
+    left?: number;
+    right?: number;
+    top?: number;
   };
-  place ?: 'bottom' | 'top' | 'right' | 'left';
-  text : React.ReactNode;
-  trigger : string;
+  place?: 'bottom' | 'top' | 'right' | 'left';
+  text: React.ReactNode;
+  trigger: string;
 }
 
-function Tooltip ({ className = '',
+function Tooltip({
+  className = '',
   effect = 'solid',
   offset,
   place = 'top',
   text,
-  trigger } : Props) : React.ReactElement<Props> | null {
+  trigger
+}: Props): React.ReactElement<Props> | null {
   const [tooltipContainer] = useState(
     typeof document === 'undefined'
       ? ({} as HTMLElement) // This hack is required for server side rendering
       : document.createElement('div')
   );
 
-  useEffect(() : (() => void) => {
+  useEffect((): (() => void) => {
     rootElement && rootElement.appendChild(tooltipContainer);
 
-    return () : void => {
+    return (): void => {
       rootElement && rootElement.removeChild(tooltipContainer);
     };
   }, [tooltipContainer]);

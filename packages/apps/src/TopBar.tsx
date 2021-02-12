@@ -8,21 +8,21 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  className ?: string;
+  className?: string;
 }
 
-function TopBar ({ className } : Props) : React.ReactElement<Props> {
+function TopBar({ className }: Props): React.ReactElement<Props> {
   return (
     <div className={className}>
       <div>
         <NodeName />
         &nbsp;
-        <NodeVersion label='v' />
+        <NodeVersion label="v" />
       </div>
       <div>
         <Chain />
         &nbsp;
-        <BestNumber label='#' />
+        <BestNumber label="#" />
       </div>
     </div>
   );

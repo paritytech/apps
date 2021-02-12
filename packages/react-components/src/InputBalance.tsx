@@ -12,29 +12,29 @@ import InputNumber from './InputNumber';
 import { BareProps, BitLength } from './types';
 
 interface Props extends BareProps {
-  autoFocus ?: boolean;
-  defaultValue ?: BN | string;
-  help ?: React.ReactNode;
-  isDisabled ?: boolean;
-  isError ?: boolean;
-  isFull ?: boolean;
-  isZeroable ?: boolean;
-  label ?: React.ReactNode;
-  labelExtra ?: React.ReactNode;
-  maxValue ?: BN;
-  onChange ?: (value ?: BN) => void;
-  onEnter ?: () => void;
-  onEscape ?: () => void;
-  placeholder ?: string;
-  value ?: BN;
-  withEllipsis ?: boolean;
-  withLabel ?: boolean;
-  withMax ?: boolean;
+  autoFocus?: boolean;
+  defaultValue?: BN | string;
+  help?: React.ReactNode;
+  isDisabled?: boolean;
+  isError?: boolean;
+  isFull?: boolean;
+  isZeroable?: boolean;
+  label?: React.ReactNode;
+  labelExtra?: React.ReactNode;
+  maxValue?: BN;
+  onChange?: (value?: BN) => void;
+  onEnter?: () => void;
+  onEscape?: () => void;
+  placeholder?: string;
+  value?: BN;
+  withEllipsis?: boolean;
+  withLabel?: boolean;
+  withMax?: boolean;
 }
 
 const DEFAULT_BITLENGTH = BitLengthOption.CHAIN_SPEC as BitLength;
 
-function reformat (value : string | BN, isDisabled ?: boolean) : string {
+function reformat(value: string | BN, isDisabled?: boolean): string {
   if (isBn(value)) {
     let fmt = (
       value
@@ -62,7 +62,8 @@ function reformat (value : string | BN, isDisabled ?: boolean) : string {
   );
 }
 
-function InputBalance ({ autoFocus,
+function InputBalance({
+  autoFocus,
   className = '',
   defaultValue: inDefault,
   help,
@@ -80,10 +81,11 @@ function InputBalance ({ autoFocus,
   value,
   withEllipsis,
   withLabel,
-  withMax } : Props) : React.ReactElement<Props> {
+  withMax
+}: Props): React.ReactElement<Props> {
   const [defaultValue, setDefaultValue] = useState<string | undefined>();
 
-  useEffect(() : void => {
+  useEffect((): void => {
     inDefault && setDefaultValue(reformat(inDefault, isDisabled));
   }, [inDefault, isDisabled]);
 

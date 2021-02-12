@@ -13,29 +13,31 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  abi ?: Abi | null;
-  errorText ?: string | null;
-  file : FileState | null;
-  isContract ?: boolean;
-  isError ?: boolean;
-  isDisabled ?: boolean;
-  isRequired ?: boolean;
-  isValid ?: boolean;
-  isSupplied ?: boolean;
-  label ?: React.ReactNode;
-  onRemove ?: () => void;
-  onRemoved ?: () => void;
-  onSelect ?: () => void;
-  onSelectConstructor ?: (constructorIndex ?: number) => void;
-  setFile : React.Dispatch<FileState | null>;
-  withLabel ?: boolean;
+  abi?: Abi | null;
+  errorText?: string | null;
+  file: FileState | null;
+  isContract?: boolean;
+  isError?: boolean;
+  isDisabled?: boolean;
+  isRequired?: boolean;
+  isValid?: boolean;
+  isSupplied?: boolean;
+  label?: React.ReactNode;
+  onRemove?: () => void;
+  onRemoved?: () => void;
+  onSelect?: () => void;
+  onSelectConstructor?: (constructorIndex?: number) => void;
+  setFile: React.Dispatch<FileState | null>;
+  withLabel?: boolean;
 }
 
-function renderMessages ({ abi,
+function renderMessages({
+  abi,
   isDisabled,
   onRemove,
   onSelectConstructor,
-  withLabel } : Props) : React.ReactNode {
+  withLabel
+}: Props): React.ReactNode {
   return (
     <Messages
       abi={abi}
@@ -48,8 +50,9 @@ function renderMessages ({ abi,
   );
 }
 
-function InputABI (props : Props) : React.ReactElement<Props> {
-  const { abi,
+function InputABI(props: Props): React.ReactElement<Props> {
+  const {
+    abi,
     className,
     errorText,
     file,
@@ -59,16 +62,17 @@ function InputABI (props : Props) : React.ReactElement<Props> {
     isRequired = false,
     isValid,
     setFile,
-    withLabel } = props;
+    withLabel
+  } = props;
   const { t } = useTranslation();
 
   const help = isContract
     ? t<string>(
-      'The ABI or .contract bundle for the WASM code. Since we will be making a call into the code, the ABI is required and stored for future operations such as sending messages.'
-    )
+        'The ABI or .contract bundle for the WASM code. Since we will be making a call into the code, the ABI is required and stored for future operations such as sending messages.'
+      )
     : t<string>(
-      'The .contract bundle or ABI for the WASM code. If using an ABI, you will need to upload the generated WASM file separately.'
-    );
+        'The .contract bundle or ABI for the WASM code. If using an ABI, you will need to upload the generated WASM file separately.'
+      );
   const label = isRequired ? 'Upload ABI' : 'Upload Contract Bundle';
 
   return (

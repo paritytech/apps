@@ -11,31 +11,29 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  errorText ?: React.ReactNode;
-  isError ?: boolean;
-  onRemove : (event : MouseEvent<HTMLDivElement>) => void;
-  text : React.ReactNode;
+  errorText?: React.ReactNode;
+  isError?: boolean;
+  onRemove: (event: MouseEvent<HTMLDivElement>) => void;
+  text: React.ReactNode;
 }
 
-function FileSupplied ({ className,
+function FileSupplied({
+  className,
   errorText,
   isError,
   onRemove,
-  text } : Props) : React.ReactElement<Props> {
+  text
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (
     <div className={classes(isError && 'isError', className)}>
-      <Icon className='file-supplied'
-        icon={faFile}
-        size='2x' />
-      <div className='info'>
+      <Icon className="file-supplied" icon={faFile} size="2x" />
+      <div className="info">
         {text}
-        {isError && <div className='error'>{errorText || t<string>('Invalid file supplied')}</div>}
+        {isError && <div className="error">{errorText || t<string>('Invalid file supplied')}</div>}
       </div>
-      <Icon className='file-remove'
-        icon={faTrashAlt}
-        onClick={onRemove} />
+      <Icon className="file-remove" icon={faTrashAlt} onClick={onRemove} />
     </div>
   );
 }

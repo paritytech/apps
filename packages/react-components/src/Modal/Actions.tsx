@@ -8,17 +8,18 @@ import Button from '../Button';
 import { useTranslation } from '../translate';
 import { ActionsProps } from './types';
 
-function Actions ({ cancelLabel,
+function Actions({
+  cancelLabel,
   children,
   className,
-  onCancel } : ActionsProps) : React.ReactElement<ActionsProps> {
+  onCancel
+}: ActionsProps): React.ReactElement<ActionsProps> {
   const { t } = useTranslation();
 
   return (
     <SUIModal.Actions>
       <Button.Group className={className}>
-        <Button label={cancelLabel || t<string>('Cancel')}
-          onClick={onCancel} />
+        <Button label={cancelLabel || t<string>('Cancel')} onClick={onCancel} />
         {children}
       </Button.Group>
     </SUIModal.Actions>

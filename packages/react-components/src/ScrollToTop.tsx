@@ -5,7 +5,7 @@ import { useScrollToTop } from '@canvas-ui/react-hooks';
 import React, { useEffect } from 'react';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-function ScrollToTop ({ history } : RouteComponentProps) : React.ReactElement {
+function ScrollToTop({ history }: RouteComponentProps): React.ReactElement {
   const scrollToTop = useScrollToTop();
 
   useEffect(() => {

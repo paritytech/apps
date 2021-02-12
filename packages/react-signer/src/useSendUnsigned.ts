@@ -16,7 +16,7 @@ interface UseSendUnsigned {
 
 const NOOP = () => undefined;
 
-async function sendUnsigned (
+async function sendUnsigned(
   queueSetTxStatus: QueueTxMessageSetStatus,
   currentItem: QueueTx,
   tx: SubmittableExtrinsic<'promise'>
@@ -37,7 +37,7 @@ async function sendUnsigned (
   }
 }
 
-export default function useSendTx (currentItem: QueueTx): UseSendUnsigned {
+export default function useSendTx(currentItem: QueueTx): UseSendUnsigned {
   const { queueSetTxStatus } = useContext(StatusContext);
 
   const onCancel = useCallback((): void => {

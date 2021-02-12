@@ -5,7 +5,7 @@ import getAddressMeta from '@canvas-ui/react-api/getAddressMeta';
 
 import { KeyringItemType } from '@polkadot/ui-keyring/types';
 
-export default function getAddressTags (
+export default function getAddressTags(
   address: string,
   type: KeyringItemType | null = null
 ): string[] {

@@ -15,25 +15,27 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  children ?: React.ReactNode;
-  className ?: string;
-  icon ?: IconName;
-  isAddress ?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  icon?: IconName;
+  isAddress?: boolean;
   // size?: IconProps['size'];
-  value : string;
-  withButton : boolean;
+  value: string;
+  withButton: boolean;
 }
 
-function CopyButton ({ children,
+function CopyButton({
+  children,
   className,
   icon = 'copy',
   isAddress = false,
   value,
-  withButton = true } : Props) : React.ReactElement<Props> {
+  withButton = true
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const showNotification = useNotification();
 
-  const _onCopy = useCallback(() : void => {
+  const _onCopy = useCallback((): void => {
     showNotification({
       account: isAddress ? value : undefined,
       action: truncate(value),
@@ -44,15 +46,12 @@ function CopyButton ({ children,
 
   return (
     <div className={className}>
-      <CopyToClipboard onCopy={_onCopy}
-        text={value}>
-        <div className='copyContainer'>
+      <CopyToClipboard onCopy={_onCopy} text={value}>
+        <div className="copyContainer">
           {children}
           {withButton && (
-            <span className='copySpan'>
-              <Button className='icon-button show-on-hover'
-                icon={icon}
-                isIcon />
+            <span className="copySpan">
+              <Button className="icon-button show-on-hover" icon={icon} isIcon />
             </span>
           )}
         </div>

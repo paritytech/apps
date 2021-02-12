@@ -14,25 +14,27 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 interface Props extends BareProps {
-  codeHash : string;
-  label : React.ReactNode;
-  onSave : (_ : FileState) => void;
+  codeHash: string;
+  label: React.ReactNode;
+  onSave: (_: FileState) => void;
 }
 
-function CodeUploadABI ({ codeHash, label, onSave } : Props) : React.ReactElement<Props> {
+function CodeUploadABI({ codeHash, label, onSave }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const showNotification = useNotification();
   const [isOpen, toggleIsOpen] = useToggle();
-  const { abi,
+  const {
+    abi,
     errorText,
     isAbiError,
     isAbiSupplied,
     isAbiValid,
     onChangeAbi,
-    onRemoveAbi } = useAbi();
+    onRemoveAbi
+  } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
 
-  const _onSave = useCallback(() : void => {
+  const _onSave = useCallback((): void => {
     if (abiFile) {
       onSave(abiFile);
 
@@ -47,10 +49,8 @@ function CodeUploadABI ({ codeHash, label, onSave } : Props) : React.ReactElemen
 
   return (
     <>
-      <Button label={label}
-        onClick={toggleIsOpen} />
-      <Modal isOpen={isOpen}
-        onClose={toggleIsOpen}>
+      <Button label={label} onClick={toggleIsOpen} />
+      <Modal isOpen={isOpen} onClose={toggleIsOpen}>
         <Modal.Header>{t<string>('Upload ABI')}</Modal.Header>
         <Modal.Content>
           <InputABI

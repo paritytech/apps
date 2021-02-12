@@ -15,24 +15,26 @@ type BaseColors = 'blue' | 'green' | 'red' | 'orange';
 export type Colors = 'auto' | 'autoReverse' | BaseColors;
 
 interface Props extends BareProps {
-  color ?: Colors;
-  percent ?: BN | number;
-  total ?: UInt | BN | number;
-  value ?: UInt | BN | number;
+  color?: Colors;
+  percent?: BN | number;
+  total?: UInt | BN | number;
+  value?: UInt | BN | number;
 }
 
-function Progress ({ className = '',
+function Progress({
+  className = '',
   color = 'blue',
   percent,
   total,
-  value } : Props) : React.ReactElement<Props> | null {
+  value
+}: Props): React.ReactElement<Props> | null {
   const _total = bnToBn(total);
   const _value = bnToBn(value);
   const calculated = _total.gtn(0)
     ? (100.0 * _value.toNumber()) / _total.toNumber()
     : isBn(percent)
-      ? percent.toNumber()
-      : percent;
+    ? percent.toNumber()
+    : percent;
 
   if (isUndefined(calculated) || calculated < 0) {
     return null;
@@ -45,10 +47,10 @@ function Progress ({ className = '',
           ? 'green'
           : 'red'
         : calculated > 33.3
-          ? 'orange'
-          : color === 'auto'
-            ? 'red'
-            : 'green'
+        ? 'orange'
+        : color === 'auto'
+        ? 'red'
+        : 'green'
       : color;
 
   return (
@@ -56,7 +58,7 @@ function Progress ({ className = '',
       className={classes('ui--Progress', className)}
       color={rainbow}
       percent={calculated}
-      size='tiny'
+      size="tiny"
     />
   );
 }

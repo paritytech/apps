@@ -8,28 +8,26 @@ import { Size } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
 interface Props {
-  children ?: React.ReactNode;
-  className ?: string;
-  isDisabled ?: boolean;
-  isOuter ?: boolean;
-  label ?: React.ReactNode;
-  size ?: Size;
-  withLabel ?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  isDisabled?: boolean;
+  isOuter?: boolean;
+  label?: React.ReactNode;
+  size?: Size;
+  withLabel?: boolean;
 }
 
-function Base ({ children,
+function Base({
+  children,
   className = '',
   isOuter,
   label,
   size = 'full',
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>
-      <Labelled className={size}
-        isOuter
-        label={label}
-        withEllipsis
-        withLabel={withLabel}>
+      <Labelled className={size} isOuter label={label} withEllipsis withLabel={withLabel}>
         {!isOuter && children}
       </Labelled>
       {isOuter && children}

@@ -63,12 +63,12 @@ export { api };
 export class TokenUnit {
   public static abbr = 'Unit';
 
-  public static setAbbr (abbr: string = TokenUnit.abbr): void {
+  public static setAbbr(abbr: string = TokenUnit.abbr): void {
     TokenUnit.abbr = abbr;
   }
 }
 
-async function retrieve (api: ApiPromise): Promise<ChainData> {
+async function retrieve(api: ApiPromise): Promise<ChainData> {
   const [
     properties,
     systemChain,
@@ -86,7 +86,7 @@ async function retrieve (api: ApiPromise): Promise<ChainData> {
     api.rpc.system.version(),
     injectedPromise
       .then(() => web3Accounts())
-      .then((accounts) =>
+      .then(accounts =>
         accounts.map(
           ({ address, meta }, whenCreated): InjectedAccountExt => ({
             address,
@@ -117,13 +117,15 @@ async function retrieve (api: ApiPromise): Promise<ChainData> {
   };
 }
 
-async function loadOnReady (api: ApiPromise, store?: KeyringStore): Promise<ApiState> {
-  const { injectedAccounts,
+async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiState> {
+  const {
+    injectedAccounts,
     properties,
     systemChain,
     systemChainType,
     systemName,
-    systemVersion } = await retrieve(api);
+    systemVersion
+  } = await retrieve(api);
   const ss58Format =
     uiSettings.prefix === -1
       ? properties.ss58Format.unwrapOr(DEFAULT_SS58).toNumber()
@@ -185,7 +187,7 @@ async function loadOnReady (api: ApiPromise, store?: KeyringStore): Promise<ApiS
   };
 }
 
-function Api ({ children, store, url }: Props): React.ReactElement<Props> | null {
+function Api({ children, store, url }: Props): React.ReactElement<Props> | null {
   const { queuePayload, queueSetTxStatus } = useContext(StatusContext);
   const [state, setState] = useState<ApiState>(({ isApiReady: false } as unknown) as ApiState);
   const [isApiConnected, setIsApiConnected] = useState(false);
@@ -223,7 +225,7 @@ function Api ({ children, store, url }: Props): React.ReactElement<Props> | null
       }
     );
 
-    injectedPromise.then(setExtensions).catch((error) => console.error(error));
+    injectedPromise.then(setExtensions).catch(error => console.error(error));
 
     setIsApiInitialized(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -15,10 +15,12 @@ interface Props extends BareProps {
   withPound?: boolean;
 }
 
-function BestNumber ({ children,
+function BestNumber({
+  children,
   className = '',
   label,
-  withPound }: Props): React.ReactElement<Props> {
+  withPound
+}: Props): React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const bestNumber = useCall<BlockNumber>(isApiReady && api.derive.chain.bestNumber, []);
 

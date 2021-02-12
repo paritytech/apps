@@ -6,26 +6,27 @@ import React from 'react';
 import Input from './Input';
 
 interface Props {
-  autoFocus ?: boolean;
-  children ?: React.ReactNode;
-  className ?: string;
-  defaultValue ?: string;
-  help ?: string;
-  isDisabled ?: boolean;
-  isError ?: boolean;
-  isFull ?: boolean;
-  label ?: string;
-  labelExtra ?: React.ReactNode;
-  name ?: string;
-  onChange : (value : string) => void;
-  onEnter ?: () => void;
-  onEscape ?: () => void;
-  tabIndex ?: number;
-  value : string;
-  withLabel ?: boolean;
+  autoFocus?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  defaultValue?: string;
+  help?: string;
+  isDisabled?: boolean;
+  isError?: boolean;
+  isFull?: boolean;
+  label?: string;
+  labelExtra?: React.ReactNode;
+  name?: string;
+  onChange: (value: string) => void;
+  onEnter?: () => void;
+  onEscape?: () => void;
+  tabIndex?: number;
+  value: string;
+  withLabel?: boolean;
 }
 
-function Password ({ autoFocus,
+function Password({
+  autoFocus,
   children,
   className = '',
   defaultValue,
@@ -41,7 +42,8 @@ function Password ({ autoFocus,
   onEscape,
   tabIndex,
   value,
-  withLabel } : Props) : React.ReactElement<Props> {
+  withLabel
+}: Props): React.ReactElement<Props> {
   return (
     <Input
       autoFocus={autoFocus}
@@ -58,7 +60,7 @@ function Password ({ autoFocus,
       onEnter={onEnter}
       onEscape={onEscape}
       tabIndex={tabIndex}
-      type='password'
+      type="password"
       value={value}
       withLabel={withLabel}
     >

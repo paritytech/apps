@@ -7,7 +7,8 @@ import React, { useCallback } from 'react';
 import { Props, RawParamOnChangeValue } from '@canvas-ui/react-components/types';
 import Amount from './Amount';
 
-function Moment ({ className = '',
+function Moment({
+  className = '',
   defaultValue,
   isDisabled,
   isError,
@@ -16,8 +17,9 @@ function Moment ({ className = '',
   onEnter,
   onEscape,
   type,
-  withLabel } : Props) : React.ReactElement<Props> {
-  const _onChange = useCallback((value : RawParamOnChangeValue) => onChange && onChange(value), [
+  withLabel
+}: Props): React.ReactElement<Props> {
+  const _onChange = useCallback((value: RawParamOnChangeValue) => onChange && onChange(value), [
     onChange
   ]);
 

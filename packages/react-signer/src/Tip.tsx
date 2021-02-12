@@ -10,16 +10,16 @@ import { BN_ZERO } from '@polkadot/util';
 import { useTranslation } from './translate';
 
 interface Props {
-  className ?: string;
-  onChange : (tip : BN) => void;
+  className?: string;
+  onChange: (tip: BN) => void;
 }
 
-function Tip ({ className, onChange } : Props) : React.ReactElement<Props> | null {
+function Tip({ className, onChange }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const [tip, setTip] = useState(BN_ZERO);
   const [showTip, setShowTip] = useState(false);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     onChange(showTip ? tip : BN_ZERO);
   }, [onChange, showTip, tip]);
 
@@ -27,7 +27,7 @@ function Tip ({ className, onChange } : Props) : React.ReactElement<Props> | nul
     <Modal.Columns className={className}>
       <Modal.Column>
         <Toggle
-          className='tipToggle'
+          className="tipToggle"
           label={
             showTip
               ? t<string>('Include an optional tip for faster processing')

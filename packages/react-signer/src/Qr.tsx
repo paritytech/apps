@@ -9,28 +9,30 @@ import styled from 'styled-components';
 import { QrDisplayPayload, QrScanSignature } from '@polkadot/react-qr';
 
 interface Props extends BareProps {
-  address : string;
-  className ?: string;
-  genesisHash : Uint8Array;
-  isHashed : boolean;
-  isScanning : boolean;
-  onSignature : (signature : { signature : string }) => void;
-  payload : Uint8Array;
+  address: string;
+  className?: string;
+  genesisHash: Uint8Array;
+  isHashed: boolean;
+  isScanning: boolean;
+  onSignature: (signature: { signature: string }) => void;
+  payload: Uint8Array;
 }
 
 const CMD_HASH = 1;
 const CMD_MORTAL = 2;
 
-function Qr ({ address,
+function Qr({
+  address,
   className,
   genesisHash,
   isHashed,
   onSignature,
-  payload } : Props) : React.ReactElement<Props> {
+  payload
+}: Props): React.ReactElement<Props> {
   return (
     <Columar className={className}>
       <Columar.Column>
-        <div className='qrDisplay'>
+        <div className="qrDisplay">
           <QrDisplayPayload
             address={address}
             cmd={isHashed ? CMD_HASH : CMD_MORTAL}
@@ -40,7 +42,7 @@ function Qr ({ address,
         </div>
       </Columar.Column>
       <Columar.Column>
-        <div className='qrDisplay'>
+        <div className="qrDisplay">
           <QrScanSignature onScan={onSignature} />
         </div>
       </Columar.Column>

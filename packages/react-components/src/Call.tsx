@@ -17,33 +17,34 @@ import { useTranslation } from './translate';
 import { BareProps } from './types';
 
 export interface Props extends BareProps {
-  children ?: React.ReactNode;
-  labelHash ?: React.ReactNode;
-  mortality ?: string;
-  onError ?: () => void;
-  value : IExtrinsic | IMethod;
-  withBorder ?: boolean;
-  withHash ?: boolean;
-  tip ?: BN;
+  children?: React.ReactNode;
+  labelHash?: React.ReactNode;
+  mortality?: string;
+  onError?: () => void;
+  value: IExtrinsic | IMethod;
+  withBorder?: boolean;
+  withHash?: boolean;
+  tip?: BN;
 }
 
 interface Param {
-  name : string;
-  type : TypeDef;
+  name: string;
+  type: TypeDef;
 }
 
 interface Value {
-  isValid : boolean;
-  value : Codec;
+  isValid: boolean;
+  value: Codec;
 }
 
 interface Extracted {
-  hash : Hash | null;
-  params : Param[];
-  values : Value[];
+  hash: Hash | null;
+  params: Param[];
+  values: Value[];
 }
 
-function Call ({ children,
+function Call({
+  children,
   className = '',
   labelHash,
   mortality,
@@ -51,7 +52,8 @@ function Call ({ children,
   tip,
   value,
   withBorder,
-  withHash } : Props) : React.ReactElement<Props> {
+  withHash
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [{ hash, params, values }, setExtracted] = useState<Extracted>({
     hash: null,
@@ -59,15 +61,15 @@ function Call ({ children,
     values: []
   });
 
-  useEffect(() : void => {
+  useEffect((): void => {
     const params = GenericCall.filterOrigin(value.meta).map(
-      ({ name, type }) : Param => ({
+      ({ name, type }): Param => ({
         name: name.toString(),
         type: getTypeDef(type.toString())
       })
     );
     const values = value.args.map(
-      (value) : Value => ({
+      (value): Value => ({
         isValid: true,
         value
       })
@@ -87,22 +89,19 @@ function Call ({ children,
         withBorder={withBorder}
       />
       {children}
-      <div className='ui--Extrinsic--toplevel'>
+      <div className="ui--Extrinsic--toplevel">
         {hash && (
-          <Static className='hash'
-            label={labelHash || t<string>('extrinsic hash')}>
+          <Static className="hash" label={labelHash || t<string>('extrinsic hash')}>
             {hash.toHex()}
           </Static>
         )}
         {mortality && (
-          <Static className='mortality'
-            label={t<string>('lifetime')}>
+          <Static className="mortality" label={t<string>('lifetime')}>
             {mortality}
           </Static>
         )}
         {tip?.gtn(0) && (
-          <Static className='tip'
-            label={t<string>('tip')}>
+          <Static className="tip" label={t<string>('tip')}>
             <FormatBalance value={tip} />
           </Static>
         )}

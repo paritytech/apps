@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 export interface WithBasePath {
-  basePath : string;
+  basePath: string;
 }
 
 // export interface Code extends CodeBase {
@@ -15,8 +15,8 @@ export interface WithBasePath {
 // }
 
 export interface ContractJsonOld {
-  genesisHash : string;
-  abi : string;
-  address : string;
-  name : string;
+  genesisHash: string;
+  abi: string;
+  address: string;
+  name: string;
 }

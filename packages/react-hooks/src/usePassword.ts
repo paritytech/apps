@@ -6,17 +6,17 @@ import { useEffect, useState } from 'react';
 import keyring from '@polkadot/ui-keyring';
 
 interface PasswordProps {
-  password : string;
-  setPassword : React.Dispatch<string>;
-  isPasswordValid : boolean;
-  setIsPasswordValid : React.Dispatch<boolean>;
+  password: string;
+  setPassword: React.Dispatch<string>;
+  isPasswordValid: boolean;
+  setIsPasswordValid: React.Dispatch<boolean>;
 }
 
-export default function usePassword () : PasswordProps {
+export default function usePassword(): PasswordProps {
   const [password, setPassword] = useState('');
   const [isPasswordValid, setIsPasswordValid] = useState(false);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setIsPasswordValid(keyring.isPassValid(password));
   }, [password]);
 

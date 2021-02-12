@@ -13,17 +13,18 @@ import Bare from './Bare';
 import Static from './Static';
 
 interface Option {
-  text ?: string;
-  value ?: string;
+  text?: string;
+  value?: string;
 }
 
 interface Options {
-  options : Option[];
-  subTypes : TypeDef[];
+  options: Option[];
+  subTypes: TypeDef[];
 }
 
-function EnumParam (props : Props) : React.ReactElement<Props> {
-  const { className = '',
+function EnumParam(props: Props): React.ReactElement<Props> {
+  const {
+    className = '',
     defaultValue,
     isDisabled,
     isError,
@@ -31,19 +32,20 @@ function EnumParam (props : Props) : React.ReactElement<Props> {
     onChange,
     overrides,
     type,
-    withLabel } = props;
+    withLabel
+  } = props;
   const [current, setCurrent] = useState<ParamDef[] | null>(null);
   const [initialValue, setInitialValue] = useState<string | null>(null);
   const [{ options, subTypes }, setOptions] = useState<Options>({ options: [], subTypes: [] });
 
-  useEffect(() : void => {
+  useEffect((): void => {
     // const rawType = createType(registry, type.type as 'u32').toRawType();
     // const typeDef = getTypeDef(rawType);
     const subTypes = type.sub as TypeDef[];
 
     setOptions({
       options: subTypes.map(
-        ({ name }) : Option => ({
+        ({ name }): Option => ({
           text: name,
           value: name
         })
@@ -53,7 +55,7 @@ function EnumParam (props : Props) : React.ReactElement<Props> {
     setCurrent([{ name: subTypes[0].name, type: subTypes[0] }]);
   }, [type]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setInitialValue(
       defaultValue && defaultValue.value
         ? defaultValue.value instanceof Enum
@@ -64,8 +66,8 @@ function EnumParam (props : Props) : React.ReactElement<Props> {
   }, [defaultValue]);
 
   const _onChange = useCallback(
-    (value : string) : void => {
-      const newType = subTypes.find(({ name }) : boolean => name === value) || null;
+    (value: string): void => {
+      const newType = subTypes.find(({ name }): boolean => name === value) || null;
 
       setCurrent(newType ? [{ name: newType.name, type: newType }] : null);
     },
@@ -73,7 +75,7 @@ function EnumParam (props : Props) : React.ReactElement<Props> {
   );
 
   const _onChangeParam = useCallback(
-    ([{ isValid, value }] : RawParam[]) : void => {
+    ([{ isValid, value }]: RawParam[]): void => {
       current &&
         onChange &&
         onChange({
@@ -91,7 +93,7 @@ function EnumParam (props : Props) : React.ReactElement<Props> {
   return (
     <Bare className={className}>
       <Dropdown
-        className='full'
+        className="full"
         defaultValue={initialValue}
         isDisabled={isDisabled}
         isError={isError}
@@ -101,9 +103,7 @@ function EnumParam (props : Props) : React.ReactElement<Props> {
         withEllipsis
         withLabel={withLabel}
       />
-      {current && <Params onChange={_onChangeParam}
-        overrides={overrides}
-        params={current} />}
+      {current && <Params onChange={_onChangeParam} overrides={overrides} params={current} />}
     </Bare>
   );
 }

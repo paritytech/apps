@@ -17,10 +17,10 @@ import { ELEV_4_CSS } from '../styles/constants';
 import { useTranslation } from '../translate';
 
 interface Props {
-  className ?: string;
+  className?: string;
 }
 
-function iconName (status : string) : IconName {
+function iconName(status: string): IconName {
   switch (status) {
     case 'error':
       return 'ban';
@@ -36,7 +36,7 @@ function iconName (status : string) : IconName {
   }
 }
 
-function signerIconName (status : QueueTxStatus) : IconName {
+function signerIconName(status: QueueTxStatus): IconName {
   switch (status) {
     case 'cancelled':
       return 'ban';
@@ -65,31 +65,30 @@ function signerIconName (status : QueueTxStatus) : IconName {
   }
 }
 
-function renderStatus ({ account,
+function renderStatus({
+  account,
   action,
   id,
   message,
   removeItem,
-  status } : QueueStatus) : React.ReactNode {
+  status
+}: QueueStatus): React.ReactNode {
   return (
-    <div className={`item ${status}`}
-      key={id}>
-      <div className='wrapper'>
-        <div className='container'>
-          <Icon className='close-button'
-            icon='times'
-            onClick={removeItem} />
-          <div className='short'>
+    <div className={`item ${status}`} key={id}>
+      <div className="wrapper">
+        <div className="container">
+          <Icon className="close-button" icon="times" onClick={removeItem} />
+          <div className="short">
             <Icon icon={iconName(status)} />
           </div>
-          <div className='desc'>
-            <div className='header'>
+          <div className="desc">
+            <div className="header">
               {Array.isArray(action)
                 ? action.map((action, index) => <div key={index}>{action}</div>)
                 : action}
             </div>
             {account && <AddressMini value={account} />}
-            <div className='status'>{message}</div>
+            <div className="status">{message}</div>
           </div>
         </div>
       </div>
@@ -97,7 +96,7 @@ function renderStatus ({ account,
   );
 }
 
-function renderItem ({ error, extrinsic, id, removeItem, rpc, status } : QueueTx) : React.ReactNode {
+function renderItem({ error, extrinsic, id, removeItem, rpc, status }: QueueTx): React.ReactNode {
   let { method, section } = rpc;
 
   if (extrinsic) {
@@ -112,23 +111,20 @@ function renderItem ({ error, extrinsic, id, removeItem, rpc, status } : QueueTx
   const icon = signerIconName(status) as 'ban' | 'spinner';
 
   return (
-    <div className={`item ${status}`}
-      key={id}>
-      <div className='wrapper'>
-        <div className='container'>
+    <div className={`item ${status}`} key={id}>
+      <div className="wrapper">
+        <div className="container">
           {STATUS_COMPLETE.includes(status) && (
-            <Icon className='close-button'
-              icon='times'
-              onClick={removeItem} />
+            <Icon className="close-button" icon="times" onClick={removeItem} />
           )}
-          <div className='short'>
-            {icon === 'spinner' ? <Spinner variant='push' /> : <Icon icon={icon} />}
+          <div className="short">
+            {icon === 'spinner' ? <Spinner variant="push" /> : <Icon icon={icon} />}
           </div>
-          <div className='desc'>
-            <div className='header'>
+          <div className="desc">
+            <div className="header">
               {section}.{method}
             </div>
-            <div className='status'>{error ? error.message || error : status}</div>
+            <div className="status">{error ? error.message || error : status}</div>
           </div>
         </div>
       </div>
@@ -136,11 +132,11 @@ function renderItem ({ error, extrinsic, id, removeItem, rpc, status } : QueueTx
   );
 }
 
-function filterSt (stqueue ?: QueueStatus[]) : QueueStatus[] {
+function filterSt(stqueue?: QueueStatus[]): QueueStatus[] {
   return (stqueue || []).filter(({ isCompleted }) => !isCompleted);
 }
 
-function filterTx (txqueue ?: QueueTx[]) : [QueueTx[], QueueTx[]] {
+function filterTx(txqueue?: QueueTx[]): [QueueTx[], QueueTx[]] {
   const allTx = (txqueue || []).filter(
     ({ status }) => !['completed', 'incomplete'].includes(status)
   );
@@ -148,23 +144,23 @@ function filterTx (txqueue ?: QueueTx[]) : [QueueTx[], QueueTx[]] {
   return [allTx, allTx.filter(({ status }) => STATUS_COMPLETE.includes(status))];
 }
 
-function Status ({ className = '' } : Props) : React.ReactElement<Props> | null {
+function Status({ className = '' }: Props): React.ReactElement<Props> | null {
   const { stqueue, txqueue } = useContext(StatusContext);
   const [allSt, setAllSt] = useState<QueueStatus[]>([]);
   const [[allTx, completedTx], setAllTx] = useState<[QueueTx[], QueueTx[]]>([[], []]);
   const { t } = useTranslation();
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setAllSt(filterSt(stqueue));
   }, [stqueue]);
 
-  useEffect(() : void => {
+  useEffect((): void => {
     setAllTx(filterTx(txqueue));
   }, [txqueue]);
 
-  const _onDismiss = useCallback(() : void => {
-    allSt.map((s) => s.removeItem());
-    completedTx.map((t) => t.removeItem());
+  const _onDismiss = useCallback((): void => {
+    allSt.map(s => s.removeItem());
+    completedTx.map(t => t.removeItem());
   }, [allSt, completedTx]);
 
   if (!allSt.length && !allTx.length) {
@@ -174,9 +170,9 @@ function Status ({ className = '' } : Props) : React.ReactElement<Props> | null 
   return (
     <div className={`ui--Status ${className}`}>
       {allSt.length + completedTx.length > 1 && (
-        <div className='dismiss'>
+        <div className="dismiss">
           <Button
-            icon='times'
+            icon="times"
             isFull
             isPrimary
             label={t<string>('Dismiss all notifications')}
