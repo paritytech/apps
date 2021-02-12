@@ -4,9 +4,7 @@
 import { classes } from '@canvas-ui/react-util';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import SUIButton from 'semantic-ui-react/dist/commonjs/elements/Button/Button';
-import SUIDropdown, {
-  DropdownProps
-} from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
+import SUIDropdown, { DropdownProps } from 'semantic-ui-react/dist/commonjs/modules/Dropdown/Dropdown';
 import styled from 'styled-components';
 
 import { isUndefined } from '@polkadot/util';
@@ -95,16 +93,9 @@ function BaseDropdown<Option>({
     _setStored(isUndefined(value) ? defaultValue : value);
   }, [_setStored, defaultValue, value]);
 
-  const _onAdd = useCallback(
-    (_: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps): void => onAdd && onAdd(value),
-    [onAdd]
-  );
+  const _onAdd = useCallback((_: React.SyntheticEvent<HTMLElement>, { value }: DropdownProps): void => onAdd && onAdd(value), [onAdd]);
 
-  const _onChange = useCallback(
-    (_: React.SyntheticEvent<HTMLElement> | null, { value }: DropdownProps): void =>
-      _setStored(value as string),
-    [_setStored]
-  );
+  const _onChange = useCallback((_: React.SyntheticEvent<HTMLElement> | null, { value }: DropdownProps): void => _setStored(value as string), [_setStored]);
 
   const dropdown = (
     <SUIDropdown

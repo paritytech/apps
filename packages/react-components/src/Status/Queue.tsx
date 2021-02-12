@@ -43,9 +43,7 @@ const SUBMIT_RPC = jsonrpc.author.submitAndWatchExtrinsic;
 function mergeStatus(status: ActionStatus[]): ActionStatus[] {
   return status
     .reduce((result: StatusCount[], status): StatusCount[] => {
-      const prev = result.find(
-        ({ status: prev }) => prev.action === status.action && prev.status === status.status
-      );
+      const prev = result.find(({ status: prev }) => prev.action === status.action && prev.status === status.status);
 
       if (prev) {
         prev.count++;
@@ -55,10 +53,7 @@ function mergeStatus(status: ActionStatus[]): ActionStatus[] {
 
       return result;
     }, [])
-    .map(
-      ({ count, status }): ActionStatus =>
-        count === 1 ? status : { ...status, action: `${status.action} (x${count})` }
-    );
+    .map(({ count, status }): ActionStatus => (count === 1 ? status : { ...status, action: `${status.action} (x${count})` }));
 }
 
 function extractEvents(result?: SubmittableResult): ActionStatus[] {
@@ -76,9 +71,7 @@ function extractEvents(result?: SubmittableResult): ActionStatus[] {
             if (dispatchError.isModule) {
               try {
                 const mod = dispatchError.asModule;
-                const error = registry.findMetaError(
-                  new Uint8Array([mod.index.toNumber(), mod.error.toNumber()])
-                );
+                const error = registry.findMetaError(new Uint8Array([mod.index.toNumber(), mod.error.toNumber()]));
 
                 message = `${error.section}.${error.name}`;
               } catch (error) {
@@ -120,12 +113,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
   const addToTxQueue = useCallback(
     (value: QueueTxExtrinsic | QueueTxRpc | QueueTx): void => {
       const id = ++nextId;
-      const removeItem = (): void =>
-        setTxQueue([
-          ...txRef.current.map(
-            (item): QueueTx => (item.id === id ? { ...item, status: 'completed' } : item)
-          )
-        ]);
+      const removeItem = (): void => setTxQueue([...txRef.current.map((item): QueueTx => (item.id === id ? { ...item, status: 'completed' } : item))]);
 
       setTxQueue([
         ...txRef.current,
@@ -150,8 +138,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
           ...status.map(
             (item): QueueStatus => {
               const id = ++nextId;
-              const removeItem = (): void =>
-                setStQueue([...stRef.current.filter((item): boolean => item.id !== id)]);
+              const removeItem = (): void => setStQueue([...stRef.current.filter((item): boolean => item.id !== id)]);
 
               setTimeout(removeItem, REMOVE_TIMEOUT);
 
@@ -167,10 +154,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
     },
     [setStQueue]
   );
-  const queueExtrinsic = useCallback(
-    (value: PartialQueueTxExtrinsic): void => addToTxQueue({ ...value }),
-    [addToTxQueue]
-  );
+  const queueExtrinsic = useCallback((value: PartialQueueTxExtrinsic): void => addToTxQueue({ ...value }), [addToTxQueue]);
   const queuePayload = useCallback(
     (payload: SignerPayloadJSON, signerCb: SignerCallback): void =>
       addToTxQueue({
@@ -187,9 +171,7 @@ function Queue({ children }: Props): React.ReactElement<Props> {
       }),
     [addToTxQueue]
   );
-  const queueRpc = useCallback((value: PartialQueueTxRpc): void => addToTxQueue({ ...value }), [
-    addToTxQueue
-  ]);
+  const queueRpc = useCallback((value: PartialQueueTxRpc): void => addToTxQueue({ ...value }), [addToTxQueue]);
   const queueSetTxStatus = useCallback(
     (id: number, status: QueueTxStatus, result?: SubmittableResult, error?: Error): void => {
       setTxQueue([

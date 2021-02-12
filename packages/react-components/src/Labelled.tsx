@@ -161,11 +161,7 @@ function Labelled({
     >
       {withLabel && (
         <label>
-          <div
-            className={classes(withEllipsis && 'withEllipsis', isLabelMonospace && 'isMonospace')}
-          >
-            {label}
-          </div>
+          <div className={classes(withEllipsis && 'withEllipsis', isLabelMonospace && 'isMonospace')}>{label}</div>
           {help && <LabelHelp help={help} />}
         </label>
       )}

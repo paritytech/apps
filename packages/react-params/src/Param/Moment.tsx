@@ -7,29 +7,14 @@ import React, { useCallback } from 'react';
 import { Props, RawParamOnChangeValue } from '@canvas-ui/react-components/types';
 import Amount from './Amount';
 
-function Moment({
-  className = '',
-  defaultValue,
-  isDisabled,
-  isError,
-  label,
-  onChange,
-  onEnter,
-  onEscape,
-  type,
-  withLabel
-}: Props): React.ReactElement<Props> {
-  const _onChange = useCallback((value: RawParamOnChangeValue) => onChange && onChange(value), [
-    onChange
-  ]);
+function Moment({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
+  const _onChange = useCallback((value: RawParamOnChangeValue) => onChange && onChange(value), [onChange]);
 
   if (isDisabled) {
     return (
       <Static
         className={className}
-        defaultValue={
-          defaultValue && defaultValue.value ? (defaultValue.value as string).toString() : ''
-        }
+        defaultValue={defaultValue && defaultValue.value ? (defaultValue.value as string).toString() : ''}
         isError={isError}
         label={label}
         withLabel={withLabel}

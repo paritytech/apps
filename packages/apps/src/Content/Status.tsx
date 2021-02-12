@@ -2,12 +2,7 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { useApi } from '@canvas-ui/react-api';
-import {
-  ActionStatus,
-  QueueAction$Add,
-  QueueStatus,
-  QueueTx
-} from '@canvas-ui/react-api/Status/types';
+import { ActionStatus, QueueAction$Add, QueueStatus, QueueTx } from '@canvas-ui/react-api/Status/types';
 import StatusDisplay from '@canvas-ui/react-components/Status/Status';
 import { useAccounts, useCall } from '@canvas-ui/react-hooks';
 import React, { useEffect } from 'react';

@@ -3,14 +3,7 @@
 
 import { store, useAbi } from '@canvas-ui/page-contracts';
 import { registry, useApi } from '@canvas-ui/react-api';
-import {
-  Button,
-  Input,
-  InputABI,
-  InputAddress,
-  InputFile,
-  TxButton
-} from '@canvas-ui/react-components';
+import { Button, Input, InputABI, InputAddress, InputFile, TxButton } from '@canvas-ui/react-components';
 import PendingTx from '@canvas-ui/react-components/PendingTx';
 import { ComponentProps as Props } from '@canvas-ui/react-components/types';
 import { useAccountId, useFile, useNonEmptyString } from '@canvas-ui/react-hooks';
@@ -38,15 +31,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
     },
     validate: (file: FileState) => file?.data.subarray(0, 4).toString() === '0,97,115,109'
   });
-  const {
-    abi,
-    errorText,
-    isAbiError,
-    isAbiSupplied,
-    isAbiValid,
-    onChangeAbi,
-    onRemoveAbi
-  } = useAbi();
+  const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
 
   const [[wasm, isWasmValid], setWasm] = useState<[Uint8Array | null, boolean]>([null, false]);
@@ -73,11 +58,14 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
 
   const pendingTx = usePendingTx('contracts.putCode');
 
-  const isSubmittable = useMemo(
-    (): boolean =>
-      !!accountId && !isNull(name) && isNameValid && isWasmValid && (!isAbiSupplied || isAbiValid),
-    [accountId, name, isAbiSupplied, isAbiValid, isNameValid, isWasmValid]
-  );
+  const isSubmittable = useMemo((): boolean => !!accountId && !isNull(name) && isNameValid && isWasmValid && (!isAbiSupplied || isAbiValid), [
+    accountId,
+    name,
+    isAbiSupplied,
+    isAbiValid,
+    isNameValid,
+    isWasmValid
+  ]);
 
   const _onChangeName = useCallback(
     (name: string | null): void => {
@@ -129,9 +117,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
       </header>
       <section>
         <InputAddress
-          help={t<string>(
-            'Specify the user account to use for this deployment. Any fees will be deducted from this account.'
-          )}
+          help={t<string>('Specify the user account to use for this deployment. Any fees will be deducted from this account.')}
           isInput={false}
           label={t<string>('Account')}
           onChange={setAccountId}
@@ -139,25 +125,14 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
           value={accountId}
         />
         <Input
-          help={t<string>(
-            'A name for this WASM code to help users distinguish. Only used for display purposes.'
-          )}
+          help={t<string>('A name for this WASM code to help users distinguish. Only used for display purposes.')}
           isError={isNameError}
           label={t<string>('Name')}
           onChange={_onChangeName}
           placeholder={t<string>('Give your bundle a descriptive name')}
           value={name}
         />
-        <InputABI
-          abi={abi}
-          errorText={errorText}
-          file={abiFile}
-          isError={isAbiError}
-          isSupplied={isAbiSupplied}
-          isValid={isAbiValid}
-          setFile={setAbiFile}
-          withLabel
-        />
+        <InputABI abi={abi} errorText={errorText} file={abiFile} isError={isAbiError} isSupplied={isAbiSupplied} isValid={isAbiValid} setFile={setAbiFile} withLabel />
         {abi?.project.source.wasm && abi.project.source.wasm.length === 0 && (
           <InputFile
             help={t<string>(
@@ -166,11 +141,7 @@ function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
             isError={isWasmFromFileSupplied && !isWasmFromFileValid}
             label={t<string>('Upload Wasm Blob')}
             onChange={setWasmFromFile}
-            placeholder={
-              wasmFromFile && !isWasmFromFileValid
-                ? t<string>('The code is not recognized as being in valid WASM format')
-                : null
-            }
+            placeholder={wasmFromFile && !isWasmFromFileValid ? t<string>('The code is not recognized as being in valid WASM format') : null}
             value={wasmFromFile}
           />
         )}

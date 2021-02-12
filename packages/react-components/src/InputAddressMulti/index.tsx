@@ -76,15 +76,7 @@ interface Props {
 
 // NOTE Drag code above, disabled since it has massive performance implications
 
-function InputAddressMulti({
-  available,
-  availableLabel,
-  className = '',
-  defaultValue,
-  maxCount,
-  onChange,
-  valueLabel
-}: Props): React.ReactElement<Props> {
+function InputAddressMulti({ available, availableLabel, className = '', defaultValue, maxCount, onChange, valueLabel }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [_filter, setFilter] = useState<string>('');
   const [selected, setSelected] = useState<string[]>([]);
@@ -99,20 +91,12 @@ function InputAddressMulti({
   }, [onChange, selected]);
 
   const _onSelect = useCallback(
-    (address: string): void =>
-      setSelected((selected: string[]) =>
-        !selected.includes(address) && selected.length < maxCount
-          ? selected.concat(address)
-          : selected
-      ),
+    (address: string): void => setSelected((selected: string[]) => (!selected.includes(address) && selected.length < maxCount ? selected.concat(address) : selected)),
     [maxCount]
   );
 
   const _onDeselect = useCallback(
-    (address: string): void =>
-      setSelected((selected: string[]) =>
-        selected.includes(address) ? selected.filter(a => a !== address) : selected
-      ),
+    (address: string): void => setSelected((selected: string[]) => (selected.includes(address) ? selected.filter((a) => a !== address) : selected)),
     []
   );
 
@@ -132,12 +116,7 @@ function InputAddressMulti({
           <div className="ui--InputAddressMulti-items">
             {selected.map(
               (address): React.ReactNode => (
-                <Selected
-                  address={address}
-                  filter={filter}
-                  key={address}
-                  onDeselect={_onDeselect}
-                />
+                <Selected address={address} filter={filter} key={address} onDeselect={_onDeselect} />
               )
             )}
           </div>
@@ -147,13 +126,7 @@ function InputAddressMulti({
           <div className="ui--InputAddressMulti-items">
             {available.map(
               (address): React.ReactNode => (
-                <Available
-                  address={address}
-                  filter={filter}
-                  isHidden={selected?.includes(address)}
-                  key={address}
-                  onSelect={_onSelect}
-                />
+                <Available address={address} filter={filter} isHidden={selected?.includes(address)} key={address} onSelect={_onSelect} />
               )
             )}
           </div>

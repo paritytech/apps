@@ -28,12 +28,7 @@ function Selected({ address, index, onDeselect }: Props): React.ReactElement<Pro
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <AddressToggle
-              address={address}
-              className={snapshot.isDragging ? 'isDragging' : ''}
-              noToggle
-              onChange={onDeselect}
-            />
+            <AddressToggle address={address} className={snapshot.isDragging ? 'isDragging' : ''} noToggle onChange={onDeselect} />
           </div>
         );
 

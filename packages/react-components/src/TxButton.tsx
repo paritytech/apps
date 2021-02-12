@@ -125,12 +125,7 @@ function TxButton({
       icon={icon}
       isBasic={isBasic}
       isBusy={isBusy}
-      isDisabled={
-        isSending ||
-        isDisabled ||
-        (!isUnsigned && !accountId) ||
-        (tx ? false : Array.isArray(propsExtrinsic) ? propsExtrinsic.length === 0 : !propsExtrinsic)
-      }
+      isDisabled={isSending || isDisabled || (!isUnsigned && !accountId) || (tx ? false : Array.isArray(propsExtrinsic) ? propsExtrinsic.length === 0 : !propsExtrinsic)}
       isIcon={isIcon && !!icon}
       isPrimary={isPrimary}
       label={label || (isIcon ? '' : t<string>('Submit'))}

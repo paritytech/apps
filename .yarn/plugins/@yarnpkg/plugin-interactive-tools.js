@@ -6,34 +6,23 @@ module.exports = {
       function __webpack_require__(moduleId) {
         if (installedModules[moduleId]) return installedModules[moduleId].exports;
         var module = (installedModules[moduleId] = { i: moduleId, l: !1, exports: {} });
-        return (
-          modules[moduleId].call(module.exports, module, module.exports, __webpack_require__),
-          (module.l = !0),
-          module.exports
-        );
+        return modules[moduleId].call(module.exports, module, module.exports, __webpack_require__), (module.l = !0), module.exports;
       }
       return (
         (__webpack_require__.m = modules),
         (__webpack_require__.c = installedModules),
         (__webpack_require__.d = function (exports, name, getter) {
-          __webpack_require__.o(exports, name) ||
-            Object.defineProperty(exports, name, { enumerable: !0, get: getter });
+          __webpack_require__.o(exports, name) || Object.defineProperty(exports, name, { enumerable: !0, get: getter });
         }),
         (__webpack_require__.r = function (exports) {
-          'undefined' != typeof Symbol &&
-            Symbol.toStringTag &&
-            Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' }),
+          'undefined' != typeof Symbol && Symbol.toStringTag && Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' }),
             Object.defineProperty(exports, '__esModule', { value: !0 });
         }),
         (__webpack_require__.t = function (value, mode) {
           if ((1 & mode && (value = __webpack_require__(value)), 8 & mode)) return value;
           if (4 & mode && 'object' == typeof value && value && value.__esModule) return value;
           var ns = Object.create(null);
-          if (
-            (__webpack_require__.r(ns),
-            Object.defineProperty(ns, 'default', { enumerable: !0, value: value }),
-            2 & mode && 'string' != typeof value)
-          )
+          if ((__webpack_require__.r(ns), Object.defineProperty(ns, 'default', { enumerable: !0, value: value }), 2 & mode && 'string' != typeof value))
             for (var key in value)
               __webpack_require__.d(
                 ns,
@@ -80,19 +69,10 @@ module.exports = {
             (this && this.__decorate) ||
             function (decorators, target, key, desc) {
               var c = arguments.length,
-                r =
-                  c < 3
-                    ? target
-                    : null === desc
-                    ? (desc = Object.getOwnPropertyDescriptor(target, key))
-                    : desc,
+                r = c < 3 ? target : null === desc ? (desc = Object.getOwnPropertyDescriptor(target, key)) : desc,
                 d;
-              if ('object' == typeof Reflect && 'function' == typeof Reflect.decorate)
-                r = Reflect.decorate(decorators, target, key, desc);
-              else
-                for (var i = decorators.length - 1; i >= 0; i--)
-                  (d = decorators[i]) &&
-                    (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+              if ('object' == typeof Reflect && 'function' == typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc);
+              else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
               return c > 3 && r && Object.defineProperty(target, key, r), r;
             },
           __importStar =
@@ -100,8 +80,7 @@ module.exports = {
             function (mod) {
               if (mod && mod.__esModule) return mod;
               var result = {};
-              if (null != mod)
-                for (var k in mod) Object.hasOwnProperty.call(mod, k) && (result[k] = mod[k]);
+              if (null != mod) for (var k in mod) Object.hasOwnProperty.call(mod, k) && (result[k] = mod[k]);
               return (result.default = mod), result;
             },
           __importDefault =
@@ -125,23 +104,14 @@ module.exports = {
           SIMPLE_SEMVER = /^((?:[\^~]|>=?)?)([0-9]+)(\.[0-9]+)(\.[0-9]+)((?:-\S+)?)$/;
         class UpgradeInteractiveCommand extends cli_1.BaseCommand {
           async execute() {
-            const configuration = await core_1.Configuration.find(
-                this.context.cwd,
-                this.context.plugins
-              ),
-              { project: project, workspace: workspace } = await core_1.Project.find(
-                configuration,
-                this.context.cwd
-              ),
+            const configuration = await core_1.Configuration.find(this.context.cwd, this.context.plugins),
+              { project: project, workspace: workspace } = await core_1.Project.find(configuration, this.context.cwd),
               cache = await core_1.Cache.find(configuration);
             if (!workspace) throw new cli_1.WorkspaceRequiredError(project.cwd, this.context.cwd);
             const colorizeRawDiff = (from, to) => {
                 const diff = diff_1.diffWords(from, to);
                 let str = '';
-                for (const part of diff)
-                  part.added
-                    ? (str += configuration.format(part.value, 'green'))
-                    : part.removed || (str += part.value);
+                for (const part of diff) part.added ? (str += configuration.format(part.value, 'green')) : part.removed || (str += part.value);
                 return str;
               },
               colorizeVersionDiff = (from, to) => {
@@ -156,27 +126,20 @@ module.exports = {
                   res = '';
                 for (let t = 1; t < SEMVER_COLORS.length; ++t)
                   null !== color || matchedFrom[t] !== matchedTo[t]
-                    ? (null === color && (color = SEMVER_COLORS[t - 1]),
-                      (res += configuration.format(matchedTo[t], color)))
+                    ? (null === color && (color = SEMVER_COLORS[t - 1]), (res += configuration.format(matchedTo[t], color)))
                     : (res += matchedTo[t]);
                 return res;
               },
               fetchUpdatedDescriptor = async (descriptor, copyStyle, range) => {
-                const candidate = await plugin_essentials_1.suggestUtils.fetchDescriptorFrom(
-                  descriptor,
-                  range,
-                  {
-                    project: project,
-                    cache: cache,
-                    preserveModifier: copyStyle
-                  }
-                );
+                const candidate = await plugin_essentials_1.suggestUtils.fetchDescriptorFrom(descriptor, range, {
+                  project: project,
+                  cache: cache,
+                  preserveModifier: copyStyle
+                });
                 return null !== candidate ? candidate.range : descriptor.range;
               },
-              fetchSuggestions = async descriptor => {
-                const referenceRange = semver_1.default.valid(descriptor.range)
-                    ? `^${descriptor.range}`
-                    : descriptor.range,
+              fetchSuggestions = async (descriptor) => {
+                const referenceRange = semver_1.default.valid(descriptor.range) ? `^${descriptor.range}` : descriptor.range,
                   [resolution, dependency] = await Promise.all([
                     fetchUpdatedDescriptor(descriptor, descriptor.range, referenceRange),
                     fetchUpdatedDescriptor(descriptor, descriptor.range, 'latest')
@@ -198,25 +161,18 @@ module.exports = {
                 );
               },
               UpgradeEntry = ({ active: active, descriptor: descriptor }) => {
-                const [action, setAction] = useMinistore_1.useMinistore(
-                    descriptor.descriptorHash,
-                    null
-                  ),
+                const [action, setAction] = useMinistore_1.useMinistore(descriptor.descriptorHash, null),
                   [suggestions, setSuggestions] = react_1.useState(null);
                 return (
                   react_1.useEffect(() => {
-                    fetchSuggestions(descriptor).then(suggestions => {
+                    fetchSuggestions(descriptor).then((suggestions) => {
                       setSuggestions(suggestions);
                     });
                   }, [descriptor.descriptorHash]),
                   react_1.default.createElement(
                     ink_1.Box,
                     null,
-                    react_1.default.createElement(
-                      ink_1.Box,
-                      { width: 60 },
-                      core_1.structUtils.prettyIdent(configuration, descriptor)
-                    ),
+                    react_1.default.createElement(ink_1.Box, { width: 60 }, core_1.structUtils.prettyIdent(configuration, descriptor)),
                     null !== suggestions
                       ? react_1.default.createElement(ItemOptions_1.ItemOptions, {
                           active: active,
@@ -225,15 +181,7 @@ module.exports = {
                           onChange: setAction,
                           sizes: [15, 15, 15]
                         })
-                      : react_1.default.createElement(
-                          ink_1.Box,
-                          null,
-                          react_1.default.createElement(
-                            ink_1.Color,
-                            { gray: !0 },
-                            'Fetching suggestions...'
-                          )
-                        )
+                      : react_1.default.createElement(ink_1.Box, null, react_1.default.createElement(ink_1.Color, { gray: !0 }, 'Fetching suggestions...'))
                   )
                 );
               },
@@ -243,12 +191,8 @@ module.exports = {
                 for (const workspace of project.workspaces)
                   for (const dependencyType of ['dependencies', 'devDependencies'])
                     for (const descriptor of workspace.manifest[dependencyType].values())
-                      null === project.tryWorkspaceByDescriptor(descriptor) &&
-                        allDependencies.set(descriptor.descriptorHash, descriptor);
-                const sortedDependencies = core_1.miscUtils.sortMap(
-                  allDependencies.values(),
-                  descriptor => core_1.structUtils.stringifyDescriptor(descriptor)
-                );
+                      null === project.tryWorkspaceByDescriptor(descriptor) && allDependencies.set(descriptor.descriptorHash, descriptor);
+                const sortedDependencies = core_1.miscUtils.sortMap(allDependencies.values(), (descriptor) => core_1.structUtils.stringifyDescriptor(descriptor));
                 return react_1.default.createElement(
                   react_1.default.Fragment,
                   null,
@@ -262,7 +206,7 @@ module.exports = {
                     ),
                     react_1.default.createElement(ScrollableItems_1.ScrollableItems, {
                       radius: 10,
-                      children: sortedDependencies.map(descriptor =>
+                      children: sortedDependencies.map((descriptor) =>
                         react_1.default.createElement(UpgradeEntry, {
                           key: descriptor.descriptorHash,
                           active: !1,
@@ -281,12 +225,7 @@ module.exports = {
                 const dependencies = workspace.manifest[dependencyType];
                 for (const descriptor of dependencies.values()) {
                   const newRange = updateRequests.get(descriptor.descriptorHash);
-                  null != newRange &&
-                    (dependencies.set(
-                      descriptor.identHash,
-                      core_1.structUtils.makeDescriptor(descriptor, newRange)
-                    ),
-                    (hasChanged = !0));
+                  null != newRange && (dependencies.set(descriptor.identHash, core_1.structUtils.makeDescriptor(descriptor, newRange)), (hasChanged = !0));
                 }
               }
             if (!hasChanged) return 0;
@@ -296,7 +235,7 @@ module.exports = {
                 stdout: this.context.stdout,
                 includeLogs: !this.context.quiet
               },
-              async report => {
+              async (report) => {
                 await project.install({ cache: cache, report: report });
               }
             );
@@ -310,12 +249,7 @@ module.exports = {
             '\n        > In order to use this command you will need to add `@yarnpkg/plugin-interactive-tools` to your plugins. Check the documentation for `yarn plugin import` for more details.\n\n        This command opens a fullscreen terminal interace where you can see the packages used by your application, their status compared to the latest versions available on the remote registry, and let you upgrade.\n      ',
           examples: [['Open the upgrade window', 'yarn upgrade-interactive']]
         })),
-          __decorate(
-            [clipanion_1.Command.Path('upgrade-interactive')],
-            UpgradeInteractiveCommand.prototype,
-            'execute',
-            null
-          ),
+          __decorate([clipanion_1.Command.Path('upgrade-interactive')], UpgradeInteractiveCommand.prototype, 'execute', null),
           (exports.default = UpgradeInteractiveCommand);
       },
       function (module, exports) {
@@ -335,13 +269,7 @@ module.exports = {
         const ink_1 = __webpack_require__(5),
           react_1 = __importDefault(__webpack_require__(8)),
           useListInput_1 = __webpack_require__(89);
-        exports.ItemOptions = function ({
-          active: active,
-          options: options,
-          value: value,
-          onChange: onChange,
-          sizes: sizes = []
-        }) {
+        exports.ItemOptions = function ({ active: active, options: options, value: value, onChange: onChange, sizes: sizes = [] }) {
           const values = options.map(({ value: value }) => value),
             selectedIndex = values.indexOf(value);
           return (
@@ -478,16 +406,11 @@ module.exports = {
         var _default = (node, options = {}) => {
           let instance;
           return (
-            'function' == typeof options.write &&
-              (options = { stdout: options, stdin: process.stdin }),
-            (options = _objectSpread(
-              { stdout: process.stdout, stdin: process.stdin, debug: !1, exitOnCtrlC: !0 },
-              options
-            )),
+            'function' == typeof options.write && (options = { stdout: options, stdin: process.stdin }),
+            (options = _objectSpread({ stdout: process.stdout, stdin: process.stdin, debug: !1, exitOnCtrlC: !0 }, options)),
             _instances.default.has(options.stdout)
               ? (instance = _instances.default.get(options.stdout))
-              : ((instance = new _instance.default(options)),
-                _instances.default.set(options.stdout, instance)),
+              : ((instance = new _instance.default(options)), _instances.default.set(options.stdout, instance)),
             instance.render(node),
             {
               rerender: instance.render,
@@ -524,9 +447,7 @@ module.exports = {
               (this.rootNode.onRender = this.onRender),
               (this.renderer = (0, _renderer.default)({ terminalWidth: options.stdout.columns })),
               (this.log = _logUpdate.default.create(options.stdout)),
-              (this.throttledLog = options.debug
-                ? this.log
-                : (0, _lodash.default)(this.log, { leading: !0, trailing: !0 })),
+              (this.throttledLog = options.debug ? this.log : (0, _lodash.default)(this.log, { leading: !0, trailing: !0 })),
               (this.isUnmounted = !1),
               (this.lastOutput = ''),
               (this.fullStaticOutput = ''),
@@ -540,17 +461,9 @@ module.exports = {
             if (this.isUnmounted) return;
             const { output: output, staticOutput: staticOutput } = this.renderer(this.rootNode),
               hasStaticOutput = staticOutput && '\n' !== staticOutput;
-            if (this.options.debug)
-              return (
-                hasStaticOutput && (this.fullStaticOutput += staticOutput),
-                void this.options.stdout.write(this.fullStaticOutput + output)
-              );
-            hasStaticOutput &&
-              (_isCi.default || this.log.clear(),
-              this.options.stdout.write(staticOutput),
-              _isCi.default || this.log(output)),
-              output !== this.lastOutput &&
-                (_isCi.default || this.throttledLog(output), (this.lastOutput = output));
+            if (this.options.debug) return hasStaticOutput && (this.fullStaticOutput += staticOutput), void this.options.stdout.write(this.fullStaticOutput + output);
+            hasStaticOutput && (_isCi.default || this.log.clear(), this.options.stdout.write(staticOutput), _isCi.default || this.log(output)),
+              output !== this.lastOutput && (_isCi.default || this.throttledLog(output), (this.lastOutput = output));
           }
           render(node) {
             const tree = _react.default.createElement(
@@ -569,9 +482,7 @@ module.exports = {
             this.isUnmounted ||
               (this.onRender(),
               this.unsubscribeExit(),
-              _isCi.default
-                ? this.options.stdout.write(this.lastOutput + '\n')
-                : this.options.debug || this.log.done(),
+              _isCi.default ? this.options.stdout.write(this.lastOutput + '\n') : this.options.debug || this.log.done(),
               (this.isUnmounted = !0),
               _reconciler.default.updateContainer(null, this.container),
               _instances.default.delete(this.options.stdout),
@@ -618,9 +529,7 @@ module.exports = {
             FAUX_ITERATOR_SYMBOL = '@@iterator';
           function getIteratorFn(maybeIterable) {
             if (null === maybeIterable || 'object' != typeof maybeIterable) return null;
-            var maybeIterator =
-              (MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL]) ||
-              maybeIterable['@@iterator'];
+            var maybeIterator = (MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL]) || maybeIterable['@@iterator'];
             return 'function' == typeof maybeIterator ? maybeIterator : null;
           }
           var validateFormat = function () {};
@@ -628,9 +537,7 @@ module.exports = {
             if ((validateFormat(format), !condition)) {
               var error = void 0;
               if (void 0 === format)
-                error = new Error(
-                  'Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.'
-                );
+                error = new Error('Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.');
               else {
                 var args = [a, b, c, d, e, f],
                   argIndex = 0;
@@ -648,12 +555,7 @@ module.exports = {
           };
           var lowPriorityWarning = function () {},
             printWarning = function (format) {
-              for (
-                var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1;
-                _key < _len;
-                _key++
-              )
-                args[_key - 1] = arguments[_key];
+              for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) args[_key - 1] = arguments[_key];
               var argIndex = 0,
                 message =
                   'Warning: ' +
@@ -666,41 +568,23 @@ module.exports = {
               } catch (x) {}
             },
             lowPriorityWarning$1 = (lowPriorityWarning = function (condition, format) {
-              if (void 0 === format)
-                throw new Error(
-                  '`lowPriorityWarning(condition, format, ...args)` requires a warning message argument'
-                );
+              if (void 0 === format) throw new Error('`lowPriorityWarning(condition, format, ...args)` requires a warning message argument');
               if (!condition) {
-                for (
-                  var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2;
-                  _key2 < _len2;
-                  _key2++
-                )
-                  args[_key2 - 2] = arguments[_key2];
+                for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) args[_key2 - 2] = arguments[_key2];
                 printWarning.apply(void 0, [format].concat(args));
               }
             }),
             warningWithoutStack = function () {},
             warningWithoutStack$1 = (warningWithoutStack = function (condition, format) {
-              for (
-                var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2;
-                _key < _len;
-                _key++
-              )
-                args[_key - 2] = arguments[_key];
-              if (void 0 === format)
-                throw new Error(
-                  '`warningWithoutStack(condition, format, ...args)` requires a warning message argument'
-                );
-              if (args.length > 8)
-                throw new Error('warningWithoutStack() currently supports at most 8 arguments.');
+              for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) args[_key - 2] = arguments[_key];
+              if (void 0 === format) throw new Error('`warningWithoutStack(condition, format, ...args)` requires a warning message argument');
+              if (args.length > 8) throw new Error('warningWithoutStack() currently supports at most 8 arguments.');
               if (!condition) {
                 if ('undefined' != typeof console) {
                   var argsWithFormat = args.map(function (item) {
                     return '' + item;
                   });
-                  argsWithFormat.unshift('Warning: ' + format),
-                    Function.prototype.apply.call(console.error, console, argsWithFormat);
+                  argsWithFormat.unshift('Warning: ' + format), Function.prototype.apply.call(console.error, console, argsWithFormat);
                 }
                 try {
                   var argIndex = 0,
@@ -716,8 +600,7 @@ module.exports = {
             didWarnStateUpdateForUnmountedComponent = {};
           function warnNoop(publicInstance, callerName) {
             var _constructor = publicInstance.constructor,
-              componentName =
-                (_constructor && (_constructor.displayName || _constructor.name)) || 'ReactClass',
+              componentName = (_constructor && (_constructor.displayName || _constructor.name)) || 'ReactClass',
               warningKey = componentName + '.' + callerName;
             didWarnStateUpdateForUnmountedComponent[warningKey] ||
               (warningWithoutStack(
@@ -744,10 +627,7 @@ module.exports = {
             },
             emptyObject = {};
           function Component(props, context, updater) {
-            (this.props = props),
-              (this.context = context),
-              (this.refs = emptyObject),
-              (this.updater = updater || ReactNoopUpdateQueue);
+            (this.props = props), (this.context = context), (this.refs = emptyObject), (this.updater = updater || ReactNoopUpdateQueue);
           }
           Object.freeze(emptyObject),
             (Component.prototype.isReactComponent = {}),
@@ -755,46 +635,27 @@ module.exports = {
               'object' != typeof partialState &&
                 'function' != typeof partialState &&
                 null != partialState &&
-                invariant(
-                  !1,
-                  'setState(...): takes an object of state variables to update or a function which returns an object of state variables.'
-                ),
+                invariant(!1, 'setState(...): takes an object of state variables to update or a function which returns an object of state variables.'),
                 this.updater.enqueueSetState(this, partialState, callback, 'setState');
             }),
             (Component.prototype.forceUpdate = function (callback) {
               this.updater.enqueueForceUpdate(this, callback, 'forceUpdate');
             });
           var deprecatedAPIs = {
-              isMounted: [
-                'isMounted',
-                'Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks.'
-              ],
-              replaceState: [
-                'replaceState',
-                'Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236).'
-              ]
+              isMounted: ['isMounted', 'Instead, make sure to clean up subscriptions and pending requests in componentWillUnmount to prevent memory leaks.'],
+              replaceState: ['replaceState', 'Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236).']
             },
             defineDeprecationWarning = function (methodName, info) {
               Object.defineProperty(Component.prototype, methodName, {
                 get: function () {
-                  lowPriorityWarning(
-                    !1,
-                    '%s(...) is deprecated in plain JavaScript React classes. %s',
-                    info[0],
-                    info[1]
-                  );
+                  lowPriorityWarning(!1, '%s(...) is deprecated in plain JavaScript React classes. %s', info[0], info[1]);
                 }
               });
             };
-          for (var fnName in deprecatedAPIs)
-            deprecatedAPIs.hasOwnProperty(fnName) &&
-              defineDeprecationWarning(fnName, deprecatedAPIs[fnName]);
+          for (var fnName in deprecatedAPIs) deprecatedAPIs.hasOwnProperty(fnName) && defineDeprecationWarning(fnName, deprecatedAPIs[fnName]);
           function ComponentDummy() {}
           function PureComponent(props, context, updater) {
-            (this.props = props),
-              (this.context = context),
-              (this.refs = emptyObject),
-              (this.updater = updater || ReactNoopUpdateQueue);
+            (this.props = props), (this.context = context), (this.refs = emptyObject), (this.updater = updater || ReactNoopUpdateQueue);
           }
           ComponentDummy.prototype = Component.prototype;
           var pureComponentPrototype = (PureComponent.prototype = new ComponentDummy());
@@ -802,9 +663,7 @@ module.exports = {
             var refObject = { current: null };
             return Object.seal(refObject), refObject;
           }
-          (pureComponentPrototype.constructor = PureComponent),
-            _assign(pureComponentPrototype, Component.prototype),
-            (pureComponentPrototype.isPureReactComponent = !0);
+          (pureComponentPrototype.constructor = PureComponent), _assign(pureComponentPrototype, Component.prototype), (pureComponentPrototype.isPureReactComponent = !0);
           var ReactCurrentDispatcher = { current: null },
             ReactCurrentOwner = { current: null },
             BEFORE_SLASH_RE = /^(.*)[\\\/]/,
@@ -818,8 +677,7 @@ module.exports = {
                   if (match) {
                     var pathBeforeSlash = match[1],
                       folderName;
-                    if (pathBeforeSlash)
-                      fileName = pathBeforeSlash.replace(BEFORE_SLASH_RE, '') + '/' + fileName;
+                    if (pathBeforeSlash) fileName = pathBeforeSlash.replace(BEFORE_SLASH_RE, '') + '/' + fileName;
                   }
                 }
                 sourceInfo = ' (at ' + fileName + ':' + source.lineNumber + ')';
@@ -832,19 +690,13 @@ module.exports = {
           }
           function getWrappedName(outerType, innerType, wrapperName) {
             var functionName = innerType.displayName || innerType.name || '';
-            return (
-              outerType.displayName ||
-              ('' !== functionName ? wrapperName + '(' + functionName + ')' : wrapperName)
-            );
+            return outerType.displayName || ('' !== functionName ? wrapperName + '(' + functionName + ')' : wrapperName);
           }
           function getComponentName(type) {
             if (null == type) return null;
             if (
               ('number' == typeof type.tag &&
-                warningWithoutStack(
-                  !1,
-                  'Received an unexpected object in getComponentName(). This is likely a bug in React. Please file an issue.'
-                ),
+                warningWithoutStack(!1, 'Received an unexpected object in getComponentName(). This is likely a bug in React. Please file an issue.'),
               'function' == typeof type)
             )
               return type.displayName || type.name || null;
@@ -891,11 +743,7 @@ module.exports = {
               if (currentlyValidatingElement) {
                 var name = getComponentName(currentlyValidatingElement.type),
                   owner = currentlyValidatingElement._owner;
-                stack += describeComponentFrame(
-                  name,
-                  currentlyValidatingElement._source,
-                  owner && getComponentName(owner.type)
-                );
+                stack += describeComponentFrame(name, currentlyValidatingElement._source, owner && getComponentName(owner.type));
               }
               var impl = ReactDebugCurrentFrame.getCurrentStack;
               return impl && (stack += impl() || ''), stack;
@@ -953,8 +801,7 @@ module.exports = {
                   displayName
                 ));
             };
-            (warnAboutAccessingKey.isReactWarning = !0),
-              Object.defineProperty(props, 'key', { get: warnAboutAccessingKey, configurable: !0 });
+            (warnAboutAccessingKey.isReactWarning = !0), Object.defineProperty(props, 'key', { get: warnAboutAccessingKey, configurable: !0 });
           }
           function defineRefPropWarningGetter(props, displayName) {
             var warnAboutAccessingRef = function () {
@@ -966,8 +813,7 @@ module.exports = {
                   displayName
                 ));
             };
-            (warnAboutAccessingRef.isReactWarning = !0),
-              Object.defineProperty(props, 'ref', { get: warnAboutAccessingRef, configurable: !0 });
+            (warnAboutAccessingRef.isReactWarning = !0), Object.defineProperty(props, 'ref', { get: warnAboutAccessingRef, configurable: !0 });
           }
           var ReactElement = function (type, key, ref, self, source, owner, props) {
             var element = {
@@ -1015,48 +861,29 @@ module.exports = {
               (self = void 0 === config.__self ? null : config.__self),
               (source = void 0 === config.__source ? null : config.__source),
               config))
-                hasOwnProperty.call(config, propName) &&
-                  !RESERVED_PROPS.hasOwnProperty(propName) &&
-                  (props[propName] = config[propName]);
+                hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName) && (props[propName] = config[propName]);
             var childrenLength = arguments.length - 2;
             if (1 === childrenLength) props.children = children;
             else if (childrenLength > 1) {
-              for (var childArray = Array(childrenLength), i = 0; i < childrenLength; i++)
-                childArray[i] = arguments[i + 2];
+              for (var childArray = Array(childrenLength), i = 0; i < childrenLength; i++) childArray[i] = arguments[i + 2];
               Object.freeze && Object.freeze(childArray), (props.children = childArray);
             }
             if (type && type.defaultProps) {
               var defaultProps = type.defaultProps;
-              for (propName in defaultProps)
-                void 0 === props[propName] && (props[propName] = defaultProps[propName]);
+              for (propName in defaultProps) void 0 === props[propName] && (props[propName] = defaultProps[propName]);
             }
             if (key || ref) {
-              var displayName =
-                'function' == typeof type ? type.displayName || type.name || 'Unknown' : type;
-              key && defineKeyPropWarningGetter(props, displayName),
-                ref && defineRefPropWarningGetter(props, displayName);
+              var displayName = 'function' == typeof type ? type.displayName || type.name || 'Unknown' : type;
+              key && defineKeyPropWarningGetter(props, displayName), ref && defineRefPropWarningGetter(props, displayName);
             }
             return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
           }
           function cloneAndReplaceKey(oldElement, newKey) {
             var newElement;
-            return ReactElement(
-              oldElement.type,
-              newKey,
-              oldElement.ref,
-              oldElement._self,
-              oldElement._source,
-              oldElement._owner,
-              oldElement.props
-            );
+            return ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
           }
           function cloneElement(element, config, children) {
-            null == element &&
-              invariant(
-                !1,
-                'React.cloneElement(...): The argument must be a React element, but you passed %s.',
-                element
-              );
+            null == element && invariant(!1, 'React.cloneElement(...): The argument must be a React element, but you passed %s.', element);
             var propName = void 0,
               props = _assign({}, element.props),
               key = element.key,
@@ -1065,32 +892,23 @@ module.exports = {
               source = element._source,
               owner = element._owner;
             if (null != config) {
-              hasValidRef(config) && ((ref = config.ref), (owner = ReactCurrentOwner.current)),
-                hasValidKey(config) && (key = '' + config.key);
+              hasValidRef(config) && ((ref = config.ref), (owner = ReactCurrentOwner.current)), hasValidKey(config) && (key = '' + config.key);
               var defaultProps = void 0;
-              for (propName in (element.type &&
-                element.type.defaultProps &&
-                (defaultProps = element.type.defaultProps),
-              config))
+              for (propName in (element.type && element.type.defaultProps && (defaultProps = element.type.defaultProps), config))
                 hasOwnProperty.call(config, propName) &&
                   !RESERVED_PROPS.hasOwnProperty(propName) &&
-                  (void 0 === config[propName] && void 0 !== defaultProps
-                    ? (props[propName] = defaultProps[propName])
-                    : (props[propName] = config[propName]));
+                  (void 0 === config[propName] && void 0 !== defaultProps ? (props[propName] = defaultProps[propName]) : (props[propName] = config[propName]));
             }
             var childrenLength = arguments.length - 2;
             if (1 === childrenLength) props.children = children;
             else if (childrenLength > 1) {
-              for (var childArray = Array(childrenLength), i = 0; i < childrenLength; i++)
-                childArray[i] = arguments[i + 2];
+              for (var childArray = Array(childrenLength), i = 0; i < childrenLength; i++) childArray[i] = arguments[i + 2];
               props.children = childArray;
             }
             return ReactElement(element.type, key, ref, self, source, owner, props);
           }
           function isValidElement(object) {
-            return (
-              'object' == typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE
-            );
+            return 'object' == typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
           }
           var SEPARATOR = '.',
             SUBSEPARATOR = ':';
@@ -1158,27 +976,14 @@ module.exports = {
                       invokeCallback = !0;
                   }
               }
-            if (invokeCallback)
-              return (
-                callback(
-                  traverseContext,
-                  children,
-                  '' === nameSoFar ? '.' + getComponentKey(children, 0) : nameSoFar
-                ),
-                1
-              );
+            if (invokeCallback) return callback(traverseContext, children, '' === nameSoFar ? '.' + getComponentKey(children, 0) : nameSoFar), 1;
             var child = void 0,
               nextName = void 0,
               subtreeCount = 0,
               nextNamePrefix = '' === nameSoFar ? '.' : nameSoFar + ':';
             if (Array.isArray(children))
               for (var i = 0; i < children.length; i++)
-                subtreeCount += traverseAllChildrenImpl(
-                  (child = children[i]),
-                  (nextName = nextNamePrefix + getComponentKey(child, i)),
-                  callback,
-                  traverseContext
-                );
+                subtreeCount += traverseAllChildrenImpl((child = children[i]), (nextName = nextNamePrefix + getComponentKey(child, i)), callback, traverseContext);
             else {
               var iteratorFn = getIteratorFn(children);
               if ('function' == typeof iteratorFn) {
@@ -1189,29 +994,16 @@ module.exports = {
                       'Using Maps as children is unsupported and will likely yield unexpected results. Convert it to a sequence/iterable of keyed ReactElements instead.'
                     ),
                   (didWarnAboutMaps = !0));
-                for (
-                  var iterator = iteratorFn.call(children), step = void 0, ii = 0;
-                  !(step = iterator.next()).done;
-
-                )
-                  subtreeCount += traverseAllChildrenImpl(
-                    (child = step.value),
-                    (nextName = nextNamePrefix + getComponentKey(child, ii++)),
-                    callback,
-                    traverseContext
-                  );
+                for (var iterator = iteratorFn.call(children), step = void 0, ii = 0; !(step = iterator.next()).done; )
+                  subtreeCount += traverseAllChildrenImpl((child = step.value), (nextName = nextNamePrefix + getComponentKey(child, ii++)), callback, traverseContext);
               } else if ('object' === type) {
                 var addendum = '';
-                addendum =
-                  ' If you meant to render a collection of children, use an array instead.' +
-                  ReactDebugCurrentFrame.getStackAddendum();
+                addendum = ' If you meant to render a collection of children, use an array instead.' + ReactDebugCurrentFrame.getStackAddendum();
                 var childrenString = '' + children;
                 invariant(
                   !1,
                   'Objects are not valid as a React child (found: %s).%s',
-                  '[object Object]' === childrenString
-                    ? 'object with keys {' + Object.keys(children).join(', ') + '}'
-                    : childrenString,
+                  '[object Object]' === childrenString ? 'object with keys {' + Object.keys(children).join(', ') + '}' : childrenString,
                   addendum
                 );
               }
@@ -1219,14 +1011,10 @@ module.exports = {
             return subtreeCount;
           }
           function traverseAllChildren(children, callback, traverseContext) {
-            return null == children
-              ? 0
-              : traverseAllChildrenImpl(children, '', callback, traverseContext);
+            return null == children ? 0 : traverseAllChildrenImpl(children, '', callback, traverseContext);
           }
           function getComponentKey(component, index) {
-            return 'object' == typeof component && null !== component && null != component.key
-              ? escape(component.key)
-              : index.toString(36);
+            return 'object' == typeof component && null !== component && null != component.key ? escape(component.key) : index.toString(36);
           }
           function forEachSingleChild(bookKeeping, child, name) {
             var func = bookKeeping.func,
@@ -1236,8 +1024,7 @@ module.exports = {
           function forEachChildren(children, forEachFunc, forEachContext) {
             if (null == children) return children;
             var traverseContext = getPooledTraverseContext(null, null, forEachFunc, forEachContext);
-            traverseAllChildren(children, forEachSingleChild, traverseContext),
-              releaseTraverseContext(traverseContext);
+            traverseAllChildren(children, forEachSingleChild, traverseContext), releaseTraverseContext(traverseContext);
           }
           function mapSingleChildIntoContext(bookKeeping, child, childKey) {
             var result = bookKeeping.result,
@@ -1253,11 +1040,7 @@ module.exports = {
                 (isValidElement(mappedChild) &&
                   (mappedChild = cloneAndReplaceKey(
                     mappedChild,
-                    keyPrefix +
-                      (!mappedChild.key || (child && child.key === mappedChild.key)
-                        ? ''
-                        : escapeUserProvidedKey(mappedChild.key) + '/') +
-                      childKey
+                    keyPrefix + (!mappedChild.key || (child && child.key === mappedChild.key) ? '' : escapeUserProvidedKey(mappedChild.key) + '/') + childKey
                   )),
                 result.push(mappedChild));
           }
@@ -1265,8 +1048,7 @@ module.exports = {
             var escapedPrefix = '';
             null != prefix && (escapedPrefix = escapeUserProvidedKey(prefix) + '/');
             var traverseContext = getPooledTraverseContext(array, escapedPrefix, func, context);
-            traverseAllChildren(children, mapSingleChildIntoContext, traverseContext),
-              releaseTraverseContext(traverseContext);
+            traverseAllChildren(children, mapSingleChildIntoContext, traverseContext), releaseTraverseContext(traverseContext);
           }
           function mapChildren(children, func, context) {
             if (null == children) return children;
@@ -1292,25 +1074,14 @@ module.exports = {
             );
           }
           function onlyChild(children) {
-            return (
-              isValidElement(children) ||
-                invariant(
-                  !1,
-                  'React.Children.only expected to receive a single React element child.'
-                ),
-              children
-            );
+            return isValidElement(children) || invariant(!1, 'React.Children.only expected to receive a single React element child.'), children;
           }
           function createContext(defaultValue, calculateChangedBits) {
             void 0 === calculateChangedBits
               ? (calculateChangedBits = null)
               : null !== calculateChangedBits &&
                 'function' != typeof calculateChangedBits &&
-                warningWithoutStack(
-                  !1,
-                  'createContext: Expected the optional second argument to be a function. Instead received: %s',
-                  calculateChangedBits
-                );
+                warningWithoutStack(!1, 'createContext: Expected the optional second argument to be a function. Instead received: %s', calculateChangedBits);
             var context = {
               $$typeof: REACT_CONTEXT_TYPE,
               _calculateChangedBits: calculateChangedBits,
@@ -1436,26 +1207,17 @@ module.exports = {
                     'forwardRef requires a render function but received a `memo` component. Instead of forwardRef(memo(...)), use memo(forwardRef(...)).'
                   )
                 : 'function' != typeof render
-                ? warningWithoutStack(
-                    !1,
-                    'forwardRef requires a render function but was given %s.',
-                    null === render ? 'null' : typeof render
-                  )
+                ? warningWithoutStack(!1, 'forwardRef requires a render function but was given %s.', null === render ? 'null' : typeof render)
                 : 0 !== render.length &&
                   2 !== render.length &&
                   warningWithoutStack(
                     !1,
                     'forwardRef render functions accept exactly two parameters: props and ref. %s',
-                    1 === render.length
-                      ? 'Did you forget to use the ref parameter?'
-                      : 'Any additional parameter will be undefined.'
+                    1 === render.length ? 'Did you forget to use the ref parameter?' : 'Any additional parameter will be undefined.'
                   ),
               null != render &&
                 (null != render.defaultProps || null != render.propTypes) &&
-                warningWithoutStack(
-                  !1,
-                  'forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?'
-                ),
+                warningWithoutStack(!1, 'forwardRef render functions do not support propTypes or defaultProps. Did you accidentally pass a React component?'),
               { $$typeof: REACT_FORWARD_REF_TYPE, render: render }
             );
           }
@@ -1480,11 +1242,7 @@ module.exports = {
           function memo(type, compare) {
             return (
               isValidElementType(type) ||
-                warningWithoutStack(
-                  !1,
-                  'memo: The first argument must be a component. Instead received: %s',
-                  null === type ? 'null' : typeof type
-                ),
+                warningWithoutStack(!1, 'memo: The first argument must be a component. Instead received: %s', null === type ? 'null' : typeof type),
               {
                 $$typeof: REACT_MEMO_TYPE,
                 type: type,
@@ -1495,11 +1253,7 @@ module.exports = {
           function resolveDispatcher() {
             var dispatcher = ReactCurrentDispatcher.current;
             return (
-              null === dispatcher &&
-                invariant(
-                  !1,
-                  'Hooks can only be called inside the body of a function component. (https://fb.me/react-invalid-hook-call)'
-                ),
+              null === dispatcher && invariant(!1, 'Hooks can only be called inside the body of a function component. (https://fb.me/react-invalid-hook-call)'),
               dispatcher
             );
           }
@@ -1524,10 +1278,7 @@ module.exports = {
                     'Calling useContext(Context.Consumer) is not supported, may cause bugs, and will be removed in a future major release. Did you mean to call useContext(Context) instead?'
                   )
                 : realContext.Provider === Context &&
-                  warning(
-                    !1,
-                    'Calling useContext(Context.Provider) is not supported. Did you mean to call useContext(Context) instead?'
-                  );
+                  warning(!1, 'Calling useContext(Context.Provider) is not supported. Did you mean to call useContext(Context) instead?');
             }
             return dispatcher.useContext(Context, unstable_observedBits);
           }
@@ -1580,13 +1331,7 @@ module.exports = {
               var source = elementProps.__source,
                 fileName,
                 lineNumber;
-              return (
-                '\n\nCheck your code at ' +
-                source.fileName.replace(/^.*[\\\/]/, '') +
-                ':' +
-                source.lineNumber +
-                '.'
-              );
+              return '\n\nCheck your code at ' + source.fileName.replace(/^.*[\\\/]/, '') + ':' + source.lineNumber + '.';
             }
             return '';
           }
@@ -1595,12 +1340,8 @@ module.exports = {
           function getCurrentComponentErrorInfo(parentType) {
             var info = getDeclarationErrorAddendum();
             if (!info) {
-              var parentName =
-                'string' == typeof parentType
-                  ? parentType
-                  : parentType.displayName || parentType.name;
-              parentName &&
-                (info = '\n\nCheck the top-level render call using <' + parentName + '>.');
+              var parentName = 'string' == typeof parentType ? parentType : parentType.displayName || parentType.name;
+              parentName && (info = '\n\nCheck the top-level render call using <' + parentName + '>.');
             }
             return info;
           }
@@ -1614,8 +1355,7 @@ module.exports = {
                 element &&
                   element._owner &&
                   element._owner !== ReactCurrentOwner.current &&
-                  (childOwner =
-                    ' It was passed a child from ' + getComponentName(element._owner.type) + '.'),
+                  (childOwner = ' It was passed a child from ' + getComponentName(element._owner.type) + '.'),
                   setCurrentlyValidatingElement(element),
                   warning(
                     !1,
@@ -1638,11 +1378,7 @@ module.exports = {
               else if (node) {
                 var iteratorFn = getIteratorFn(node);
                 if ('function' == typeof iteratorFn && iteratorFn !== node.entries)
-                  for (
-                    var iterator = iteratorFn.call(node), step = void 0;
-                    !(step = iterator.next()).done;
-
-                  )
+                  for (var iterator = iteratorFn.call(node), step = void 0; !(step = iterator.next()).done; )
                     isValidElement(step.value) && validateExplicitKey(step.value, parentType);
               }
           }
@@ -1653,31 +1389,17 @@ module.exports = {
                 propTypes = void 0;
               if ('function' == typeof type) propTypes = type.propTypes;
               else {
-                if (
-                  'object' != typeof type ||
-                  (type.$$typeof !== REACT_FORWARD_REF_TYPE && type.$$typeof !== REACT_MEMO_TYPE)
-                )
-                  return;
+                if ('object' != typeof type || (type.$$typeof !== REACT_FORWARD_REF_TYPE && type.$$typeof !== REACT_MEMO_TYPE)) return;
                 propTypes = type.propTypes;
               }
               propTypes
                 ? (setCurrentlyValidatingElement(element),
-                  checkPropTypes(
-                    propTypes,
-                    element.props,
-                    'prop',
-                    name,
-                    ReactDebugCurrentFrame.getStackAddendum
-                  ),
+                  checkPropTypes(propTypes, element.props, 'prop', name, ReactDebugCurrentFrame.getStackAddendum),
                   setCurrentlyValidatingElement(null))
                 : void 0 === type.PropTypes ||
                   propTypesMisspellWarningShown ||
                   ((propTypesMisspellWarningShown = !0),
-                  warningWithoutStack(
-                    !1,
-                    'Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?',
-                    name || 'Unknown'
-                  )),
+                  warningWithoutStack(!1, 'Component %s declared `PropTypes` instead of `propTypes`. Did you misspell the property assignment?', name || 'Unknown')),
                 'function' == typeof type.getDefaultProps &&
                   (type.getDefaultProps.isReactClassApproved ||
                     warningWithoutStack(
@@ -1691,26 +1413,18 @@ module.exports = {
             for (var keys = Object.keys(fragment.props), i = 0; i < keys.length; i++) {
               var key = keys[i];
               if ('children' !== key && 'key' !== key) {
-                warning(
-                  !1,
-                  'Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.',
-                  key
-                );
+                warning(!1, 'Invalid prop `%s` supplied to `React.Fragment`. React.Fragment can only have `key` and `children` props.', key);
                 break;
               }
             }
-            null !== fragment.ref &&
-              warning(!1, 'Invalid attribute `ref` supplied to `React.Fragment`.'),
-              setCurrentlyValidatingElement(null);
+            null !== fragment.ref && warning(!1, 'Invalid attribute `ref` supplied to `React.Fragment`.'), setCurrentlyValidatingElement(null);
           }
           function createElementWithValidation(type, props, children) {
             var validType = isValidElementType(type);
             if (!validType) {
               var info = '';
-              (void 0 === type ||
-                ('object' == typeof type && null !== type && 0 === Object.keys(type).length)) &&
-                (info +=
-                  " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.");
+              (void 0 === type || ('object' == typeof type && null !== type && 0 === Object.keys(type).length)) &&
+                (info += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.");
               var sourceInfo = getSourceInfoErrorAddendum(props);
               info += sourceInfo || getDeclarationErrorAddendum();
               var typeString = void 0;
@@ -1719,8 +1433,7 @@ module.exports = {
                 : Array.isArray(type)
                 ? (typeString = 'array')
                 : void 0 !== type && type.$$typeof === REACT_ELEMENT_TYPE
-                ? ((typeString = '<' + (getComponentName(type.type) || 'Unknown') + ' />'),
-                  (info = ' Did you accidentally export a JSX literal instead of a component?'))
+                ? ((typeString = '<' + (getComponentName(type.type) || 'Unknown') + ' />'), (info = ' Did you accidentally export a JSX literal instead of a component?'))
                 : (typeString = typeof type),
                 warning(
                   !1,
@@ -1731,14 +1444,8 @@ module.exports = {
             }
             var element = createElement.apply(this, arguments);
             if (null == element) return element;
-            if (validType)
-              for (var i = 2; i < arguments.length; i++) validateChildKeys(arguments[i], type);
-            return (
-              type === REACT_FRAGMENT_TYPE
-                ? validateFragmentProps(element)
-                : validatePropTypes(element),
-              element
-            );
+            if (validType) for (var i = 2; i < arguments.length; i++) validateChildKeys(arguments[i], type);
+            return type === REACT_FRAGMENT_TYPE ? validateFragmentProps(element) : validatePropTypes(element), element;
           }
           function createFactoryWithValidation(type) {
             var validatedFactory = createElementWithValidation.bind(null, type);
@@ -1748,10 +1455,7 @@ module.exports = {
                 enumerable: !1,
                 get: function () {
                   return (
-                    lowPriorityWarning(
-                      !1,
-                      'Factory.type is deprecated. Access the class directly before passing it to createFactory.'
-                    ),
+                    lowPriorityWarning(!1, 'Factory.type is deprecated. Access the class directly before passing it to createFactory.'),
                     Object.defineProperty(this, 'type', { value: type }),
                     type
                   );
@@ -1761,12 +1465,7 @@ module.exports = {
             );
           }
           function cloneElementWithValidation(element, props, children) {
-            for (
-              var newElement = cloneElement.apply(this, arguments), i = 2;
-              i < arguments.length;
-              i++
-            )
-              validateChildKeys(arguments[i], newElement.type);
+            for (var newElement = cloneElement.apply(this, arguments), i = 2; i < arguments.length; i++) validateChildKeys(arguments[i], newElement.type);
             return validatePropTypes(newElement), newElement;
           }
           var enableStableConcurrentModeAPIs = !1,
@@ -1819,13 +1518,11 @@ module.exports = {
   object-assign
   (c) Sindre Sorhus
   @license MIT
-  */ var getOwnPropertySymbols =
-            Object.getOwnPropertySymbols,
+  */ var getOwnPropertySymbols = Object.getOwnPropertySymbols,
           hasOwnProperty = Object.prototype.hasOwnProperty,
           propIsEnumerable = Object.prototype.propertyIsEnumerable;
         function toObject(val) {
-          if (null == val)
-            throw new TypeError('Object.assign cannot be called with null or undefined');
+          if (null == val) throw new TypeError('Object.assign cannot be called with null or undefined');
           return Object(val);
         }
         function shouldUseNative() {
@@ -1859,12 +1556,10 @@ module.exports = {
           ? Object.assign
           : function (target, source) {
               for (var from, to = toObject(target), symbols, s = 1; s < arguments.length; s++) {
-                for (var key in (from = Object(arguments[s])))
-                  hasOwnProperty.call(from, key) && (to[key] = from[key]);
+                for (var key in (from = Object(arguments[s]))) hasOwnProperty.call(from, key) && (to[key] = from[key]);
                 if (getOwnPropertySymbols) {
                   symbols = getOwnPropertySymbols(from);
-                  for (var i = 0; i < symbols.length; i++)
-                    propIsEnumerable.call(from, symbols[i]) && (to[symbols[i]] = from[symbols[i]]);
+                  for (var i = 0; i < symbols.length; i++) propIsEnumerable.call(from, symbols[i]) && (to[symbols[i]] = from[symbols[i]]);
                 }
               }
               return to;
@@ -1893,14 +1588,7 @@ module.exports = {
                   );
                   throw ((err.name = 'Invariant Violation'), err);
                 }
-                error = typeSpecs[typeSpecName](
-                  values,
-                  typeSpecName,
-                  componentName,
-                  location,
-                  null,
-                  ReactPropTypesSecret
-                );
+                error = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, ReactPropTypesSecret);
               } catch (ex) {
                 error = ex;
               }
@@ -1921,9 +1609,7 @@ module.exports = {
               ) {
                 loggedTypeFailures[error.message] = !0;
                 var stack = getStack ? getStack() : '';
-                printWarning(
-                  'Failed ' + location + ' type: ' + error.message + (null != stack ? stack : '')
-                );
+                printWarning('Failed ' + location + ' type: ' + error.message + (null != stack ? stack : ''));
               }
             }
         }
@@ -1975,18 +1661,10 @@ module.exports = {
           function invokeFunc(time) {
             var args = lastArgs,
               thisArg = lastThis;
-            return (
-              (lastArgs = lastThis = void 0),
-              (lastInvokeTime = time),
-              (result = func.apply(thisArg, args))
-            );
+            return (lastArgs = lastThis = void 0), (lastInvokeTime = time), (result = func.apply(thisArg, args));
           }
           function leadingEdge(time) {
-            return (
-              (lastInvokeTime = time),
-              (timerId = setTimeout(timerExpired, wait)),
-              leading ? invokeFunc(time) : result
-            );
+            return (lastInvokeTime = time), (timerId = setTimeout(timerExpired, wait)), leading ? invokeFunc(time) : result;
           }
           function remainingWait(time) {
             var timeSinceLastCall,
@@ -1997,12 +1675,7 @@ module.exports = {
           function shouldInvoke(time) {
             var timeSinceLastCall = time - lastCallTime,
               timeSinceLastInvoke;
-            return (
-              void 0 === lastCallTime ||
-              timeSinceLastCall >= wait ||
-              timeSinceLastCall < 0 ||
-              (maxing && time - lastInvokeTime >= maxWait)
-            );
+            return void 0 === lastCallTime || timeSinceLastCall >= wait || timeSinceLastCall < 0 || (maxing && time - lastInvokeTime >= maxWait);
           }
           function timerExpired() {
             var time = now();
@@ -2010,15 +1683,10 @@ module.exports = {
             timerId = setTimeout(timerExpired, remainingWait(time));
           }
           function trailingEdge(time) {
-            return (
-              (timerId = void 0),
-              trailing && lastArgs ? invokeFunc(time) : ((lastArgs = lastThis = void 0), result)
-            );
+            return (timerId = void 0), trailing && lastArgs ? invokeFunc(time) : ((lastArgs = lastThis = void 0), result);
           }
           function cancel() {
-            void 0 !== timerId && clearTimeout(timerId),
-              (lastInvokeTime = 0),
-              (lastArgs = lastCallTime = lastThis = timerId = void 0);
+            void 0 !== timerId && clearTimeout(timerId), (lastInvokeTime = 0), (lastArgs = lastCallTime = lastThis = timerId = void 0);
           }
           function flush() {
             return void 0 === timerId ? result : trailingEdge(now());
@@ -2028,8 +1696,7 @@ module.exports = {
               isInvoking = shouldInvoke(time);
             if (((lastArgs = arguments), (lastThis = this), (lastCallTime = time), isInvoking)) {
               if (void 0 === timerId) return leadingEdge(lastCallTime);
-              if (maxing)
-                return (timerId = setTimeout(timerExpired, wait)), invokeFunc(lastCallTime);
+              if (maxing) return (timerId = setTimeout(timerExpired, wait)), invokeFunc(lastCallTime);
             }
             return void 0 === timerId && (timerId = setTimeout(timerExpired, wait)), result;
           }
@@ -2037,9 +1704,7 @@ module.exports = {
             (wait = toNumber(wait) || 0),
             isObject(options) &&
               ((leading = !!options.leading),
-              (maxWait = (maxing = 'maxWait' in options)
-                ? nativeMax(toNumber(options.maxWait) || 0, wait)
-                : maxWait),
+              (maxWait = (maxing = 'maxWait' in options) ? nativeMax(toNumber(options.maxWait) || 0, wait) : maxWait),
               (trailing = 'trailing' in options ? !!options.trailing : trailing)),
             (debounced.cancel = cancel),
             (debounced.flush = flush),
@@ -2051,9 +1716,7 @@ module.exports = {
             trailing = !0;
           if ('function' != typeof func) throw new TypeError(FUNC_ERROR_TEXT);
           return (
-            isObject(options) &&
-              ((leading = 'leading' in options ? !!options.leading : leading),
-              (trailing = 'trailing' in options ? !!options.trailing : trailing)),
+            isObject(options) && ((leading = 'leading' in options ? !!options.leading : leading), (trailing = 'trailing' in options ? !!options.trailing : trailing)),
             debounce(func, wait, { leading: leading, maxWait: wait, trailing: trailing })
           );
         }
@@ -2065,10 +1728,7 @@ module.exports = {
           return !!value && 'object' == typeof value;
         }
         function isSymbol(value) {
-          return (
-            'symbol' == typeof value ||
-            (isObjectLike(value) && objectToString.call(value) == symbolTag)
-          );
+          return 'symbol' == typeof value || (isObjectLike(value) && objectToString.call(value) == symbolTag);
         }
         function toNumber(value) {
           if ('number' == typeof value) return value;
@@ -2080,17 +1740,13 @@ module.exports = {
           if ('string' != typeof value) return 0 === value ? value : +value;
           value = value.replace(reTrim, '');
           var isBinary = reIsBinary.test(value);
-          return isBinary || reIsOctal.test(value)
-            ? freeParseInt(value.slice(2), isBinary ? 2 : 8)
-            : reIsBadHex.test(value)
-            ? NaN
-            : +value;
+          return isBinary || reIsOctal.test(value) ? freeParseInt(value.slice(2), isBinary ? 2 : 8) : reIsBadHex.test(value) ? NaN : +value;
         }
         module.exports = throttle;
       },
       function (module, exports, __webpack_require__) {
         'use strict';
-        const getAllProperties = object => {
+        const getAllProperties = (object) => {
           const props = new Set();
           do {
             for (const key of Reflect.ownKeys(object)) props.add([object, key]);
@@ -2099,19 +1755,14 @@ module.exports = {
         };
         module.exports = (self, options) => {
           options = Object.assign({}, options);
-          const filter = key => {
-            const match = pattern =>
-              'string' == typeof pattern ? key === pattern : pattern.test(key);
-            return options.include
-              ? options.include.some(match)
-              : !options.exclude || !options.exclude.some(match);
+          const filter = (key) => {
+            const match = (pattern) => ('string' == typeof pattern ? key === pattern : pattern.test(key));
+            return options.include ? options.include.some(match) : !options.exclude || !options.exclude.some(match);
           };
           for (const [object, key] of getAllProperties(self.constructor.prototype)) {
             if ('constructor' === key || !filter(key)) continue;
             const descriptor = Reflect.getOwnPropertyDescriptor(object, key);
-            descriptor &&
-              'function' == typeof descriptor.value &&
-              (self[key] = self[key].bind(self));
+            descriptor && 'function' == typeof descriptor.value && (self[key] = self[key].bind(self));
           }
           return self;
         };
@@ -2133,10 +1784,7 @@ module.exports = {
           'forceUpdate'
         ];
         module.exports.react = (self, options) => (
-          ((options = Object.assign({}, options)).exclude = (options.exclude || []).concat(
-            excludedReactMethods
-          )),
-          module.exports(self, options)
+          ((options = Object.assign({}, options)).exclude = (options.exclude || []).concat(excludedReactMethods)), module.exports(self, options)
         );
       },
       function (module, exports, __webpack_require__) {
@@ -2144,7 +1792,7 @@ module.exports = {
         const ansiEscapes = __webpack_require__(16),
           cliCursor = __webpack_require__(17),
           wrapAnsi = __webpack_require__(25),
-          getWidth = stream => {
+          getWidth = (stream) => {
             const { columns: columns } = stream;
             return columns ? ('win32' === process.platform ? columns - 1 : columns) : 80;
           },
@@ -2188,16 +1836,12 @@ module.exports = {
           (x.cursorMove = (x, y) => {
             if ('number' != typeof x) throw new TypeError('The `x` argument is required');
             let ret = '';
-            return (
-              x < 0 ? (ret += ESC + -x + 'D') : x > 0 && (ret += ESC + x + 'C'),
-              y < 0 ? (ret += ESC + -y + 'A') : y > 0 && (ret += ESC + y + 'B'),
-              ret
-            );
+            return x < 0 ? (ret += ESC + -x + 'D') : x > 0 && (ret += ESC + x + 'C'), y < 0 ? (ret += ESC + -y + 'A') : y > 0 && (ret += ESC + y + 'B'), ret;
           }),
-          (x.cursorUp = count => ESC + ('number' == typeof count ? count : 1) + 'A'),
-          (x.cursorDown = count => ESC + ('number' == typeof count ? count : 1) + 'B'),
-          (x.cursorForward = count => ESC + ('number' == typeof count ? count : 1) + 'C'),
-          (x.cursorBackward = count => ESC + ('number' == typeof count ? count : 1) + 'D'),
+          (x.cursorUp = (count) => ESC + ('number' == typeof count ? count : 1) + 'A'),
+          (x.cursorDown = (count) => ESC + ('number' == typeof count ? count : 1) + 'B'),
+          (x.cursorForward = (count) => ESC + ('number' == typeof count ? count : 1) + 'C'),
+          (x.cursorBackward = (count) => ESC + ('number' == typeof count ? count : 1) + 'D'),
           (x.cursorLeft = '[G'),
           (x.cursorSavePosition = ESC + (isTerminalApp ? '7' : 's')),
           (x.cursorRestorePosition = ESC + (isTerminalApp ? '8' : 'u')),
@@ -2206,10 +1850,9 @@ module.exports = {
           (x.cursorPrevLine = '[F'),
           (x.cursorHide = '[?25l'),
           (x.cursorShow = '[?25h'),
-          (x.eraseLines = count => {
+          (x.eraseLines = (count) => {
             let clear = '';
-            for (let i = 0; i < count; i++)
-              clear += x.eraseLine + (i < count - 1 ? x.cursorUp() : '');
+            for (let i = 0; i < count; i++) clear += x.eraseLine + (i < count - 1 ? x.cursorUp() : '');
             return count && (clear += x.cursorLeft), clear;
           }),
           (x.eraseEndLine = '[K'),
@@ -2221,11 +1864,9 @@ module.exports = {
           (x.scrollUp = '[S'),
           (x.scrollDown = '[T'),
           (x.clearScreen = 'c'),
-          (x.clearTerminal =
-            'win32' === process.platform ? `${x.eraseScreen}[0f` : `${x.eraseScreen}[3J[H`),
+          (x.clearTerminal = 'win32' === process.platform ? `${x.eraseScreen}[0f` : `${x.eraseScreen}[3J[H`),
           (x.beep = BEL),
-          (x.link = (text, url) =>
-            [OSC, '8', SEP, SEP, url, BEL, text, OSC, '8', SEP, SEP, BEL].join('')),
+          (x.link = (text, url) => [OSC, '8', SEP, SEP, url, BEL, text, OSC, '8', SEP, SEP, BEL].join('')),
           (x.image = (buf, opts) => {
             let ret = OSC + '1337;File=inline=1';
             return (
@@ -2236,23 +1877,22 @@ module.exports = {
             );
           }),
           (x.iTerm = {}),
-          (x.iTerm.setCwd = cwd => OSC + '50;CurrentDir=' + (cwd || process.cwd()) + BEL);
+          (x.iTerm.setCwd = (cwd) => OSC + '50;CurrentDir=' + (cwd || process.cwd()) + BEL);
       },
       function (module, exports, __webpack_require__) {
         'use strict';
         const restoreCursor = __webpack_require__(18);
         let hidden = !1;
-        (exports.show = stream => {
+        (exports.show = (stream) => {
           const s = stream || process.stderr;
           s.isTTY && ((hidden = !1), s.write('[?25h'));
         }),
-          (exports.hide = stream => {
+          (exports.hide = (stream) => {
             const s = stream || process.stderr;
             s.isTTY && (restoreCursor(), (hidden = !0), s.write('[?25l'));
           }),
           (exports.toggle = (force, stream) => {
-            void 0 !== force && (hidden = force),
-              hidden ? exports.show(stream) : exports.hide(stream);
+            void 0 !== force && (hidden = force), hidden ? exports.show(stream) : exports.hide(stream);
           });
       },
       function (module, exports, __webpack_require__) {
@@ -2280,8 +1920,7 @@ module.exports = {
           const fnName = fn.displayName || fn.name || '<anonymous>',
             onetime = function () {
               if (called) {
-                if (!0 === opts.throw)
-                  throw new Error(`Function \`${fnName}\` can only be called once`);
+                if (!0 === opts.throw) throw new Error(`Function \`${fnName}\` can only be called once`);
                 return ret;
               }
               return (called = !0), (ret = fn.apply(this, arguments)), (fn = null), ret;
@@ -2292,9 +1931,7 @@ module.exports = {
       function (module, exports, __webpack_require__) {
         'use strict';
         module.exports = (to, from) => {
-          for (const prop of Object.getOwnPropertyNames(from).concat(
-            Object.getOwnPropertySymbols(from)
-          ))
+          for (const prop of Object.getOwnPropertyNames(from).concat(Object.getOwnPropertySymbols(from)))
             Object.defineProperty(to, prop, Object.getOwnPropertyDescriptor(from, prop));
           return to;
         };
@@ -2317,25 +1954,19 @@ module.exports = {
             (emitter.count -= 1));
         }
         function emit(event, code, signal) {
-          emitter.emitted[event] ||
-            ((emitter.emitted[event] = !0), emitter.emit(event, code, signal));
+          emitter.emitted[event] || ((emitter.emitted[event] = !0), emitter.emit(event, code, signal));
         }
         'function' != typeof EE && (EE = EE.EventEmitter),
           process.__signal_exit_emitter__
             ? (emitter = process.__signal_exit_emitter__)
-            : (((emitter = process.__signal_exit_emitter__ = new EE()).count = 0),
-              (emitter.emitted = {})),
+            : (((emitter = process.__signal_exit_emitter__ = new EE()).count = 0), (emitter.emitted = {})),
           emitter.infinite || (emitter.setMaxListeners(1 / 0), (emitter.infinite = !0)),
           (module.exports = function (cb, opts) {
-            assert.equal(typeof cb, 'function', 'a callback must be provided for exit handler'),
-              !1 === loaded && load();
+            assert.equal(typeof cb, 'function', 'a callback must be provided for exit handler'), !1 === loaded && load();
             var ev = 'exit';
             opts && opts.alwaysLast && (ev = 'afterexit');
             var remove = function () {
-              emitter.removeListener(ev, cb),
-                0 === emitter.listeners('exit').length &&
-                  0 === emitter.listeners('afterexit').length &&
-                  unload();
+              emitter.removeListener(ev, cb), 0 === emitter.listeners('exit').length && 0 === emitter.listeners('afterexit').length && unload();
             };
             return emitter.on(ev, cb), remove;
           }),
@@ -2344,11 +1975,7 @@ module.exports = {
         signals.forEach(function (sig) {
           sigListeners[sig] = function listener() {
             var listeners;
-            process.listeners(sig).length === emitter.count &&
-              (unload(),
-              emit('exit', null, sig),
-              emit('afterexit', null, sig),
-              process.kill(process.pid, sig));
+            process.listeners(sig).length === emitter.count && (unload(), emit('exit', null, sig), emit('afterexit', null, sig), process.kill(process.pid, sig));
           };
         }),
           (module.exports.signals = function () {
@@ -2382,9 +2009,7 @@ module.exports = {
           if ('exit' === ev) {
             void 0 !== arg && (process.exitCode = arg);
             var ret = originalProcessEmit.apply(this, arguments);
-            return (
-              emit('exit', process.exitCode, null), emit('afterexit', process.exitCode, null), ret
-            );
+            return emit('exit', process.exitCode, null), emit('afterexit', process.exitCode, null), ret;
           }
           return originalProcessEmit.apply(this, arguments);
         }
@@ -2394,19 +2019,8 @@ module.exports = {
       },
       function (module, exports) {
         (module.exports = ['SIGABRT', 'SIGALRM', 'SIGHUP', 'SIGINT', 'SIGTERM']),
-          'win32' !== process.platform &&
-            module.exports.push(
-              'SIGVTALRM',
-              'SIGXCPU',
-              'SIGXFSZ',
-              'SIGUSR2',
-              'SIGTRAP',
-              'SIGSYS',
-              'SIGQUIT',
-              'SIGIOT'
-            ),
-          'linux' === process.platform &&
-            module.exports.push('SIGIO', 'SIGPOLL', 'SIGPWR', 'SIGSTKFLT', 'SIGUNUSED');
+          'win32' !== process.platform && module.exports.push('SIGVTALRM', 'SIGXCPU', 'SIGXFSZ', 'SIGUSR2', 'SIGTRAP', 'SIGSYS', 'SIGQUIT', 'SIGIOT'),
+          'linux' === process.platform && module.exports.push('SIGIO', 'SIGPOLL', 'SIGPWR', 'SIGSTKFLT', 'SIGUNUSED');
       },
       function (module, exports) {
         module.exports = require('events');
@@ -2418,43 +2032,29 @@ module.exports = {
           ansiStyles = __webpack_require__(31),
           ESCAPES = new Set(['', '']),
           END_CODE = 39,
-          wrapAnsi = code => `${ESCAPES.values().next().value}[${code}m`,
-          wordLengths = string => string.split(' ').map(character => stringWidth(character)),
+          wrapAnsi = (code) => `${ESCAPES.values().next().value}[${code}m`,
+          wordLengths = (string) => string.split(' ').map((character) => stringWidth(character)),
           wrapWord = (rows, word, columns) => {
             const characters = [...word];
             let insideEscape = !1,
               visible = stringWidth(stripAnsi(rows[rows.length - 1]));
             for (const [index, character] of characters.entries()) {
               const characterLength = stringWidth(character);
-              if (
-                (visible + characterLength <= columns
-                  ? (rows[rows.length - 1] += character)
-                  : (rows.push(character), (visible = 0)),
-                ESCAPES.has(character))
-              )
+              if ((visible + characterLength <= columns ? (rows[rows.length - 1] += character) : (rows.push(character), (visible = 0)), ESCAPES.has(character)))
                 insideEscape = !0;
               else if (insideEscape && 'm' === character) {
                 insideEscape = !1;
                 continue;
               }
-              insideEscape ||
-                ((visible += characterLength),
-                visible === columns &&
-                  index < characters.length - 1 &&
-                  (rows.push(''), (visible = 0)));
+              insideEscape || ((visible += characterLength), visible === columns && index < characters.length - 1 && (rows.push(''), (visible = 0)));
             }
-            !visible &&
-              rows[rows.length - 1].length > 0 &&
-              rows.length > 1 &&
-              (rows[rows.length - 2] += rows.pop());
+            !visible && rows[rows.length - 1].length > 0 && rows.length > 1 && (rows[rows.length - 2] += rows.pop());
           },
-          stringVisibleTrimSpacesRight = str => {
+          stringVisibleTrimSpacesRight = (str) => {
             const words = str.split(' ');
             let last = words.length;
             for (; last > 0 && !(stringWidth(words[last - 1]) > 0); ) last--;
-            return last === words.length
-              ? str
-              : words.slice(0, last).join(' ') + words.slice(last).join('');
+            return last === words.length ? str : words.slice(0, last).join(' ') + words.slice(last).join('');
           },
           exec = (string, columns, options = {}) => {
             if (!1 !== options.trim && '' === string.trim()) return '';
@@ -2468,19 +2068,14 @@ module.exports = {
               let rowLength = stringWidth(rows[rows.length - 1]);
               if (
                 (0 !== index &&
-                  (rowLength >= columns &&
-                    (!1 === options.wordWrap || !1 === options.trim) &&
-                    (rows.push(''), (rowLength = 0)),
-                  (rowLength > 0 || !1 === options.trim) &&
-                    ((rows[rows.length - 1] += ' '), rowLength++)),
+                  (rowLength >= columns && (!1 === options.wordWrap || !1 === options.trim) && (rows.push(''), (rowLength = 0)),
+                  (rowLength > 0 || !1 === options.trim) && ((rows[rows.length - 1] += ' '), rowLength++)),
                 options.hard && lengths[index] > columns)
               ) {
                 const remainingColumns = columns - rowLength,
-                  breaksStartingThisLine =
-                    1 + Math.floor((lengths[index] - remainingColumns - 1) / columns),
+                  breaksStartingThisLine = 1 + Math.floor((lengths[index] - remainingColumns - 1) / columns),
                   breaksStartingNextLine = Math.floor((lengths[index] - 1) / columns);
-                breaksStartingNextLine < breaksStartingThisLine && rows.push(''),
-                  wrapWord(rows, word, columns);
+                breaksStartingNextLine < breaksStartingThisLine && rows.push(''), wrapWord(rows, word, columns);
               } else {
                 if (rowLength + lengths[index] > columns && rowLength > 0 && lengths[index] > 0) {
                   if (!1 === options.wordWrap && rowLength < columns) {
@@ -2489,24 +2084,17 @@ module.exports = {
                   }
                   rows.push('');
                 }
-                rowLength + lengths[index] > columns && !1 === options.wordWrap
-                  ? wrapWord(rows, word, columns)
-                  : (rows[rows.length - 1] += word);
+                rowLength + lengths[index] > columns && !1 === options.wordWrap ? wrapWord(rows, word, columns) : (rows[rows.length - 1] += word);
               }
             }
-            !1 !== options.trim && (rows = rows.map(stringVisibleTrimSpacesRight)),
-              (pre = rows.join('\n'));
+            !1 !== options.trim && (rows = rows.map(stringVisibleTrimSpacesRight)), (pre = rows.join('\n'));
             for (const [index, character] of [...pre].entries()) {
               if (((ret += character), ESCAPES.has(character))) {
                 const code = parseFloat(/\d[^m]*/.exec(pre.slice(index, index + 4)));
                 escapeCode = 39 === code ? null : code;
               }
               const code = ansiStyles.codes.get(Number(escapeCode));
-              escapeCode &&
-                code &&
-                ('\n' === pre[index + 1]
-                  ? (ret += wrapAnsi(code))
-                  : '\n' === character && (ret += wrapAnsi(escapeCode)));
+              escapeCode && code && ('\n' === pre[index + 1] ? (ret += wrapAnsi(code)) : '\n' === character && (ret += wrapAnsi(escapeCode)));
             }
             return ret;
           };
@@ -2514,7 +2102,7 @@ module.exports = {
           String(string)
             .normalize()
             .split('\n')
-            .map(line => exec(line, columns, options))
+            .map((line) => exec(line, columns, options))
             .join('\n');
       },
       function (module, exports, __webpack_require__) {
@@ -2522,17 +2110,13 @@ module.exports = {
         const stripAnsi = __webpack_require__(27),
           isFullwidthCodePoint = __webpack_require__(29),
           emojiRegex = __webpack_require__(30)();
-        module.exports = input => {
-          if ('string' != typeof (input = input.replace(emojiRegex, '  ')) || 0 === input.length)
-            return 0;
+        module.exports = (input) => {
+          if ('string' != typeof (input = input.replace(emojiRegex, '  ')) || 0 === input.length) return 0;
           input = stripAnsi(input);
           let width = 0;
           for (let i = 0; i < input.length; i++) {
             const code = input.codePointAt(i);
-            code <= 31 ||
-              (code >= 127 && code <= 159) ||
-              (code >= 768 && code <= 879) ||
-              (code > 65535 && i++, (width += isFullwidthCodePoint(code) ? 2 : 1));
+            code <= 31 || (code >= 127 && code <= 159) || (code >= 768 && code <= 879) || (code > 65535 && i++, (width += isFullwidthCodePoint(code) ? 2 : 1));
           }
           return width;
         };
@@ -2540,12 +2124,11 @@ module.exports = {
       function (module, exports, __webpack_require__) {
         'use strict';
         const ansiRegex = __webpack_require__(28);
-        module.exports = input =>
-          'string' == typeof input ? input.replace(ansiRegex(), '') : input;
+        module.exports = (input) => ('string' == typeof input ? input.replace(ansiRegex(), '') : input);
       },
       function (module, exports, __webpack_require__) {
         'use strict';
-        module.exports = options => {
+        module.exports = (options) => {
           options = Object.assign({ onlyFirst: !1 }, options);
           const pattern = [
             '[\\u001B\\u009B][[\\]()#;?]*(?:(?:(?:[a-zA-Z\\d]*(?:;[a-zA-Z\\d]*)*)?\\u0007)',
@@ -2556,7 +2139,7 @@ module.exports = {
       },
       function (module, exports, __webpack_require__) {
         'use strict';
-        module.exports = x =>
+        module.exports = (x) =>
           !Number.isNaN(x) &&
           x >= 4352 &&
           (x <= 4447 ||
@@ -2656,14 +2239,11 @@ module.exports = {
               const group = styles[groupName];
               for (const styleName of Object.keys(group)) {
                 const style = group[styleName];
-                (styles[styleName] = { open: `[${style[0]}m`, close: `[${style[1]}m` }),
-                  (group[styleName] = styles[styleName]),
-                  codes.set(style[0], style[1]);
+                (styles[styleName] = { open: `[${style[0]}m`, close: `[${style[1]}m` }), (group[styleName] = styles[styleName]), codes.set(style[0], style[1]);
               }
-              Object.defineProperty(styles, groupName, { value: group, enumerable: !1 }),
-                Object.defineProperty(styles, 'codes', { value: codes, enumerable: !1 });
+              Object.defineProperty(styles, groupName, { value: group, enumerable: !1 }), Object.defineProperty(styles, 'codes', { value: codes, enumerable: !1 });
             }
-            const ansi2ansi = n => n,
+            const ansi2ansi = (n) => n,
               rgb2rgb = (r, g, b) => [r, g, b];
             (styles.color.close = '[39m'),
               (styles.bgColor.close = '[49m'),
@@ -2677,15 +2257,9 @@ module.exports = {
               if ('object' != typeof colorConvert[key]) continue;
               const suite = colorConvert[key];
               'ansi16' === key && (key = 'ansi'),
-                'ansi16' in suite &&
-                  ((styles.color.ansi[key] = wrapAnsi16(suite.ansi16, 0)),
-                  (styles.bgColor.ansi[key] = wrapAnsi16(suite.ansi16, 10))),
-                'ansi256' in suite &&
-                  ((styles.color.ansi256[key] = wrapAnsi256(suite.ansi256, 0)),
-                  (styles.bgColor.ansi256[key] = wrapAnsi256(suite.ansi256, 10))),
-                'rgb' in suite &&
-                  ((styles.color.ansi16m[key] = wrapAnsi16m(suite.rgb, 0)),
-                  (styles.bgColor.ansi16m[key] = wrapAnsi16m(suite.rgb, 10)));
+                'ansi16' in suite && ((styles.color.ansi[key] = wrapAnsi16(suite.ansi16, 0)), (styles.bgColor.ansi[key] = wrapAnsi16(suite.ansi16, 10))),
+                'ansi256' in suite && ((styles.color.ansi256[key] = wrapAnsi256(suite.ansi256, 0)), (styles.bgColor.ansi256[key] = wrapAnsi256(suite.ansi256, 10))),
+                'rgb' in suite && ((styles.color.ansi16m[key] = wrapAnsi16m(suite.rgb, 0)), (styles.bgColor.ansi16m[key] = wrapAnsi16m(suite.rgb, 10)));
             }
             return styles;
           }
@@ -2723,9 +2297,7 @@ module.exports = {
           models;
         function wrapRaw(fn) {
           var wrappedFn = function (args) {
-            return null == args
-              ? args
-              : (arguments.length > 1 && (args = Array.prototype.slice.call(arguments)), fn(args));
+            return null == args ? args : (arguments.length > 1 && (args = Array.prototype.slice.call(arguments)), fn(args));
           };
           return 'conversion' in fn && (wrappedFn.conversion = fn.conversion), wrappedFn;
         }
@@ -2734,8 +2306,7 @@ module.exports = {
             if (null == args) return args;
             arguments.length > 1 && (args = Array.prototype.slice.call(arguments));
             var result = fn(args);
-            if ('object' == typeof result)
-              for (var len = result.length, i = 0; i < len; i++) result[i] = Math.round(result[i]);
+            if ('object' == typeof result) for (var len = result.length, i = 0; i < len; i++) result[i] = Math.round(result[i]);
             return result;
           };
           return 'conversion' in fn && (wrappedFn.conversion = fn.conversion), wrappedFn;
@@ -2752,8 +2323,7 @@ module.exports = {
             routeModels;
           Object.keys(routes).forEach(function (toModel) {
             var fn = routes[toModel];
-            (convert[fromModel][toModel] = wrapRounded(fn)),
-              (convert[fromModel][toModel].raw = wrapRaw(fn));
+            (convert[fromModel][toModel] = wrapRounded(fn)), (convert[fromModel][toModel].raw = wrapRaw(fn));
           });
         }),
           (module.exports = convert);
@@ -2761,8 +2331,7 @@ module.exports = {
       function (module, exports, __webpack_require__) {
         var cssKeywords = __webpack_require__(35),
           reverseKeywords = {};
-        for (var key in cssKeywords)
-          cssKeywords.hasOwnProperty(key) && (reverseKeywords[cssKeywords[key]] = key);
+        for (var key in cssKeywords) cssKeywords.hasOwnProperty(key) && (reverseKeywords[cssKeywords[key]] = key);
         var convert = (module.exports = {
           rgb: { channels: 3, labels: 'rgb' },
           hsl: { channels: 3, labels: 'hsl' },
@@ -2782,12 +2351,9 @@ module.exports = {
         });
         for (var model in convert)
           if (convert.hasOwnProperty(model)) {
-            if (!('channels' in convert[model]))
-              throw new Error('missing channels property: ' + model);
-            if (!('labels' in convert[model]))
-              throw new Error('missing channel labels property: ' + model);
-            if (convert[model].labels.length !== convert[model].channels)
-              throw new Error('channel and label counts mismatch: ' + model);
+            if (!('channels' in convert[model])) throw new Error('missing channels property: ' + model);
+            if (!('labels' in convert[model])) throw new Error('missing channel labels property: ' + model);
+            if (convert[model].labels.length !== convert[model].channels) throw new Error('channel and label counts mismatch: ' + model);
             var channels = convert[model].channels,
               labels = convert[model].labels;
             delete convert[model].channels,
@@ -2809,21 +2375,10 @@ module.exports = {
             s,
             l;
           return (
-            max === min
-              ? (h = 0)
-              : r === max
-              ? (h = (g - b) / delta)
-              : g === max
-              ? (h = 2 + (b - r) / delta)
-              : b === max && (h = 4 + (r - g) / delta),
+            max === min ? (h = 0) : r === max ? (h = (g - b) / delta) : g === max ? (h = 2 + (b - r) / delta) : b === max && (h = 4 + (r - g) / delta),
             (h = Math.min(60 * h, 360)) < 0 && (h += 360),
             (l = (min + max) / 2),
-            [
-              h,
-              100 *
-                (s = max === min ? 0 : l <= 0.5 ? delta / (max + min) : delta / (2 - max - min)),
-              100 * l
-            ]
+            [h, 100 * (s = max === min ? 0 : l <= 0.5 ? delta / (max + min) : delta / (2 - max - min)), 100 * l]
           );
         }),
           (convert.rgb.hsv = function (rgb) {
@@ -2847,11 +2402,7 @@ module.exports = {
                   (rdif = diffc(r)),
                   (gdif = diffc(g)),
                   (bdif = diffc(b)),
-                  r === v
-                    ? (h = bdif - gdif)
-                    : g === v
-                    ? (h = 1 / 3 + rdif - bdif)
-                    : b === v && (h = 2 / 3 + gdif - rdif),
+                  r === v ? (h = bdif - gdif) : g === v ? (h = 1 / 3 + rdif - bdif) : b === v && (h = 2 / 3 + gdif - rdif),
                   h < 0 ? (h += 1) : h > 1 && (h -= 1)),
               [360 * h, 100 * s, 100 * v]
             );
@@ -2862,11 +2413,7 @@ module.exports = {
               b = rgb[2],
               h,
               w;
-            return [
-              convert.rgb.hsl(rgb)[0],
-              100 * ((1 / 255) * Math.min(r, Math.min(g, b))),
-              100 * (b = 1 - (1 / 255) * Math.max(r, Math.max(g, b)))
-            ];
+            return [convert.rgb.hsl(rgb)[0], 100 * ((1 / 255) * Math.min(r, Math.min(g, b))), 100 * (b = 1 - (1 / 255) * Math.max(r, Math.max(g, b)))];
           }),
           (convert.rgb.cmyk = function (rgb) {
             var r = rgb[0] / 255,
@@ -2892,8 +2439,7 @@ module.exports = {
               if (cssKeywords.hasOwnProperty(keyword)) {
                 var value,
                   distance = comparativeDistance(rgb, cssKeywords[keyword]);
-                distance < currentClosestDistance &&
-                  ((currentClosestDistance = distance), (currentClosestKeyword = keyword));
+                distance < currentClosestDistance && ((currentClosestDistance = distance), (currentClosestKeyword = keyword));
               }
             return currentClosestKeyword;
           }),
@@ -2949,14 +2495,7 @@ module.exports = {
             for (var i = 0; i < 3; i++)
               (t3 = h + (1 / 3) * -(i - 1)) < 0 && t3++,
                 t3 > 1 && t3--,
-                (val =
-                  6 * t3 < 1
-                    ? t1 + 6 * (t2 - t1) * t3
-                    : 2 * t3 < 1
-                    ? t2
-                    : 3 * t3 < 2
-                    ? t1 + (t2 - t1) * (2 / 3 - t3) * 6
-                    : t1),
+                (val = 6 * t3 < 1 ? t1 + 6 * (t2 - t1) * t3 : 2 * t3 < 1 ? t2 : 3 * t3 < 2 ? t1 + (t2 - t1) * (2 / 3 - t3) * 6 : t1),
                 (rgb[i] = 255 * val);
             return rgb;
           }),
@@ -2971,11 +2510,7 @@ module.exports = {
             return (
               (s *= (l *= 2) <= 1 ? l : 2 - l),
               (smin *= lmin <= 1 ? lmin : 2 - lmin),
-              [
-                h,
-                100 * (sv = 0 === l ? (2 * smin) / (lmin + smin) : (2 * s) / (l + s)),
-                100 * (v = (l + s) / 2)
-              ]
+              [h, 100 * (sv = 0 === l ? (2 * smin) / (lmin + smin) : (2 * s) / (l + s)), 100 * (v = (l + s) / 2)]
             );
           }),
           (convert.hsv.rgb = function (hsv) {
@@ -3010,15 +2545,7 @@ module.exports = {
               lmin,
               sl,
               l;
-            return (
-              (l = (2 - s) * v),
-              (sl = s * vmin),
-              [
-                h,
-                100 * (sl = (sl /= (lmin = (2 - s) * vmin) <= 1 ? lmin : 2 - lmin) || 0),
-                100 * (l /= 2)
-              ]
-            );
+            return (l = (2 - s) * v), (sl = s * vmin), [h, 100 * (sl = (sl /= (lmin = (2 - s) * vmin) <= 1 ? lmin : 2 - lmin) || 0), 100 * (l /= 2)];
           }),
           (convert.hwb.rgb = function (hwb) {
             var h = hwb[0] / 360,
@@ -3033,11 +2560,7 @@ module.exports = {
               g,
               b;
             switch (
-              (ratio > 1 && ((wh /= ratio), (bl /= ratio)),
-              (f = 6 * h - (i = Math.floor(6 * h))),
-              0 != (1 & i) && (f = 1 - f),
-              (n = wh + f * ((v = 1 - bl) - wh)),
-              i)
+              (ratio > 1 && ((wh /= ratio), (bl /= ratio)), (f = 6 * h - (i = Math.floor(6 * h))), 0 != (1 & i) && (f = 1 - f), (n = wh + f * ((v = 1 - bl) - wh)), i)
             ) {
               default:
               case 6:
@@ -3069,11 +2592,7 @@ module.exports = {
               r,
               g,
               b;
-            return [
-              255 * (r = 1 - Math.min(1, c * (1 - k) + k)),
-              255 * (g = 1 - Math.min(1, m * (1 - k) + k)),
-              255 * (b = 1 - Math.min(1, y * (1 - k) + k))
-            ];
+            return [255 * (r = 1 - Math.min(1, c * (1 - k) + k)), 255 * (g = 1 - Math.min(1, m * (1 - k) + k)), 255 * (b = 1 - Math.min(1, y * (1 - k) + k))];
           }),
           (convert.xyz.rgb = function (xyz) {
             var x = xyz[0] / 100,
@@ -3085,17 +2604,10 @@ module.exports = {
             return (
               (g = -0.9689 * x + 1.8758 * y + 0.0415 * z),
               (b = 0.0557 * x + -0.204 * y + 1.057 * z),
-              (r =
-                (r = 3.2406 * x + -1.5372 * y + -0.4986 * z) > 0.0031308
-                  ? 1.055 * Math.pow(r, 1 / 2.4) - 0.055
-                  : 12.92 * r),
+              (r = (r = 3.2406 * x + -1.5372 * y + -0.4986 * z) > 0.0031308 ? 1.055 * Math.pow(r, 1 / 2.4) - 0.055 : 12.92 * r),
               (g = g > 0.0031308 ? 1.055 * Math.pow(g, 1 / 2.4) - 0.055 : 12.92 * g),
               (b = b > 0.0031308 ? 1.055 * Math.pow(b, 1 / 2.4) - 0.055 : 12.92 * b),
-              [
-                255 * (r = Math.min(Math.max(0, r), 1)),
-                255 * (g = Math.min(Math.max(0, g), 1)),
-                255 * (b = Math.min(Math.max(0, b), 1))
-              ]
+              [255 * (r = Math.min(Math.max(0, r), 1)), 255 * (g = Math.min(Math.max(0, g), 1)), 255 * (b = Math.min(Math.max(0, b), 1))]
             );
           }),
           (convert.xyz.lab = function (xyz) {
@@ -3141,10 +2653,7 @@ module.exports = {
               hr,
               h,
               c;
-            return (
-              (h = (360 * (hr = Math.atan2(b, a))) / 2 / Math.PI) < 0 && (h += 360),
-              [l, (c = Math.sqrt(a * a + b * b)), h]
-            );
+            return (h = (360 * (hr = Math.atan2(b, a))) / 2 / Math.PI) < 0 && (h += 360), [l, (c = Math.sqrt(a * a + b * b)), h];
           }),
           (convert.lch.lab = function (lch) {
             var l = lch[0],
@@ -3153,10 +2662,7 @@ module.exports = {
               a,
               b,
               hr;
-            return (
-              (hr = (lch[2] / 360) * 2 * Math.PI),
-              [l, (a = c * Math.cos(hr)), (b = c * Math.sin(hr))]
-            );
+            return (hr = (lch[2] / 360) * 2 * Math.PI), [l, (a = c * Math.cos(hr)), (b = c * Math.sin(hr))];
           }),
           (convert.rgb.ansi16 = function (args) {
             var r = args[0],
@@ -3164,8 +2670,7 @@ module.exports = {
               b = args[2],
               value = 1 in arguments ? arguments[1] : convert.rgb.hsv(args)[2];
             if (0 === (value = Math.round(value / 50))) return 30;
-            var ansi =
-              30 + ((Math.round(b / 255) << 2) | (Math.round(g / 255) << 1) | Math.round(r / 255));
+            var ansi = 30 + ((Math.round(b / 255) << 2) | (Math.round(g / 255) << 1) | Math.round(r / 255));
             return 2 === value && (ansi += 60), ansi;
           }),
           (convert.hsv.ansi16 = function (args) {
@@ -3182,24 +2687,16 @@ module.exports = {
                 : r > 248
                 ? 231
                 : Math.round(((r - 8) / 247) * 24) + 232
-              : 16 +
-                  36 * Math.round((r / 255) * 5) +
-                  6 * Math.round((g / 255) * 5) +
-                  Math.round((b / 255) * 5);
+              : 16 + 36 * Math.round((r / 255) * 5) + 6 * Math.round((g / 255) * 5) + Math.round((b / 255) * 5);
           }),
           (convert.ansi16.rgb = function (args) {
             var color = args % 10;
-            if (0 === color || 7 === color)
-              return args > 50 && (color += 3.5), [(color = (color / 10.5) * 255), color, color];
+            if (0 === color || 7 === color) return args > 50 && (color += 3.5), [(color = (color / 10.5) * 255), color, color];
             var mult = 0.5 * (1 + ~~(args > 50)),
               r,
               g,
               b;
-            return [
-              (1 & color) * mult * 255,
-              ((color >> 1) & 1) * mult * 255,
-              ((color >> 2) & 1) * mult * 255
-            ];
+            return [(1 & color) * mult * 255, ((color >> 1) & 1) * mult * 255, ((color >> 2) & 1) * mult * 255];
           }),
           (convert.ansi256.rgb = function (args) {
             if (args >= 232) {
@@ -3207,24 +2704,11 @@ module.exports = {
               return [c, c, c];
             }
             var rem, r, g, b;
-            return (
-              (args -= 16),
-              [
-                (Math.floor(args / 36) / 5) * 255,
-                (Math.floor((rem = args % 36) / 6) / 5) * 255,
-                ((rem % 6) / 5) * 255
-              ]
-            );
+            return (args -= 16), [(Math.floor(args / 36) / 5) * 255, (Math.floor((rem = args % 36) / 6) / 5) * 255, ((rem % 6) / 5) * 255];
           }),
           (convert.rgb.hex = function (args) {
             var integer,
-              string = (
-                ((255 & Math.round(args[0])) << 16) +
-                ((255 & Math.round(args[1])) << 8) +
-                (255 & Math.round(args[2]))
-              )
-                .toString(16)
-                .toUpperCase();
+              string = (((255 & Math.round(args[0])) << 16) + ((255 & Math.round(args[1])) << 8) + (255 & Math.round(args[2]))).toString(16).toUpperCase();
             return '000000'.substring(string.length) + string;
           }),
           (convert.hex.rgb = function (args) {
@@ -3254,20 +2738,9 @@ module.exports = {
               grayscale,
               hue;
             return (
-              (hue =
-                chroma <= 0
-                  ? 0
-                  : max === r
-                  ? ((g - b) / chroma) % 6
-                  : max === g
-                  ? 2 + (b - r) / chroma
-                  : 4 + (r - g) / chroma + 4),
+              (hue = chroma <= 0 ? 0 : max === r ? ((g - b) / chroma) % 6 : max === g ? 2 + (b - r) / chroma : 4 + (r - g) / chroma + 4),
               (hue /= 6),
-              [
-                360 * (hue %= 1),
-                100 * chroma,
-                100 * (grayscale = chroma < 1 ? min / (1 - chroma) : 0)
-              ]
+              [360 * (hue %= 1), 100 * chroma, 100 * (grayscale = chroma < 1 ? min / (1 - chroma) : 0)]
             );
           }),
           (convert.hsl.hcg = function (hsl) {
@@ -3275,10 +2748,7 @@ module.exports = {
               l = hsl[2] / 100,
               c = 1,
               f = 0;
-            return (
-              (c = l < 0.5 ? 2 * s * l : 2 * s * (1 - l)) < 1 && (f = (l - 0.5 * c) / (1 - c)),
-              [hsl[0], 100 * c, 100 * f]
-            );
+            return (c = l < 0.5 ? 2 * s * l : 2 * s * (1 - l)) < 1 && (f = (l - 0.5 * c) / (1 - c)), [hsl[0], 100 * c, 100 * f];
           }),
           (convert.hsv.hcg = function (hsv) {
             var s = hsv[1] / 100,
@@ -3316,10 +2786,7 @@ module.exports = {
               default:
                 (pure[0] = 1), (pure[1] = 0), (pure[2] = w);
             }
-            return (
-              (mg = (1 - c) * g),
-              [255 * (c * pure[0] + mg), 255 * (c * pure[1] + mg), 255 * (c * pure[2] + mg)]
-            );
+            return (mg = (1 - c) * g), [255 * (c * pure[0] + mg), 255 * (c * pure[1] + mg), 255 * (c * pure[2] + mg)];
           }),
           (convert.hcg.hsv = function (hcg) {
             var c = hcg[1] / 100,
@@ -3333,10 +2800,7 @@ module.exports = {
               g,
               l = (hcg[2] / 100) * (1 - c) + 0.5 * c,
               s = 0;
-            return (
-              l > 0 && l < 0.5 ? (s = c / (2 * l)) : l >= 0.5 && l < 1 && (s = c / (2 * (1 - l))),
-              [hcg[0], 100 * s, 100 * l]
-            );
+            return l > 0 && l < 0.5 ? (s = c / (2 * l)) : l >= 0.5 && l < 1 && (s = c / (2 * (1 - l))), [hcg[0], 100 * s, 100 * l];
           }),
           (convert.hcg.hwb = function (hcg) {
             var c = hcg[1] / 100,
@@ -3540,32 +3004,17 @@ module.exports = {
       function (module, exports, __webpack_require__) {
         var conversions = __webpack_require__(34);
         function buildGraph() {
-          for (
-            var graph = {}, models = Object.keys(conversions), len = models.length, i = 0;
-            i < len;
-            i++
-          )
-            graph[models[i]] = { distance: -1, parent: null };
+          for (var graph = {}, models = Object.keys(conversions), len = models.length, i = 0; i < len; i++) graph[models[i]] = { distance: -1, parent: null };
           return graph;
         }
         function deriveBFS(fromModel) {
           var graph = buildGraph(),
             queue = [fromModel];
           for (graph[fromModel].distance = 0; queue.length; )
-            for (
-              var current = queue.pop(),
-                adjacents = Object.keys(conversions[current]),
-                len = adjacents.length,
-                i = 0;
-              i < len;
-              i++
-            ) {
+            for (var current = queue.pop(), adjacents = Object.keys(conversions[current]), len = adjacents.length, i = 0; i < len; i++) {
               var adjacent = adjacents[i],
                 node = graph[adjacent];
-              -1 === node.distance &&
-                ((node.distance = graph[current].distance + 1),
-                (node.parent = current),
-                queue.unshift(adjacent));
+              -1 === node.distance && ((node.distance = graph[current].distance + 1), (node.parent = current), queue.unshift(adjacent));
             }
           return graph;
         }
@@ -3575,32 +3024,15 @@ module.exports = {
           };
         }
         function wrapConversion(toModel, graph) {
-          for (
-            var path = [graph[toModel].parent, toModel],
-              fn = conversions[graph[toModel].parent][toModel],
-              cur = graph[toModel].parent;
-            graph[cur].parent;
-
-          )
-            path.unshift(graph[cur].parent),
-              (fn = link(conversions[graph[cur].parent][cur], fn)),
-              (cur = graph[cur].parent);
+          for (var path = [graph[toModel].parent, toModel], fn = conversions[graph[toModel].parent][toModel], cur = graph[toModel].parent; graph[cur].parent; )
+            path.unshift(graph[cur].parent), (fn = link(conversions[graph[cur].parent][cur], fn)), (cur = graph[cur].parent);
           return (fn.conversion = path), fn;
         }
         module.exports = function (fromModel) {
-          for (
-            var graph = deriveBFS(fromModel),
-              conversion = {},
-              models = Object.keys(graph),
-              len = models.length,
-              i = 0;
-            i < len;
-            i++
-          ) {
+          for (var graph = deriveBFS(fromModel), conversion = {}, models = Object.keys(graph), len = models.length, i = 0; i < len; i++) {
             var toModel = models[i],
               node;
-            null !== graph[toModel].parent &&
-              (conversion[toModel] = wrapConversion(toModel, graph));
+            null !== graph[toModel].parent && (conversion[toModel] = wrapConversion(toModel, graph));
           }
           return conversion;
         };
@@ -3650,13 +3082,7 @@ module.exports = {
                   exports.isPR = null;
               }
           }),
-          (exports.isCI = !!(
-            env.CI ||
-            env.CONTINUOUS_INTEGRATION ||
-            env.BUILD_NUMBER ||
-            env.RUN_ID ||
-            exports.name
-          ));
+          (exports.isCI = !!(env.CI || env.CONTINUOUS_INTEGRATION || env.BUILD_NUMBER || env.RUN_ID || exports.name));
       },
       function (module) {
         module.exports = JSON.parse(
@@ -3679,12 +3105,11 @@ module.exports = {
             now: Date.now,
             getRootHostContext: () => !0,
             prepareForCommit: () => {},
-            resetAfterCommit: rootNode => {
+            resetAfterCommit: (rootNode) => {
               rootNode.onRender();
             },
             getChildHostContext: () => !0,
-            shouldSetTextContent: (type, props) =>
-              'string' == typeof props.children || 'number' == typeof props.children,
+            shouldSetTextContent: (type, props) => 'string' == typeof props.children || 'number' == typeof props.children,
             createInstance: (type, newProps) => {
               const node = (0, _dom.createNode)(type);
               for (const [key, value] of Object.entries(newProps))
@@ -3692,8 +3117,7 @@ module.exports = {
                   if ('string' == typeof value || 'number' == typeof value) {
                     if ('div' === type) {
                       const textElement = (0, _dom.createNode)('div');
-                      (textElement.textContent = String(value)),
-                        (0, _dom.appendChildNode)(node, textElement);
+                      (textElement.textContent = String(value)), (0, _dom.appendChildNode)(node, textElement);
                     }
                     'span' === type && (node.textContent = String(value));
                   }
@@ -3708,12 +3132,11 @@ module.exports = {
               return node;
             },
             createTextInstance: _dom.createTextNode,
-            resetTextContent: node => {
+            resetTextContent: (node) => {
               if ((node.textContent && (node.textContent = ''), node.childNodes.length > 0))
-                for (const childNode of node.childNodes)
-                  childNode.yogaNode.free(), (0, _dom.removeChildNode)(node, childNode);
+                for (const childNode of node.childNodes) childNode.yogaNode.free(), (0, _dom.removeChildNode)(node, childNode);
             },
-            getPublicInstance: instance => instance,
+            getPublicInstance: (instance) => instance,
             appendInitialChild: _dom.appendChildNode,
             appendChild: _dom.appendChildNode,
             insertBefore: _dom.insertBeforeNode,
@@ -3730,8 +3153,7 @@ module.exports = {
                     if ('div' === type)
                       if (0 === node.childNodes.length) {
                         const textElement = (0, _dom.createNode)('div');
-                        (textElement.textContent = String(value)),
-                          (0, _dom.appendChildNode)(node, textElement);
+                        (textElement.textContent = String(value)), (0, _dom.appendChildNode)(node, textElement);
                       } else node.childNodes[0].textContent = String(value);
                     'span' === type && (node.textContent = String(value));
                   }
@@ -3788,13 +3210,11 @@ module.exports = {
             currentExpirationTime = -1,
             isExecutingCallback = !1,
             isHostCallbackScheduled = !1,
-            hasNativePerformanceNow =
-              'object' == typeof performance && 'function' == typeof performance.now;
+            hasNativePerformanceNow = 'object' == typeof performance && 'function' == typeof performance.now;
           function ensureHostCallbackIsScheduled() {
             if (!isExecutingCallback) {
               var expirationTime = firstCallbackNode.expirationTime;
-              isHostCallbackScheduled ? cancelHostCallback() : (isHostCallbackScheduled = !0),
-                requestHostCallback(flushWork, expirationTime);
+              isHostCallbackScheduled ? cancelHostCallback() : (isHostCallbackScheduled = !0), requestHostCallback(flushWork, expirationTime);
             }
           }
           function flushFirstCallback() {
@@ -3803,8 +3223,7 @@ module.exports = {
             if (firstCallbackNode === next) (firstCallbackNode = null), (next = null);
             else {
               var lastCallbackNode = firstCallbackNode.previous;
-              (firstCallbackNode = lastCallbackNode.next = next),
-                (next.previous = lastCallbackNode);
+              (firstCallbackNode = lastCallbackNode.next = next), (next.previous = lastCallbackNode);
             }
             flushedNode.next = flushedNode.previous = null;
             var callback = flushedNode.callback,
@@ -3817,8 +3236,7 @@ module.exports = {
             try {
               continuationCallback = callback();
             } finally {
-              (currentPriorityLevel = previousPriorityLevel),
-                (currentExpirationTime = previousExpirationTime);
+              (currentPriorityLevel = previousPriorityLevel), (currentExpirationTime = previousExpirationTime);
             }
             if ('function' == typeof continuationCallback) {
               var continuationNode = {
@@ -3828,8 +3246,7 @@ module.exports = {
                 next: null,
                 previous: null
               };
-              if (null === firstCallbackNode)
-                firstCallbackNode = continuationNode.next = continuationNode.previous = continuationNode;
+              if (null === firstCallbackNode) firstCallbackNode = continuationNode.next = continuationNode.previous = continuationNode;
               else {
                 var nextAfterContinuation = null,
                   node = firstCallbackNode;
@@ -3842,8 +3259,7 @@ module.exports = {
                 } while (node !== firstCallbackNode);
                 null === nextAfterContinuation
                   ? (nextAfterContinuation = firstCallbackNode)
-                  : nextAfterContinuation === firstCallbackNode &&
-                    ((firstCallbackNode = continuationNode), ensureHostCallbackIsScheduled());
+                  : nextAfterContinuation === firstCallbackNode && ((firstCallbackNode = continuationNode), ensureHostCallbackIsScheduled());
                 var previous = nextAfterContinuation.previous;
                 (previous.next = nextAfterContinuation.previous = continuationNode),
                   (continuationNode.next = nextAfterContinuation),
@@ -3852,21 +3268,14 @@ module.exports = {
             }
           }
           function flushImmediateWork() {
-            if (
-              -1 === currentEventStartTime &&
-              null !== firstCallbackNode &&
-              1 === firstCallbackNode.priorityLevel
-            ) {
+            if (-1 === currentEventStartTime && null !== firstCallbackNode && 1 === firstCallbackNode.priorityLevel) {
               isExecutingCallback = !0;
               try {
                 do {
                   flushFirstCallback();
                 } while (null !== firstCallbackNode && 1 === firstCallbackNode.priorityLevel);
               } finally {
-                (isExecutingCallback = !1),
-                  null !== firstCallbackNode
-                    ? ensureHostCallbackIsScheduled()
-                    : (isHostCallbackScheduled = !1);
+                (isExecutingCallback = !1), null !== firstCallbackNode ? ensureHostCallbackIsScheduled() : (isHostCallbackScheduled = !1);
               }
             }
           }
@@ -3881,10 +3290,7 @@ module.exports = {
                   if (!(firstCallbackNode.expirationTime <= currentTime)) break;
                   do {
                     flushFirstCallback();
-                  } while (
-                    null !== firstCallbackNode &&
-                    firstCallbackNode.expirationTime <= currentTime
-                  );
+                  } while (null !== firstCallbackNode && firstCallbackNode.expirationTime <= currentTime);
                 }
               else if (null !== firstCallbackNode)
                 do {
@@ -3893,9 +3299,7 @@ module.exports = {
             } finally {
               (isExecutingCallback = !1),
                 (currentDidTimeout = previousDidTimeout),
-                null !== firstCallbackNode
-                  ? ensureHostCallbackIsScheduled()
-                  : (isHostCallbackScheduled = !1),
+                null !== firstCallbackNode ? ensureHostCallbackIsScheduled() : (isHostCallbackScheduled = !1),
                 flushImmediateWork();
             }
           }
@@ -3912,14 +3316,11 @@ module.exports = {
             }
             var previousPriorityLevel = currentPriorityLevel,
               previousEventStartTime = currentEventStartTime;
-            (currentPriorityLevel = priorityLevel),
-              (currentEventStartTime = exports.unstable_now());
+            (currentPriorityLevel = priorityLevel), (currentEventStartTime = exports.unstable_now());
             try {
               return eventHandler();
             } finally {
-              (currentPriorityLevel = previousPriorityLevel),
-                (currentEventStartTime = previousEventStartTime),
-                flushImmediateWork();
+              (currentPriorityLevel = previousPriorityLevel), (currentEventStartTime = previousEventStartTime), flushImmediateWork();
             }
           }
           function unstable_next(eventHandler) {
@@ -3935,14 +3336,11 @@ module.exports = {
             }
             var previousPriorityLevel = currentPriorityLevel,
               previousEventStartTime = currentEventStartTime;
-            (currentPriorityLevel = priorityLevel),
-              (currentEventStartTime = exports.unstable_now());
+            (currentPriorityLevel = priorityLevel), (currentEventStartTime = exports.unstable_now());
             try {
               return eventHandler();
             } finally {
-              (currentPriorityLevel = previousPriorityLevel),
-                (currentEventStartTime = previousEventStartTime),
-                flushImmediateWork();
+              (currentPriorityLevel = previousPriorityLevel), (currentEventStartTime = previousEventStartTime), flushImmediateWork();
             }
           }
           function unstable_wrapCallback(callback) {
@@ -3950,26 +3348,18 @@ module.exports = {
             return function () {
               var previousPriorityLevel = currentPriorityLevel,
                 previousEventStartTime = currentEventStartTime;
-              (currentPriorityLevel = parentPriorityLevel),
-                (currentEventStartTime = exports.unstable_now());
+              (currentPriorityLevel = parentPriorityLevel), (currentEventStartTime = exports.unstable_now());
               try {
                 return callback.apply(this, arguments);
               } finally {
-                (currentPriorityLevel = previousPriorityLevel),
-                  (currentEventStartTime = previousEventStartTime),
-                  flushImmediateWork();
+                (currentPriorityLevel = previousPriorityLevel), (currentEventStartTime = previousEventStartTime), flushImmediateWork();
               }
             };
           }
           function unstable_scheduleCallback(callback, deprecated_options) {
-            var startTime =
-                -1 !== currentEventStartTime ? currentEventStartTime : exports.unstable_now(),
+            var startTime = -1 !== currentEventStartTime ? currentEventStartTime : exports.unstable_now(),
               expirationTime;
-            if (
-              'object' == typeof deprecated_options &&
-              null !== deprecated_options &&
-              'number' == typeof deprecated_options.timeout
-            )
+            if ('object' == typeof deprecated_options && null !== deprecated_options && 'number' == typeof deprecated_options.timeout)
               expirationTime = startTime + deprecated_options.timeout;
             else
               switch (currentPriorityLevel) {
@@ -3996,9 +3386,7 @@ module.exports = {
               next: null,
               previous: null
             };
-            if (null === firstCallbackNode)
-              (firstCallbackNode = newNode.next = newNode.previous = newNode),
-                ensureHostCallbackIsScheduled();
+            if (null === firstCallbackNode) (firstCallbackNode = newNode.next = newNode.previous = newNode), ensureHostCallbackIsScheduled();
             else {
               var next = null,
                 node = firstCallbackNode;
@@ -4009,14 +3397,9 @@ module.exports = {
                 }
                 node = node.next;
               } while (node !== firstCallbackNode);
-              null === next
-                ? (next = firstCallbackNode)
-                : next === firstCallbackNode &&
-                  ((firstCallbackNode = newNode), ensureHostCallbackIsScheduled());
+              null === next ? (next = firstCallbackNode) : next === firstCallbackNode && ((firstCallbackNode = newNode), ensureHostCallbackIsScheduled());
               var previous = next.previous;
-              (previous.next = next.previous = newNode),
-                (newNode.next = next),
-                (newNode.previous = previous);
+              (previous.next = next.previous = newNode), (newNode.next = next), (newNode.previous = previous);
             }
             return newNode;
           }
@@ -4045,20 +3428,13 @@ module.exports = {
             return currentPriorityLevel;
           }
           function unstable_shouldYield() {
-            return (
-              !currentDidTimeout &&
-              ((null !== firstCallbackNode &&
-                firstCallbackNode.expirationTime < currentExpirationTime) ||
-                shouldYieldToHost())
-            );
+            return !currentDidTimeout && ((null !== firstCallbackNode && firstCallbackNode.expirationTime < currentExpirationTime) || shouldYieldToHost());
           }
           var localDate = Date,
             localSetTimeout = 'function' == typeof setTimeout ? setTimeout : void 0,
             localClearTimeout = 'function' == typeof clearTimeout ? clearTimeout : void 0,
-            localRequestAnimationFrame =
-              'function' == typeof requestAnimationFrame ? requestAnimationFrame : void 0,
-            localCancelAnimationFrame =
-              'function' == typeof cancelAnimationFrame ? cancelAnimationFrame : void 0,
+            localRequestAnimationFrame = 'function' == typeof requestAnimationFrame ? requestAnimationFrame : void 0,
+            localCancelAnimationFrame = 'function' == typeof cancelAnimationFrame ? cancelAnimationFrame : void 0,
             ANIMATION_FRAME_TIMEOUT = 100,
             rAFID,
             rAFTimeoutID,
@@ -4083,17 +3459,9 @@ module.exports = {
               return localDate.now();
             };
           var globalValue = null;
-          if (
-            ('undefined' != typeof window
-              ? (globalValue = window)
-              : 'undefined' != typeof global && (globalValue = global),
-            globalValue && globalValue._schedMock)
-          ) {
+          if (('undefined' != typeof window ? (globalValue = window) : 'undefined' != typeof global && (globalValue = global), globalValue && globalValue._schedMock)) {
             var globalImpl = globalValue._schedMock;
-            (requestHostCallback = globalImpl[0]),
-              (cancelHostCallback = globalImpl[1]),
-              (shouldYieldToHost = globalImpl[2]),
-              (exports.unstable_now = globalImpl[3]);
+            (requestHostCallback = globalImpl[0]), (cancelHostCallback = globalImpl[1]), (shouldYieldToHost = globalImpl[2]), (exports.unstable_now = globalImpl[3]);
           } else if ('undefined' == typeof window || 'function' != typeof MessageChannel) {
             var _callback = null,
               _flushCallback = function (didTimeout) {
@@ -4105,9 +3473,7 @@ module.exports = {
                   }
               };
             (requestHostCallback = function (cb, ms) {
-              null !== _callback
-                ? setTimeout(requestHostCallback, 0, cb)
-                : ((_callback = cb), setTimeout(_flushCallback, 0, !1));
+              null !== _callback ? setTimeout(requestHostCallback, 0, cb) : ((_callback = cb), setTimeout(_flushCallback, 0, !1));
             }),
               (cancelHostCallback = function () {
                 _callback = null;
@@ -4118,13 +3484,9 @@ module.exports = {
           } else {
             'undefined' != typeof console &&
               ('function' != typeof localRequestAnimationFrame &&
-                console.error(
-                  "This browser doesn't support requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
-                ),
+                console.error("This browser doesn't support requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"),
               'function' != typeof localCancelAnimationFrame &&
-                console.error(
-                  "This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
-                ));
+                console.error("This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"));
             var scheduledHostCallback = null,
               isMessageEventScheduled = !1,
               timeoutTime = -1,
@@ -4148,9 +3510,7 @@ module.exports = {
               if (frameDeadline - currentTime <= 0) {
                 if (!(-1 !== prevTimeoutTime && prevTimeoutTime <= currentTime))
                   return (
-                    isAnimationFrameScheduled ||
-                      ((isAnimationFrameScheduled = !0),
-                      requestAnimationFrameWithTimeout(animationTick)),
+                    isAnimationFrameScheduled || ((isAnimationFrameScheduled = !0), requestAnimationFrameWithTimeout(animationTick)),
                     (scheduledHostCallback = prevScheduledCallback),
                     void (timeoutTime = prevTimeoutTime)
                   );
@@ -4170,13 +3530,10 @@ module.exports = {
                 requestAnimationFrameWithTimeout(animationTick);
                 var nextFrameTime = rafTime - frameDeadline + activeFrameTime;
                 nextFrameTime < activeFrameTime && previousFrameTime < activeFrameTime
-                  ? (nextFrameTime < 8 && (nextFrameTime = 8),
-                    (activeFrameTime =
-                      nextFrameTime < previousFrameTime ? previousFrameTime : nextFrameTime))
+                  ? (nextFrameTime < 8 && (nextFrameTime = 8), (activeFrameTime = nextFrameTime < previousFrameTime ? previousFrameTime : nextFrameTime))
                   : (previousFrameTime = nextFrameTime),
                   (frameDeadline = rafTime + activeFrameTime),
-                  isMessageEventScheduled ||
-                    ((isMessageEventScheduled = !0), port.postMessage(void 0));
+                  isMessageEventScheduled || ((isMessageEventScheduled = !0), port.postMessage(void 0));
               } else isAnimationFrameScheduled = !1;
             };
             (requestHostCallback = function (callback, absoluteTimeout) {
@@ -4184,9 +3541,7 @@ module.exports = {
                 (timeoutTime = absoluteTimeout),
                 isFlushingHostCallback || absoluteTimeout < 0
                   ? port.postMessage(void 0)
-                  : isAnimationFrameScheduled ||
-                    ((isAnimationFrameScheduled = !0),
-                    requestAnimationFrameWithTimeout(animationTick));
+                  : isAnimationFrameScheduled || ((isAnimationFrameScheduled = !0), requestAnimationFrameWithTimeout(animationTick));
             }),
               (cancelHostCallback = function () {
                 (scheduledHostCallback = null), (isMessageEventScheduled = !1), (timeoutTime = -1);
@@ -4233,9 +3588,7 @@ module.exports = {
             if ((validateFormat(format), !condition)) {
               var error = void 0;
               if (void 0 === format)
-                error = new Error(
-                  'Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.'
-                );
+                error = new Error('Minified exception occurred; use the non-minified dev environment for the full error message and additional helpful warnings.');
               else {
                 var args = [a, b, c, d, e, f],
                   argIndex = 0;
@@ -4253,25 +3606,15 @@ module.exports = {
           };
           var warningWithoutStack = function () {},
             warningWithoutStack$1 = (warningWithoutStack = function (condition, format) {
-              for (
-                var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2;
-                _key < _len;
-                _key++
-              )
-                args[_key - 2] = arguments[_key];
-              if (void 0 === format)
-                throw new Error(
-                  '`warningWithoutStack(condition, format, ...args)` requires a warning message argument'
-                );
-              if (args.length > 8)
-                throw new Error('warningWithoutStack() currently supports at most 8 arguments.');
+              for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) args[_key - 2] = arguments[_key];
+              if (void 0 === format) throw new Error('`warningWithoutStack(condition, format, ...args)` requires a warning message argument');
+              if (args.length > 8) throw new Error('warningWithoutStack() currently supports at most 8 arguments.');
               if (!condition) {
                 if ('undefined' != typeof console) {
                   var argsWithFormat = args.map(function (item) {
                     return '' + item;
                   });
-                  argsWithFormat.unshift('Warning: ' + format),
-                    Function.prototype.apply.call(console.error, console, argsWithFormat);
+                  argsWithFormat.unshift('Warning: ' + format), Function.prototype.apply.call(console.error, console, argsWithFormat);
                 }
                 try {
                   var argIndex = 0,
@@ -4291,8 +3634,7 @@ module.exports = {
             key._reactInternalFiber = value;
           }
           var ReactSharedInternals = React.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
-          ReactSharedInternals.hasOwnProperty('ReactCurrentDispatcher') ||
-            (ReactSharedInternals.ReactCurrentDispatcher = { current: null });
+          ReactSharedInternals.hasOwnProperty('ReactCurrentDispatcher') || (ReactSharedInternals.ReactCurrentDispatcher = { current: null });
           var hasSymbol = 'function' == typeof Symbol && Symbol.for,
             REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 60103,
             REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 60106,
@@ -4310,9 +3652,7 @@ module.exports = {
             FAUX_ITERATOR_SYMBOL = '@@iterator';
           function getIteratorFn(maybeIterable) {
             if (null === maybeIterable || 'object' != typeof maybeIterable) return null;
-            var maybeIterator =
-              (MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL]) ||
-              maybeIterable['@@iterator'];
+            var maybeIterator = (MAYBE_ITERATOR_SYMBOL && maybeIterable[MAYBE_ITERATOR_SYMBOL]) || maybeIterable['@@iterator'];
             return 'function' == typeof maybeIterator ? maybeIterator : null;
           }
           var Pending = 0,
@@ -4323,19 +3663,13 @@ module.exports = {
           }
           function getWrappedName(outerType, innerType, wrapperName) {
             var functionName = innerType.displayName || innerType.name || '';
-            return (
-              outerType.displayName ||
-              ('' !== functionName ? wrapperName + '(' + functionName + ')' : wrapperName)
-            );
+            return outerType.displayName || ('' !== functionName ? wrapperName + '(' + functionName + ')' : wrapperName);
           }
           function getComponentName(type) {
             if (null == type) return null;
             if (
               ('number' == typeof type.tag &&
-                warningWithoutStack(
-                  !1,
-                  'Received an unexpected object in getComponentName(). This is likely a bug in React. Please file an issue.'
-                ),
+                warningWithoutStack(!1, 'Received an unexpected object in getComponentName(). This is likely a bug in React. Please file an issue.'),
               'function' == typeof type)
             )
               return type.displayName || type.name || null;
@@ -4439,17 +3773,13 @@ module.exports = {
             return !!fiber && 2 === isFiberMountedImpl(fiber);
           }
           function assertIsMounted(fiber) {
-            2 !== isFiberMountedImpl(fiber) &&
-              invariant(!1, 'Unable to find node on an unmounted component.');
+            2 !== isFiberMountedImpl(fiber) && invariant(!1, 'Unable to find node on an unmounted component.');
           }
           function findCurrentFiberUsingSlowPath(fiber) {
             var alternate = fiber.alternate;
             if (!alternate) {
               var state = isFiberMountedImpl(fiber);
-              return (
-                3 === state && invariant(!1, 'Unable to find node on an unmounted component.'),
-                1 === state ? null : fiber
-              );
+              return 3 === state && invariant(!1, 'Unable to find node on an unmounted component.'), 1 === state ? null : fiber;
             }
             for (var a = fiber, b = alternate; ; ) {
               var parentA = a.return,
@@ -4489,22 +3819,13 @@ module.exports = {
                     _child = _child.sibling;
                   }
                   didFindChild ||
-                    invariant(
-                      !1,
-                      'Child was not found in either parent set. This indicates a bug in React related to the return pointer. Please file an issue.'
-                    );
+                    invariant(!1, 'Child was not found in either parent set. This indicates a bug in React related to the return pointer. Please file an issue.');
                 }
               }
               a.alternate !== b &&
-                invariant(
-                  !1,
-                  "Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue."
-                );
+                invariant(!1, "Return fibers should always be each others' alternates. This error is likely caused by a bug in React. Please file an issue.");
             }
-            return (
-              3 !== a.tag && invariant(!1, 'Unable to find node on an unmounted component.'),
-              a.stateNode.current === a ? fiber : alternate
-            );
+            return 3 !== a.tag && invariant(!1, 'Unable to find node on an unmounted component.'), a.stateNode.current === a ? fiber : alternate;
           }
           function findCurrentHostFiber(parent) {
             var currentParent = findCurrentFiberUsingSlowPath(parent);
@@ -4594,25 +3915,19 @@ module.exports = {
             getFirstHydratableChild = $$$hostConfig.getFirstHydratableChild,
             hydrateInstance = $$$hostConfig.hydrateInstance,
             hydrateTextInstance = $$$hostConfig.hydrateTextInstance,
-            getNextHydratableInstanceAfterSuspenseInstance =
-              $$$hostConfig.getNextHydratableInstanceAfterSuspenseInstance,
+            getNextHydratableInstanceAfterSuspenseInstance = $$$hostConfig.getNextHydratableInstanceAfterSuspenseInstance,
             clearSuspenseBoundary = $$$hostConfig.clearSuspenseBoundary,
             clearSuspenseBoundaryFromContainer = $$$hostConfig.clearSuspenseBoundaryFromContainer,
-            didNotMatchHydratedContainerTextInstance =
-              $$$hostConfig.didNotMatchHydratedContainerTextInstance,
+            didNotMatchHydratedContainerTextInstance = $$$hostConfig.didNotMatchHydratedContainerTextInstance,
             didNotMatchHydratedTextInstance = $$$hostConfig.didNotMatchHydratedTextInstance,
             didNotHydrateContainerInstance = $$$hostConfig.didNotHydrateContainerInstance,
             didNotHydrateInstance = $$$hostConfig.didNotHydrateInstance,
-            didNotFindHydratableContainerInstance =
-              $$$hostConfig.didNotFindHydratableContainerInstance,
-            didNotFindHydratableContainerTextInstance =
-              $$$hostConfig.didNotFindHydratableContainerTextInstance,
-            didNotFindHydratableContainerSuspenseInstance =
-              $$$hostConfig.didNotFindHydratableContainerSuspenseInstance,
+            didNotFindHydratableContainerInstance = $$$hostConfig.didNotFindHydratableContainerInstance,
+            didNotFindHydratableContainerTextInstance = $$$hostConfig.didNotFindHydratableContainerTextInstance,
+            didNotFindHydratableContainerSuspenseInstance = $$$hostConfig.didNotFindHydratableContainerSuspenseInstance,
             didNotFindHydratableInstance = $$$hostConfig.didNotFindHydratableInstance,
             didNotFindHydratableTextInstance = $$$hostConfig.didNotFindHydratableTextInstance,
-            didNotFindHydratableSuspenseInstance =
-              $$$hostConfig.didNotFindHydratableSuspenseInstance,
+            didNotFindHydratableSuspenseInstance = $$$hostConfig.didNotFindHydratableSuspenseInstance,
             BEFORE_SLASH_RE = /^(.*)[\\\/]/,
             describeComponentFrame = function (name, source, ownerName) {
               var sourceInfo = '';
@@ -4624,8 +3939,7 @@ module.exports = {
                   if (match) {
                     var pathBeforeSlash = match[1],
                       folderName;
-                    if (pathBeforeSlash)
-                      fileName = pathBeforeSlash.replace(BEFORE_SLASH_RE, '') + '/' + fileName;
+                    if (pathBeforeSlash) fileName = pathBeforeSlash.replace(BEFORE_SLASH_RE, '') + '/' + fileName;
                   }
                 }
                 sourceInfo = ' (at ' + fileName + ':' + source.lineNumber + ')';
@@ -4647,10 +3961,7 @@ module.exports = {
                   source = fiber._debugSource,
                   name = getComponentName(fiber.type),
                   ownerName = null;
-                return (
-                  owner && (ownerName = getComponentName(owner.type)),
-                  describeComponentFrame(name, source, ownerName)
-                );
+                return owner && (ownerName = getComponentName(owner.type)), describeComponentFrame(name, source, ownerName);
             }
           }
           function getStackByFiberInDevAndProd(workInProgress) {
@@ -4675,9 +3986,7 @@ module.exports = {
             (ReactDebugCurrentFrame.getCurrentStack = null), (current = null), (phase = null);
           }
           function setCurrentFiber(fiber) {
-            (ReactDebugCurrentFrame.getCurrentStack = getCurrentFiberStackInDev),
-              (current = fiber),
-              (phase = null);
+            (ReactDebugCurrentFrame.getCurrentStack = getCurrentFiberStackInDev), (current = fiber), (phase = null);
           }
           function setCurrentPhase(lifeCyclePhase) {
             phase = lifeCyclePhase;
@@ -4713,9 +4022,7 @@ module.exports = {
             },
             formatLabel = function (label, warning) {
               var prefix, suffix;
-              return (
-                '' + (warning ? '⛔ ' : '⚛ ') + label + (warning ? ' Warning: ' + warning : '')
-              );
+              return '' + (warning ? '⛔ ' : '⚛ ') + label + (warning ? ' Warning: ' + warning : '');
             },
             beginMark = function (markName) {
               performance.mark(formatMarkName(markName));
@@ -4735,9 +4042,7 @@ module.exports = {
               return label + ' (#' + debugID + ')';
             },
             getFiberLabel = function (componentName, isMounted, phase) {
-              return null === phase
-                ? componentName + ' [' + (isMounted ? 'update' : 'mount') + ']'
-                : componentName + '.' + phase;
+              return null === phase ? componentName + ' [' + (isMounted ? 'update' : 'mount') + ']' : componentName + '.' + phase;
             },
             beginFiberMark = function (fiber, phase) {
               var componentName = getComponentName(fiber.type) || 'Unknown',
@@ -4781,21 +4086,16 @@ module.exports = {
               }
             },
             clearPendingPhaseMeasurement = function () {
-              null !== currentPhase &&
-                null !== currentPhaseFiber &&
-                clearFiberMark(currentPhaseFiber, currentPhase),
+              null !== currentPhase && null !== currentPhaseFiber && clearFiberMark(currentPhaseFiber, currentPhase),
                 (currentPhaseFiber = null),
                 (currentPhase = null),
                 (hasScheduledUpdateInCurrentPhase = !1);
             },
             pauseTimers = function () {
-              for (var fiber = currentFiber; fiber; )
-                fiber._debugIsCurrentlyTiming && endFiberMark(fiber, null, null),
-                  (fiber = fiber.return);
+              for (var fiber = currentFiber; fiber; ) fiber._debugIsCurrentlyTiming && endFiberMark(fiber, null, null), (fiber = fiber.return);
             },
             resumeTimersRecursively = function (fiber) {
-              null !== fiber.return && resumeTimersRecursively(fiber.return),
-                fiber._debugIsCurrentlyTiming && beginFiberMark(fiber, null);
+              null !== fiber.return && resumeTimersRecursively(fiber.return), fiber._debugIsCurrentlyTiming && beginFiberMark(fiber, null);
             },
             resumeTimers = function () {
               null !== currentFiber && resumeTimersRecursively(currentFiber);
@@ -4805,15 +4105,10 @@ module.exports = {
           }
           function recordScheduleUpdate() {
             isCommitting && (hasScheduledUpdateInCurrentCommit = !0),
-              null !== currentPhase &&
-                'componentWillMount' !== currentPhase &&
-                'componentWillReceiveProps' !== currentPhase &&
-                (hasScheduledUpdateInCurrentPhase = !0);
+              null !== currentPhase && 'componentWillMount' !== currentPhase && 'componentWillReceiveProps' !== currentPhase && (hasScheduledUpdateInCurrentPhase = !0);
           }
           function startRequestCallbackTimer() {
-            supportsUserTiming &&
-              !isWaitingForCallback &&
-              ((isWaitingForCallback = !0), beginMark('(Waiting for async callback...)'));
+            supportsUserTiming && !isWaitingForCallback && ((isWaitingForCallback = !0), beginMark('(Waiting for async callback...)'));
           }
           function stopRequestCallbackTimer(didExpire, expirationTime) {
             var warning;
@@ -4826,62 +4121,37 @@ module.exports = {
               ));
           }
           function startWorkTimer(fiber) {
-            supportsUserTiming &&
-              !shouldIgnoreFiber(fiber) &&
-              ((currentFiber = fiber),
-              beginFiberMark(fiber, null) && (fiber._debugIsCurrentlyTiming = !0));
+            supportsUserTiming && !shouldIgnoreFiber(fiber) && ((currentFiber = fiber), beginFiberMark(fiber, null) && (fiber._debugIsCurrentlyTiming = !0));
           }
           function cancelWorkTimer(fiber) {
-            supportsUserTiming &&
-              !shouldIgnoreFiber(fiber) &&
-              ((fiber._debugIsCurrentlyTiming = !1), clearFiberMark(fiber, null));
+            supportsUserTiming && !shouldIgnoreFiber(fiber) && ((fiber._debugIsCurrentlyTiming = !1), clearFiberMark(fiber, null));
           }
           function stopWorkTimer(fiber) {
             supportsUserTiming &&
               !shouldIgnoreFiber(fiber) &&
-              ((currentFiber = fiber.return),
-              fiber._debugIsCurrentlyTiming &&
-                ((fiber._debugIsCurrentlyTiming = !1), endFiberMark(fiber, null, null)));
+              ((currentFiber = fiber.return), fiber._debugIsCurrentlyTiming && ((fiber._debugIsCurrentlyTiming = !1), endFiberMark(fiber, null, null)));
           }
           function stopFailedWorkTimer(fiber) {
-            if (
-              supportsUserTiming &&
-              !shouldIgnoreFiber(fiber) &&
-              ((currentFiber = fiber.return), fiber._debugIsCurrentlyTiming)
-            ) {
+            if (supportsUserTiming && !shouldIgnoreFiber(fiber) && ((currentFiber = fiber.return), fiber._debugIsCurrentlyTiming)) {
               fiber._debugIsCurrentlyTiming = !1;
-              var warning =
-                13 === fiber.tag || 18 === fiber.tag
-                  ? 'Rendering was suspended'
-                  : 'An error was thrown inside this error boundary';
+              var warning = 13 === fiber.tag || 18 === fiber.tag ? 'Rendering was suspended' : 'An error was thrown inside this error boundary';
               endFiberMark(fiber, null, warning);
             }
           }
           function startPhaseTimer(fiber, phase) {
-            supportsUserTiming &&
-              (clearPendingPhaseMeasurement(),
-              beginFiberMark(fiber, phase) &&
-                ((currentPhaseFiber = fiber), (currentPhase = phase)));
+            supportsUserTiming && (clearPendingPhaseMeasurement(), beginFiberMark(fiber, phase) && ((currentPhaseFiber = fiber), (currentPhase = phase)));
           }
           function stopPhaseTimer() {
             var warning;
             supportsUserTiming &&
               (null !== currentPhase &&
                 null !== currentPhaseFiber &&
-                endFiberMark(
-                  currentPhaseFiber,
-                  currentPhase,
-                  hasScheduledUpdateInCurrentPhase ? 'Scheduled a cascading update' : null
-                ),
+                endFiberMark(currentPhaseFiber, currentPhase, hasScheduledUpdateInCurrentPhase ? 'Scheduled a cascading update' : null),
               (currentPhase = null),
               (currentPhaseFiber = null));
           }
           function startWorkLoopTimer(nextUnitOfWork) {
-            (currentFiber = nextUnitOfWork),
-              supportsUserTiming &&
-                ((commitCountInCurrentWorkLoop = 0),
-                beginMark('(React Tree Reconciliation)'),
-                resumeTimers());
+            (currentFiber = nextUnitOfWork), supportsUserTiming && ((commitCountInCurrentWorkLoop = 0), beginMark('(React Tree Reconciliation)'), resumeTimers());
           }
           function stopWorkLoopTimer(interruptedBy, didCompleteRoot) {
             if (supportsUserTiming) {
@@ -4891,31 +4161,22 @@ module.exports = {
                 ? (warning =
                     3 === interruptedBy.tag
                       ? 'A top-level update interrupted the previous render'
-                      : 'An update to ' +
-                        (getComponentName(interruptedBy.type) || 'Unknown') +
-                        ' interrupted the previous render')
+                      : 'An update to ' + (getComponentName(interruptedBy.type) || 'Unknown') + ' interrupted the previous render')
                 : commitCountInCurrentWorkLoop > 1 && (warning = 'There were cascading updates'),
                 (commitCountInCurrentWorkLoop = 0);
-              var label = didCompleteRoot
-                ? '(React Tree Reconciliation: Completed Root)'
-                : '(React Tree Reconciliation: Yielded)';
+              var label = didCompleteRoot ? '(React Tree Reconciliation: Completed Root)' : '(React Tree Reconciliation: Yielded)';
               pauseTimers(), endMark(label, '(React Tree Reconciliation)', warning);
             }
           }
           function startCommitTimer() {
-            supportsUserTiming &&
-              ((isCommitting = !0),
-              (hasScheduledUpdateInCurrentCommit = !1),
-              labelsInCurrentCommit.clear(),
-              beginMark('(Committing Changes)'));
+            supportsUserTiming && ((isCommitting = !0), (hasScheduledUpdateInCurrentCommit = !1), labelsInCurrentCommit.clear(), beginMark('(Committing Changes)'));
           }
           function stopCommitTimer() {
             if (supportsUserTiming) {
               var warning = null;
               hasScheduledUpdateInCurrentCommit
                 ? (warning = 'Lifecycle hook scheduled a cascading update')
-                : commitCountInCurrentWorkLoop > 0 &&
-                  (warning = 'Caused by a cascading update in earlier commit'),
+                : commitCountInCurrentWorkLoop > 0 && (warning = 'Caused by a cascading update in earlier commit'),
                 (hasScheduledUpdateInCurrentCommit = !1),
                 commitCountInCurrentWorkLoop++,
                 (isCommitting = !1),
@@ -4924,48 +4185,30 @@ module.exports = {
             }
           }
           function startCommitSnapshotEffectsTimer() {
-            supportsUserTiming &&
-              ((effectCountInCurrentCommit = 0), beginMark('(Committing Snapshot Effects)'));
+            supportsUserTiming && ((effectCountInCurrentCommit = 0), beginMark('(Committing Snapshot Effects)'));
           }
           function stopCommitSnapshotEffectsTimer() {
             if (supportsUserTiming) {
               var count = effectCountInCurrentCommit;
-              (effectCountInCurrentCommit = 0),
-                endMark(
-                  '(Committing Snapshot Effects: ' + count + ' Total)',
-                  '(Committing Snapshot Effects)',
-                  null
-                );
+              (effectCountInCurrentCommit = 0), endMark('(Committing Snapshot Effects: ' + count + ' Total)', '(Committing Snapshot Effects)', null);
             }
           }
           function startCommitHostEffectsTimer() {
-            supportsUserTiming &&
-              ((effectCountInCurrentCommit = 0), beginMark('(Committing Host Effects)'));
+            supportsUserTiming && ((effectCountInCurrentCommit = 0), beginMark('(Committing Host Effects)'));
           }
           function stopCommitHostEffectsTimer() {
             if (supportsUserTiming) {
               var count = effectCountInCurrentCommit;
-              (effectCountInCurrentCommit = 0),
-                endMark(
-                  '(Committing Host Effects: ' + count + ' Total)',
-                  '(Committing Host Effects)',
-                  null
-                );
+              (effectCountInCurrentCommit = 0), endMark('(Committing Host Effects: ' + count + ' Total)', '(Committing Host Effects)', null);
             }
           }
           function startCommitLifeCyclesTimer() {
-            supportsUserTiming &&
-              ((effectCountInCurrentCommit = 0), beginMark('(Calling Lifecycle Methods)'));
+            supportsUserTiming && ((effectCountInCurrentCommit = 0), beginMark('(Calling Lifecycle Methods)'));
           }
           function stopCommitLifeCyclesTimer() {
             if (supportsUserTiming) {
               var count = effectCountInCurrentCommit;
-              (effectCountInCurrentCommit = 0),
-                endMark(
-                  '(Calling Lifecycle Methods: ' + count + ' Total)',
-                  '(Calling Lifecycle Methods)',
-                  null
-                );
+              (effectCountInCurrentCommit = 0), endMark('(Calling Lifecycle Methods: ' + count + ' Total)', '(Calling Lifecycle Methods)', null);
             }
           }
           var valueStack = [],
@@ -4985,14 +4228,10 @@ module.exports = {
                 index--);
           }
           function push(cursor, value, fiber) {
-            index++,
-              (valueStack[index] = cursor.current),
-              (fiberStack[index] = fiber),
-              (cursor.current = value);
+            index++, (valueStack[index] = cursor.current), (fiberStack[index] = fiber), (cursor.current = value);
           }
           function checkThatStackIsEmpty() {
-            -1 !== index &&
-              warningWithoutStack(!1, 'Expected an empty stack. Something was not reset properly.');
+            -1 !== index && warningWithoutStack(!1, 'Expected an empty stack. Something was not reset properly.');
           }
           function resetStackAfterFatalErrorInDev() {
             (index = -1), (valueStack.length = 0), (fiberStack.length = 0);
@@ -5005,25 +4244,18 @@ module.exports = {
             didPerformWorkStackCursor = createCursor(!1),
             previousContext = emptyContextObject;
           function getUnmaskedContext(workInProgress, Component, didPushOwnContextIfProvider) {
-            return didPushOwnContextIfProvider && isContextProvider(Component)
-              ? previousContext
-              : contextStackCursor.current;
+            return didPushOwnContextIfProvider && isContextProvider(Component) ? previousContext : contextStackCursor.current;
           }
           function cacheContext(workInProgress, unmaskedContext, maskedContext) {
             var instance = workInProgress.stateNode;
-            (instance.__reactInternalMemoizedUnmaskedChildContext = unmaskedContext),
-              (instance.__reactInternalMemoizedMaskedChildContext = maskedContext);
+            (instance.__reactInternalMemoizedUnmaskedChildContext = unmaskedContext), (instance.__reactInternalMemoizedMaskedChildContext = maskedContext);
           }
           function getMaskedContext(workInProgress, unmaskedContext) {
             var type = workInProgress.type,
               contextTypes = type.contextTypes;
             if (!contextTypes) return emptyContextObject;
             var instance = workInProgress.stateNode;
-            if (
-              instance &&
-              instance.__reactInternalMemoizedUnmaskedChildContext === unmaskedContext
-            )
-              return instance.__reactInternalMemoizedMaskedChildContext;
+            if (instance && instance.__reactInternalMemoizedUnmaskedChildContext === unmaskedContext) return instance.__reactInternalMemoizedMaskedChildContext;
             var context = {};
             for (var key in contextTypes) context[key] = unmaskedContext[key];
             var name = getComponentName(type) || 'Unknown';
@@ -5048,10 +4280,7 @@ module.exports = {
           }
           function pushTopLevelContextObject(fiber, context, didChange) {
             contextStackCursor.current !== emptyContextObject &&
-              invariant(
-                !1,
-                'Unexpected context found on stack. This error is likely caused by a bug in React. Please file an issue.'
-              ),
+              invariant(!1, 'Unexpected context found on stack. This error is likely caused by a bug in React. Please file an issue.'),
               push(contextStackCursor, context, fiber),
               push(didPerformWorkStackCursor, didChange, fiber);
           }
@@ -5080,29 +4309,13 @@ module.exports = {
             setCurrentPhase(null),
             childContext))
               contextKey in childContextTypes ||
-                invariant(
-                  !1,
-                  '%s.getChildContext(): key "%s" is not defined in childContextTypes.',
-                  getComponentName(type) || 'Unknown',
-                  contextKey
-                );
+                invariant(!1, '%s.getChildContext(): key "%s" is not defined in childContextTypes.', getComponentName(type) || 'Unknown', contextKey);
             var name = getComponentName(type) || 'Unknown';
-            return (
-              checkPropTypes(
-                childContextTypes,
-                childContext,
-                'child context',
-                name,
-                getCurrentFiberStackInDev
-              ),
-              _assign({}, parentContext, childContext)
-            );
+            return checkPropTypes(childContextTypes, childContext, 'child context', name, getCurrentFiberStackInDev), _assign({}, parentContext, childContext);
           }
           function pushContextProvider(workInProgress) {
             var instance = workInProgress.stateNode,
-              memoizedMergedChildContext =
-                (instance && instance.__reactInternalMemoizedMergedChildContext) ||
-                emptyContextObject;
+              memoizedMergedChildContext = (instance && instance.__reactInternalMemoizedMergedChildContext) || emptyContextObject;
             return (
               (previousContext = contextStackCursor.current),
               push(contextStackCursor, memoizedMergedChildContext, workInProgress),
@@ -5113,12 +4326,7 @@ module.exports = {
           function invalidateContextProvider(workInProgress, type, didChange) {
             var instance = workInProgress.stateNode;
             if (
-              (instance ||
-                invariant(
-                  !1,
-                  'Expected to have an instance by this point. This error is likely caused by a bug in React. Please file an issue.'
-                ),
-              didChange)
+              (instance || invariant(!1, 'Expected to have an instance by this point. This error is likely caused by a bug in React. Please file an issue.'), didChange)
             ) {
               var mergedContext = processChildContext(workInProgress, type, previousContext);
               (instance.__reactInternalMemoizedMergedChildContext = mergedContext),
@@ -5126,16 +4334,11 @@ module.exports = {
                 pop(contextStackCursor, workInProgress),
                 push(contextStackCursor, mergedContext, workInProgress),
                 push(didPerformWorkStackCursor, didChange, workInProgress);
-            } else
-              pop(didPerformWorkStackCursor, workInProgress),
-                push(didPerformWorkStackCursor, didChange, workInProgress);
+            } else pop(didPerformWorkStackCursor, workInProgress), push(didPerformWorkStackCursor, didChange, workInProgress);
           }
           function findCurrentUnmaskedContext(fiber) {
             (isFiberMounted(fiber) && 1 === fiber.tag) ||
-              invariant(
-                !1,
-                'Expected subtree parent to be a mounted class component. This error is likely caused by a bug in React. Please file an issue.'
-              );
+              invariant(!1, 'Expected subtree parent to be a mounted class component. This error is likely caused by a bug in React. Please file an issue.');
             var node = fiber;
             do {
               switch (node.tag) {
@@ -5143,15 +4346,11 @@ module.exports = {
                   return node.stateNode.context;
                 case 1:
                   var Component;
-                  if (isContextProvider(node.type))
-                    return node.stateNode.__reactInternalMemoizedMergedChildContext;
+                  if (isContextProvider(node.type)) return node.stateNode.__reactInternalMemoizedMergedChildContext;
               }
               node = node.return;
             } while (null !== node);
-            invariant(
-              !1,
-              'Found unexpected detached subtree parent. This error is likely caused by a bug in React. Please file an issue.'
-            );
+            invariant(!1, 'Found unexpected detached subtree parent. This error is likely caused by a bug in React. Please file an issue.');
           }
           var onCommitFiberRoot = null,
             onCommitFiberUnmount = null,
@@ -5161,9 +4360,7 @@ module.exports = {
               try {
                 return fn(arg);
               } catch (err) {
-                hasLoggedError ||
-                  ((hasLoggedError = !0),
-                  warningWithoutStack(!1, 'React DevTools encountered an error: %s', err));
+                hasLoggedError || ((hasLoggedError = !0), warningWithoutStack(!1, 'React DevTools encountered an error: %s', err));
               }
             };
           }
@@ -5215,10 +4412,7 @@ module.exports = {
             return (1 + ((num / precision) | 0)) * precision;
           }
           function computeExpirationBucket(currentTime, expirationInMs, bucketSizeMs) {
-            return (
-              1073741822 -
-              ceiling(1073741822 - currentTime + expirationInMs / 10, bucketSizeMs / 10)
-            );
+            return 1073741822 - ceiling(1073741822 - currentTime + expirationInMs / 10, bucketSizeMs / 10);
           }
           var LOW_PRIORITY_EXPIRATION = 5e3,
             LOW_PRIORITY_BATCH_SIZE = 250;
@@ -5282,9 +4476,7 @@ module.exports = {
               (this._debugOwner = null),
               (this._debugIsCurrentlyTiming = !1),
               (this._debugHookTypes = null),
-              hasBadMapPolyfill ||
-                'function' != typeof Object.preventExtensions ||
-                Object.preventExtensions(this);
+              hasBadMapPolyfill || 'function' != typeof Object.preventExtensions || Object.preventExtensions(this);
           }
           debugCounter = 1;
           var createFiber = function (tag, pendingProps, key, mode) {
@@ -5295,9 +4487,7 @@ module.exports = {
             return !(!prototype || !prototype.isReactComponent);
           }
           function isSimpleFunctionComponent(type) {
-            return (
-              'function' == typeof type && !shouldConstruct(type) && void 0 === type.defaultProps
-            );
+            return 'function' == typeof type && !shouldConstruct(type) && void 0 === type.defaultProps;
           }
           function resolveLazyComponentTag(Component) {
             if ('function' == typeof Component) return shouldConstruct(Component) ? 1 : 0;
@@ -5312,12 +4502,7 @@ module.exports = {
             var workInProgress = current.alternate;
             return (
               null === workInProgress
-                ? (((workInProgress = createFiber(
-                    current.tag,
-                    pendingProps,
-                    current.key,
-                    current.mode
-                  )).elementType = current.elementType),
+                ? (((workInProgress = createFiber(current.tag, pendingProps, current.key, current.mode)).elementType = current.elementType),
                   (workInProgress.type = current.type),
                   (workInProgress.stateNode = current.stateNode),
                   (workInProgress._debugID = current._debugID),
@@ -5352,14 +4537,7 @@ module.exports = {
             var mode = isConcurrent ? 3 : 0;
             return isDevToolsPresent && (mode |= 4), createFiber(3, null, null, mode);
           }
-          function createFiberFromTypeAndProps(
-            type,
-            key,
-            pendingProps,
-            owner,
-            mode,
-            expirationTime
-          ) {
+          function createFiberFromTypeAndProps(type, key, pendingProps, owner, mode, expirationTime) {
             var fiber = void 0,
               fiberTag = 2,
               resolvedType = type;
@@ -5397,10 +4575,8 @@ module.exports = {
                         break getTag;
                     }
                   var info = '';
-                  (void 0 === type ||
-                    ('object' == typeof type && null !== type && 0 === Object.keys(type).length)) &&
-                    (info +=
-                      " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.");
+                  (void 0 === type || ('object' == typeof type && null !== type && 0 === Object.keys(type).length)) &&
+                    (info += " You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.");
                   var ownerName = owner ? getComponentName(owner.type) : null;
                   ownerName && (info += '\n\nCheck the render method of `' + ownerName + '`.'),
                     invariant(
@@ -5411,10 +4587,7 @@ module.exports = {
                     );
               }
             return (
-              ((fiber = createFiber(fiberTag, pendingProps, key, mode)).elementType = type),
-              (fiber.type = resolvedType),
-              (fiber.expirationTime = expirationTime),
-              fiber
+              ((fiber = createFiber(fiberTag, pendingProps, key, mode)).elementType = type), (fiber.type = resolvedType), (fiber.expirationTime = expirationTime), fiber
             );
           }
           function createFiberFromElement(element, mode, expirationTime) {
@@ -5423,17 +4596,8 @@ module.exports = {
             var type,
               key,
               pendingProps,
-              fiber = createFiberFromTypeAndProps(
-                element.type,
-                element.key,
-                element.props,
-                owner,
-                mode,
-                expirationTime
-              );
-            return (
-              (fiber._debugSource = element._source), (fiber._debugOwner = element._owner), fiber
-            );
+              fiber = createFiberFromTypeAndProps(element.type, element.key, element.props, owner, mode, expirationTime);
+            return (fiber._debugSource = element._source), (fiber._debugOwner = element._owner), fiber;
           }
           function createFiberFromFragment(elements, mode, expirationTime, key) {
             var fiber = createFiber(7, elements, key, mode);
@@ -5441,37 +4605,19 @@ module.exports = {
           }
           function createFiberFromProfiler(pendingProps, mode, expirationTime, key) {
             ('string' == typeof pendingProps.id && 'function' == typeof pendingProps.onRender) ||
-              warningWithoutStack(
-                !1,
-                'Profiler must specify an "id" string and "onRender" function as props'
-              );
+              warningWithoutStack(!1, 'Profiler must specify an "id" string and "onRender" function as props');
             var fiber = createFiber(12, pendingProps, key, 4 | mode);
-            return (
-              (fiber.elementType = REACT_PROFILER_TYPE),
-              (fiber.type = REACT_PROFILER_TYPE),
-              (fiber.expirationTime = expirationTime),
-              fiber
-            );
+            return (fiber.elementType = REACT_PROFILER_TYPE), (fiber.type = REACT_PROFILER_TYPE), (fiber.expirationTime = expirationTime), fiber;
           }
           function createFiberFromMode(pendingProps, mode, expirationTime, key) {
             var fiber = createFiber(8, pendingProps, key, mode),
               type = 0 == (1 & mode) ? REACT_STRICT_MODE_TYPE : REACT_CONCURRENT_MODE_TYPE;
-            return (
-              (fiber.elementType = type),
-              (fiber.type = type),
-              (fiber.expirationTime = expirationTime),
-              fiber
-            );
+            return (fiber.elementType = type), (fiber.type = type), (fiber.expirationTime = expirationTime), fiber;
           }
           function createFiberFromSuspense(pendingProps, mode, expirationTime, key) {
             var fiber = createFiber(13, pendingProps, key, mode),
               type = REACT_SUSPENSE_TYPE;
-            return (
-              (fiber.elementType = type),
-              (fiber.type = type),
-              (fiber.expirationTime = expirationTime),
-              fiber
-            );
+            return (fiber.elementType = type), (fiber.type = type), (fiber.expirationTime = expirationTime), fiber;
           }
           function createFiberFromText(content, mode, expirationTime) {
             var fiber = createFiber(6, content, null, mode);
@@ -5573,12 +4719,7 @@ module.exports = {
               this.onError(error);
             }
           };
-          if (
-            'undefined' != typeof window &&
-            'function' == typeof window.dispatchEvent &&
-            'undefined' != typeof document &&
-            'function' == typeof document.createEvent
-          ) {
+          if ('undefined' != typeof window && 'function' == typeof window.dispatchEvent && 'undefined' != typeof document && 'function' == typeof document.createEvent) {
             var fakeNode = document.createElement('react'),
               invokeGuardedCallbackDev;
             invokeGuardedCallbackImpl = function (name, func, context, a, b, c, d, e, f) {
@@ -5594,9 +4735,7 @@ module.exports = {
                 funcArgs = Array.prototype.slice.call(arguments, 3);
               function callCallback() {
                 fakeNode.removeEventListener(evtType, callCallback, !1),
-                  void 0 !== window.event &&
-                    window.hasOwnProperty('event') &&
-                    (window.event = windowEvent),
+                  void 0 !== window.event && window.hasOwnProperty('event') && (window.event = windowEvent),
                   func.apply(context, funcArgs),
                   (didError = !1);
               }
@@ -5607,10 +4746,7 @@ module.exports = {
                 if (
                   ((error = event.error),
                   (didSetError = !0),
-                  null === error &&
-                    0 === event.colno &&
-                    0 === event.lineno &&
-                    (isCrossOriginError = !0),
+                  null === error && 0 === event.colno && 0 === event.lineno && (isCrossOriginError = !0),
                   event.defaultPrevented && null != error && 'object' == typeof error)
                 )
                   try {
@@ -5622,8 +4758,7 @@ module.exports = {
                 fakeNode.addEventListener(evtType, callCallback, !1),
                 evt.initEvent(evtType, !1, !1),
                 fakeNode.dispatchEvent(evt),
-                windowEventDescriptor &&
-                  Object.defineProperty(window, 'event', windowEventDescriptor),
+                windowEventDescriptor && Object.defineProperty(window, 'event', windowEventDescriptor),
                 didError &&
                   (didSetError
                     ? isCrossOriginError &&
@@ -5646,9 +4781,7 @@ module.exports = {
               }
             };
           function invokeGuardedCallback(name, func, context, a, b, c, d, e, f) {
-            (hasError = !1),
-              (caughtError = null),
-              invokeGuardedCallbackImpl$1.apply(reporter, arguments);
+            (hasError = !1), (caughtError = null), invokeGuardedCallbackImpl$1.apply(reporter, arguments);
           }
           function hasCaughtError() {
             return hasError;
@@ -5658,19 +4791,11 @@ module.exports = {
               var error = caughtError;
               return (hasError = !1), (caughtError = null), error;
             }
-            invariant(
-              !1,
-              'clearCaughtError was called but no error was captured. This error is likely caused by a bug in React. Please file an issue.'
-            );
+            invariant(!1, 'clearCaughtError was called but no error was captured. This error is likely caused by a bug in React. Please file an issue.');
           }
           var lowPriorityWarning = function () {},
             printWarning = function (format) {
-              for (
-                var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1;
-                _key < _len;
-                _key++
-              )
-                args[_key - 1] = arguments[_key];
+              for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) args[_key - 1] = arguments[_key];
               var argIndex = 0,
                 message =
                   'Warning: ' +
@@ -5683,17 +4808,9 @@ module.exports = {
               } catch (x) {}
             },
             lowPriorityWarning$1 = (lowPriorityWarning = function (condition, format) {
-              if (void 0 === format)
-                throw new Error(
-                  '`lowPriorityWarning(condition, format, ...args)` requires a warning message argument'
-                );
+              if (void 0 === format) throw new Error('`lowPriorityWarning(condition, format, ...args)` requires a warning message argument');
               if (!condition) {
-                for (
-                  var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2;
-                  _key2 < _len2;
-                  _key2++
-                )
-                  args[_key2 - 2] = arguments[_key2];
+                for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) args[_key2 - 2] = arguments[_key2];
                 printWarning.apply(void 0, [format].concat(args));
               }
             }),
@@ -5744,19 +4861,12 @@ module.exports = {
                     if (lifecycleWarnings.length > 0) {
                       var componentNames = new Set();
                       lifecycleWarnings.forEach(function (fiber) {
-                        componentNames.add(getComponentName(fiber.type) || 'Component'),
-                          didWarnAboutUnsafeLifecycles.add(fiber.type);
+                        componentNames.add(getComponentName(fiber.type) || 'Component'), didWarnAboutUnsafeLifecycles.add(fiber.type);
                       });
                       var formatted = lifecycle.replace('UNSAFE_', ''),
                         suggestion = LIFECYCLE_SUGGESTIONS[lifecycle],
                         sortedComponentNames = setToSortedString(componentNames);
-                      lifecyclesWarningMessages.push(
-                        formatted +
-                          ': Please update the following components to use ' +
-                          suggestion +
-                          ' instead: ' +
-                          sortedComponentNames
-                      );
+                      lifecyclesWarningMessages.push(formatted + ': Please update the following components to use ' + suggestion + ' instead: ' + sortedComponentNames);
                     }
                   }),
                   lifecyclesWarningMessages.length > 0)
@@ -5773,16 +4883,14 @@ module.exports = {
                 (pendingUnsafeLifecycleWarnings = new Map());
             });
           var findStrictRoot = function (fiber) {
-            for (var maybeStrictRoot = null, node = fiber; null !== node; )
-              2 & node.mode && (maybeStrictRoot = node), (node = node.return);
+            for (var maybeStrictRoot = null, node = fiber; null !== node; ) 2 & node.mode && (maybeStrictRoot = node), (node = node.return);
             return maybeStrictRoot;
           };
           (ReactStrictModeWarnings.flushPendingDeprecationWarnings = function () {
             if (pendingComponentWillMountWarnings.length > 0) {
               var uniqueNames = new Set();
               pendingComponentWillMountWarnings.forEach(function (fiber) {
-                uniqueNames.add(getComponentName(fiber.type) || 'Component'),
-                  didWarnAboutDeprecatedLifecycles.add(fiber.type);
+                uniqueNames.add(getComponentName(fiber.type) || 'Component'), didWarnAboutDeprecatedLifecycles.add(fiber.type);
               });
               var sortedNames = setToSortedString(uniqueNames);
               lowPriorityWarning(
@@ -5795,8 +4903,7 @@ module.exports = {
             if (pendingComponentWillReceivePropsWarnings.length > 0) {
               var _uniqueNames = new Set();
               pendingComponentWillReceivePropsWarnings.forEach(function (fiber) {
-                _uniqueNames.add(getComponentName(fiber.type) || 'Component'),
-                  didWarnAboutDeprecatedLifecycles.add(fiber.type);
+                _uniqueNames.add(getComponentName(fiber.type) || 'Component'), didWarnAboutDeprecatedLifecycles.add(fiber.type);
               });
               var _sortedNames = setToSortedString(_uniqueNames);
               lowPriorityWarning(
@@ -5809,8 +4916,7 @@ module.exports = {
             if (pendingComponentWillUpdateWarnings.length > 0) {
               var _uniqueNames2 = new Set();
               pendingComponentWillUpdateWarnings.forEach(function (fiber) {
-                _uniqueNames2.add(getComponentName(fiber.type) || 'Component'),
-                  didWarnAboutDeprecatedLifecycles.add(fiber.type);
+                _uniqueNames2.add(getComponentName(fiber.type) || 'Component'), didWarnAboutDeprecatedLifecycles.add(fiber.type);
               });
               var _sortedNames2 = setToSortedString(_uniqueNames2);
               lowPriorityWarning(
@@ -5847,16 +4953,13 @@ module.exports = {
                       }),
                       pendingUnsafeLifecycleWarnings.set(strictRoot, warningsForRoot));
                   var unsafeLifecycles = [];
-                  (('function' == typeof instance.componentWillMount &&
-                    !0 !== instance.componentWillMount.__suppressDeprecationWarning) ||
+                  (('function' == typeof instance.componentWillMount && !0 !== instance.componentWillMount.__suppressDeprecationWarning) ||
                     'function' == typeof instance.UNSAFE_componentWillMount) &&
                     unsafeLifecycles.push('UNSAFE_componentWillMount'),
-                    (('function' == typeof instance.componentWillReceiveProps &&
-                      !0 !== instance.componentWillReceiveProps.__suppressDeprecationWarning) ||
+                    (('function' == typeof instance.componentWillReceiveProps && !0 !== instance.componentWillReceiveProps.__suppressDeprecationWarning) ||
                       'function' == typeof instance.UNSAFE_componentWillReceiveProps) &&
                       unsafeLifecycles.push('UNSAFE_componentWillReceiveProps'),
-                    (('function' == typeof instance.componentWillUpdate &&
-                      !0 !== instance.componentWillUpdate.__suppressDeprecationWarning) ||
+                    (('function' == typeof instance.componentWillUpdate && !0 !== instance.componentWillUpdate.__suppressDeprecationWarning) ||
                       'function' == typeof instance.UNSAFE_componentWillUpdate) &&
                       unsafeLifecycles.push('UNSAFE_componentWillUpdate'),
                     unsafeLifecycles.length > 0 &&
@@ -5875,13 +4978,8 @@ module.exports = {
               if (null !== strictRoot) {
                 if (!didWarnAboutLegacyContext.has(fiber.type)) {
                   var warningsForRoot = pendingLegacyContextWarning.get(strictRoot);
-                  (null != fiber.type.contextTypes ||
-                    null != fiber.type.childContextTypes ||
-                    (null !== instance && 'function' == typeof instance.getChildContext)) &&
-                    (void 0 === warningsForRoot &&
-                      ((warningsForRoot = []),
-                      pendingLegacyContextWarning.set(strictRoot, warningsForRoot)),
-                    warningsForRoot.push(fiber));
+                  (null != fiber.type.contextTypes || null != fiber.type.childContextTypes || (null !== instance && 'function' == typeof instance.getChildContext)) &&
+                    (void 0 === warningsForRoot && ((warningsForRoot = []), pendingLegacyContextWarning.set(strictRoot, warningsForRoot)), warningsForRoot.push(fiber));
                 }
               } else
                 warningWithoutStack(
@@ -5893,8 +4991,7 @@ module.exports = {
               pendingLegacyContextWarning.forEach(function (fiberArray, strictRoot) {
                 var uniqueNames = new Set();
                 fiberArray.forEach(function (fiber) {
-                  uniqueNames.add(getComponentName(fiber.type) || 'Component'),
-                    didWarnAboutLegacyContext.add(fiber.type);
+                  uniqueNames.add(getComponentName(fiber.type) || 'Component'), didWarnAboutLegacyContext.add(fiber.type);
                 });
                 var sortedNames = setToSortedString(uniqueNames),
                   strictRootComponentStack = getStackByFiberInDevAndProd(strictRoot);
@@ -5916,8 +5013,7 @@ module.exports = {
               ? (root.earliestPendingTime = root.latestPendingTime = expirationTime)
               : earliestPendingTime < expirationTime
               ? (root.earliestPendingTime = expirationTime)
-              : root.latestPendingTime > expirationTime &&
-                (root.latestPendingTime = expirationTime);
+              : root.latestPendingTime > expirationTime && (root.latestPendingTime = expirationTime);
             findNextExpirationTimeToWorkOn(expirationTime, root);
           }
           function markCommittedPriorityLevels(root, earliestRemainingTime) {
@@ -5936,13 +5032,11 @@ module.exports = {
             0 !== latestPendingTime &&
               (latestPendingTime > earliestRemainingTime
                 ? (root.earliestPendingTime = root.latestPendingTime = 0)
-                : root.earliestPendingTime > earliestRemainingTime &&
-                  (root.earliestPendingTime = root.latestPendingTime));
+                : root.earliestPendingTime > earliestRemainingTime && (root.earliestPendingTime = root.latestPendingTime));
             var earliestSuspendedTime = root.earliestSuspendedTime,
               latestSuspendedTime;
             return 0 === earliestSuspendedTime
-              ? (markPendingPriorityLevel(root, earliestRemainingTime),
-                void findNextExpirationTimeToWorkOn(0, root))
+              ? (markPendingPriorityLevel(root, earliestRemainingTime), void findNextExpirationTimeToWorkOn(0, root))
               : earliestRemainingTime < root.latestSuspendedTime
               ? ((root.earliestSuspendedTime = 0),
                 (root.latestSuspendedTime = 0),
@@ -5950,8 +5044,7 @@ module.exports = {
                 markPendingPriorityLevel(root, earliestRemainingTime),
                 void findNextExpirationTimeToWorkOn(0, root))
               : earliestRemainingTime > earliestSuspendedTime
-              ? (markPendingPriorityLevel(root, earliestRemainingTime),
-                void findNextExpirationTimeToWorkOn(0, root))
+              ? (markPendingPriorityLevel(root, earliestRemainingTime), void findNextExpirationTimeToWorkOn(0, root))
               : void findNextExpirationTimeToWorkOn(0, root);
           }
           function hasLowerPriorityWork(root, erroredExpirationTime) {
@@ -5967,23 +5060,15 @@ module.exports = {
           function isPriorityLevelSuspended(root, expirationTime) {
             var earliestSuspendedTime = root.earliestSuspendedTime,
               latestSuspendedTime = root.latestSuspendedTime;
-            return (
-              0 !== earliestSuspendedTime &&
-              expirationTime <= earliestSuspendedTime &&
-              expirationTime >= latestSuspendedTime
-            );
+            return 0 !== earliestSuspendedTime && expirationTime <= earliestSuspendedTime && expirationTime >= latestSuspendedTime;
           }
           function markSuspendedPriorityLevel(root, suspendedTime) {
             (root.didError = !1), clearPing(root, suspendedTime);
             var earliestPendingTime = root.earliestPendingTime,
               latestPendingTime = root.latestPendingTime;
             earliestPendingTime === suspendedTime
-              ? (root.earliestPendingTime =
-                  latestPendingTime === suspendedTime
-                    ? (root.latestPendingTime = 0)
-                    : latestPendingTime)
-              : latestPendingTime === suspendedTime &&
-                (root.latestPendingTime = earliestPendingTime);
+              ? (root.earliestPendingTime = latestPendingTime === suspendedTime ? (root.latestPendingTime = 0) : latestPendingTime)
+              : latestPendingTime === suspendedTime && (root.latestPendingTime = earliestPendingTime);
             var earliestSuspendedTime = root.earliestSuspendedTime,
               latestSuspendedTime = root.latestSuspendedTime;
             0 === earliestSuspendedTime
@@ -5996,9 +5081,7 @@ module.exports = {
           function markPingedPriorityLevel(root, pingedTime) {
             root.didError = !1;
             var latestPingedTime = root.latestPingedTime;
-            (0 === latestPingedTime || latestPingedTime > pingedTime) &&
-              (root.latestPingedTime = pingedTime),
-              findNextExpirationTimeToWorkOn(pingedTime, root);
+            (0 === latestPingedTime || latestPingedTime > pingedTime) && (root.latestPingedTime = pingedTime), findNextExpirationTimeToWorkOn(pingedTime, root);
           }
           function clearPing(root, completedTime) {
             var latestPingedTime;
@@ -6009,33 +5092,26 @@ module.exports = {
               earliestPendingTime = root.earliestPendingTime,
               earliestSuspendedTime = root.earliestSuspendedTime;
             return (
-              earliestPendingTime > earliestExpirationTime &&
-                (earliestExpirationTime = earliestPendingTime),
-              earliestSuspendedTime > earliestExpirationTime &&
-                (earliestExpirationTime = earliestSuspendedTime),
+              earliestPendingTime > earliestExpirationTime && (earliestExpirationTime = earliestPendingTime),
+              earliestSuspendedTime > earliestExpirationTime && (earliestExpirationTime = earliestSuspendedTime),
               earliestExpirationTime
             );
           }
           function didExpireAtExpirationTime(root, currentTime) {
             var expirationTime = root.expirationTime;
-            0 !== expirationTime &&
-              currentTime <= expirationTime &&
-              (root.nextExpirationTimeToWorkOn = currentTime);
+            0 !== expirationTime && currentTime <= expirationTime && (root.nextExpirationTimeToWorkOn = currentTime);
           }
           function findNextExpirationTimeToWorkOn(completedExpirationTime, root) {
             var earliestSuspendedTime = root.earliestSuspendedTime,
               latestSuspendedTime = root.latestSuspendedTime,
               earliestPendingTime = root.earliestPendingTime,
               latestPingedTime = root.latestPingedTime,
-              nextExpirationTimeToWorkOn =
-                0 !== earliestPendingTime ? earliestPendingTime : latestPingedTime;
+              nextExpirationTimeToWorkOn = 0 !== earliestPendingTime ? earliestPendingTime : latestPingedTime;
             0 === nextExpirationTimeToWorkOn &&
               (0 === completedExpirationTime || latestSuspendedTime < completedExpirationTime) &&
               (nextExpirationTimeToWorkOn = latestSuspendedTime);
             var expirationTime = nextExpirationTimeToWorkOn;
-            0 !== expirationTime &&
-              earliestSuspendedTime > expirationTime &&
-              (expirationTime = earliestSuspendedTime),
+            0 !== expirationTime && earliestSuspendedTime > expirationTime && (expirationTime = earliestSuspendedTime),
               (root.nextExpirationTimeToWorkOn = nextExpirationTimeToWorkOn),
               (root.expirationTime = expirationTime);
           }
@@ -6061,27 +5137,18 @@ module.exports = {
           var hasOwnProperty = Object.prototype.hasOwnProperty;
           function shallowEqual(objA, objB) {
             if (is(objA, objB)) return !0;
-            if (
-              'object' != typeof objA ||
-              null === objA ||
-              'object' != typeof objB ||
-              null === objB
-            )
-              return !1;
+            if ('object' != typeof objA || null === objA || 'object' != typeof objB || null === objB) return !1;
             var keysA = Object.keys(objA),
               keysB = Object.keys(objB);
             if (keysA.length !== keysB.length) return !1;
-            for (var i = 0; i < keysA.length; i++)
-              if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]]))
-                return !1;
+            for (var i = 0; i < keysA.length; i++) if (!hasOwnProperty.call(objB, keysA[i]) || !is(objA[keysA[i]], objB[keysA[i]])) return !1;
             return !0;
           }
           function resolveDefaultProps(Component, baseProps) {
             if (Component && Component.defaultProps) {
               var props = _assign({}, baseProps),
                 defaultProps = Component.defaultProps;
-              for (var propName in defaultProps)
-                void 0 === props[propName] && (props[propName] = defaultProps[propName]);
+              for (var propName in defaultProps) void 0 === props[propName] && (props[propName] = defaultProps[propName]);
               return props;
             }
             return baseProps;
@@ -6119,8 +5186,7 @@ module.exports = {
                       }
                     },
                     function (error) {
-                      0 === lazyComponent._status &&
-                        ((lazyComponent._status = 2), (lazyComponent._result = error));
+                      0 === lazyComponent._status && ((lazyComponent._status = 2), (lazyComponent._result = error));
                     }
                   ),
                   lazyComponent._status)
@@ -6155,35 +5221,22 @@ module.exports = {
             (didWarnAboutContextTypeAndContextTypes = new Set()),
             (didWarnAboutInvalidateContextType = new Set());
           var didWarnOnInvalidCallback = new Set();
-          function applyDerivedStateFromProps(
-            workInProgress,
-            ctor,
-            getDerivedStateFromProps,
-            nextProps
-          ) {
+          function applyDerivedStateFromProps(workInProgress, ctor, getDerivedStateFromProps, nextProps) {
             var prevState = workInProgress.memoizedState;
             2 & workInProgress.mode && getDerivedStateFromProps(nextProps, prevState);
             var partialState = getDerivedStateFromProps(nextProps, prevState);
             warnOnUndefinedDerivedState(ctor, partialState);
-            var memoizedState =
-              null == partialState ? prevState : _assign({}, prevState, partialState);
+            var memoizedState = null == partialState ? prevState : _assign({}, prevState, partialState);
             workInProgress.memoizedState = memoizedState;
             var updateQueue = workInProgress.updateQueue;
-            null !== updateQueue &&
-              0 === workInProgress.expirationTime &&
-              (updateQueue.baseState = memoizedState);
+            null !== updateQueue && 0 === workInProgress.expirationTime && (updateQueue.baseState = memoizedState);
           }
           (warnOnInvalidCallback = function (callback, callerName) {
             if (null !== callback && 'function' != typeof callback) {
               var key = callerName + '_' + callback;
               didWarnOnInvalidCallback.has(key) ||
                 (didWarnOnInvalidCallback.add(key),
-                warningWithoutStack(
-                  !1,
-                  '%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.',
-                  callerName,
-                  callback
-                ));
+                warningWithoutStack(!1, '%s(...): Expected the last optional `callback` argument to be a function. Instead received: %s.', callerName, callback));
             }
           }),
             (warnOnUndefinedDerivedState = function (type, partialState) {
@@ -6191,11 +5244,7 @@ module.exports = {
                 var componentName = getComponentName(type) || 'Component';
                 didWarnAboutUndefinedDerivedState.has(componentName) ||
                   (didWarnAboutUndefinedDerivedState.add(componentName),
-                  warningWithoutStack(
-                    !1,
-                    '%s.getDerivedStateFromProps(): A valid state object (or null) must be returned. You have returned undefined.',
-                    componentName
-                  ));
+                  warningWithoutStack(!1, '%s.getDerivedStateFromProps(): A valid state object (or null) must be returned. You have returned undefined.', componentName));
               }
             }),
             Object.defineProperty(fakeInternalInstance, '_processChildContext', {
@@ -6216,8 +5265,7 @@ module.exports = {
                 expirationTime = computeExpirationForFiber(requestCurrentTime(), fiber),
                 update = createUpdate(expirationTime);
               (update.payload = payload),
-                null != callback &&
-                  (warnOnInvalidCallback(callback, 'setState'), (update.callback = callback)),
+                null != callback && (warnOnInvalidCallback(callback, 'setState'), (update.callback = callback)),
                 flushPassiveEffects(),
                 enqueueUpdate(fiber, update),
                 scheduleWork(fiber, expirationTime);
@@ -6229,8 +5277,7 @@ module.exports = {
                 update = createUpdate(expirationTime);
               (update.tag = ReplaceState),
                 (update.payload = payload),
-                null != callback &&
-                  (warnOnInvalidCallback(callback, 'replaceState'), (update.callback = callback)),
+                null != callback && (warnOnInvalidCallback(callback, 'replaceState'), (update.callback = callback)),
                 flushPassiveEffects(),
                 enqueueUpdate(fiber, update),
                 scheduleWork(fiber, expirationTime);
@@ -6241,22 +5288,13 @@ module.exports = {
                 expirationTime = computeExpirationForFiber(requestCurrentTime(), fiber),
                 update = createUpdate(expirationTime);
               (update.tag = ForceUpdate),
-                null != callback &&
-                  (warnOnInvalidCallback(callback, 'forceUpdate'), (update.callback = callback)),
+                null != callback && (warnOnInvalidCallback(callback, 'forceUpdate'), (update.callback = callback)),
                 flushPassiveEffects(),
                 enqueueUpdate(fiber, update),
                 scheduleWork(fiber, expirationTime);
             }
           };
-          function checkShouldComponentUpdate(
-            workInProgress,
-            ctor,
-            oldProps,
-            newProps,
-            oldState,
-            newState,
-            nextContext
-          ) {
+          function checkShouldComponentUpdate(workInProgress, ctor, oldProps, newProps, oldState, newState, nextContext) {
             var instance = workInProgress.stateNode;
             if ('function' == typeof instance.shouldComponentUpdate) {
               startPhaseTimer(workInProgress, 'shouldComponentUpdate');
@@ -6272,12 +5310,7 @@ module.exports = {
                 shouldUpdate
               );
             }
-            return (
-              !ctor.prototype ||
-              !ctor.prototype.isPureReactComponent ||
-              !shallowEqual(oldProps, newProps) ||
-              !shallowEqual(oldState, newState)
-            );
+            return !ctor.prototype || !ctor.prototype.isPureReactComponent || !shallowEqual(oldProps, newProps) || !shallowEqual(oldState, newState);
           }
           function checkClassInstance(workInProgress, ctor, newProps) {
             var instance = workInProgress.stateNode,
@@ -6300,11 +5333,7 @@ module.exports = {
                     '%s(...): No `render` method found on the returned component instance: did you accidentally return an object from the constructor?',
                     name
                   )
-                : warningWithoutStack(
-                    !1,
-                    '%s(...): No `render` method found on the returned component instance: you may have forgotten to define `render`.',
-                    name
-                  )),
+                : warningWithoutStack(!1, '%s(...): No `render` method found on the returned component instance: you may have forgotten to define `render`.', name)),
               !instance.getInitialState ||
                 instance.getInitialState.isReactClassApproved ||
                 instance.state ||
@@ -6321,32 +5350,16 @@ module.exports = {
                   name
                 ),
               !instance.propTypes ||
-                warningWithoutStack(
-                  !1,
-                  'propTypes was defined as an instance property on %s. Use a static property to define propTypes instead.',
-                  name
-                ),
+                warningWithoutStack(!1, 'propTypes was defined as an instance property on %s. Use a static property to define propTypes instead.', name),
               !instance.contextType ||
-                warningWithoutStack(
-                  !1,
-                  'contextType was defined as an instance property on %s. Use a static property to define contextType instead.',
-                  name
-                ),
+                warningWithoutStack(!1, 'contextType was defined as an instance property on %s. Use a static property to define contextType instead.', name),
               !instance.contextTypes ||
-                warningWithoutStack(
-                  !1,
-                  'contextTypes was defined as an instance property on %s. Use a static property to define contextTypes instead.',
-                  name
-                ),
+                warningWithoutStack(!1, 'contextTypes was defined as an instance property on %s. Use a static property to define contextTypes instead.', name),
               ctor.contextType &&
                 ctor.contextTypes &&
                 !didWarnAboutContextTypeAndContextTypes.has(ctor) &&
                 (didWarnAboutContextTypeAndContextTypes.add(ctor),
-                warningWithoutStack(
-                  !1,
-                  '%s declares both contextTypes and contextType static properties. The legacy contextTypes property will be ignored.',
-                  name
-                )),
+                warningWithoutStack(!1, '%s declares both contextTypes and contextType static properties. The legacy contextTypes property will be ignored.', name)),
               'function' != typeof instance.componentShouldUpdate ||
                 warningWithoutStack(
                   !1,
@@ -6374,17 +5387,9 @@ module.exports = {
                   name
                 ),
               'function' != typeof instance.componentWillRecieveProps ||
-                warningWithoutStack(
-                  !1,
-                  '%s has a method called componentWillRecieveProps(). Did you mean componentWillReceiveProps()?',
-                  name
-                ),
+                warningWithoutStack(!1, '%s has a method called componentWillRecieveProps(). Did you mean componentWillReceiveProps()?', name),
               'function' != typeof instance.UNSAFE_componentWillRecieveProps ||
-                warningWithoutStack(
-                  !1,
-                  '%s has a method called UNSAFE_componentWillRecieveProps(). Did you mean UNSAFE_componentWillReceiveProps()?',
-                  name
-                );
+                warningWithoutStack(!1, '%s has a method called UNSAFE_componentWillRecieveProps(). Did you mean UNSAFE_componentWillReceiveProps()?', name);
             var hasMutatedProps = instance.props !== newProps,
               noInstanceDefaultProps,
               noInstanceGetDerivedStateFromProps,
@@ -6433,16 +5438,10 @@ module.exports = {
                   name
                 );
             var _state = instance.state;
-            _state &&
-              ('object' != typeof _state || isArray(_state)) &&
-              warningWithoutStack(!1, '%s.state: must be set to an object or null', name),
+            _state && ('object' != typeof _state || isArray(_state)) && warningWithoutStack(!1, '%s.state: must be set to an object or null', name),
               'function' == typeof instance.getChildContext &&
                 'object' != typeof ctor.childContextTypes &&
-                warningWithoutStack(
-                  !1,
-                  '%s.getChildContext(): childContextTypes must be defined in order to use getChildContext().',
-                  name
-                );
+                warningWithoutStack(!1, '%s.getChildContext(): childContextTypes must be defined in order to use getChildContext().', name);
           }
           function adoptClassInstance(workInProgress, instance) {
             (instance.updater = classComponentUpdater),
@@ -6458,12 +5457,7 @@ module.exports = {
               isValid;
             if (
               'contextType' in ctor &&
-              !(
-                null === contextType ||
-                (void 0 !== contextType &&
-                  contextType.$$typeof === REACT_CONTEXT_TYPE &&
-                  void 0 === contextType._context)
-              ) &&
+              !(null === contextType || (void 0 !== contextType && contextType.$$typeof === REACT_CONTEXT_TYPE && void 0 === contextType._context)) &&
               !didWarnAboutInvalidateContextType.has(ctor)
             ) {
               didWarnAboutInvalidateContextType.add(ctor);
@@ -6477,9 +5471,7 @@ module.exports = {
                   ? ' Did you accidentally pass the Context.Provider instead?'
                   : void 0 !== contextType._context
                   ? ' Did you accidentally pass the Context.Consumer instead?'
-                  : ' However, it is set to an object with keys {' +
-                    Object.keys(contextType).join(', ') +
-                    '}.'),
+                  : ' However, it is set to an object with keys {' + Object.keys(contextType).join(', ') + '}.'),
                 warningWithoutStack(
                   !1,
                   '%s defines an invalid contextType. contextType should point to the Context object returned by React.createContext().%s',
@@ -6487,23 +5479,16 @@ module.exports = {
                   addendum
                 );
             }
-            if ('object' == typeof contextType && null !== contextType)
-              context = readContext(contextType);
+            if ('object' == typeof contextType && null !== contextType) context = readContext(contextType);
             else {
               unmaskedContext = getUnmaskedContext(workInProgress, ctor, !0);
               var contextTypes = ctor.contextTypes;
-              context = (isLegacyContextConsumer = null != contextTypes)
-                ? getMaskedContext(workInProgress, unmaskedContext)
-                : emptyContextObject;
+              context = (isLegacyContextConsumer = null != contextTypes) ? getMaskedContext(workInProgress, unmaskedContext) : emptyContextObject;
             }
             2 & workInProgress.mode && new ctor(props, context);
             var instance = new ctor(props, context),
-              state = (workInProgress.memoizedState =
-                null !== instance.state && void 0 !== instance.state ? instance.state : null);
-            if (
-              (adoptClassInstance(workInProgress, instance),
-              'function' == typeof ctor.getDerivedStateFromProps && null === state)
-            ) {
+              state = (workInProgress.memoizedState = null !== instance.state && void 0 !== instance.state ? instance.state : null);
+            if ((adoptClassInstance(workInProgress, instance), 'function' == typeof ctor.getDerivedStateFromProps && null === state)) {
               var componentName = getComponentName(ctor) || 'Component';
               didWarnAboutUninitializedState.has(componentName) ||
                 (didWarnAboutUninitializedState.add(componentName),
@@ -6515,38 +5500,24 @@ module.exports = {
                   componentName
                 ));
             }
-            if (
-              'function' == typeof ctor.getDerivedStateFromProps ||
-              'function' == typeof instance.getSnapshotBeforeUpdate
-            ) {
+            if ('function' == typeof ctor.getDerivedStateFromProps || 'function' == typeof instance.getSnapshotBeforeUpdate) {
               var foundWillMountName = null,
                 foundWillReceivePropsName = null,
                 foundWillUpdateName = null;
               if (
-                ('function' == typeof instance.componentWillMount &&
-                !0 !== instance.componentWillMount.__suppressDeprecationWarning
+                ('function' == typeof instance.componentWillMount && !0 !== instance.componentWillMount.__suppressDeprecationWarning
                   ? (foundWillMountName = 'componentWillMount')
-                  : 'function' == typeof instance.UNSAFE_componentWillMount &&
-                    (foundWillMountName = 'UNSAFE_componentWillMount'),
-                'function' == typeof instance.componentWillReceiveProps &&
-                !0 !== instance.componentWillReceiveProps.__suppressDeprecationWarning
+                  : 'function' == typeof instance.UNSAFE_componentWillMount && (foundWillMountName = 'UNSAFE_componentWillMount'),
+                'function' == typeof instance.componentWillReceiveProps && !0 !== instance.componentWillReceiveProps.__suppressDeprecationWarning
                   ? (foundWillReceivePropsName = 'componentWillReceiveProps')
-                  : 'function' == typeof instance.UNSAFE_componentWillReceiveProps &&
-                    (foundWillReceivePropsName = 'UNSAFE_componentWillReceiveProps'),
-                'function' == typeof instance.componentWillUpdate &&
-                !0 !== instance.componentWillUpdate.__suppressDeprecationWarning
+                  : 'function' == typeof instance.UNSAFE_componentWillReceiveProps && (foundWillReceivePropsName = 'UNSAFE_componentWillReceiveProps'),
+                'function' == typeof instance.componentWillUpdate && !0 !== instance.componentWillUpdate.__suppressDeprecationWarning
                   ? (foundWillUpdateName = 'componentWillUpdate')
-                  : 'function' == typeof instance.UNSAFE_componentWillUpdate &&
-                    (foundWillUpdateName = 'UNSAFE_componentWillUpdate'),
-                null !== foundWillMountName ||
-                  null !== foundWillReceivePropsName ||
-                  null !== foundWillUpdateName)
+                  : 'function' == typeof instance.UNSAFE_componentWillUpdate && (foundWillUpdateName = 'UNSAFE_componentWillUpdate'),
+                null !== foundWillMountName || null !== foundWillReceivePropsName || null !== foundWillUpdateName)
               ) {
                 var _componentName = getComponentName(ctor) || 'Component',
-                  newApiName =
-                    'function' == typeof ctor.getDerivedStateFromProps
-                      ? 'getDerivedStateFromProps()'
-                      : 'getSnapshotBeforeUpdate()';
+                  newApiName = 'function' == typeof ctor.getDerivedStateFromProps ? 'getDerivedStateFromProps()' : 'getSnapshotBeforeUpdate()';
                 didWarnAboutLegacyLifecyclesAndDerivedState.has(_componentName) ||
                   (didWarnAboutLegacyLifecyclesAndDerivedState.add(_componentName),
                   warningWithoutStack(
@@ -6560,17 +5531,13 @@ module.exports = {
                   ));
               }
             }
-            return (
-              isLegacyContextConsumer && cacheContext(workInProgress, unmaskedContext, context),
-              instance
-            );
+            return isLegacyContextConsumer && cacheContext(workInProgress, unmaskedContext, context), instance;
           }
           function callComponentWillMount(workInProgress, instance) {
             startPhaseTimer(workInProgress, 'componentWillMount');
             var oldState = instance.state;
             'function' == typeof instance.componentWillMount && instance.componentWillMount(),
-              'function' == typeof instance.UNSAFE_componentWillMount &&
-                instance.UNSAFE_componentWillMount(),
+              'function' == typeof instance.UNSAFE_componentWillMount && instance.UNSAFE_componentWillMount(),
               stopPhaseTimer(),
               oldState !== instance.state &&
                 (warningWithoutStack(
@@ -6584,10 +5551,8 @@ module.exports = {
             var oldState = instance.state;
             if (
               (startPhaseTimer(workInProgress, 'componentWillReceiveProps'),
-              'function' == typeof instance.componentWillReceiveProps &&
-                instance.componentWillReceiveProps(newProps, nextContext),
-              'function' == typeof instance.UNSAFE_componentWillReceiveProps &&
-                instance.UNSAFE_componentWillReceiveProps(newProps, nextContext),
+              'function' == typeof instance.componentWillReceiveProps && instance.componentWillReceiveProps(newProps, nextContext),
+              'function' == typeof instance.UNSAFE_componentWillReceiveProps && instance.UNSAFE_componentWillReceiveProps(newProps, nextContext),
               stopPhaseTimer(),
               instance.state !== oldState)
             ) {
@@ -6605,12 +5570,9 @@ module.exports = {
           function mountClassInstance(workInProgress, ctor, newProps, renderExpirationTime) {
             checkClassInstance(workInProgress, ctor, newProps);
             var instance = workInProgress.stateNode;
-            (instance.props = newProps),
-              (instance.state = workInProgress.memoizedState),
-              (instance.refs = emptyRefsObject);
+            (instance.props = newProps), (instance.state = workInProgress.memoizedState), (instance.refs = emptyRefsObject);
             var contextType = ctor.contextType;
-            if ('object' == typeof contextType && null !== contextType)
-              instance.context = readContext(contextType);
+            if ('object' == typeof contextType && null !== contextType) instance.context = readContext(contextType);
             else {
               var unmaskedContext = getUnmaskedContext(workInProgress, ctor, !0);
               instance.context = getMaskedContext(workInProgress, unmaskedContext);
@@ -6630,32 +5592,16 @@ module.exports = {
               ReactStrictModeWarnings.recordLegacyContextWarning(workInProgress, instance));
             var updateQueue = workInProgress.updateQueue;
             null !== updateQueue &&
-              (processUpdateQueue(
-                workInProgress,
-                updateQueue,
-                newProps,
-                instance,
-                renderExpirationTime
-              ),
-              (instance.state = workInProgress.memoizedState));
+              (processUpdateQueue(workInProgress, updateQueue, newProps, instance, renderExpirationTime), (instance.state = workInProgress.memoizedState));
             var getDerivedStateFromProps = ctor.getDerivedStateFromProps;
             'function' == typeof getDerivedStateFromProps &&
-              (applyDerivedStateFromProps(workInProgress, ctor, getDerivedStateFromProps, newProps),
-              (instance.state = workInProgress.memoizedState)),
+              (applyDerivedStateFromProps(workInProgress, ctor, getDerivedStateFromProps, newProps), (instance.state = workInProgress.memoizedState)),
               'function' == typeof ctor.getDerivedStateFromProps ||
                 'function' == typeof instance.getSnapshotBeforeUpdate ||
-                ('function' != typeof instance.UNSAFE_componentWillMount &&
-                  'function' != typeof instance.componentWillMount) ||
+                ('function' != typeof instance.UNSAFE_componentWillMount && 'function' != typeof instance.componentWillMount) ||
                 (callComponentWillMount(workInProgress, instance),
                 null !== (updateQueue = workInProgress.updateQueue) &&
-                  (processUpdateQueue(
-                    workInProgress,
-                    updateQueue,
-                    newProps,
-                    instance,
-                    renderExpirationTime
-                  ),
-                  (instance.state = workInProgress.memoizedState))),
+                  (processUpdateQueue(workInProgress, updateQueue, newProps, instance, renderExpirationTime), (instance.state = workInProgress.memoizedState))),
               'function' == typeof instance.componentDidMount && (workInProgress.effectTag |= 4);
           }
           function resumeMountClassInstance(workInProgress, ctor, newProps, renderExpirationTime) {
@@ -6668,17 +5614,11 @@ module.exports = {
               nextLegacyUnmaskedContext;
             'object' == typeof contextType && null !== contextType
               ? (nextContext = readContext(contextType))
-              : (nextContext = getMaskedContext(
-                  workInProgress,
-                  getUnmaskedContext(workInProgress, ctor, !0)
-                ));
+              : (nextContext = getMaskedContext(workInProgress, getUnmaskedContext(workInProgress, ctor, !0)));
             var getDerivedStateFromProps = ctor.getDerivedStateFromProps,
-              hasNewLifecycles =
-                'function' == typeof getDerivedStateFromProps ||
-                'function' == typeof instance.getSnapshotBeforeUpdate;
+              hasNewLifecycles = 'function' == typeof getDerivedStateFromProps || 'function' == typeof instance.getSnapshotBeforeUpdate;
             hasNewLifecycles ||
-              ('function' != typeof instance.UNSAFE_componentWillReceiveProps &&
-                'function' != typeof instance.componentWillReceiveProps) ||
+              ('function' != typeof instance.UNSAFE_componentWillReceiveProps && 'function' != typeof instance.componentWillReceiveProps) ||
               (oldProps === newProps && oldContext === nextContext) ||
               callComponentWillReceiveProps(workInProgress, instance, newProps, nextContext),
               resetHasForceUpdateBeforeProcessing();
@@ -6687,52 +5627,24 @@ module.exports = {
               updateQueue = workInProgress.updateQueue;
             if (
               (null !== updateQueue &&
-                (processUpdateQueue(
-                  workInProgress,
-                  updateQueue,
-                  newProps,
-                  instance,
-                  renderExpirationTime
-                ),
-                (newState = workInProgress.memoizedState)),
-              oldProps === newProps &&
-                oldState === newState &&
-                !hasContextChanged() &&
-                !checkHasForceUpdateAfterProcessing())
+                (processUpdateQueue(workInProgress, updateQueue, newProps, instance, renderExpirationTime), (newState = workInProgress.memoizedState)),
+              oldProps === newProps && oldState === newState && !hasContextChanged() && !checkHasForceUpdateAfterProcessing())
             )
-              return (
-                'function' == typeof instance.componentDidMount && (workInProgress.effectTag |= 4),
-                !1
-              );
+              return 'function' == typeof instance.componentDidMount && (workInProgress.effectTag |= 4), !1;
             'function' == typeof getDerivedStateFromProps &&
-              (applyDerivedStateFromProps(workInProgress, ctor, getDerivedStateFromProps, newProps),
-              (newState = workInProgress.memoizedState));
+              (applyDerivedStateFromProps(workInProgress, ctor, getDerivedStateFromProps, newProps), (newState = workInProgress.memoizedState));
             var shouldUpdate =
-              checkHasForceUpdateAfterProcessing() ||
-              checkShouldComponentUpdate(
-                workInProgress,
-                ctor,
-                oldProps,
-                newProps,
-                oldState,
-                newState,
-                nextContext
-              );
+              checkHasForceUpdateAfterProcessing() || checkShouldComponentUpdate(workInProgress, ctor, oldProps, newProps, oldState, newState, nextContext);
             return (
               shouldUpdate
                 ? (hasNewLifecycles ||
-                    ('function' != typeof instance.UNSAFE_componentWillMount &&
-                      'function' != typeof instance.componentWillMount) ||
+                    ('function' != typeof instance.UNSAFE_componentWillMount && 'function' != typeof instance.componentWillMount) ||
                     (startPhaseTimer(workInProgress, 'componentWillMount'),
-                    'function' == typeof instance.componentWillMount &&
-                      instance.componentWillMount(),
-                    'function' == typeof instance.UNSAFE_componentWillMount &&
-                      instance.UNSAFE_componentWillMount(),
+                    'function' == typeof instance.componentWillMount && instance.componentWillMount(),
+                    'function' == typeof instance.UNSAFE_componentWillMount && instance.UNSAFE_componentWillMount(),
                     stopPhaseTimer()),
-                  'function' == typeof instance.componentDidMount &&
-                    (workInProgress.effectTag |= 4))
-                : ('function' == typeof instance.componentDidMount &&
-                    (workInProgress.effectTag |= 4),
+                  'function' == typeof instance.componentDidMount && (workInProgress.effectTag |= 4))
+                : ('function' == typeof instance.componentDidMount && (workInProgress.effectTag |= 4),
                   (workInProgress.memoizedProps = newProps),
                   (workInProgress.memoizedState = newState)),
               (instance.props = newProps),
@@ -6741,36 +5653,21 @@ module.exports = {
               shouldUpdate
             );
           }
-          function updateClassInstance(
-            current,
-            workInProgress,
-            ctor,
-            newProps,
-            renderExpirationTime
-          ) {
+          function updateClassInstance(current, workInProgress, ctor, newProps, renderExpirationTime) {
             var instance = workInProgress.stateNode,
               oldProps = workInProgress.memoizedProps;
-            instance.props =
-              workInProgress.type === workInProgress.elementType
-                ? oldProps
-                : resolveDefaultProps(workInProgress.type, oldProps);
+            instance.props = workInProgress.type === workInProgress.elementType ? oldProps : resolveDefaultProps(workInProgress.type, oldProps);
             var oldContext = instance.context,
               contextType = ctor.contextType,
               nextContext = void 0,
               nextUnmaskedContext;
             'object' == typeof contextType && null !== contextType
               ? (nextContext = readContext(contextType))
-              : (nextContext = getMaskedContext(
-                  workInProgress,
-                  getUnmaskedContext(workInProgress, ctor, !0)
-                ));
+              : (nextContext = getMaskedContext(workInProgress, getUnmaskedContext(workInProgress, ctor, !0)));
             var getDerivedStateFromProps = ctor.getDerivedStateFromProps,
-              hasNewLifecycles =
-                'function' == typeof getDerivedStateFromProps ||
-                'function' == typeof instance.getSnapshotBeforeUpdate;
+              hasNewLifecycles = 'function' == typeof getDerivedStateFromProps || 'function' == typeof instance.getSnapshotBeforeUpdate;
             hasNewLifecycles ||
-              ('function' != typeof instance.UNSAFE_componentWillReceiveProps &&
-                'function' != typeof instance.componentWillReceiveProps) ||
+              ('function' != typeof instance.UNSAFE_componentWillReceiveProps && 'function' != typeof instance.componentWillReceiveProps) ||
               (oldProps === newProps && oldContext === nextContext) ||
               callComponentWillReceiveProps(workInProgress, instance, newProps, nextContext),
               resetHasForceUpdateBeforeProcessing();
@@ -6779,63 +5676,34 @@ module.exports = {
               updateQueue = workInProgress.updateQueue;
             if (
               (null !== updateQueue &&
-                (processUpdateQueue(
-                  workInProgress,
-                  updateQueue,
-                  newProps,
-                  instance,
-                  renderExpirationTime
-                ),
-                (newState = workInProgress.memoizedState)),
-              oldProps === newProps &&
-                oldState === newState &&
-                !hasContextChanged() &&
-                !checkHasForceUpdateAfterProcessing())
+                (processUpdateQueue(workInProgress, updateQueue, newProps, instance, renderExpirationTime), (newState = workInProgress.memoizedState)),
+              oldProps === newProps && oldState === newState && !hasContextChanged() && !checkHasForceUpdateAfterProcessing())
             )
               return (
                 'function' == typeof instance.componentDidUpdate &&
-                  ((oldProps === current.memoizedProps && oldState === current.memoizedState) ||
-                    (workInProgress.effectTag |= 4)),
+                  ((oldProps === current.memoizedProps && oldState === current.memoizedState) || (workInProgress.effectTag |= 4)),
                 'function' == typeof instance.getSnapshotBeforeUpdate &&
-                  ((oldProps === current.memoizedProps && oldState === current.memoizedState) ||
-                    (workInProgress.effectTag |= 256)),
+                  ((oldProps === current.memoizedProps && oldState === current.memoizedState) || (workInProgress.effectTag |= 256)),
                 !1
               );
             'function' == typeof getDerivedStateFromProps &&
-              (applyDerivedStateFromProps(workInProgress, ctor, getDerivedStateFromProps, newProps),
-              (newState = workInProgress.memoizedState));
+              (applyDerivedStateFromProps(workInProgress, ctor, getDerivedStateFromProps, newProps), (newState = workInProgress.memoizedState));
             var shouldUpdate =
-              checkHasForceUpdateAfterProcessing() ||
-              checkShouldComponentUpdate(
-                workInProgress,
-                ctor,
-                oldProps,
-                newProps,
-                oldState,
-                newState,
-                nextContext
-              );
+              checkHasForceUpdateAfterProcessing() || checkShouldComponentUpdate(workInProgress, ctor, oldProps, newProps, oldState, newState, nextContext);
             return (
               shouldUpdate
                 ? (hasNewLifecycles ||
-                    ('function' != typeof instance.UNSAFE_componentWillUpdate &&
-                      'function' != typeof instance.componentWillUpdate) ||
+                    ('function' != typeof instance.UNSAFE_componentWillUpdate && 'function' != typeof instance.componentWillUpdate) ||
                     (startPhaseTimer(workInProgress, 'componentWillUpdate'),
-                    'function' == typeof instance.componentWillUpdate &&
-                      instance.componentWillUpdate(newProps, newState, nextContext),
-                    'function' == typeof instance.UNSAFE_componentWillUpdate &&
-                      instance.UNSAFE_componentWillUpdate(newProps, newState, nextContext),
+                    'function' == typeof instance.componentWillUpdate && instance.componentWillUpdate(newProps, newState, nextContext),
+                    'function' == typeof instance.UNSAFE_componentWillUpdate && instance.UNSAFE_componentWillUpdate(newProps, newState, nextContext),
                     stopPhaseTimer()),
-                  'function' == typeof instance.componentDidUpdate &&
-                    (workInProgress.effectTag |= 4),
-                  'function' == typeof instance.getSnapshotBeforeUpdate &&
-                    (workInProgress.effectTag |= 256))
+                  'function' == typeof instance.componentDidUpdate && (workInProgress.effectTag |= 4),
+                  'function' == typeof instance.getSnapshotBeforeUpdate && (workInProgress.effectTag |= 256))
                 : ('function' == typeof instance.componentDidUpdate &&
-                    ((oldProps === current.memoizedProps && oldState === current.memoizedState) ||
-                      (workInProgress.effectTag |= 4)),
+                    ((oldProps === current.memoizedProps && oldState === current.memoizedState) || (workInProgress.effectTag |= 4)),
                   'function' == typeof instance.getSnapshotBeforeUpdate &&
-                    ((oldProps === current.memoizedProps && oldState === current.memoizedState) ||
-                      (workInProgress.effectTag |= 256)),
+                    ((oldProps === current.memoizedProps && oldState === current.memoizedState) || (workInProgress.effectTag |= 256)),
                   (workInProgress.memoizedProps = newProps),
                   (workInProgress.memoizedState = newState)),
               (instance.props = newProps),
@@ -6856,28 +5724,15 @@ module.exports = {
             (ownerHasKeyUseWarning = {}),
             (ownerHasFunctionTypeWarning = {}),
             (warnForMissingKey = function (child) {
-              if (
-                null !== child &&
-                'object' == typeof child &&
-                child._store &&
-                !child._store.validated &&
-                null == child.key
-              ) {
+              if (null !== child && 'object' == typeof child && child._store && !child._store.validated && null == child.key) {
                 'object' != typeof child._store &&
-                  invariant(
-                    !1,
-                    'React Component in warnForMissingKey should have a _store. This error is likely caused by a bug in React. Please file an issue.'
-                  ),
+                  invariant(!1, 'React Component in warnForMissingKey should have a _store. This error is likely caused by a bug in React. Please file an issue.'),
                   (child._store.validated = !0);
                 var currentComponentErrorInfo =
-                  'Each child in a list should have a unique "key" prop. See https://fb.me/react-warning-keys for more information.' +
-                  getCurrentFiberStackInDev();
+                  'Each child in a list should have a unique "key" prop. See https://fb.me/react-warning-keys for more information.' + getCurrentFiberStackInDev();
                 ownerHasKeyUseWarning[currentComponentErrorInfo] ||
                   ((ownerHasKeyUseWarning[currentComponentErrorInfo] = !0),
-                  warning(
-                    !1,
-                    'Each child in a list should have a unique "key" prop. See https://fb.me/react-warning-keys for more information.'
-                  ));
+                  warning(!1, 'Each child in a list should have a unique "key" prop. See https://fb.me/react-warning-keys for more information.'));
               }
             });
           var isArray = Array.isArray;
@@ -6900,39 +5755,19 @@ module.exports = {
                   inst = void 0;
                 if (owner) {
                   var ownerFiber = owner;
-                  1 !== ownerFiber.tag &&
-                    invariant(
-                      !1,
-                      'Function components cannot have refs. Did you mean to use React.forwardRef()?'
-                    ),
-                    (inst = ownerFiber.stateNode);
+                  1 !== ownerFiber.tag && invariant(!1, 'Function components cannot have refs. Did you mean to use React.forwardRef()?'), (inst = ownerFiber.stateNode);
                 }
-                inst ||
-                  invariant(
-                    !1,
-                    'Missing owner for string ref %s. This error is likely caused by a bug in React. Please file an issue.',
-                    mixedRef
-                  );
+                inst || invariant(!1, 'Missing owner for string ref %s. This error is likely caused by a bug in React. Please file an issue.', mixedRef);
                 var stringRef = '' + mixedRef;
-                if (
-                  null !== current$$1 &&
-                  null !== current$$1.ref &&
-                  'function' == typeof current$$1.ref &&
-                  current$$1.ref._stringRef === stringRef
-                )
+                if (null !== current$$1 && null !== current$$1.ref && 'function' == typeof current$$1.ref && current$$1.ref._stringRef === stringRef)
                   return current$$1.ref;
                 var ref = function (value) {
                   var refs = inst.refs;
-                  refs === emptyRefsObject && (refs = inst.refs = {}),
-                    null === value ? delete refs[stringRef] : (refs[stringRef] = value);
+                  refs === emptyRefsObject && (refs = inst.refs = {}), null === value ? delete refs[stringRef] : (refs[stringRef] = value);
                 };
                 return (ref._stringRef = stringRef), ref;
               }
-              'string' != typeof mixedRef &&
-                invariant(
-                  !1,
-                  'Expected ref to be a function, a string, an object returned by React.createRef(), or null.'
-                ),
+              'string' != typeof mixedRef && invariant(!1, 'Expected ref to be a function, a string, an object returned by React.createRef(), or null.'),
                 element._owner ||
                   invariant(
                     !1,
@@ -6945,15 +5780,11 @@ module.exports = {
           function throwOnInvalidObjectType(returnFiber, newChild) {
             if ('textarea' !== returnFiber.type) {
               var addendum = '';
-              (addendum =
-                ' If you meant to render a collection of children, use an array instead.' +
-                getCurrentFiberStackInDev()),
+              (addendum = ' If you meant to render a collection of children, use an array instead.' + getCurrentFiberStackInDev()),
                 invariant(
                   !1,
                   'Objects are not valid as a React child (found: %s).%s',
-                  '[object Object]' === Object.prototype.toString.call(newChild)
-                    ? 'object with keys {' + Object.keys(newChild).join(', ') + '}'
-                    : newChild,
+                  '[object Object]' === Object.prototype.toString.call(newChild) ? 'object with keys {' + Object.keys(newChild).join(', ') + '}' : newChild,
                   addendum
                 );
             }
@@ -6982,19 +5813,12 @@ module.exports = {
             }
             function deleteRemainingChildren(returnFiber, currentFirstChild) {
               if (!shouldTrackSideEffects) return null;
-              for (var childToDelete = currentFirstChild; null !== childToDelete; )
-                deleteChild(returnFiber, childToDelete), (childToDelete = childToDelete.sibling);
+              for (var childToDelete = currentFirstChild; null !== childToDelete; ) deleteChild(returnFiber, childToDelete), (childToDelete = childToDelete.sibling);
               return null;
             }
             function mapRemainingChildren(returnFiber, currentFirstChild) {
-              for (
-                var existingChildren = new Map(), existingChild = currentFirstChild;
-                null !== existingChild;
-
-              )
-                null !== existingChild.key
-                  ? existingChildren.set(existingChild.key, existingChild)
-                  : existingChildren.set(existingChild.index, existingChild),
+              for (var existingChildren = new Map(), existingChild = currentFirstChild; null !== existingChild; )
+                null !== existingChild.key ? existingChildren.set(existingChild.key, existingChild) : existingChildren.set(existingChild.index, existingChild),
                   (existingChild = existingChild.sibling);
               return existingChildren;
             }
@@ -7007,17 +5831,12 @@ module.exports = {
               var current$$1 = newFiber.alternate;
               if (null !== current$$1) {
                 var oldIndex = current$$1.index;
-                return oldIndex < lastPlacedIndex
-                  ? ((newFiber.effectTag = 2), lastPlacedIndex)
-                  : oldIndex;
+                return oldIndex < lastPlacedIndex ? ((newFiber.effectTag = 2), lastPlacedIndex) : oldIndex;
               }
               return (newFiber.effectTag = 2), lastPlacedIndex;
             }
             function placeSingleChild(newFiber) {
-              return (
-                shouldTrackSideEffects && null === newFiber.alternate && (newFiber.effectTag = 2),
-                newFiber
-              );
+              return shouldTrackSideEffects && null === newFiber.alternate && (newFiber.effectTag = 2), newFiber;
             }
             function updateTextNode(returnFiber, current$$1, textContent, expirationTime) {
               if (null === current$$1 || 6 !== current$$1.tag) {
@@ -7039,11 +5858,7 @@ module.exports = {
                 );
               }
               var created = createFiberFromElement(element, returnFiber.mode, expirationTime);
-              return (
-                (created.ref = coerceRef(returnFiber, current$$1, element)),
-                (created.return = returnFiber),
-                created
-              );
+              return (created.ref = coerceRef(returnFiber, current$$1, element)), (created.return = returnFiber), created;
             }
             function updatePortal(returnFiber, current$$1, portal, expirationTime) {
               if (
@@ -7060,12 +5875,7 @@ module.exports = {
             }
             function updateFragment(returnFiber, current$$1, fragment, expirationTime, key) {
               if (null === current$$1 || 7 !== current$$1.tag) {
-                var created = createFiberFromFragment(
-                  fragment,
-                  returnFiber.mode,
-                  expirationTime,
-                  key
-                );
+                var created = createFiberFromFragment(fragment, returnFiber.mode, expirationTime, key);
                 return (created.return = returnFiber), created;
               }
               var existing = useFiber(current$$1, fragment, expirationTime);
@@ -7079,31 +5889,14 @@ module.exports = {
               if ('object' == typeof newChild && null !== newChild) {
                 switch (newChild.$$typeof) {
                   case REACT_ELEMENT_TYPE:
-                    var _created = createFiberFromElement(
-                      newChild,
-                      returnFiber.mode,
-                      expirationTime
-                    );
-                    return (
-                      (_created.ref = coerceRef(returnFiber, null, newChild)),
-                      (_created.return = returnFiber),
-                      _created
-                    );
+                    var _created = createFiberFromElement(newChild, returnFiber.mode, expirationTime);
+                    return (_created.ref = coerceRef(returnFiber, null, newChild)), (_created.return = returnFiber), _created;
                   case REACT_PORTAL_TYPE:
-                    var _created2 = createFiberFromPortal(
-                      newChild,
-                      returnFiber.mode,
-                      expirationTime
-                    );
+                    var _created2 = createFiberFromPortal(newChild, returnFiber.mode, expirationTime);
                     return (_created2.return = returnFiber), _created2;
                 }
                 if (isArray(newChild) || getIteratorFn(newChild)) {
-                  var _created3 = createFiberFromFragment(
-                    newChild,
-                    returnFiber.mode,
-                    expirationTime,
-                    null
-                  );
+                  var _created3 = createFiberFromFragment(newChild, returnFiber.mode, expirationTime, null);
                   return (_created3.return = returnFiber), _created3;
                 }
                 throwOnInvalidObjectType(returnFiber, newChild);
@@ -7113,83 +5906,41 @@ module.exports = {
             function updateSlot(returnFiber, oldFiber, newChild, expirationTime) {
               var key = null !== oldFiber ? oldFiber.key : null;
               if ('string' == typeof newChild || 'number' == typeof newChild)
-                return null !== key
-                  ? null
-                  : updateTextNode(returnFiber, oldFiber, '' + newChild, expirationTime);
+                return null !== key ? null : updateTextNode(returnFiber, oldFiber, '' + newChild, expirationTime);
               if ('object' == typeof newChild && null !== newChild) {
                 switch (newChild.$$typeof) {
                   case REACT_ELEMENT_TYPE:
                     return newChild.key === key
                       ? newChild.type === REACT_FRAGMENT_TYPE
-                        ? updateFragment(
-                            returnFiber,
-                            oldFiber,
-                            newChild.props.children,
-                            expirationTime,
-                            key
-                          )
+                        ? updateFragment(returnFiber, oldFiber, newChild.props.children, expirationTime, key)
                         : updateElement(returnFiber, oldFiber, newChild, expirationTime)
                       : null;
                   case REACT_PORTAL_TYPE:
-                    return newChild.key === key
-                      ? updatePortal(returnFiber, oldFiber, newChild, expirationTime)
-                      : null;
+                    return newChild.key === key ? updatePortal(returnFiber, oldFiber, newChild, expirationTime) : null;
                 }
-                if (isArray(newChild) || getIteratorFn(newChild))
-                  return null !== key
-                    ? null
-                    : updateFragment(returnFiber, oldFiber, newChild, expirationTime, null);
+                if (isArray(newChild) || getIteratorFn(newChild)) return null !== key ? null : updateFragment(returnFiber, oldFiber, newChild, expirationTime, null);
                 throwOnInvalidObjectType(returnFiber, newChild);
               }
               return 'function' == typeof newChild && warnOnFunctionType(), null;
             }
-            function updateFromMap(
-              existingChildren,
-              returnFiber,
-              newIdx,
-              newChild,
-              expirationTime
-            ) {
+            function updateFromMap(existingChildren, returnFiber, newIdx, newChild, expirationTime) {
               var matchedFiber;
               if ('string' == typeof newChild || 'number' == typeof newChild)
-                return updateTextNode(
-                  returnFiber,
-                  existingChildren.get(newIdx) || null,
-                  '' + newChild,
-                  expirationTime
-                );
+                return updateTextNode(returnFiber, existingChildren.get(newIdx) || null, '' + newChild, expirationTime);
               if ('object' == typeof newChild && null !== newChild) {
                 switch (newChild.$$typeof) {
                   case REACT_ELEMENT_TYPE:
-                    var _matchedFiber =
-                      existingChildren.get(null === newChild.key ? newIdx : newChild.key) || null;
+                    var _matchedFiber = existingChildren.get(null === newChild.key ? newIdx : newChild.key) || null;
                     return newChild.type === REACT_FRAGMENT_TYPE
-                      ? updateFragment(
-                          returnFiber,
-                          _matchedFiber,
-                          newChild.props.children,
-                          expirationTime,
-                          newChild.key
-                        )
+                      ? updateFragment(returnFiber, _matchedFiber, newChild.props.children, expirationTime, newChild.key)
                       : updateElement(returnFiber, _matchedFiber, newChild, expirationTime);
                   case REACT_PORTAL_TYPE:
                     var _matchedFiber2;
-                    return updatePortal(
-                      returnFiber,
-                      existingChildren.get(null === newChild.key ? newIdx : newChild.key) || null,
-                      newChild,
-                      expirationTime
-                    );
+                    return updatePortal(returnFiber, existingChildren.get(null === newChild.key ? newIdx : newChild.key) || null, newChild, expirationTime);
                 }
                 var _matchedFiber3;
                 if (isArray(newChild) || getIteratorFn(newChild))
-                  return updateFragment(
-                    returnFiber,
-                    existingChildren.get(newIdx) || null,
-                    newChild,
-                    expirationTime,
-                    null
-                  );
+                  return updateFragment(returnFiber, existingChildren.get(newIdx) || null, newChild, expirationTime, null);
                 throwOnInvalidObjectType(returnFiber, newChild);
               }
               return 'function' == typeof newChild && warnOnFunctionType(), null;
@@ -7218,84 +5969,45 @@ module.exports = {
               }
               return knownKeys;
             }
-            function reconcileChildrenArray(
-              returnFiber,
-              currentFirstChild,
-              newChildren,
-              expirationTime
-            ) {
+            function reconcileChildrenArray(returnFiber, currentFirstChild, newChildren, expirationTime) {
               for (var knownKeys = null, i = 0; i < newChildren.length; i++) {
                 var child;
                 knownKeys = warnOnInvalidKey(newChildren[i], knownKeys);
               }
               for (
-                var resultingFirstChild = null,
-                  previousNewFiber = null,
-                  oldFiber = currentFirstChild,
-                  lastPlacedIndex = 0,
-                  newIdx = 0,
-                  nextOldFiber = null;
+                var resultingFirstChild = null, previousNewFiber = null, oldFiber = currentFirstChild, lastPlacedIndex = 0, newIdx = 0, nextOldFiber = null;
                 null !== oldFiber && newIdx < newChildren.length;
                 newIdx++
               ) {
-                oldFiber.index > newIdx
-                  ? ((nextOldFiber = oldFiber), (oldFiber = null))
-                  : (nextOldFiber = oldFiber.sibling);
-                var newFiber = updateSlot(
-                  returnFiber,
-                  oldFiber,
-                  newChildren[newIdx],
-                  expirationTime
-                );
+                oldFiber.index > newIdx ? ((nextOldFiber = oldFiber), (oldFiber = null)) : (nextOldFiber = oldFiber.sibling);
+                var newFiber = updateSlot(returnFiber, oldFiber, newChildren[newIdx], expirationTime);
                 if (null === newFiber) {
                   null === oldFiber && (oldFiber = nextOldFiber);
                   break;
                 }
-                shouldTrackSideEffects &&
-                  oldFiber &&
-                  null === newFiber.alternate &&
-                  deleteChild(returnFiber, oldFiber),
+                shouldTrackSideEffects && oldFiber && null === newFiber.alternate && deleteChild(returnFiber, oldFiber),
                   (lastPlacedIndex = placeChild(newFiber, lastPlacedIndex, newIdx)),
-                  null === previousNewFiber
-                    ? (resultingFirstChild = newFiber)
-                    : (previousNewFiber.sibling = newFiber),
+                  null === previousNewFiber ? (resultingFirstChild = newFiber) : (previousNewFiber.sibling = newFiber),
                   (previousNewFiber = newFiber),
                   (oldFiber = nextOldFiber);
               }
-              if (newIdx === newChildren.length)
-                return deleteRemainingChildren(returnFiber, oldFiber), resultingFirstChild;
+              if (newIdx === newChildren.length) return deleteRemainingChildren(returnFiber, oldFiber), resultingFirstChild;
               if (null === oldFiber) {
                 for (; newIdx < newChildren.length; newIdx++) {
                   var _newFiber = createChild(returnFiber, newChildren[newIdx], expirationTime);
                   _newFiber &&
                     ((lastPlacedIndex = placeChild(_newFiber, lastPlacedIndex, newIdx)),
-                    null === previousNewFiber
-                      ? (resultingFirstChild = _newFiber)
-                      : (previousNewFiber.sibling = _newFiber),
+                    null === previousNewFiber ? (resultingFirstChild = _newFiber) : (previousNewFiber.sibling = _newFiber),
                     (previousNewFiber = _newFiber));
                 }
                 return resultingFirstChild;
               }
-              for (
-                var existingChildren = mapRemainingChildren(returnFiber, oldFiber);
-                newIdx < newChildren.length;
-                newIdx++
-              ) {
-                var _newFiber2 = updateFromMap(
-                  existingChildren,
-                  returnFiber,
-                  newIdx,
-                  newChildren[newIdx],
-                  expirationTime
-                );
+              for (var existingChildren = mapRemainingChildren(returnFiber, oldFiber); newIdx < newChildren.length; newIdx++) {
+                var _newFiber2 = updateFromMap(existingChildren, returnFiber, newIdx, newChildren[newIdx], expirationTime);
                 _newFiber2 &&
-                  (shouldTrackSideEffects &&
-                    null !== _newFiber2.alternate &&
-                    existingChildren.delete(null === _newFiber2.key ? newIdx : _newFiber2.key),
+                  (shouldTrackSideEffects && null !== _newFiber2.alternate && existingChildren.delete(null === _newFiber2.key ? newIdx : _newFiber2.key),
                   (lastPlacedIndex = placeChild(_newFiber2, lastPlacedIndex, newIdx)),
-                  null === previousNewFiber
-                    ? (resultingFirstChild = _newFiber2)
-                    : (previousNewFiber.sibling = _newFiber2),
+                  null === previousNewFiber ? (resultingFirstChild = _newFiber2) : (previousNewFiber.sibling = _newFiber2),
                   (previousNewFiber = _newFiber2));
               }
               return (
@@ -7306,18 +6018,9 @@ module.exports = {
                 resultingFirstChild
               );
             }
-            function reconcileChildrenIterator(
-              returnFiber,
-              currentFirstChild,
-              newChildrenIterable,
-              expirationTime
-            ) {
+            function reconcileChildrenIterator(returnFiber, currentFirstChild, newChildrenIterable, expirationTime) {
               var iteratorFn = getIteratorFn(newChildrenIterable);
-              'function' != typeof iteratorFn &&
-                invariant(
-                  !1,
-                  'An object is not an iterable. This error is likely caused by a bug in React. Please file an issue.'
-                ),
+              'function' != typeof iteratorFn && invariant(!1, 'An object is not an iterable. This error is likely caused by a bug in React. Please file an issue.'),
                 'function' == typeof Symbol &&
                   'Generator' === newChildrenIterable[Symbol.toStringTag] &&
                   (didWarnAboutGenerators ||
@@ -7335,11 +6038,7 @@ module.exports = {
                   (didWarnAboutMaps = !0));
               var _newChildren = iteratorFn.call(newChildrenIterable);
               if (_newChildren)
-                for (
-                  var knownKeys = null, _step = _newChildren.next();
-                  !_step.done;
-                  _step = _newChildren.next()
-                ) {
+                for (var knownKeys = null, _step = _newChildren.next(); !_step.done; _step = _newChildren.next()) {
                   var child;
                   knownKeys = warnOnInvalidKey(_step.value, knownKeys);
                 }
@@ -7356,59 +6055,35 @@ module.exports = {
                 null !== oldFiber && !step.done;
                 newIdx++, step = newChildren.next()
               ) {
-                oldFiber.index > newIdx
-                  ? ((nextOldFiber = oldFiber), (oldFiber = null))
-                  : (nextOldFiber = oldFiber.sibling);
+                oldFiber.index > newIdx ? ((nextOldFiber = oldFiber), (oldFiber = null)) : (nextOldFiber = oldFiber.sibling);
                 var newFiber = updateSlot(returnFiber, oldFiber, step.value, expirationTime);
                 if (null === newFiber) {
                   oldFiber || (oldFiber = nextOldFiber);
                   break;
                 }
-                shouldTrackSideEffects &&
-                  oldFiber &&
-                  null === newFiber.alternate &&
-                  deleteChild(returnFiber, oldFiber),
+                shouldTrackSideEffects && oldFiber && null === newFiber.alternate && deleteChild(returnFiber, oldFiber),
                   (lastPlacedIndex = placeChild(newFiber, lastPlacedIndex, newIdx)),
-                  null === previousNewFiber
-                    ? (resultingFirstChild = newFiber)
-                    : (previousNewFiber.sibling = newFiber),
+                  null === previousNewFiber ? (resultingFirstChild = newFiber) : (previousNewFiber.sibling = newFiber),
                   (previousNewFiber = newFiber),
                   (oldFiber = nextOldFiber);
               }
-              if (step.done)
-                return deleteRemainingChildren(returnFiber, oldFiber), resultingFirstChild;
+              if (step.done) return deleteRemainingChildren(returnFiber, oldFiber), resultingFirstChild;
               if (null === oldFiber) {
                 for (; !step.done; newIdx++, step = newChildren.next()) {
                   var _newFiber3 = createChild(returnFiber, step.value, expirationTime);
                   null !== _newFiber3 &&
                     ((lastPlacedIndex = placeChild(_newFiber3, lastPlacedIndex, newIdx)),
-                    null === previousNewFiber
-                      ? (resultingFirstChild = _newFiber3)
-                      : (previousNewFiber.sibling = _newFiber3),
+                    null === previousNewFiber ? (resultingFirstChild = _newFiber3) : (previousNewFiber.sibling = _newFiber3),
                     (previousNewFiber = _newFiber3));
                 }
                 return resultingFirstChild;
               }
-              for (
-                var existingChildren = mapRemainingChildren(returnFiber, oldFiber);
-                !step.done;
-                newIdx++, step = newChildren.next()
-              ) {
-                var _newFiber4 = updateFromMap(
-                  existingChildren,
-                  returnFiber,
-                  newIdx,
-                  step.value,
-                  expirationTime
-                );
+              for (var existingChildren = mapRemainingChildren(returnFiber, oldFiber); !step.done; newIdx++, step = newChildren.next()) {
+                var _newFiber4 = updateFromMap(existingChildren, returnFiber, newIdx, step.value, expirationTime);
                 null !== _newFiber4 &&
-                  (shouldTrackSideEffects &&
-                    null !== _newFiber4.alternate &&
-                    existingChildren.delete(null === _newFiber4.key ? newIdx : _newFiber4.key),
+                  (shouldTrackSideEffects && null !== _newFiber4.alternate && existingChildren.delete(null === _newFiber4.key ? newIdx : _newFiber4.key),
                   (lastPlacedIndex = placeChild(_newFiber4, lastPlacedIndex, newIdx)),
-                  null === previousNewFiber
-                    ? (resultingFirstChild = _newFiber4)
-                    : (previousNewFiber.sibling = _newFiber4),
+                  null === previousNewFiber ? (resultingFirstChild = _newFiber4) : (previousNewFiber.sibling = _newFiber4),
                   (previousNewFiber = _newFiber4));
               }
               return (
@@ -7419,12 +6094,7 @@ module.exports = {
                 resultingFirstChild
               );
             }
-            function reconcileSingleTextNode(
-              returnFiber,
-              currentFirstChild,
-              textContent,
-              expirationTime
-            ) {
+            function reconcileSingleTextNode(returnFiber, currentFirstChild, textContent, expirationTime) {
               if (null !== currentFirstChild && 6 === currentFirstChild.tag) {
                 deleteRemainingChildren(returnFiber, currentFirstChild.sibling);
                 var existing = useFiber(currentFirstChild, textContent, expirationTime);
@@ -7434,25 +6104,12 @@ module.exports = {
               var created = createFiberFromText(textContent, returnFiber.mode, expirationTime);
               return (created.return = returnFiber), created;
             }
-            function reconcileSingleElement(
-              returnFiber,
-              currentFirstChild,
-              element,
-              expirationTime
-            ) {
+            function reconcileSingleElement(returnFiber, currentFirstChild, element, expirationTime) {
               for (var key = element.key, child = currentFirstChild; null !== child; ) {
                 if (child.key === key) {
-                  if (
-                    7 === child.tag
-                      ? element.type === REACT_FRAGMENT_TYPE
-                      : child.elementType === element.type
-                  ) {
+                  if (7 === child.tag ? element.type === REACT_FRAGMENT_TYPE : child.elementType === element.type) {
                     deleteRemainingChildren(returnFiber, child.sibling);
-                    var existing = useFiber(
-                      child,
-                      element.type === REACT_FRAGMENT_TYPE ? element.props.children : element.props,
-                      expirationTime
-                    );
+                    var existing = useFiber(child, element.type === REACT_FRAGMENT_TYPE ? element.props.children : element.props, expirationTime);
                     return (
                       (existing.ref = coerceRef(returnFiber, child, element)),
                       (existing.return = returnFiber),
@@ -7467,29 +6124,16 @@ module.exports = {
                 deleteChild(returnFiber, child), (child = child.sibling);
               }
               if (element.type === REACT_FRAGMENT_TYPE) {
-                var created = createFiberFromFragment(
-                  element.props.children,
-                  returnFiber.mode,
-                  expirationTime,
-                  element.key
-                );
+                var created = createFiberFromFragment(element.props.children, returnFiber.mode, expirationTime, element.key);
                 return (created.return = returnFiber), created;
               }
               var _created4 = createFiberFromElement(element, returnFiber.mode, expirationTime);
-              return (
-                (_created4.ref = coerceRef(returnFiber, currentFirstChild, element)),
-                (_created4.return = returnFiber),
-                _created4
-              );
+              return (_created4.ref = coerceRef(returnFiber, currentFirstChild, element)), (_created4.return = returnFiber), _created4;
             }
             function reconcileSinglePortal(returnFiber, currentFirstChild, portal, expirationTime) {
               for (var key = portal.key, child = currentFirstChild; null !== child; ) {
                 if (child.key === key) {
-                  if (
-                    4 === child.tag &&
-                    child.stateNode.containerInfo === portal.containerInfo &&
-                    child.stateNode.implementation === portal.implementation
-                  ) {
+                  if (4 === child.tag && child.stateNode.containerInfo === portal.containerInfo && child.stateNode.implementation === portal.implementation) {
                     deleteRemainingChildren(returnFiber, child.sibling);
                     var existing = useFiber(child, portal.children || [], expirationTime);
                     return (existing.return = returnFiber), existing;
@@ -7502,63 +6146,21 @@ module.exports = {
               var created = createFiberFromPortal(portal, returnFiber.mode, expirationTime);
               return (created.return = returnFiber), created;
             }
-            function reconcileChildFibers(
-              returnFiber,
-              currentFirstChild,
-              newChild,
-              expirationTime
-            ) {
-              var isUnkeyedTopLevelFragment =
-                'object' == typeof newChild &&
-                null !== newChild &&
-                newChild.type === REACT_FRAGMENT_TYPE &&
-                null === newChild.key;
+            function reconcileChildFibers(returnFiber, currentFirstChild, newChild, expirationTime) {
+              var isUnkeyedTopLevelFragment = 'object' == typeof newChild && null !== newChild && newChild.type === REACT_FRAGMENT_TYPE && null === newChild.key;
               isUnkeyedTopLevelFragment && (newChild = newChild.props.children);
               var isObject = 'object' == typeof newChild && null !== newChild;
               if (isObject)
                 switch (newChild.$$typeof) {
                   case REACT_ELEMENT_TYPE:
-                    return placeSingleChild(
-                      reconcileSingleElement(
-                        returnFiber,
-                        currentFirstChild,
-                        newChild,
-                        expirationTime
-                      )
-                    );
+                    return placeSingleChild(reconcileSingleElement(returnFiber, currentFirstChild, newChild, expirationTime));
                   case REACT_PORTAL_TYPE:
-                    return placeSingleChild(
-                      reconcileSinglePortal(
-                        returnFiber,
-                        currentFirstChild,
-                        newChild,
-                        expirationTime
-                      )
-                    );
+                    return placeSingleChild(reconcileSinglePortal(returnFiber, currentFirstChild, newChild, expirationTime));
                 }
               if ('string' == typeof newChild || 'number' == typeof newChild)
-                return placeSingleChild(
-                  reconcileSingleTextNode(
-                    returnFiber,
-                    currentFirstChild,
-                    '' + newChild,
-                    expirationTime
-                  )
-                );
-              if (isArray(newChild))
-                return reconcileChildrenArray(
-                  returnFiber,
-                  currentFirstChild,
-                  newChild,
-                  expirationTime
-                );
-              if (getIteratorFn(newChild))
-                return reconcileChildrenIterator(
-                  returnFiber,
-                  currentFirstChild,
-                  newChild,
-                  expirationTime
-                );
+                return placeSingleChild(reconcileSingleTextNode(returnFiber, currentFirstChild, '' + newChild, expirationTime));
+              if (isArray(newChild)) return reconcileChildrenArray(returnFiber, currentFirstChild, newChild, expirationTime);
+              if (getIteratorFn(newChild)) return reconcileChildrenIterator(returnFiber, currentFirstChild, newChild, expirationTime);
               if (
                 (isObject && throwOnInvalidObjectType(returnFiber, newChild),
                 'function' == typeof newChild && warnOnFunctionType(),
@@ -7584,28 +6186,13 @@ module.exports = {
             mountChildFibers = ChildReconciler(!1);
           function cloneChildFibers(current$$1, workInProgress) {
             if (
-              (null !== current$$1 &&
-                workInProgress.child !== current$$1.child &&
-                invariant(!1, 'Resuming work not yet implemented.'),
-              null !== workInProgress.child)
+              (null !== current$$1 && workInProgress.child !== current$$1.child && invariant(!1, 'Resuming work not yet implemented.'), null !== workInProgress.child)
             ) {
               var currentChild = workInProgress.child,
-                newChild = createWorkInProgress(
-                  currentChild,
-                  currentChild.pendingProps,
-                  currentChild.expirationTime
-                );
-              for (
-                workInProgress.child = newChild, newChild.return = workInProgress;
-                null !== currentChild.sibling;
-
-              )
+                newChild = createWorkInProgress(currentChild, currentChild.pendingProps, currentChild.expirationTime);
+              for (workInProgress.child = newChild, newChild.return = workInProgress; null !== currentChild.sibling; )
                 (currentChild = currentChild.sibling),
-                  ((newChild = newChild.sibling = createWorkInProgress(
-                    currentChild,
-                    currentChild.pendingProps,
-                    currentChild.expirationTime
-                  )).return = workInProgress);
+                  ((newChild = newChild.sibling = createWorkInProgress(currentChild, currentChild.pendingProps, currentChild.expirationTime)).return = workInProgress);
               newChild.sibling = null;
             }
           }
@@ -7614,30 +6201,19 @@ module.exports = {
             contextFiberStackCursor = createCursor(NO_CONTEXT),
             rootInstanceStackCursor = createCursor(NO_CONTEXT);
           function requiredContext(c) {
-            return (
-              c === NO_CONTEXT &&
-                invariant(
-                  !1,
-                  'Expected host context to exist. This error is likely caused by a bug in React. Please file an issue.'
-                ),
-              c
-            );
+            return c === NO_CONTEXT && invariant(!1, 'Expected host context to exist. This error is likely caused by a bug in React. Please file an issue.'), c;
           }
           function getRootHostContainer() {
             var rootInstance;
             return requiredContext(rootInstanceStackCursor.current);
           }
           function pushHostContainer(fiber, nextRootInstance) {
-            push(rootInstanceStackCursor, nextRootInstance, fiber),
-              push(contextFiberStackCursor, fiber, fiber),
-              push(contextStackCursor$1, NO_CONTEXT, fiber);
+            push(rootInstanceStackCursor, nextRootInstance, fiber), push(contextFiberStackCursor, fiber, fiber), push(contextStackCursor$1, NO_CONTEXT, fiber);
             var nextRootContext = getRootHostContext(nextRootInstance);
             pop(contextStackCursor$1, fiber), push(contextStackCursor$1, nextRootContext, fiber);
           }
           function popHostContainer(fiber) {
-            pop(contextStackCursor$1, fiber),
-              pop(contextFiberStackCursor, fiber),
-              pop(rootInstanceStackCursor, fiber);
+            pop(contextStackCursor$1, fiber), pop(contextFiberStackCursor, fiber), pop(rootInstanceStackCursor, fiber);
           }
           function getHostContext() {
             var context;
@@ -7647,13 +6223,10 @@ module.exports = {
             var rootInstance = requiredContext(rootInstanceStackCursor.current),
               context = requiredContext(contextStackCursor$1.current),
               nextContext = getChildHostContext(context, fiber.type, rootInstance);
-            context !== nextContext &&
-              (push(contextFiberStackCursor, fiber, fiber),
-              push(contextStackCursor$1, nextContext, fiber));
+            context !== nextContext && (push(contextFiberStackCursor, fiber, fiber), push(contextStackCursor$1, nextContext, fiber));
           }
           function popHostContext(fiber) {
-            contextFiberStackCursor.current === fiber &&
-              (pop(contextStackCursor$1, fiber), pop(contextFiberStackCursor, fiber));
+            contextFiberStackCursor.current === fiber && (pop(contextStackCursor$1, fiber), pop(contextFiberStackCursor, fiber));
           }
           var NoEffect$1 = 0,
             UnmountSnapshot = 2,
@@ -7689,26 +6262,14 @@ module.exports = {
           }
           function updateHookTypesDev() {
             var hookName = currentHookNameInDev;
-            null !== hookTypesDev &&
-              (hookTypesUpdateIndexDev++,
-              hookTypesDev[hookTypesUpdateIndexDev] !== hookName &&
-                warnOnHookMismatchInDev(hookName));
+            null !== hookTypesDev && (hookTypesUpdateIndexDev++, hookTypesDev[hookTypesUpdateIndexDev] !== hookName && warnOnHookMismatchInDev(hookName));
           }
           function warnOnHookMismatchInDev(currentHookName) {
             var componentName = getComponentName(currentlyRenderingFiber$1.type);
-            if (
-              !didWarnAboutMismatchedHooksForComponent.has(componentName) &&
-              (didWarnAboutMismatchedHooksForComponent.add(componentName), null !== hookTypesDev)
-            ) {
-              for (
-                var table = '', secondColumnStart = 30, i = 0;
-                i <= hookTypesUpdateIndexDev;
-                i++
-              ) {
+            if (!didWarnAboutMismatchedHooksForComponent.has(componentName) && (didWarnAboutMismatchedHooksForComponent.add(componentName), null !== hookTypesDev)) {
+              for (var table = '', secondColumnStart = 30, i = 0; i <= hookTypesUpdateIndexDev; i++) {
                 for (
-                  var oldHookName = hookTypesDev[i],
-                    newHookName = i === hookTypesUpdateIndexDev ? currentHookName : oldHookName,
-                    row = i + 1 + '. ' + oldHookName;
+                  var oldHookName = hookTypesDev[i], newHookName = i === hookTypesUpdateIndexDev ? currentHookName : oldHookName, row = i + 1 + '. ' + oldHookName;
                   row.length < 30;
 
                 )
@@ -7747,29 +6308,17 @@ module.exports = {
                 '[' + nextDeps.join(', ') + ']',
                 '[' + prevDeps.join(', ') + ']'
               );
-            for (var i = 0; i < prevDeps.length && i < nextDeps.length; i++)
-              if (!is(nextDeps[i], prevDeps[i])) return !1;
+            for (var i = 0; i < prevDeps.length && i < nextDeps.length; i++) if (!is(nextDeps[i], prevDeps[i])) return !1;
             return !0;
           }
-          function renderWithHooks(
-            current,
-            workInProgress,
-            Component,
-            props,
-            refOrContext,
-            nextRenderExpirationTime
-          ) {
+          function renderWithHooks(current, workInProgress, Component, props, refOrContext, nextRenderExpirationTime) {
             (renderExpirationTime = nextRenderExpirationTime),
               (currentlyRenderingFiber$1 = workInProgress),
               (nextCurrentHook = null !== current ? current.memoizedState : null),
               (hookTypesDev = null !== current ? current._debugHookTypes : null),
               (hookTypesUpdateIndexDev = -1),
               (ReactCurrentDispatcher$1.current =
-                null !== nextCurrentHook
-                  ? HooksDispatcherOnUpdateInDEV
-                  : null !== hookTypesDev
-                  ? HooksDispatcherOnMountWithHookTypesInDEV
-                  : HooksDispatcherOnMountInDEV);
+                null !== nextCurrentHook ? HooksDispatcherOnUpdateInDEV : null !== hookTypesDev ? HooksDispatcherOnMountWithHookTypesInDEV : HooksDispatcherOnMountInDEV);
             var children = Component(props, refOrContext);
             if (didScheduleRenderPhaseUpdate) {
               do {
@@ -7808,11 +6357,7 @@ module.exports = {
               (remainingExpirationTime = 0),
               (componentUpdateQueue = null),
               (sideEffectTag = 0),
-              didRenderTooFewHooks &&
-                invariant(
-                  !1,
-                  'Rendered fewer hooks than expected. This may be caused by an accidental early return statement.'
-                ),
+              didRenderTooFewHooks && invariant(!1, 'Rendered fewer hooks than expected. This may be caused by an accidental early return statement.'),
               children
             );
           }
@@ -7849,20 +6394,16 @@ module.exports = {
               next: null
             };
             return (
-              null === workInProgressHook
-                ? (firstWorkInProgressHook = workInProgressHook = hook)
-                : (workInProgressHook = workInProgressHook.next = hook),
+              null === workInProgressHook ? (firstWorkInProgressHook = workInProgressHook = hook) : (workInProgressHook = workInProgressHook.next = hook),
               workInProgressHook
             );
           }
           function updateWorkInProgressHook() {
             if (null !== nextWorkInProgressHook)
               (nextWorkInProgressHook = (workInProgressHook = nextWorkInProgressHook).next),
-                (nextCurrentHook =
-                  null !== (currentHook = nextCurrentHook) ? currentHook.next : null);
+                (nextCurrentHook = null !== (currentHook = nextCurrentHook) ? currentHook.next : null);
             else {
-              null === nextCurrentHook &&
-                invariant(!1, 'Rendered more hooks than during the previous render.');
+              null === nextCurrentHook && invariant(!1, 'Rendered more hooks than during the previous render.');
               var newHook = {
                 memoizedState: (currentHook = nextCurrentHook).memoizedState,
                 baseState: currentHook.baseState,
@@ -7870,10 +6411,7 @@ module.exports = {
                 baseUpdate: currentHook.baseUpdate,
                 next: null
               };
-              (workInProgressHook =
-                null === workInProgressHook
-                  ? (firstWorkInProgressHook = newHook)
-                  : (workInProgressHook.next = newHook)),
+              (workInProgressHook = null === workInProgressHook ? (firstWorkInProgressHook = newHook) : (workInProgressHook.next = newHook)),
                 (nextCurrentHook = currentHook.next);
             }
             return workInProgressHook;
@@ -7887,30 +6425,21 @@ module.exports = {
           function mountReducer(reducer, initialArg, init) {
             var hook = mountWorkInProgressHook(),
               initialState = void 0;
-            (initialState = void 0 !== init ? init(initialArg) : initialArg),
-              (hook.memoizedState = hook.baseState = initialState);
+            (initialState = void 0 !== init ? init(initialArg) : initialArg), (hook.memoizedState = hook.baseState = initialState);
             var queue = (hook.queue = {
                 last: null,
                 dispatch: null,
                 lastRenderedReducer: reducer,
                 lastRenderedState: initialState
               }),
-              dispatch = (queue.dispatch = dispatchAction.bind(
-                null,
-                currentlyRenderingFiber$1,
-                queue
-              ));
+              dispatch = (queue.dispatch = dispatchAction.bind(null, currentlyRenderingFiber$1, queue));
             return [hook.memoizedState, dispatch];
           }
           function updateReducer(reducer, initialArg, init) {
             var hook = updateWorkInProgressHook(),
               queue = hook.queue;
             if (
-              (null === queue &&
-                invariant(
-                  !1,
-                  'Should have a queue. This is likely a bug in React. Please file an issue.'
-                ),
+              (null === queue && invariant(!1, 'Should have a queue. This is likely a bug in React. Please file an issue.'),
               (queue.lastRenderedReducer = reducer),
               numberOfReRenders > 0)
             ) {
@@ -7940,12 +6469,7 @@ module.exports = {
               baseUpdate = hook.baseUpdate,
               baseState = hook.baseState,
               first = void 0;
-            if (
-              (null !== baseUpdate
-                ? (null !== last && (last.next = null), (first = baseUpdate.next))
-                : (first = null !== last ? last.next : null),
-              null !== first)
-            ) {
+            if ((null !== baseUpdate ? (null !== last && (last.next = null), (first = baseUpdate.next)) : (first = null !== last ? last.next : null), null !== first)) {
               var _newState = baseState,
                 newBaseState = null,
                 newBaseUpdate = null,
@@ -7956,10 +6480,8 @@ module.exports = {
                 var updateExpirationTime = _update.expirationTime,
                   _action2;
                 if (updateExpirationTime < renderExpirationTime)
-                  didSkip ||
-                    ((didSkip = !0), (newBaseUpdate = prevUpdate), (newBaseState = _newState)),
-                    updateExpirationTime > remainingExpirationTime &&
-                      (remainingExpirationTime = updateExpirationTime);
+                  didSkip || ((didSkip = !0), (newBaseUpdate = prevUpdate), (newBaseState = _newState)),
+                    updateExpirationTime > remainingExpirationTime && (remainingExpirationTime = updateExpirationTime);
                 else if (_update.eagerReducer === reducer) _newState = _update.eagerState;
                 else _newState = reducer(_newState, _update.action);
                 (prevUpdate = _update), (_update = _update.next);
@@ -7976,19 +6498,14 @@ module.exports = {
           }
           function mountState(initialState) {
             var hook = mountWorkInProgressHook();
-            'function' == typeof initialState && (initialState = initialState()),
-              (hook.memoizedState = hook.baseState = initialState);
+            'function' == typeof initialState && (initialState = initialState()), (hook.memoizedState = hook.baseState = initialState);
             var queue = (hook.queue = {
                 last: null,
                 dispatch: null,
                 lastRenderedReducer: basicStateReducer,
                 lastRenderedState: initialState
               }),
-              dispatch = (queue.dispatch = dispatchAction.bind(
-                null,
-                currentlyRenderingFiber$1,
-                queue
-              ));
+              dispatch = (queue.dispatch = dispatchAction.bind(null, currentlyRenderingFiber$1, queue));
             return [hook.memoizedState, dispatch];
           }
           function updateState(initialState) {
@@ -7996,16 +6513,13 @@ module.exports = {
           }
           function pushEffect(tag, create, destroy, deps) {
             var effect = { tag: tag, create: create, destroy: destroy, deps: deps, next: null };
-            if (null === componentUpdateQueue)
-              (componentUpdateQueue = { lastEffect: null }).lastEffect = effect.next = effect;
+            if (null === componentUpdateQueue) (componentUpdateQueue = { lastEffect: null }).lastEffect = effect.next = effect;
             else {
               var _lastEffect = componentUpdateQueue.lastEffect;
               if (null === _lastEffect) componentUpdateQueue.lastEffect = effect.next = effect;
               else {
                 var firstEffect = _lastEffect.next;
-                (_lastEffect.next = effect),
-                  (effect.next = firstEffect),
-                  (componentUpdateQueue.lastEffect = effect);
+                (_lastEffect.next = effect), (effect.next = firstEffect), (componentUpdateQueue.lastEffect = effect);
               }
             }
             return effect;
@@ -8022,8 +6536,7 @@ module.exports = {
           function mountEffectImpl(fiberEffectTag, hookEffectTag, create, deps) {
             var hook = mountWorkInProgressHook(),
               nextDeps = void 0 === deps ? null : deps;
-            (sideEffectTag |= fiberEffectTag),
-              (hook.memoizedState = pushEffect(hookEffectTag, create, void 0, nextDeps));
+            (sideEffectTag |= fiberEffectTag), (hook.memoizedState = pushEffect(hookEffectTag, create, void 0, nextDeps));
           }
           function updateEffectImpl(fiberEffectTag, hookEffectTag, create, deps) {
             var hook = updateWorkInProgressHook(),
@@ -8033,11 +6546,9 @@ module.exports = {
               var prevEffect = currentHook.memoizedState,
                 prevDeps;
               if (((destroy = prevEffect.destroy), null !== nextDeps))
-                if (areHookInputsEqual(nextDeps, prevEffect.deps))
-                  return void pushEffect(0, create, destroy, nextDeps);
+                if (areHookInputsEqual(nextDeps, prevEffect.deps)) return void pushEffect(0, create, destroy, nextDeps);
             }
-            (sideEffectTag |= fiberEffectTag),
-              (hook.memoizedState = pushEffect(hookEffectTag, create, destroy, nextDeps));
+            (sideEffectTag |= fiberEffectTag), (hook.memoizedState = pushEffect(hookEffectTag, create, destroy, nextDeps));
           }
           function mountEffect(create, deps) {
             return mountEffectImpl(516, 192, create, deps);
@@ -8087,12 +6598,7 @@ module.exports = {
                 null !== create ? typeof create : 'null'
               );
             var effectDeps = null != deps ? deps.concat([ref]) : null;
-            return mountEffectImpl(
-              4,
-              36,
-              imperativeHandleEffect.bind(null, create, ref),
-              effectDeps
-            );
+            return mountEffectImpl(4, 36, imperativeHandleEffect.bind(null, create, ref), effectDeps);
           }
           function updateImperativeHandle(ref, create, deps) {
             'function' != typeof create &&
@@ -8102,12 +6608,7 @@ module.exports = {
                 null !== create ? typeof create : 'null'
               );
             var effectDeps = null != deps ? deps.concat([ref]) : null;
-            return updateEffectImpl(
-              4,
-              36,
-              imperativeHandleEffect.bind(null, create, ref),
-              effectDeps
-            );
+            return updateEffectImpl(4, 36, imperativeHandleEffect.bind(null, create, ref), effectDeps);
           }
           function mountDebugValue(value, formatterFn) {}
           var updateDebugValue = mountDebugValue;
@@ -8121,12 +6622,7 @@ module.exports = {
               nextDeps = void 0 === deps ? null : deps,
               prevState = hook.memoizedState,
               prevDeps;
-            if (
-              null !== prevState &&
-              null !== nextDeps &&
-              areHookInputsEqual(nextDeps, prevState[1])
-            )
-              return prevState[0];
+            if (null !== prevState && null !== nextDeps && areHookInputsEqual(nextDeps, prevState[1])) return prevState[0];
             return (hook.memoizedState = [callback, nextDeps]), callback;
           }
           function mountMemo(nextCreate, deps) {
@@ -8140,32 +6636,20 @@ module.exports = {
               nextDeps = void 0 === deps ? null : deps,
               prevState = hook.memoizedState,
               prevDeps;
-            if (
-              null !== prevState &&
-              null !== nextDeps &&
-              areHookInputsEqual(nextDeps, prevState[1])
-            )
-              return prevState[0];
+            if (null !== prevState && null !== nextDeps && areHookInputsEqual(nextDeps, prevState[1])) return prevState[0];
             var nextValue = nextCreate();
             return (hook.memoizedState = [nextValue, nextDeps]), nextValue;
           }
           var shouldWarnForUnbatchedSetState = !1;
           function dispatchAction(fiber, queue, action) {
-            numberOfReRenders < 25 ||
-              invariant(
-                !1,
-                'Too many re-renders. React limits the number of renders to prevent an infinite loop.'
-              ),
+            numberOfReRenders < 25 || invariant(!1, 'Too many re-renders. React limits the number of renders to prevent an infinite loop.'),
               arguments.length <= 3 ||
                 warning(
                   !1,
                   "State updates from the useState() and useReducer() Hooks don't support the second callback argument. To execute a side effect after rendering, declare it in the component body with useEffect()."
                 );
             var alternate = fiber.alternate;
-            if (
-              fiber === currentlyRenderingFiber$1 ||
-              (null !== alternate && alternate === currentlyRenderingFiber$1)
-            ) {
+            if (fiber === currentlyRenderingFiber$1 || (null !== alternate && alternate === currentlyRenderingFiber$1)) {
               didScheduleRenderPhaseUpdate = !0;
               var update = {
                 expirationTime: renderExpirationTime,
@@ -8178,12 +6662,7 @@ module.exports = {
               var firstRenderPhaseUpdate = renderPhaseUpdates.get(queue);
               if (void 0 === firstRenderPhaseUpdate) renderPhaseUpdates.set(queue, update);
               else {
-                for (
-                  var lastRenderPhaseUpdate = firstRenderPhaseUpdate;
-                  null !== lastRenderPhaseUpdate.next;
-
-                )
-                  lastRenderPhaseUpdate = lastRenderPhaseUpdate.next;
+                for (var lastRenderPhaseUpdate = firstRenderPhaseUpdate; null !== lastRenderPhaseUpdate.next; ) lastRenderPhaseUpdate = lastRenderPhaseUpdate.next;
                 lastRenderPhaseUpdate.next = update;
               }
             } else {
@@ -8203,33 +6682,22 @@ module.exports = {
                 var first = _last.next;
                 null !== first && (_update2.next = first), (_last.next = _update2);
               }
-              if (
-                ((queue.last = _update2),
-                0 === fiber.expirationTime &&
-                  (null === alternate || 0 === alternate.expirationTime))
-              ) {
+              if (((queue.last = _update2), 0 === fiber.expirationTime && (null === alternate || 0 === alternate.expirationTime))) {
                 var _lastRenderedReducer = queue.lastRenderedReducer;
                 if (null !== _lastRenderedReducer) {
                   var prevDispatcher = void 0;
-                  (prevDispatcher = ReactCurrentDispatcher$1.current),
-                    (ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV);
+                  (prevDispatcher = ReactCurrentDispatcher$1.current), (ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV);
                   try {
                     var currentState = queue.lastRenderedState,
                       _eagerState = _lastRenderedReducer(currentState, action);
-                    if (
-                      ((_update2.eagerReducer = _lastRenderedReducer),
-                      (_update2.eagerState = _eagerState),
-                      is(_eagerState, currentState))
-                    )
-                      return;
+                    if (((_update2.eagerReducer = _lastRenderedReducer), (_update2.eagerState = _eagerState), is(_eagerState, currentState))) return;
                   } catch (error) {
                   } finally {
                     ReactCurrentDispatcher$1.current = prevDispatcher;
                   }
                 }
               }
-              !0 === shouldWarnForUnbatchedSetState && warnIfNotCurrentlyBatchingInDev(fiber),
-                scheduleWork(fiber, _expirationTime);
+              !0 === shouldWarnForUnbatchedSetState && warnIfNotCurrentlyBatchingInDev(fiber), scheduleWork(fiber, _expirationTime);
             }
           }
           'undefined' != typeof jest && (shouldWarnForUnbatchedSetState = !0);
@@ -8268,37 +6736,19 @@ module.exports = {
               return readContext(context, observedBits);
             },
             useCallback: function (callback, deps) {
-              return (
-                (currentHookNameInDev = 'useCallback'),
-                mountHookTypesDev(),
-                mountCallback(callback, deps)
-              );
+              return (currentHookNameInDev = 'useCallback'), mountHookTypesDev(), mountCallback(callback, deps);
             },
             useContext: function (context, observedBits) {
-              return (
-                (currentHookNameInDev = 'useContext'),
-                mountHookTypesDev(),
-                readContext(context, observedBits)
-              );
+              return (currentHookNameInDev = 'useContext'), mountHookTypesDev(), readContext(context, observedBits);
             },
             useEffect: function (create, deps) {
-              return (
-                (currentHookNameInDev = 'useEffect'), mountHookTypesDev(), mountEffect(create, deps)
-              );
+              return (currentHookNameInDev = 'useEffect'), mountHookTypesDev(), mountEffect(create, deps);
             },
             useImperativeHandle: function (ref, create, deps) {
-              return (
-                (currentHookNameInDev = 'useImperativeHandle'),
-                mountHookTypesDev(),
-                mountImperativeHandle(ref, create, deps)
-              );
+              return (currentHookNameInDev = 'useImperativeHandle'), mountHookTypesDev(), mountImperativeHandle(ref, create, deps);
             },
             useLayoutEffect: function (create, deps) {
-              return (
-                (currentHookNameInDev = 'useLayoutEffect'),
-                mountHookTypesDev(),
-                mountLayoutEffect(create, deps)
-              );
+              return (currentHookNameInDev = 'useLayoutEffect'), mountHookTypesDev(), mountLayoutEffect(create, deps);
             },
             useMemo: function (create, deps) {
               (currentHookNameInDev = 'useMemo'), mountHookTypesDev();
@@ -8342,39 +6792,19 @@ module.exports = {
                 return readContext(context, observedBits);
               },
               useCallback: function (callback, deps) {
-                return (
-                  (currentHookNameInDev = 'useCallback'),
-                  updateHookTypesDev(),
-                  mountCallback(callback, deps)
-                );
+                return (currentHookNameInDev = 'useCallback'), updateHookTypesDev(), mountCallback(callback, deps);
               },
               useContext: function (context, observedBits) {
-                return (
-                  (currentHookNameInDev = 'useContext'),
-                  updateHookTypesDev(),
-                  readContext(context, observedBits)
-                );
+                return (currentHookNameInDev = 'useContext'), updateHookTypesDev(), readContext(context, observedBits);
               },
               useEffect: function (create, deps) {
-                return (
-                  (currentHookNameInDev = 'useEffect'),
-                  updateHookTypesDev(),
-                  mountEffect(create, deps)
-                );
+                return (currentHookNameInDev = 'useEffect'), updateHookTypesDev(), mountEffect(create, deps);
               },
               useImperativeHandle: function (ref, create, deps) {
-                return (
-                  (currentHookNameInDev = 'useImperativeHandle'),
-                  updateHookTypesDev(),
-                  mountImperativeHandle(ref, create, deps)
-                );
+                return (currentHookNameInDev = 'useImperativeHandle'), updateHookTypesDev(), mountImperativeHandle(ref, create, deps);
               },
               useLayoutEffect: function (create, deps) {
-                return (
-                  (currentHookNameInDev = 'useLayoutEffect'),
-                  updateHookTypesDev(),
-                  mountLayoutEffect(create, deps)
-                );
+                return (currentHookNameInDev = 'useLayoutEffect'), updateHookTypesDev(), mountLayoutEffect(create, deps);
               },
               useMemo: function (create, deps) {
                 (currentHookNameInDev = 'useMemo'), updateHookTypesDev();
@@ -8397,9 +6827,7 @@ module.exports = {
                 }
               },
               useRef: function (initialValue) {
-                return (
-                  (currentHookNameInDev = 'useRef'), updateHookTypesDev(), mountRef(initialValue)
-                );
+                return (currentHookNameInDev = 'useRef'), updateHookTypesDev(), mountRef(initialValue);
               },
               useState: function (initialState) {
                 (currentHookNameInDev = 'useState'), updateHookTypesDev();
@@ -8420,39 +6848,19 @@ module.exports = {
                 return readContext(context, observedBits);
               },
               useCallback: function (callback, deps) {
-                return (
-                  (currentHookNameInDev = 'useCallback'),
-                  updateHookTypesDev(),
-                  updateCallback(callback, deps)
-                );
+                return (currentHookNameInDev = 'useCallback'), updateHookTypesDev(), updateCallback(callback, deps);
               },
               useContext: function (context, observedBits) {
-                return (
-                  (currentHookNameInDev = 'useContext'),
-                  updateHookTypesDev(),
-                  readContext(context, observedBits)
-                );
+                return (currentHookNameInDev = 'useContext'), updateHookTypesDev(), readContext(context, observedBits);
               },
               useEffect: function (create, deps) {
-                return (
-                  (currentHookNameInDev = 'useEffect'),
-                  updateHookTypesDev(),
-                  updateEffect(create, deps)
-                );
+                return (currentHookNameInDev = 'useEffect'), updateHookTypesDev(), updateEffect(create, deps);
               },
               useImperativeHandle: function (ref, create, deps) {
-                return (
-                  (currentHookNameInDev = 'useImperativeHandle'),
-                  updateHookTypesDev(),
-                  updateImperativeHandle(ref, create, deps)
-                );
+                return (currentHookNameInDev = 'useImperativeHandle'), updateHookTypesDev(), updateImperativeHandle(ref, create, deps);
               },
               useLayoutEffect: function (create, deps) {
-                return (
-                  (currentHookNameInDev = 'useLayoutEffect'),
-                  updateHookTypesDev(),
-                  updateLayoutEffect(create, deps)
-                );
+                return (currentHookNameInDev = 'useLayoutEffect'), updateHookTypesDev(), updateLayoutEffect(create, deps);
               },
               useMemo: function (create, deps) {
                 (currentHookNameInDev = 'useMemo'), updateHookTypesDev();
@@ -8475,9 +6883,7 @@ module.exports = {
                 }
               },
               useRef: function (initialValue) {
-                return (
-                  (currentHookNameInDev = 'useRef'), updateHookTypesDev(), updateRef(initialValue)
-                );
+                return (currentHookNameInDev = 'useRef'), updateHookTypesDev(), updateRef(initialValue);
               },
               useState: function (initialState) {
                 (currentHookNameInDev = 'useState'), updateHookTypesDev();
@@ -8490,11 +6896,7 @@ module.exports = {
                 }
               },
               useDebugValue: function (value, formatterFn) {
-                return (
-                  (currentHookNameInDev = 'useDebugValue'),
-                  updateHookTypesDev(),
-                  updateDebugValue(value, formatterFn)
-                );
+                return (currentHookNameInDev = 'useDebugValue'), updateHookTypesDev(), updateDebugValue(value, formatterFn);
               }
             }),
             (InvalidNestedHooksDispatcherOnMountInDEV = {
@@ -8502,44 +6904,19 @@ module.exports = {
                 return warnInvalidContextAccess(), readContext(context, observedBits);
               },
               useCallback: function (callback, deps) {
-                return (
-                  (currentHookNameInDev = 'useCallback'),
-                  warnInvalidHookAccess(),
-                  mountHookTypesDev(),
-                  mountCallback(callback, deps)
-                );
+                return (currentHookNameInDev = 'useCallback'), warnInvalidHookAccess(), mountHookTypesDev(), mountCallback(callback, deps);
               },
               useContext: function (context, observedBits) {
-                return (
-                  (currentHookNameInDev = 'useContext'),
-                  warnInvalidHookAccess(),
-                  mountHookTypesDev(),
-                  readContext(context, observedBits)
-                );
+                return (currentHookNameInDev = 'useContext'), warnInvalidHookAccess(), mountHookTypesDev(), readContext(context, observedBits);
               },
               useEffect: function (create, deps) {
-                return (
-                  (currentHookNameInDev = 'useEffect'),
-                  warnInvalidHookAccess(),
-                  mountHookTypesDev(),
-                  mountEffect(create, deps)
-                );
+                return (currentHookNameInDev = 'useEffect'), warnInvalidHookAccess(), mountHookTypesDev(), mountEffect(create, deps);
               },
               useImperativeHandle: function (ref, create, deps) {
-                return (
-                  (currentHookNameInDev = 'useImperativeHandle'),
-                  warnInvalidHookAccess(),
-                  mountHookTypesDev(),
-                  mountImperativeHandle(ref, create, deps)
-                );
+                return (currentHookNameInDev = 'useImperativeHandle'), warnInvalidHookAccess(), mountHookTypesDev(), mountImperativeHandle(ref, create, deps);
               },
               useLayoutEffect: function (create, deps) {
-                return (
-                  (currentHookNameInDev = 'useLayoutEffect'),
-                  warnInvalidHookAccess(),
-                  mountHookTypesDev(),
-                  mountLayoutEffect(create, deps)
-                );
+                return (currentHookNameInDev = 'useLayoutEffect'), warnInvalidHookAccess(), mountHookTypesDev(), mountLayoutEffect(create, deps);
               },
               useMemo: function (create, deps) {
                 (currentHookNameInDev = 'useMemo'), warnInvalidHookAccess(), mountHookTypesDev();
@@ -8562,12 +6939,7 @@ module.exports = {
                 }
               },
               useRef: function (initialValue) {
-                return (
-                  (currentHookNameInDev = 'useRef'),
-                  warnInvalidHookAccess(),
-                  mountHookTypesDev(),
-                  mountRef(initialValue)
-                );
+                return (currentHookNameInDev = 'useRef'), warnInvalidHookAccess(), mountHookTypesDev(), mountRef(initialValue);
               },
               useState: function (initialState) {
                 (currentHookNameInDev = 'useState'), warnInvalidHookAccess(), mountHookTypesDev();
@@ -8580,9 +6952,7 @@ module.exports = {
                 }
               },
               useDebugValue: function (value, formatterFn) {
-                (currentHookNameInDev = 'useDebugValue'),
-                  warnInvalidHookAccess(),
-                  mountHookTypesDev();
+                (currentHookNameInDev = 'useDebugValue'), warnInvalidHookAccess(), mountHookTypesDev();
               }
             }),
             (InvalidNestedHooksDispatcherOnUpdateInDEV = {
@@ -8590,44 +6960,19 @@ module.exports = {
                 return warnInvalidContextAccess(), readContext(context, observedBits);
               },
               useCallback: function (callback, deps) {
-                return (
-                  (currentHookNameInDev = 'useCallback'),
-                  warnInvalidHookAccess(),
-                  updateHookTypesDev(),
-                  updateCallback(callback, deps)
-                );
+                return (currentHookNameInDev = 'useCallback'), warnInvalidHookAccess(), updateHookTypesDev(), updateCallback(callback, deps);
               },
               useContext: function (context, observedBits) {
-                return (
-                  (currentHookNameInDev = 'useContext'),
-                  warnInvalidHookAccess(),
-                  updateHookTypesDev(),
-                  readContext(context, observedBits)
-                );
+                return (currentHookNameInDev = 'useContext'), warnInvalidHookAccess(), updateHookTypesDev(), readContext(context, observedBits);
               },
               useEffect: function (create, deps) {
-                return (
-                  (currentHookNameInDev = 'useEffect'),
-                  warnInvalidHookAccess(),
-                  updateHookTypesDev(),
-                  updateEffect(create, deps)
-                );
+                return (currentHookNameInDev = 'useEffect'), warnInvalidHookAccess(), updateHookTypesDev(), updateEffect(create, deps);
               },
               useImperativeHandle: function (ref, create, deps) {
-                return (
-                  (currentHookNameInDev = 'useImperativeHandle'),
-                  warnInvalidHookAccess(),
-                  updateHookTypesDev(),
-                  updateImperativeHandle(ref, create, deps)
-                );
+                return (currentHookNameInDev = 'useImperativeHandle'), warnInvalidHookAccess(), updateHookTypesDev(), updateImperativeHandle(ref, create, deps);
               },
               useLayoutEffect: function (create, deps) {
-                return (
-                  (currentHookNameInDev = 'useLayoutEffect'),
-                  warnInvalidHookAccess(),
-                  updateHookTypesDev(),
-                  updateLayoutEffect(create, deps)
-                );
+                return (currentHookNameInDev = 'useLayoutEffect'), warnInvalidHookAccess(), updateHookTypesDev(), updateLayoutEffect(create, deps);
               },
               useMemo: function (create, deps) {
                 (currentHookNameInDev = 'useMemo'), warnInvalidHookAccess(), updateHookTypesDev();
@@ -8640,9 +6985,7 @@ module.exports = {
                 }
               },
               useReducer: function (reducer, initialArg, init) {
-                (currentHookNameInDev = 'useReducer'),
-                  warnInvalidHookAccess(),
-                  updateHookTypesDev();
+                (currentHookNameInDev = 'useReducer'), warnInvalidHookAccess(), updateHookTypesDev();
                 var prevDispatcher = ReactCurrentDispatcher$1.current;
                 ReactCurrentDispatcher$1.current = InvalidNestedHooksDispatcherOnUpdateInDEV;
                 try {
@@ -8652,12 +6995,7 @@ module.exports = {
                 }
               },
               useRef: function (initialValue) {
-                return (
-                  (currentHookNameInDev = 'useRef'),
-                  warnInvalidHookAccess(),
-                  updateHookTypesDev(),
-                  updateRef(initialValue)
-                );
+                return (currentHookNameInDev = 'useRef'), warnInvalidHookAccess(), updateHookTypesDev(), updateRef(initialValue);
               },
               useState: function (initialState) {
                 (currentHookNameInDev = 'useState'), warnInvalidHookAccess(), updateHookTypesDev();
@@ -8670,12 +7008,7 @@ module.exports = {
                 }
               },
               useDebugValue: function (value, formatterFn) {
-                return (
-                  (currentHookNameInDev = 'useDebugValue'),
-                  warnInvalidHookAccess(),
-                  updateHookTypesDev(),
-                  updateDebugValue(value, formatterFn)
-                );
+                return (currentHookNameInDev = 'useDebugValue'), warnInvalidHookAccess(), updateHookTypesDev(), updateDebugValue(value, formatterFn);
               }
             });
           var commitTime = 0,
@@ -8687,8 +7020,7 @@ module.exports = {
             commitTime = now();
           }
           function startProfilerTimer(fiber) {
-            (profilerStartTime = now()),
-              fiber.actualStartTime < 0 && (fiber.actualStartTime = now());
+            (profilerStartTime = now()), fiber.actualStartTime < 0 && (fiber.actualStartTime = now());
           }
           function stopProfilerTimerIfRunning(fiber) {
             profilerStartTime = -1;
@@ -8696,9 +7028,7 @@ module.exports = {
           function stopProfilerTimerIfRunningAndRecordDelta(fiber, overrideBaseTime) {
             if (profilerStartTime >= 0) {
               var elapsedTime = now() - profilerStartTime;
-              (fiber.actualDuration += elapsedTime),
-                overrideBaseTime && (fiber.selfBaseDuration = elapsedTime),
-                (profilerStartTime = -1);
+              (fiber.actualDuration += elapsedTime), overrideBaseTime && (fiber.selfBaseDuration = elapsedTime), (profilerStartTime = -1);
             }
           }
           var hydrationParentFiber = null,
@@ -8707,22 +7037,12 @@ module.exports = {
           function enterHydrationState(fiber) {
             if (!supportsHydration) return !1;
             var parentInstance = fiber.stateNode.containerInfo;
-            return (
-              (nextHydratableInstance = getFirstHydratableChild(parentInstance)),
-              (hydrationParentFiber = fiber),
-              (isHydrating = !0),
-              !0
-            );
+            return (nextHydratableInstance = getFirstHydratableChild(parentInstance)), (hydrationParentFiber = fiber), (isHydrating = !0), !0;
           }
           function reenterHydrationStateFromDehydratedSuspenseInstance(fiber) {
             if (!supportsHydration) return !1;
             var suspenseInstance = fiber.stateNode;
-            return (
-              (nextHydratableInstance = getNextHydratableSibling(suspenseInstance)),
-              popToNextHostParent(fiber),
-              (isHydrating = !0),
-              !0
-            );
+            return (nextHydratableInstance = getNextHydratableSibling(suspenseInstance)), popToNextHostParent(fiber), (isHydrating = !0), !0;
           }
           function deleteHydratableInstance(returnFiber, instance) {
             switch (returnFiber.tag) {
@@ -8730,20 +7050,14 @@ module.exports = {
                 didNotHydrateContainerInstance(returnFiber.stateNode.containerInfo, instance);
                 break;
               case 5:
-                didNotHydrateInstance(
-                  returnFiber.type,
-                  returnFiber.memoizedProps,
-                  returnFiber.stateNode,
-                  instance
-                );
+                didNotHydrateInstance(returnFiber.type, returnFiber.memoizedProps, returnFiber.stateNode, instance);
             }
             var childToDelete = createFiberFromHostInstanceForDeletion();
             (childToDelete.stateNode = instance),
               (childToDelete.return = returnFiber),
               (childToDelete.effectTag = 8),
               null !== returnFiber.lastEffect
-                ? ((returnFiber.lastEffect.nextEffect = childToDelete),
-                  (returnFiber.lastEffect = childToDelete))
+                ? ((returnFiber.lastEffect.nextEffect = childToDelete), (returnFiber.lastEffect = childToDelete))
                 : (returnFiber.firstEffect = returnFiber.lastEffect = childToDelete);
           }
           function insertNonHydratedInstance(returnFiber, fiber) {
@@ -8772,22 +7086,11 @@ module.exports = {
                   case 5:
                     var _type = fiber.type,
                       _props = fiber.pendingProps;
-                    didNotFindHydratableInstance(
-                      parentType,
-                      parentProps,
-                      parentInstance,
-                      _type,
-                      _props
-                    );
+                    didNotFindHydratableInstance(parentType, parentProps, parentInstance, _type, _props);
                     break;
                   case 6:
                     var _text = fiber.pendingProps;
-                    didNotFindHydratableTextInstance(
-                      parentType,
-                      parentProps,
-                      parentInstance,
-                      _text
-                    );
+                    didNotFindHydratableTextInstance(parentType, parentProps, parentInstance, _text);
                     break;
                   case 13:
                     didNotFindHydratableSuspenseInstance(parentType, parentProps, parentInstance);
@@ -8818,52 +7121,26 @@ module.exports = {
           function tryToClaimNextHydratableInstance(fiber) {
             if (isHydrating) {
               var nextInstance = nextHydratableInstance;
-              if (!nextInstance)
-                return (
-                  insertNonHydratedInstance(hydrationParentFiber, fiber),
-                  (isHydrating = !1),
-                  void (hydrationParentFiber = fiber)
-                );
+              if (!nextInstance) return insertNonHydratedInstance(hydrationParentFiber, fiber), (isHydrating = !1), void (hydrationParentFiber = fiber);
               var firstAttemptedInstance = nextInstance;
               if (!tryHydrate(fiber, nextInstance)) {
-                if (
-                  !(nextInstance = getNextHydratableSibling(firstAttemptedInstance)) ||
-                  !tryHydrate(fiber, nextInstance)
-                )
-                  return (
-                    insertNonHydratedInstance(hydrationParentFiber, fiber),
-                    (isHydrating = !1),
-                    void (hydrationParentFiber = fiber)
-                  );
+                if (!(nextInstance = getNextHydratableSibling(firstAttemptedInstance)) || !tryHydrate(fiber, nextInstance))
+                  return insertNonHydratedInstance(hydrationParentFiber, fiber), (isHydrating = !1), void (hydrationParentFiber = fiber);
                 deleteHydratableInstance(hydrationParentFiber, firstAttemptedInstance);
               }
-              (hydrationParentFiber = fiber),
-                (nextHydratableInstance = getFirstHydratableChild(nextInstance));
+              (hydrationParentFiber = fiber), (nextHydratableInstance = getFirstHydratableChild(nextInstance));
             }
           }
           function prepareToHydrateHostInstance(fiber, rootContainerInstance, hostContext) {
             supportsHydration ||
-              invariant(
-                !1,
-                'Expected prepareToHydrateHostInstance() to never be called. This error is likely caused by a bug in React. Please file an issue.'
-              );
+              invariant(!1, 'Expected prepareToHydrateHostInstance() to never be called. This error is likely caused by a bug in React. Please file an issue.');
             var instance = fiber.stateNode,
-              updatePayload = hydrateInstance(
-                instance,
-                fiber.type,
-                fiber.memoizedProps,
-                rootContainerInstance,
-                hostContext,
-                fiber
-              );
+              updatePayload = hydrateInstance(instance, fiber.type, fiber.memoizedProps, rootContainerInstance, hostContext, fiber);
             return (fiber.updateQueue = updatePayload), null !== updatePayload;
           }
           function prepareToHydrateHostTextInstance(fiber) {
             supportsHydration ||
-              invariant(
-                !1,
-                'Expected prepareToHydrateHostTextInstance() to never be called. This error is likely caused by a bug in React. Please file an issue.'
-              );
+              invariant(!1, 'Expected prepareToHydrateHostTextInstance() to never be called. This error is likely caused by a bug in React. Please file an issue.');
             var textInstance = fiber.stateNode,
               textContent = fiber.memoizedProps,
               shouldUpdate = hydrateTextInstance(textInstance, textContent, fiber);
@@ -8873,50 +7150,26 @@ module.exports = {
                 switch (returnFiber.tag) {
                   case 3:
                     var parentContainer = returnFiber.stateNode.containerInfo;
-                    didNotMatchHydratedContainerTextInstance(
-                      parentContainer,
-                      textInstance,
-                      textContent
-                    );
+                    didNotMatchHydratedContainerTextInstance(parentContainer, textInstance, textContent);
                     break;
                   case 5:
                     var parentType = returnFiber.type,
                       parentProps = returnFiber.memoizedProps,
                       parentInstance = returnFiber.stateNode;
-                    didNotMatchHydratedTextInstance(
-                      parentType,
-                      parentProps,
-                      parentInstance,
-                      textInstance,
-                      textContent
-                    );
+                    didNotMatchHydratedTextInstance(parentType, parentProps, parentInstance, textInstance, textContent);
                 }
             }
             return shouldUpdate;
           }
           function skipPastDehydratedSuspenseInstance(fiber) {
             supportsHydration ||
-              invariant(
-                !1,
-                'Expected skipPastDehydratedSuspenseInstance() to never be called. This error is likely caused by a bug in React. Please file an issue.'
-              );
+              invariant(!1, 'Expected skipPastDehydratedSuspenseInstance() to never be called. This error is likely caused by a bug in React. Please file an issue.');
             var suspenseInstance = fiber.stateNode;
-            suspenseInstance ||
-              invariant(
-                !1,
-                'Expected to have a hydrated suspense instance. This error is likely caused by a bug in React. Please file an issue.'
-              ),
-              (nextHydratableInstance = getNextHydratableInstanceAfterSuspenseInstance(
-                suspenseInstance
-              ));
+            suspenseInstance || invariant(!1, 'Expected to have a hydrated suspense instance. This error is likely caused by a bug in React. Please file an issue.'),
+              (nextHydratableInstance = getNextHydratableInstanceAfterSuspenseInstance(suspenseInstance));
           }
           function popToNextHostParent(fiber) {
-            for (
-              var parent = fiber.return;
-              null !== parent && 5 !== parent.tag && 3 !== parent.tag && 18 !== parent.tag;
-
-            )
-              parent = parent.return;
+            for (var parent = fiber.return; null !== parent && 5 !== parent.tag && 3 !== parent.tag && 18 !== parent.tag; ) parent = parent.return;
             hydrationParentFiber = parent;
           }
           function popHydrationState(fiber) {
@@ -8924,26 +7177,13 @@ module.exports = {
             if (fiber !== hydrationParentFiber) return !1;
             if (!isHydrating) return popToNextHostParent(fiber), (isHydrating = !0), !1;
             var type = fiber.type;
-            if (
-              5 !== fiber.tag ||
-              ('head' !== type &&
-                'body' !== type &&
-                !shouldSetTextContent(type, fiber.memoizedProps))
-            )
+            if (5 !== fiber.tag || ('head' !== type && 'body' !== type && !shouldSetTextContent(type, fiber.memoizedProps)))
               for (var nextInstance = nextHydratableInstance; nextInstance; )
-                deleteHydratableInstance(fiber, nextInstance),
-                  (nextInstance = getNextHydratableSibling(nextInstance));
-            return (
-              popToNextHostParent(fiber),
-              (nextHydratableInstance = hydrationParentFiber
-                ? getNextHydratableSibling(fiber.stateNode)
-                : null),
-              !0
-            );
+                deleteHydratableInstance(fiber, nextInstance), (nextInstance = getNextHydratableSibling(nextInstance));
+            return popToNextHostParent(fiber), (nextHydratableInstance = hydrationParentFiber ? getNextHydratableSibling(fiber.stateNode) : null), !0;
           }
           function resetHydrationState() {
-            supportsHydration &&
-              ((hydrationParentFiber = null), (nextHydratableInstance = null), (isHydrating = !1));
+            supportsHydration && ((hydrationParentFiber = null), (nextHydratableInstance = null), (isHydrating = !1));
           }
           var ReactCurrentOwner$2 = ReactSharedInternals.ReactCurrentOwner,
             didReceiveUpdate = !1,
@@ -8952,58 +7192,20 @@ module.exports = {
             didWarnAboutGetDerivedStateOnFunctionComponent = void 0,
             didWarnAboutFunctionRefs = void 0,
             didWarnAboutReassigningProps = void 0;
-          function reconcileChildren(
-            current$$1,
-            workInProgress,
-            nextChildren,
-            renderExpirationTime
-          ) {
+          function reconcileChildren(current$$1, workInProgress, nextChildren, renderExpirationTime) {
             workInProgress.child =
               null === current$$1
                 ? mountChildFibers(workInProgress, null, nextChildren, renderExpirationTime)
-                : reconcileChildFibers(
-                    workInProgress,
-                    current$$1.child,
-                    nextChildren,
-                    renderExpirationTime
-                  );
+                : reconcileChildFibers(workInProgress, current$$1.child, nextChildren, renderExpirationTime);
           }
-          function forceUnmountCurrentAndReconcile(
-            current$$1,
-            workInProgress,
-            nextChildren,
-            renderExpirationTime
-          ) {
-            (workInProgress.child = reconcileChildFibers(
-              workInProgress,
-              current$$1.child,
-              null,
-              renderExpirationTime
-            )),
-              (workInProgress.child = reconcileChildFibers(
-                workInProgress,
-                null,
-                nextChildren,
-                renderExpirationTime
-              ));
+          function forceUnmountCurrentAndReconcile(current$$1, workInProgress, nextChildren, renderExpirationTime) {
+            (workInProgress.child = reconcileChildFibers(workInProgress, current$$1.child, null, renderExpirationTime)),
+              (workInProgress.child = reconcileChildFibers(workInProgress, null, nextChildren, renderExpirationTime));
           }
-          function updateForwardRef(
-            current$$1,
-            workInProgress,
-            Component,
-            nextProps,
-            renderExpirationTime
-          ) {
+          function updateForwardRef(current$$1, workInProgress, Component, nextProps, renderExpirationTime) {
             if (workInProgress.type !== workInProgress.elementType) {
               var innerPropTypes = Component.propTypes;
-              innerPropTypes &&
-                checkPropTypes(
-                  innerPropTypes,
-                  nextProps,
-                  'prop',
-                  getComponentName(Component),
-                  getCurrentFiberStackInDev
-                );
+              innerPropTypes && checkPropTypes(innerPropTypes, nextProps, 'prop', getComponentName(Component), getCurrentFiberStackInDev);
             }
             var render = Component.render,
               ref = workInProgress.ref,
@@ -9012,139 +7214,51 @@ module.exports = {
               prepareToReadContext(workInProgress, renderExpirationTime),
               (ReactCurrentOwner$2.current = workInProgress),
               setCurrentPhase('render'),
-              (nextChildren = renderWithHooks(
-                current$$1,
-                workInProgress,
-                render,
-                nextProps,
-                ref,
-                renderExpirationTime
-              )),
+              (nextChildren = renderWithHooks(current$$1, workInProgress, render, nextProps, ref, renderExpirationTime)),
               2 & workInProgress.mode &&
                 null !== workInProgress.memoizedState &&
-                (nextChildren = renderWithHooks(
-                  current$$1,
-                  workInProgress,
-                  render,
-                  nextProps,
-                  ref,
-                  renderExpirationTime
-                )),
+                (nextChildren = renderWithHooks(current$$1, workInProgress, render, nextProps, ref, renderExpirationTime)),
               setCurrentPhase(null),
               null === current$$1 || didReceiveUpdate
-                ? ((workInProgress.effectTag |= 1),
-                  reconcileChildren(current$$1, workInProgress, nextChildren, renderExpirationTime),
-                  workInProgress.child)
-                : (bailoutHooks(current$$1, workInProgress, renderExpirationTime),
-                  bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime))
+                ? ((workInProgress.effectTag |= 1), reconcileChildren(current$$1, workInProgress, nextChildren, renderExpirationTime), workInProgress.child)
+                : (bailoutHooks(current$$1, workInProgress, renderExpirationTime), bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime))
             );
           }
-          function updateMemoComponent(
-            current$$1,
-            workInProgress,
-            Component,
-            nextProps,
-            updateExpirationTime,
-            renderExpirationTime
-          ) {
+          function updateMemoComponent(current$$1, workInProgress, Component, nextProps, updateExpirationTime, renderExpirationTime) {
             if (null === current$$1) {
               var type = Component.type;
-              if (
-                isSimpleFunctionComponent(type) &&
-                null === Component.compare &&
-                void 0 === Component.defaultProps
-              )
+              if (isSimpleFunctionComponent(type) && null === Component.compare && void 0 === Component.defaultProps)
                 return (
                   (workInProgress.tag = 15),
                   (workInProgress.type = type),
                   validateFunctionComponentInDev(workInProgress, type),
-                  updateSimpleMemoComponent(
-                    current$$1,
-                    workInProgress,
-                    type,
-                    nextProps,
-                    updateExpirationTime,
-                    renderExpirationTime
-                  )
+                  updateSimpleMemoComponent(current$$1, workInProgress, type, nextProps, updateExpirationTime, renderExpirationTime)
                 );
               var innerPropTypes = type.propTypes;
-              innerPropTypes &&
-                checkPropTypes(
-                  innerPropTypes,
-                  nextProps,
-                  'prop',
-                  getComponentName(type),
-                  getCurrentFiberStackInDev
-                );
-              var child = createFiberFromTypeAndProps(
-                Component.type,
-                null,
-                nextProps,
-                null,
-                workInProgress.mode,
-                renderExpirationTime
-              );
-              return (
-                (child.ref = workInProgress.ref),
-                (child.return = workInProgress),
-                (workInProgress.child = child),
-                child
-              );
+              innerPropTypes && checkPropTypes(innerPropTypes, nextProps, 'prop', getComponentName(type), getCurrentFiberStackInDev);
+              var child = createFiberFromTypeAndProps(Component.type, null, nextProps, null, workInProgress.mode, renderExpirationTime);
+              return (child.ref = workInProgress.ref), (child.return = workInProgress), (workInProgress.child = child), child;
             }
             var _type = Component.type,
               _innerPropTypes = _type.propTypes;
-            _innerPropTypes &&
-              checkPropTypes(
-                _innerPropTypes,
-                nextProps,
-                'prop',
-                getComponentName(_type),
-                getCurrentFiberStackInDev
-              );
+            _innerPropTypes && checkPropTypes(_innerPropTypes, nextProps, 'prop', getComponentName(_type), getCurrentFiberStackInDev);
             var currentChild = current$$1.child;
             if (updateExpirationTime < renderExpirationTime) {
               var prevProps = currentChild.memoizedProps,
                 compare = Component.compare;
-              if (
-                (compare = null !== compare ? compare : shallowEqual)(prevProps, nextProps) &&
-                current$$1.ref === workInProgress.ref
-              )
-                return bailoutOnAlreadyFinishedWork(
-                  current$$1,
-                  workInProgress,
-                  renderExpirationTime
-                );
+              if ((compare = null !== compare ? compare : shallowEqual)(prevProps, nextProps) && current$$1.ref === workInProgress.ref)
+                return bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime);
             }
             workInProgress.effectTag |= 1;
             var newChild = createWorkInProgress(currentChild, nextProps, renderExpirationTime);
-            return (
-              (newChild.ref = workInProgress.ref),
-              (newChild.return = workInProgress),
-              (workInProgress.child = newChild),
-              newChild
-            );
+            return (newChild.ref = workInProgress.ref), (newChild.return = workInProgress), (workInProgress.child = newChild), newChild;
           }
-          function updateSimpleMemoComponent(
-            current$$1,
-            workInProgress,
-            Component,
-            nextProps,
-            updateExpirationTime,
-            renderExpirationTime
-          ) {
+          function updateSimpleMemoComponent(current$$1, workInProgress, Component, nextProps, updateExpirationTime, renderExpirationTime) {
             if (workInProgress.type !== workInProgress.elementType) {
               var outerMemoType = workInProgress.elementType;
-              outerMemoType.$$typeof === REACT_LAZY_TYPE &&
-                (outerMemoType = refineResolvedLazyComponent(outerMemoType));
+              outerMemoType.$$typeof === REACT_LAZY_TYPE && (outerMemoType = refineResolvedLazyComponent(outerMemoType));
               var outerPropTypes = outerMemoType && outerMemoType.propTypes;
-              outerPropTypes &&
-                checkPropTypes(
-                  outerPropTypes,
-                  nextProps,
-                  'prop',
-                  getComponentName(outerMemoType),
-                  getCurrentFiberStackInDev
-                );
+              outerPropTypes && checkPropTypes(outerPropTypes, nextProps, 'prop', getComponentName(outerMemoType), getCurrentFiberStackInDev);
             }
             var prevProps;
             if (
@@ -9154,168 +7268,70 @@ module.exports = {
               ((didReceiveUpdate = !1), updateExpirationTime < renderExpirationTime)
             )
               return bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime);
-            return updateFunctionComponent(
-              current$$1,
-              workInProgress,
-              Component,
-              nextProps,
-              renderExpirationTime
-            );
+            return updateFunctionComponent(current$$1, workInProgress, Component, nextProps, renderExpirationTime);
           }
           function updateFragment(current$$1, workInProgress, renderExpirationTime) {
             var nextChildren;
-            return (
-              reconcileChildren(
-                current$$1,
-                workInProgress,
-                workInProgress.pendingProps,
-                renderExpirationTime
-              ),
-              workInProgress.child
-            );
+            return reconcileChildren(current$$1, workInProgress, workInProgress.pendingProps, renderExpirationTime), workInProgress.child;
           }
           function updateMode(current$$1, workInProgress, renderExpirationTime) {
             var nextChildren;
-            return (
-              reconcileChildren(
-                current$$1,
-                workInProgress,
-                workInProgress.pendingProps.children,
-                renderExpirationTime
-              ),
-              workInProgress.child
-            );
+            return reconcileChildren(current$$1, workInProgress, workInProgress.pendingProps.children, renderExpirationTime), workInProgress.child;
           }
           function updateProfiler(current$$1, workInProgress, renderExpirationTime) {
             var nextProps, nextChildren;
             return (
               (workInProgress.effectTag |= 4),
-              reconcileChildren(
-                current$$1,
-                workInProgress,
-                workInProgress.pendingProps.children,
-                renderExpirationTime
-              ),
+              reconcileChildren(current$$1, workInProgress, workInProgress.pendingProps.children, renderExpirationTime),
               workInProgress.child
             );
           }
           function markRef(current$$1, workInProgress) {
             var ref = workInProgress.ref;
-            ((null === current$$1 && null !== ref) ||
-              (null !== current$$1 && current$$1.ref !== ref)) &&
-              (workInProgress.effectTag |= 128);
+            ((null === current$$1 && null !== ref) || (null !== current$$1 && current$$1.ref !== ref)) && (workInProgress.effectTag |= 128);
           }
-          function updateFunctionComponent(
-            current$$1,
-            workInProgress,
-            Component,
-            nextProps,
-            renderExpirationTime
-          ) {
+          function updateFunctionComponent(current$$1, workInProgress, Component, nextProps, renderExpirationTime) {
             if (workInProgress.type !== workInProgress.elementType) {
               var innerPropTypes = Component.propTypes;
-              innerPropTypes &&
-                checkPropTypes(
-                  innerPropTypes,
-                  nextProps,
-                  'prop',
-                  getComponentName(Component),
-                  getCurrentFiberStackInDev
-                );
+              innerPropTypes && checkPropTypes(innerPropTypes, nextProps, 'prop', getComponentName(Component), getCurrentFiberStackInDev);
             }
             var unmaskedContext,
-              context = getMaskedContext(
-                workInProgress,
-                getUnmaskedContext(workInProgress, Component, !0)
-              ),
+              context = getMaskedContext(workInProgress, getUnmaskedContext(workInProgress, Component, !0)),
               nextChildren = void 0;
             return (
               prepareToReadContext(workInProgress, renderExpirationTime),
               (ReactCurrentOwner$2.current = workInProgress),
               setCurrentPhase('render'),
-              (nextChildren = renderWithHooks(
-                current$$1,
-                workInProgress,
-                Component,
-                nextProps,
-                context,
-                renderExpirationTime
-              )),
+              (nextChildren = renderWithHooks(current$$1, workInProgress, Component, nextProps, context, renderExpirationTime)),
               2 & workInProgress.mode &&
                 null !== workInProgress.memoizedState &&
-                (nextChildren = renderWithHooks(
-                  current$$1,
-                  workInProgress,
-                  Component,
-                  nextProps,
-                  context,
-                  renderExpirationTime
-                )),
+                (nextChildren = renderWithHooks(current$$1, workInProgress, Component, nextProps, context, renderExpirationTime)),
               setCurrentPhase(null),
               null === current$$1 || didReceiveUpdate
-                ? ((workInProgress.effectTag |= 1),
-                  reconcileChildren(current$$1, workInProgress, nextChildren, renderExpirationTime),
-                  workInProgress.child)
-                : (bailoutHooks(current$$1, workInProgress, renderExpirationTime),
-                  bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime))
+                ? ((workInProgress.effectTag |= 1), reconcileChildren(current$$1, workInProgress, nextChildren, renderExpirationTime), workInProgress.child)
+                : (bailoutHooks(current$$1, workInProgress, renderExpirationTime), bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime))
             );
           }
-          function updateClassComponent(
-            current$$1,
-            workInProgress,
-            Component,
-            nextProps,
-            renderExpirationTime
-          ) {
+          function updateClassComponent(current$$1, workInProgress, Component, nextProps, renderExpirationTime) {
             if (workInProgress.type !== workInProgress.elementType) {
               var innerPropTypes = Component.propTypes;
-              innerPropTypes &&
-                checkPropTypes(
-                  innerPropTypes,
-                  nextProps,
-                  'prop',
-                  getComponentName(Component),
-                  getCurrentFiberStackInDev
-                );
+              innerPropTypes && checkPropTypes(innerPropTypes, nextProps, 'prop', getComponentName(Component), getCurrentFiberStackInDev);
             }
             var hasContext = void 0;
-            isContextProvider(Component)
-              ? ((hasContext = !0), pushContextProvider(workInProgress))
-              : (hasContext = !1),
+            isContextProvider(Component) ? ((hasContext = !0), pushContextProvider(workInProgress)) : (hasContext = !1),
               prepareToReadContext(workInProgress, renderExpirationTime);
             var instance,
               shouldUpdate = void 0;
             null === workInProgress.stateNode
-              ? (null !== current$$1 &&
-                  ((current$$1.alternate = null),
-                  (workInProgress.alternate = null),
-                  (workInProgress.effectTag |= 2)),
+              ? (null !== current$$1 && ((current$$1.alternate = null), (workInProgress.alternate = null), (workInProgress.effectTag |= 2)),
                 constructClassInstance(workInProgress, Component, nextProps, renderExpirationTime),
                 mountClassInstance(workInProgress, Component, nextProps, renderExpirationTime),
                 (shouldUpdate = !0))
               : (shouldUpdate =
                   null === current$$1
-                    ? resumeMountClassInstance(
-                        workInProgress,
-                        Component,
-                        nextProps,
-                        renderExpirationTime
-                      )
-                    : updateClassInstance(
-                        current$$1,
-                        workInProgress,
-                        Component,
-                        nextProps,
-                        renderExpirationTime
-                      ));
-            var nextUnitOfWork = finishClassComponent(
-                current$$1,
-                workInProgress,
-                Component,
-                shouldUpdate,
-                hasContext,
-                renderExpirationTime
-              ),
+                    ? resumeMountClassInstance(workInProgress, Component, nextProps, renderExpirationTime)
+                    : updateClassInstance(current$$1, workInProgress, Component, nextProps, renderExpirationTime));
+            var nextUnitOfWork = finishClassComponent(current$$1, workInProgress, Component, shouldUpdate, hasContext, renderExpirationTime),
               inst;
             return (
               workInProgress.stateNode.props !== nextProps &&
@@ -9329,20 +7345,12 @@ module.exports = {
               nextUnitOfWork
             );
           }
-          function finishClassComponent(
-            current$$1,
-            workInProgress,
-            Component,
-            shouldUpdate,
-            hasContext,
-            renderExpirationTime
-          ) {
+          function finishClassComponent(current$$1, workInProgress, Component, shouldUpdate, hasContext, renderExpirationTime) {
             markRef(current$$1, workInProgress);
             var didCaptureError = 0 != (64 & workInProgress.effectTag);
             if (!shouldUpdate && !didCaptureError)
               return (
-                hasContext && invalidateContextProvider(workInProgress, Component, !1),
-                bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime)
+                hasContext && invalidateContextProvider(workInProgress, Component, !1), bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime)
               );
             var instance = workInProgress.stateNode;
             ReactCurrentOwner$2.current = workInProgress;
@@ -9350,18 +7358,10 @@ module.exports = {
             return (
               didCaptureError && 'function' != typeof Component.getDerivedStateFromError
                 ? ((nextChildren = null), stopProfilerTimerIfRunning(workInProgress))
-                : (setCurrentPhase('render'),
-                  (nextChildren = instance.render()),
-                  2 & workInProgress.mode && instance.render(),
-                  setCurrentPhase(null)),
+                : (setCurrentPhase('render'), (nextChildren = instance.render()), 2 & workInProgress.mode && instance.render(), setCurrentPhase(null)),
               (workInProgress.effectTag |= 1),
               null !== current$$1 && didCaptureError
-                ? forceUnmountCurrentAndReconcile(
-                    current$$1,
-                    workInProgress,
-                    nextChildren,
-                    renderExpirationTime
-                  )
+                ? forceUnmountCurrentAndReconcile(current$$1, workInProgress, nextChildren, renderExpirationTime)
                 : reconcileChildren(current$$1, workInProgress, nextChildren, renderExpirationTime),
               (workInProgress.memoizedState = instance.state),
               hasContext && invalidateContextProvider(workInProgress, Component, !0),
@@ -9371,11 +7371,7 @@ module.exports = {
           function pushHostRootContext(workInProgress) {
             var root = workInProgress.stateNode;
             root.pendingContext
-              ? pushTopLevelContextObject(
-                  workInProgress,
-                  root.pendingContext,
-                  root.pendingContext !== root.context
-                )
+              ? pushTopLevelContextObject(workInProgress, root.pendingContext, root.pendingContext !== root.context)
               : root.context && pushTopLevelContextObject(workInProgress, root.context, !1),
               pushHostContainer(workInProgress, root.containerInfo);
           }
@@ -9393,36 +7389,17 @@ module.exports = {
             processUpdateQueue(workInProgress, updateQueue, nextProps, null, renderExpirationTime);
             var nextState,
               nextChildren = workInProgress.memoizedState.element;
-            if (nextChildren === prevChildren)
-              return (
-                resetHydrationState(),
-                bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime)
-              );
+            if (nextChildren === prevChildren) return resetHydrationState(), bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime);
             var root = workInProgress.stateNode;
             return (
-              (null === current$$1 || null === current$$1.child) &&
-              root.hydrate &&
-              enterHydrationState(workInProgress)
-                ? ((workInProgress.effectTag |= 2),
-                  (workInProgress.child = mountChildFibers(
-                    workInProgress,
-                    null,
-                    nextChildren,
-                    renderExpirationTime
-                  )))
-                : (reconcileChildren(
-                    current$$1,
-                    workInProgress,
-                    nextChildren,
-                    renderExpirationTime
-                  ),
-                  resetHydrationState()),
+              (null === current$$1 || null === current$$1.child) && root.hydrate && enterHydrationState(workInProgress)
+                ? ((workInProgress.effectTag |= 2), (workInProgress.child = mountChildFibers(workInProgress, null, nextChildren, renderExpirationTime)))
+                : (reconcileChildren(current$$1, workInProgress, nextChildren, renderExpirationTime), resetHydrationState()),
               workInProgress.child
             );
           }
           function updateHostComponent(current$$1, workInProgress, renderExpirationTime) {
-            pushHostContext(workInProgress),
-              null === current$$1 && tryToClaimNextHydratableInstance(workInProgress);
+            pushHostContext(workInProgress), null === current$$1 && tryToClaimNextHydratableInstance(workInProgress);
             var type = workInProgress.type,
               nextProps = workInProgress.pendingProps,
               prevProps = null !== current$$1 ? current$$1.memoizedProps : null,
@@ -9431,37 +7408,18 @@ module.exports = {
             return (
               shouldSetTextContent(type, nextProps)
                 ? (nextChildren = null)
-                : null !== prevProps &&
-                  shouldSetTextContent(type, prevProps) &&
-                  (workInProgress.effectTag |= 16),
+                : null !== prevProps && shouldSetTextContent(type, prevProps) && (workInProgress.effectTag |= 16),
               markRef(current$$1, workInProgress),
-              1 !== renderExpirationTime &&
-              1 & workInProgress.mode &&
-              shouldDeprioritizeSubtree(type, nextProps)
+              1 !== renderExpirationTime && 1 & workInProgress.mode && shouldDeprioritizeSubtree(type, nextProps)
                 ? ((workInProgress.expirationTime = workInProgress.childExpirationTime = 1), null)
-                : (reconcileChildren(
-                    current$$1,
-                    workInProgress,
-                    nextChildren,
-                    renderExpirationTime
-                  ),
-                  workInProgress.child)
+                : (reconcileChildren(current$$1, workInProgress, nextChildren, renderExpirationTime), workInProgress.child)
             );
           }
           function updateHostText(current$$1, workInProgress) {
             return null === current$$1 && tryToClaimNextHydratableInstance(workInProgress), null;
           }
-          function mountLazyComponent(
-            _current,
-            workInProgress,
-            elementType,
-            updateExpirationTime,
-            renderExpirationTime
-          ) {
-            null !== _current &&
-              ((_current.alternate = null),
-              (workInProgress.alternate = null),
-              (workInProgress.effectTag |= 2));
+          function mountLazyComponent(_current, workInProgress, elementType, updateExpirationTime, renderExpirationTime) {
+            null !== _current && ((_current.alternate = null), (workInProgress.alternate = null), (workInProgress.effectTag |= 2));
             var props = workInProgress.pendingProps;
             cancelWorkTimer(workInProgress);
             var Component = readLazyComponentType(elementType);
@@ -9473,43 +7431,18 @@ module.exports = {
             switch (resolvedTag) {
               case 0:
                 validateFunctionComponentInDev(workInProgress, Component),
-                  (child = updateFunctionComponent(
-                    null,
-                    workInProgress,
-                    Component,
-                    resolvedProps,
-                    renderExpirationTime
-                  ));
+                  (child = updateFunctionComponent(null, workInProgress, Component, resolvedProps, renderExpirationTime));
                 break;
               case 1:
-                child = updateClassComponent(
-                  null,
-                  workInProgress,
-                  Component,
-                  resolvedProps,
-                  renderExpirationTime
-                );
+                child = updateClassComponent(null, workInProgress, Component, resolvedProps, renderExpirationTime);
                 break;
               case 11:
-                child = updateForwardRef(
-                  null,
-                  workInProgress,
-                  Component,
-                  resolvedProps,
-                  renderExpirationTime
-                );
+                child = updateForwardRef(null, workInProgress, Component, resolvedProps, renderExpirationTime);
                 break;
               case 14:
                 if (workInProgress.type !== workInProgress.elementType) {
                   var outerPropTypes = Component.propTypes;
-                  outerPropTypes &&
-                    checkPropTypes(
-                      outerPropTypes,
-                      resolvedProps,
-                      'prop',
-                      getComponentName(Component),
-                      getCurrentFiberStackInDev
-                    );
+                  outerPropTypes && checkPropTypes(outerPropTypes, resolvedProps, 'prop', getComponentName(Component), getCurrentFiberStackInDev);
                 }
                 child = updateMemoComponent(
                   null,
@@ -9535,52 +7468,22 @@ module.exports = {
             }
             return child;
           }
-          function mountIncompleteClassComponent(
-            _current,
-            workInProgress,
-            Component,
-            nextProps,
-            renderExpirationTime
-          ) {
-            null !== _current &&
-              ((_current.alternate = null),
-              (workInProgress.alternate = null),
-              (workInProgress.effectTag |= 2)),
-              (workInProgress.tag = 1);
+          function mountIncompleteClassComponent(_current, workInProgress, Component, nextProps, renderExpirationTime) {
+            null !== _current && ((_current.alternate = null), (workInProgress.alternate = null), (workInProgress.effectTag |= 2)), (workInProgress.tag = 1);
             var hasContext = void 0;
             return (
-              isContextProvider(Component)
-                ? ((hasContext = !0), pushContextProvider(workInProgress))
-                : (hasContext = !1),
+              isContextProvider(Component) ? ((hasContext = !0), pushContextProvider(workInProgress)) : (hasContext = !1),
               prepareToReadContext(workInProgress, renderExpirationTime),
               constructClassInstance(workInProgress, Component, nextProps, renderExpirationTime),
               mountClassInstance(workInProgress, Component, nextProps, renderExpirationTime),
-              finishClassComponent(
-                null,
-                workInProgress,
-                Component,
-                !0,
-                hasContext,
-                renderExpirationTime
-              )
+              finishClassComponent(null, workInProgress, Component, !0, hasContext, renderExpirationTime)
             );
           }
-          function mountIndeterminateComponent(
-            _current,
-            workInProgress,
-            Component,
-            renderExpirationTime
-          ) {
-            null !== _current &&
-              ((_current.alternate = null),
-              (workInProgress.alternate = null),
-              (workInProgress.effectTag |= 2));
+          function mountIndeterminateComponent(_current, workInProgress, Component, renderExpirationTime) {
+            null !== _current && ((_current.alternate = null), (workInProgress.alternate = null), (workInProgress.effectTag |= 2));
             var props = workInProgress.pendingProps,
               unmaskedContext,
-              context = getMaskedContext(
-                workInProgress,
-                getUnmaskedContext(workInProgress, Component, !1)
-              );
+              context = getMaskedContext(workInProgress, getUnmaskedContext(workInProgress, Component, !1));
             prepareToReadContext(workInProgress, renderExpirationTime);
             var value = void 0;
             if (Component.prototype && 'function' == typeof Component.prototype.render) {
@@ -9595,63 +7498,29 @@ module.exports = {
                 (didWarnAboutBadClass[componentName] = !0));
             }
             if (
-              (2 & workInProgress.mode &&
-                ReactStrictModeWarnings.recordLegacyContextWarning(workInProgress, null),
+              (2 & workInProgress.mode && ReactStrictModeWarnings.recordLegacyContextWarning(workInProgress, null),
               (ReactCurrentOwner$2.current = workInProgress),
-              (value = renderWithHooks(
-                null,
-                workInProgress,
-                Component,
-                props,
-                context,
-                renderExpirationTime
-              )),
+              (value = renderWithHooks(null, workInProgress, Component, props, context, renderExpirationTime)),
               (workInProgress.effectTag |= 1),
-              'object' == typeof value &&
-                null !== value &&
-                'function' == typeof value.render &&
-                void 0 === value.$$typeof)
+              'object' == typeof value && null !== value && 'function' == typeof value.render && void 0 === value.$$typeof)
             ) {
               (workInProgress.tag = 1), resetHooks();
               var hasContext = !1;
-              isContextProvider(Component)
-                ? ((hasContext = !0), pushContextProvider(workInProgress))
-                : (hasContext = !1),
-                (workInProgress.memoizedState =
-                  null !== value.state && void 0 !== value.state ? value.state : null);
+              isContextProvider(Component) ? ((hasContext = !0), pushContextProvider(workInProgress)) : (hasContext = !1),
+                (workInProgress.memoizedState = null !== value.state && void 0 !== value.state ? value.state : null);
               var getDerivedStateFromProps = Component.getDerivedStateFromProps;
               return (
-                'function' == typeof getDerivedStateFromProps &&
-                  applyDerivedStateFromProps(
-                    workInProgress,
-                    Component,
-                    getDerivedStateFromProps,
-                    props
-                  ),
+                'function' == typeof getDerivedStateFromProps && applyDerivedStateFromProps(workInProgress, Component, getDerivedStateFromProps, props),
                 adoptClassInstance(workInProgress, value),
                 mountClassInstance(workInProgress, Component, props, renderExpirationTime),
-                finishClassComponent(
-                  null,
-                  workInProgress,
-                  Component,
-                  !0,
-                  hasContext,
-                  renderExpirationTime
-                )
+                finishClassComponent(null, workInProgress, Component, !0, hasContext, renderExpirationTime)
               );
             }
             return (
               (workInProgress.tag = 0),
               2 & workInProgress.mode &&
                 null !== workInProgress.memoizedState &&
-                (value = renderWithHooks(
-                  null,
-                  workInProgress,
-                  Component,
-                  props,
-                  context,
-                  renderExpirationTime
-                )),
+                (value = renderWithHooks(null, workInProgress, Component, props, context, renderExpirationTime)),
               reconcileChildren(null, workInProgress, value, renderExpirationTime),
               validateFunctionComponentInDev(workInProgress, Component),
               workInProgress.child
@@ -9661,11 +7530,7 @@ module.exports = {
             if (
               (Component &&
                 Component.childContextTypes &&
-                warningWithoutStack(
-                  !1,
-                  '%s(...): childContextTypes cannot be defined on a function component.',
-                  Component.displayName || Component.name || 'Component'
-                ),
+                warningWithoutStack(!1, '%s(...): childContextTypes cannot be defined on a function component.', Component.displayName || Component.name || 'Component'),
               null !== workInProgress.ref)
             ) {
               var info = '',
@@ -9676,30 +7541,18 @@ module.exports = {
               debugSource && (warningKey = debugSource.fileName + ':' + debugSource.lineNumber),
                 didWarnAboutFunctionRefs[warningKey] ||
                   ((didWarnAboutFunctionRefs[warningKey] = !0),
-                  warning(
-                    !1,
-                    'Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?%s',
-                    info
-                  ));
+                  warning(!1, 'Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?%s', info));
             }
             if ('function' == typeof Component.getDerivedStateFromProps) {
               var componentName = getComponentName(Component) || 'Unknown';
               didWarnAboutGetDerivedStateOnFunctionComponent[componentName] ||
-                (warningWithoutStack(
-                  !1,
-                  '%s: Function components do not support getDerivedStateFromProps.',
-                  componentName
-                ),
+                (warningWithoutStack(!1, '%s: Function components do not support getDerivedStateFromProps.', componentName),
                 (didWarnAboutGetDerivedStateOnFunctionComponent[componentName] = !0));
             }
             if ('object' == typeof Component.contextType && null !== Component.contextType) {
               var _componentName = getComponentName(Component) || 'Unknown';
               didWarnAboutContextTypeOnFunctionComponent[_componentName] ||
-                (warningWithoutStack(
-                  !1,
-                  '%s: Function components do not support contextType.',
-                  _componentName
-                ),
+                (warningWithoutStack(!1, '%s: Function components do not support contextType.', _componentName),
                 (didWarnAboutContextTypeOnFunctionComponent[_componentName] = !0));
             }
           }
@@ -9710,9 +7563,7 @@ module.exports = {
               nextDidTimeout = void 0;
             0 == (64 & workInProgress.effectTag)
               ? ((nextState = null), (nextDidTimeout = !1))
-              : ((nextState = { timedOutAt: null !== nextState ? nextState.timedOutAt : 0 }),
-                (nextDidTimeout = !0),
-                (workInProgress.effectTag &= -65));
+              : ((nextState = { timedOutAt: null !== nextState ? nextState.timedOutAt : 0 }), (nextDidTimeout = !0), (workInProgress.effectTag &= -65));
             var child = void 0,
               next = void 0;
             if (null === current$$1)
@@ -9721,29 +7572,16 @@ module.exports = {
                   primaryChildFragment = createFiberFromFragment(null, mode, 0, null);
                 if (0 == (1 & workInProgress.mode)) {
                   var progressedState,
-                    progressedPrimaryChild =
-                      null !== workInProgress.memoizedState
-                        ? workInProgress.child.child
-                        : workInProgress.child;
+                    progressedPrimaryChild = null !== workInProgress.memoizedState ? workInProgress.child.child : workInProgress.child;
                   primaryChildFragment.child = progressedPrimaryChild;
                 }
-                var fallbackChildFragment = createFiberFromFragment(
-                  nextFallbackChildren,
-                  mode,
-                  renderExpirationTime,
-                  null
-                );
+                var fallbackChildFragment = createFiberFromFragment(nextFallbackChildren, mode, renderExpirationTime, null);
                 (primaryChildFragment.sibling = fallbackChildFragment),
                   (next = fallbackChildFragment),
                   ((child = primaryChildFragment).return = next.return = workInProgress);
               } else {
                 var nextPrimaryChildren = nextProps.children;
-                child = next = mountChildFibers(
-                  workInProgress,
-                  null,
-                  nextPrimaryChildren,
-                  renderExpirationTime
-                );
+                child = next = mountChildFibers(workInProgress, null, nextPrimaryChildren, renderExpirationTime);
               }
             else {
               var prevState, prevDidTimeout;
@@ -9752,28 +7590,15 @@ module.exports = {
                   currentFallbackChildFragment = currentPrimaryChildFragment.sibling;
                 if (nextDidTimeout) {
                   var _nextFallbackChildren = nextProps.fallback,
-                    _primaryChildFragment = createWorkInProgress(
-                      currentPrimaryChildFragment,
-                      currentPrimaryChildFragment.pendingProps,
-                      0
-                    );
+                    _primaryChildFragment = createWorkInProgress(currentPrimaryChildFragment, currentPrimaryChildFragment.pendingProps, 0);
                   if (0 == (1 & workInProgress.mode)) {
                     var _progressedState,
-                      _progressedPrimaryChild =
-                        null !== workInProgress.memoizedState
-                          ? workInProgress.child.child
-                          : workInProgress.child;
-                    _progressedPrimaryChild !== currentPrimaryChildFragment.child &&
-                      (_primaryChildFragment.child = _progressedPrimaryChild);
+                      _progressedPrimaryChild = null !== workInProgress.memoizedState ? workInProgress.child.child : workInProgress.child;
+                    _progressedPrimaryChild !== currentPrimaryChildFragment.child && (_primaryChildFragment.child = _progressedPrimaryChild);
                   }
                   if (4 & workInProgress.mode) {
-                    for (
-                      var treeBaseDuration = 0, hiddenChild = _primaryChildFragment.child;
-                      null !== hiddenChild;
-
-                    )
-                      (treeBaseDuration += hiddenChild.treeBaseDuration),
-                        (hiddenChild = hiddenChild.sibling);
+                    for (var treeBaseDuration = 0, hiddenChild = _primaryChildFragment.child; null !== hiddenChild; )
+                      (treeBaseDuration += hiddenChild.treeBaseDuration), (hiddenChild = hiddenChild.sibling);
                     _primaryChildFragment.treeBaseDuration = treeBaseDuration;
                   }
                   var _fallbackChildFragment = (_primaryChildFragment.sibling = createWorkInProgress(
@@ -9789,45 +7614,24 @@ module.exports = {
                   var _nextPrimaryChildren = nextProps.children,
                     currentPrimaryChild = currentPrimaryChildFragment.child,
                     primaryChild;
-                  child = next = reconcileChildFibers(
-                    workInProgress,
-                    currentPrimaryChild,
-                    _nextPrimaryChildren,
-                    renderExpirationTime
-                  );
+                  child = next = reconcileChildFibers(workInProgress, currentPrimaryChild, _nextPrimaryChildren, renderExpirationTime);
                 }
               } else {
                 var _currentPrimaryChild = current$$1.child;
                 if (nextDidTimeout) {
                   var _nextFallbackChildren2 = nextProps.fallback,
                     _primaryChildFragment2 = createFiberFromFragment(null, mode, 0, null);
-                  if (
-                    ((_primaryChildFragment2.child = _currentPrimaryChild),
-                    0 == (1 & workInProgress.mode))
-                  ) {
+                  if (((_primaryChildFragment2.child = _currentPrimaryChild), 0 == (1 & workInProgress.mode))) {
                     var _progressedState2,
-                      _progressedPrimaryChild2 =
-                        null !== workInProgress.memoizedState
-                          ? workInProgress.child.child
-                          : workInProgress.child;
+                      _progressedPrimaryChild2 = null !== workInProgress.memoizedState ? workInProgress.child.child : workInProgress.child;
                     _primaryChildFragment2.child = _progressedPrimaryChild2;
                   }
                   if (4 & workInProgress.mode) {
-                    for (
-                      var _treeBaseDuration = 0, _hiddenChild = _primaryChildFragment2.child;
-                      null !== _hiddenChild;
-
-                    )
-                      (_treeBaseDuration += _hiddenChild.treeBaseDuration),
-                        (_hiddenChild = _hiddenChild.sibling);
+                    for (var _treeBaseDuration = 0, _hiddenChild = _primaryChildFragment2.child; null !== _hiddenChild; )
+                      (_treeBaseDuration += _hiddenChild.treeBaseDuration), (_hiddenChild = _hiddenChild.sibling);
                     _primaryChildFragment2.treeBaseDuration = _treeBaseDuration;
                   }
-                  var _fallbackChildFragment2 = (_primaryChildFragment2.sibling = createFiberFromFragment(
-                    _nextFallbackChildren2,
-                    mode,
-                    renderExpirationTime,
-                    null
-                  ));
+                  var _fallbackChildFragment2 = (_primaryChildFragment2.sibling = createFiberFromFragment(_nextFallbackChildren2, mode, renderExpirationTime, null));
                   (_fallbackChildFragment2.effectTag |= 2),
                     (child = _primaryChildFragment2),
                     (_primaryChildFragment2.childExpirationTime = 0),
@@ -9835,38 +7639,23 @@ module.exports = {
                     (child.return = next.return = workInProgress);
                 } else {
                   var _nextPrimaryChildren2 = nextProps.children;
-                  next = child = reconcileChildFibers(
-                    workInProgress,
-                    _currentPrimaryChild,
-                    _nextPrimaryChildren2,
-                    renderExpirationTime
-                  );
+                  next = child = reconcileChildFibers(workInProgress, _currentPrimaryChild, _nextPrimaryChildren2, renderExpirationTime);
                 }
               }
               workInProgress.stateNode = current$$1.stateNode;
             }
             return (workInProgress.memoizedState = nextState), (workInProgress.child = child), next;
           }
-          function updateDehydratedSuspenseComponent(
-            current$$1,
-            workInProgress,
-            renderExpirationTime
-          ) {
+          function updateDehydratedSuspenseComponent(current$$1, workInProgress, renderExpirationTime) {
             if (null === current$$1) return (workInProgress.expirationTime = 1), null;
             var hasContextChanged$$1 = current$$1.childExpirationTime >= renderExpirationTime;
             if (didReceiveUpdate || hasContextChanged$$1) {
               (current$$1.alternate = null), (workInProgress.alternate = null);
               var returnFiber = workInProgress.return;
-              null === returnFiber &&
-                invariant(
-                  !1,
-                  'Suspense boundaries are never on the root. This is probably a bug in React.'
-                );
+              null === returnFiber && invariant(!1, 'Suspense boundaries are never on the root. This is probably a bug in React.');
               var last = returnFiber.lastEffect;
               return (
-                null !== last
-                  ? ((last.nextEffect = current$$1), (returnFiber.lastEffect = current$$1))
-                  : (returnFiber.firstEffect = returnFiber.lastEffect = current$$1),
+                null !== last ? ((last.nextEffect = current$$1), (returnFiber.lastEffect = current$$1)) : (returnFiber.firstEffect = returnFiber.lastEffect = current$$1),
                 (current$$1.nextEffect = null),
                 (current$$1.effectTag = 8),
                 (workInProgress.tag = 13),
@@ -9880,15 +7669,7 @@ module.exports = {
               reenterHydrationStateFromDehydratedSuspenseInstance(workInProgress);
               var nextProps,
                 nextChildren = workInProgress.pendingProps.children;
-              return (
-                (workInProgress.child = mountChildFibers(
-                  workInProgress,
-                  null,
-                  nextChildren,
-                  renderExpirationTime
-                )),
-                workInProgress.child
-              );
+              return (workInProgress.child = mountChildFibers(workInProgress, null, nextChildren, renderExpirationTime)), workInProgress.child;
             }
             return (workInProgress.child = null), null;
           }
@@ -9897,12 +7678,7 @@ module.exports = {
             var nextChildren = workInProgress.pendingProps;
             return (
               null === current$$1
-                ? (workInProgress.child = reconcileChildFibers(
-                    workInProgress,
-                    null,
-                    nextChildren,
-                    renderExpirationTime
-                  ))
+                ? (workInProgress.child = reconcileChildFibers(workInProgress, null, nextChildren, renderExpirationTime))
                 : reconcileChildren(current$$1, workInProgress, nextChildren, renderExpirationTime),
               workInProgress.child
             );
@@ -9916,14 +7692,7 @@ module.exports = {
               providerPropTypes = workInProgress.type.propTypes,
               newChildren;
             if (
-              (providerPropTypes &&
-                checkPropTypes(
-                  providerPropTypes,
-                  newProps,
-                  'prop',
-                  'Context.Provider',
-                  getCurrentFiberStackInDev
-                ),
+              (providerPropTypes && checkPropTypes(providerPropTypes, newProps, 'prop', 'Context.Provider', getCurrentFiberStackInDev),
               pushProvider(workInProgress, newValue),
               null !== oldProps)
             ) {
@@ -9931,23 +7700,10 @@ module.exports = {
                 changedBits = calculateChangedBits(context, newValue, oldProps.value);
               if (0 === changedBits) {
                 if (oldProps.children === newProps.children && !hasContextChanged())
-                  return bailoutOnAlreadyFinishedWork(
-                    current$$1,
-                    workInProgress,
-                    renderExpirationTime
-                  );
-              } else
-                propagateContextChange(workInProgress, context, changedBits, renderExpirationTime);
+                  return bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime);
+              } else propagateContextChange(workInProgress, context, changedBits, renderExpirationTime);
             }
-            return (
-              reconcileChildren(
-                current$$1,
-                workInProgress,
-                newProps.children,
-                renderExpirationTime
-              ),
-              workInProgress.child
-            );
+            return reconcileChildren(current$$1, workInProgress, newProps.children, renderExpirationTime), workInProgress.child;
           }
           (didWarnAboutBadClass = {}),
             (didWarnAboutContextTypeOnFunctionComponent = {}),
@@ -9993,12 +7749,9 @@ module.exports = {
             var childExpirationTime;
             return (
               cancelWorkTimer(workInProgress),
-              null !== current$$1 &&
-                (workInProgress.contextDependencies = current$$1.contextDependencies),
+              null !== current$$1 && (workInProgress.contextDependencies = current$$1.contextDependencies),
               stopProfilerTimerIfRunning(workInProgress),
-              workInProgress.childExpirationTime < renderExpirationTime
-                ? null
-                : (cloneChildFibers(current$$1, workInProgress), workInProgress.child)
+              workInProgress.childExpirationTime < renderExpirationTime ? null : (cloneChildFibers(current$$1, workInProgress), workInProgress.child)
             );
           }
           function beginWork(current$$1, workInProgress, renderExpirationTime) {
@@ -10006,8 +7759,7 @@ module.exports = {
               oldProps,
               newProps;
             if (null !== current$$1) {
-              if (current$$1.memoizedProps !== workInProgress.pendingProps || hasContextChanged())
-                didReceiveUpdate = !0;
+              if (current$$1.memoizedProps !== workInProgress.pendingProps || hasContextChanged()) didReceiveUpdate = !0;
               else if (updateExpirationTime < renderExpirationTime) {
                 switch (((didReceiveUpdate = !1), workInProgress.tag)) {
                   case 3:
@@ -10035,51 +7787,25 @@ module.exports = {
                     if (null !== workInProgress.memoizedState) {
                       var primaryChildFragment,
                         primaryChildExpirationTime = workInProgress.child.childExpirationTime;
-                      if (
-                        0 !== primaryChildExpirationTime &&
-                        primaryChildExpirationTime >= renderExpirationTime
-                      )
-                        return updateSuspenseComponent(
-                          current$$1,
-                          workInProgress,
-                          renderExpirationTime
-                        );
-                      var child = bailoutOnAlreadyFinishedWork(
-                        current$$1,
-                        workInProgress,
-                        renderExpirationTime
-                      );
+                      if (0 !== primaryChildExpirationTime && primaryChildExpirationTime >= renderExpirationTime)
+                        return updateSuspenseComponent(current$$1, workInProgress, renderExpirationTime);
+                      var child = bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime);
                       return null !== child ? child.sibling : null;
                     }
                     break;
                   case 18:
                     0;
                 }
-                return bailoutOnAlreadyFinishedWork(
-                  current$$1,
-                  workInProgress,
-                  renderExpirationTime
-                );
+                return bailoutOnAlreadyFinishedWork(current$$1, workInProgress, renderExpirationTime);
               }
             } else didReceiveUpdate = !1;
             switch (((workInProgress.expirationTime = 0), workInProgress.tag)) {
               case 2:
                 var elementType;
-                return mountIndeterminateComponent(
-                  current$$1,
-                  workInProgress,
-                  workInProgress.elementType,
-                  renderExpirationTime
-                );
+                return mountIndeterminateComponent(current$$1, workInProgress, workInProgress.elementType, renderExpirationTime);
               case 16:
                 var _elementType;
-                return mountLazyComponent(
-                  current$$1,
-                  workInProgress,
-                  workInProgress.elementType,
-                  updateExpirationTime,
-                  renderExpirationTime
-                );
+                return mountLazyComponent(current$$1, workInProgress, workInProgress.elementType, updateExpirationTime, renderExpirationTime);
               case 0:
                 var _Component = workInProgress.type,
                   unresolvedProps = workInProgress.pendingProps,
@@ -10088,9 +7814,7 @@ module.exports = {
                   current$$1,
                   workInProgress,
                   _Component,
-                  workInProgress.elementType === _Component
-                    ? unresolvedProps
-                    : resolveDefaultProps(_Component, unresolvedProps),
+                  workInProgress.elementType === _Component ? unresolvedProps : resolveDefaultProps(_Component, unresolvedProps),
                   renderExpirationTime
                 );
               case 1:
@@ -10101,9 +7825,7 @@ module.exports = {
                   current$$1,
                   workInProgress,
                   _Component2,
-                  workInProgress.elementType === _Component2
-                    ? _unresolvedProps
-                    : resolveDefaultProps(_Component2, _unresolvedProps),
+                  workInProgress.elementType === _Component2 ? _unresolvedProps : resolveDefaultProps(_Component2, _unresolvedProps),
                   renderExpirationTime
                 );
               case 3:
@@ -10124,9 +7846,7 @@ module.exports = {
                   current$$1,
                   workInProgress,
                   type,
-                  workInProgress.elementType === type
-                    ? _unresolvedProps2
-                    : resolveDefaultProps(type, _unresolvedProps2),
+                  workInProgress.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2),
                   renderExpirationTime
                 );
               case 7:
@@ -10145,14 +7865,7 @@ module.exports = {
                   _resolvedProps3 = resolveDefaultProps(_type2, workInProgress.pendingProps);
                 if (workInProgress.type !== workInProgress.elementType) {
                   var outerPropTypes = _type2.propTypes;
-                  outerPropTypes &&
-                    checkPropTypes(
-                      outerPropTypes,
-                      _resolvedProps3,
-                      'prop',
-                      getComponentName(_type2),
-                      getCurrentFiberStackInDev
-                    );
+                  outerPropTypes && checkPropTypes(outerPropTypes, _resolvedProps3, 'prop', getComponentName(_type2), getCurrentFiberStackInDev);
                 }
                 return updateMemoComponent(
                   current$$1,
@@ -10179,18 +7892,13 @@ module.exports = {
                   current$$1,
                   workInProgress,
                   _Component3,
-                  workInProgress.elementType === _Component3
-                    ? _unresolvedProps4
-                    : resolveDefaultProps(_Component3, _unresolvedProps4),
+                  workInProgress.elementType === _Component3 ? _unresolvedProps4 : resolveDefaultProps(_Component3, _unresolvedProps4),
                   renderExpirationTime
                 );
               case 18:
                 0;
             }
-            invariant(
-              !1,
-              'Unknown unit of work tag. This error is likely caused by a bug in React. Please file an issue.'
-            );
+            invariant(!1, 'Unknown unit of work tag. This error is likely caused by a bug in React. Please file an issue.');
           }
           var valueCursor = createCursor(null),
             rendererSigil = void 0;
@@ -10200,10 +7908,7 @@ module.exports = {
             lastContextWithAllBitsObserved = null,
             isDisallowedContextReadInDEV = !1;
           function resetContextDependences() {
-            (currentlyRenderingFiber = null),
-              (lastContextDependency = null),
-              (lastContextWithAllBitsObserved = null),
-              (isDisallowedContextReadInDEV = !1);
+            (currentlyRenderingFiber = null), (lastContextDependency = null), (lastContextWithAllBitsObserved = null), (isDisallowedContextReadInDEV = !1);
           }
           function enterDisallowedContextReadInDEV() {
             isDisallowedContextReadInDEV = !0;
@@ -10219,43 +7924,28 @@ module.exports = {
                 void 0 !== context._currentRenderer &&
                   null !== context._currentRenderer &&
                   context._currentRenderer !== rendererSigil &&
-                  warningWithoutStack(
-                    !1,
-                    'Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.'
-                  ),
+                  warningWithoutStack(!1, 'Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.'),
                 (context._currentRenderer = rendererSigil))
               : (push(valueCursor, context._currentValue2, providerFiber),
                 (context._currentValue2 = nextValue),
                 void 0 !== context._currentRenderer2 &&
                   null !== context._currentRenderer2 &&
                   context._currentRenderer2 !== rendererSigil &&
-                  warningWithoutStack(
-                    !1,
-                    'Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.'
-                  ),
+                  warningWithoutStack(!1, 'Detected multiple renderers concurrently rendering the same context provider. This is currently unsupported.'),
                 (context._currentRenderer2 = rendererSigil));
           }
           function popProvider(providerFiber) {
             var currentValue = valueCursor.current;
             pop(valueCursor, providerFiber);
             var context = providerFiber.type._context;
-            isPrimaryRenderer
-              ? (context._currentValue = currentValue)
-              : (context._currentValue2 = currentValue);
+            isPrimaryRenderer ? (context._currentValue = currentValue) : (context._currentValue2 = currentValue);
           }
           function calculateChangedBits(context, newValue, oldValue) {
             if (is(oldValue, newValue)) return 0;
-            var changedBits =
-              'function' == typeof context._calculateChangedBits
-                ? context._calculateChangedBits(oldValue, newValue)
-                : 1073741823;
+            var changedBits = 'function' == typeof context._calculateChangedBits ? context._calculateChangedBits(oldValue, newValue) : 1073741823;
             return (
               (1073741823 & changedBits) !== changedBits &&
-                warning(
-                  !1,
-                  'calculateChangedBits: Expected the return value to be a 31-bit integer. Instead received: %s',
-                  changedBits
-                ),
+                warning(!1, 'calculateChangedBits: Expected the return value to be a 31-bit integer. Instead received: %s', changedBits),
               0 | changedBits
             );
           }
@@ -10264,23 +7954,15 @@ module.exports = {
               var alternate = node.alternate;
               if (node.childExpirationTime < renderExpirationTime)
                 (node.childExpirationTime = renderExpirationTime),
-                  null !== alternate &&
-                    alternate.childExpirationTime < renderExpirationTime &&
-                    (alternate.childExpirationTime = renderExpirationTime);
+                  null !== alternate && alternate.childExpirationTime < renderExpirationTime && (alternate.childExpirationTime = renderExpirationTime);
               else {
-                if (!(null !== alternate && alternate.childExpirationTime < renderExpirationTime))
-                  break;
+                if (!(null !== alternate && alternate.childExpirationTime < renderExpirationTime)) break;
                 alternate.childExpirationTime = renderExpirationTime;
               }
               node = node.return;
             }
           }
-          function propagateContextChange(
-            workInProgress,
-            context,
-            changedBits,
-            renderExpirationTime
-          ) {
+          function propagateContextChange(workInProgress, context, changedBits, renderExpirationTime) {
             var fiber = workInProgress.child;
             for (null !== fiber && (fiber.return = workInProgress); null !== fiber; ) {
               var nextFiber = void 0,
@@ -10288,29 +7970,21 @@ module.exports = {
               if (null !== list) {
                 nextFiber = fiber.child;
                 for (var dependency = list.first; null !== dependency; ) {
-                  if (
-                    dependency.context === context &&
-                    0 != (dependency.observedBits & changedBits)
-                  ) {
+                  if (dependency.context === context && 0 != (dependency.observedBits & changedBits)) {
                     if (1 === fiber.tag) {
                       var update = createUpdate(renderExpirationTime);
                       (update.tag = ForceUpdate), enqueueUpdate(fiber, update);
                     }
-                    fiber.expirationTime < renderExpirationTime &&
-                      (fiber.expirationTime = renderExpirationTime);
+                    fiber.expirationTime < renderExpirationTime && (fiber.expirationTime = renderExpirationTime);
                     var alternate = fiber.alternate;
-                    null !== alternate &&
-                      alternate.expirationTime < renderExpirationTime &&
-                      (alternate.expirationTime = renderExpirationTime),
+                    null !== alternate && alternate.expirationTime < renderExpirationTime && (alternate.expirationTime = renderExpirationTime),
                       scheduleWorkOnParentPath(fiber.return, renderExpirationTime),
-                      list.expirationTime < renderExpirationTime &&
-                        (list.expirationTime = renderExpirationTime);
+                      list.expirationTime < renderExpirationTime && (list.expirationTime = renderExpirationTime);
                     break;
                   }
                   dependency = dependency.next;
                 }
-              } else if (10 === fiber.tag)
-                nextFiber = fiber.type === workInProgress.type ? null : fiber.child;
+              } else if (10 === fiber.tag) nextFiber = fiber.type === workInProgress.type ? null : fiber.child;
               else {
                 var _alternate;
                 nextFiber = fiber.child;
@@ -10333,13 +8007,9 @@ module.exports = {
             }
           }
           function prepareToReadContext(workInProgress, renderExpirationTime) {
-            (currentlyRenderingFiber = workInProgress),
-              (lastContextDependency = null),
-              (lastContextWithAllBitsObserved = null);
+            (currentlyRenderingFiber = workInProgress), (lastContextDependency = null), (lastContextWithAllBitsObserved = null);
             var currentDependencies = workInProgress.contextDependencies;
-            null !== currentDependencies &&
-              currentDependencies.expirationTime >= renderExpirationTime &&
-              markWorkInProgressReceivedUpdate(),
+            null !== currentDependencies && currentDependencies.expirationTime >= renderExpirationTime && markWorkInProgressReceivedUpdate(),
               (workInProgress.contextDependencies = null);
           }
           function readContext(context, observedBits) {
@@ -10424,18 +8094,14 @@ module.exports = {
             };
           }
           function appendUpdateToQueue(queue, update) {
-            null === queue.lastUpdate
-              ? (queue.firstUpdate = queue.lastUpdate = update)
-              : ((queue.lastUpdate.next = update), (queue.lastUpdate = update));
+            null === queue.lastUpdate ? (queue.firstUpdate = queue.lastUpdate = update) : ((queue.lastUpdate.next = update), (queue.lastUpdate = update));
           }
           function enqueueUpdate(fiber, update) {
             var alternate = fiber.alternate,
               queue1 = void 0,
               queue2 = void 0;
             null === alternate
-              ? ((queue2 = null),
-                null === (queue1 = fiber.updateQueue) &&
-                  (queue1 = fiber.updateQueue = createUpdateQueue(fiber.memoizedState)))
+              ? ((queue2 = null), null === (queue1 = fiber.updateQueue) && (queue1 = fiber.updateQueue = createUpdateQueue(fiber.memoizedState)))
               : ((queue1 = fiber.updateQueue),
                 (queue2 = alternate.updateQueue),
                 null === queue1
@@ -10450,8 +8116,7 @@ module.exports = {
                 ? (appendUpdateToQueue(queue1, update), appendUpdateToQueue(queue2, update))
                 : (appendUpdateToQueue(queue1, update), (queue2.lastUpdate = update)),
               1 !== fiber.tag ||
-                (currentlyProcessingQueue !== queue1 &&
-                  (null === queue2 || currentlyProcessingQueue !== queue2)) ||
+                (currentlyProcessingQueue !== queue1 && (null === queue2 || currentlyProcessingQueue !== queue2)) ||
                 didWarnUpdateInsideUpdate ||
                 (warningWithoutStack(
                   !1,
@@ -10465,35 +8130,20 @@ module.exports = {
             (workInProgressQueue =
               null === workInProgressQueue
                 ? (workInProgress.updateQueue = createUpdateQueue(workInProgress.memoizedState))
-                : ensureWorkInProgressQueueIsAClone(workInProgress, workInProgressQueue))
-              .lastCapturedUpdate
+                : ensureWorkInProgressQueueIsAClone(workInProgress, workInProgressQueue)).lastCapturedUpdate
               ? (workInProgressQueue.firstCapturedUpdate = workInProgressQueue.lastCapturedUpdate = update)
-              : ((workInProgressQueue.lastCapturedUpdate.next = update),
-                (workInProgressQueue.lastCapturedUpdate = update));
+              : ((workInProgressQueue.lastCapturedUpdate.next = update), (workInProgressQueue.lastCapturedUpdate = update));
           }
           function ensureWorkInProgressQueueIsAClone(workInProgress, queue) {
             var current = workInProgress.alternate;
-            return (
-              null !== current &&
-                queue === current.updateQueue &&
-                (queue = workInProgress.updateQueue = cloneUpdateQueue(queue)),
-              queue
-            );
+            return null !== current && queue === current.updateQueue && (queue = workInProgress.updateQueue = cloneUpdateQueue(queue)), queue;
           }
-          function getStateFromUpdate(
-            workInProgress,
-            queue,
-            update,
-            prevState,
-            nextProps,
-            instance
-          ) {
+          function getStateFromUpdate(workInProgress, queue, update, prevState, nextProps, instance) {
             switch (update.tag) {
               case ReplaceState:
                 var _payload = update.payload;
                 if ('function' == typeof _payload) {
-                  enterDisallowedContextReadInDEV(),
-                    2 & workInProgress.mode && _payload.call(instance, prevState, nextProps);
+                  enterDisallowedContextReadInDEV(), 2 & workInProgress.mode && _payload.call(instance, prevState, nextProps);
                   var nextState = _payload.call(instance, prevState, nextProps);
                   return exitDisallowedContextReadInDEV(), nextState;
                 }
@@ -10517,47 +8167,24 @@ module.exports = {
             }
             return prevState;
           }
-          function processUpdateQueue(
-            workInProgress,
-            queue,
-            props,
-            instance,
-            renderExpirationTime
-          ) {
-            (hasForceUpdate = !1),
-              (queue = ensureWorkInProgressQueueIsAClone(workInProgress, queue)),
-              (currentlyProcessingQueue = queue);
+          function processUpdateQueue(workInProgress, queue, props, instance, renderExpirationTime) {
+            (hasForceUpdate = !1), (queue = ensureWorkInProgressQueueIsAClone(workInProgress, queue)), (currentlyProcessingQueue = queue);
             for (
-              var newBaseState = queue.baseState,
-                newFirstUpdate = null,
-                newExpirationTime = 0,
-                update = queue.firstUpdate,
-                resultState = newBaseState;
+              var newBaseState = queue.baseState, newFirstUpdate = null, newExpirationTime = 0, update = queue.firstUpdate, resultState = newBaseState;
               null !== update;
 
             ) {
               var updateExpirationTime = update.expirationTime,
                 _callback;
               if (updateExpirationTime < renderExpirationTime)
-                null === newFirstUpdate &&
-                  ((newFirstUpdate = update), (newBaseState = resultState)),
-                  newExpirationTime < updateExpirationTime &&
-                    (newExpirationTime = updateExpirationTime);
+                null === newFirstUpdate && ((newFirstUpdate = update), (newBaseState = resultState)),
+                  newExpirationTime < updateExpirationTime && (newExpirationTime = updateExpirationTime);
               else
-                (resultState = getStateFromUpdate(
-                  workInProgress,
-                  queue,
-                  update,
-                  resultState,
-                  props,
-                  instance
-                )),
+                (resultState = getStateFromUpdate(workInProgress, queue, update, resultState, props, instance)),
                   null !== update.callback &&
                     ((workInProgress.effectTag |= 32),
                     (update.nextEffect = null),
-                    null === queue.lastEffect
-                      ? (queue.firstEffect = queue.lastEffect = update)
-                      : ((queue.lastEffect.nextEffect = update), (queue.lastEffect = update)));
+                    null === queue.lastEffect ? (queue.firstEffect = queue.lastEffect = update) : ((queue.lastEffect.nextEffect = update), (queue.lastEffect = update)));
               update = update.next;
             }
             var newFirstCapturedUpdate = null;
@@ -10565,36 +8192,21 @@ module.exports = {
               var _updateExpirationTime = update.expirationTime,
                 _callback2;
               if (_updateExpirationTime < renderExpirationTime)
-                null === newFirstCapturedUpdate &&
-                  ((newFirstCapturedUpdate = update),
-                  null === newFirstUpdate && (newBaseState = resultState)),
-                  newExpirationTime < _updateExpirationTime &&
-                    (newExpirationTime = _updateExpirationTime);
+                null === newFirstCapturedUpdate && ((newFirstCapturedUpdate = update), null === newFirstUpdate && (newBaseState = resultState)),
+                  newExpirationTime < _updateExpirationTime && (newExpirationTime = _updateExpirationTime);
               else
-                (resultState = getStateFromUpdate(
-                  workInProgress,
-                  queue,
-                  update,
-                  resultState,
-                  props,
-                  instance
-                )),
+                (resultState = getStateFromUpdate(workInProgress, queue, update, resultState, props, instance)),
                   null !== update.callback &&
                     ((workInProgress.effectTag |= 32),
                     (update.nextEffect = null),
                     null === queue.lastCapturedEffect
                       ? (queue.firstCapturedEffect = queue.lastCapturedEffect = update)
-                      : ((queue.lastCapturedEffect.nextEffect = update),
-                        (queue.lastCapturedEffect = update)));
+                      : ((queue.lastCapturedEffect.nextEffect = update), (queue.lastCapturedEffect = update)));
               update = update.next;
             }
             null === newFirstUpdate && (queue.lastUpdate = null),
-              null === newFirstCapturedUpdate
-                ? (queue.lastCapturedUpdate = null)
-                : (workInProgress.effectTag |= 32),
-              null === newFirstUpdate &&
-                null === newFirstCapturedUpdate &&
-                (newBaseState = resultState),
+              null === newFirstCapturedUpdate ? (queue.lastCapturedUpdate = null) : (workInProgress.effectTag |= 32),
+              null === newFirstUpdate && null === newFirstCapturedUpdate && (newBaseState = resultState),
               (queue.baseState = newBaseState),
               (queue.firstUpdate = newFirstUpdate),
               (queue.firstCapturedUpdate = newFirstCapturedUpdate),
@@ -10603,12 +8215,7 @@ module.exports = {
               (currentlyProcessingQueue = null);
           }
           function callCallback(callback, context) {
-            'function' != typeof callback &&
-              invariant(
-                !1,
-                'Invalid argument passed as callback. Expected a function. Instead received: %s',
-                callback
-              ),
+            'function' != typeof callback && invariant(!1, 'Invalid argument passed as callback. Expected a function. Instead received: %s', callback),
               callback.call(context);
           }
           function resetHasForceUpdateBeforeProcessing() {
@@ -10620,8 +8227,7 @@ module.exports = {
           function commitUpdateQueue(finishedWork, finishedQueue, instance, renderExpirationTime) {
             null !== finishedQueue.firstCapturedUpdate &&
               (null !== finishedQueue.lastUpdate &&
-                ((finishedQueue.lastUpdate.next = finishedQueue.firstCapturedUpdate),
-                (finishedQueue.lastUpdate = finishedQueue.lastCapturedUpdate)),
+                ((finishedQueue.lastUpdate.next = finishedQueue.firstCapturedUpdate), (finishedQueue.lastUpdate = finishedQueue.lastCapturedUpdate)),
               (finishedQueue.firstCapturedUpdate = finishedQueue.lastCapturedUpdate = null)),
               commitUpdateEffects(finishedQueue.firstEffect, instance),
               (finishedQueue.firstEffect = finishedQueue.lastEffect = null),
@@ -10631,8 +8237,7 @@ module.exports = {
           function commitUpdateEffects(effect, instance) {
             for (; null !== effect; ) {
               var _callback3 = effect.callback;
-              null !== _callback3 && ((effect.callback = null), callCallback(_callback3, instance)),
-                (effect = effect.nextEffect);
+              null !== _callback3 && ((effect.callback = null), callCallback(_callback3, instance)), (effect = effect.nextEffect);
             }
           }
           function createCapturedValue(value, source) {
@@ -10654,12 +8259,7 @@ module.exports = {
             updateHostComponent$1 = void 0,
             updateHostText$1 = void 0;
           if (supportsMutation)
-            (appendAllChildren = function (
-              parent,
-              workInProgress,
-              needsVisibilityToggle,
-              isHidden
-            ) {
+            (appendAllChildren = function (parent, workInProgress, needsVisibilityToggle, isHidden) {
               for (var node = workInProgress.child; null !== node; ) {
                 if (5 === node.tag || 6 === node.tag) appendInitialChild(parent, node.stateNode);
                 else if (4 === node.tag);
@@ -10676,27 +8276,13 @@ module.exports = {
               }
             }),
               (updateHostContainer = function (workInProgress) {}),
-              (updateHostComponent$1 = function (
-                current,
-                workInProgress,
-                type,
-                newProps,
-                rootContainerInstance
-              ) {
+              (updateHostComponent$1 = function (current, workInProgress, type, newProps, rootContainerInstance) {
                 var oldProps = current.memoizedProps;
                 if (oldProps !== newProps) {
                   var instance = workInProgress.stateNode,
                     currentHostContext = getHostContext(),
-                    updatePayload = prepareUpdate(
-                      instance,
-                      type,
-                      oldProps,
-                      newProps,
-                      rootContainerInstance,
-                      currentHostContext
-                    );
-                  (workInProgress.updateQueue = updatePayload),
-                    updatePayload && markUpdate(workInProgress);
+                    updatePayload = prepareUpdate(instance, type, oldProps, newProps, rootContainerInstance, currentHostContext);
+                  (workInProgress.updateQueue = updatePayload), updatePayload && markUpdate(workInProgress);
                 }
               }),
               (updateHostText$1 = function (current, workInProgress, oldText, newText) {
@@ -10710,9 +8296,7 @@ module.exports = {
                   if (needsVisibilityToggle) {
                     var props = node.memoizedProps,
                       type = node.type;
-                    (instance = isHidden
-                      ? cloneHiddenInstance(instance, type, props, node)
-                      : cloneUnhiddenInstance(instance, type, props, node)),
+                    (instance = isHidden ? cloneHiddenInstance(instance, type, props, node) : cloneUnhiddenInstance(instance, type, props, node)),
                       (node.stateNode = instance);
                   }
                   appendInitialChild(parent, instance);
@@ -10723,18 +8307,8 @@ module.exports = {
                       rootContainerInstance = getRootHostContainer(),
                       currentHostContext = getHostContext();
                     (_instance = isHidden
-                      ? createHiddenTextInstance(
-                          text,
-                          rootContainerInstance,
-                          currentHostContext,
-                          workInProgress
-                        )
-                      : createTextInstance(
-                          text,
-                          rootContainerInstance,
-                          currentHostContext,
-                          workInProgress
-                        )),
+                      ? createHiddenTextInstance(text, rootContainerInstance, currentHostContext, workInProgress)
+                      : createTextInstance(text, rootContainerInstance, currentHostContext, workInProgress)),
                       (node.stateNode = _instance);
                   }
                   appendInitialChild(parent, _instance);
@@ -10748,8 +8322,7 @@ module.exports = {
                       newIsHidden = null !== node.memoizedState;
                     if ((null !== oldState) !== newIsHidden) {
                       var primaryChildParent = newIsHidden ? node.child : node;
-                      null !== primaryChildParent &&
-                        appendAllChildren(parent, primaryChildParent, !0, newIsHidden);
+                      null !== primaryChildParent && appendAllChildren(parent, primaryChildParent, !0, newIsHidden);
                       break branches;
                     }
                   }
@@ -10769,21 +8342,14 @@ module.exports = {
                 (node.sibling.return = node.return), (node = node.sibling);
               }
             };
-            var appendAllChildrenToContainer = function (
-              containerChildSet,
-              workInProgress,
-              needsVisibilityToggle,
-              isHidden
-            ) {
+            var appendAllChildrenToContainer = function (containerChildSet, workInProgress, needsVisibilityToggle, isHidden) {
               for (var node = workInProgress.child; null !== node; ) {
                 branches: if (5 === node.tag) {
                   var instance = node.stateNode;
                   if (needsVisibilityToggle) {
                     var props = node.memoizedProps,
                       type = node.type;
-                    (instance = isHidden
-                      ? cloneHiddenInstance(instance, type, props, node)
-                      : cloneUnhiddenInstance(instance, type, props, node)),
+                    (instance = isHidden ? cloneHiddenInstance(instance, type, props, node) : cloneUnhiddenInstance(instance, type, props, node)),
                       (node.stateNode = instance);
                   }
                   appendChildToContainerChildSet(containerChildSet, instance);
@@ -10794,18 +8360,8 @@ module.exports = {
                       rootContainerInstance = getRootHostContainer(),
                       currentHostContext = getHostContext();
                     (_instance2 = isHidden
-                      ? createHiddenTextInstance(
-                          text,
-                          rootContainerInstance,
-                          currentHostContext,
-                          workInProgress
-                        )
-                      : createTextInstance(
-                          text,
-                          rootContainerInstance,
-                          currentHostContext,
-                          workInProgress
-                        )),
+                      ? createHiddenTextInstance(text, rootContainerInstance, currentHostContext, workInProgress)
+                      : createTextInstance(text, rootContainerInstance, currentHostContext, workInProgress)),
                       (node.stateNode = _instance2);
                   }
                   appendChildToContainerChildSet(containerChildSet, _instance2);
@@ -10819,13 +8375,7 @@ module.exports = {
                       newIsHidden = null !== node.memoizedState;
                     if ((null !== oldState) !== newIsHidden) {
                       var primaryChildParent = newIsHidden ? node.child : node;
-                      null !== primaryChildParent &&
-                        appendAllChildrenToContainer(
-                          containerChildSet,
-                          primaryChildParent,
-                          !0,
-                          newIsHidden
-                        );
+                      null !== primaryChildParent && appendAllChildrenToContainer(containerChildSet, primaryChildParent, !0, newIsHidden);
                       break branches;
                     }
                   }
@@ -10858,57 +8408,25 @@ module.exports = {
                   finalizeContainerChildren(container, newChildSet);
               }
             }),
-              (updateHostComponent$1 = function (
-                current,
-                workInProgress,
-                type,
-                newProps,
-                rootContainerInstance
-              ) {
+              (updateHostComponent$1 = function (current, workInProgress, type, newProps, rootContainerInstance) {
                 var currentInstance = current.stateNode,
                   oldProps = current.memoizedProps,
                   childrenUnchanged = null === workInProgress.firstEffect;
-                if (childrenUnchanged && oldProps === newProps)
-                  workInProgress.stateNode = currentInstance;
+                if (childrenUnchanged && oldProps === newProps) workInProgress.stateNode = currentInstance;
                 else {
                   var recyclableInstance = workInProgress.stateNode,
                     currentHostContext = getHostContext(),
                     updatePayload = null;
                   if (
-                    (oldProps !== newProps &&
-                      (updatePayload = prepareUpdate(
-                        recyclableInstance,
-                        type,
-                        oldProps,
-                        newProps,
-                        rootContainerInstance,
-                        currentHostContext
-                      )),
+                    (oldProps !== newProps && (updatePayload = prepareUpdate(recyclableInstance, type, oldProps, newProps, rootContainerInstance, currentHostContext)),
                     childrenUnchanged && null === updatePayload)
                   )
                     workInProgress.stateNode = currentInstance;
                   else {
-                    var newInstance = cloneInstance(
-                      currentInstance,
-                      updatePayload,
-                      type,
-                      oldProps,
-                      newProps,
-                      workInProgress,
-                      childrenUnchanged,
-                      recyclableInstance
-                    );
-                    finalizeInitialChildren(
-                      newInstance,
-                      type,
-                      newProps,
-                      rootContainerInstance,
-                      currentHostContext
-                    ) && markUpdate(workInProgress),
+                    var newInstance = cloneInstance(currentInstance, updatePayload, type, oldProps, newProps, workInProgress, childrenUnchanged, recyclableInstance);
+                    finalizeInitialChildren(newInstance, type, newProps, rootContainerInstance, currentHostContext) && markUpdate(workInProgress),
                       (workInProgress.stateNode = newInstance),
-                      childrenUnchanged
-                        ? markUpdate(workInProgress)
-                        : appendAllChildren(newInstance, workInProgress, !1, !1);
+                      childrenUnchanged ? markUpdate(workInProgress) : appendAllChildren(newInstance, workInProgress, !1, !1);
                   }
                 }
               }),
@@ -10916,24 +8434,12 @@ module.exports = {
                 if (oldText !== newText) {
                   var rootContainerInstance = getRootHostContainer(),
                     currentHostContext = getHostContext();
-                  (workInProgress.stateNode = createTextInstance(
-                    newText,
-                    rootContainerInstance,
-                    currentHostContext,
-                    workInProgress
-                  )),
-                    markUpdate(workInProgress);
+                  (workInProgress.stateNode = createTextInstance(newText, rootContainerInstance, currentHostContext, workInProgress)), markUpdate(workInProgress);
                 }
               });
           } else
             (updateHostContainer = function (workInProgress) {}),
-              (updateHostComponent$1 = function (
-                current,
-                workInProgress,
-                type,
-                newProps,
-                rootContainerInstance
-              ) {}),
+              (updateHostComponent$1 = function (current, workInProgress, type, newProps, rootContainerInstance) {}),
               (updateHostText$1 = function (current, workInProgress, oldText, newText) {});
           function completeWork(current, workInProgress, renderExpirationTime) {
             var newProps = workInProgress.pendingProps;
@@ -10951,11 +8457,8 @@ module.exports = {
               case 3:
                 popHostContainer(workInProgress), popTopLevelContextObject(workInProgress);
                 var fiberRoot = workInProgress.stateNode;
-                fiberRoot.pendingContext &&
-                  ((fiberRoot.context = fiberRoot.pendingContext),
-                  (fiberRoot.pendingContext = null)),
-                  (null !== current && null !== current.child) ||
-                    (popHydrationState(workInProgress), (workInProgress.effectTag &= -3)),
+                fiberRoot.pendingContext && ((fiberRoot.context = fiberRoot.pendingContext), (fiberRoot.pendingContext = null)),
+                  (null !== current && null !== current.child) || (popHydrationState(workInProgress), (workInProgress.effectTag &= -3)),
                   updateHostContainer(workInProgress);
                 break;
               case 5:
@@ -10963,47 +8466,21 @@ module.exports = {
                 var rootContainerInstance = getRootHostContainer(),
                   type = workInProgress.type;
                 if (null !== current && null != workInProgress.stateNode)
-                  updateHostComponent(
-                    current,
-                    workInProgress,
-                    type,
-                    newProps,
-                    rootContainerInstance
-                  ),
-                    current.ref !== workInProgress.ref && markRef(workInProgress);
+                  updateHostComponent(current, workInProgress, type, newProps, rootContainerInstance), current.ref !== workInProgress.ref && markRef(workInProgress);
                 else {
                   if (!newProps) {
                     null === workInProgress.stateNode &&
-                      invariant(
-                        !1,
-                        'We must have new props for new mounts. This error is likely caused by a bug in React. Please file an issue.'
-                      );
+                      invariant(!1, 'We must have new props for new mounts. This error is likely caused by a bug in React. Please file an issue.');
                     break;
                   }
                   var currentHostContext = getHostContext(),
                     wasHydrated;
                   if (popHydrationState(workInProgress))
-                    prepareToHydrateHostInstance(
-                      workInProgress,
-                      rootContainerInstance,
-                      currentHostContext
-                    ) && markUpdate(workInProgress);
+                    prepareToHydrateHostInstance(workInProgress, rootContainerInstance, currentHostContext) && markUpdate(workInProgress);
                   else {
-                    var instance = createInstance(
-                      type,
-                      newProps,
-                      rootContainerInstance,
-                      currentHostContext,
-                      workInProgress
-                    );
+                    var instance = createInstance(type, newProps, rootContainerInstance, currentHostContext, workInProgress);
                     appendAllChildren(instance, workInProgress, !1, !1),
-                      finalizeInitialChildren(
-                        instance,
-                        type,
-                        newProps,
-                        rootContainerInstance,
-                        currentHostContext
-                      ) && markUpdate(workInProgress),
+                      finalizeInitialChildren(instance, type, newProps, rootContainerInstance, currentHostContext) && markUpdate(workInProgress),
                       (workInProgress.stateNode = instance);
                   }
                   null !== workInProgress.ref && markRef(workInProgress);
@@ -11017,29 +8494,20 @@ module.exports = {
                 } else {
                   'string' != typeof newText &&
                     null === workInProgress.stateNode &&
-                    invariant(
-                      !1,
-                      'We must have new props for new mounts. This error is likely caused by a bug in React. Please file an issue.'
-                    );
+                    invariant(!1, 'We must have new props for new mounts. This error is likely caused by a bug in React. Please file an issue.');
                   var _rootContainerInstance = getRootHostContainer(),
                     _currentHostContext = getHostContext(),
                     _wasHydrated;
                   popHydrationState(workInProgress)
                     ? prepareToHydrateHostTextInstance(workInProgress) && markUpdate(workInProgress)
-                    : (workInProgress.stateNode = createTextInstance(
-                        newText,
-                        _rootContainerInstance,
-                        _currentHostContext,
-                        workInProgress
-                      ));
+                    : (workInProgress.stateNode = createTextInstance(newText, _rootContainerInstance, _currentHostContext, workInProgress));
                 }
                 break;
               case 11:
                 break;
               case 13:
                 var nextState = workInProgress.memoizedState;
-                if (0 != (64 & workInProgress.effectTag))
-                  return (workInProgress.expirationTime = renderExpirationTime), workInProgress;
+                if (0 != (64 & workInProgress.effectTag)) return (workInProgress.expirationTime = renderExpirationTime), workInProgress;
                 var nextDidTimeout = null !== nextState,
                   prevDidTimeout = null !== current && null !== current.memoizedState;
                 if (null !== current && !nextDidTimeout && prevDidTimeout) {
@@ -11047,10 +8515,8 @@ module.exports = {
                   if (null !== currentFallbackChild) {
                     var first = workInProgress.firstEffect;
                     null !== first
-                      ? ((workInProgress.firstEffect = currentFallbackChild),
-                        (currentFallbackChild.nextEffect = first))
-                      : ((workInProgress.firstEffect = workInProgress.lastEffect = currentFallbackChild),
-                        (currentFallbackChild.nextEffect = null)),
+                      ? ((workInProgress.firstEffect = currentFallbackChild), (currentFallbackChild.nextEffect = first))
+                      : ((workInProgress.firstEffect = workInProgress.lastEffect = currentFallbackChild), (currentFallbackChild.nextEffect = null)),
                       (currentFallbackChild.effectTag = 8);
                   }
                 }
@@ -11077,18 +8543,12 @@ module.exports = {
                 var _wasHydrated2;
                 break;
               default:
-                invariant(
-                  !1,
-                  'Unknown unit of work tag. This error is likely caused by a bug in React. Please file an issue.'
-                );
+                invariant(!1, 'Unknown unit of work tag. This error is likely caused by a bug in React. Please file an issue.');
             }
             return null;
           }
           function shouldCaptureSuspense(workInProgress) {
-            return (
-              void 0 !== workInProgress.memoizedProps.fallback &&
-              null === workInProgress.memoizedState
-            );
+            return void 0 !== workInProgress.memoizedProps.fallback && null === workInProgress.memoizedState;
             var nextState;
           }
           function showErrorDialog(capturedError) {
@@ -11110,17 +8570,13 @@ module.exports = {
               errorBoundaryMessage = void 0,
               combinedMessage =
                 '' +
-                (componentName
-                  ? 'The above error occurred in the <' + componentName + '> component:'
-                  : 'The above error occurred in one of your React components:') +
+                (componentName ? 'The above error occurred in the <' + componentName + '> component:' : 'The above error occurred in one of your React components:') +
                 componentStack +
                 '\n\n' +
                 (errorBoundaryMessage =
                   errorBoundaryFound && errorBoundaryName
                     ? willRetry
-                      ? 'React will try to recreate this component tree from scratch using the error boundary you provided, ' +
-                        errorBoundaryName +
-                        '.'
+                      ? 'React will try to recreate this component tree from scratch using the error boundary you provided, ' + errorBoundaryName + '.'
                       : 'This error was initially handled by the error boundary ' +
                         errorBoundaryName +
                         '.\nRecreating the tree from scratch failed so React will unmount the tree.'
@@ -11166,28 +8622,20 @@ module.exports = {
           };
           function safelyCallComponentWillUnmount(current$$1, instance) {
             var unmountError;
-            (invokeGuardedCallback(
-              null,
-              callComponentWillUnmountWithTimer,
-              null,
-              current$$1,
-              instance
-            ),
-            hasCaughtError()) && captureCommitPhaseError(current$$1, clearCaughtError());
+            (invokeGuardedCallback(null, callComponentWillUnmountWithTimer, null, current$$1, instance), hasCaughtError()) &&
+              captureCommitPhaseError(current$$1, clearCaughtError());
           }
           function safelyDetachRef(current$$1) {
             var ref = current$$1.ref,
               refError;
             null !== ref &&
               ('function' == typeof ref
-                ? (invokeGuardedCallback(null, ref, null, null),
-                  hasCaughtError() && captureCommitPhaseError(current$$1, clearCaughtError()))
+                ? (invokeGuardedCallback(null, ref, null, null), hasCaughtError() && captureCommitPhaseError(current$$1, clearCaughtError()))
                 : (ref.current = null));
           }
           function safelyCallDestroy(current$$1, destroy) {
             var error;
-            (invokeGuardedCallback(null, destroy, null), hasCaughtError()) &&
-              captureCommitPhaseError(current$$1, clearCaughtError());
+            (invokeGuardedCallback(null, destroy, null), hasCaughtError()) && captureCommitPhaseError(current$$1, clearCaughtError());
           }
           function commitBeforeMutationLifeCycles(current$$1, finishedWork) {
             switch (finishedWork.tag) {
@@ -11216,9 +8664,7 @@ module.exports = {
                         getComponentName(finishedWork.type) || 'instance'
                       ));
                   var snapshot = instance.getSnapshotBeforeUpdate(
-                      finishedWork.elementType === finishedWork.type
-                        ? prevProps
-                        : resolveDefaultProps(finishedWork.type, prevProps),
+                      finishedWork.elementType === finishedWork.type ? prevProps : resolveDefaultProps(finishedWork.type, prevProps),
                       prevState
                     ),
                     didWarnSet = didWarnAboutUndefinedSnapshotBeforeUpdate;
@@ -11241,10 +8687,7 @@ module.exports = {
               case 17:
                 return;
               default:
-                invariant(
-                  !1,
-                  'This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.'
-                );
+                invariant(!1, 'This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.');
             }
           }
           function commitHookEffectList(unmountTag, mountTag, finishedWork) {
@@ -11285,12 +8728,7 @@ module.exports = {
           function commitPassiveHookEffects(finishedWork) {
             commitHookEffectList(128, 0, finishedWork), commitHookEffectList(0, 64, finishedWork);
           }
-          function commitLifeCycles(
-            finishedRoot,
-            current$$1,
-            finishedWork,
-            committedExpirationTime
-          ) {
+          function commitLifeCycles(finishedRoot, current$$1, finishedWork, committedExpirationTime) {
             switch (finishedWork.tag) {
               case 0:
               case 11:
@@ -11320,9 +8758,7 @@ module.exports = {
                       stopPhaseTimer();
                   else {
                     var prevProps =
-                        finishedWork.elementType === finishedWork.type
-                          ? current$$1.memoizedProps
-                          : resolveDefaultProps(finishedWork.type, current$$1.memoizedProps),
+                        finishedWork.elementType === finishedWork.type ? current$$1.memoizedProps : resolveDefaultProps(finishedWork.type, current$$1.memoizedProps),
                       prevState = current$$1.memoizedState;
                     startPhaseTimer(finishedWork, 'componentDidUpdate'),
                       finishedWork.type !== finishedWork.elementType ||
@@ -11339,11 +8775,7 @@ module.exports = {
                             'Expected %s state to match memoized state before componentDidUpdate. This might either be because of a bug in React, or because a component reassigns its own `this.props`. Please file an issue.',
                             getComponentName(finishedWork.type) || 'instance'
                           )),
-                      instance.componentDidUpdate(
-                        prevProps,
-                        prevState,
-                        instance.__reactInternalSnapshotBeforeUpdate
-                      ),
+                      instance.componentDidUpdate(prevProps, prevState, instance.__reactInternalSnapshotBeforeUpdate),
                       stopPhaseTimer();
                   }
                 var updateQueue = finishedWork.updateQueue;
@@ -11406,10 +8838,7 @@ module.exports = {
               case 17:
                 break;
               default:
-                invariant(
-                  !1,
-                  'This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.'
-                );
+                invariant(!1, 'This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.');
             }
           }
           function hideOrUnhideAllChildren(finishedWork, isHidden) {
@@ -11417,14 +8846,10 @@ module.exports = {
               for (var node = finishedWork; ; ) {
                 if (5 === node.tag) {
                   var instance = node.stateNode;
-                  isHidden
-                    ? hideInstance(instance)
-                    : unhideInstance(node.stateNode, node.memoizedProps);
+                  isHidden ? hideInstance(instance) : unhideInstance(node.stateNode, node.memoizedProps);
                 } else if (6 === node.tag) {
                   var _instance3 = node.stateNode;
-                  isHidden
-                    ? hideTextInstance(_instance3)
-                    : unhideTextInstance(_instance3, node.memoizedProps);
+                  isHidden ? hideTextInstance(_instance3) : unhideTextInstance(_instance3, node.memoizedProps);
                 } else {
                   if (13 === node.tag && null !== node.memoizedState) {
                     var fallbackChildFragment = node.child.sibling;
@@ -11470,8 +8895,7 @@ module.exports = {
           }
           function commitDetachRef(current$$1) {
             var currentRef = current$$1.ref;
-            null !== currentRef &&
-              ('function' == typeof currentRef ? currentRef(null) : (currentRef.current = null));
+            null !== currentRef && ('function' == typeof currentRef ? currentRef(null) : (currentRef.current = null));
           }
           function commitUnmount(current$$1) {
             switch ((onCommitUnmount(current$$1), current$$1.tag)) {
@@ -11487,8 +8911,7 @@ module.exports = {
                       effect = firstEffect;
                     do {
                       var destroy = effect.destroy;
-                      void 0 !== destroy && safelyCallDestroy(current$$1, destroy),
-                        (effect = effect.next);
+                      void 0 !== destroy && safelyCallDestroy(current$$1, destroy), (effect = effect.next);
                     } while (effect !== firstEffect);
                   }
                 }
@@ -11496,23 +8919,16 @@ module.exports = {
               case 1:
                 safelyDetachRef(current$$1);
                 var instance = current$$1.stateNode;
-                return void (
-                  'function' == typeof instance.componentWillUnmount &&
-                  safelyCallComponentWillUnmount(current$$1, instance)
-                );
+                return void ('function' == typeof instance.componentWillUnmount && safelyCallComponentWillUnmount(current$$1, instance));
               case 5:
                 return void safelyDetachRef(current$$1);
               case 4:
-                return void (supportsMutation
-                  ? unmountHostComponents(current$$1)
-                  : supportsPersistence && emptyPortalContainer(current$$1));
+                return void (supportsMutation ? unmountHostComponents(current$$1) : supportsPersistence && emptyPortalContainer(current$$1));
             }
           }
           function commitNestedUnmounts(root) {
             for (var node = root; ; )
-              if (
-                (commitUnmount(node), null === node.child || (supportsMutation && 4 === node.tag))
-              ) {
+              if ((commitUnmount(node), null === node.child || (supportsMutation && 4 === node.tag))) {
                 if (node === root) return;
                 for (; null === node.sibling; ) {
                   if (null === node.return || node.return === root) return;
@@ -11522,16 +8938,9 @@ module.exports = {
               } else (node.child.return = node), (node = node.child);
           }
           function detachFiber(current$$1) {
-            (current$$1.return = null),
-              (current$$1.child = null),
-              (current$$1.memoizedState = null),
-              (current$$1.updateQueue = null);
+            (current$$1.return = null), (current$$1.child = null), (current$$1.memoizedState = null), (current$$1.updateQueue = null);
             var alternate = current$$1.alternate;
-            null !== alternate &&
-              ((alternate.return = null),
-              (alternate.child = null),
-              (alternate.memoizedState = null),
-              (alternate.updateQueue = null));
+            null !== alternate && ((alternate.return = null), (alternate.child = null), (alternate.memoizedState = null), (alternate.updateQueue = null));
           }
           function emptyPortalContainer(current$$1) {
             if (supportsPersistence) {
@@ -11555,10 +8964,7 @@ module.exports = {
                     _pendingChildren = portalOrRoot.pendingChildren;
                   return void replaceContainerChildren(containerInfo, _pendingChildren);
                 default:
-                  invariant(
-                    !1,
-                    'This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.'
-                  );
+                  invariant(!1, 'This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.');
               }
           }
           function getHostParentFiber(fiber) {
@@ -11566,10 +8972,7 @@ module.exports = {
               if (isHostParent(parent)) return parent;
               parent = parent.return;
             }
-            invariant(
-              !1,
-              'Expected to find a host parent. This error is likely caused by a bug in React. Please file an issue.'
-            );
+            invariant(!1, 'Expected to find a host parent. This error is likely caused by a bug in React. Please file an issue.');
           }
           function isHostParent(fiber) {
             return 5 === fiber.tag || 3 === fiber.tag || 4 === fiber.tag;
@@ -11581,11 +8984,7 @@ module.exports = {
                 if (null === node.return || isHostParent(node.return)) return null;
                 node = node.return;
               }
-              for (
-                node.sibling.return = node.return, node = node.sibling;
-                5 !== node.tag && 6 !== node.tag && 18 !== node.tag;
-
-              ) {
+              for (node.sibling.return = node.return, node = node.sibling; 5 !== node.tag && 6 !== node.tag && 18 !== node.tag; ) {
                 if (2 & node.effectTag) continue siblings;
                 if (null === node.child || 4 === node.tag) continue siblings;
                 (node.child.return = node), (node = node.child);
@@ -11607,13 +9006,9 @@ module.exports = {
                   (parent = parentFiber.stateNode.containerInfo), (isContainer = !0);
                   break;
                 default:
-                  invariant(
-                    !1,
-                    'Invalid host parent fiber. This error is likely caused by a bug in React. Please file an issue.'
-                  );
+                  invariant(!1, 'Invalid host parent fiber. This error is likely caused by a bug in React. Please file an issue.');
               }
-              16 & parentFiber.effectTag &&
-                (resetTextContent(parent), (parentFiber.effectTag &= -17));
+              16 & parentFiber.effectTag && (resetTextContent(parent), (parentFiber.effectTag &= -17));
               for (var before = getHostSibling(finishedWork), node = finishedWork; ; ) {
                 if (5 === node.tag || 6 === node.tag)
                   before
@@ -11638,32 +9033,19 @@ module.exports = {
             }
           }
           function unmountHostComponents(current$$1) {
-            for (
-              var node = current$$1,
-                currentParentIsValid = !1,
-                currentParent = void 0,
-                currentParentIsContainer = void 0;
-              ;
-
-            ) {
+            for (var node = current$$1, currentParentIsValid = !1, currentParent = void 0, currentParentIsContainer = void 0; ; ) {
               if (!currentParentIsValid) {
                 var parent = node.return;
                 findParent: for (;;) {
                   switch (
-                    (null === parent &&
-                      invariant(
-                        !1,
-                        'Expected to find a host parent. This error is likely caused by a bug in React. Please file an issue.'
-                      ),
-                    parent.tag)
+                    (null === parent && invariant(!1, 'Expected to find a host parent. This error is likely caused by a bug in React. Please file an issue.'), parent.tag)
                   ) {
                     case 5:
                       (currentParent = parent.stateNode), (currentParentIsContainer = !1);
                       break findParent;
                     case 3:
                     case 4:
-                      (currentParent = parent.stateNode.containerInfo),
-                        (currentParentIsContainer = !0);
+                      (currentParent = parent.stateNode.containerInfo), (currentParentIsContainer = !0);
                       break findParent;
                   }
                   parent = parent.return;
@@ -11672,15 +9054,10 @@ module.exports = {
               }
               if (5 === node.tag || 6 === node.tag)
                 commitNestedUnmounts(node),
-                  currentParentIsContainer
-                    ? removeChildFromContainer(currentParent, node.stateNode)
-                    : removeChild(currentParent, node.stateNode);
+                  currentParentIsContainer ? removeChildFromContainer(currentParent, node.stateNode) : removeChild(currentParent, node.stateNode);
               else if (4 === node.tag) {
                 if (null !== node.child) {
-                  (currentParent = node.stateNode.containerInfo),
-                    (currentParentIsContainer = !0),
-                    (node.child.return = node),
-                    (node = node.child);
+                  (currentParent = node.stateNode.containerInfo), (currentParentIsContainer = !0), (node.child.return = node), (node = node.child);
                   continue;
                 }
               } else if ((commitUnmount(node), null !== node.child)) {
@@ -11696,8 +9073,7 @@ module.exports = {
             }
           }
           function commitDeletion(current$$1) {
-            supportsMutation ? unmountHostComponents(current$$1) : commitNestedUnmounts(current$$1),
-              detachFiber(current$$1);
+            supportsMutation ? unmountHostComponents(current$$1) : commitNestedUnmounts(current$$1), detachFiber(current$$1);
           }
           function commitWork(current$$1, finishedWork) {
             if (supportsMutation)
@@ -11716,24 +9092,12 @@ module.exports = {
                       oldProps = null !== current$$1 ? current$$1.memoizedProps : newProps,
                       type = finishedWork.type,
                       updatePayload = finishedWork.updateQueue;
-                    (finishedWork.updateQueue = null),
-                      null !== updatePayload &&
-                        commitUpdate(
-                          instance,
-                          updatePayload,
-                          type,
-                          oldProps,
-                          newProps,
-                          finishedWork
-                        );
+                    (finishedWork.updateQueue = null), null !== updatePayload && commitUpdate(instance, updatePayload, type, oldProps, newProps, finishedWork);
                   }
                   return;
                 case 6:
                   null === finishedWork.stateNode &&
-                    invariant(
-                      !1,
-                      'This should have a text node initialized. This error is likely caused by a bug in React. Please file an issue.'
-                    );
+                    invariant(!1, 'This should have a text node initialized. This error is likely caused by a bug in React. Please file an issue.');
                   var textInstance = finishedWork.stateNode,
                     newText = finishedWork.memoizedProps,
                     oldText = null !== current$$1 ? current$$1.memoizedProps : newText;
@@ -11747,32 +9111,23 @@ module.exports = {
                     primaryChildParent = finishedWork;
                   null === newState
                     ? (newDidTimeout = !1)
-                    : ((newDidTimeout = !0),
-                      (primaryChildParent = finishedWork.child),
-                      0 === newState.timedOutAt && (newState.timedOutAt = requestCurrentTime())),
-                    null !== primaryChildParent &&
-                      hideOrUnhideAllChildren(primaryChildParent, newDidTimeout);
+                    : ((newDidTimeout = !0), (primaryChildParent = finishedWork.child), 0 === newState.timedOutAt && (newState.timedOutAt = requestCurrentTime())),
+                    null !== primaryChildParent && hideOrUnhideAllChildren(primaryChildParent, newDidTimeout);
                   var thenables = finishedWork.updateQueue;
                   if (null !== thenables) {
                     finishedWork.updateQueue = null;
                     var retryCache = finishedWork.stateNode;
-                    null === retryCache &&
-                      (retryCache = finishedWork.stateNode = new PossiblyWeakSet$1()),
+                    null === retryCache && (retryCache = finishedWork.stateNode = new PossiblyWeakSet$1()),
                       thenables.forEach(function (thenable) {
                         var retry = retryTimedOutBoundary.bind(null, finishedWork, thenable);
-                        (retry = tracing.unstable_wrap(retry)),
-                          retryCache.has(thenable) ||
-                            (retryCache.add(thenable), thenable.then(retry, retry));
+                        (retry = tracing.unstable_wrap(retry)), retryCache.has(thenable) || (retryCache.add(thenable), thenable.then(retry, retry));
                       });
                   }
                   return;
                 case 17:
                   return;
                 default:
-                  invariant(
-                    !1,
-                    'This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.'
-                  );
+                  invariant(!1, 'This unit of work tag should not have side-effects. This error is likely caused by a bug in React. Please file an issue.');
               }
             else {
               switch (finishedWork.tag) {
@@ -11816,8 +9171,7 @@ module.exports = {
               null !== inst &&
                 'function' == typeof inst.componentDidCatch &&
                 (update.callback = function callback() {
-                  'function' != typeof getDerivedStateFromError &&
-                    markLegacyErrorBoundaryAsFailed(this);
+                  'function' != typeof getDerivedStateFromError && markLegacyErrorBoundaryAsFailed(this);
                   var error = errorInfo.value,
                     stack = errorInfo.stack;
                   logError(fiber, errorInfo),
@@ -11838,11 +9192,8 @@ module.exports = {
               threadIDs = void 0;
             if (
               (null === pingCache
-                ? ((pingCache = root.pingCache = new PossiblyWeakMap()),
-                  (threadIDs = new Set()),
-                  pingCache.set(thenable, threadIDs))
-                : void 0 === (threadIDs = pingCache.get(thenable)) &&
-                  ((threadIDs = new Set()), pingCache.set(thenable, threadIDs)),
+                ? ((pingCache = root.pingCache = new PossiblyWeakMap()), (threadIDs = new Set()), pingCache.set(thenable, threadIDs))
+                : void 0 === (threadIDs = pingCache.get(thenable)) && ((threadIDs = new Set()), pingCache.set(thenable, threadIDs)),
               !threadIDs.has(renderExpirationTime))
             ) {
               threadIDs.add(renderExpirationTime);
@@ -11875,8 +9226,7 @@ module.exports = {
                   'number' == typeof timeoutPropMs &&
                     (timeoutPropMs <= 0
                       ? (earliestTimeoutMs = 0)
-                      : (-1 === earliestTimeoutMs || timeoutPropMs < earliestTimeoutMs) &&
-                        (earliestTimeoutMs = timeoutPropMs));
+                      : (-1 === earliestTimeoutMs || timeoutPropMs < earliestTimeoutMs) && (earliestTimeoutMs = timeoutPropMs));
                 }
                 _workInProgress = _workInProgress.return;
               } while (null !== _workInProgress);
@@ -11890,11 +9240,7 @@ module.exports = {
                   } else thenables.add(thenable);
                   if (0 == (1 & _workInProgress.mode)) {
                     var currentSourceFiber;
-                    if (
-                      ((_workInProgress.effectTag |= 64),
-                      (sourceFiber.effectTag &= -1957),
-                      1 === sourceFiber.tag)
-                    )
+                    if (((_workInProgress.effectTag |= 64), (sourceFiber.effectTag &= -1957), 1 === sourceFiber.tag))
                       if (null === sourceFiber.alternate) sourceFiber.tag = 17;
                       else {
                         var update = createUpdate(Sync);
@@ -11907,11 +9253,7 @@ module.exports = {
                   if (-1 === earliestTimeoutMs) absoluteTimeoutMs = 1073741823;
                   else {
                     var earliestExpirationTime, earliestExpirationTimeMs;
-                    if (-1 === startTimeMs)
-                      startTimeMs =
-                        expirationTimeToMs(
-                          findEarliestOutstandingPriorityLevel(root, renderExpirationTime)
-                        ) - 5e3;
+                    if (-1 === startTimeMs) startTimeMs = expirationTimeToMs(findEarliestOutstandingPriorityLevel(root, renderExpirationTime)) - 5e3;
                     absoluteTimeoutMs = startTimeMs + earliestTimeoutMs;
                   }
                   return (
@@ -11939,10 +9281,7 @@ module.exports = {
                   return (
                     (workInProgress.effectTag |= 2048),
                     (workInProgress.expirationTime = renderExpirationTime),
-                    void enqueueCapturedUpdate(
-                      workInProgress,
-                      createRootErrorUpdate(workInProgress, _errorInfo, renderExpirationTime)
-                    )
+                    void enqueueCapturedUpdate(workInProgress, createRootErrorUpdate(workInProgress, _errorInfo, renderExpirationTime))
                   );
                 case 1:
                   var errorInfo = value,
@@ -11952,17 +9291,12 @@ module.exports = {
                   if (
                     0 == (64 & workInProgress.effectTag) &&
                     ('function' == typeof ctor.getDerivedStateFromError ||
-                      (null !== instance &&
-                        'function' == typeof instance.componentDidCatch &&
-                        !isAlreadyFailedLegacyErrorBoundary(instance)))
+                      (null !== instance && 'function' == typeof instance.componentDidCatch && !isAlreadyFailedLegacyErrorBoundary(instance)))
                   )
                     return (
                       (workInProgress.effectTag |= 2048),
                       (workInProgress.expirationTime = renderExpirationTime),
-                      void enqueueCapturedUpdate(
-                        workInProgress,
-                        createClassErrorUpdate(workInProgress, errorInfo, renderExpirationTime)
-                      )
+                      void enqueueCapturedUpdate(workInProgress, createClassErrorUpdate(workInProgress, errorInfo, renderExpirationTime))
                     );
               }
               workInProgress = workInProgress.return;
@@ -11974,18 +9308,12 @@ module.exports = {
                 var Component;
                 isContextProvider(workInProgress.type) && popContext(workInProgress);
                 var effectTag = workInProgress.effectTag;
-                return 2048 & effectTag
-                  ? ((workInProgress.effectTag = (-2049 & effectTag) | 64), workInProgress)
-                  : null;
+                return 2048 & effectTag ? ((workInProgress.effectTag = (-2049 & effectTag) | 64), workInProgress) : null;
               case 3:
                 popHostContainer(workInProgress), popTopLevelContextObject(workInProgress);
                 var _effectTag = workInProgress.effectTag;
                 return (
-                  0 != (64 & _effectTag) &&
-                    invariant(
-                      !1,
-                      'The root failed to unmount after an error. This is likely a bug in React. Please file an issue.'
-                    ),
+                  0 != (64 & _effectTag) && invariant(!1, 'The root failed to unmount after an error. This is likely a bug in React. Please file an issue.'),
                   (workInProgress.effectTag = (-2049 & _effectTag) | 64),
                   workInProgress
                 );
@@ -11993,9 +9321,7 @@ module.exports = {
                 return popHostContext(workInProgress), null;
               case 13:
                 var _effectTag2 = workInProgress.effectTag;
-                return 2048 & _effectTag2
-                  ? ((workInProgress.effectTag = (-2049 & _effectTag2) | 64), workInProgress)
-                  : null;
+                return 2048 & _effectTag2 ? ((workInProgress.effectTag = (-2049 & _effectTag2) | 64), workInProgress) : null;
               case 18:
                 var _effectTag3;
                 return null;
@@ -12055,11 +9381,7 @@ module.exports = {
               switch (phase) {
                 case 'getChildContext':
                   if (didWarnSetStateChildContext) return;
-                  warningWithoutStack(
-                    !1,
-                    'setState(...): Cannot call setState() inside getChildContext()'
-                  ),
-                    (didWarnSetStateChildContext = !0);
+                  warningWithoutStack(!1, 'setState(...): Cannot call setState() inside getChildContext()'), (didWarnSetStateChildContext = !0);
                   break;
                 case 'render':
                   if (didWarnAboutStateTransition) return;
@@ -12117,9 +9439,7 @@ module.exports = {
                   break;
                 case 6:
                   var _current;
-                  commitPlacement(nextEffect),
-                    (nextEffect.effectTag &= -3),
-                    commitWork(nextEffect.alternate, nextEffect);
+                  commitPlacement(nextEffect), (nextEffect.effectTag &= -3), commitWork(nextEffect.alternate, nextEffect);
                   break;
                 case 4:
                   var _current2;
@@ -12135,30 +9455,17 @@ module.exports = {
           function commitBeforeMutationLifecycles() {
             for (; null !== nextEffect; ) {
               var effectTag, current$$1;
-              if ((setCurrentFiber(nextEffect), 256 & nextEffect.effectTag))
-                recordEffect(), commitBeforeMutationLifeCycles(nextEffect.alternate, nextEffect);
+              if ((setCurrentFiber(nextEffect), 256 & nextEffect.effectTag)) recordEffect(), commitBeforeMutationLifeCycles(nextEffect.alternate, nextEffect);
               nextEffect = nextEffect.nextEffect;
             }
             resetCurrentFiber();
           }
           function commitAllLifeCycles(finishedRoot, committedExpirationTime) {
-            for (
-              ReactStrictModeWarnings.flushPendingUnsafeLifecycleWarnings(),
-                ReactStrictModeWarnings.flushLegacyContextWarning();
-              null !== nextEffect;
-
-            ) {
+            for (ReactStrictModeWarnings.flushPendingUnsafeLifecycleWarnings(), ReactStrictModeWarnings.flushLegacyContextWarning(); null !== nextEffect; ) {
               setCurrentFiber(nextEffect);
               var effectTag = nextEffect.effectTag,
                 current$$1;
-              if (36 & effectTag)
-                recordEffect(),
-                  commitLifeCycles(
-                    finishedRoot,
-                    nextEffect.alternate,
-                    nextEffect,
-                    committedExpirationTime
-                  );
+              if (36 & effectTag) recordEffect(), commitLifeCycles(finishedRoot, nextEffect.alternate, nextEffect, committedExpirationTime);
               128 & effectTag && (recordEffect(), commitAttachRef(nextEffect)),
                 512 & effectTag && (rootWithPendingPassiveEffects = finishedRoot),
                 (nextEffect = nextEffect.nextEffect);
@@ -12166,9 +9473,7 @@ module.exports = {
             resetCurrentFiber();
           }
           function commitPassiveEffects(root, firstEffect) {
-            (rootWithPendingPassiveEffects = null),
-              (passiveEffectCallbackHandle = null),
-              (passiveEffectCallback = null);
+            (rootWithPendingPassiveEffects = null), (passiveEffectCallbackHandle = null), (passiveEffectCallback = null);
             var previousIsRendering = isRendering;
             isRendering = !0;
             var effect = firstEffect;
@@ -12184,14 +9489,10 @@ module.exports = {
             } while (null !== effect);
             resetCurrentFiber(), (isRendering = previousIsRendering);
             var rootExpirationTime = root.expirationTime;
-            0 !== rootExpirationTime && requestWork(root, rootExpirationTime),
-              isBatchingUpdates || isRendering || performSyncWork();
+            0 !== rootExpirationTime && requestWork(root, rootExpirationTime), isBatchingUpdates || isRendering || performSyncWork();
           }
           function isAlreadyFailedLegacyErrorBoundary(instance) {
-            return (
-              null !== legacyErrorBoundariesThatAlreadyFailed &&
-              legacyErrorBoundariesThatAlreadyFailed.has(instance)
-            );
+            return null !== legacyErrorBoundariesThatAlreadyFailed && legacyErrorBoundariesThatAlreadyFailed.has(instance);
           }
           function markLegacyErrorBoundaryAsFailed(instance) {
             null === legacyErrorBoundariesThatAlreadyFailed
@@ -12199,9 +9500,7 @@ module.exports = {
               : legacyErrorBoundariesThatAlreadyFailed.add(instance);
           }
           function flushPassiveEffects() {
-            null !== passiveEffectCallbackHandle &&
-              cancelPassiveEffects(passiveEffectCallbackHandle),
-              null !== passiveEffectCallback && passiveEffectCallback();
+            null !== passiveEffectCallbackHandle && cancelPassiveEffects(passiveEffectCallbackHandle), null !== passiveEffectCallback && passiveEffectCallback();
           }
           function commitRoot(root, finishedWork) {
             (isWorking = !0),
@@ -12213,31 +9512,22 @@ module.exports = {
                   'Cannot commit the same tree as before. This is probably a bug related to the return field. This error is likely caused by a bug in React. Please file an issue.'
                 );
             var committedExpirationTime = root.pendingCommitExpirationTime;
-            0 === committedExpirationTime &&
-              invariant(
-                !1,
-                'Cannot commit an incomplete root. This error is likely caused by a bug in React. Please file an issue.'
-              ),
+            0 === committedExpirationTime && invariant(!1, 'Cannot commit an incomplete root. This error is likely caused by a bug in React. Please file an issue.'),
               (root.pendingCommitExpirationTime = 0);
             var updateExpirationTimeBeforeCommit = finishedWork.expirationTime,
               childExpirationTimeBeforeCommit = finishedWork.childExpirationTime,
               earliestRemainingTimeBeforeCommit;
             markCommittedPriorityLevels(
               root,
-              childExpirationTimeBeforeCommit > updateExpirationTimeBeforeCommit
-                ? childExpirationTimeBeforeCommit
-                : updateExpirationTimeBeforeCommit
+              childExpirationTimeBeforeCommit > updateExpirationTimeBeforeCommit ? childExpirationTimeBeforeCommit : updateExpirationTimeBeforeCommit
             );
             var prevInteractions = null;
-            (prevInteractions = tracing.__interactionsRef.current),
-              (tracing.__interactionsRef.current = root.memoizedInteractions),
-              (ReactCurrentOwner$1.current = null);
+            (prevInteractions = tracing.__interactionsRef.current), (tracing.__interactionsRef.current = root.memoizedInteractions), (ReactCurrentOwner$1.current = null);
             var firstEffect = void 0;
             for (
               finishedWork.effectTag > 1
                 ? null !== finishedWork.lastEffect
-                  ? ((finishedWork.lastEffect.nextEffect = finishedWork),
-                    (firstEffect = finishedWork.firstEffect))
+                  ? ((finishedWork.lastEffect.nextEffect = finishedWork), (firstEffect = finishedWork.firstEffect))
                   : (firstEffect = finishedWork)
                 : (firstEffect = finishedWork.firstEffect),
                 prepareForCommit(root.containerInfo),
@@ -12251,41 +9541,22 @@ module.exports = {
               invokeGuardedCallback(null, commitBeforeMutationLifecycles, null),
                 hasCaughtError() && ((didError = !0), (error = clearCaughtError())),
                 didError &&
-                  (null === nextEffect &&
-                    invariant(
-                      !1,
-                      'Should have next effect. This error is likely caused by a bug in React. Please file an issue.'
-                    ),
+                  (null === nextEffect && invariant(!1, 'Should have next effect. This error is likely caused by a bug in React. Please file an issue.'),
                   captureCommitPhaseError(nextEffect, error),
                   null !== nextEffect && (nextEffect = nextEffect.nextEffect));
             }
-            for (
-              stopCommitSnapshotEffectsTimer(),
-                recordCommitTime(),
-                nextEffect = firstEffect,
-                startCommitHostEffectsTimer();
-              null !== nextEffect;
-
-            ) {
+            for (stopCommitSnapshotEffectsTimer(), recordCommitTime(), nextEffect = firstEffect, startCommitHostEffectsTimer(); null !== nextEffect; ) {
               var _didError = !1,
                 _error = void 0;
               invokeGuardedCallback(null, commitAllHostEffects, null),
                 hasCaughtError() && ((_didError = !0), (_error = clearCaughtError())),
                 _didError &&
-                  (null === nextEffect &&
-                    invariant(
-                      !1,
-                      'Should have next effect. This error is likely caused by a bug in React. Please file an issue.'
-                    ),
+                  (null === nextEffect && invariant(!1, 'Should have next effect. This error is likely caused by a bug in React. Please file an issue.'),
                   captureCommitPhaseError(nextEffect, _error),
                   null !== nextEffect && (nextEffect = nextEffect.nextEffect));
             }
             for (
-              stopCommitHostEffectsTimer(),
-                resetAfterCommit(root.containerInfo),
-                root.current = finishedWork,
-                nextEffect = firstEffect,
-                startCommitLifeCyclesTimer();
+              stopCommitHostEffectsTimer(), resetAfterCommit(root.containerInfo), root.current = finishedWork, nextEffect = firstEffect, startCommitLifeCyclesTimer();
               null !== nextEffect;
 
             ) {
@@ -12294,23 +9565,16 @@ module.exports = {
               invokeGuardedCallback(null, commitAllLifeCycles, null, root, committedExpirationTime),
                 hasCaughtError() && ((_didError2 = !0), (_error2 = clearCaughtError())),
                 _didError2 &&
-                  (null === nextEffect &&
-                    invariant(
-                      !1,
-                      'Should have next effect. This error is likely caused by a bug in React. Please file an issue.'
-                    ),
+                  (null === nextEffect && invariant(!1, 'Should have next effect. This error is likely caused by a bug in React. Please file an issue.'),
                   captureCommitPhaseError(nextEffect, _error2),
                   null !== nextEffect && (nextEffect = nextEffect.nextEffect));
             }
             if (null !== firstEffect && null !== rootWithPendingPassiveEffects) {
               var callback = commitPassiveEffects.bind(null, root, firstEffect);
               (callback = tracing.unstable_wrap(callback)),
-                (passiveEffectCallbackHandle = scheduler.unstable_runWithPriority(
-                  scheduler.unstable_NormalPriority,
-                  function () {
-                    return schedulePassiveEffects(callback);
-                  }
-                )),
+                (passiveEffectCallbackHandle = scheduler.unstable_runWithPriority(scheduler.unstable_NormalPriority, function () {
+                  return schedulePassiveEffects(callback);
+                })),
                 (passiveEffectCallback = callback);
             }
             (isCommitting$1 = !1),
@@ -12318,24 +9582,17 @@ module.exports = {
               stopCommitLifeCyclesTimer(),
               stopCommitTimer(),
               onCommitRoot(finishedWork.stateNode),
-              ReactFiberInstrumentation_1.debugTool &&
-                ReactFiberInstrumentation_1.debugTool.onCommitWork(finishedWork);
+              ReactFiberInstrumentation_1.debugTool && ReactFiberInstrumentation_1.debugTool.onCommitWork(finishedWork);
             var updateExpirationTimeAfterCommit = finishedWork.expirationTime,
               childExpirationTimeAfterCommit = finishedWork.childExpirationTime,
               earliestRemainingTimeAfterCommit =
-                childExpirationTimeAfterCommit > updateExpirationTimeAfterCommit
-                  ? childExpirationTimeAfterCommit
-                  : updateExpirationTimeAfterCommit;
-            0 === earliestRemainingTimeAfterCommit &&
-              (legacyErrorBoundariesThatAlreadyFailed = null),
+                childExpirationTimeAfterCommit > updateExpirationTimeAfterCommit ? childExpirationTimeAfterCommit : updateExpirationTimeAfterCommit;
+            0 === earliestRemainingTimeAfterCommit && (legacyErrorBoundariesThatAlreadyFailed = null),
               onCommit(root, earliestRemainingTimeAfterCommit),
               (tracing.__interactionsRef.current = prevInteractions);
             var subscriber = void 0;
             try {
-              if (
-                null !== (subscriber = tracing.__subscriberRef.current) &&
-                root.memoizedInteractions.size > 0
-              ) {
+              if (null !== (subscriber = tracing.__subscriberRef.current) && root.memoizedInteractions.size > 0) {
                 var threadID = computeThreadID(committedExpirationTime, root.interactionThreadID);
                 subscriber.onWorkStopped(root.memoizedInteractions, threadID);
               }
@@ -12343,10 +9600,7 @@ module.exports = {
               hasUnhandledError || ((hasUnhandledError = !0), (unhandledError = error));
             } finally {
               var pendingInteractionMap = root.pendingInteractionMap;
-              pendingInteractionMap.forEach(function (
-                scheduledInteractions,
-                scheduledExpirationTime
-              ) {
+              pendingInteractionMap.forEach(function (scheduledInteractions, scheduledExpirationTime) {
                 scheduledExpirationTime > earliestRemainingTimeAfterCommit &&
                   (pendingInteractionMap.delete(scheduledExpirationTime),
                   scheduledInteractions.forEach(function (interaction) {
@@ -12367,33 +9621,26 @@ module.exports = {
                 for (
                   var actualDuration = workInProgress.actualDuration,
                     treeBaseDuration = workInProgress.selfBaseDuration,
-                    shouldBubbleActualDurations =
-                      null === workInProgress.alternate ||
-                      workInProgress.child !== workInProgress.alternate.child,
+                    shouldBubbleActualDurations = null === workInProgress.alternate || workInProgress.child !== workInProgress.alternate.child,
                     child = workInProgress.child;
                   null !== child;
 
                 ) {
                   var childUpdateExpirationTime = child.expirationTime,
                     childChildExpirationTime = child.childExpirationTime;
-                  childUpdateExpirationTime > newChildExpirationTime &&
-                    (newChildExpirationTime = childUpdateExpirationTime),
-                    childChildExpirationTime > newChildExpirationTime &&
-                      (newChildExpirationTime = childChildExpirationTime),
+                  childUpdateExpirationTime > newChildExpirationTime && (newChildExpirationTime = childUpdateExpirationTime),
+                    childChildExpirationTime > newChildExpirationTime && (newChildExpirationTime = childChildExpirationTime),
                     shouldBubbleActualDurations && (actualDuration += child.actualDuration),
                     (treeBaseDuration += child.treeBaseDuration),
                     (child = child.sibling);
                 }
-                (workInProgress.actualDuration = actualDuration),
-                  (workInProgress.treeBaseDuration = treeBaseDuration);
+                (workInProgress.actualDuration = actualDuration), (workInProgress.treeBaseDuration = treeBaseDuration);
               } else
                 for (var _child = workInProgress.child; null !== _child; ) {
                   var _childUpdateExpirationTime = _child.expirationTime,
                     _childChildExpirationTime = _child.childExpirationTime;
-                  _childUpdateExpirationTime > newChildExpirationTime &&
-                    (newChildExpirationTime = _childUpdateExpirationTime),
-                    _childChildExpirationTime > newChildExpirationTime &&
-                      (newChildExpirationTime = _childChildExpirationTime),
+                  _childUpdateExpirationTime > newChildExpirationTime && (newChildExpirationTime = _childUpdateExpirationTime),
+                    _childChildExpirationTime > newChildExpirationTime && (newChildExpirationTime = _childChildExpirationTime),
                     (_child = _child.sibling);
                 }
               workInProgress.childExpirationTime = newChildExpirationTime;
@@ -12410,13 +9657,8 @@ module.exports = {
                   ((mayReplayFailedUnitOfWork = !1),
                   (nextUnitOfWork = workInProgress),
                   4 & workInProgress.mode && startProfilerTimer(workInProgress),
-                  (nextUnitOfWork = completeWork(
-                    current$$1,
-                    workInProgress,
-                    nextRenderExpirationTime
-                  )),
-                  4 & workInProgress.mode &&
-                    stopProfilerTimerIfRunningAndRecordDelta(workInProgress, !1),
+                  (nextUnitOfWork = completeWork(current$$1, workInProgress, nextRenderExpirationTime)),
+                  4 & workInProgress.mode && stopProfilerTimerIfRunningAndRecordDelta(workInProgress, !1),
                   (mayReplayFailedUnitOfWork = !0),
                   stopWorkTimer(workInProgress),
                   resetChildExpirationTime(workInProgress, nextRenderExpirationTime),
@@ -12426,22 +9668,14 @@ module.exports = {
                   return nextUnitOfWork;
                 var effectTag;
                 if (null !== returnFiber && 0 == (1024 & returnFiber.effectTag))
-                  null === returnFiber.firstEffect &&
-                    (returnFiber.firstEffect = workInProgress.firstEffect),
+                  null === returnFiber.firstEffect && (returnFiber.firstEffect = workInProgress.firstEffect),
                     null !== workInProgress.lastEffect &&
-                      (null !== returnFiber.lastEffect &&
-                        (returnFiber.lastEffect.nextEffect = workInProgress.firstEffect),
+                      (null !== returnFiber.lastEffect && (returnFiber.lastEffect.nextEffect = workInProgress.firstEffect),
                       (returnFiber.lastEffect = workInProgress.lastEffect)),
                     workInProgress.effectTag > 1 &&
-                      (null !== returnFiber.lastEffect
-                        ? (returnFiber.lastEffect.nextEffect = workInProgress)
-                        : (returnFiber.firstEffect = workInProgress),
+                      (null !== returnFiber.lastEffect ? (returnFiber.lastEffect.nextEffect = workInProgress) : (returnFiber.firstEffect = workInProgress),
                       (returnFiber.lastEffect = workInProgress));
-                if (
-                  (ReactFiberInstrumentation_1.debugTool &&
-                    ReactFiberInstrumentation_1.debugTool.onCompleteWork(workInProgress),
-                  null !== siblingFiber)
-                )
+                if ((ReactFiberInstrumentation_1.debugTool && ReactFiberInstrumentation_1.debugTool.onCompleteWork(workInProgress), null !== siblingFiber))
                   return siblingFiber;
                 if (null !== returnFiber) {
                   workInProgress = returnFiber;
@@ -12451,35 +9685,21 @@ module.exports = {
               }
               if (4 & workInProgress.mode) {
                 stopProfilerTimerIfRunningAndRecordDelta(workInProgress, !1);
-                for (
-                  var actualDuration = workInProgress.actualDuration, child = workInProgress.child;
-                  null !== child;
-
-                )
+                for (var actualDuration = workInProgress.actualDuration, child = workInProgress.child; null !== child; )
                   (actualDuration += child.actualDuration), (child = child.sibling);
                 workInProgress.actualDuration = actualDuration;
               }
               var next = unwindWork(workInProgress, nextRenderExpirationTime);
-              if (
-                (64 & workInProgress.effectTag
-                  ? stopFailedWorkTimer(workInProgress)
-                  : stopWorkTimer(workInProgress),
-                resetCurrentFiber(),
-                null !== next)
-              )
+              if ((64 & workInProgress.effectTag ? stopFailedWorkTimer(workInProgress) : stopWorkTimer(workInProgress), resetCurrentFiber(), null !== next))
                 return (
                   stopWorkTimer(workInProgress),
-                  ReactFiberInstrumentation_1.debugTool &&
-                    ReactFiberInstrumentation_1.debugTool.onCompleteWork(workInProgress),
+                  ReactFiberInstrumentation_1.debugTool && ReactFiberInstrumentation_1.debugTool.onCompleteWork(workInProgress),
                   (next.effectTag &= 1023),
                   next
                 );
               if (
-                (null !== returnFiber &&
-                  ((returnFiber.firstEffect = returnFiber.lastEffect = null),
-                  (returnFiber.effectTag |= 1024)),
-                ReactFiberInstrumentation_1.debugTool &&
-                  ReactFiberInstrumentation_1.debugTool.onCompleteWork(workInProgress),
+                (null !== returnFiber && ((returnFiber.firstEffect = returnFiber.lastEffect = null), (returnFiber.effectTag |= 1024)),
+                ReactFiberInstrumentation_1.debugTool && ReactFiberInstrumentation_1.debugTool.onCompleteWork(workInProgress),
                 null !== siblingFiber)
               )
                 return siblingFiber;
@@ -12492,63 +9712,40 @@ module.exports = {
             var current$$1 = workInProgress.alternate;
             startWorkTimer(workInProgress),
               setCurrentFiber(workInProgress),
-              (stashedWorkInProgressProperties = assignFiberPropertiesInDEV(
-                stashedWorkInProgressProperties,
-                workInProgress
-              ));
+              (stashedWorkInProgressProperties = assignFiberPropertiesInDEV(stashedWorkInProgressProperties, workInProgress));
             var next = void 0;
             return (
               4 & workInProgress.mode && startProfilerTimer(workInProgress),
               (next = beginWork(current$$1, workInProgress, nextRenderExpirationTime)),
               (workInProgress.memoizedProps = workInProgress.pendingProps),
-              4 & workInProgress.mode &&
-                stopProfilerTimerIfRunningAndRecordDelta(workInProgress, !0),
+              4 & workInProgress.mode && stopProfilerTimerIfRunningAndRecordDelta(workInProgress, !0),
               resetCurrentFiber(),
               isReplayingFailedUnitOfWork && rethrowOriginalError(),
-              ReactFiberInstrumentation_1.debugTool &&
-                ReactFiberInstrumentation_1.debugTool.onBeginWork(workInProgress),
+              ReactFiberInstrumentation_1.debugTool && ReactFiberInstrumentation_1.debugTool.onBeginWork(workInProgress),
               null === next && (next = completeUnitOfWork(workInProgress)),
               (ReactCurrentOwner$1.current = null),
               next
             );
           }
           function workLoop(isYieldy) {
-            if (isYieldy)
-              for (; null !== nextUnitOfWork && !shouldYieldToRenderer(); )
-                nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
-            else
-              for (; null !== nextUnitOfWork; ) nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+            if (isYieldy) for (; null !== nextUnitOfWork && !shouldYieldToRenderer(); ) nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
+            else for (; null !== nextUnitOfWork; ) nextUnitOfWork = performUnitOfWork(nextUnitOfWork);
           }
           function renderRoot(root, isYieldy) {
-            isWorking &&
-              invariant(
-                !1,
-                'renderRoot was called recursively. This error is likely caused by a bug in React. Please file an issue.'
-              ),
+            isWorking && invariant(!1, 'renderRoot was called recursively. This error is likely caused by a bug in React. Please file an issue.'),
               flushPassiveEffects(),
               (isWorking = !0);
             var previousDispatcher = ReactCurrentDispatcher.current;
             ReactCurrentDispatcher.current = ContextOnlyDispatcher;
             var expirationTime = root.nextExpirationTimeToWorkOn;
-            if (
-              expirationTime !== nextRenderExpirationTime ||
-              root !== nextRoot ||
-              null === nextUnitOfWork
-            ) {
+            if (expirationTime !== nextRenderExpirationTime || root !== nextRoot || null === nextUnitOfWork) {
               resetStack(),
                 (nextRenderExpirationTime = expirationTime),
-                (nextUnitOfWork = createWorkInProgress(
-                  (nextRoot = root).current,
-                  null,
-                  nextRenderExpirationTime
-                )),
+                (nextUnitOfWork = createWorkInProgress((nextRoot = root).current, null, nextRenderExpirationTime)),
                 (root.pendingCommitExpirationTime = 0);
               var interactions = new Set();
               if (
-                (root.pendingInteractionMap.forEach(function (
-                  scheduledInteractions,
-                  scheduledExpirationTime
-                ) {
+                (root.pendingInteractionMap.forEach(function (scheduledInteractions, scheduledExpirationTime) {
                   scheduledExpirationTime >= expirationTime &&
                     scheduledInteractions.forEach(function (interaction) {
                       return interactions.add(interaction);
@@ -12569,8 +9766,7 @@ module.exports = {
               }
             }
             var prevInteractions = null;
-            (prevInteractions = tracing.__interactionsRef.current),
-              (tracing.__interactionsRef.current = root.memoizedInteractions);
+            (prevInteractions = tracing.__interactionsRef.current), (tracing.__interactionsRef.current = root.memoizedInteractions);
             var didFatal = !1;
             for (startWorkLoopTimer(nextUnitOfWork); ; ) {
               try {
@@ -12578,16 +9774,10 @@ module.exports = {
               } catch (thrownValue) {
                 resetContextDependences(), resetHooks();
                 var mayReplay = void 0;
-                if (
-                  ((mayReplay = mayReplayFailedUnitOfWork),
-                  (mayReplayFailedUnitOfWork = !0),
-                  null === nextUnitOfWork)
-                )
-                  (didFatal = !0), onUncaughtError(thrownValue);
+                if (((mayReplay = mayReplayFailedUnitOfWork), (mayReplayFailedUnitOfWork = !0), null === nextUnitOfWork)) (didFatal = !0), onUncaughtError(thrownValue);
                 else {
                   var failedUnitOfWork;
-                  4 & nextUnitOfWork.mode &&
-                    stopProfilerTimerIfRunningAndRecordDelta(nextUnitOfWork, !0),
+                  4 & nextUnitOfWork.mode && stopProfilerTimerIfRunningAndRecordDelta(nextUnitOfWork, !0),
                     resetCurrentlyProcessingQueue(),
                     mayReplay && replayUnitOfWork(nextUnitOfWork, thrownValue, isYieldy),
                     null === nextUnitOfWork &&
@@ -12598,14 +9788,7 @@ module.exports = {
                   var sourceFiber = nextUnitOfWork,
                     returnFiber = sourceFiber.return;
                   if (null !== returnFiber) {
-                    throwException(
-                      root,
-                      returnFiber,
-                      sourceFiber,
-                      thrownValue,
-                      nextRenderExpirationTime
-                    ),
-                      (nextUnitOfWork = completeUnitOfWork(sourceFiber));
+                    throwException(root, returnFiber, sourceFiber, thrownValue, nextRenderExpirationTime), (nextUnitOfWork = completeUnitOfWork(sourceFiber));
                     continue;
                   }
                   (didFatal = !0), onUncaughtError(thrownValue);
@@ -12622,73 +9805,44 @@ module.exports = {
               didFatal)
             ) {
               var _didCompleteRoot = !1;
-              return (
-                stopWorkLoopTimer(interruptedBy, !1),
-                (interruptedBy = null),
-                resetStackAfterFatalErrorInDev(),
-                (nextRoot = null),
-                void onFatal(root)
-              );
+              return stopWorkLoopTimer(interruptedBy, !1), (interruptedBy = null), resetStackAfterFatalErrorInDev(), (nextRoot = null), void onFatal(root);
             }
             if (null !== nextUnitOfWork) {
               var _didCompleteRoot2 = !1;
-              return (
-                stopWorkLoopTimer(interruptedBy, !1), (interruptedBy = null), void onYield(root)
-              );
+              return stopWorkLoopTimer(interruptedBy, !1), (interruptedBy = null), void onYield(root);
             }
             var didCompleteRoot = !0;
             stopWorkLoopTimer(interruptedBy, !0);
             var rootWorkInProgress = root.current.alternate;
             if (
               (null === rootWorkInProgress &&
-                invariant(
-                  !1,
-                  'Finished root should have a work-in-progress. This error is likely caused by a bug in React. Please file an issue.'
-                ),
+                invariant(!1, 'Finished root should have a work-in-progress. This error is likely caused by a bug in React. Please file an issue.'),
               (nextRoot = null),
               (interruptedBy = null),
               nextRenderDidError)
             ) {
               var suspendedExpirationTime, rootExpirationTime;
               if (hasLowerPriorityWork(root, expirationTime))
-                return (
-                  markSuspendedPriorityLevel(root, expirationTime),
-                  void onSuspend(root, rootWorkInProgress, expirationTime, root.expirationTime, -1)
-                );
+                return markSuspendedPriorityLevel(root, expirationTime), void onSuspend(root, rootWorkInProgress, expirationTime, root.expirationTime, -1);
               if (!root.didError && isYieldy) {
                 root.didError = !0;
                 var _suspendedExpirationTime = (root.nextExpirationTimeToWorkOn = expirationTime),
                   _rootExpirationTime = (root.expirationTime = Sync);
-                return void onSuspend(
-                  root,
-                  rootWorkInProgress,
-                  _suspendedExpirationTime,
-                  _rootExpirationTime,
-                  -1
-                );
+                return void onSuspend(root, rootWorkInProgress, _suspendedExpirationTime, _rootExpirationTime, -1);
               }
             }
             if (isYieldy && -1 !== nextLatestAbsoluteTimeoutMs) {
               var _suspendedExpirationTime2 = expirationTime;
               markSuspendedPriorityLevel(root, _suspendedExpirationTime2);
               var earliestExpirationTime,
-                earliestExpirationTimeMs = expirationTimeToMs(
-                  findEarliestOutstandingPriorityLevel(root, expirationTime)
-                );
-              earliestExpirationTimeMs < nextLatestAbsoluteTimeoutMs &&
-                (nextLatestAbsoluteTimeoutMs = earliestExpirationTimeMs);
+                earliestExpirationTimeMs = expirationTimeToMs(findEarliestOutstandingPriorityLevel(root, expirationTime));
+              earliestExpirationTimeMs < nextLatestAbsoluteTimeoutMs && (nextLatestAbsoluteTimeoutMs = earliestExpirationTimeMs);
               var currentTimeMs = expirationTimeToMs(requestCurrentTime()),
                 msUntilTimeout = nextLatestAbsoluteTimeoutMs - currentTimeMs,
                 _rootExpirationTime2;
               return (
                 (msUntilTimeout = msUntilTimeout < 0 ? 0 : msUntilTimeout),
-                void onSuspend(
-                  root,
-                  rootWorkInProgress,
-                  _suspendedExpirationTime2,
-                  root.expirationTime,
-                  msUntilTimeout
-                )
+                void onSuspend(root, rootWorkInProgress, _suspendedExpirationTime2, root.expirationTime, msUntilTimeout)
               );
             }
             onComplete(root, rootWorkInProgress, expirationTime);
@@ -12703,34 +9857,13 @@ module.exports = {
                     update;
                   if (
                     'function' == typeof ctor.getDerivedStateFromError ||
-                    ('function' == typeof instance.componentDidCatch &&
-                      !isAlreadyFailedLegacyErrorBoundary(instance))
+                    ('function' == typeof instance.componentDidCatch && !isAlreadyFailedLegacyErrorBoundary(instance))
                   )
-                    return (
-                      enqueueUpdate(
-                        fiber,
-                        createClassErrorUpdate(
-                          fiber,
-                          createCapturedValue(value, sourceFiber),
-                          1073741823
-                        )
-                      ),
-                      void scheduleWork(fiber, 1073741823)
-                    );
+                    return enqueueUpdate(fiber, createClassErrorUpdate(fiber, createCapturedValue(value, sourceFiber), 1073741823)), void scheduleWork(fiber, 1073741823);
                   break;
                 case 3:
                   var _errorInfo, _update;
-                  return (
-                    enqueueUpdate(
-                      fiber,
-                      createRootErrorUpdate(
-                        fiber,
-                        createCapturedValue(value, sourceFiber),
-                        1073741823
-                      )
-                    ),
-                    void scheduleWork(fiber, 1073741823)
-                  );
+                  return enqueueUpdate(fiber, createRootErrorUpdate(fiber, createCapturedValue(value, sourceFiber), 1073741823)), void scheduleWork(fiber, 1073741823);
               }
               fiber = fiber.return;
             }
@@ -12738,11 +9871,7 @@ module.exports = {
               var rootFiber = sourceFiber,
                 _errorInfo2,
                 _update2;
-              enqueueUpdate(
-                rootFiber,
-                createRootErrorUpdate(rootFiber, createCapturedValue(value, rootFiber), 1073741823)
-              ),
-                scheduleWork(rootFiber, 1073741823);
+              enqueueUpdate(rootFiber, createRootErrorUpdate(rootFiber, createCapturedValue(value, rootFiber), 1073741823)), scheduleWork(rootFiber, 1073741823);
             }
           }
           function computeThreadID(expirationTime, interactionThreadID) {
@@ -12751,10 +9880,7 @@ module.exports = {
           function computeUniqueAsyncExpiration() {
             var currentTime,
               result = computeAsyncExpiration(requestCurrentTime());
-            return (
-              result >= lastUniqueAsyncExpiration && (result = lastUniqueAsyncExpiration - 1),
-              (lastUniqueAsyncExpiration = result)
-            );
+            return result >= lastUniqueAsyncExpiration && (result = lastUniqueAsyncExpiration - 1), (lastUniqueAsyncExpiration = result);
           }
           function computeExpirationForFiber(currentTime, fiber) {
             var priorityLevel = scheduler.unstable_getCurrentPriorityLevel(),
@@ -12777,38 +9903,26 @@ module.exports = {
                   expirationTime = 1;
                   break;
                 default:
-                  invariant(
-                    !1,
-                    'Unknown priority level. This error is likely caused by a bug in React. Please file an issue.'
-                  );
+                  invariant(!1, 'Unknown priority level. This error is likely caused by a bug in React. Please file an issue.');
               }
-              null !== nextRoot &&
-                expirationTime === nextRenderExpirationTime &&
-                (expirationTime -= 1);
+              null !== nextRoot && expirationTime === nextRenderExpirationTime && (expirationTime -= 1);
             }
             return (
               priorityLevel === scheduler.unstable_UserBlockingPriority &&
-                (0 === lowestPriorityPendingInteractiveExpirationTime ||
-                  expirationTime < lowestPriorityPendingInteractiveExpirationTime) &&
+                (0 === lowestPriorityPendingInteractiveExpirationTime || expirationTime < lowestPriorityPendingInteractiveExpirationTime) &&
                 (lowestPriorityPendingInteractiveExpirationTime = expirationTime),
               expirationTime
             );
           }
           function renderDidSuspend(root, absoluteTimeoutMs, suspendedTime) {
-            absoluteTimeoutMs >= 0 &&
-              nextLatestAbsoluteTimeoutMs < absoluteTimeoutMs &&
-              (nextLatestAbsoluteTimeoutMs = absoluteTimeoutMs);
+            absoluteTimeoutMs >= 0 && nextLatestAbsoluteTimeoutMs < absoluteTimeoutMs && (nextLatestAbsoluteTimeoutMs = absoluteTimeoutMs);
           }
           function renderDidError() {
             nextRenderDidError = !0;
           }
           function pingSuspendedRoot(root, thenable, pingTime) {
             var pingCache = root.pingCache;
-            if (
-              (null !== pingCache && pingCache.delete(thenable),
-              null !== nextRoot && nextRenderExpirationTime === pingTime)
-            )
-              nextRoot = null;
+            if ((null !== pingCache && pingCache.delete(thenable), null !== nextRoot && nextRenderExpirationTime === pingTime)) nextRoot = null;
             else if (isPriorityLevelSuspended(root, pingTime)) {
               markPingedPriorityLevel(root, pingTime);
               var rootExpirationTime = root.expirationTime;
@@ -12834,9 +9948,7 @@ module.exports = {
             }
             fiber.expirationTime < expirationTime && (fiber.expirationTime = expirationTime);
             var alternate = fiber.alternate;
-            null !== alternate &&
-              alternate.expirationTime < expirationTime &&
-              (alternate.expirationTime = expirationTime);
+            null !== alternate && alternate.expirationTime < expirationTime && (alternate.expirationTime = expirationTime);
             var node = fiber.return,
               root = null;
             if (null === node && 3 === fiber.tag) root = fiber.stateNode;
@@ -12846,12 +9958,8 @@ module.exports = {
                   ((alternate = node.alternate),
                   node.childExpirationTime < expirationTime
                     ? ((node.childExpirationTime = expirationTime),
-                      null !== alternate &&
-                        alternate.childExpirationTime < expirationTime &&
-                        (alternate.childExpirationTime = expirationTime))
-                    : null !== alternate &&
-                      alternate.childExpirationTime < expirationTime &&
-                      (alternate.childExpirationTime = expirationTime),
+                      null !== alternate && alternate.childExpirationTime < expirationTime && (alternate.childExpirationTime = expirationTime))
+                    : null !== alternate && alternate.childExpirationTime < expirationTime && (alternate.childExpirationTime = expirationTime),
                   null === node.return && 3 === node.tag)
                 ) {
                   root = node.stateNode;
@@ -12866,8 +9974,7 @@ module.exports = {
                   pendingInteractions = pendingInteractionMap.get(expirationTime);
                 null != pendingInteractions
                   ? interactions.forEach(function (interaction) {
-                      pendingInteractions.has(interaction) || interaction.__count++,
-                        pendingInteractions.add(interaction);
+                      pendingInteractions.has(interaction) || interaction.__count++, pendingInteractions.add(interaction);
                     })
                   : (pendingInteractionMap.set(expirationTime, new Set(interactions)),
                     interactions.forEach(function (interaction) {
@@ -12897,10 +10004,7 @@ module.exports = {
             if (null !== root) {
               var rootExpirationTime;
               if (
-                (!isWorking &&
-                  0 !== nextRenderExpirationTime &&
-                  expirationTime > nextRenderExpirationTime &&
-                  ((interruptedBy = fiber), resetStack()),
+                (!isWorking && 0 !== nextRenderExpirationTime && expirationTime > nextRenderExpirationTime && ((interruptedBy = fiber), resetStack()),
                 markPendingPriorityLevel(root, expirationTime),
                 !isWorking || isCommitting$1 || nextRoot !== root)
               )
@@ -12924,31 +10028,20 @@ module.exports = {
               }
           }
           function syncUpdates(fn, a, b, c, d) {
-            return scheduler.unstable_runWithPriority(
-              scheduler.unstable_ImmediatePriority,
-              function () {
-                return fn(a, b, c, d);
-              }
-            );
+            return scheduler.unstable_runWithPriority(scheduler.unstable_ImmediatePriority, function () {
+              return fn(a, b, c, d);
+            });
           }
           (stashedWorkInProgressProperties = null),
             (mayReplayFailedUnitOfWork = !0),
             (isReplayingFailedUnitOfWork = !1),
             (originalReplayError = null),
             (replayUnitOfWork = function (failedUnitOfWork, thrownValue, isYieldy) {
-              if (
-                null === thrownValue ||
-                'object' != typeof thrownValue ||
-                'function' != typeof thrownValue.then
-              )
+              if (null === thrownValue || 'object' != typeof thrownValue || 'function' != typeof thrownValue.then)
                 if (null !== stashedWorkInProgressProperties) {
-                  switch (
-                    (assignFiberPropertiesInDEV(failedUnitOfWork, stashedWorkInProgressProperties),
-                    failedUnitOfWork.tag)
-                  ) {
+                  switch ((assignFiberPropertiesInDEV(failedUnitOfWork, stashedWorkInProgressProperties), failedUnitOfWork.tag)) {
                     case 3:
-                      popHostContainer(failedUnitOfWork),
-                        popTopLevelContextObject(failedUnitOfWork);
+                      popHostContainer(failedUnitOfWork), popTopLevelContextObject(failedUnitOfWork);
                       break;
                     case 5:
                       popHostContext(failedUnitOfWork);
@@ -12977,11 +10070,7 @@ module.exports = {
                         replayError._suppressLogging && (thrownValue._suppressLogging = !0);
                       } catch (inner) {}
                   } else nextUnitOfWork = failedUnitOfWork;
-                } else
-                  warningWithoutStack(
-                    !1,
-                    'Could not replay rendering after an error. This is likely a bug in React. Please file an issue.'
-                  );
+                } else warningWithoutStack(!1, 'Could not replay rendering after an error. This is likely a bug in React. Please file an issue.');
             }),
             (rethrowOriginalError = function () {
               throw originalReplayError;
@@ -13028,22 +10117,11 @@ module.exports = {
           function onComplete(root, finishedWork, expirationTime) {
             (root.pendingCommitExpirationTime = expirationTime), (root.finishedWork = finishedWork);
           }
-          function onSuspend(
-            root,
-            finishedWork,
-            suspendedExpirationTime,
-            rootExpirationTime,
-            msUntilTimeout
-          ) {
+          function onSuspend(root, finishedWork, suspendedExpirationTime, rootExpirationTime, msUntilTimeout) {
             (root.expirationTime = rootExpirationTime),
               0 !== msUntilTimeout || shouldYieldToRenderer()
-                ? msUntilTimeout > 0 &&
-                  (root.timeoutHandle = scheduleTimeout(
-                    onTimeout.bind(null, root, finishedWork, suspendedExpirationTime),
-                    msUntilTimeout
-                  ))
-                : ((root.pendingCommitExpirationTime = suspendedExpirationTime),
-                  (root.finishedWork = finishedWork));
+                ? msUntilTimeout > 0 && (root.timeoutHandle = scheduleTimeout(onTimeout.bind(null, root, finishedWork, suspendedExpirationTime), msUntilTimeout))
+                : ((root.pendingCommitExpirationTime = suspendedExpirationTime), (root.finishedWork = finishedWork));
           }
           function onYield(root) {
             root.finishedWork = null;
@@ -13070,10 +10148,7 @@ module.exports = {
             addRootToSchedule(root, expirationTime),
               isRendering ||
                 (isBatchingUpdates
-                  ? isUnbatchingUpdates &&
-                    ((nextFlushedRoot = root),
-                    (nextFlushedExpirationTime = Sync),
-                    performWorkOnRoot(root, Sync, !1))
+                  ? isUnbatchingUpdates && ((nextFlushedRoot = root), (nextFlushedExpirationTime = Sync), performWorkOnRoot(root, Sync, !1))
                   : expirationTime === Sync
                   ? performSyncWork()
                   : scheduleCallbackWithExpirationTime(root, expirationTime));
@@ -13083,55 +10158,39 @@ module.exports = {
             null === root.nextScheduledRoot
               ? ((root.expirationTime = expirationTime),
                 null === lastScheduledRoot
-                  ? ((firstScheduledRoot = lastScheduledRoot = root),
-                    (root.nextScheduledRoot = root))
-                  : ((lastScheduledRoot.nextScheduledRoot = root),
-                    ((lastScheduledRoot = root).nextScheduledRoot = firstScheduledRoot)))
+                  ? ((firstScheduledRoot = lastScheduledRoot = root), (root.nextScheduledRoot = root))
+                  : ((lastScheduledRoot.nextScheduledRoot = root), ((lastScheduledRoot = root).nextScheduledRoot = firstScheduledRoot)))
               : expirationTime > root.expirationTime && (root.expirationTime = expirationTime);
           }
           function findHighestPriorityRoot() {
             var highestPriorityWork = 0,
               highestPriorityRoot = null;
             if (null !== lastScheduledRoot)
-              for (
-                var previousScheduledRoot = lastScheduledRoot, root = firstScheduledRoot;
-                null !== root;
-
-              ) {
+              for (var previousScheduledRoot = lastScheduledRoot, root = firstScheduledRoot; null !== root; ) {
                 var remainingExpirationTime = root.expirationTime;
                 if (0 === remainingExpirationTime) {
                   if (
                     ((null === previousScheduledRoot || null === lastScheduledRoot) &&
-                      invariant(
-                        !1,
-                        'Should have a previous and last root. This error is likely caused by a bug in React. Please file an issue.'
-                      ),
+                      invariant(!1, 'Should have a previous and last root. This error is likely caused by a bug in React. Please file an issue.'),
                     root === root.nextScheduledRoot)
                   ) {
-                    (root.nextScheduledRoot = null),
-                      (firstScheduledRoot = lastScheduledRoot = null);
+                    (root.nextScheduledRoot = null), (firstScheduledRoot = lastScheduledRoot = null);
                     break;
                   }
                   if (root === firstScheduledRoot) {
                     var next = root.nextScheduledRoot;
-                    (firstScheduledRoot = next),
-                      (lastScheduledRoot.nextScheduledRoot = next),
-                      (root.nextScheduledRoot = null);
+                    (firstScheduledRoot = next), (lastScheduledRoot.nextScheduledRoot = next), (root.nextScheduledRoot = null);
                   } else {
                     if (root === lastScheduledRoot) {
-                      ((lastScheduledRoot = previousScheduledRoot).nextScheduledRoot = firstScheduledRoot),
-                        (root.nextScheduledRoot = null);
+                      ((lastScheduledRoot = previousScheduledRoot).nextScheduledRoot = firstScheduledRoot), (root.nextScheduledRoot = null);
                       break;
                     }
-                    (previousScheduledRoot.nextScheduledRoot = root.nextScheduledRoot),
-                      (root.nextScheduledRoot = null);
+                    (previousScheduledRoot.nextScheduledRoot = root.nextScheduledRoot), (root.nextScheduledRoot = null);
                   }
                   root = previousScheduledRoot.nextScheduledRoot;
                 } else {
                   if (
-                    (remainingExpirationTime > highestPriorityWork &&
-                      ((highestPriorityWork = remainingExpirationTime),
-                      (highestPriorityRoot = root)),
+                    (remainingExpirationTime > highestPriorityWork && ((highestPriorityWork = remainingExpirationTime), (highestPriorityRoot = root)),
                     root === lastScheduledRoot)
                   )
                     break;
@@ -13139,8 +10198,7 @@ module.exports = {
                   (previousScheduledRoot = root), (root = root.nextScheduledRoot);
                 }
               }
-            (nextFlushedRoot = highestPriorityRoot),
-              (nextFlushedExpirationTime = highestPriorityWork);
+            (nextFlushedRoot = highestPriorityRoot), (nextFlushedExpirationTime = highestPriorityWork);
           }
           var didYield = !1;
           function shouldYieldToRenderer() {
@@ -13152,8 +10210,7 @@ module.exports = {
                 recomputeCurrentRendererTime();
                 var root = firstScheduledRoot;
                 do {
-                  didExpireAtExpirationTime(root, currentRendererTime),
-                    (root = root.nextScheduledRoot);
+                  didExpireAtExpirationTime(root, currentRendererTime), (root = root.nextScheduledRoot);
                 } while (root !== firstScheduledRoot);
               }
               performWork(0, !0);
@@ -13170,56 +10227,34 @@ module.exports = {
               for (
                 recomputeCurrentRendererTime(),
                   currentSchedulerTime = currentRendererTime,
-                  stopRequestCallbackTimer(
-                    nextFlushedExpirationTime > currentRendererTime,
-                    expirationTimeToMs(nextFlushedExpirationTime)
-                  );
+                  stopRequestCallbackTimer(nextFlushedExpirationTime > currentRendererTime, expirationTimeToMs(nextFlushedExpirationTime));
                 null !== nextFlushedRoot &&
                 0 !== nextFlushedExpirationTime &&
                 minExpirationTime <= nextFlushedExpirationTime &&
                 !(didYield && currentRendererTime > nextFlushedExpirationTime);
 
               )
-                performWorkOnRoot(
-                  nextFlushedRoot,
-                  nextFlushedExpirationTime,
-                  currentRendererTime > nextFlushedExpirationTime
-                ),
+                performWorkOnRoot(nextFlushedRoot, nextFlushedExpirationTime, currentRendererTime > nextFlushedExpirationTime),
                   findHighestPriorityRoot(),
                   recomputeCurrentRendererTime(),
                   (currentSchedulerTime = currentRendererTime);
             else
-              for (
-                ;
-                null !== nextFlushedRoot &&
-                0 !== nextFlushedExpirationTime &&
-                minExpirationTime <= nextFlushedExpirationTime;
-
-              )
-                performWorkOnRoot(nextFlushedRoot, nextFlushedExpirationTime, !1),
-                  findHighestPriorityRoot();
+              for (; null !== nextFlushedRoot && 0 !== nextFlushedExpirationTime && minExpirationTime <= nextFlushedExpirationTime; )
+                performWorkOnRoot(nextFlushedRoot, nextFlushedExpirationTime, !1), findHighestPriorityRoot();
             isYieldy && ((callbackExpirationTime = 0), (callbackID = null)),
-              0 !== nextFlushedExpirationTime &&
-                scheduleCallbackWithExpirationTime(nextFlushedRoot, nextFlushedExpirationTime),
+              0 !== nextFlushedExpirationTime && scheduleCallbackWithExpirationTime(nextFlushedRoot, nextFlushedExpirationTime),
               finishRendering();
           }
           function flushRoot(root, expirationTime) {
             isRendering &&
-              invariant(
-                !1,
-                'work.commit(): Cannot commit while already rendering. This likely means you attempted to commit from inside a lifecycle method.'
-              ),
+              invariant(!1, 'work.commit(): Cannot commit while already rendering. This likely means you attempted to commit from inside a lifecycle method.'),
               (nextFlushedRoot = root),
               (nextFlushedExpirationTime = expirationTime),
               performWorkOnRoot(root, expirationTime, !1),
               performSyncWork();
           }
           function finishRendering() {
-            if (
-              ((nestedUpdateCount = 0),
-              (lastCommittedRootDuringThisBatch = null),
-              null !== completedBatches)
-            ) {
+            if (((nestedUpdateCount = 0), (lastCommittedRootDuringThisBatch = null), null !== completedBatches)) {
               var batches = completedBatches;
               completedBatches = null;
               for (var i = 0; i < batches.length; i++) {
@@ -13238,11 +10273,7 @@ module.exports = {
           }
           function performWorkOnRoot(root, expirationTime, isYieldy) {
             if (
-              (isRendering &&
-                invariant(
-                  !1,
-                  'performWorkOnRoot was called recursively. This error is likely caused by a bug in React. Please file an issue.'
-                ),
+              (isRendering && invariant(!1, 'performWorkOnRoot was called recursively. This error is likely caused by a bug in React. Please file an issue.'),
               (isRendering = !0),
               isYieldy)
             ) {
@@ -13251,13 +10282,10 @@ module.exports = {
               else {
                 root.finishedWork = null;
                 var _timeoutHandle = root.timeoutHandle;
-                _timeoutHandle !== noTimeout &&
-                  ((root.timeoutHandle = noTimeout), cancelTimeout(_timeoutHandle)),
+                _timeoutHandle !== noTimeout && ((root.timeoutHandle = noTimeout), cancelTimeout(_timeoutHandle)),
                   renderRoot(root, isYieldy),
                   null !== (_finishedWork = root.finishedWork) &&
-                    (shouldYieldToRenderer()
-                      ? (root.finishedWork = _finishedWork)
-                      : completeRoot(root, _finishedWork, expirationTime));
+                    (shouldYieldToRenderer() ? (root.finishedWork = _finishedWork) : completeRoot(root, _finishedWork, expirationTime));
               }
             } else {
               var finishedWork = root.finishedWork;
@@ -13265,11 +10293,9 @@ module.exports = {
               else {
                 root.finishedWork = null;
                 var timeoutHandle = root.timeoutHandle;
-                timeoutHandle !== noTimeout &&
-                  ((root.timeoutHandle = noTimeout), cancelTimeout(timeoutHandle)),
+                timeoutHandle !== noTimeout && ((root.timeoutHandle = noTimeout), cancelTimeout(timeoutHandle)),
                   renderRoot(root, isYieldy),
-                  null !== (finishedWork = root.finishedWork) &&
-                    completeRoot(root, finishedWork, expirationTime);
+                  null !== (finishedWork = root.finishedWork) && completeRoot(root, finishedWork, expirationTime);
               }
             }
             isRendering = !1;
@@ -13279,26 +10305,17 @@ module.exports = {
             if (
               null !== firstBatch &&
               firstBatch._expirationTime >= expirationTime &&
-              (null === completedBatches
-                ? (completedBatches = [firstBatch])
-                : completedBatches.push(firstBatch),
-              firstBatch._defer)
+              (null === completedBatches ? (completedBatches = [firstBatch]) : completedBatches.push(firstBatch), firstBatch._defer)
             )
               return (root.finishedWork = finishedWork), void (root.expirationTime = 0);
             (root.finishedWork = null),
-              root === lastCommittedRootDuringThisBatch
-                ? nestedUpdateCount++
-                : ((lastCommittedRootDuringThisBatch = root), (nestedUpdateCount = 0)),
+              root === lastCommittedRootDuringThisBatch ? nestedUpdateCount++ : ((lastCommittedRootDuringThisBatch = root), (nestedUpdateCount = 0)),
               scheduler.unstable_runWithPriority(scheduler.unstable_ImmediatePriority, function () {
                 commitRoot(root, finishedWork);
               });
           }
           function onUncaughtError(error) {
-            null === nextFlushedRoot &&
-              invariant(
-                !1,
-                'Should be working on a root. This error is likely caused by a bug in React. Please file an issue.'
-              ),
+            null === nextFlushedRoot && invariant(!1, 'Should be working on a root. This error is likely caused by a bug in React. Please file an issue.'),
               (nextFlushedRoot.expirationTime = 0),
               hasUnhandledError || ((hasUnhandledError = !0), (unhandledError = error));
           }
@@ -13323,11 +10340,7 @@ module.exports = {
             return fn(a);
           }
           function flushSync(fn, a) {
-            isRendering &&
-              invariant(
-                !1,
-                'flushSync was called from inside a lifecycle method. It cannot be called when React is already rendering.'
-              );
+            isRendering && invariant(!1, 'flushSync was called from inside a lifecycle method. It cannot be called when React is already rendering.');
             var previousIsBatchingUpdates = isBatchingUpdates;
             isBatchingUpdates = !0;
             try {
@@ -13340,17 +10353,13 @@ module.exports = {
             isBatchingUpdates ||
               isRendering ||
               0 === lowestPriorityPendingInteractiveExpirationTime ||
-              (performWork(lowestPriorityPendingInteractiveExpirationTime, !1),
-              (lowestPriorityPendingInteractiveExpirationTime = 0));
+              (performWork(lowestPriorityPendingInteractiveExpirationTime, !1), (lowestPriorityPendingInteractiveExpirationTime = 0));
             var previousIsBatchingUpdates = isBatchingUpdates;
             isBatchingUpdates = !0;
             try {
-              return scheduler.unstable_runWithPriority(
-                scheduler.unstable_UserBlockingPriority,
-                function () {
-                  return fn(a, b);
-                }
-              );
+              return scheduler.unstable_runWithPriority(scheduler.unstable_UserBlockingPriority, function () {
+                return fn(a, b);
+              });
             } finally {
               (isBatchingUpdates = previousIsBatchingUpdates) || isRendering || performSyncWork();
             }
@@ -13358,8 +10367,7 @@ module.exports = {
           function flushInteractiveUpdates() {
             isRendering ||
               0 === lowestPriorityPendingInteractiveExpirationTime ||
-              (performWork(lowestPriorityPendingInteractiveExpirationTime, !1),
-              (lowestPriorityPendingInteractiveExpirationTime = 0));
+              (performWork(lowestPriorityPendingInteractiveExpirationTime, !1), (lowestPriorityPendingInteractiveExpirationTime = 0));
           }
           function flushControlled(fn) {
             var previousIsBatchingUpdates = isBatchingUpdates;
@@ -13378,8 +10386,7 @@ module.exports = {
               parentContext = findCurrentUnmaskedContext(fiber);
             if (1 === fiber.tag) {
               var Component = fiber.type;
-              if (isContextProvider(Component))
-                return processChildContext(fiber, Component, parentContext);
+              if (isContextProvider(Component)) return processChildContext(fiber, Component, parentContext);
             }
             return parentContext;
           }
@@ -13398,11 +10405,7 @@ module.exports = {
               (update.payload = { element: element }),
               null !== (callback = void 0 === callback ? null : callback) &&
                 ('function' != typeof callback &&
-                  warningWithoutStack(
-                    !1,
-                    'render(...): Expected the last optional `callback` argument to be a function. Instead received: %s.',
-                    callback
-                  ),
+                  warningWithoutStack(!1, 'render(...): Expected the last optional `callback` argument to be a function. Instead received: %s.', callback),
                 (update.callback = callback)),
               flushPassiveEffects(),
               enqueueUpdate(current$$1, update),
@@ -13410,13 +10413,7 @@ module.exports = {
               expirationTime
             );
           }
-          function updateContainerAtExpirationTime(
-            element,
-            container,
-            parentComponent,
-            expirationTime,
-            callback
-          ) {
+          function updateContainerAtExpirationTime(element, container, parentComponent, expirationTime, callback) {
             var current$$1 = container.current;
             ReactFiberInstrumentation_1.debugTool &&
               (null === current$$1.alternate
@@ -13426,9 +10423,7 @@ module.exports = {
                 : ReactFiberInstrumentation_1.debugTool.onUpdateContainer(container));
             var context = getContextForSubtree(parentComponent);
             return (
-              null === container.context
-                ? (container.context = context)
-                : (container.pendingContext = context),
+              null === container.context ? (container.context = context) : (container.pendingContext = context),
               scheduleRootUpdate(current$$1, element, expirationTime, callback)
             );
           }
@@ -13437,11 +10432,7 @@ module.exports = {
             void 0 === fiber &&
               ('function' == typeof component.render
                 ? invariant(!1, 'Unable to find node on an unmounted component.')
-                : invariant(
-                    !1,
-                    'Argument appears to not be a ReactComponent. Keys: %s',
-                    Object.keys(component)
-                  ));
+                : invariant(!1, 'Argument appears to not be a ReactComponent. Keys: %s', Object.keys(component)));
             var hostFiber = findCurrentHostFiber(fiber);
             return null === hostFiber ? null : hostFiber.stateNode;
           }
@@ -13450,11 +10441,7 @@ module.exports = {
             void 0 === fiber &&
               ('function' == typeof component.render
                 ? invariant(!1, 'Unable to find node on an unmounted component.')
-                : invariant(
-                    !1,
-                    'Argument appears to not be a ReactComponent. Keys: %s',
-                    Object.keys(component)
-                  ));
+                : invariant(!1, 'Argument appears to not be a ReactComponent. Keys: %s', Object.keys(component)));
             var hostFiber = findCurrentHostFiber(fiber);
             if (null === hostFiber) return null;
             if (2 & hostFiber.mode) {
@@ -13488,13 +10475,7 @@ module.exports = {
             var current$$1 = container.current,
               currentTime,
               expirationTime;
-            return updateContainerAtExpirationTime(
-              element,
-              container,
-              parentComponent,
-              computeExpirationForFiber(requestCurrentTime(), current$$1),
-              callback
-            );
+            return updateContainerAtExpirationTime(element, container, parentComponent, computeExpirationForFiber(requestCurrentTime(), current$$1), callback);
           }
           function getPublicRootInstance(container) {
             var containerFiber = container.current;
@@ -13632,10 +10613,7 @@ module.exports = {
                   try {
                     null !== subscriber && subscriber.onWorkStopped(interactions, threadID);
                   } finally {
-                    interaction.__count--,
-                      null !== subscriber &&
-                        0 === interaction.__count &&
-                        subscriber.onInteractionScheduledWorkCompleted(interaction);
+                    interaction.__count--, null !== subscriber && 0 === interaction.__count && subscriber.onInteractionScheduledWorkCompleted(interaction);
                   }
                 }
               }
@@ -13653,8 +10631,7 @@ module.exports = {
             var hasRun = !1;
             function wrapped() {
               var prevInteractions = exports.__interactionsRef.current;
-              (exports.__interactionsRef.current = wrappedInteractions),
-                (subscriber = exports.__subscriberRef.current);
+              (exports.__interactionsRef.current = wrappedInteractions), (subscriber = exports.__subscriberRef.current);
               try {
                 var returnValue = void 0;
                 try {
@@ -13663,9 +10640,7 @@ module.exports = {
                   try {
                     returnValue = callback.apply(void 0, arguments);
                   } finally {
-                    (exports.__interactionsRef.current = prevInteractions),
-                      null !== subscriber &&
-                        subscriber.onWorkStopped(wrappedInteractions, threadID);
+                    (exports.__interactionsRef.current = prevInteractions), null !== subscriber && subscriber.onWorkStopped(wrappedInteractions, threadID);
                   }
                 }
                 return returnValue;
@@ -13673,10 +10648,7 @@ module.exports = {
                 hasRun ||
                   ((hasRun = !0),
                   wrappedInteractions.forEach(function (interaction) {
-                    interaction.__count--,
-                      null !== subscriber &&
-                        0 === interaction.__count &&
-                        subscriber.onInteractionScheduledWorkCompleted(interaction);
+                    interaction.__count--, null !== subscriber && 0 === interaction.__count && subscriber.onInteractionScheduledWorkCompleted(interaction);
                   }));
               }
             }
@@ -13687,10 +10659,7 @@ module.exports = {
                   null !== subscriber && subscriber.onWorkCanceled(wrappedInteractions, threadID);
                 } finally {
                   wrappedInteractions.forEach(function (interaction) {
-                    interaction.__count--,
-                      subscriber &&
-                        0 === interaction.__count &&
-                        subscriber.onInteractionScheduledWorkCompleted(interaction);
+                    interaction.__count--, subscriber && 0 === interaction.__count && subscriber.onInteractionScheduledWorkCompleted(interaction);
                   });
                 }
               }),
@@ -13715,8 +10684,7 @@ module.exports = {
                 });
           }
           function unstable_unsubscribe(subscriber) {
-            subscribers.delete(subscriber),
-              0 === subscribers.size && (exports.__subscriberRef.current = null);
+            subscribers.delete(subscriber), 0 === subscribers.size && (exports.__subscriberRef.current = null);
           }
           function onInteractionTraced(interaction) {
             var didCatchError = !1,
@@ -13854,13 +10822,11 @@ module.exports = {
             currentExpirationTime = -1,
             isExecutingCallback = !1,
             isHostCallbackScheduled = !1,
-            hasNativePerformanceNow =
-              'object' == typeof performance && 'function' == typeof performance.now;
+            hasNativePerformanceNow = 'object' == typeof performance && 'function' == typeof performance.now;
           function ensureHostCallbackIsScheduled() {
             if (!isExecutingCallback) {
               var expirationTime = firstCallbackNode.expirationTime;
-              isHostCallbackScheduled ? cancelHostCallback() : (isHostCallbackScheduled = !0),
-                requestHostCallback(flushWork, expirationTime);
+              isHostCallbackScheduled ? cancelHostCallback() : (isHostCallbackScheduled = !0), requestHostCallback(flushWork, expirationTime);
             }
           }
           function flushFirstCallback() {
@@ -13869,8 +10835,7 @@ module.exports = {
             if (firstCallbackNode === next) (firstCallbackNode = null), (next = null);
             else {
               var lastCallbackNode = firstCallbackNode.previous;
-              (firstCallbackNode = lastCallbackNode.next = next),
-                (next.previous = lastCallbackNode);
+              (firstCallbackNode = lastCallbackNode.next = next), (next.previous = lastCallbackNode);
             }
             flushedNode.next = flushedNode.previous = null;
             var callback = flushedNode.callback,
@@ -13883,8 +10848,7 @@ module.exports = {
             try {
               continuationCallback = callback();
             } finally {
-              (currentPriorityLevel = previousPriorityLevel),
-                (currentExpirationTime = previousExpirationTime);
+              (currentPriorityLevel = previousPriorityLevel), (currentExpirationTime = previousExpirationTime);
             }
             if ('function' == typeof continuationCallback) {
               var continuationNode = {
@@ -13894,8 +10858,7 @@ module.exports = {
                 next: null,
                 previous: null
               };
-              if (null === firstCallbackNode)
-                firstCallbackNode = continuationNode.next = continuationNode.previous = continuationNode;
+              if (null === firstCallbackNode) firstCallbackNode = continuationNode.next = continuationNode.previous = continuationNode;
               else {
                 var nextAfterContinuation = null,
                   node = firstCallbackNode;
@@ -13908,8 +10871,7 @@ module.exports = {
                 } while (node !== firstCallbackNode);
                 null === nextAfterContinuation
                   ? (nextAfterContinuation = firstCallbackNode)
-                  : nextAfterContinuation === firstCallbackNode &&
-                    ((firstCallbackNode = continuationNode), ensureHostCallbackIsScheduled());
+                  : nextAfterContinuation === firstCallbackNode && ((firstCallbackNode = continuationNode), ensureHostCallbackIsScheduled());
                 var previous = nextAfterContinuation.previous;
                 (previous.next = nextAfterContinuation.previous = continuationNode),
                   (continuationNode.next = nextAfterContinuation),
@@ -13918,21 +10880,14 @@ module.exports = {
             }
           }
           function flushImmediateWork() {
-            if (
-              -1 === currentEventStartTime &&
-              null !== firstCallbackNode &&
-              1 === firstCallbackNode.priorityLevel
-            ) {
+            if (-1 === currentEventStartTime && null !== firstCallbackNode && 1 === firstCallbackNode.priorityLevel) {
               isExecutingCallback = !0;
               try {
                 do {
                   flushFirstCallback();
                 } while (null !== firstCallbackNode && 1 === firstCallbackNode.priorityLevel);
               } finally {
-                (isExecutingCallback = !1),
-                  null !== firstCallbackNode
-                    ? ensureHostCallbackIsScheduled()
-                    : (isHostCallbackScheduled = !1);
+                (isExecutingCallback = !1), null !== firstCallbackNode ? ensureHostCallbackIsScheduled() : (isHostCallbackScheduled = !1);
               }
             }
           }
@@ -13947,10 +10902,7 @@ module.exports = {
                   if (!(firstCallbackNode.expirationTime <= currentTime)) break;
                   do {
                     flushFirstCallback();
-                  } while (
-                    null !== firstCallbackNode &&
-                    firstCallbackNode.expirationTime <= currentTime
-                  );
+                  } while (null !== firstCallbackNode && firstCallbackNode.expirationTime <= currentTime);
                 }
               else if (null !== firstCallbackNode)
                 do {
@@ -13959,9 +10911,7 @@ module.exports = {
             } finally {
               (isExecutingCallback = !1),
                 (currentDidTimeout = previousDidTimeout),
-                null !== firstCallbackNode
-                  ? ensureHostCallbackIsScheduled()
-                  : (isHostCallbackScheduled = !1),
+                null !== firstCallbackNode ? ensureHostCallbackIsScheduled() : (isHostCallbackScheduled = !1),
                 flushImmediateWork();
             }
           }
@@ -13978,14 +10928,11 @@ module.exports = {
             }
             var previousPriorityLevel = currentPriorityLevel,
               previousEventStartTime = currentEventStartTime;
-            (currentPriorityLevel = priorityLevel),
-              (currentEventStartTime = exports.unstable_now());
+            (currentPriorityLevel = priorityLevel), (currentEventStartTime = exports.unstable_now());
             try {
               return eventHandler();
             } finally {
-              (currentPriorityLevel = previousPriorityLevel),
-                (currentEventStartTime = previousEventStartTime),
-                flushImmediateWork();
+              (currentPriorityLevel = previousPriorityLevel), (currentEventStartTime = previousEventStartTime), flushImmediateWork();
             }
           }
           function unstable_next(eventHandler) {
@@ -14001,14 +10948,11 @@ module.exports = {
             }
             var previousPriorityLevel = currentPriorityLevel,
               previousEventStartTime = currentEventStartTime;
-            (currentPriorityLevel = priorityLevel),
-              (currentEventStartTime = exports.unstable_now());
+            (currentPriorityLevel = priorityLevel), (currentEventStartTime = exports.unstable_now());
             try {
               return eventHandler();
             } finally {
-              (currentPriorityLevel = previousPriorityLevel),
-                (currentEventStartTime = previousEventStartTime),
-                flushImmediateWork();
+              (currentPriorityLevel = previousPriorityLevel), (currentEventStartTime = previousEventStartTime), flushImmediateWork();
             }
           }
           function unstable_wrapCallback(callback) {
@@ -14016,26 +10960,18 @@ module.exports = {
             return function () {
               var previousPriorityLevel = currentPriorityLevel,
                 previousEventStartTime = currentEventStartTime;
-              (currentPriorityLevel = parentPriorityLevel),
-                (currentEventStartTime = exports.unstable_now());
+              (currentPriorityLevel = parentPriorityLevel), (currentEventStartTime = exports.unstable_now());
               try {
                 return callback.apply(this, arguments);
               } finally {
-                (currentPriorityLevel = previousPriorityLevel),
-                  (currentEventStartTime = previousEventStartTime),
-                  flushImmediateWork();
+                (currentPriorityLevel = previousPriorityLevel), (currentEventStartTime = previousEventStartTime), flushImmediateWork();
               }
             };
           }
           function unstable_scheduleCallback(callback, deprecated_options) {
-            var startTime =
-                -1 !== currentEventStartTime ? currentEventStartTime : exports.unstable_now(),
+            var startTime = -1 !== currentEventStartTime ? currentEventStartTime : exports.unstable_now(),
               expirationTime;
-            if (
-              'object' == typeof deprecated_options &&
-              null !== deprecated_options &&
-              'number' == typeof deprecated_options.timeout
-            )
+            if ('object' == typeof deprecated_options && null !== deprecated_options && 'number' == typeof deprecated_options.timeout)
               expirationTime = startTime + deprecated_options.timeout;
             else
               switch (currentPriorityLevel) {
@@ -14062,9 +10998,7 @@ module.exports = {
               next: null,
               previous: null
             };
-            if (null === firstCallbackNode)
-              (firstCallbackNode = newNode.next = newNode.previous = newNode),
-                ensureHostCallbackIsScheduled();
+            if (null === firstCallbackNode) (firstCallbackNode = newNode.next = newNode.previous = newNode), ensureHostCallbackIsScheduled();
             else {
               var next = null,
                 node = firstCallbackNode;
@@ -14075,14 +11009,9 @@ module.exports = {
                 }
                 node = node.next;
               } while (node !== firstCallbackNode);
-              null === next
-                ? (next = firstCallbackNode)
-                : next === firstCallbackNode &&
-                  ((firstCallbackNode = newNode), ensureHostCallbackIsScheduled());
+              null === next ? (next = firstCallbackNode) : next === firstCallbackNode && ((firstCallbackNode = newNode), ensureHostCallbackIsScheduled());
               var previous = next.previous;
-              (previous.next = next.previous = newNode),
-                (newNode.next = next),
-                (newNode.previous = previous);
+              (previous.next = next.previous = newNode), (newNode.next = next), (newNode.previous = previous);
             }
             return newNode;
           }
@@ -14111,20 +11040,13 @@ module.exports = {
             return currentPriorityLevel;
           }
           function unstable_shouldYield() {
-            return (
-              !currentDidTimeout &&
-              ((null !== firstCallbackNode &&
-                firstCallbackNode.expirationTime < currentExpirationTime) ||
-                shouldYieldToHost())
-            );
+            return !currentDidTimeout && ((null !== firstCallbackNode && firstCallbackNode.expirationTime < currentExpirationTime) || shouldYieldToHost());
           }
           var localDate = Date,
             localSetTimeout = 'function' == typeof setTimeout ? setTimeout : void 0,
             localClearTimeout = 'function' == typeof clearTimeout ? clearTimeout : void 0,
-            localRequestAnimationFrame =
-              'function' == typeof requestAnimationFrame ? requestAnimationFrame : void 0,
-            localCancelAnimationFrame =
-              'function' == typeof cancelAnimationFrame ? cancelAnimationFrame : void 0,
+            localRequestAnimationFrame = 'function' == typeof requestAnimationFrame ? requestAnimationFrame : void 0,
+            localCancelAnimationFrame = 'function' == typeof cancelAnimationFrame ? cancelAnimationFrame : void 0,
             ANIMATION_FRAME_TIMEOUT = 100,
             rAFID,
             rAFTimeoutID,
@@ -14149,17 +11071,9 @@ module.exports = {
               return localDate.now();
             };
           var globalValue = null;
-          if (
-            ('undefined' != typeof window
-              ? (globalValue = window)
-              : 'undefined' != typeof global && (globalValue = global),
-            globalValue && globalValue._schedMock)
-          ) {
+          if (('undefined' != typeof window ? (globalValue = window) : 'undefined' != typeof global && (globalValue = global), globalValue && globalValue._schedMock)) {
             var globalImpl = globalValue._schedMock;
-            (requestHostCallback = globalImpl[0]),
-              (cancelHostCallback = globalImpl[1]),
-              (shouldYieldToHost = globalImpl[2]),
-              (exports.unstable_now = globalImpl[3]);
+            (requestHostCallback = globalImpl[0]), (cancelHostCallback = globalImpl[1]), (shouldYieldToHost = globalImpl[2]), (exports.unstable_now = globalImpl[3]);
           } else if ('undefined' == typeof window || 'function' != typeof MessageChannel) {
             var _callback = null,
               _flushCallback = function (didTimeout) {
@@ -14171,9 +11085,7 @@ module.exports = {
                   }
               };
             (requestHostCallback = function (cb, ms) {
-              null !== _callback
-                ? setTimeout(requestHostCallback, 0, cb)
-                : ((_callback = cb), setTimeout(_flushCallback, 0, !1));
+              null !== _callback ? setTimeout(requestHostCallback, 0, cb) : ((_callback = cb), setTimeout(_flushCallback, 0, !1));
             }),
               (cancelHostCallback = function () {
                 _callback = null;
@@ -14184,13 +11096,9 @@ module.exports = {
           } else {
             'undefined' != typeof console &&
               ('function' != typeof localRequestAnimationFrame &&
-                console.error(
-                  "This browser doesn't support requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
-                ),
+                console.error("This browser doesn't support requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"),
               'function' != typeof localCancelAnimationFrame &&
-                console.error(
-                  "This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"
-                ));
+                console.error("This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills"));
             var scheduledHostCallback = null,
               isMessageEventScheduled = !1,
               timeoutTime = -1,
@@ -14214,9 +11122,7 @@ module.exports = {
               if (frameDeadline - currentTime <= 0) {
                 if (!(-1 !== prevTimeoutTime && prevTimeoutTime <= currentTime))
                   return (
-                    isAnimationFrameScheduled ||
-                      ((isAnimationFrameScheduled = !0),
-                      requestAnimationFrameWithTimeout(animationTick)),
+                    isAnimationFrameScheduled || ((isAnimationFrameScheduled = !0), requestAnimationFrameWithTimeout(animationTick)),
                     (scheduledHostCallback = prevScheduledCallback),
                     void (timeoutTime = prevTimeoutTime)
                   );
@@ -14236,13 +11142,10 @@ module.exports = {
                 requestAnimationFrameWithTimeout(animationTick);
                 var nextFrameTime = rafTime - frameDeadline + activeFrameTime;
                 nextFrameTime < activeFrameTime && previousFrameTime < activeFrameTime
-                  ? (nextFrameTime < 8 && (nextFrameTime = 8),
-                    (activeFrameTime =
-                      nextFrameTime < previousFrameTime ? previousFrameTime : nextFrameTime))
+                  ? (nextFrameTime < 8 && (nextFrameTime = 8), (activeFrameTime = nextFrameTime < previousFrameTime ? previousFrameTime : nextFrameTime))
                   : (previousFrameTime = nextFrameTime),
                   (frameDeadline = rafTime + activeFrameTime),
-                  isMessageEventScheduled ||
-                    ((isMessageEventScheduled = !0), port.postMessage(void 0));
+                  isMessageEventScheduled || ((isMessageEventScheduled = !0), port.postMessage(void 0));
               } else isAnimationFrameScheduled = !1;
             };
             (requestHostCallback = function (callback, absoluteTimeout) {
@@ -14250,9 +11153,7 @@ module.exports = {
                 (timeoutTime = absoluteTimeout),
                 isFlushingHostCallback || absoluteTimeout < 0
                   ? port.postMessage(void 0)
-                  : isAnimationFrameScheduled ||
-                    ((isAnimationFrameScheduled = !0),
-                    requestAnimationFrameWithTimeout(animationTick));
+                  : isAnimationFrameScheduled || ((isAnimationFrameScheduled = !0), requestAnimationFrameWithTimeout(animationTick));
             }),
               (cancelHostCallback = function () {
                 (scheduledHostCallback = null), (isMessageEventScheduled = !1), (timeoutTime = -1);
@@ -14279,7 +11180,7 @@ module.exports = {
         'use strict';
         Object.defineProperty(exports, '__esModule', { value: !0 }),
           (exports.createTextNode = exports.setAttribute = exports.removeChildNode = exports.insertBeforeNode = exports.appendStaticNode = exports.appendChildNode = exports.createNode = void 0);
-        const createNode = tagName => ({
+        const createNode = (tagName) => ({
           nodeName: tagName.toUpperCase(),
           style: {},
           attributes: {},
@@ -14288,9 +11189,7 @@ module.exports = {
         });
         exports.createNode = createNode;
         const appendChildNode = (node, childNode) => {
-          childNode.parentNode && removeChildNode(childNode.parentNode, childNode),
-            (childNode.parentNode = node),
-            node.childNodes.push(childNode);
+          childNode.parentNode && removeChildNode(childNode.parentNode, childNode), (childNode.parentNode = node), node.childNodes.push(childNode);
         };
         exports.appendChildNode = appendChildNode;
         const appendStaticNode = (node, childNode) => {
@@ -14298,12 +11197,9 @@ module.exports = {
         };
         exports.appendStaticNode = appendStaticNode;
         const insertBeforeNode = (node, newChildNode, beforeChildNode) => {
-          newChildNode.parentNode && removeChildNode(newChildNode.parentNode, newChildNode),
-            (newChildNode.parentNode = node);
+          newChildNode.parentNode && removeChildNode(newChildNode.parentNode, newChildNode), (newChildNode.parentNode = node);
           const index = node.childNodes.indexOf(beforeChildNode);
-          index >= 0
-            ? node.childNodes.splice(index, 0, newChildNode)
-            : node.childNodes.push(newChildNode);
+          index >= 0 ? node.childNodes.splice(index, 0, newChildNode) : node.childNodes.push(newChildNode);
         };
         exports.insertBeforeNode = insertBeforeNode;
         const removeChildNode = (node, removeNode) => {
@@ -14316,7 +11212,7 @@ module.exports = {
           node.attributes[key] = value;
         };
         exports.setAttribute = setAttribute;
-        const createTextNode = text => ({ nodeName: '#text', nodeValue: text });
+        const createTextNode = (text) => ({ nodeName: '#text', nodeValue: text });
         exports.createTextNode = createTextNode;
       },
       function (module, exports, __webpack_require__) {
@@ -14333,7 +11229,7 @@ module.exports = {
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
-        const calculateWrappedText = node => {
+        const calculateWrappedText = (node) => {
             if (node.textContent && 'string' == typeof node.parentNode.style.textWrap) {
               const { yogaNode: yogaNode } = node,
                 parentYogaNode = node.parentNode.yogaNode,
@@ -14347,31 +11243,23 @@ module.exports = {
                   { width: width, height: height } = (0, _measureText.default)(wrappedText);
                 yogaNode.setWidth(width), yogaNode.setHeight(height);
               }
-            } else if (Array.isArray(node.childNodes) && node.childNodes.length > 0)
-              for (const childNode of node.childNodes) calculateWrappedText(childNode);
+            } else if (Array.isArray(node.childNodes) && node.childNodes.length > 0) for (const childNode of node.childNodes) calculateWrappedText(childNode);
           },
-          getStaticNodes = element => {
+          getStaticNodes = (element) => {
             const staticNodes = [];
             for (const childNode of element.childNodes)
               childNode.unstable__static && staticNodes.push(childNode),
-                Array.isArray(childNode.childNodes) &&
-                  childNode.childNodes.length > 0 &&
-                  staticNodes.push(...getStaticNodes(childNode));
+                Array.isArray(childNode.childNodes) && childNode.childNodes.length > 0 && staticNodes.push(...getStaticNodes(childNode));
             return staticNodes;
           };
         var _default = ({ terminalWidth: terminalWidth }) => {
           const config = _yogaLayoutPrebuilt.default.Config.create();
           let lastYogaNode, lastStaticYogaNode;
-          return node => {
-            lastYogaNode && lastYogaNode.freeRecursive(),
-              lastStaticYogaNode && lastStaticYogaNode.freeRecursive();
+          return (node) => {
+            lastYogaNode && lastYogaNode.freeRecursive(), lastStaticYogaNode && lastStaticYogaNode.freeRecursive();
             const staticElements = getStaticNodes(node);
             let staticOutput;
-            if (
-              (staticElements.length > 1 &&
-                console.error('Warning: There can only be one <Static> component'),
-              1 === staticElements.length)
-            ) {
+            if ((staticElements.length > 1 && console.error('Warning: There can only be one <Static> component'), 1 === staticElements.length)) {
               const rootNode = (0, _dom.createNode)('root');
               (0, _dom.appendStaticNode)(rootNode, staticElements[0]);
               const { yogaNode: staticYogaNode } = (0, _buildLayout.default)(rootNode, {
@@ -14379,17 +11267,9 @@ module.exports = {
                 terminalWidth: terminalWidth,
                 skipStaticElements: !1
               });
-              staticYogaNode.calculateLayout(
-                _yogaLayoutPrebuilt.default.UNDEFINED,
-                _yogaLayoutPrebuilt.default.UNDEFINED,
-                _yogaLayoutPrebuilt.default.DIRECTION_LTR
-              ),
+              staticYogaNode.calculateLayout(_yogaLayoutPrebuilt.default.UNDEFINED, _yogaLayoutPrebuilt.default.UNDEFINED, _yogaLayoutPrebuilt.default.DIRECTION_LTR),
                 calculateWrappedText(rootNode),
-                staticYogaNode.calculateLayout(
-                  _yogaLayoutPrebuilt.default.UNDEFINED,
-                  _yogaLayoutPrebuilt.default.UNDEFINED,
-                  _yogaLayoutPrebuilt.default.DIRECTION_LTR
-                ),
+                staticYogaNode.calculateLayout(_yogaLayoutPrebuilt.default.UNDEFINED, _yogaLayoutPrebuilt.default.UNDEFINED, _yogaLayoutPrebuilt.default.DIRECTION_LTR),
                 (lastStaticYogaNode = staticYogaNode),
                 (staticOutput = new _output.default({
                   width: staticYogaNode.getComputedWidth(),
@@ -14404,17 +11284,9 @@ module.exports = {
               terminalWidth: terminalWidth,
               skipStaticElements: !0
             });
-            yogaNode.calculateLayout(
-              _yogaLayoutPrebuilt.default.UNDEFINED,
-              _yogaLayoutPrebuilt.default.UNDEFINED,
-              _yogaLayoutPrebuilt.default.DIRECTION_LTR
-            ),
+            yogaNode.calculateLayout(_yogaLayoutPrebuilt.default.UNDEFINED, _yogaLayoutPrebuilt.default.UNDEFINED, _yogaLayoutPrebuilt.default.DIRECTION_LTR),
               calculateWrappedText(node),
-              yogaNode.calculateLayout(
-                _yogaLayoutPrebuilt.default.UNDEFINED,
-                _yogaLayoutPrebuilt.default.UNDEFINED,
-                _yogaLayoutPrebuilt.default.DIRECTION_LTR
-              ),
+              yogaNode.calculateLayout(_yogaLayoutPrebuilt.default.UNDEFINED, _yogaLayoutPrebuilt.default.UNDEFINED, _yogaLayoutPrebuilt.default.DIRECTION_LTR),
               (lastYogaNode = yogaNode);
             const output = new _output.default({
               width: yogaNode.getComputedWidth(),
@@ -14446,9 +11318,7 @@ module.exports = {
           }),
           !ran)
         )
-          throw new Error(
-            "Failed to load the yoga module - it needed to be loaded synchronously, but didn't"
-          );
+          throw new Error("Failed to load the yoga module - it needed to be loaded synchronously, but didn't");
         module.exports = Yoga(ret.bind, ret.lib);
       },
       function (module, exports, __webpack_require__) {
@@ -14458,8 +11328,7 @@ module.exports = {
             function (target) {
               for (var i = 1; i < arguments.length; i++) {
                 var source = arguments[i];
-                for (var key in source)
-                  Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
+                for (var key in source) Object.prototype.hasOwnProperty.call(source, key) && (target[key] = source[key]);
               }
               return target;
             },
@@ -14474,11 +11343,7 @@ module.exports = {
               }
             }
             return function (Constructor, protoProps, staticProps) {
-              return (
-                protoProps && defineProperties(Constructor.prototype, protoProps),
-                staticProps && defineProperties(Constructor, staticProps),
-                Constructor
-              );
+              return protoProps && defineProperties(Constructor.prototype, protoProps), staticProps && defineProperties(Constructor, staticProps), Constructor;
             };
           })();
         function _defineProperty(obj, key, value) {
@@ -14495,8 +11360,7 @@ module.exports = {
           );
         }
         function _classCallCheck(instance, Constructor) {
-          if (!(instance instanceof Constructor))
-            throw new TypeError('Cannot call a class as a function');
+          if (!(instance instanceof Constructor)) throw new TypeError('Cannot call a class as a function');
         }
         var CONSTANTS = __webpack_require__(53),
           Layout = (function () {
@@ -14520,21 +11384,7 @@ module.exports = {
                 {
                   key: 'toString',
                   value: function toString() {
-                    return (
-                      '<Layout#' +
-                      this.left +
-                      ':' +
-                      this.right +
-                      ';' +
-                      this.top +
-                      ':' +
-                      this.bottom +
-                      ';' +
-                      this.width +
-                      ':' +
-                      this.height +
-                      '>'
-                    );
+                    return '<Layout#' + this.left + ':' + this.right + ';' + this.top + ':' + this.bottom + ';' + this.width + ':' + this.height + '>';
                   }
                 }
               ]),
@@ -14613,83 +11463,39 @@ module.exports = {
           function patch(prototype, name, fn) {
             var original = prototype[name];
             prototype[name] = function () {
-              for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++)
-                args[_key] = arguments[_key];
+              for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) args[_key] = arguments[_key];
               return fn.call.apply(fn, [this, original].concat(args));
             };
           }
           for (
-            var _arr = [
-                'setPosition',
-                'setMargin',
-                'setFlexBasis',
-                'setWidth',
-                'setHeight',
-                'setMinWidth',
-                'setMinHeight',
-                'setMaxWidth',
-                'setMaxHeight',
-                'setPadding'
-              ],
+            var _arr = ['setPosition', 'setMargin', 'setFlexBasis', 'setWidth', 'setHeight', 'setMinWidth', 'setMinHeight', 'setMaxWidth', 'setMaxHeight', 'setPadding'],
               _loop = function _loop() {
                 var _methods,
                   fnName = _arr[_i],
                   methods =
-                    (_defineProperty(
-                      (_methods = {}),
-                      CONSTANTS.UNIT_POINT,
-                      lib.Node.prototype[fnName]
-                    ),
-                    _defineProperty(
-                      _methods,
-                      CONSTANTS.UNIT_PERCENT,
-                      lib.Node.prototype[fnName + 'Percent']
-                    ),
-                    _defineProperty(
-                      _methods,
-                      CONSTANTS.UNIT_AUTO,
-                      lib.Node.prototype[fnName + 'Auto']
-                    ),
+                    (_defineProperty((_methods = {}), CONSTANTS.UNIT_POINT, lib.Node.prototype[fnName]),
+                    _defineProperty(_methods, CONSTANTS.UNIT_PERCENT, lib.Node.prototype[fnName + 'Percent']),
+                    _defineProperty(_methods, CONSTANTS.UNIT_AUTO, lib.Node.prototype[fnName + 'Auto']),
                     _methods);
                 patch(lib.Node.prototype, fnName, function (original) {
-                  for (
-                    var _len2 = arguments.length,
-                      args = Array(_len2 > 1 ? _len2 - 1 : 0),
-                      _key2 = 1;
-                    _key2 < _len2;
-                    _key2++
-                  )
-                    args[_key2 - 1] = arguments[_key2];
+                  for (var _len2 = arguments.length, args = Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) args[_key2 - 1] = arguments[_key2];
                   var value = args.pop(),
                     unit = void 0,
                     asNumber = void 0,
                     _methods$unit,
                     _methods$unit2;
                   if ('auto' === value) (unit = CONSTANTS.UNIT_AUTO), (asNumber = void 0);
-                  else if (value instanceof Value)
-                    (unit = value.unit), (asNumber = value.valueOf());
+                  else if (value instanceof Value) (unit = value.unit), (asNumber = value.valueOf());
                   else if (
-                    ((unit =
-                      'string' == typeof value && value.endsWith('%')
-                        ? CONSTANTS.UNIT_PERCENT
-                        : CONSTANTS.UNIT_POINT),
+                    ((unit = 'string' == typeof value && value.endsWith('%') ? CONSTANTS.UNIT_PERCENT : CONSTANTS.UNIT_POINT),
                     (asNumber = parseFloat(value)),
                     !Number.isNaN(value) && Number.isNaN(asNumber))
                   )
                     throw new Error('Invalid value ' + value + ' for ' + fnName);
-                  if (!methods[unit])
-                    throw new Error(
-                      'Failed to execute "' + fnName + '": Unsupported unit \'' + value + "'"
-                    );
+                  if (!methods[unit]) throw new Error('Failed to execute "' + fnName + '": Unsupported unit \'' + value + "'");
                   return void 0 !== asNumber
-                    ? (_methods$unit = methods[unit]).call.apply(
-                        _methods$unit,
-                        [this].concat(args, [asNumber])
-                      )
-                    : (_methods$unit2 = methods[unit]).call.apply(
-                        _methods$unit2,
-                        [this].concat(args)
-                      );
+                    ? (_methods$unit = methods[unit]).call.apply(_methods$unit, [this].concat(args, [asNumber]))
+                    : (_methods$unit2 = methods[unit]).call.apply(_methods$unit2, [this].concat(args));
                 });
               },
               _i = 0;
@@ -14708,8 +11514,7 @@ module.exports = {
               lib.Node.destroy(this);
             }),
             patch(lib.Node.prototype, 'freeRecursive', function () {
-              for (var t = 0, T = this.getChildCount(); t < T; ++t)
-                this.getChild(0).freeRecursive();
+              for (var t = 0, T = this.getChildCount(); t < T; ++t) this.getChild(0).freeRecursive();
               this.free();
             }),
             patch(lib.Node.prototype, 'setMeasureFunc', function (original, measureFunc) {
@@ -14722,10 +11527,7 @@ module.exports = {
             patch(lib.Node.prototype, 'calculateLayout', function (original) {
               var width = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : NaN,
                 height = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : NaN,
-                direction =
-                  arguments.length > 3 && void 0 !== arguments[3]
-                    ? arguments[3]
-                    : CONSTANTS.DIRECTION_LTR;
+                direction = arguments.length > 3 && void 0 !== arguments[3] ? arguments[3] : CONSTANTS.DIRECTION_LTR;
               return original.call(this, width, height, direction);
             }),
             _extends(
@@ -14852,8 +11654,7 @@ module.exports = {
               })(Module.onRuntimeInitialized, cb)),
               Module || (Module = (void 0 !== Module ? Module : null) || {});
             var moduleOverrides = {};
-            for (var key in Module)
-              Module.hasOwnProperty(key) && (moduleOverrides[key] = Module[key]);
+            for (var key in Module) Module.hasOwnProperty(key) && (moduleOverrides[key] = Module[key]);
             var ENVIRONMENT_IS_WEB = !1,
               ENVIRONMENT_IS_WORKER = !1,
               ENVIRONMENT_IS_NODE = !1,
@@ -14865,26 +11666,19 @@ module.exports = {
               else if ('WORKER' === Module.ENVIRONMENT) ENVIRONMENT_IS_WORKER = !0;
               else if ('NODE' === Module.ENVIRONMENT) ENVIRONMENT_IS_NODE = !0;
               else {
-                if ('SHELL' !== Module.ENVIRONMENT)
-                  throw new Error(
-                    "The provided Module['ENVIRONMENT'] value is not valid. It must be one of: WEB|WORKER|NODE|SHELL."
-                  );
+                if ('SHELL' !== Module.ENVIRONMENT) throw new Error("The provided Module['ENVIRONMENT'] value is not valid. It must be one of: WEB|WORKER|NODE|SHELL.");
                 ENVIRONMENT_IS_SHELL = !0;
               }
             else
               (ENVIRONMENT_IS_WEB = 'object' == typeof window),
                 (ENVIRONMENT_IS_WORKER = 'function' == typeof importScripts),
-                (ENVIRONMENT_IS_NODE =
-                  'object' == typeof process && !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_WORKER),
-                (ENVIRONMENT_IS_SHELL =
-                  !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER);
+                (ENVIRONMENT_IS_NODE = 'object' == typeof process && !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_WORKER),
+                (ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIRONMENT_IS_WORKER);
             if (ENVIRONMENT_IS_NODE)
               Module.print || (Module.print = console.log),
                 Module.printErr || (Module.printErr = console.warn),
                 (Module.read = function shell_read(filename, binary) {
-                  nodeFS || (nodeFS = {}('')),
-                    nodePath || (nodePath = {}('')),
-                    (filename = nodePath.normalize(filename));
+                  nodeFS || (nodeFS = {}('')), nodePath || (nodePath = {}('')), (filename = nodePath.normalize(filename));
                   var ret = nodeFS.readFileSync(filename);
                   return binary ? ret : ret.toString();
                 }),
@@ -14895,10 +11689,7 @@ module.exports = {
                 (Module.load = function load(f) {
                   globalEval(read(f));
                 }),
-                Module.thisProgram ||
-                  (process.argv.length > 1
-                    ? (Module.thisProgram = process.argv[1].replace(/\\/g, '/'))
-                    : (Module.thisProgram = 'unknown-program')),
+                Module.thisProgram || (process.argv.length > 1 ? (Module.thisProgram = process.argv[1].replace(/\\/g, '/')) : (Module.thisProgram = 'unknown-program')),
                 (Module.arguments = process.argv.slice(2)),
                 (module.exports = Module),
                 process.on('uncaughtException', function (ex) {
@@ -14920,16 +11711,13 @@ module.exports = {
                   var data = read(f, 'binary');
                   return assert('object' == typeof data), data;
                 }),
-                'undefined' != typeof scriptArgs
-                  ? (Module.arguments = scriptArgs)
-                  : void 0 !== arguments && (Module.arguments = arguments),
+                'undefined' != typeof scriptArgs ? (Module.arguments = scriptArgs) : void 0 !== arguments && (Module.arguments = arguments),
                 'function' == typeof quit &&
                   (Module.quit = function (status, toThrow) {
                     quit(status);
                   });
             else {
-              if (!ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_WORKER)
-                throw 'Unknown runtime environment. Where are we?';
+              if (!ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_WORKER) throw 'Unknown runtime environment. Where are we?';
               if (
                 ((Module.read = function shell_read(url) {
                   var xhr = new XMLHttpRequest();
@@ -14938,21 +11726,14 @@ module.exports = {
                 ENVIRONMENT_IS_WORKER &&
                   (Module.readBinary = function readBinary(url) {
                     var xhr = new XMLHttpRequest();
-                    return (
-                      xhr.open('GET', url, !1),
-                      (xhr.responseType = 'arraybuffer'),
-                      xhr.send(null),
-                      new Uint8Array(xhr.response)
-                    );
+                    return xhr.open('GET', url, !1), (xhr.responseType = 'arraybuffer'), xhr.send(null), new Uint8Array(xhr.response);
                   }),
                 (Module.readAsync = function readAsync(url, onload, onerror) {
                   var xhr = new XMLHttpRequest();
                   xhr.open('GET', url, !0),
                     (xhr.responseType = 'arraybuffer'),
                     (xhr.onload = function xhr_onload() {
-                      200 == xhr.status || (0 == xhr.status && xhr.response)
-                        ? onload(xhr.response)
-                        : onerror();
+                      200 == xhr.status || (0 == xhr.status && xhr.response) ? onload(xhr.response) : onerror();
                     }),
                     (xhr.onerror = onerror),
                     xhr.send(null);
@@ -15049,42 +11830,28 @@ module.exports = {
               },
               STACK_ALIGN: 16,
               prepVararg: function (ptr, type) {
-                return (
-                  'double' === type || 'i64' === type
-                    ? 7 & ptr && (assert(4 == (7 & ptr)), (ptr += 4))
-                    : assert(0 == (3 & ptr)),
-                  ptr
-                );
+                return 'double' === type || 'i64' === type ? 7 & ptr && (assert(4 == (7 & ptr)), (ptr += 4)) : assert(0 == (3 & ptr)), ptr;
               },
               getAlignSize: function (type, size, vararg) {
                 return vararg || ('i64' != type && 'double' != type)
                   ? type
-                    ? Math.min(
-                        size || (type ? Runtime.getNativeFieldSize(type) : 0),
-                        Runtime.QUANTUM_SIZE
-                      )
+                    ? Math.min(size || (type ? Runtime.getNativeFieldSize(type) : 0), Runtime.QUANTUM_SIZE)
                     : Math.min(size, 8)
                   : 8;
               },
               dynCall: function (sig, ptr, args) {
-                return args && args.length
-                  ? Module['dynCall_' + sig].apply(null, [ptr].concat(args))
-                  : Module['dynCall_' + sig].call(null, ptr);
+                return args && args.length ? Module['dynCall_' + sig].apply(null, [ptr].concat(args)) : Module['dynCall_' + sig].call(null, ptr);
               },
               functionPointers: [],
               addFunction: function (func) {
-                for (var i = 0; i < Runtime.functionPointers.length; i++)
-                  if (!Runtime.functionPointers[i])
-                    return (Runtime.functionPointers[i] = func), 2 * (1 + i);
+                for (var i = 0; i < Runtime.functionPointers.length; i++) if (!Runtime.functionPointers[i]) return (Runtime.functionPointers[i] = func), 2 * (1 + i);
                 throw 'Finished up all reserved function pointers. Use a higher value for RESERVED_FUNCTION_POINTERS.';
               },
               removeFunction: function (index) {
                 Runtime.functionPointers[(index - 2) / 2] = null;
               },
               warnOnce: function (text) {
-                Runtime.warnOnce.shown || (Runtime.warnOnce.shown = {}),
-                  Runtime.warnOnce.shown[text] ||
-                    ((Runtime.warnOnce.shown[text] = 1), Module.printErr(text));
+                Runtime.warnOnce.shown || (Runtime.warnOnce.shown = {}), Runtime.warnOnce.shown[text] || ((Runtime.warnOnce.shown[text] = 1), Module.printErr(text));
               },
               funcWrappers: {},
               getFuncWrapper: function (func, sig) {
@@ -15102,11 +11869,7 @@ module.exports = {
                             return Runtime.dynCall(sig, func, [arg]);
                           })
                         : (sigCache[func] = function dynCall_wrapper() {
-                            return Runtime.dynCall(
-                              sig,
-                              func,
-                              Array.prototype.slice.call(arguments)
-                            );
+                            return Runtime.dynCall(sig, func, Array.prototype.slice.call(arguments));
                           })),
                     sigCache[func]
                   );
@@ -15127,12 +11890,7 @@ module.exports = {
                 var ret = HEAP32[DYNAMICTOP_PTR >> 2],
                   end = -16 & ((ret + size + 15) | 0),
                   success;
-                return (
-                  (HEAP32[DYNAMICTOP_PTR >> 2] = end),
-                  end >= TOTAL_MEMORY && !enlargeMemory()
-                    ? ((HEAP32[DYNAMICTOP_PTR >> 2] = ret), 0)
-                    : ret
-                );
+                return (HEAP32[DYNAMICTOP_PTR >> 2] = end), end >= TOTAL_MEMORY && !enlargeMemory() ? ((HEAP32[DYNAMICTOP_PTR >> 2] = ret), 0) : ret;
               },
               alignMemory: function (size, quantum) {
                 var ret;
@@ -15140,9 +11898,7 @@ module.exports = {
               },
               makeBigInt: function (low, high, unsigned) {
                 var ret;
-                return unsigned
-                  ? +(low >>> 0) + 4294967296 * +(high >>> 0)
-                  : +(low >>> 0) + 4294967296 * +(0 | high);
+                return unsigned ? +(low >>> 0) + 4294967296 * +(high >>> 0) : +(low >>> 0) + 4294967296 * +(0 | high);
               },
               GLOBAL_BASE: 8,
               QUANTUM_SIZE: 4,
@@ -15162,20 +11918,10 @@ module.exports = {
                 try {
                   func = eval('_' + ident);
                 } catch (e) {}
-              return (
-                assert(
-                  func,
-                  'Cannot call unknown function ' +
-                    ident +
-                    ' (perhaps LLVM optimizations or closure removed it?)'
-                ),
-                func
-              );
+              return assert(func, 'Cannot call unknown function ' + ident + ' (perhaps LLVM optimizations or closure removed it?)'), func;
             }
             function setValue(ptr, value, type, noSafe) {
-              switch (
-                ('*' === (type = type || 'i8').charAt(type.length - 1) && (type = 'i32'), type)
-              ) {
+              switch (('*' === (type = type || 'i8').charAt(type.length - 1) && (type = 'i32'), type)) {
                 case 'i1':
                 case 'i8':
                   HEAP8[ptr >> 0] = value;
@@ -15210,9 +11956,7 @@ module.exports = {
               }
             }
             function getValue(ptr, type, noSafe) {
-              switch (
-                ('*' === (type = type || 'i8').charAt(type.length - 1) && (type = 'i32'), type)
-              ) {
+              switch (('*' === (type = type || 'i8').charAt(type.length - 1) && (type = 'i32'), type)) {
                 case 'i1':
                 case 'i8':
                   return HEAP8[ptr >> 0];
@@ -15259,10 +12003,7 @@ module.exports = {
                 if (args)
                   for (var i = 0; i < args.length; i++) {
                     var converter = toC[argTypes[i]];
-                    converter
-                      ? (0 === stack && (stack = Runtime.stackSave()),
-                        (cArgs[i] = converter(args[i])))
-                      : (cArgs[i] = args[i]);
+                    converter ? (0 === stack && (stack = Runtime.stackSave()), (cArgs[i] = converter(args[i]))) : (cArgs[i] = args[i]);
                   }
                 var ret = func.apply(null, cArgs);
                 if (('string' === returnType && (ret = Pointer_stringify(ret)), 0 !== stack)) {
@@ -15281,9 +12022,7 @@ module.exports = {
               }
               var JSsource = null;
               function ensureJSsource() {
-                if (!JSsource)
-                  for (var fun in ((JSsource = {}), JSfuncs))
-                    JSfuncs.hasOwnProperty(fun) && (JSsource[fun] = parseJSFunc(JSfuncs[fun]));
+                if (!JSsource) for (var fun in ((JSsource = {}), JSfuncs)) JSfuncs.hasOwnProperty(fun) && (JSsource[fun] = parseJSFunc(JSfuncs[fun]));
               }
               cwrap = function cwrap(ident, returnType, argTypes) {
                 argTypes = argTypes || [];
@@ -15314,21 +12053,14 @@ module.exports = {
                 var cfuncname = parseJSFunc(function () {
                   return cfunc;
                 }).returnValue;
-                if (
-                  ((funcstr += 'var ret = ' + cfuncname + '(' + argNames.join(',') + ');'),
-                  !numericRet)
-                ) {
+                if (((funcstr += 'var ret = ' + cfuncname + '(' + argNames.join(',') + ');'), !numericRet)) {
                   var strgfy = parseJSFunc(function () {
                     return Pointer_stringify;
                   }).returnValue;
                   funcstr += 'ret = ' + strgfy + '(ret);';
                 }
                 return (
-                  numericArgs ||
-                    (ensureJSsource(),
-                    (funcstr += JSsource.stackRestore.body.replace('()', '(stack)') + ';')),
-                  (funcstr += 'return ret})'),
-                  eval(funcstr)
+                  numericArgs || (ensureJSsource(), (funcstr += JSsource.stackRestore.body.replace('()', '(stack)') + ';')), (funcstr += 'return ret})'), eval(funcstr)
                 );
               };
             })(),
@@ -15343,75 +12075,48 @@ module.exports = {
               ALLOC_NONE = 4;
             function allocate(slab, types, allocator, ptr) {
               var zeroinit, size;
-              'number' == typeof slab
-                ? ((zeroinit = !0), (size = slab))
-                : ((zeroinit = !1), (size = slab.length));
+              'number' == typeof slab ? ((zeroinit = !0), (size = slab)) : ((zeroinit = !1), (size = slab.length));
               var singleType = 'string' == typeof types ? types : null,
                 ret;
               if (
                 ((ret =
                   allocator == ALLOC_NONE
                     ? ptr
-                    : [
-                        'function' == typeof _malloc ? _malloc : Runtime.staticAlloc,
-                        Runtime.stackAlloc,
-                        Runtime.staticAlloc,
-                        Runtime.dynamicAlloc
-                      ][void 0 === allocator ? ALLOC_STATIC : allocator](
-                        Math.max(size, singleType ? 1 : types.length)
-                      )),
+                    : ['function' == typeof _malloc ? _malloc : Runtime.staticAlloc, Runtime.stackAlloc, Runtime.staticAlloc, Runtime.dynamicAlloc][
+                        void 0 === allocator ? ALLOC_STATIC : allocator
+                      ](Math.max(size, singleType ? 1 : types.length))),
                 zeroinit)
               ) {
                 var ptr = ret,
                   stop;
-                for (assert(0 == (3 & ret)), stop = ret + (-4 & size); ptr < stop; ptr += 4)
-                  HEAP32[ptr >> 2] = 0;
+                for (assert(0 == (3 & ret)), stop = ret + (-4 & size); ptr < stop; ptr += 4) HEAP32[ptr >> 2] = 0;
                 for (stop = ret + size; ptr < stop; ) HEAP8[ptr++ >> 0] = 0;
                 return ret;
               }
-              if ('i8' === singleType)
-                return (
-                  slab.subarray || slab.slice
-                    ? HEAPU8.set(slab, ret)
-                    : HEAPU8.set(new Uint8Array(slab), ret),
-                  ret
-                );
+              if ('i8' === singleType) return slab.subarray || slab.slice ? HEAPU8.set(slab, ret) : HEAPU8.set(new Uint8Array(slab), ret), ret;
               for (var i = 0, type, typeSize, previousType; i < size; ) {
                 var curr = slab[i];
                 'function' == typeof curr && (curr = Runtime.getFunctionIndex(curr)),
                   0 !== (type = singleType || types[i])
                     ? ('i64' == type && (type = 'i32'),
                       setValue(ret + i, curr, type),
-                      previousType !== type &&
-                        ((typeSize = Runtime.getNativeTypeSize(type)), (previousType = type)),
+                      previousType !== type && ((typeSize = Runtime.getNativeTypeSize(type)), (previousType = type)),
                       (i += typeSize))
                     : i++;
               }
               return ret;
             }
             function getMemory(size) {
-              return staticSealed
-                ? runtimeInitialized
-                  ? _malloc(size)
-                  : Runtime.dynamicAlloc(size)
-                : Runtime.staticAlloc(size);
+              return staticSealed ? (runtimeInitialized ? _malloc(size) : Runtime.dynamicAlloc(size)) : Runtime.staticAlloc(size);
             }
             function Pointer_stringify(ptr, length) {
               if (0 === length || !ptr) return '';
-              for (
-                var hasUtf = 0, t, i = 0;
-                (hasUtf |= t = HEAPU8[(ptr + i) >> 0]),
-                  (0 != t || length) && (i++, !length || i != length);
-
-              );
+              for (var hasUtf = 0, t, i = 0; (hasUtf |= t = HEAPU8[(ptr + i) >> 0]), (0 != t || length) && (i++, !length || i != length); );
               length || (length = i);
               var ret = '';
               if (hasUtf < 128) {
                 for (var MAX_CHUNK = 1024, curr; length > 0; )
-                  (curr = String.fromCharCode.apply(
-                    String,
-                    HEAPU8.subarray(ptr, ptr + Math.min(length, 1024))
-                  )),
+                  (curr = String.fromCharCode.apply(String, HEAPU8.subarray(ptr, ptr + Math.min(length, 1024)))),
                     (ret = ret ? ret + curr : curr),
                     (ptr += 1024),
                     (length -= 1024);
@@ -15442,8 +12147,7 @@ module.exports = {
             var UTF8Decoder = 'undefined' != typeof TextDecoder ? new TextDecoder('utf8') : void 0;
             function UTF8ArrayToString(u8Array, idx) {
               for (var endPtr = idx; u8Array[endPtr]; ) ++endPtr;
-              if (endPtr - idx > 16 && u8Array.subarray && UTF8Decoder)
-                return UTF8Decoder.decode(u8Array.subarray(idx, endPtr));
+              if (endPtr - idx > 16 && u8Array.subarray && UTF8Decoder) return UTF8Decoder.decode(u8Array.subarray(idx, endPtr));
               for (var u0, u1, u2, u3, u4, u5, str = ''; ; ) {
                 if (!(u0 = u8Array[idx++])) return str;
                 if (128 & u0)
@@ -15459,12 +12163,7 @@ module.exports = {
                               (u0 =
                                 248 == (252 & u0)
                                   ? ((3 & u0) << 24) | (u1 << 18) | (u2 << 12) | (u3 << 6) | u4
-                                  : ((1 & u0) << 30) |
-                                    (u1 << 24) |
-                                    (u2 << 18) |
-                                    (u3 << 12) |
-                                    (u4 << 6) |
-                                    (u5 = 63 & u8Array[idx++])))),
+                                  : ((1 & u0) << 30) | (u1 << 24) | (u2 << 18) | (u3 << 12) | (u4 << 6) | (u5 = 63 & u8Array[idx++])))),
                       u0 < 65536)
                     )
                       str += String.fromCharCode(u0);
@@ -15481,18 +12180,9 @@ module.exports = {
             }
             function stringToUTF8Array(str, outU8Array, outIdx, maxBytesToWrite) {
               if (!(maxBytesToWrite > 0)) return 0;
-              for (
-                var startIdx = outIdx, endIdx = outIdx + maxBytesToWrite - 1, i = 0;
-                i < str.length;
-                ++i
-              ) {
+              for (var startIdx = outIdx, endIdx = outIdx + maxBytesToWrite - 1, i = 0; i < str.length; ++i) {
                 var u = str.charCodeAt(i);
-                if (
-                  (u >= 55296 &&
-                    u <= 57343 &&
-                    (u = (65536 + ((1023 & u) << 10)) | (1023 & str.charCodeAt(++i))),
-                  u <= 127)
-                ) {
+                if ((u >= 55296 && u <= 57343 && (u = (65536 + ((1023 & u) << 10)) | (1023 & str.charCodeAt(++i))), u <= 127)) {
                   if (outIdx >= endIdx) break;
                   outU8Array[outIdx++] = u;
                 } else if (u <= 2047) {
@@ -15500,9 +12190,7 @@ module.exports = {
                   (outU8Array[outIdx++] = 192 | (u >> 6)), (outU8Array[outIdx++] = 128 | (63 & u));
                 } else if (u <= 65535) {
                   if (outIdx + 2 >= endIdx) break;
-                  (outU8Array[outIdx++] = 224 | (u >> 12)),
-                    (outU8Array[outIdx++] = 128 | ((u >> 6) & 63)),
-                    (outU8Array[outIdx++] = 128 | (63 & u));
+                  (outU8Array[outIdx++] = 224 | (u >> 12)), (outU8Array[outIdx++] = 128 | ((u >> 6) & 63)), (outU8Array[outIdx++] = 128 | (63 & u));
                 } else if (u <= 2097151) {
                   if (outIdx + 3 >= endIdx) break;
                   (outU8Array[outIdx++] = 240 | (u >> 18)),
@@ -15534,13 +12222,8 @@ module.exports = {
             function lengthBytesUTF8(str) {
               for (var len = 0, i = 0; i < str.length; ++i) {
                 var u = str.charCodeAt(i);
-                u >= 55296 &&
-                  u <= 57343 &&
-                  (u = (65536 + ((1023 & u) << 10)) | (1023 & str.charCodeAt(++i))),
-                  u <= 127
-                    ? ++len
-                    : (len +=
-                        u <= 2047 ? 2 : u <= 65535 ? 3 : u <= 2097151 ? 4 : u <= 67108863 ? 5 : 6);
+                u >= 55296 && u <= 57343 && (u = (65536 + ((1023 & u) << 10)) | (1023 & str.charCodeAt(++i))),
+                  u <= 127 ? ++len : (len += u <= 2047 ? 2 : u <= 65535 ? 3 : u <= 2097151 ? 4 : u <= 67108863 ? 5 : 6);
               }
               return len;
             }
@@ -15549,8 +12232,7 @@ module.exports = {
               (Module.stringToUTF8Array = stringToUTF8Array),
               (Module.stringToUTF8 = stringToUTF8),
               (Module.lengthBytesUTF8 = lengthBytesUTF8);
-            var UTF16Decoder =
-                'undefined' != typeof TextDecoder ? new TextDecoder('utf-16le') : void 0,
+            var UTF16Decoder = 'undefined' != typeof TextDecoder ? new TextDecoder('utf-16le') : void 0,
               HEAP,
               buffer,
               HEAP8,
@@ -15586,12 +12268,7 @@ module.exports = {
                 }
                 return func;
               }
-              return (
-                Runtime.warnOnce(
-                  'warning: build with  -s DEMANGLE_SUPPORT=1  to link in libcxxabi demangling'
-                ),
-                func
-              );
+              return Runtime.warnOnce('warning: build with  -s DEMANGLE_SUPPORT=1  to link in libcxxabi demangling'), func;
             }
             function demangleAll(text) {
               var regex = /__Z[\w\d_]+/g;
@@ -15614,9 +12291,7 @@ module.exports = {
             }
             function stackTrace() {
               var js = jsStackTrace();
-              return (
-                Module.extraStackTrace && (js += '\n' + Module.extraStackTrace()), demangleAll(js)
-              );
+              return Module.extraStackTrace && (js += '\n' + Module.extraStackTrace()), demangleAll(js);
             }
             function updateGlobalBufferViews() {
               (Module.HEAP8 = HEAP8 = new Int8Array(buffer)),
@@ -15638,9 +12313,7 @@ module.exports = {
             function enlargeMemory() {
               abortOnCannotGrowMemory();
             }
-            (Module.stackTrace = stackTrace),
-              (STATIC_BASE = STATICTOP = STACK_BASE = STACKTOP = STACK_MAX = DYNAMIC_BASE = DYNAMICTOP_PTR = 0),
-              (staticSealed = !1);
+            (Module.stackTrace = stackTrace), (STATIC_BASE = STATICTOP = STACK_BASE = STACKTOP = STACK_MAX = DYNAMIC_BASE = DYNAMICTOP_PTR = 0), (staticSealed = !1);
             var TOTAL_STACK = Module.TOTAL_STACK || 5242880,
               TOTAL_MEMORY = Module.TOTAL_MEMORY || 134217728;
             function getTotalMemory() {
@@ -15648,13 +12321,7 @@ module.exports = {
             }
             if (
               (TOTAL_MEMORY < TOTAL_STACK &&
-                Module.printErr(
-                  'TOTAL_MEMORY should be larger than TOTAL_STACK, was ' +
-                    TOTAL_MEMORY +
-                    '! (TOTAL_STACK=' +
-                    TOTAL_STACK +
-                    ')'
-                ),
+                Module.printErr('TOTAL_MEMORY should be larger than TOTAL_STACK, was ' + TOTAL_MEMORY + '! (TOTAL_STACK=' + TOTAL_STACK + ')'),
               (buffer = Module.buffer ? Module.buffer : new ArrayBuffer(TOTAL_MEMORY)),
               updateGlobalBufferViews(),
               (HEAP32[0] = 1668509029),
@@ -15693,13 +12360,7 @@ module.exports = {
               runtimeInitialized = !1,
               runtimeExited = !1;
             function preRun() {
-              if (Module.preRun)
-                for (
-                  'function' == typeof Module.preRun && (Module.preRun = [Module.preRun]);
-                  Module.preRun.length;
-
-                )
-                  addOnPreRun(Module.preRun.shift());
+              if (Module.preRun) for ('function' == typeof Module.preRun && (Module.preRun = [Module.preRun]); Module.preRun.length; ) addOnPreRun(Module.preRun.shift());
               callRuntimeCallbacks(__ATPRERUN__);
             }
             function ensureInitRuntime() {
@@ -15713,12 +12374,7 @@ module.exports = {
             }
             function postRun() {
               if (Module.postRun)
-                for (
-                  'function' == typeof Module.postRun && (Module.postRun = [Module.postRun]);
-                  Module.postRun.length;
-
-                )
-                  addOnPostRun(Module.postRun.shift());
+                for ('function' == typeof Module.postRun && (Module.postRun = [Module.postRun]); Module.postRun.length; ) addOnPostRun(Module.postRun.shift());
               callRuntimeCallbacks(__ATPOSTRUN__);
             }
             function addOnPreRun(cb) {
@@ -15751,9 +12407,7 @@ module.exports = {
             }
             function writeStringToMemory(string, buffer, dontAddNull) {
               var lastChar, end;
-              Runtime.warnOnce(
-                'writeStringToMemory is deprecated and should not be called! Use stringToUTF8() instead!'
-              ),
+              Runtime.warnOnce('writeStringToMemory is deprecated and should not be called! Use stringToUTF8() instead!'),
                 dontAddNull && ((end = buffer + lengthBytesUTF8(string)), (lastChar = HEAP8[end])),
                 stringToUTF8(string, buffer, 1 / 0),
                 dontAddNull && (HEAP8[end] = lastChar);
@@ -15832,17 +12486,13 @@ module.exports = {
               return id;
             }
             function addRunDependency(id) {
-              runDependencies++,
-                Module.monitorRunDependencies && Module.monitorRunDependencies(runDependencies);
+              runDependencies++, Module.monitorRunDependencies && Module.monitorRunDependencies(runDependencies);
             }
             function removeRunDependency(id) {
               if (
                 (runDependencies--,
                 Module.monitorRunDependencies && Module.monitorRunDependencies(runDependencies),
-                0 == runDependencies &&
-                  (null !== runDependencyWatcher &&
-                    (clearInterval(runDependencyWatcher), (runDependencyWatcher = null)),
-                  dependenciesFulfilled))
+                0 == runDependencies && (null !== runDependencyWatcher && (clearInterval(runDependencyWatcher), (runDependencyWatcher = null)), dependenciesFulfilled))
               ) {
                 var callback = dependenciesFulfilled;
                 (dependenciesFulfilled = null), callback();
@@ -23523,19 +20173,10 @@ module.exports = {
             }
             function __decorate(decorators, target, key, desc) {
               var c = arguments.length,
-                r =
-                  c < 3
-                    ? target
-                    : null === desc
-                    ? (desc = Object.getOwnPropertyDescriptor(target, key))
-                    : desc,
+                r = c < 3 ? target : null === desc ? (desc = Object.getOwnPropertyDescriptor(target, key)) : desc,
                 d;
-              if ('object' == typeof Reflect && 'function' == typeof Reflect.decorate)
-                r = Reflect.decorate(decorators, target, key, desc);
-              else
-                for (var i = decorators.length - 1; i >= 0; i--)
-                  (d = decorators[i]) &&
-                    (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
+              if ('object' == typeof Reflect && 'function' == typeof Reflect.decorate) r = Reflect.decorate(decorators, target, key, desc);
+              else for (var i = decorators.length - 1; i >= 0; i--) (d = decorators[i]) && (r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r);
               return c > 3 && r && Object.defineProperty(target, key, r), r;
             }
             function _defineHidden(value) {
@@ -23603,16 +20244,10 @@ module.exports = {
               (globalScope.proto = Module), _nbind.BindClass.list.push(globalScope);
             }
             function _emscripten_set_main_loop_timing(mode, value) {
-              if (
-                ((Browser.mainLoop.timingMode = mode),
-                (Browser.mainLoop.timingValue = value),
-                !Browser.mainLoop.func)
-              )
-                return 1;
+              if (((Browser.mainLoop.timingMode = mode), (Browser.mainLoop.timingValue = value), !Browser.mainLoop.func)) return 1;
               if (0 == mode)
                 (Browser.mainLoop.scheduler = function Browser_mainLoop_scheduler_setTimeout() {
-                  var timeUntilNextTick =
-                    0 | Math.max(0, Browser.mainLoop.tickStartTime + value - _emscripten_get_now());
+                  var timeUntilNextTick = 0 | Math.max(0, Browser.mainLoop.tickStartTime + value - _emscripten_get_now());
                   setTimeout(Browser.mainLoop.runner, timeUntilNextTick);
                 }),
                   (Browser.mainLoop.method = 'timeout');
@@ -23626,9 +20261,7 @@ module.exports = {
                   var setImmediates = [],
                     emscriptenMainLoopMessageId = 'setimmediate';
                   function Browser_setImmediate_messageHandler(event) {
-                    event.source === window &&
-                      'setimmediate' === event.data &&
-                      (event.stopPropagation(), setImmediates.shift()());
+                    event.source === window && 'setimmediate' === event.data && (event.stopPropagation(), setImmediates.shift()());
                   }
                   window.addEventListener('message', Browser_setImmediate_messageHandler, !0),
                     (window.setImmediate = function Browser_emulated_setImmediate(func) {
@@ -23679,17 +20312,10 @@ module.exports = {
                           next = remaining % 1 == 0 ? remaining - 1 : Math.floor(remaining);
                         blocker.counted
                           ? (Browser.mainLoop.remainingBlockers = next)
-                          : ((next += 0.5),
-                            (Browser.mainLoop.remainingBlockers = (8 * remaining + next) / 9));
+                          : ((next += 0.5), (Browser.mainLoop.remainingBlockers = (8 * remaining + next) / 9));
                       }
                       if (
-                        (console.log(
-                          'main loop blocker "' +
-                            blocker.name +
-                            '" took ' +
-                            (Date.now() - start) +
-                            ' ms'
-                        ),
+                        (console.log('main loop blocker "' + blocker.name + '" took ' + (Date.now() - start) + ' ms'),
                         Browser.mainLoop.updateStatus(),
                         thisMainLoopId < Browser.mainLoop.currentlyRunningMainloop)
                       )
@@ -23697,14 +20323,10 @@ module.exports = {
                       setTimeout(Browser.mainLoop.runner, 0);
                     } else
                       thisMainLoopId < Browser.mainLoop.currentlyRunningMainloop ||
-                        ((Browser.mainLoop.currentFrameNumber =
-                          (Browser.mainLoop.currentFrameNumber + 1) | 0),
-                        1 == Browser.mainLoop.timingMode &&
-                        Browser.mainLoop.timingValue > 1 &&
-                        Browser.mainLoop.currentFrameNumber % Browser.mainLoop.timingValue != 0
+                        ((Browser.mainLoop.currentFrameNumber = (Browser.mainLoop.currentFrameNumber + 1) | 0),
+                        1 == Browser.mainLoop.timingMode && Browser.mainLoop.timingValue > 1 && Browser.mainLoop.currentFrameNumber % Browser.mainLoop.timingValue != 0
                           ? Browser.mainLoop.scheduler()
-                          : (0 == Browser.mainLoop.timingMode &&
-                              (Browser.mainLoop.tickStartTime = _emscripten_get_now()),
+                          : (0 == Browser.mainLoop.timingMode && (Browser.mainLoop.tickStartTime = _emscripten_get_now()),
                             'timeout' === Browser.mainLoop.method &&
                               Module.ctx &&
                               (Module.printErr(
@@ -23713,17 +20335,9 @@ module.exports = {
                               (Browser.mainLoop.method = '')),
                             Browser.mainLoop.runIter(browserIterationFunc),
                             thisMainLoopId < Browser.mainLoop.currentlyRunningMainloop ||
-                              ('object' == typeof SDL &&
-                                SDL.audio &&
-                                SDL.audio.queueNewAudioData &&
-                                SDL.audio.queueNewAudioData(),
-                              Browser.mainLoop.scheduler())));
+                              ('object' == typeof SDL && SDL.audio && SDL.audio.queueNewAudioData && SDL.audio.queueNewAudioData(), Browser.mainLoop.scheduler())));
                 }),
-                noSetTiming ||
-                  (fps && fps > 0
-                    ? _emscripten_set_main_loop_timing(0, 1e3 / fps)
-                    : _emscripten_set_main_loop_timing(1, 1),
-                  Browser.mainLoop.scheduler()),
+                noSetTiming || (fps && fps > 0 ? _emscripten_set_main_loop_timing(0, 1e3 / fps) : _emscripten_set_main_loop_timing(1, 1), Browser.mainLoop.scheduler()),
                 simulateInfiniteLoop)
               )
                 throw 'SimulateInfiniteLoop';
@@ -23740,8 +20354,7 @@ module.exports = {
                   currentFrameNumber: 0,
                   queue: [],
                   pause: function () {
-                    (Browser.mainLoop.scheduler = null),
-                      Browser.mainLoop.currentlyRunningMainloop++;
+                    (Browser.mainLoop.scheduler = null), Browser.mainLoop.currentlyRunningMainloop++;
                   },
                   resume: function () {
                     Browser.mainLoop.currentlyRunningMainloop++;
@@ -23760,9 +20373,7 @@ module.exports = {
                         expected = Browser.mainLoop.expectedBlockers;
                       remaining
                         ? remaining < expected
-                          ? Module.setStatus(
-                              message + ' (' + (expected - remaining) + '/' + expected + ')'
-                            )
+                          ? Module.setStatus(message + ' (' + (expected - remaining) + '/' + expected + ')')
                           : Module.setStatus(message)
                         : Module.setStatus('');
                     }
@@ -23775,13 +20386,7 @@ module.exports = {
                         func();
                       } catch (e) {
                         if (e instanceof ExitStatus) return;
-                        throw (
-                          (e &&
-                            'object' == typeof e &&
-                            e.stack &&
-                            Module.printErr('exception thrown: ' + [e, e.stack]),
-                          e)
-                        );
+                        throw (e && 'object' == typeof e && e.stack && Module.printErr('exception thrown: ' + [e, e.stack]), e);
                       }
                       Module.postMainLoop && Module.postMainLoop();
                     }
@@ -23797,10 +20402,7 @@ module.exports = {
                     try {
                       new Blob(), (Browser.hasBlobConstructor = !0);
                     } catch (e) {
-                      (Browser.hasBlobConstructor = !1),
-                        console.log(
-                          'warning: no blob constructor, cannot create blobs with mimetypes'
-                        );
+                      (Browser.hasBlobConstructor = !1), console.log('warning: no blob constructor, cannot create blobs with mimetypes');
                     }
                     (Browser.BlobBuilder =
                       'undefined' != typeof MozBlobBuilder
@@ -23810,17 +20412,10 @@ module.exports = {
                         : Browser.hasBlobConstructor
                         ? null
                         : console.log('warning: no BlobBuilder')),
-                      (Browser.URLObject =
-                        'undefined' != typeof window
-                          ? window.URL
-                            ? window.URL
-                            : window.webkitURL
-                          : void 0),
+                      (Browser.URLObject = 'undefined' != typeof window ? (window.URL ? window.URL : window.webkitURL) : void 0),
                       Module.noImageDecoding ||
                         void 0 !== Browser.URLObject ||
-                        (console.log(
-                          'warning: Browser does not support creating object URLs. Built-in browser image decoding will not be available.'
-                        ),
+                        (console.log('warning: Browser does not support creating object URLs. Built-in browser image decoding will not be available.'),
                         (Module.noImageDecoding = !0));
                     var imagePlugin = {
                       canHandle: function imagePlugin_canHandle(name) {
@@ -23837,11 +20432,7 @@ module.exports = {
                                 type: Browser.getMimetype(name)
                               }));
                           } catch (e) {
-                            Runtime.warnOnce(
-                              'Blob constructor present but fails: ' +
-                                e +
-                                '; falling back to blob builder'
-                            );
+                            Runtime.warnOnce('Blob constructor present but fails: ' + e + '; falling back to blob builder');
                           }
                         if (!b) {
                           var bb = new Browser.BlobBuilder();
@@ -23861,8 +20452,7 @@ module.exports = {
                             onload && onload(byteArray);
                         }),
                           (img.onerror = function img_onerror(event) {
-                            console.log('Image ' + url + ' could not be decoded'),
-                              onerror && onerror();
+                            console.log('Image ' + url + ' could not be decoded'), onerror && onerror();
                           }),
                           (img.src = url);
                       }
@@ -23870,24 +20460,15 @@ module.exports = {
                     Module.preloadPlugins.push(imagePlugin);
                     var audioPlugin = {
                       canHandle: function audioPlugin_canHandle(name) {
-                        return (
-                          !Module.noAudioDecoding &&
-                          name.substr(-4) in { '.ogg': 1, '.wav': 1, '.mp3': 1 }
-                        );
+                        return !Module.noAudioDecoding && name.substr(-4) in { '.ogg': 1, '.wav': 1, '.mp3': 1 };
                       },
                       handle: function audioPlugin_handle(byteArray, name, onload, onerror) {
                         var done = !1;
                         function finish(audio) {
-                          done ||
-                            ((done = !0),
-                            (Module.preloadedAudios[name] = audio),
-                            onload && onload(byteArray));
+                          done || ((done = !0), (Module.preloadedAudios[name] = audio), onload && onload(byteArray));
                         }
                         function fail() {
-                          done ||
-                            ((done = !0),
-                            (Module.preloadedAudios[name] = new Audio()),
-                            onerror && onerror());
+                          done || ((done = !0), (Module.preloadedAudios[name] = new Audio()), onerror && onerror());
                         }
                         if (!Browser.hasBlobConstructor) return fail();
                         try {
@@ -23907,43 +20488,24 @@ module.exports = {
                           (audio.onerror = function audio_onerror(event) {
                             function encode64(data) {
                               for (
-                                var BASE =
-                                    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/',
-                                  PAD = '=',
-                                  ret = '',
-                                  leftchar = 0,
-                                  leftbits = 0,
-                                  i = 0;
+                                var BASE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/', PAD = '=', ret = '', leftchar = 0, leftbits = 0, i = 0;
                                 i < data.length;
                                 i++
                               )
-                                for (
-                                  leftchar = (leftchar << 8) | data[i], leftbits += 8;
-                                  leftbits >= 6;
-
-                                ) {
+                                for (leftchar = (leftchar << 8) | data[i], leftbits += 8; leftbits >= 6; ) {
                                   var curr = (leftchar >> (leftbits - 6)) & 63;
                                   (leftbits -= 6), (ret += BASE[curr]);
                                 }
                               return (
                                 2 == leftbits
                                   ? ((ret += BASE[(3 & leftchar) << 4]), (ret += '=='))
-                                  : 4 == leftbits &&
-                                    ((ret += BASE[(15 & leftchar) << 2]), (ret += '=')),
+                                  : 4 == leftbits && ((ret += BASE[(15 & leftchar) << 2]), (ret += '=')),
                                 ret
                               );
                             }
                             done ||
-                              (console.log(
-                                'warning: browser could not fully decode audio ' +
-                                  name +
-                                  ', trying slower base64 approach'
-                              ),
-                              (audio.src =
-                                'data:audio/x-' +
-                                name.substr(-3) +
-                                ';base64,' +
-                                encode64(byteArray)),
+                              (console.log('warning: browser could not fully decode audio ' + name + ', trying slower base64 approach'),
+                              (audio.src = 'data:audio/x-' + name.substr(-3) + ';base64,' + encode64(byteArray)),
                               finish(audio));
                           }),
                           (audio.src = url),
@@ -23956,17 +20518,9 @@ module.exports = {
                     var canvas = Module.canvas;
                     canvas &&
                       ((canvas.requestPointerLock =
-                        canvas.requestPointerLock ||
-                        canvas.mozRequestPointerLock ||
-                        canvas.webkitRequestPointerLock ||
-                        canvas.msRequestPointerLock ||
-                        function () {}),
+                        canvas.requestPointerLock || canvas.mozRequestPointerLock || canvas.webkitRequestPointerLock || canvas.msRequestPointerLock || function () {}),
                       (canvas.exitPointerLock =
-                        document.exitPointerLock ||
-                        document.mozExitPointerLock ||
-                        document.webkitExitPointerLock ||
-                        document.msExitPointerLock ||
-                        function () {}),
+                        document.exitPointerLock || document.mozExitPointerLock || document.webkitExitPointerLock || document.msExitPointerLock || function () {}),
                       (canvas.exitPointerLock = canvas.exitPointerLock.bind(document)),
                       document.addEventListener('pointerlockchange', pointerLockChange, !1),
                       document.addEventListener('mozpointerlockchange', pointerLockChange, !1),
@@ -23976,9 +20530,7 @@ module.exports = {
                         canvas.addEventListener(
                           'click',
                           function (ev) {
-                            !Browser.pointerLock &&
-                              Module.canvas.requestPointerLock &&
-                              (Module.canvas.requestPointerLock(), ev.preventDefault());
+                            !Browser.pointerLock && Module.canvas.requestPointerLock && (Module.canvas.requestPointerLock(), ev.preventDefault());
                           },
                           !1
                         ));
@@ -23996,19 +20548,12 @@ module.exports = {
                   var ctx, contextHandle;
                   if (useWebGL) {
                     var contextAttributes = { antialias: !1, alpha: !1 };
-                    if (webGLContextAttributes)
-                      for (var attribute in webGLContextAttributes)
-                        contextAttributes[attribute] = webGLContextAttributes[attribute];
-                    (contextHandle = GL.createContext(canvas, contextAttributes)) &&
-                      (ctx = GL.getContext(contextHandle).GLctx);
+                    if (webGLContextAttributes) for (var attribute in webGLContextAttributes) contextAttributes[attribute] = webGLContextAttributes[attribute];
+                    (contextHandle = GL.createContext(canvas, contextAttributes)) && (ctx = GL.getContext(contextHandle).GLctx);
                   } else ctx = canvas.getContext('2d');
                   return ctx
                     ? (setInModule &&
-                        (useWebGL ||
-                          assert(
-                            'undefined' == typeof GLctx,
-                            'cannot set in module if GLctx is used, but we are a non-GL context that would replace it'
-                          ),
+                        (useWebGL || assert('undefined' == typeof GLctx, 'cannot set in module if GLctx is used, but we are a non-GL context that would replace it'),
                         (Module.ctx = ctx),
                         useWebGL && GL.makeContextCurrent(contextHandle),
                         (Module.useWebGL = useWebGL),
@@ -24080,15 +20625,11 @@ module.exports = {
                             canvasContainer.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
                           }
                         : null)),
-                    vrDevice
-                      ? canvasContainer.requestFullscreen({ vrDisplay: vrDevice })
-                      : canvasContainer.requestFullscreen();
+                    vrDevice ? canvasContainer.requestFullscreen({ vrDisplay: vrDevice }) : canvasContainer.requestFullscreen();
                 },
                 requestFullScreen: function (lockPointer, resizeCanvas, vrDevice) {
                   return (
-                    Module.printErr(
-                      'Browser.requestFullScreen() is deprecated. Please call Browser.requestFullscreen instead.'
-                    ),
+                    Module.printErr('Browser.requestFullScreen() is deprecated. Please call Browser.requestFullscreen instead.'),
                     (Browser.requestFullScreen = function (lockPointer, resizeCanvas, vrDevice) {
                       return Browser.requestFullscreen(lockPointer, resizeCanvas, vrDevice);
                     }),
@@ -24127,9 +20668,7 @@ module.exports = {
                   Browser.allowAsyncCallbacks = !1;
                 },
                 resumeAsyncCallbacks: function () {
-                  if (
-                    ((Browser.allowAsyncCallbacks = !0), Browser.queuedAsyncCallbacks.length > 0)
-                  ) {
+                  if (((Browser.allowAsyncCallbacks = !0), Browser.queuedAsyncCallbacks.length > 0)) {
                     var callbacks = Browser.queuedAsyncCallbacks;
                     (Browser.queuedAsyncCallbacks = []),
                       callbacks.forEach(function (func) {
@@ -24139,20 +20678,14 @@ module.exports = {
                 },
                 safeRequestAnimationFrame: function (func) {
                   return Browser.requestAnimationFrame(function () {
-                    ABORT ||
-                      (Browser.allowAsyncCallbacks
-                        ? func()
-                        : Browser.queuedAsyncCallbacks.push(func));
+                    ABORT || (Browser.allowAsyncCallbacks ? func() : Browser.queuedAsyncCallbacks.push(func));
                   });
                 },
                 safeSetTimeout: function (func, timeout) {
                   return (
                     (Module.noExitRuntime = !0),
                     setTimeout(function () {
-                      ABORT ||
-                        (Browser.allowAsyncCallbacks
-                          ? func()
-                          : Browser.queuedAsyncCallbacks.push(func));
+                      ABORT || (Browser.allowAsyncCallbacks ? func() : Browser.queuedAsyncCallbacks.push(func));
                     }, timeout)
                   );
                 },
@@ -24176,9 +20709,7 @@ module.exports = {
                   }[name.substr(name.lastIndexOf('.') + 1)];
                 },
                 getUserMedia: function (func) {
-                  window.getUserMedia ||
-                    (window.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia),
-                    window.getUserMedia(func);
+                  window.getUserMedia || (window.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia), window.getUserMedia(func);
                 },
                 getMovementX: function (event) {
                   return event.movementX || event.mozMovementX || event.webkitMovementX || 0;
@@ -24213,24 +20744,17 @@ module.exports = {
                   if (Browser.pointerLock)
                     'mousemove' != event.type && 'mozMovementX' in event
                       ? (Browser.mouseMovementX = Browser.mouseMovementY = 0)
-                      : ((Browser.mouseMovementX = Browser.getMovementX(event)),
-                        (Browser.mouseMovementY = Browser.getMovementY(event))),
+                      : ((Browser.mouseMovementX = Browser.getMovementX(event)), (Browser.mouseMovementY = Browser.getMovementY(event))),
                       'undefined' != typeof SDL
-                        ? ((Browser.mouseX = SDL.mouseX + Browser.mouseMovementX),
-                          (Browser.mouseY = SDL.mouseY + Browser.mouseMovementY))
-                        : ((Browser.mouseX += Browser.mouseMovementX),
-                          (Browser.mouseY += Browser.mouseMovementY));
+                        ? ((Browser.mouseX = SDL.mouseX + Browser.mouseMovementX), (Browser.mouseY = SDL.mouseY + Browser.mouseMovementY))
+                        : ((Browser.mouseX += Browser.mouseMovementX), (Browser.mouseY += Browser.mouseMovementY));
                   else {
                     var rect = Module.canvas.getBoundingClientRect(),
                       cw = Module.canvas.width,
                       ch = Module.canvas.height,
                       scrollX = void 0 !== window.scrollX ? window.scrollX : window.pageXOffset,
                       scrollY = void 0 !== window.scrollY ? window.scrollY : window.pageYOffset;
-                    if (
-                      'touchstart' === event.type ||
-                      'touchend' === event.type ||
-                      'touchmove' === event.type
-                    ) {
+                    if ('touchstart' === event.type || 'touchend' === event.type || 'touchmove' === event.type) {
                       var touch = event.touch;
                       if (void 0 === touch) return;
                       var adjustedX = touch.pageX - (scrollX + rect.left),
@@ -24239,14 +20763,10 @@ module.exports = {
                           x: (adjustedX *= cw / rect.width),
                           y: (adjustedY *= ch / rect.height)
                         };
-                      if ('touchstart' === event.type)
-                        (Browser.lastTouches[touch.identifier] = coords),
-                          (Browser.touches[touch.identifier] = coords);
+                      if ('touchstart' === event.type) (Browser.lastTouches[touch.identifier] = coords), (Browser.touches[touch.identifier] = coords);
                       else if ('touchend' === event.type || 'touchmove' === event.type) {
                         var last = Browser.touches[touch.identifier];
-                        last || (last = coords),
-                          (Browser.lastTouches[touch.identifier] = last),
-                          (Browser.touches[touch.identifier] = coords);
+                        last || (last = coords), (Browser.lastTouches[touch.identifier] = last), (Browser.touches[touch.identifier] = coords);
                       }
                       return;
                     }
@@ -24265,10 +20785,7 @@ module.exports = {
                   Module.readAsync(
                     url,
                     function (arrayBuffer) {
-                      assert(
-                        arrayBuffer,
-                        'Loading data file "' + url + '" failed (no arrayBuffer).'
-                      ),
+                      assert(arrayBuffer, 'Loading data file "' + url + '" failed (no arrayBuffer).'),
                         onload(new Uint8Array(arrayBuffer)),
                         dep && removeRunDependency(dep);
                     },
@@ -24288,24 +20805,21 @@ module.exports = {
                 },
                 setCanvasSize: function (width, height, noUpdates) {
                   var canvas = Module.canvas;
-                  Browser.updateCanvasDimensions(canvas, width, height),
-                    noUpdates || Browser.updateResizeListeners();
+                  Browser.updateCanvasDimensions(canvas, width, height), noUpdates || Browser.updateResizeListeners();
                 },
                 windowedWidth: 0,
                 windowedHeight: 0,
                 setFullscreenCanvasSize: function () {
                   if ('undefined' != typeof SDL) {
                     var flags = HEAPU32[(SDL.screen + 0 * Runtime.QUANTUM_SIZE) >> 2];
-                    (flags |= 8388608),
-                      (HEAP32[(SDL.screen + 0 * Runtime.QUANTUM_SIZE) >> 2] = flags);
+                    (flags |= 8388608), (HEAP32[(SDL.screen + 0 * Runtime.QUANTUM_SIZE) >> 2] = flags);
                   }
                   Browser.updateResizeListeners();
                 },
                 setWindowedCanvasSize: function () {
                   if ('undefined' != typeof SDL) {
                     var flags = HEAPU32[(SDL.screen + 0 * Runtime.QUANTUM_SIZE) >> 2];
-                    (flags &= -8388609),
-                      (HEAP32[(SDL.screen + 0 * Runtime.QUANTUM_SIZE) >> 2] = flags);
+                    (flags &= -8388609), (HEAP32[(SDL.screen + 0 * Runtime.QUANTUM_SIZE) >> 2] = flags);
                   }
                   Browser.updateResizeListeners();
                 },
@@ -24318,15 +20832,12 @@ module.exports = {
                   if (
                     (Module.forcedAspectRatio &&
                       Module.forcedAspectRatio > 0 &&
-                      (w / h < Module.forcedAspectRatio
-                        ? (w = Math.round(h * Module.forcedAspectRatio))
-                        : (h = Math.round(w / Module.forcedAspectRatio))),
+                      (w / h < Module.forcedAspectRatio ? (w = Math.round(h * Module.forcedAspectRatio)) : (h = Math.round(w / Module.forcedAspectRatio))),
                     (document.fullscreenElement ||
                       document.mozFullScreenElement ||
                       document.msFullscreenElement ||
                       document.webkitFullscreenElement ||
-                      document.webkitCurrentFullScreenElement) === canvas.parentNode &&
-                      'undefined' != typeof screen)
+                      document.webkitCurrentFullScreenElement) === canvas.parentNode && 'undefined' != typeof screen)
                   ) {
                     var factor = Math.min(screen.width / w, screen.height / h);
                     (w = Math.round(w * factor)), (h = Math.round(h * factor));
@@ -24334,17 +20845,13 @@ module.exports = {
                   Browser.resizeCanvas
                     ? (canvas.width != w && (canvas.width = w),
                       canvas.height != h && (canvas.height = h),
-                      void 0 !== canvas.style &&
-                        (canvas.style.removeProperty('width'),
-                        canvas.style.removeProperty('height')))
+                      void 0 !== canvas.style && (canvas.style.removeProperty('width'), canvas.style.removeProperty('height')))
                     : (canvas.width != wNative && (canvas.width = wNative),
                       canvas.height != hNative && (canvas.height = hNative),
                       void 0 !== canvas.style &&
                         (w != wNative || h != hNative
-                          ? (canvas.style.setProperty('width', w + 'px', 'important'),
-                            canvas.style.setProperty('height', h + 'px', 'important'))
-                          : (canvas.style.removeProperty('width'),
-                            canvas.style.removeProperty('height'))));
+                          ? (canvas.style.setProperty('width', w + 'px', 'important'), canvas.style.setProperty('height', h + 'px', 'important'))
+                          : (canvas.style.removeProperty('width'), canvas.style.removeProperty('height'))));
                 },
                 wgetRequests: {},
                 nextWgetRequestHandle: 0,
@@ -24378,9 +20885,7 @@ module.exports = {
                 var stream = SYSCALLS.getStreamFromFD();
                 return FS.close(stream), 0;
               } catch (e) {
-                return (
-                  ('undefined' != typeof FS && e instanceof FS.ErrnoError) || abort(e), -e.errno
-                );
+                return ('undefined' != typeof FS && e instanceof FS.ErrnoError) || abort(e), -e.errno;
               }
             }
             function ___syscall54(which, varargs) {
@@ -24388,9 +20893,7 @@ module.exports = {
               try {
                 return 0;
               } catch (e) {
-                return (
-                  ('undefined' != typeof FS && e instanceof FS.ErrnoError) || abort(e), -e.errno
-                );
+                return ('undefined' != typeof FS && e instanceof FS.ErrnoError) || abort(e), -e.errno;
               }
             }
             function _typeModule(self) {
@@ -24412,33 +20915,15 @@ module.exports = {
                   (128 != ref && 256 != ref && 384 != ref) || (outerName = 'X const');
                 }
                 var name;
-                return (name = flip
-                  ? innerName.replace('X', outerName).replace('Y', param)
-                  : outerName.replace('X', innerName).replace('Y', param)).replace(
+                return (name = flip ? innerName.replace('X', outerName).replace('Y', param) : outerName.replace('X', innerName).replace('Y', param)).replace(
                   /([*&]) (?=[*&])/g,
                   '$1'
                 );
               }
               function reportProblem(problem, id, kind, structureType, place) {
-                throw new Error(
-                  problem +
-                    ' type ' +
-                    kind.replace('X', id + '?') +
-                    (structureType ? ' with flag ' + structureType : '') +
-                    ' in ' +
-                    place
-                );
+                throw new Error(problem + ' type ' + kind.replace('X', id + '?') + (structureType ? ' with flag ' + structureType : '') + ' in ' + place);
               }
-              function getComplexType(
-                id,
-                constructType,
-                getType,
-                queryType,
-                place,
-                kind,
-                prevStructure,
-                depth
-              ) {
+              function getComplexType(id, constructType, getType, queryType, place, kind, prevStructure, depth) {
                 void 0 === kind && (kind = 'X'), void 0 === depth && (depth = 1);
                 var result = getType(id);
                 if (result) return result;
@@ -24446,31 +20931,13 @@ module.exports = {
                   structureType = query.placeholderFlag,
                   structure = structureList[structureType],
                   problem;
-                prevStructure &&
-                  structure &&
-                  (kind = applyStructure(
-                    prevStructure[2],
-                    prevStructure[0],
-                    kind,
-                    structure[0],
-                    '?',
-                    !0
-                  )),
+                prevStructure && structure && (kind = applyStructure(prevStructure[2], prevStructure[0], kind, structure[0], '?', !0)),
                   0 == structureType && (problem = 'Unbound'),
                   structureType >= 10 && (problem = 'Corrupt'),
                   depth > 20 && (problem = 'Deeply nested'),
                   problem && reportProblem(problem, id, kind, structureType, place || '?');
                 var subId,
-                  subType = getComplexType(
-                    query.paramList[0],
-                    constructType,
-                    getType,
-                    queryType,
-                    place,
-                    kind,
-                    structure,
-                    depth + 1
-                  ),
+                  subType = getComplexType(query.paramList[0], constructType, getType, queryType, place, kind, structure, depth + 1),
                   srcSpec,
                   spec = { flags: structure[0], id: id, name: '', paramList: [subType] },
                   argList = [],
@@ -24490,36 +20957,17 @@ module.exports = {
                     (srcSpec = subType.spec), subType.flags;
                     break;
                   case 8:
-                    (structureParam = '' + query.paramList[1]),
-                      spec.paramList.push(query.paramList[1]);
+                    (structureParam = '' + query.paramList[1]), spec.paramList.push(query.paramList[1]);
                     break;
                   case 9:
                     for (var _i = 0, _a = query.paramList[1]; _i < _a.length; _i++) {
                       var paramId,
-                        paramType = getComplexType(
-                          _a[_i],
-                          constructType,
-                          getType,
-                          queryType,
-                          place,
-                          kind,
-                          structure,
-                          depth + 1
-                        );
+                        paramType = getComplexType(_a[_i], constructType, getType, queryType, place, kind, structure, depth + 1);
                       argList.push(paramType.name), spec.paramList.push(paramType);
                     }
                     structureParam = argList.join(', ');
                 }
-                if (
-                  ((spec.name = applyStructure(
-                    structure[2],
-                    structure[0],
-                    subType.name,
-                    subType.flags,
-                    structureParam
-                  )),
-                  srcSpec)
-                ) {
+                if (((spec.name = applyStructure(structure[2], structure[0], subType.name, subType.flags, structureParam)), srcSpec)) {
                   for (var _b = 0, _c = Object.keys(srcSpec); _b < _c.length; _b++) {
                     var key = _c[_b];
                     spec[key] = spec[key] || srcSpec[key];
@@ -24536,16 +20984,10 @@ module.exports = {
                   spec.name ||
                     1024 != kind ||
                     (1 == spec.ptrSize
-                      ? (spec.name =
-                          (16 & flags ? '' : (8 & flags ? 'un' : '') + 'signed ') + 'char')
-                      : (spec.name =
-                          (8 & flags ? 'u' : '') +
-                          (32 & flags ? 'float' : 'int') +
-                          8 * spec.ptrSize +
-                          '_t')),
+                      ? (spec.name = (16 & flags ? '' : (8 & flags ? 'un' : '') + 'signed ') + 'char')
+                      : (spec.name = (8 & flags ? 'u' : '') + (32 & flags ? 'float' : 'int') + 8 * spec.ptrSize + '_t')),
                   8 != spec.ptrSize || 32 & flags || (kind = 64),
-                  2048 == kind &&
-                    (512 == refKind || 640 == refKind ? (kind = 4096) : refKind && (kind = 3072)),
+                  2048 == kind && (512 == refKind || 640 == refKind ? (kind = 4096) : refKind && (kind = 3072)),
                   constructType(kind, spec)
                 );
               }
@@ -24553,10 +20995,7 @@ module.exports = {
                 output = {
                   Type: (function () {
                     function Type(spec) {
-                      (this.id = spec.id),
-                        (this.name = spec.name),
-                        (this.flags = spec.flags),
-                        (this.spec = spec);
+                      (this.id = spec.id), (this.name = spec.name), (this.flags = spec.flags), (this.spec = spec);
                     }
                     return (
                       (Type.prototype.toString = function () {
@@ -24588,26 +21027,13 @@ module.exports = {
               }
               (Base.prototype = Parent.prototype), (Class.prototype = new Base());
             }
-            function __nbind_register_class(
-              idListPtr,
-              policyListPtr,
-              superListPtr,
-              upcastListPtr,
-              superCount,
-              destructorPtr,
-              namePtr
-            ) {
+            function __nbind_register_class(idListPtr, policyListPtr, superListPtr, upcastListPtr, superCount, destructorPtr, namePtr) {
               var name = _nbind.readAsciiString(namePtr),
                 policyTbl = _nbind.readPolicyList(policyListPtr),
                 idList = HEAPU32.subarray(idListPtr / 4, idListPtr / 4 + 2),
                 spec = { flags: 2048 | (policyTbl.Value ? 2 : 0), id: idList[0], name: name },
                 bindClass = _nbind.makeType(_nbind.constructType, spec);
-              (bindClass.ptrType = _nbind.getComplexType(
-                idList[1],
-                _nbind.constructType,
-                _nbind.getType,
-                _nbind.queryType
-              )),
+              (bindClass.ptrType = _nbind.getComplexType(idList[1], _nbind.constructType, _nbind.getType, _nbind.queryType)),
                 (bindClass.destroy = _nbind.makeMethodCaller(bindClass.ptrType, {
                   boundID: spec.id,
                   flags: 0,
@@ -24618,12 +21044,8 @@ module.exports = {
                   typeList: ['void', 'uint32_t', 'uint32_t']
                 })),
                 superCount &&
-                  ((bindClass.superIdList = Array.prototype.slice.call(
-                    HEAPU32.subarray(superListPtr / 4, superListPtr / 4 + superCount)
-                  )),
-                  (bindClass.upcastList = Array.prototype.slice.call(
-                    HEAPU32.subarray(upcastListPtr / 4, upcastListPtr / 4 + superCount)
-                  ))),
+                  ((bindClass.superIdList = Array.prototype.slice.call(HEAPU32.subarray(superListPtr / 4, superListPtr / 4 + superCount))),
+                  (bindClass.upcastList = Array.prototype.slice.call(HEAPU32.subarray(upcastListPtr / 4, upcastListPtr / 4 + superCount)))),
                 (Module[bindClass.name] = bindClass.makeBound(policyTbl)),
                 _nbind.BindClass.list.push(bindClass);
             }
@@ -24633,18 +21055,7 @@ module.exports = {
                 return second ? initial : initial.toLowerCase();
               });
             }
-            function __nbind_register_function(
-              boundID,
-              policyListPtr,
-              typeListPtr,
-              typeCount,
-              ptr,
-              direct,
-              signatureType,
-              namePtr,
-              num,
-              flags
-            ) {
+            function __nbind_register_function(boundID, policyListPtr, typeListPtr, typeCount, ptr, direct, signatureType, namePtr, num, flags) {
               var bindClass = _nbind.getType(boundID),
                 policyTbl = _nbind.readPolicyList(policyListPtr),
                 typeList = _nbind.readTypeIdList(typeListPtr, typeCount),
@@ -24669,8 +21080,7 @@ module.exports = {
               else {
                 var name_1 = _nbind.readAsciiString(namePtr),
                   title = (bindClass.name && bindClass.name + '.') + name_1;
-                (3 != signatureType && 4 != signatureType) ||
-                  (name_1 = _removeAccessorPrefix(name_1)),
+                (3 != signatureType && 4 != signatureType) || (name_1 = _removeAccessorPrefix(name_1)),
                   (specList = [
                     {
                       boundID: boundID,
@@ -24684,29 +21094,19 @@ module.exports = {
               }
               for (var _i = 0, specList_1 = specList; _i < specList_1.length; _i++) {
                 var spec = specList_1[_i];
-                (spec.signatureType = signatureType),
-                  (spec.policyTbl = policyTbl),
-                  (spec.num = num),
-                  (spec.flags = flags),
-                  bindClass.addMethod(spec);
+                (spec.signatureType = signatureType), (spec.policyTbl = policyTbl), (spec.num = num), (spec.flags = flags), bindClass.addMethod(spec);
               }
             }
             function _nbind_value(name, proto) {
               _nbind.typeNameTbl[name] || _nbind.throwError('Unknown value type ' + name),
                 Module.NBind.bind_value(name, proto),
-                _defineHidden(_nbind.typeNameTbl[name].proto.prototype.__nbindValueConstructor)(
-                  proto.prototype,
-                  '__nbindValueConstructor'
-                );
+                _defineHidden(_nbind.typeNameTbl[name].proto.prototype.__nbindValueConstructor)(proto.prototype, '__nbindValueConstructor');
             }
             function __nbind_get_value_object(num, ptr) {
               var obj = _nbind.popValue(num);
               if (!obj.fromJS) throw new Error('Object ' + obj + ' has no fromJS function');
               obj.fromJS(function () {
-                obj.__nbindValueConstructor.apply(
-                  this,
-                  Array.prototype.concat.apply([ptr], arguments)
-                );
+                obj.__nbindValueConstructor.apply(this, Array.prototype.concat.apply([ptr], arguments));
               });
             }
             function _emscripten_memcpy_big(dest, src, num) {
@@ -24980,17 +21380,11 @@ module.exports = {
               ALLOC_STATIC
             );
             function ___setErrNo(value) {
-              return (
-                Module.___errno_location && (HEAP32[Module.___errno_location() >> 2] = value), value
-              );
+              return Module.___errno_location && (HEAP32[Module.___errno_location() >> 2] = value), value;
             }
             function _llvm_stacksave() {
               var self = _llvm_stacksave;
-              return (
-                self.LLVM_SAVEDSTACKS || (self.LLVM_SAVEDSTACKS = []),
-                self.LLVM_SAVEDSTACKS.push(Runtime.stackSave()),
-                self.LLVM_SAVEDSTACKS.length - 1
-              );
+              return self.LLVM_SAVEDSTACKS || (self.LLVM_SAVEDSTACKS = []), self.LLVM_SAVEDSTACKS.push(Runtime.stackSave()), self.LLVM_SAVEDSTACKS.length - 1;
             }
             function ___syscall140(which, varargs) {
               SYSCALLS.varargs = varargs;
@@ -25008,9 +21402,7 @@ module.exports = {
                   0
                 );
               } catch (e) {
-                return (
-                  ('undefined' != typeof FS && e instanceof FS.ErrnoError) || abort(e), -e.errno
-                );
+                return ('undefined' != typeof FS && e instanceof FS.ErrnoError) || abort(e), -e.errno;
               }
             }
             function ___syscall146(which, varargs) {
@@ -25026,28 +21418,17 @@ module.exports = {
                     var buffer = ___syscall146.buffers[stream];
                     assert(buffer),
                       0 === curr || 10 === curr
-                        ? ((1 === stream ? Module.print : Module.printErr)(
-                            UTF8ArrayToString(buffer, 0)
-                          ),
-                          (buffer.length = 0))
+                        ? ((1 === stream ? Module.print : Module.printErr)(UTF8ArrayToString(buffer, 0)), (buffer.length = 0))
                         : buffer.push(curr);
                   }));
                 for (var i = 0; i < iovcnt; i++) {
-                  for (
-                    var ptr = HEAP32[(iov + 8 * i) >> 2],
-                      len = HEAP32[(iov + (8 * i + 4)) >> 2],
-                      j = 0;
-                    j < len;
-                    j++
-                  )
+                  for (var ptr = HEAP32[(iov + 8 * i) >> 2], len = HEAP32[(iov + (8 * i + 4)) >> 2], j = 0; j < len; j++)
                     ___syscall146.printChar(stream, HEAPU8[ptr + j]);
                   ret += len;
                 }
                 return ret;
               } catch (e) {
-                return (
-                  ('undefined' != typeof FS && e instanceof FS.ErrnoError) || abort(e), -e.errno
-                );
+                return ('undefined' != typeof FS && e instanceof FS.ErrnoError) || abort(e), -e.errno;
               }
             }
             function __nbind_finish() {
@@ -25282,23 +21663,15 @@ module.exports = {
                     }),
                     (Pool.lreset = function (used, page) {
                       var topPage, NBind;
-                      HEAPU32[Pool.pagePtr]
-                        ? _nbind.typeNameTbl.NBind.proto.lreset(used, page)
-                        : (HEAPU32[Pool.usedPtr] = used);
+                      HEAPU32[Pool.pagePtr] ? _nbind.typeNameTbl.NBind.proto.lreset(used, page) : (HEAPU32[Pool.usedPtr] = used);
                     }),
                     Pool
                   );
                 })();
                 function constructType(kind, spec) {
                   var construct,
-                    bindType = new (10240 == kind
-                      ? _nbind.makeTypeNameTbl[spec.name] || _nbind.BindType
-                      : _nbind.makeTypeKindTbl[kind])(spec);
-                  return (
-                    (typeIdTbl[spec.id] = bindType),
-                    (_nbind.typeNameTbl[spec.name] = bindType),
-                    bindType
-                  );
+                    bindType = new (10240 == kind ? _nbind.makeTypeNameTbl[spec.name] || _nbind.BindType : _nbind.makeTypeKindTbl[kind])(spec);
+                  return (typeIdTbl[spec.id] = bindType), (_nbind.typeNameTbl[spec.name] = bindType), bindType;
                 }
                 function getType(id) {
                   return typeIdTbl[id];
@@ -25307,27 +21680,16 @@ module.exports = {
                   var placeholderFlag = HEAPU8[id],
                     paramCount = _nbind.structureList[placeholderFlag][1];
                   (id /= 4), paramCount < 0 && (++id, (paramCount = HEAPU32[id] + 1));
-                  var paramList = Array.prototype.slice.call(
-                    HEAPU32.subarray(id + 1, id + 1 + paramCount)
-                  );
-                  return (
-                    9 == placeholderFlag && (paramList = [paramList[0], paramList.slice(1)]),
-                    { paramList: paramList, placeholderFlag: placeholderFlag }
-                  );
+                  var paramList = Array.prototype.slice.call(HEAPU32.subarray(id + 1, id + 1 + paramCount));
+                  return 9 == placeholderFlag && (paramList = [paramList[0], paramList.slice(1)]), { paramList: paramList, placeholderFlag: placeholderFlag };
                 }
                 function getTypes(idList, place) {
                   return idList.map(function (id) {
-                    return 'number' == typeof id
-                      ? _nbind.getComplexType(id, constructType, getType, queryType, place)
-                      : _nbind.typeNameTbl[id];
+                    return 'number' == typeof id ? _nbind.getComplexType(id, constructType, getType, queryType, place) : _nbind.typeNameTbl[id];
                   });
                 }
                 function readTypeIdList(typeListPtr, typeCount) {
-                  return Array.prototype.slice.call(
-                    HEAPU32,
-                    typeListPtr / 4,
-                    typeListPtr / 4 + typeCount
-                  );
+                  return Array.prototype.slice.call(HEAPU32, typeListPtr / 4, typeListPtr / 4 + typeCount);
                 }
                 function readAsciiString(ptr) {
                   for (var endPtr = ptr; HEAPU8[endPtr++]; );
@@ -25376,9 +21738,7 @@ module.exports = {
                 function addMethod(obj, name, func, arity) {
                   var overload = obj[name];
                   obj.hasOwnProperty(name) && overload
-                    ? ((overload.arity || 0 === overload.arity) &&
-                        ((overload = _nbind.makeOverloader(overload, overload.arity)),
-                        (obj[name] = overload)),
+                    ? ((overload.arity || 0 === overload.arity) && ((overload = _nbind.makeOverloader(overload, overload.arity)), (obj[name] = overload)),
                       overload.addMethod(func, arity))
                     : ((func.arity = arity), (obj[name] = func));
                 }
@@ -25423,16 +21783,8 @@ module.exports = {
                   function PrimitiveType(spec) {
                     var _this = _super.call(this, spec) || this,
                       heapTbl =
-                        32 & spec.flags
-                          ? { 32: HEAPF32, 64: HEAPF64 }
-                          : 8 & spec.flags
-                          ? { 8: HEAPU8, 16: HEAPU16, 32: HEAPU32 }
-                          : { 8: HEAP8, 16: HEAP16, 32: HEAP32 };
-                    return (
-                      (_this.heap = heapTbl[8 * spec.ptrSize]),
-                      (_this.ptrSize = spec.ptrSize),
-                      _this
-                    );
+                        32 & spec.flags ? { 32: HEAPF32, 64: HEAPF64 } : 8 & spec.flags ? { 8: HEAPU8, 16: HEAPU16, 32: HEAPU32 } : { 8: HEAP8, 16: HEAP16, 32: HEAP32 };
+                    return (_this.heap = heapTbl[8 * spec.ptrSize]), (_this.ptrSize = spec.ptrSize), _this;
                   }
                   return (
                     __extends(PrimitiveType, _super),
@@ -25467,9 +21819,7 @@ module.exports = {
                 function popCString(ptr) {
                   return 0 === ptr ? null : Module.Pointer_stringify(ptr);
                 }
-                (_nbind.PrimitiveType = PrimitiveType),
-                  (_nbind.pushCString = pushCString),
-                  (_nbind.popCString = popCString);
+                (_nbind.PrimitiveType = PrimitiveType), (_nbind.pushCString = pushCString), (_nbind.popCString = popCString);
                 var CStringType = (function (_super) {
                   function CStringType() {
                     var _this = (null !== _super && _super.apply(this, arguments)) || this;
@@ -25538,19 +21888,13 @@ module.exports = {
                   var Bound = (function (_super) {
                     function Bound(marker, flags, ptr, shared) {
                       var _this = _super.call(this) || this;
-                      if (!(_this instanceof Bound))
-                        return new (Function.prototype.bind.apply(
-                          Bound,
-                          Array.prototype.concat.apply([null], arguments)
-                        ))();
+                      if (!(_this instanceof Bound)) return new (Function.prototype.bind.apply(Bound, Array.prototype.concat.apply([null], arguments)))();
                       var nbindFlags = flags,
                         nbindPtr = ptr,
                         nbindShared = shared;
                       if (marker !== _nbind.ptrMarker) {
                         var wirePtr = _this.__nbindConstructor.apply(_this, arguments);
-                        (nbindFlags = 4608),
-                          (nbindShared = HEAPU32[wirePtr / 4]),
-                          (nbindPtr = HEAPU32[wirePtr / 4 + 1]);
+                        (nbindFlags = 4608), (nbindShared = HEAPU32[wirePtr / 4]), (nbindPtr = HEAPU32[wirePtr / 4 + 1]);
                       }
                       var spec = { configurable: !0, enumerable: !1, value: null, writable: !1 },
                         propTbl = { __nbindFlags: nbindFlags, __nbindPtr: nbindPtr };
@@ -25574,18 +21918,8 @@ module.exports = {
                   })(Wrapper);
                   return (
                     __decorate([_defineHidden()], Bound.prototype, '__nbindConstructor', void 0),
-                    __decorate(
-                      [_defineHidden()],
-                      Bound.prototype,
-                      '__nbindValueConstructor',
-                      void 0
-                    ),
-                    __decorate(
-                      [_defineHidden(policyTbl)],
-                      Bound.prototype,
-                      '__nbindPolicies',
-                      void 0
-                    ),
+                    __decorate([_defineHidden()], Bound.prototype, '__nbindValueConstructor', void 0),
+                    __decorate([_defineHidden(policyTbl)], Bound.prototype, '__nbindPolicies', void 0),
                     Bound
                   );
                 }
@@ -25614,10 +21948,7 @@ module.exports = {
                       (_this.pendingSuperCount = 0),
                       (_this.ready = !1),
                       (_this.methodTbl = {}),
-                      spec.paramList
-                        ? ((_this.classType = spec.paramList[0].classType),
-                          (_this.proto = _this.classType.proto))
-                        : (_this.classType = _this),
+                      spec.paramList ? ((_this.classType = spec.paramList[0].classType), (_this.proto = _this.classType.proto)) : (_this.classType = _this),
                       _this
                     );
                   }
@@ -25632,37 +21963,17 @@ module.exports = {
                       overloadList.push(spec), (this.methodTbl[spec.name] = overloadList);
                     }),
                     (BindClass.prototype.registerMethods = function (src, staticOnly) {
-                      for (
-                        var setter, _i = 0, _a = Object.keys(src.methodTbl);
-                        _i < _a.length;
-                        _i++
-                      )
-                        for (
-                          var name_1 = _a[_i],
-                            overloadList,
-                            _b = 0,
-                            overloadList_1 = src.methodTbl[name_1];
-                          _b < overloadList_1.length;
-                          _b++
-                        ) {
+                      for (var setter, _i = 0, _a = Object.keys(src.methodTbl); _i < _a.length; _i++)
+                        for (var name_1 = _a[_i], overloadList, _b = 0, overloadList_1 = src.methodTbl[name_1]; _b < overloadList_1.length; _b++) {
                           var spec = overloadList_1[_b],
                             target = void 0,
                             caller = void 0;
-                          if (
-                            ((target = this.proto.prototype),
-                            !staticOnly || 1 == spec.signatureType)
-                          )
+                          if (((target = this.proto.prototype), !staticOnly || 1 == spec.signatureType))
                             switch (spec.signatureType) {
                               case 1:
                                 target = this.proto;
                               case 5:
-                                (caller = _nbind.makeCaller(spec)),
-                                  _nbind.addMethod(
-                                    target,
-                                    spec.name,
-                                    caller,
-                                    spec.typeList.length - 1
-                                  );
+                                (caller = _nbind.makeCaller(spec)), _nbind.addMethod(target, spec.name, caller, spec.typeList.length - 1);
                                 break;
                               case 4:
                                 setter = _nbind.makeMethodCaller(src.ptrType, spec);
@@ -25676,32 +21987,17 @@ module.exports = {
                                 });
                                 break;
                               case 2:
-                                (caller = _nbind.makeMethodCaller(src.ptrType, spec)),
-                                  _nbind.addMethod(
-                                    target,
-                                    spec.name,
-                                    caller,
-                                    spec.typeList.length - 1
-                                  );
+                                (caller = _nbind.makeMethodCaller(src.ptrType, spec)), _nbind.addMethod(target, spec.name, caller, spec.typeList.length - 1);
                             }
                         }
                     }),
-                    (BindClass.prototype.registerSuperMethods = function (
-                      src,
-                      firstSuper,
-                      visitTbl
-                    ) {
+                    (BindClass.prototype.registerSuperMethods = function (src, firstSuper, visitTbl) {
                       if (!visitTbl[src.name]) {
                         visitTbl[src.name] = !0;
-                        for (
-                          var superNum = 0, nextFirst, _i = 0, _a = src.superIdList || [];
-                          _i < _a.length;
-                          _i++
-                        ) {
+                        for (var superNum = 0, nextFirst, _i = 0, _a = src.superIdList || []; _i < _a.length; _i++) {
                           var superId = _a[_i],
                             superClass = _nbind.getType(superId);
-                          (nextFirst = superNum++ < firstSuper || firstSuper < 0 ? -1 : 0),
-                            this.registerSuperMethods(superClass, nextFirst, visitTbl);
+                          (nextFirst = superNum++ < firstSuper || firstSuper < 0 ? -1 : 0), this.registerSuperMethods(superClass, nextFirst, visitTbl);
                         }
                         this.registerMethods(src, firstSuper < 0);
                       }
@@ -25717,22 +22013,14 @@ module.exports = {
                         var Proto = function () {
                           this.constructor = Bound;
                         };
-                        (Proto.prototype = this.superList[0].proto.prototype),
-                          (Bound.prototype = new Proto());
+                        (Proto.prototype = this.superList[0].proto.prototype), (Bound.prototype = new Proto());
                       }
-                      return (
-                        Bound != Module && (Bound.prototype.__nbindType = this),
-                        this.registerSuperMethods(this, 1, {}),
-                        this
-                      );
+                      return Bound != Module && (Bound.prototype.__nbindType = this), this.registerSuperMethods(this, 1, {}), this;
                     }),
                     (BindClass.prototype.upcastStep = function (dst, ptr) {
                       if (dst == this) return ptr;
                       for (var i = 0; i < this.superList.length; ++i) {
-                        var superPtr = this.superList[i].upcastStep(
-                          dst,
-                          _nbind.callUpcast(this.upcastList[i], ptr)
-                        );
+                        var superPtr = this.superList[i].upcastStep(dst, _nbind.callUpcast(this.upcastList[i], ptr));
                         if (superPtr) return superPtr;
                       }
                       return 0;
@@ -25751,29 +22039,20 @@ module.exports = {
                   var ptr = obj.__nbindPtr,
                     objType = obj.__nbindType.classType,
                     classType = type.classType;
-                  if (obj instanceof type.proto)
-                    for (; objType != classType; )
-                      (ptr = _nbind.callUpcast(objType.upcastList[0], ptr)),
-                        (objType = objType.superList[0]);
-                  else if (!(ptr = objType.upcastStep(classType, ptr)))
-                    throw new Error('Type mismatch');
+                  if (obj instanceof type.proto) for (; objType != classType; ) (ptr = _nbind.callUpcast(objType.upcastList[0], ptr)), (objType = objType.superList[0]);
+                  else if (!(ptr = objType.upcastStep(classType, ptr))) throw new Error('Type mismatch');
                   return ptr;
                 }
                 function pushMutablePointer(obj, type) {
                   var ptr = pushPointer(obj, type);
-                  if (1 & obj.__nbindFlags)
-                    throw new Error('Passing a const value as a non-const argument');
+                  if (1 & obj.__nbindFlags) throw new Error('Passing a const value as a non-const argument');
                   return ptr;
                 }
-                (BindClass.list = []),
-                  (_nbind.BindClass = BindClass),
-                  (_nbind.popPointer = popPointer),
-                  (_nbind.pushPointer = pushPointer);
+                (BindClass.list = []), (_nbind.BindClass = BindClass), (_nbind.popPointer = popPointer), (_nbind.pushPointer = pushPointer);
                 var BindClassPtr = (function (_super) {
                   function BindClassPtr(spec) {
                     var _this = _super.call(this, spec) || this;
-                    (_this.classType = spec.paramList[0].classType),
-                      (_this.proto = _this.classType.proto);
+                    (_this.classType = spec.paramList[0].classType), (_this.proto = _this.classType.proto);
                     var isConst = 1 & spec.flags,
                       isValue = 256 == (896 & _this.flags) && 2 & spec.flags,
                       push = isConst ? pushPointer : pushMutablePointer,
@@ -25802,9 +22081,7 @@ module.exports = {
                 function popShared(ptr, type) {
                   var shared = HEAPU32[ptr / 4],
                     unsafe = HEAPU32[ptr / 4 + 1];
-                  return unsafe
-                    ? new type.proto(_nbind.ptrMarker, type.flags, unsafe, shared)
-                    : null;
+                  return unsafe ? new type.proto(_nbind.ptrMarker, type.flags, unsafe, shared) : null;
                 }
                 function pushShared(obj, type) {
                   if (!(obj instanceof type.proto)) throw new Error('Type mismatch');
@@ -25812,17 +22089,14 @@ module.exports = {
                 }
                 function pushMutableShared(obj, type) {
                   if (!(obj instanceof type.proto)) throw new Error('Type mismatch');
-                  if (1 & obj.__nbindFlags)
-                    throw new Error('Passing a const value as a non-const argument');
+                  if (1 & obj.__nbindFlags) throw new Error('Passing a const value as a non-const argument');
                   return obj.__nbindShared;
                 }
                 (_nbind.BindClassPtr = BindClassPtr), (_nbind.popShared = popShared);
                 var SharedClassPtr = (function (_super) {
                   function SharedClassPtr(spec) {
                     var _this = _super.call(this, spec) || this;
-                    (_this.readResources = [_nbind.resources.pool]),
-                      (_this.classType = spec.paramList[0].classType),
-                      (_this.proto = _this.classType.proto);
+                    (_this.readResources = [_nbind.resources.pool]), (_this.classType = spec.paramList[0].classType), (_this.proto = _this.classType.proto);
                     var isConst,
                       push = 1 & spec.flags ? pushShared : pushMutableShared;
                     return (
@@ -25846,22 +22120,13 @@ module.exports = {
                     return (
                       (External.prototype.register = function () {
                         var num = firstFreeExternal;
-                        return (
-                          num
-                            ? (firstFreeExternal = _nbind.externalList[num])
-                            : (num = _nbind.externalList.length),
-                          (_nbind.externalList[num] = this),
-                          num
-                        );
+                        return num ? (firstFreeExternal = _nbind.externalList[num]) : (num = _nbind.externalList.length), (_nbind.externalList[num] = this), num;
                       }),
                       (External.prototype.reference = function () {
                         ++this.refCount;
                       }),
                       (External.prototype.dereference = function (num) {
-                        0 == --this.refCount &&
-                          (this.free && this.free(),
-                          (_nbind.externalList[num] = firstFreeExternal),
-                          (firstFreeExternal = num));
+                        0 == --this.refCount && (this.free && this.free(), (_nbind.externalList[num] = firstFreeExternal), (firstFreeExternal = num));
                       }),
                       External
                     );
@@ -25888,10 +22153,7 @@ module.exports = {
                     var _this = (null !== _super && _super.apply(this, arguments)) || this;
                     return (
                       (_this.wireWrite = function (func) {
-                        return (
-                          'function' != typeof func && _nbind.throwError('Type mismatch'),
-                          new _nbind.External(func).register()
-                        );
+                        return 'function' != typeof func && _nbind.throwError('Type mismatch'), new _nbind.External(func).register();
                       }),
                       _this
                     );
@@ -25902,20 +22164,10 @@ module.exports = {
                 var firstFreeValue = 0;
                 function pushValue(value) {
                   var num = firstFreeValue;
-                  return (
-                    num
-                      ? (firstFreeValue = _nbind.valueList[num])
-                      : (num = _nbind.valueList.length),
-                    (_nbind.valueList[num] = value),
-                    2 * num + 1
-                  );
+                  return num ? (firstFreeValue = _nbind.valueList[num]) : (num = _nbind.valueList.length), (_nbind.valueList[num] = value), 2 * num + 1;
                 }
                 function popValue(num, type) {
-                  if (
-                    (num ||
-                      _nbind.throwError('Value type JavaScript class is missing or not registered'),
-                    1 & num)
-                  ) {
+                  if ((num || _nbind.throwError('Value type JavaScript class is missing or not registered'), 1 & num)) {
                     num >>= 1;
                     var obj = _nbind.valueList[num];
                     return (_nbind.valueList[num] = firstFreeValue), (firstFreeValue = num), obj;
@@ -25954,8 +22206,7 @@ module.exports = {
                 function pushArray(arr, type) {
                   if (!arr) return 0;
                   var length = arr.length;
-                  if ((type.size || 0 === type.size) && length < type.size)
-                    throw new Error('Type mismatch');
+                  if ((type.size || 0 === type.size) && length < type.size) throw new Error('Type mismatch');
                   var ptrSize = type.memberType.ptrSize,
                     result = _nbind.Pool.lalloc(4 + length * ptrSize);
                   HEAPU32[result / 4] = length;
@@ -25979,9 +22230,7 @@ module.exports = {
                   else for (; num < length; ) arr[num++] = heap[ptr++];
                   return arr;
                 }
-                (_nbind.Int64Type = Int64Type),
-                  (_nbind.pushArray = pushArray),
-                  (_nbind.popArray = popArray);
+                (_nbind.Int64Type = Int64Type), (_nbind.pushArray = pushArray), (_nbind.popArray = popArray);
                 var ArrayType = (function (_super) {
                   function ArrayType(spec) {
                     var _this = _super.call(this, spec) || this;
@@ -26011,20 +22260,14 @@ module.exports = {
                   } else str = str.toString();
                   var length = Module.lengthBytesUTF8(str),
                     result = _nbind.Pool.lalloc(4 + length + 1);
-                  return (
-                    (HEAPU32[result / 4] = length),
-                    Module.stringToUTF8Array(str, HEAPU8, result + 4, length + 1),
-                    result
-                  );
+                  return (HEAPU32[result / 4] = length), Module.stringToUTF8Array(str, HEAPU8, result + 4, length + 1), result;
                 }
                 function popString(ptr) {
                   if (0 === ptr) return null;
                   var length = HEAPU32[ptr / 4];
                   return Module.Pointer_stringify(ptr + 4, length);
                 }
-                (_nbind.ArrayType = ArrayType),
-                  (_nbind.pushString = pushString),
-                  (_nbind.popString = popString);
+                (_nbind.ArrayType = ArrayType), (_nbind.pushString = pushString), (_nbind.popString = popString);
                 var StringType = (function (_super) {
                   function StringType() {
                     var _this = (null !== _super && _super.apply(this, arguments)) || this;
@@ -26066,35 +22309,19 @@ module.exports = {
                   return type.makeWireRead
                     ? type.makeWireRead(expr, convertParamList, paramNum)
                     : type.wireRead
-                    ? ((convertParamList[paramNum] = type.wireRead),
-                      '(convertParamList[' + paramNum + '](' + expr + '))')
+                    ? ((convertParamList[paramNum] = type.wireRead), '(convertParamList[' + paramNum + '](' + expr + '))')
                     : expr;
                 }
                 function makeWireWrite(convertParamList, policyTbl, type, expr) {
                   var wireWrite,
                     paramNum = convertParamList.length;
-                  return (wireWrite = type.makeWireWrite
-                    ? type.makeWireWrite(expr, policyTbl, convertParamList, paramNum)
-                    : type.wireWrite)
+                  return (wireWrite = type.makeWireWrite ? type.makeWireWrite(expr, policyTbl, convertParamList, paramNum) : type.wireWrite)
                     ? 'string' == typeof wireWrite
                       ? wireWrite
-                      : ((convertParamList[paramNum] = wireWrite),
-                        '(convertParamList[' + paramNum + '](' + expr + '))')
+                      : ((convertParamList[paramNum] = wireWrite), '(convertParamList[' + paramNum + '](' + expr + '))')
                     : expr;
                 }
-                function buildCallerFunction(
-                  dynCall,
-                  ptrType,
-                  ptr,
-                  num,
-                  policyTbl,
-                  needsWireWrite,
-                  prefix,
-                  returnType,
-                  argTypeList,
-                  mask,
-                  err
-                ) {
+                function buildCallerFunction(dynCall, ptrType, ptr, num, policyTbl, needsWireWrite, prefix, returnType, argTypeList, mask, err) {
                   var argList = makeArgList(argTypeList.length),
                     convertParamList = [],
                     callExpression = makeWireRead(
@@ -26105,12 +22332,7 @@ module.exports = {
                         [prefix]
                           .concat(
                             argList.map(function (name, index) {
-                              return makeWireWrite(
-                                convertParamList,
-                                policyTbl,
-                                argTypeList[index],
-                                name
-                              );
+                              return makeWireWrite(convertParamList, policyTbl, argTypeList[index], name);
                             })
                           )
                           .join(',') +
@@ -26207,27 +22429,19 @@ module.exports = {
                     switch (argCount) {
                       case 0:
                         return function () {
-                          return this.__nbindFlags & mask
-                            ? err()
-                            : dynCall(ptr, num, _nbind.pushPointer(this, ptrType));
+                          return this.__nbindFlags & mask ? err() : dynCall(ptr, num, _nbind.pushPointer(this, ptrType));
                         };
                       case 1:
                         return function (a1) {
-                          return this.__nbindFlags & mask
-                            ? err()
-                            : dynCall(ptr, num, _nbind.pushPointer(this, ptrType), a1);
+                          return this.__nbindFlags & mask ? err() : dynCall(ptr, num, _nbind.pushPointer(this, ptrType), a1);
                         };
                       case 2:
                         return function (a1, a2) {
-                          return this.__nbindFlags & mask
-                            ? err()
-                            : dynCall(ptr, num, _nbind.pushPointer(this, ptrType), a1, a2);
+                          return this.__nbindFlags & mask ? err() : dynCall(ptr, num, _nbind.pushPointer(this, ptrType), a1, a2);
                         };
                       case 3:
                         return function (a1, a2, a3) {
-                          return this.__nbindFlags & mask
-                            ? err()
-                            : dynCall(ptr, num, _nbind.pushPointer(this, ptrType), a1, a2, a3);
+                          return this.__nbindFlags & mask ? err() : dynCall(ptr, num, _nbind.pushPointer(this, ptrType), a1, a2, a3);
                         };
                     }
                   return buildCallerFunction(
@@ -26279,9 +22493,7 @@ module.exports = {
                   }
                   if (ptr) {
                     var typeIdList = spec.typeList.slice(0);
-                    typeIdList.splice(1, 0, 'uint32_t'),
-                      (typeList = _nbind.getTypes(typeIdList, spec.title)),
-                      (prefix = 'ptr,num');
+                    typeIdList.splice(1, 0, 'uint32_t'), (typeList = _nbind.getTypes(typeIdList, spec.title)), (prefix = 'ptr,num');
                   } else (ptr = direct), (prefix = 'ptr');
                   return buildCallerFunction(
                     _nbind.getDynCall(typeList, spec.title),
@@ -26353,25 +22565,13 @@ module.exports = {
                   );
                 })();
                 function listResources(readList, writeList) {
-                  for (
-                    var result = new Resource(), _i = 0, readList_1 = readList;
-                    _i < readList_1.length;
-                    _i++
-                  )
-                    for (
-                      var bindType, _a = 0, _b = (bindType = readList_1[_i]).readResources || [];
-                      _a < _b.length;
-                      _a++
-                    ) {
+                  for (var result = new Resource(), _i = 0, readList_1 = readList; _i < readList_1.length; _i++)
+                    for (var bindType, _a = 0, _b = (bindType = readList_1[_i]).readResources || []; _a < _b.length; _a++) {
                       var resource = _b[_a];
                       result.add(resource);
                     }
                   for (var _c = 0, writeList_1 = writeList; _c < writeList_1.length; _c++)
-                    for (
-                      var bindType, _d = 0, _e = (bindType = writeList_1[_c]).writeResources || [];
-                      _d < _e.length;
-                      _d++
-                    ) {
+                    for (var bindType, _d = 0, _e = (bindType = writeList_1[_c]).writeResources || []; _d < _e.length; _d++) {
                       var resource = _e[_d];
                       result.add(resource);
                     }
@@ -26380,10 +22580,7 @@ module.exports = {
                 (_nbind.Resource = Resource),
                   (_nbind.listResources = listResources),
                   (_nbind.resources = {
-                    pool: new Resource(
-                      'var used=HEAPU32[_nbind.Pool.usedPtr],page=HEAPU32[_nbind.Pool.pagePtr];',
-                      '_nbind.Pool.lreset(used,page);'
-                    )
+                    pool: new Resource('var used=HEAPU32[_nbind.Pool.usedPtr],page=HEAPU32[_nbind.Pool.pagePtr];', '_nbind.Pool.lreset(used,page);')
                   });
                 var ExternalBuffer = (function (_super) {
                   function ExternalBuffer(buf, ptr) {
@@ -26399,22 +22596,13 @@ module.exports = {
                   );
                 })(_nbind.External);
                 function getBuffer(buf) {
-                  return buf instanceof ArrayBuffer
-                    ? new Uint8Array(buf)
-                    : buf instanceof DataView
-                    ? new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength)
-                    : buf;
+                  return buf instanceof ArrayBuffer ? new Uint8Array(buf) : buf instanceof DataView ? new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength) : buf;
                 }
                 function pushBuffer(buf, policyTbl) {
-                  if (
-                    (null == buf && policyTbl && policyTbl.Nullable && (buf = []),
-                    'object' != typeof buf)
-                  )
-                    throw new Error('Type mismatch');
+                  if ((null == buf && policyTbl && policyTbl.Nullable && (buf = []), 'object' != typeof buf)) throw new Error('Type mismatch');
                   var b = buf,
                     length = b.byteLength || b.length;
-                  if (!length && 0 !== length && 0 !== b.byteLength)
-                    throw new Error('Type mismatch');
+                  if (!length && 0 !== length && 0 !== b.byteLength) throw new Error('Type mismatch');
                   var result = _nbind.Pool.lalloc(8),
                     data = _malloc(length),
                     ptr = result / 4;
@@ -26429,12 +22617,7 @@ module.exports = {
                 var BufferType = (function (_super) {
                   function BufferType() {
                     var _this = (null !== _super && _super.apply(this, arguments)) || this;
-                    return (
-                      (_this.wireWrite = pushBuffer),
-                      (_this.readResources = [_nbind.resources.pool]),
-                      (_this.writeResources = [_nbind.resources.pool]),
-                      _this
-                    );
+                    return (_this.wireWrite = pushBuffer), (_this.readResources = [_nbind.resources.pool]), (_this.writeResources = [_nbind.resources.pool]), _this;
                   }
                   return (
                     __extends(BufferType, _super),
@@ -26449,18 +22632,12 @@ module.exports = {
                 function commitBuffer(num, data, length) {
                   var buf = _nbind.externalList[num].data,
                     NodeBuffer = Buffer;
-                  if (
-                    ('function' != typeof Buffer && (NodeBuffer = function () {}),
-                    buf instanceof Array)
-                  );
+                  if (('function' != typeof Buffer && (NodeBuffer = function () {}), buf instanceof Array));
                   else {
                     var src = HEAPU8.subarray(data, data + length);
                     if (buf instanceof NodeBuffer) {
                       var srcBuf = void 0;
-                      (srcBuf =
-                        'function' == typeof Buffer.from && Buffer.from.length >= 3
-                          ? Buffer.from(src)
-                          : new Buffer(src)).copy(buf);
+                      (srcBuf = 'function' == typeof Buffer.from && Buffer.from.length >= 3 ? Buffer.from(src) : new Buffer(src)).copy(buf);
                     } else getBuffer(buf).set(src);
                   }
                 }
@@ -26483,22 +22660,12 @@ module.exports = {
                 }
                 (_nbind.mark = function (obj) {}), (_nbind.toggleLightGC = toggleLightGC);
               })(_nbind),
-              (Module.requestFullScreen = function Module_requestFullScreen(
-                lockPointer,
-                resizeCanvas,
-                vrDevice
-              ) {
-                Module.printErr(
-                  'Module.requestFullScreen is deprecated. Please call Module.requestFullscreen instead.'
-                ),
+              (Module.requestFullScreen = function Module_requestFullScreen(lockPointer, resizeCanvas, vrDevice) {
+                Module.printErr('Module.requestFullScreen is deprecated. Please call Module.requestFullscreen instead.'),
                   (Module.requestFullScreen = Module.requestFullscreen),
                   Browser.requestFullScreen(lockPointer, resizeCanvas, vrDevice);
               }),
-              (Module.requestFullscreen = function Module_requestFullscreen(
-                lockPointer,
-                resizeCanvas,
-                vrDevice
-              ) {
+              (Module.requestFullscreen = function Module_requestFullscreen(lockPointer, resizeCanvas, vrDevice) {
                 Browser.requestFullscreen(lockPointer, resizeCanvas, vrDevice);
               }),
               (Module.requestAnimationFrame = function Module_requestAnimationFrame(func) {
@@ -26516,12 +22683,7 @@ module.exports = {
               (Module.getUserMedia = function Module_getUserMedia() {
                 Browser.getUserMedia();
               }),
-              (Module.createContext = function Module_createContext(
-                canvas,
-                useWebGL,
-                setInModule,
-                webGLContextAttributes
-              ) {
+              (Module.createContext = function Module_createContext(canvas, useWebGL, setInModule, webGLContextAttributes) {
                 return Browser.createContext(canvas, useWebGL, setInModule, webGLContextAttributes);
               }),
               (_emscripten_get_now = ENVIRONMENT_IS_NODE
@@ -26531,9 +22693,7 @@ module.exports = {
                   }
                 : 'undefined' != typeof dateNow
                 ? dateNow
-                : 'object' == typeof self &&
-                  self.performance &&
-                  'function' == typeof self.performance.now
+                : 'object' == typeof self && self.performance && 'function' == typeof self.performance.now
                 ? function () {
                     return self.performance.now();
                   }
@@ -26740,8 +22900,7 @@ module.exports = {
                 var Ha = env.___cxa_atexit;
                 var Ia = env.__extends;
                 var Ja = env.__nbind_get_value_object;
-                var Ka =
-                  env.__ZN8facebook4yoga14YGNodeToStringEPNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEP6YGNode14YGPrintOptionsj;
+                var Ka = env.__ZN8facebook4yoga14YGNodeToStringEPNSt3__212basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEEP6YGNode14YGPrintOptionsj;
                 var La = env._emscripten_set_main_loop_timing;
                 var Ma = env.__nbind_register_primitive;
                 var Na = env.__nbind_register_type;
@@ -27016,8 +23175,7 @@ module.exports = {
                   b = b | 0;
                   var d = 0;
                   d = c[(a + 948) >> 2] | 0;
-                  if ((((c[(a + 952) >> 2] | 0) - d) >> 2) >>> 0 > b >>> 0)
-                    a = c[(d + (b << 2)) >> 2] | 0;
+                  if ((((c[(a + 952) >> 2] | 0) - d) >> 2) >>> 0 > b >>> 0) a = c[(d + (b << 2)) >> 2] | 0;
                   else a = 0;
                   return a | 0;
                 }
@@ -27300,12 +23458,7 @@ module.exports = {
                       m = c[a >> 2] | 0;
                       k = ((c[h >> 2] | 0) - m) | 0;
                       g = k >> 1;
-                      bf(
-                        r,
-                        (k >> 2) >>> 0 < (f >>> 1) >>> 0 ? (g >>> 0 < e >>> 0 ? e : g) : f,
-                        (b - m) >> 2,
-                        (a + 8) | 0
-                      );
+                      bf(r, (k >> 2) >>> 0 < (f >>> 1) >>> 0 ? (g >>> 0 < e >>> 0 ? e : g) : f, (b - m) >> 2, (a + 8) | 0);
                       m = (r + 8) | 0;
                       e = c[m >> 2] | 0;
                       g = (r + 12) | 0;
@@ -28348,11 +24501,9 @@ module.exports = {
                     else o = 0;
                     if ((h | 0) == (c | 0)) n = Ld(p, s) | 0;
                     else n = 0;
-                    if ((!o ? ((t = T(b - l)), !(Qd(a, t, j) | 0)) : 0) ? !(Rd(a, t, e, j) | 0) : 0)
-                      o = Sd(a, t, e, f, j) | 0;
+                    if ((!o ? ((t = T(b - l)), !(Qd(a, t, j) | 0)) : 0) ? !(Rd(a, t, e, j) | 0) : 0) o = Sd(a, t, e, f, j) | 0;
                     else o = 1;
-                    if ((!n ? ((u = T(d - m)), !(Qd(c, u, k) | 0)) : 0) ? !(Rd(c, u, h, k) | 0) : 0)
-                      n = Sd(c, u, h, i, k) | 0;
+                    if ((!n ? ((u = T(d - m)), !(Qd(c, u, k) | 0)) : 0) ? !(Rd(c, u, h, k) | 0) : 0) n = Sd(c, u, h, i, k) | 0;
                     else n = 1;
                     n = o & n;
                   }
@@ -28474,11 +24625,7 @@ module.exports = {
                           q = (b + 524 + ((r * 24) | 0)) | 0;
                           if (
                             (
-                              (
-                                Ld(T(g[q >> 2]), d) | 0
-                                  ? Ld(T(g[(b + 524 + ((r * 24) | 0) + 4) >> 2]), e) | 0
-                                  : 0
-                              )
+                              (Ld(T(g[q >> 2]), d) | 0 ? Ld(T(g[(b + 524 + ((r * 24) | 0) + 4) >> 2]), e) | 0 : 0)
                                 ? (c[(b + 524 + ((r * 24) | 0) + 8) >> 2] | 0) == (i | 0)
                                 : 0
                             )
@@ -28502,25 +24649,7 @@ module.exports = {
                       J = T(g[q >> 2]);
                       I = T(g[(b + 920) >> 2]);
                       H = T(g[(b + 932) >> 2]);
-                      if (
-                        !(
-                          Pd(
-                            i,
-                            d,
-                            j,
-                            e,
-                            c[(b + 924) >> 2] | 0,
-                            J,
-                            c[(b + 928) >> 2] | 0,
-                            I,
-                            H,
-                            T(g[(b + 936) >> 2]),
-                            u,
-                            v,
-                            p
-                          ) | 0
-                        )
-                      ) {
+                      if (!(Pd(i, d, j, e, c[(b + 924) >> 2] | 0, J, c[(b + 928) >> 2] | 0, I, H, T(g[(b + 936) >> 2]), u, v, p) | 0)) {
                         s = c[(b + 520) >> 2] | 0;
                         if (!s) w = 21;
                         else {
@@ -28981,11 +25110,7 @@ module.exports = {
                             t = G;
                             while (1) {
                               B = c[(C + (t << 2)) >> 2] | 0;
-                              if (
-                                (c[(B + 36) >> 2] | 0) != 1
-                                  ? ((c[(B + 940) >> 2] = L), (c[(B + 24) >> 2] | 0) != 1)
-                                  : 0
-                              ) {
+                              if ((c[(B + 36) >> 2] | 0) != 1 ? ((c[(B + 940) >> 2] = L), (c[(B + 24) >> 2] | 0) != 1) : 0) {
                                 x = T(Ud(B, Ja, Ea));
                                 X = c[P >> 2] | 0;
                                 f = T(be((B + 380 + (X << 3)) | 0, ua));
@@ -29093,23 +25218,11 @@ module.exports = {
                             v = T(eC(f, T(cC(v, T(g[(q + 504) >> 2])))));
                             if (t) {
                               f = T(v * T(Fe(q)));
-                              if (
-                                f != T(-0.0)
-                                  ? ((Ma = T(v - T(y * f))),
-                                    (ja = T(Ie(q, Ja, Ma, H, Ea))),
-                                    Ma != ja)
-                                  : 0
-                              ) {
+                              if (f != T(-0.0) ? ((Ma = T(v - T(y * f))), (ja = T(Ie(q, Ja, Ma, H, Ea))), Ma != ja) : 0) {
                                 w = T(w - T(ja - v));
                                 e = T(e + f);
                               }
-                            } else if (
-                              (B ? ((ka = T(Ee(q))), ka != T(0.0)) : 0)
-                                ? ((Ma = T(v + T(z * ka))),
-                                  (la = T(Ie(q, Ja, Ma, H, Ea))),
-                                  Ma != la)
-                                : 0
-                            ) {
+                            } else if ((B ? ((ka = T(Ee(q))), ka != T(0.0)) : 0) ? ((Ma = T(v + T(z * ka))), (la = T(Ie(q, Ja, Ma, H, Ea))), Ma != la) : 0) {
                               w = T(w - T(la - v));
                               x = T(x - ka);
                             }
@@ -29137,8 +25250,7 @@ module.exports = {
                                   Ma = T(z * v);
                                   v = T(Ie(r, Ja, T(w + (C ? v : Ma)), H, Ea));
                                 } else v = w;
-                              } else if (s ? ((ma = T(Ee(r))), ma != T(0.0)) : 0)
-                                v = T(Ie(r, Ja, T(w + T(y * ma)), H, Ea));
+                              } else if (s ? ((ma = T(Ee(r))), ma != T(0.0)) : 0) v = T(Ie(r, Ja, T(w + T(y * ma)), H, Ea));
                               else v = w;
                               e = T(e - T(v - w));
                               x = T(Ud(r, Ja, Ea));
@@ -29196,19 +25308,7 @@ module.exports = {
                               E = T(g[ea >> 2]);
                               Na = c[ha >> 2] | 0;
                               Oa = c[ga >> 2] | 0;
-                              Td(
-                                r,
-                                Fa ? Ma : E,
-                                Fa ? E : Ma,
-                                Ga,
-                                Fa ? Na : Oa,
-                                Fa ? Oa : Na,
-                                Ea,
-                                sa,
-                                o & (q ^ 1),
-                                3488,
-                                p
-                              ) | 0;
+                              Td(r, Fa ? Ma : E, Fa ? E : Ma, Ga, Fa ? Na : Oa, Fa ? Oa : Na, Ea, sa, o & (q ^ 1), 3488, p) | 0;
                               a[Y >> 0] = a[Y >> 0] | a[(r + 508) >> 0];
                               r = c[(r + 960) >> 2] | 0;
                             } while ((r | 0) != 0);
@@ -29219,11 +25319,7 @@ module.exports = {
                         a[Y >> 0] = Oa | d[Y >> 0];
                         if (O & (e > T(0.0))) {
                           q = c[P >> 2] | 0;
-                          if (
-                            (c[(b + 364 + (q << 3) + 4) >> 2] | 0) != 0
-                              ? ((na = T(be((b + 364 + (q << 3)) | 0, ua))), na >= T(0.0))
-                              : 0
-                          )
+                          if ((c[(b + 364 + (q << 3) + 4) >> 2] | 0) != 0 ? ((na = T(be((b + 364 + (q << 3)) | 0, ua))), na >= T(0.0)) : 0)
                             v = T(cC(T(0.0), T(na - T(H - e))));
                           else v = T(0.0);
                         } else v = e;
@@ -29413,19 +25509,7 @@ module.exports = {
                                     Ma = Fa ? e : F;
                                     e = Fa ? F : e;
                                     Oa = ((Sb(Ma) | 0) ^ 1) & 1;
-                                    Td(
-                                      s,
-                                      Ma,
-                                      e,
-                                      Ga,
-                                      Oa,
-                                      ((Sb(e) | 0) ^ 1) & 1,
-                                      Ea,
-                                      sa,
-                                      1,
-                                      3493,
-                                      p
-                                    ) | 0;
+                                    Td(s, Ma, e, Ga, Oa, ((Sb(e) | 0) ^ 1) & 1, Ea, sa, 1, 3493, p) | 0;
                                     e = u;
                                   } else X = 139;
                                 } while (0);
@@ -29540,11 +25624,7 @@ module.exports = {
                                     while (1) {
                                       q = c[((c[Ha >> 2] | 0) + (s << 2)) >> 2] | 0;
                                       do {
-                                        if (
-                                          (c[(q + 36) >> 2] | 0) != 1
-                                            ? (c[(q + 24) >> 2] | 0) == 0
-                                            : 0
-                                        ) {
+                                        if ((c[(q + 36) >> 2] | 0) != 1 ? (c[(q + 24) >> 2] | 0) == 0 : 0) {
                                           if ((c[(q + 940) >> 2] | 0) != (t | 0)) break h;
                                           if (Re(q, Ka) | 0) {
                                             Ma = T(g[(q + 908 + (c[C >> 2] << 2)) >> 2]);
@@ -29584,11 +25664,7 @@ module.exports = {
                                   do {
                                     r = c[((c[Ha >> 2] | 0) + (q << 2)) >> 2] | 0;
                                     i: do {
-                                      if (
-                                        (c[(r + 36) >> 2] | 0) != 1
-                                          ? (c[(r + 24) >> 2] | 0) == 0
-                                          : 0
-                                      )
+                                      if ((c[(r + 36) >> 2] | 0) != 1 ? (c[(r + 24) >> 2] | 0) == 0 : 0)
                                         switch (Je(b, r) | 0) {
                                           case 1: {
                                             Ma = T(f + T(me(r, Ka, Ea)));
@@ -29596,21 +25672,12 @@ module.exports = {
                                             break i;
                                           }
                                           case 3: {
-                                            Ma = T(
-                                              T(u - T(ne(r, Ka, Ea))) -
-                                                T(g[(r + 908 + (c[C >> 2] << 2)) >> 2])
-                                            );
+                                            Ma = T(T(u - T(ne(r, Ka, Ea))) - T(g[(r + 908 + (c[C >> 2] << 2)) >> 2]));
                                             g[(r + 400 + (c[B >> 2] << 2)) >> 2] = Ma;
                                             break i;
                                           }
                                           case 2: {
-                                            Ma = T(
-                                              f +
-                                                T(
-                                                  T(y - T(g[(r + 908 + (c[C >> 2] << 2)) >> 2])) *
-                                                    T(0.5)
-                                                )
-                                            );
+                                            Ma = T(f + T(T(y - T(g[(r + 908 + (c[C >> 2] << 2)) >> 2])) * T(0.5)));
                                             g[(r + 400 + (c[B >> 2] << 2)) >> 2] = Ma;
                                             break i;
                                           }
@@ -29628,15 +25695,12 @@ module.exports = {
                                               e = y;
                                               v = T(g[(r + 908) >> 2]);
                                             }
-                                            if (Ld(e, v) | 0 ? Ld(w, T(g[(r + 912) >> 2])) | 0 : 0)
-                                              break i;
+                                            if (Ld(e, v) | 0 ? Ld(w, T(g[(r + 912) >> 2])) | 0 : 0) break i;
                                             Td(r, e, w, Ga, 1, 1, Ea, sa, 1, 3501, p) | 0;
                                             break i;
                                           }
                                           case 5: {
-                                            g[(r + 404) >> 2] = T(
-                                              T(x - T(Se(r))) + T(Oe(r, 0, qa))
-                                            );
+                                            g[(r + 404) >> 2] = T(T(x - T(Se(r))) + T(Oe(r, 0, qa)));
                                             break i;
                                           }
                                           default:
@@ -29656,13 +25720,7 @@ module.exports = {
                       } while (0);
                       g[(b + 908) >> 2] = T(Ie(b, 2, ta, m, m));
                       g[(b + 912) >> 2] = T(Ie(b, 0, ra, n, m));
-                      if (
-                        (pa | 0) != 0
-                          ? ((wa = c[(b + 32) >> 2] | 0),
-                            (xa = (pa | 0) == 2),
-                            !(xa & ((wa | 0) != 2)))
-                          : 0
-                      ) {
+                      if ((pa | 0) != 0 ? ((wa = c[(b + 32) >> 2] | 0), (xa = (pa | 0) == 2), !(xa & ((wa | 0) != 2))) : 0) {
                         if (xa & ((wa | 0) == 2)) {
                           e = T(va + H);
                           e = T(cC(T(eC(e, T(Te(b, Ja, da, ua)))), va));
@@ -29673,13 +25731,7 @@ module.exports = {
                         X = 198;
                       }
                       if ((X | 0) == 198) g[(b + 908 + (c[(976 + (Ja << 2)) >> 2] << 2)) >> 2] = e;
-                      if (
-                        (Aa | 0) != 0
-                          ? ((Ca = c[(b + 32) >> 2] | 0),
-                            (Da = (Aa | 0) == 2),
-                            !(Da & ((Ca | 0) != 2)))
-                          : 0
-                      ) {
+                      if ((Aa | 0) != 0 ? ((Ca = c[(b + 32) >> 2] | 0), (Da = (Aa | 0) == 2), !(Da & ((Ca | 0) != 2))) : 0) {
                         if (Da & ((Ca | 0) == 2)) {
                           e = T(za + qa);
                           e = T(cC(T(eC(e, T(Te(b, Ka, T(za + oa), ya)))), za));
@@ -29779,9 +25831,7 @@ module.exports = {
                   j = (b + 976) | 0;
                   if (
                     Td(b, h, i, f, l, k, d, e, 1, 3189, c[j >> 2] | 0) | 0
-                      ? (ce(b, c[(b + 496) >> 2] | 0, d, e, d),
-                        de(b, T(g[((c[j >> 2] | 0) + 4) >> 2]), T(0.0), T(0.0)),
-                        a[11696] | 0)
+                      ? (ce(b, c[(b + 496) >> 2] | 0, d, e, d), de(b, T(g[((c[j >> 2] | 0) + 4) >> 2]), T(0.0), T(0.0)), a[11696] | 0)
                       : 0
                   )
                     Md(b, 7);
@@ -30113,34 +26163,16 @@ module.exports = {
                   a = a | 0;
                   b = b | 0;
                   var d = ib;
-                  if (
-                    !((oe(b) | 0 ? (c[(a + 312) >> 2] | 0) != 0 : 0)
-                      ? ((d = T(g[(a + 308) >> 2])), d >= T(0.0))
-                      : 0)
-                  )
-                    d = T(
-                      cC(
-                        T(g[(Tb((a + 276) | 0, c[(1040 + (b << 2)) >> 2] | 0, 992) | 0) >> 2]),
-                        T(0.0)
-                      )
-                    );
+                  if (!((oe(b) | 0 ? (c[(a + 312) >> 2] | 0) != 0 : 0) ? ((d = T(g[(a + 308) >> 2])), d >= T(0.0)) : 0))
+                    d = T(cC(T(g[(Tb((a + 276) | 0, c[(1040 + (b << 2)) >> 2] | 0, 992) | 0) >> 2]), T(0.0)));
                   return T(d);
                 }
                 function te(a, b) {
                   a = a | 0;
                   b = b | 0;
                   var d = ib;
-                  if (
-                    !((oe(b) | 0 ? (c[(a + 320) >> 2] | 0) != 0 : 0)
-                      ? ((d = T(g[(a + 316) >> 2])), d >= T(0.0))
-                      : 0)
-                  )
-                    d = T(
-                      cC(
-                        T(g[(Tb((a + 276) | 0, c[(1e3 + (b << 2)) >> 2] | 0, 992) | 0) >> 2]),
-                        T(0.0)
-                      )
-                    );
+                  if (!((oe(b) | 0 ? (c[(a + 320) >> 2] | 0) != 0 : 0) ? ((d = T(g[(a + 316) >> 2])), d >= T(0.0)) : 0))
+                    d = T(cC(T(g[(Tb((a + 276) | 0, c[(1e3 + (b << 2)) >> 2] | 0, 992) | 0) >> 2]), T(0.0)));
                   return T(d);
                 }
                 function ue(a, b, d) {
@@ -30148,17 +26180,8 @@ module.exports = {
                   b = b | 0;
                   d = T(d);
                   var e = ib;
-                  if (
-                    !((oe(b) | 0 ? (c[(a + 240) >> 2] | 0) != 0 : 0)
-                      ? ((e = T(be((a + 236) | 0, d))), e >= T(0.0))
-                      : 0)
-                  )
-                    e = T(
-                      cC(
-                        T(be(Tb((a + 204) | 0, c[(1040 + (b << 2)) >> 2] | 0, 992) | 0, d)),
-                        T(0.0)
-                      )
-                    );
+                  if (!((oe(b) | 0 ? (c[(a + 240) >> 2] | 0) != 0 : 0) ? ((e = T(be((a + 236) | 0, d))), e >= T(0.0)) : 0))
+                    e = T(cC(T(be(Tb((a + 204) | 0, c[(1040 + (b << 2)) >> 2] | 0, 992) | 0, d)), T(0.0)));
                   return T(e);
                 }
                 function ve(a, b, d) {
@@ -30166,14 +26189,8 @@ module.exports = {
                   b = b | 0;
                   d = T(d);
                   var e = ib;
-                  if (
-                    !((oe(b) | 0 ? (c[(a + 248) >> 2] | 0) != 0 : 0)
-                      ? ((e = T(be((a + 244) | 0, d))), e >= T(0.0))
-                      : 0)
-                  )
-                    e = T(
-                      cC(T(be(Tb((a + 204) | 0, c[(1e3 + (b << 2)) >> 2] | 0, 992) | 0, d)), T(0.0))
-                    );
+                  if (!((oe(b) | 0 ? (c[(a + 248) >> 2] | 0) != 0 : 0) ? ((e = T(be((a + 244) | 0, d))), e >= T(0.0)) : 0))
+                    e = T(cC(T(be(Tb((a + 204) | 0, c[(1e3 + (b << 2)) >> 2] | 0, 992) | 0, d)), T(0.0)));
                   return T(e);
                 }
                 function we(a, b, d, e, f, h, i) {
@@ -30256,12 +26273,7 @@ module.exports = {
                     j = ib,
                     k = ib;
                   i = (d | 0) == 2;
-                  if (
-                    (!((b <= T(0.0)) & i) ? !((c <= T(0.0)) & ((e | 0) == 2)) : 0)
-                      ? !(((d | 0) == 1) & ((e | 0) == 1))
-                      : 0
-                  )
-                    a = 0;
+                  if ((!((b <= T(0.0)) & i) ? !((c <= T(0.0)) & ((e | 0) == 2)) : 0) ? !(((d | 0) == 1) & ((e | 0) == 1)) : 0) a = 0;
                   else {
                     j = T(Ud(a, 0, f));
                     k = T(Ud(a, 2, f));
@@ -30335,11 +26347,7 @@ module.exports = {
                       d = T(g[(b + 48) >> 2]);
                       if (Sb(d) | 0) {
                         e = a[((c[(b + 976) >> 2] | 0) + 2) >> 0] | 0;
-                        if (
-                          (e << 24) >> 24 == 0
-                            ? ((f = T(g[(b + 40) >> 2])), (f < T(0.0)) & ((Sb(f) | 0) ^ 1))
-                            : 0
-                        ) {
+                        if ((e << 24) >> 24 == 0 ? ((f = T(g[(b + 40) >> 2])), (f < T(0.0)) & ((Sb(f) | 0) ^ 1)) : 0) {
                           d = T(-f);
                           break;
                         }
@@ -30492,20 +26500,12 @@ module.exports = {
                       } while (0);
                       H = Sb(d) | 0;
                       q = (Je(a, b) | 0) != 4;
-                      if (
-                        !(y | z | (((e | 0) != 1) | H) | (q | ((p | 0) == 1)))
-                          ? ((g[A >> 2] = d), (c[C >> 2] = 1), !u)
-                          : 0
-                      ) {
+                      if (!(y | z | (((e | 0) != 1) | H) | (q | ((p | 0) == 1))) ? ((g[A >> 2] = d), (c[C >> 2] = 1), !u) : 0) {
                         g[B >> 2] = T(T(d - v) / s);
                         c[D >> 2] = 1;
                         n = 1;
                       }
-                      if (
-                        !(E | w | (((j | 0) != 1) | (Sb(f) | 0)) | (q | ((n | 0) == 1)))
-                          ? ((g[B >> 2] = f), (c[D >> 2] = 1), !u)
-                          : 0
-                      ) {
+                      if (!(E | w | (((j | 0) != 1) | (Sb(f) | 0)) | (q | ((n | 0) == 1))) ? ((g[B >> 2] = f), (c[D >> 2] = 1), !u) : 0) {
                         g[A >> 2] = T(s * T(f - x));
                         c[C >> 2] = 1;
                       }
@@ -30879,8 +26879,7 @@ module.exports = {
                     case 0:
                     case 3: {
                       d = T(g[(b + 40) >> 2]);
-                      if ((d > T(0.0)) & ((Sb(d) | 0) ^ 1))
-                        b = a[((c[(b + 976) >> 2] | 0) + 2) >> 0] | 0 ? 1056 : 992;
+                      if ((d > T(0.0)) & ((Sb(d) | 0) ^ 1)) b = a[((c[(b + 976) >> 2] | 0) + 2) >> 0] | 0 ? 1056 : 992;
                       else b = 1056;
                       break;
                     }
@@ -33201,14 +29200,7 @@ module.exports = {
                   h = h | 0;
                   a = hi(b) | 0;
                   b = qC(24) | 0;
-                  ii(
-                    (b + 4) | 0,
-                    c[d >> 2] | 0,
-                    c[e >> 2] | 0,
-                    c[f >> 2] | 0,
-                    c[g >> 2] | 0,
-                    c[h >> 2] | 0
-                  );
+                  ii((b + 4) | 0, c[d >> 2] | 0, c[e >> 2] | 0, c[f >> 2] | 0, c[g >> 2] | 0, c[h >> 2] | 0);
                   c[b >> 2] = c[a >> 2];
                   c[a >> 2] = b;
                   return b | 0;
@@ -33274,12 +29266,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    ni(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    ni(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -33366,8 +29353,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -33396,8 +29382,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -33630,9 +29615,7 @@ module.exports = {
                   j = i;
                   UA(j);
                   a = Sg(a) | 0;
-                  g =
-                    Pi(a, +h[b >> 3], +h[c >> 3], +h[d >> 3], +h[e >> 3], +h[f >> 3], +h[g >> 3]) |
-                    0;
+                  g = Pi(a, +h[b >> 3], +h[c >> 3], +h[d >> 3], +h[e >> 3], +h[f >> 3], +h[g >> 3]) | 0;
                   WA(j);
                   l = i;
                   return g | 0;
@@ -33899,12 +29882,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    gj(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    gj(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -33991,8 +29969,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -34017,8 +29994,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -34287,12 +30263,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Fj(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Fj(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -34379,8 +30350,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -34405,8 +30375,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -34628,12 +30597,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Zj(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Zj(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -34720,8 +30684,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -34746,8 +30709,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -35005,12 +30967,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    vk(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    vk(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -35097,8 +31054,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -35123,8 +31079,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -35371,12 +31326,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Sk(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Sk(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -35463,8 +31413,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -35489,8 +31438,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -35708,12 +31656,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    jl(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    jl(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -35800,8 +31743,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -35826,8 +31768,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -36049,12 +31990,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Dl(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Dl(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -36141,8 +32077,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -36167,8 +32102,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -36411,12 +32345,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Zl(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Zl(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -36503,8 +32432,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -36529,8 +32457,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -36765,12 +32692,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    qm(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    qm(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -36857,8 +32779,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -36883,8 +32804,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -37115,12 +33035,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Jm(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Jm(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -37207,8 +33122,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -37233,8 +33147,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -37453,12 +33366,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    an(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    an(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -37545,8 +33453,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -37571,8 +33478,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -37954,12 +33860,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Jn(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Jn(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -38046,8 +33947,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -38072,8 +33972,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -38305,12 +34204,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    ao(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    ao(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -38397,8 +34291,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -38423,8 +34316,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -38642,12 +34534,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    uo(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    uo(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -38734,8 +34621,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -38760,8 +34646,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -38990,12 +34875,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    No(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    No(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -39082,8 +34962,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -39108,8 +34987,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -39344,12 +35222,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    ep(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    ep(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -39436,8 +35309,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -39462,8 +35334,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -39692,12 +35563,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    xp(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    xp(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -39784,8 +35650,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -39810,8 +35675,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -40054,12 +35918,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Tp(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Tp(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -40146,8 +36005,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -40172,8 +36030,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -40328,12 +36185,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    jq(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    jq(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     gq(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -40578,12 +36430,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    Aq(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    Aq(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     xq(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -40844,12 +36691,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    Vq(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    Vq(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     Sq(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -41343,12 +37185,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Dr(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Dr(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -41435,8 +37272,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -41461,8 +37297,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -41691,12 +37526,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    Wr(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    Wr(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -41783,8 +37613,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -41809,8 +37638,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -42054,12 +37882,7 @@ module.exports = {
                     m = c[a >> 2] | 0;
                     o = ((((c[(a + 8) >> 2] | 0) - m) | 0) / 12) | 0;
                     n = o << 1;
-                    qs(
-                      i,
-                      o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g,
-                      ((((c[j >> 2] | 0) - m) | 0) / 12) | 0,
-                      (a + 8) | 0
-                    );
+                    qs(i, o >>> 0 < (g >>> 1) >>> 0 ? (n >>> 0 < f >>> 0 ? f : n) : g, ((((c[j >> 2] | 0) - m) | 0) / 12) | 0, (a + 8) | 0);
                     j = (i + 8) | 0;
                     g = c[j >> 2] | 0;
                     f = c[(b + 4) >> 2] | 0;
@@ -42146,8 +37969,7 @@ module.exports = {
                   b = c[(a + 4) >> 2] | 0;
                   d = (a + 8) | 0;
                   e = c[d >> 2] | 0;
-                  if ((e | 0) != (b | 0))
-                    c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                  if ((e | 0) != (b | 0)) c[d >> 2] = e + ((~(((((e + -12 - b) | 0) >>> 0) / 12) | 0) * 12) | 0);
                   a = c[a >> 2] | 0;
                   if (a | 0) sC(a);
                   return;
@@ -42172,8 +37994,7 @@ module.exports = {
                   if (d | 0) {
                     a = (a + 4) | 0;
                     b = c[a >> 2] | 0;
-                    if ((b | 0) != (d | 0))
-                      c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
+                    if ((b | 0) != (d | 0)) c[a >> 2] = b + ((~(((((b + -12 - e) | 0) >>> 0) / 12) | 0) * 12) | 0);
                     sC(d);
                   }
                   return;
@@ -42358,12 +38179,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    Ls(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    Ls(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     Is(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -42611,12 +38427,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    bt(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    bt(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     _s(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -43808,12 +39619,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    yv(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    yv(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     vv(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -44142,14 +39948,7 @@ module.exports = {
                   g = g | 0;
                   var h = 0;
                   h = qC(24) | 0;
-                  ii(
-                    (h + 4) | 0,
-                    c[b >> 2] | 0,
-                    c[d >> 2] | 0,
-                    c[e >> 2] | 0,
-                    c[f >> 2] | 0,
-                    c[g >> 2] | 0
-                  );
+                  ii((h + 4) | 0, c[b >> 2] | 0, c[d >> 2] | 0, c[e >> 2] | 0, c[f >> 2] | 0, c[g >> 2] | 0);
                   c[h >> 2] = c[a >> 2];
                   c[a >> 2] = h;
                   return;
@@ -44295,12 +40094,7 @@ module.exports = {
                     i = c[a >> 2] | 0;
                     k = ((c[(a + 8) >> 2] | 0) - i) | 0;
                     j = k >> 1;
-                    Rw(
-                      d,
-                      (k >> 2) >>> 0 < (g >>> 1) >>> 0 ? (j >>> 0 < f >>> 0 ? f : j) : g,
-                      ((c[e >> 2] | 0) - i) >> 2,
-                      (a + 8) | 0
-                    );
+                    Rw(d, (k >> 2) >>> 0 < (g >>> 1) >>> 0 ? (j >>> 0 < f >>> 0 ? f : j) : g, ((c[e >> 2] | 0) - i) >> 2, (a + 8) | 0);
                     g = (d + 8) | 0;
                     c[c[g >> 2] >> 2] = c[b >> 2];
                     c[g >> 2] = (c[g >> 2] | 0) + 4;
@@ -44336,12 +40130,7 @@ module.exports = {
                     i = c[a >> 2] | 0;
                     k = ((c[(a + 8) >> 2] | 0) - i) | 0;
                     j = k >> 1;
-                    Ow(
-                      d,
-                      (k >> 2) >>> 0 < (g >>> 1) >>> 0 ? (j >>> 0 < f >>> 0 ? f : j) : g,
-                      ((c[e >> 2] | 0) - i) >> 2,
-                      (a + 8) | 0
-                    );
+                    Ow(d, (k >> 2) >>> 0 < (g >>> 1) >>> 0 ? (j >>> 0 < f >>> 0 ? f : j) : g, ((c[e >> 2] | 0) - i) >> 2, (a + 8) | 0);
                     g = (d + 8) | 0;
                     c[c[g >> 2] >> 2] = c[b >> 2];
                     c[g >> 2] = (c[g >> 2] | 0) + 4;
@@ -45838,9 +41627,7 @@ module.exports = {
                   var b = 0,
                     d = 0;
                   a = (a + 7) & -8;
-                  if (
-                    a >>> 0 <= 32768 ? ((b = c[2701] | 0), a >>> 0 <= ((65536 - b) | 0) >>> 0) : 0
-                  ) {
+                  if (a >>> 0 <= 32768 ? ((b = c[2701] | 0), a >>> 0 <= ((65536 - b) | 0) >>> 0) : 0) {
                     d = ((c[2702] | 0) + b) | 0;
                     c[2701] = b + a;
                     a = d;
@@ -46073,12 +41860,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    Gy(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    Gy(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     Dy(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -46332,12 +42114,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    Yy(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    Yy(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     Vy(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -46584,12 +42361,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    oz(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    oz(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     lz(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -46907,12 +42679,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    Nz(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    Nz(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     Kz(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -47189,12 +42956,7 @@ module.exports = {
                     j = c[a >> 2] | 0;
                     m = ((c[(a + 8) >> 2] | 0) - j) | 0;
                     k = m >> 2;
-                    dA(
-                      f,
-                      (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e,
-                      ((c[g >> 2] | 0) - j) >> 3,
-                      (a + 8) | 0
-                    );
+                    dA(f, (m >> 3) >>> 0 < (e >>> 1) >>> 0 ? (k >>> 0 < h >>> 0 ? h : k) : e, ((c[g >> 2] | 0) - j) >> 3, (a + 8) | 0);
                     h = (f + 8) | 0;
                     aA(c[h >> 2] | 0, c[b >> 2] | 0, c[d >> 2] | 0);
                     c[h >> 2] = (c[h >> 2] | 0) + 8;
@@ -47755,11 +43517,7 @@ module.exports = {
                     if (b | 0) {
                       c: while (1) {
                         e = c[(b + 4) >> 2] | 0;
-                        if (
-                          e | 0
-                            ? ((q = c[(Xw(e) | 0) >> 2] | 0), (r = c[(ax(e) | 0) >> 2] | 0), r | 0)
-                            : 0
-                        ) {
+                        if (e | 0 ? ((q = c[(Xw(e) | 0) >> 2] | 0), (r = c[(ax(e) | 0) >> 2] | 0), r | 0) : 0) {
                           f = r;
                           do {
                             e = (f + 4) | 0;
@@ -47778,18 +43536,7 @@ module.exports = {
                                     o = iB(g) | 0;
                                     p = si(g) | 0;
                                     t = hw(e) | 0;
-                                    Pa(
-                                      q | 0,
-                                      k | 0,
-                                      m | 0,
-                                      n | 0,
-                                      o | 0,
-                                      0,
-                                      p | 0,
-                                      t | 0,
-                                      kB(e) | 0,
-                                      lB(e) | 0
-                                    );
+                                    Pa(q | 0, k | 0, m | 0, n | 0, o | 0, 0, p | 0, t | 0, kB(e) | 0, lB(e) | 0);
                                     break d;
                                   }
                                   case 1: {
@@ -47800,18 +43547,7 @@ module.exports = {
                                     o = jB(e) | 0;
                                     p = si(g) | 0;
                                     t = hw(e) | 0;
-                                    Pa(
-                                      q | 0,
-                                      j | 0,
-                                      k | 0,
-                                      m | 0,
-                                      n | 0,
-                                      o | 0,
-                                      p | 0,
-                                      t | 0,
-                                      kB(e) | 0,
-                                      lB(e) | 0
-                                    );
+                                    Pa(q | 0, j | 0, k | 0, m | 0, n | 0, o | 0, p | 0, t | 0, kB(e) | 0, lB(e) | 0);
                                     break d;
                                   }
                                   case 5: {
@@ -47819,18 +43555,7 @@ module.exports = {
                                     o = bw(g) | 0;
                                     p = ((cw(g) | 0) + 1) | 0;
                                     t = iB(g) | 0;
-                                    Pa(
-                                      q | 0,
-                                      n | 0,
-                                      o | 0,
-                                      p | 0,
-                                      t | 0,
-                                      mB(g) | 0,
-                                      si(g) | 0,
-                                      0,
-                                      0,
-                                      0
-                                    );
+                                    Pa(q | 0, n | 0, o | 0, p | 0, t | 0, mB(g) | 0, si(g) | 0, 0, 0, 0);
                                     break d;
                                   }
                                   default:
@@ -48103,9 +43828,7 @@ module.exports = {
                                     break;
                                   }
                                 } else {
-                                  c[
-                                    (f + 16 + ((((c[(f + 16) >> 2] | 0) != (j | 0)) & 1) << 2)) >> 2
-                                  ] = d;
+                                  c[(f + 16 + ((((c[(f + 16) >> 2] | 0) != (j | 0)) & 1) << 2)) >> 2] = d;
                                   if (!d) break;
                                 }
                                 c[(d + 24) >> 2] = f;
@@ -48313,9 +44036,7 @@ module.exports = {
                                   break;
                                 }
                               } else {
-                                c[
-                                  (f + 16 + ((((c[(f + 16) >> 2] | 0) != (i | 0)) & 1) << 2)) >> 2
-                                ] = b;
+                                c[(f + 16 + ((((c[(f + 16) >> 2] | 0) != (i | 0)) & 1) << 2)) >> 2] = b;
                                 if (!b) {
                                   e = j;
                                   break;
@@ -48491,13 +44212,7 @@ module.exports = {
                     return w | 0;
                   }
                   a = c[2893] | 0;
-                  if (
-                    a | 0
-                      ? ((m = c[2891] | 0),
-                        (o = (m + k) | 0),
-                        (o >>> 0 <= m >>> 0) | (o >>> 0 > a >>> 0))
-                      : 0
-                  ) {
+                  if (a | 0 ? ((m = c[2891] | 0), (o = (m + k) | 0), (o >>> 0 <= m >>> 0) | (o >>> 0 > a >>> 0)) : 0) {
                     w = 0;
                     l = x;
                     return w | 0;
@@ -48510,12 +44225,7 @@ module.exports = {
                           e = 11580;
                           while (1) {
                             a = c[e >> 2] | 0;
-                            if (
-                              a >>> 0 <= d >>> 0
-                                ? ((r = (e + 4) | 0), ((a + (c[r >> 2] | 0)) | 0) >>> 0 > d >>> 0)
-                                : 0
-                            )
-                              break;
+                            if (a >>> 0 <= d >>> 0 ? ((r = (e + 4) | 0), ((a + (c[r >> 2] | 0)) | 0) >>> 0 > d >>> 0) : 0) break;
                             a = c[(e + 8) >> 2] | 0;
                             if (!a) {
                               v = 118;
@@ -48547,9 +44257,7 @@ module.exports = {
                               ? ((b = d),
                                 (p = c[2902] | 0),
                                 (q = (p + -1) | 0),
-                                (b =
-                                  ((((q & b) | 0) == 0 ? 0 : (((q + b) & (0 - p)) - b) | 0) + k) |
-                                  0),
+                                (b = ((((q & b) | 0) == 0 ? 0 : (((q + b) & (0 - p)) - b) | 0) + k) | 0),
                                 (p = c[2891] | 0),
                                 (q = (b + p) | 0),
                                 (b >>> 0 > n >>> 0) & (b >>> 0 < 2147483647))
@@ -48576,12 +44284,7 @@ module.exports = {
                       do {
                         if ((v | 0) == 126) {
                           d = (0 - b) | 0;
-                          if (
-                            !(
-                              (i >>> 0 > b >>> 0) &
-                              ((b >>> 0 < 2147483647) & ((e | 0) != (-1 | 0)))
-                            )
-                          )
+                          if (!((i >>> 0 > b >>> 0) & ((b >>> 0 < 2147483647) & ((e | 0) != (-1 | 0)))))
                             if ((e | 0) == (-1 | 0)) {
                               b = 0;
                               break;
@@ -48624,12 +44327,7 @@ module.exports = {
                         (r = FC(0) | 0),
                         (s = (r - u) | 0),
                         (t = s >>> 0 > ((n + 40) | 0) >>> 0),
-                        !(
-                          ((u | 0) == (-1 | 0)) |
-                          (t ^ 1) |
-                          (((u >>> 0 < r >>> 0) & (((u | 0) != (-1 | 0)) & ((r | 0) != (-1 | 0)))) ^
-                            1)
-                        ))
+                        !(((u | 0) == (-1 | 0)) | (t ^ 1) | (((u >>> 0 < r >>> 0) & (((u | 0) != (-1 | 0)) & ((r | 0) != (-1 | 0)))) ^ 1)))
                       : 0
                   ) {
                     h = t ? s : b;
@@ -48656,11 +44354,7 @@ module.exports = {
                           if (!f) break;
                           else b = f;
                         }
-                        if (
-                          ((v | 0) == 145 ? ((c[(b + 12) >> 2] & 8) | 0) == 0 : 0)
-                            ? (j >>> 0 < g >>> 0) & (j >>> 0 >= a >>> 0)
-                            : 0
-                        ) {
+                        if (((v | 0) == 145 ? ((c[(b + 12) >> 2] & 8) | 0) == 0 : 0) ? (j >>> 0 < g >>> 0) & (j >>> 0 >= a >>> 0) : 0) {
                           c[d >> 2] = e + h;
                           w = (j + 8) | 0;
                           w = ((w & 7) | 0) == 0 ? 0 : (0 - w) & 7;
@@ -48765,12 +44459,7 @@ module.exports = {
                                     e = (11436 + (d << 2)) | 0;
                                     do {
                                       if ((b | 0) != (c[e >> 2] | 0)) {
-                                        c[
-                                          (g +
-                                            16 +
-                                            ((((c[(g + 16) >> 2] | 0) != (b | 0)) & 1) << 2)) >>
-                                            2
-                                        ] = a;
+                                        c[(g + 16 + ((((c[(g + 16) >> 2] | 0) != (b | 0)) & 1) << 2)) >> 2] = a;
                                         if (!a) break d;
                                       } else {
                                         c[e >> 2] = a;
@@ -48897,12 +44586,7 @@ module.exports = {
                         b = 11580;
                         while (1) {
                           a = c[b >> 2] | 0;
-                          if (
-                            a >>> 0 <= j >>> 0
-                              ? ((w = (a + (c[(b + 4) >> 2] | 0)) | 0), w >>> 0 > j >>> 0)
-                              : 0
-                          )
-                            break;
+                          if (a >>> 0 <= j >>> 0 ? ((w = (a + (c[(b + 4) >> 2] | 0)) | 0), w >>> 0 > j >>> 0) : 0) break;
                           b = c[(b + 8) >> 2] | 0;
                         }
                         f = (w + -47) | 0;
@@ -49556,14 +45240,7 @@ module.exports = {
                   l = (l + 32) | 0;
                   f = g;
                   c[(b + 36) >> 2] = 1;
-                  if (
-                    ((c[b >> 2] & 64) | 0) == 0
-                      ? ((c[f >> 2] = c[(b + 60) >> 2]),
-                        (c[(f + 4) >> 2] = 21523),
-                        (c[(f + 8) >> 2] = g + 16),
-                        Wa(54, f | 0) | 0)
-                      : 0
-                  )
+                  if (((c[b >> 2] & 64) | 0) == 0 ? ((c[f >> 2] = c[(b + 60) >> 2]), (c[(f + 4) >> 2] = 21523), (c[(f + 8) >> 2] = g + 16), Wa(54, f | 0) | 0) : 0)
                     a[(b + 75) >> 0] = -1;
                   f = sB(b, d, e) | 0;
                   l = g;
@@ -50777,10 +46454,7 @@ module.exports = {
                         q = (p >>> 0) % (o >>> 0) | 0;
                         n = ((s + 4) | 0) == (g | 0);
                         if (!(n & ((q | 0) == 0))) {
-                          r =
-                            (((((p >>> 0) / (o >>> 0)) | 0) & 1) | 0) == 0
-                              ? 9007199254740992.0
-                              : 9007199254740994.0;
+                          r = (((((p >>> 0) / (o >>> 0)) | 0) & 1) | 0) == 0 ? 9007199254740992.0 : 9007199254740994.0;
                           x = ((o | 0) / 2) | 0;
                           e = q >>> 0 < x >>> 0 ? 0.5 : n & ((q | 0) == (x | 0)) ? 1.0 : 1.5;
                           if (C) {
@@ -51170,15 +46844,7 @@ module.exports = {
                   f = $B(c[(b + 12) >> 2] | 0, o) | 0;
                   g = $B(c[(b + 16) >> 2] | 0, o) | 0;
                   a: do {
-                    if (
-                      (
-                        h >>> 0 < (d >>> 2) >>> 0
-                          ? ((n = (d - (h << 2)) | 0), (f >>> 0 < n >>> 0) & (g >>> 0 < n >>> 0))
-                          : 0
-                      )
-                        ? (((g | f) & 3) | 0) == 0
-                        : 0
-                    ) {
+                    if ((h >>> 0 < (d >>> 2) >>> 0 ? ((n = (d - (h << 2)) | 0), (f >>> 0 < n >>> 0) & (g >>> 0 < n >>> 0)) : 0) ? (((g | f) & 3) | 0) == 0 : 0) {
                       n = f >>> 2;
                       m = g >>> 2;
                       l = 0;
@@ -51211,8 +46877,7 @@ module.exports = {
                       f = (i + m) | 0;
                       g = $B(c[(b + (f << 2)) >> 2] | 0, o) | 0;
                       f = $B(c[(b + ((f + 1) << 2)) >> 2] | 0, o) | 0;
-                      if ((f >>> 0 < d >>> 0) & (g >>> 0 < ((d - f) | 0) >>> 0))
-                        f = (a[(b + (f + g)) >> 0] | 0) == 0 ? (b + f) | 0 : 0;
+                      if ((f >>> 0 < d >>> 0) & (g >>> 0 < ((d - f) | 0) >>> 0)) f = (a[(b + (f + g)) >> 0] | 0) == 0 ? (b + f) | 0 : 0;
                       else f = 0;
                     } else f = 0;
                   } while (0);
@@ -51372,11 +47037,7 @@ module.exports = {
                   l = h & -2147483648;
                   f = k << 1;
                   a: do {
-                    if (
-                      (f | 0) != 0
-                        ? !(((d | 0) == 255) | (((hC(b) | 0) & 2147483647) >>> 0 > 2139095040))
-                        : 0
-                    ) {
+                    if ((f | 0) != 0 ? !(((d | 0) == 255) | (((hC(b) | 0) & 2147483647) >>> 0 > 2139095040)) : 0) {
                       e = h << 1;
                       if (e >>> 0 <= f >>> 0) {
                         b = T(a * T(0.0));
@@ -51491,8 +47152,7 @@ module.exports = {
                   a = a | 0;
                   var b = 0;
                   b = (a + 8) | 0;
-                  if (!((c[b >> 2] | 0) != 0 ? (nC(b) | 0) != -1 : 0))
-                    nb[c[((c[a >> 2] | 0) + 16) >> 2] & 127](a);
+                  if (!((c[b >> 2] | 0) != 0 ? (nC(b) | 0) != -1 : 0)) nb[c[((c[a >> 2] | 0) + 16) >> 2] & 127](a);
                   return;
                 }
                 function qC(a) {
@@ -51773,9 +47433,7 @@ module.exports = {
                         o = (i - 32) | 0;
                         b = o >> 31;
                         h = i;
-                        a =
-                          (((m - 1) >> 31) & (k >>> (o >>> 0))) |
-                          (((k << m) | (l >>> (i >>> 0))) & b);
+                        a = (((m - 1) >> 31) & (k >>> (o >>> 0))) | (((k << m) | (l >>> (i >>> 0))) & b);
                         b = b & (k >>> (i >>> 0));
                         g = (l << p) & j;
                         i = (((k << p) | (l >>> (o >>> 0))) & j) | ((l << m) & ((i - 33) >> 31));
@@ -51868,13 +47526,7 @@ module.exports = {
                       p = A;
                       o = (p >> 31) | (((p | 0) < 0 ? -1 : 0) << 1);
                       i = o & 1;
-                      a =
-                        wC(
-                          e | 0,
-                          n | 0,
-                          (o & m) | 0,
-                          (((((p | 0) < 0 ? -1 : 0) >> 31) | (((p | 0) < 0 ? -1 : 0) << 1)) & l) | 0
-                        ) | 0;
+                      a = wC(e | 0, n | 0, (o & m) | 0, (((((p | 0) < 0 ? -1 : 0) >> 31) | (((p | 0) < 0 ? -1 : 0) << 1)) & l) | 0) | 0;
                       b = A;
                       h = (h - 1) | 0;
                     } while ((h | 0) != 0);
@@ -51952,13 +47604,7 @@ module.exports = {
                 }
                 function IC(a) {
                   a = a | 0;
-                  return (
-                    ((a & 255) << 24) |
-                    (((a >> 8) & 255) << 16) |
-                    (((a >> 16) & 255) << 8) |
-                    (a >>> 24) |
-                    0
-                  );
+                  return ((a & 255) << 24) | (((a >> 8) & 255) << 16) | (((a >> 16) & 255) << 8) | (a >>> 24) | 0;
                 }
                 function JC(a, b, c, d, e, f) {
                   a = a | 0;
@@ -52303,40 +47949,7 @@ module.exports = {
                 }
                 var jb = [hD, Uw];
                 var kb = [iD, of];
-                var lb = [
-                  jD,
-                  Of,
-                  Pf,
-                  Qf,
-                  Rf,
-                  Sf,
-                  Tf,
-                  Uf,
-                  Wf,
-                  Xf,
-                  Zf,
-                  _f,
-                  $f,
-                  ag,
-                  bg,
-                  cg,
-                  dg,
-                  eg,
-                  fg,
-                  jD,
-                  jD,
-                  jD,
-                  jD,
-                  jD,
-                  jD,
-                  jD,
-                  jD,
-                  jD,
-                  jD,
-                  jD,
-                  jD,
-                  jD
-                ];
+                var lb = [jD, Of, Pf, Qf, Rf, Sf, Tf, Uf, Wf, Xf, Zf, _f, $f, ag, bg, cg, dg, eg, fg, jD, jD, jD, jD, jD, jD, jD, jD, jD, jD, jD, jD, jD];
                 var mb = [kD];
                 var nb = [
                   lD,
@@ -52468,74 +48081,8 @@ module.exports = {
                   lD,
                   lD
                 ];
-                var ob = [
-                  mD,
-                  zf,
-                  Af,
-                  Df,
-                  Ef,
-                  Ff,
-                  Gf,
-                  Hf,
-                  If,
-                  Lf,
-                  Mf,
-                  Nf,
-                  wg,
-                  zg,
-                  Ag,
-                  Bg,
-                  Cg,
-                  Dg,
-                  Eg,
-                  Jg,
-                  Ng,
-                  rh,
-                  $p,
-                  qq,
-                  Ts,
-                  cy,
-                  Sv,
-                  xy,
-                  mD,
-                  mD,
-                  mD,
-                  mD
-                ];
-                var pb = [
-                  nD,
-                  rB,
-                  sf,
-                  jg,
-                  ng,
-                  og,
-                  pg,
-                  qg,
-                  rg,
-                  sg,
-                  ug,
-                  vg,
-                  Kg,
-                  Lg,
-                  jh,
-                  ar,
-                  jt,
-                  sv,
-                  hy,
-                  jy,
-                  nD,
-                  nD,
-                  nD,
-                  nD,
-                  nD,
-                  nD,
-                  nD,
-                  nD,
-                  nD,
-                  nD,
-                  nD,
-                  nD
-                ];
+                var ob = [mD, zf, Af, Df, Ef, Ff, Gf, Hf, If, Lf, Mf, Nf, wg, zg, Ag, Bg, Cg, Dg, Eg, Jg, Ng, rh, $p, qq, Ts, cy, Sv, xy, mD, mD, mD, mD];
+                var pb = [nD, rB, sf, jg, ng, og, pg, qg, rg, sg, ug, vg, Kg, Lg, jh, ar, jt, sv, hy, jy, nD, nD, nD, nD, nD, nD, nD, nD, nD, nD, nD, nD];
                 var qb = [oD, kh];
                 var rb = [pD, Hu];
                 var sb = [qD, sB, tB, zB, Dk, Rn, Lr, wz];
@@ -52626,23 +48173,18 @@ module.exports = {
               _i64Subtract = (Module._i64Subtract = asm._i64Subtract),
               setTempRet0 = (Module.setTempRet0 = asm.setTempRet0),
               _i64Add = (Module._i64Add = asm._i64Add),
-              _emscripten_get_global_libc = (Module._emscripten_get_global_libc =
-                asm._emscripten_get_global_libc),
-              __GLOBAL__sub_I_Yoga_cpp = (Module.__GLOBAL__sub_I_Yoga_cpp =
-                asm.__GLOBAL__sub_I_Yoga_cpp),
-              __GLOBAL__sub_I_Binding_cc = (Module.__GLOBAL__sub_I_Binding_cc =
-                asm.__GLOBAL__sub_I_Binding_cc),
+              _emscripten_get_global_libc = (Module._emscripten_get_global_libc = asm._emscripten_get_global_libc),
+              __GLOBAL__sub_I_Yoga_cpp = (Module.__GLOBAL__sub_I_Yoga_cpp = asm.__GLOBAL__sub_I_Yoga_cpp),
+              __GLOBAL__sub_I_Binding_cc = (Module.__GLOBAL__sub_I_Binding_cc = asm.__GLOBAL__sub_I_Binding_cc),
               stackSave = (Module.stackSave = asm.stackSave),
-              __GLOBAL__sub_I_nbind_cc = (Module.__GLOBAL__sub_I_nbind_cc =
-                asm.__GLOBAL__sub_I_nbind_cc),
+              __GLOBAL__sub_I_nbind_cc = (Module.__GLOBAL__sub_I_nbind_cc = asm.__GLOBAL__sub_I_nbind_cc),
               _free = (Module._free = asm._free),
               runPostSets = (Module.runPostSets = asm.runPostSets),
               establishStackSpace = (Module.establishStackSpace = asm.establishStackSpace),
               _memmove = (Module._memmove = asm._memmove),
               stackRestore = (Module.stackRestore = asm.stackRestore),
               _malloc = (Module._malloc = asm._malloc),
-              __GLOBAL__sub_I_common_cc = (Module.__GLOBAL__sub_I_common_cc =
-                asm.__GLOBAL__sub_I_common_cc),
+              __GLOBAL__sub_I_common_cc = (Module.__GLOBAL__sub_I_common_cc = asm.__GLOBAL__sub_I_common_cc),
               dynCall_viiiii = (Module.dynCall_viiiii = asm.dynCall_viiiii),
               dynCall_vif = (Module.dynCall_vif = asm.dynCall_vif),
               dynCall_vid = (Module.dynCall_vid = asm.dynCall_vid),
@@ -52671,9 +48213,7 @@ module.exports = {
               dynCall_viiii = (Module.dynCall_viiii = asm.dynCall_viiii),
               initialStackTop;
             function ExitStatus(status) {
-              (this.name = 'ExitStatus'),
-                (this.message = 'Program terminated with exit(' + status + ')'),
-                (this.status = status);
+              (this.name = 'ExitStatus'), (this.message = 'Program terminated with exit(' + status + ')'), (this.status = status);
             }
             (Runtime.stackAlloc = Module.stackAlloc),
               (Runtime.stackSave = Module.stackSave),
@@ -52715,12 +48255,7 @@ module.exports = {
             }
             function exit(status, implicit) {
               (implicit && Module.noExitRuntime) ||
-                (Module.noExitRuntime ||
-                  ((ABORT = !0),
-                  (EXITSTATUS = status),
-                  (STACKTOP = initialStackTop),
-                  exitRuntime(),
-                  Module.onExit && Module.onExit(status)),
+                (Module.noExitRuntime || ((ABORT = !0), (EXITSTATUS = status), (STACKTOP = initialStackTop), exitRuntime(), Module.onExit && Module.onExit(status)),
                 ENVIRONMENT_IS_NODE && process.exit(status),
                 Module.quit(status, new ExitStatus(status)));
             }
@@ -52735,8 +48270,7 @@ module.exports = {
                 }
                 var argv = [allocate(intArrayFromString(Module.thisProgram), 'i8', ALLOC_NORMAL)];
                 pad();
-                for (var i = 0; i < argc - 1; i += 1)
-                  argv.push(allocate(intArrayFromString(args[i]), 'i8', ALLOC_NORMAL)), pad();
+                for (var i = 0; i < argc - 1; i += 1) argv.push(allocate(intArrayFromString(args[i]), 'i8', ALLOC_NORMAL)), pad();
                 argv.push(0), (argv = allocate(argv, 'i32', ALLOC_NORMAL));
                 try {
                   var ret;
@@ -52745,9 +48279,7 @@ module.exports = {
                   if (e instanceof ExitStatus) return;
                   if ('SimulateInfiniteLoop' == e) return void (Module.noExitRuntime = !0);
                   var toLog = e;
-                  e && 'object' == typeof e && e.stack && (toLog = [e, e.stack]),
-                    Module.printErr('exception thrown: ' + toLog),
-                    Module.quit(1, e);
+                  e && 'object' == typeof e && e.stack && (toLog = [e, e.stack]), Module.printErr('exception thrown: ' + toLog), Module.quit(1, e);
                 } finally {
                   calledMain = !0;
                 }
@@ -52757,13 +48289,10 @@ module.exports = {
             var abortDecorators = [];
             function abort(what) {
               Module.onAbort && Module.onAbort(what),
-                void 0 !== what
-                  ? (Module.print(what), Module.printErr(what), (what = JSON.stringify(what)))
-                  : (what = ''),
+                void 0 !== what ? (Module.print(what), Module.printErr(what), (what = JSON.stringify(what))) : (what = ''),
                 (ABORT = !0),
                 (EXITSTATUS = 1);
-              var extra =
-                  '\nIf this abort() is unexpected, build with -s ASSERTIONS=1 which can give more information.',
+              var extra = '\nIf this abort() is unexpected, build with -s ASSERTIONS=1 which can give more information.',
                 output = 'abort(' + what + ') at ' + stackTrace() + extra;
               throw (
                 (abortDecorators &&
@@ -52774,20 +48303,14 @@ module.exports = {
               );
             }
             if (((Module.abort = Module.abort = abort), Module.preInit))
-              for (
-                'function' == typeof Module.preInit && (Module.preInit = [Module.preInit]);
-                Module.preInit.length > 0;
-
-              )
-                Module.preInit.pop()();
+              for ('function' == typeof Module.preInit && (Module.preInit = [Module.preInit]); Module.preInit.length > 0; ) Module.preInit.pop()();
             var shouldRunNow = !0;
             Module.noInitialRun && (shouldRunNow = !1), run();
           }),
           void 0 ===
             (__WEBPACK_AMD_DEFINE_RESULT__ = function () {
               return wrapper;
-            }.apply(exports, (__WEBPACK_AMD_DEFINE_ARRAY__ = []))) ||
-            (module.exports = __WEBPACK_AMD_DEFINE_RESULT__);
+            }.apply(exports, (__WEBPACK_AMD_DEFINE_ARRAY__ = []))) || (module.exports = __WEBPACK_AMD_DEFINE_RESULT__);
       },
       function (module, exports, __webpack_require__) {
         'use strict';
@@ -52812,16 +48335,12 @@ module.exports = {
                 currentLine = this.output[y + offsetY];
               if (currentLine) {
                 for (const transformer of transformers) line = transformer(line);
-                (this.output[y + offsetY] =
-                  (0, _sliceAnsi.default)(currentLine, 0, x) +
-                  line +
-                  (0, _sliceAnsi.default)(currentLine, x + length)),
-                  offsetY++;
+                (this.output[y + offsetY] = (0, _sliceAnsi.default)(currentLine, 0, x) + line + (0, _sliceAnsi.default)(currentLine, x + length)), offsetY++;
               }
             }
           }
           get() {
-            return this.output.map(line => line.trimRight()).join('\n');
+            return this.output.map((line) => line.trimRight()).join('\n');
           }
         }
         exports.default = Output;
@@ -52830,13 +48349,12 @@ module.exports = {
         'use strict';
         const stripAnsi = __webpack_require__(57),
           astralRegex = __webpack_require__(59);
-        module.exports = input => stripAnsi(input).replace(astralRegex(), ' ').length;
+        module.exports = (input) => stripAnsi(input).replace(astralRegex(), ' ').length;
       },
       function (module, exports, __webpack_require__) {
         'use strict';
         const ansiRegex = __webpack_require__(58);
-        module.exports = input =>
-          'string' == typeof input ? input.replace(ansiRegex(), '') : input;
+        module.exports = (input) => ('string' == typeof input ? input.replace(ansiRegex(), '') : input);
       },
       function (module, exports, __webpack_require__) {
         'use strict';
@@ -52851,8 +48369,7 @@ module.exports = {
       function (module, exports, __webpack_require__) {
         'use strict';
         const regex = '[\ud800-\udbff][\udc00-\udfff]';
-        module.exports = opts =>
-          opts && opts.exact ? new RegExp(`^${regex}$`) : new RegExp(regex, 'g');
+        module.exports = (opts) => (opts && opts.exact ? new RegExp(`^${regex}$`) : new RegExp(regex, 'g'));
       },
       function (module, exports, __webpack_require__) {
         'use strict';
@@ -52887,7 +48404,7 @@ module.exports = {
             [46, 49],
             [47, 49]
           ]),
-          wrapAnsi = code => `${ESCAPES[0]}[${code}m`;
+          wrapAnsi = (code) => `${ESCAPES[0]}[${code}m`;
         module.exports = (str, begin, end) => {
           const arr = Array.from(str.normalize());
           end = 'number' == typeof end ? end : arr.length;
@@ -52904,21 +48421,11 @@ module.exports = {
               const code = /\d[^m]*/.exec(str.slice(i, i + 4));
               escapeCode = 39 === code ? null : code;
             } else insideEscape && 'm' === x && ((insideEscape = !1), (leftEscape = !0));
-            if (
-              (insideEscape || leftEscape || ++visible,
-              !ASTRAL_REGEX.test(x) && isFullwidthCodePoint(x.codePointAt()) && ++visible,
-              visible > begin && visible <= end)
-            )
+            if ((insideEscape || leftEscape || ++visible, !ASTRAL_REGEX.test(x) && isFullwidthCodePoint(x.codePointAt()) && ++visible, visible > begin && visible <= end))
               output += x;
-            else if (
-              visible !== begin ||
-              insideEscape ||
-              void 0 === escapeCode ||
-              39 === escapeCode
-            ) {
+            else if (visible !== begin || insideEscape || void 0 === escapeCode || 39 === escapeCode) {
               if (visible >= end) {
-                void 0 !== escapeCode &&
-                  (output += wrapAnsi(ESCAPE_CODES.get(parseInt(escapeCode, 10)) || 39));
+                void 0 !== escapeCode && (output += wrapAnsi(ESCAPE_CODES.get(parseInt(escapeCode, 10)) || 39));
                 break;
               }
             } else output += wrapAnsi(escapeCode);
@@ -52936,19 +48443,13 @@ module.exports = {
           return obj && obj.__esModule ? obj : { default: obj };
         }
         const buildLayout = (node, options) => {
-          const {
-              config: config,
-              terminalWidth: terminalWidth,
-              skipStaticElements: skipStaticElements
-            } = options,
+          const { config: config, terminalWidth: terminalWidth, skipStaticElements: skipStaticElements } = options,
             yogaNode = _yogaLayoutPrebuilt.default.Node.create(config);
           node.yogaNode = yogaNode;
           const style = node.style || {};
           if ('ROOT' === node.nodeName) {
             if ((yogaNode.setWidth(terminalWidth || 100), node.childNodes.length > 0)) {
-              const childNodes = node.childNodes.filter(
-                childNode => !skipStaticElements || !childNode.unstable__static
-              );
+              const childNodes = node.childNodes.filter((childNode) => !skipStaticElements || !childNode.unstable__static);
               for (const [index, childNode] of Object.entries(childNodes)) {
                 const childYogaNode = buildLayout(childNode, options).yogaNode;
                 yogaNode.insertChild(childYogaNode, index);
@@ -52957,19 +48458,11 @@ module.exports = {
             return node;
           }
           if (((0, _applyStyles.default)(yogaNode, style), node.textContent || node.nodeValue)) {
-            const { width: width, height: height } = (0, _measureText.default)(
-              node.textContent || node.nodeValue
-            );
-            return (
-              yogaNode.setWidth(style.width || width),
-              yogaNode.setHeight(style.height || height),
-              node
-            );
+            const { width: width, height: height } = (0, _measureText.default)(node.textContent || node.nodeValue);
+            return yogaNode.setWidth(style.width || width), yogaNode.setHeight(style.height || height), node;
           }
           if (Array.isArray(node.childNodes) && node.childNodes.length > 0) {
-            const childNodes = node.childNodes.filter(
-              childNode => !skipStaticElements || !childNode.unstable__static
-            );
+            const childNodes = node.childNodes.filter((childNode) => !skipStaticElements || !childNode.unstable__static);
             for (const [index, childNode] of Object.entries(childNodes)) {
               const { yogaNode: childYogaNode } = buildLayout(childNode, options);
               yogaNode.insertChild(childYogaNode, index);
@@ -52995,19 +48488,13 @@ module.exports = {
               node.setMargin(_yogaLayoutPrebuilt.default.EDGE_START, style.margin),
               node.setMargin(_yogaLayoutPrebuilt.default.EDGE_END, style.margin)),
               style.marginX &&
-                (node.setMargin(_yogaLayoutPrebuilt.default.EDGE_START, style.marginX),
-                node.setMargin(_yogaLayoutPrebuilt.default.EDGE_END, style.marginX)),
+                (node.setMargin(_yogaLayoutPrebuilt.default.EDGE_START, style.marginX), node.setMargin(_yogaLayoutPrebuilt.default.EDGE_END, style.marginX)),
               style.marginY &&
-                (node.setMargin(_yogaLayoutPrebuilt.default.EDGE_TOP, style.marginY),
-                node.setMargin(_yogaLayoutPrebuilt.default.EDGE_BOTTOM, style.marginY)),
-              style.marginTop &&
-                node.setMargin(_yogaLayoutPrebuilt.default.EDGE_TOP, style.marginTop),
-              style.marginBottom &&
-                node.setMargin(_yogaLayoutPrebuilt.default.EDGE_BOTTOM, style.marginBottom),
-              style.marginLeft &&
-                node.setMargin(_yogaLayoutPrebuilt.default.EDGE_START, style.marginLeft),
-              style.marginRight &&
-                node.setMargin(_yogaLayoutPrebuilt.default.EDGE_END, style.marginRight);
+                (node.setMargin(_yogaLayoutPrebuilt.default.EDGE_TOP, style.marginY), node.setMargin(_yogaLayoutPrebuilt.default.EDGE_BOTTOM, style.marginY)),
+              style.marginTop && node.setMargin(_yogaLayoutPrebuilt.default.EDGE_TOP, style.marginTop),
+              style.marginBottom && node.setMargin(_yogaLayoutPrebuilt.default.EDGE_BOTTOM, style.marginBottom),
+              style.marginLeft && node.setMargin(_yogaLayoutPrebuilt.default.EDGE_START, style.marginLeft),
+              style.marginRight && node.setMargin(_yogaLayoutPrebuilt.default.EDGE_END, style.marginRight);
           },
           applyPaddingStyles = (node, style) => {
             style.padding &&
@@ -53016,51 +48503,33 @@ module.exports = {
               node.setPadding(_yogaLayoutPrebuilt.default.EDGE_LEFT, style.padding),
               node.setPadding(_yogaLayoutPrebuilt.default.EDGE_RIGHT, style.padding)),
               style.paddingX &&
-                (node.setPadding(_yogaLayoutPrebuilt.default.EDGE_LEFT, style.paddingX),
-                node.setPadding(_yogaLayoutPrebuilt.default.EDGE_RIGHT, style.paddingX)),
+                (node.setPadding(_yogaLayoutPrebuilt.default.EDGE_LEFT, style.paddingX), node.setPadding(_yogaLayoutPrebuilt.default.EDGE_RIGHT, style.paddingX)),
               style.paddingY &&
-                (node.setPadding(_yogaLayoutPrebuilt.default.EDGE_TOP, style.paddingY),
-                node.setPadding(_yogaLayoutPrebuilt.default.EDGE_BOTTOM, style.paddingY)),
-              style.paddingTop &&
-                node.setPadding(_yogaLayoutPrebuilt.default.EDGE_TOP, style.paddingTop),
-              style.paddingBottom &&
-                node.setPadding(_yogaLayoutPrebuilt.default.EDGE_BOTTOM, style.paddingBottom),
-              style.paddingLeft &&
-                node.setPadding(_yogaLayoutPrebuilt.default.EDGE_LEFT, style.paddingLeft),
-              style.paddingRight &&
-                node.setPadding(_yogaLayoutPrebuilt.default.EDGE_RIGHT, style.paddingRight);
+                (node.setPadding(_yogaLayoutPrebuilt.default.EDGE_TOP, style.paddingY), node.setPadding(_yogaLayoutPrebuilt.default.EDGE_BOTTOM, style.paddingY)),
+              style.paddingTop && node.setPadding(_yogaLayoutPrebuilt.default.EDGE_TOP, style.paddingTop),
+              style.paddingBottom && node.setPadding(_yogaLayoutPrebuilt.default.EDGE_BOTTOM, style.paddingBottom),
+              style.paddingLeft && node.setPadding(_yogaLayoutPrebuilt.default.EDGE_LEFT, style.paddingLeft),
+              style.paddingRight && node.setPadding(_yogaLayoutPrebuilt.default.EDGE_RIGHT, style.paddingRight);
           },
           applyFlexStyles = (node, style) => {
             style.flexGrow && node.setFlexGrow(style.flexGrow),
               style.flexShrink && node.setFlexShrink(style.flexShrink),
               style.flexDirection &&
-                ('row' === style.flexDirection &&
-                  node.setFlexDirection(_yogaLayoutPrebuilt.default.FLEX_DIRECTION_ROW),
-                'row-reverse' === style.flexDirection &&
-                  node.setFlexDirection(_yogaLayoutPrebuilt.default.FLEX_DIRECTION_ROW_REVERSE),
-                'column' === style.flexDirection &&
-                  node.setFlexDirection(_yogaLayoutPrebuilt.default.FLEX_DIRECTION_COLUMN),
-                'column-reverse' === style.flexDirection &&
-                  node.setFlexDirection(_yogaLayoutPrebuilt.default.FLEX_DIRECTION_COLUMN_REVERSE)),
+                ('row' === style.flexDirection && node.setFlexDirection(_yogaLayoutPrebuilt.default.FLEX_DIRECTION_ROW),
+                'row-reverse' === style.flexDirection && node.setFlexDirection(_yogaLayoutPrebuilt.default.FLEX_DIRECTION_ROW_REVERSE),
+                'column' === style.flexDirection && node.setFlexDirection(_yogaLayoutPrebuilt.default.FLEX_DIRECTION_COLUMN),
+                'column-reverse' === style.flexDirection && node.setFlexDirection(_yogaLayoutPrebuilt.default.FLEX_DIRECTION_COLUMN_REVERSE)),
               hasOwnProperty(style, 'flexBasis') && node.setFlexBasis(style.flexBasis),
               style.alignItems &&
-                ('flex-start' === style.alignItems &&
-                  node.setAlignItems(_yogaLayoutPrebuilt.default.ALIGN_FLEX_START),
-                'center' === style.alignItems &&
-                  node.setAlignItems(_yogaLayoutPrebuilt.default.ALIGN_CENTER),
-                'flex-end' === style.alignItems &&
-                  node.setAlignItems(_yogaLayoutPrebuilt.default.ALIGN_FLEX_END)),
+                ('flex-start' === style.alignItems && node.setAlignItems(_yogaLayoutPrebuilt.default.ALIGN_FLEX_START),
+                'center' === style.alignItems && node.setAlignItems(_yogaLayoutPrebuilt.default.ALIGN_CENTER),
+                'flex-end' === style.alignItems && node.setAlignItems(_yogaLayoutPrebuilt.default.ALIGN_FLEX_END)),
               style.justifyContent &&
-                ('flex-start' === style.justifyContent &&
-                  node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_FLEX_START),
-                'center' === style.justifyContent &&
-                  node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_CENTER),
-                'flex-end' === style.justifyContent &&
-                  node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_FLEX_END),
-                'space-between' === style.justifyContent &&
-                  node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_SPACE_BETWEEN),
-                'space-around' === style.justifyContent &&
-                  node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_SPACE_AROUND));
+                ('flex-start' === style.justifyContent && node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_FLEX_START),
+                'center' === style.justifyContent && node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_CENTER),
+                'flex-end' === style.justifyContent && node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_FLEX_END),
+                'space-between' === style.justifyContent && node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_SPACE_BETWEEN),
+                'space-around' === style.justifyContent && node.setJustifyContent(_yogaLayoutPrebuilt.default.JUSTIFY_SPACE_AROUND));
           },
           applyDimensionStyles = (node, style) => {
             hasOwnProperty(style, 'width') && node.setWidth(style.width),
@@ -53069,10 +48538,7 @@ module.exports = {
               hasOwnProperty(style, 'minHeight') && node.setMinHeight(style.minHeight);
           };
         var _default = (node, style = {}) => {
-          applyMarginStyles(node, style),
-            applyPaddingStyles(node, style),
-            applyFlexStyles(node, style),
-            applyDimensionStyles(node, style);
+          applyMarginStyles(node, style), applyPaddingStyles(node, style), applyFlexStyles(node, style), applyDimensionStyles(node, style);
         };
         exports.default = _default;
       },
@@ -53083,7 +48549,7 @@ module.exports = {
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
-        var _default = text => {
+        var _default = (text) => {
           const width = (0, _widestLine.default)(text),
             height = text.split('\n').length;
           return { width: width, height: height };
@@ -53093,7 +48559,7 @@ module.exports = {
       function (module, exports, __webpack_require__) {
         'use strict';
         const stringWidth = __webpack_require__(65);
-        module.exports = input => {
+        module.exports = (input) => {
           let max = 0;
           for (const s of input.split('\n')) max = Math.max(max, stringWidth(s));
           return max;
@@ -53103,16 +48569,13 @@ module.exports = {
         'use strict';
         const stripAnsi = __webpack_require__(57),
           isFullwidthCodePoint = __webpack_require__(29);
-        module.exports = str => {
+        module.exports = (str) => {
           if ('string' != typeof str || 0 === str.length) return 0;
           str = stripAnsi(str);
           let width = 0;
           for (let i = 0; i < str.length; i++) {
             const code = str.codePointAt(i);
-            code <= 31 ||
-              (code >= 127 && code <= 159) ||
-              (code >= 768 && code <= 879) ||
-              (code > 65535 && i++, (width += isFullwidthCodePoint(code) ? 2 : 1));
+            code <= 31 || (code >= 127 && code <= 159) || (code >= 768 && code <= 879) || (code > 65535 && i++, (width += isFullwidthCodePoint(code) ? 2 : 1));
           }
           return width;
         };
@@ -53126,7 +48589,7 @@ module.exports = {
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
-        const isAllTextNodes = node => {
+        const isAllTextNodes = (node) => {
             if ('#text' === node.nodeName) return !0;
             if ('SPAN' === node.nodeName) {
               if (node.textContent) return !0;
@@ -53134,15 +48597,13 @@ module.exports = {
             }
             return !1;
           },
-          squashTextNodes = node => {
+          squashTextNodes = (node) => {
             let text = '';
             for (const childNode of node.childNodes) {
               let nodeText;
               '#text' === childNode.nodeName && (nodeText = childNode.nodeValue),
-                'SPAN' === childNode.nodeName &&
-                  (nodeText = childNode.textContent || squashTextNodes(childNode)),
-                childNode.unstable__transformChildren &&
-                  (nodeText = childNode.unstable__transformChildren(nodeText)),
+                'SPAN' === childNode.nodeName && (nodeText = childNode.textContent || squashTextNodes(childNode)),
+                childNode.unstable__transformChildren && (nodeText = childNode.unstable__transformChildren(nodeText)),
                 (text += nodeText);
             }
             return text;
@@ -53150,23 +48611,14 @@ module.exports = {
           renderNodeToOutput = (
             node,
             output,
-            {
-              offsetX: offsetX = 0,
-              offsetY: offsetY = 0,
-              transformers: transformers = [],
-              skipStaticElements: skipStaticElements
-            }
+            { offsetX: offsetX = 0, offsetY: offsetY = 0, transformers: transformers = [], skipStaticElements: skipStaticElements }
           ) => {
             if (node.unstable__static && skipStaticElements) return;
             const { yogaNode: yogaNode } = node,
               x = offsetX + yogaNode.getComputedLeft(),
               y = offsetY + yogaNode.getComputedTop();
             let newTransformers = transformers;
-            if (
-              (node.unstable__transformChildren &&
-                (newTransformers = [node.unstable__transformChildren, ...transformers]),
-              node.textContent)
-            ) {
+            if ((node.unstable__transformChildren && (newTransformers = [node.unstable__transformChildren, ...transformers]), node.textContent)) {
               let text = node.textContent;
               if (node.parentNode.style.textWrap) {
                 const currentWidth = (0, _widestLine.default)(text),
@@ -53214,8 +48666,7 @@ module.exports = {
           return obj && obj.__esModule ? obj : { default: obj };
         }
         var _default = (text, maxWidth, { textWrap: textWrap } = {}) => {
-          if ('wrap' === textWrap)
-            return (0, _wrapAnsi.default)(text, maxWidth, { trim: !1, hard: !0 });
+          if ('wrap' === textWrap) return (0, _wrapAnsi.default)(text, maxWidth, { trim: !1, hard: !0 });
           if (String(textWrap).startsWith('truncate')) {
             let position;
             return (
@@ -53236,10 +48687,8 @@ module.exports = {
         module.exports = (input, columns, opts) => {
           const position = (opts = Object.assign({ position: 'end' }, opts)).position,
             ellipsis = '…';
-          if ('string' != typeof input)
-            throw new TypeError(`Expected \`input\` to be a string, got ${typeof input}`);
-          if ('number' != typeof columns)
-            throw new TypeError(`Expected \`columns\` to be a number, got ${typeof columns}`);
+          if ('string' != typeof input) throw new TypeError(`Expected \`input\` to be a string, got ${typeof input}`);
+          if ('number' != typeof columns) throw new TypeError(`Expected \`columns\` to be a number, got ${typeof columns}`);
           if (columns < 1) return '';
           if (1 === columns) return '…';
           const length = stringWidth(input);
@@ -53247,22 +48696,16 @@ module.exports = {
           if ('start' === position) return '…' + sliceAnsi(input, length - columns + 1, length);
           if ('middle' === position) {
             const half = Math.floor(columns / 2);
-            return (
-              sliceAnsi(input, 0, half) +
-              '…' +
-              sliceAnsi(input, length - (columns - half) + 1, length)
-            );
+            return sliceAnsi(input, 0, half) + '…' + sliceAnsi(input, length - (columns - half) + 1, length);
           }
           if ('end' === position) return sliceAnsi(input, 0, columns - 1) + '…';
-          throw new Error(
-            `Expected \`options.position\` to be either \`start\`, \`middle\` or \`end\`, got ${position}`
-          );
+          throw new Error(`Expected \`options.position\` to be either \`start\`, \`middle\` or \`end\`, got ${position}`);
         };
       },
       function (module, exports, __webpack_require__) {
         'use strict';
         Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.default = void 0);
-        var _default = yogaNode => yogaNode.getComputedWidth() - 2 * yogaNode.getComputedPadding();
+        var _default = (yogaNode) => yogaNode.getComputedWidth() - 2 * yogaNode.getComputedPadding();
         exports.default = _default;
       },
       function (module, exports, __webpack_require__) {
@@ -53287,13 +48730,8 @@ module.exports = {
           if (null != obj)
             for (var key in obj)
               if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                var desc =
-                  Object.defineProperty && Object.getOwnPropertyDescriptor
-                    ? Object.getOwnPropertyDescriptor(obj, key)
-                    : {};
-                desc.get || desc.set
-                  ? Object.defineProperty(newObj, key, desc)
-                  : (newObj[key] = obj[key]);
+                var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
+                desc.get || desc.set ? Object.defineProperty(newObj, key, desc) : (newObj[key] = obj[key]);
               }
           return (newObj.default = obj), newObj;
         }
@@ -53319,7 +48757,7 @@ module.exports = {
           }
           constructor() {
             super(),
-              _defineProperty(this, 'handleSetRawMode', isEnabled => {
+              _defineProperty(this, 'handleSetRawMode', (isEnabled) => {
                 const { stdin: stdin } = this.props;
                 if (!this.isRawModeSupported())
                   throw stdin === process.stdin
@@ -53332,21 +48770,15 @@ module.exports = {
                 if ((stdin.setEncoding('utf8'), isEnabled))
                   return (
                     0 === this.rawModeEnabledCount &&
-                      (stdin.addListener('data', this.handleInput),
-                      stdin.resume(),
-                      stdin.setRawMode(!0),
-                      _readline.default.emitKeypressEvents(stdin)),
+                      (stdin.addListener('data', this.handleInput), stdin.resume(), stdin.setRawMode(!0), _readline.default.emitKeypressEvents(stdin)),
                     void this.rawModeEnabledCount++
                   );
-                0 == --this.rawModeEnabledCount &&
-                  (stdin.setRawMode(!1),
-                  stdin.removeListener('data', this.handleInput),
-                  stdin.pause());
+                0 == --this.rawModeEnabledCount && (stdin.setRawMode(!1), stdin.removeListener('data', this.handleInput), stdin.pause());
               }),
-              _defineProperty(this, 'handleInput', input => {
+              _defineProperty(this, 'handleInput', (input) => {
                 '' === input && this.props.exitOnCtrlC && this.handleExit();
               }),
-              _defineProperty(this, 'handleExit', error => {
+              _defineProperty(this, 'handleExit', (error) => {
                 this.isRawModeSupported() && this.handleSetRawMode(!1), this.props.onExit(error);
               }),
               (this.rawModeEnabledCount = 0);
@@ -53364,11 +48796,7 @@ module.exports = {
                     isRawModeSupported: this.isRawModeSupported()
                   }
                 },
-                _react.default.createElement(
-                  _StdoutContext.default.Provider,
-                  { value: { stdout: this.props.stdout } },
-                  this.props.children
-                )
+                _react.default.createElement(_StdoutContext.default.Provider, { value: { stdout: this.props.stdout } }, this.props.children)
               )
             );
           }
@@ -53376,8 +48804,7 @@ module.exports = {
             _cliCursor.default.hide(this.props.stdout);
           }
           componentWillUnmount() {
-            _cliCursor.default.show(this.props.stdout),
-              this.isRawModeSupported() && this.handleSetRawMode(!1);
+            _cliCursor.default.show(this.props.stdout), this.isRawModeSupported() && this.handleSetRawMode(!1);
           }
           componentDidCatch(error) {
             this.handleExit(error);
@@ -53396,12 +48823,9 @@ module.exports = {
         module.exports = require('readline');
       },
       function (module, exports, __webpack_require__) {
-        var REACT_ELEMENT_TYPE =
-            ('function' == typeof Symbol && Symbol.for && Symbol.for('react.element')) || 60103,
+        var REACT_ELEMENT_TYPE = ('function' == typeof Symbol && Symbol.for && Symbol.for('react.element')) || 60103,
           isValidElement = function (object) {
-            return (
-              'object' == typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE
-            );
+            return 'object' == typeof object && null !== object && object.$$typeof === REACT_ELEMENT_TYPE;
           },
           throwOnDirectAccess = !0;
         module.exports = __webpack_require__(74)(isValidElement, !0);
@@ -53426,10 +48850,7 @@ module.exports = {
             var ITERATOR_SYMBOL = 'function' == typeof Symbol && Symbol.iterator,
               FAUX_ITERATOR_SYMBOL = '@@iterator';
             function getIteratorFn(maybeIterable) {
-              var iteratorFn =
-                maybeIterable &&
-                ((ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL]) ||
-                  maybeIterable['@@iterator']);
+              var iteratorFn = maybeIterable && ((ITERATOR_SYMBOL && maybeIterable[ITERATOR_SYMBOL]) || maybeIterable['@@iterator']);
               if ('function' == typeof iteratorFn) return iteratorFn;
             }
             var ANONYMOUS = '<<anonymous>>',
@@ -53461,20 +48882,8 @@ module.exports = {
             function createChainableTypeChecker(validate) {
               var manualPropTypeCallCache = {},
                 manualPropTypeWarningCount = 0;
-              function checkType(
-                isRequired,
-                props,
-                propName,
-                componentName,
-                location,
-                propFullName,
-                secret
-              ) {
-                if (
-                  ((componentName = componentName || ANONYMOUS),
-                  (propFullName = propFullName || propName),
-                  secret !== ReactPropTypesSecret)
-                ) {
+              function checkType(isRequired, props, propName, componentName, location, propFullName, secret) {
+                if (((componentName = componentName || ANONYMOUS), (propFullName = propFullName || propName), secret !== ReactPropTypesSecret)) {
                   if (throwOnDirectAccess) {
                     var err = new Error(
                       'Calling PropTypes validators directly is not supported by the `prop-types` package. Use `PropTypes.checkPropTypes()` to call them. Read more at http://fb.me/use-check-prop-types'
@@ -53499,24 +48908,8 @@ module.exports = {
                 return null == props[propName]
                   ? isRequired
                     ? null === props[propName]
-                      ? new PropTypeError(
-                          'The ' +
-                            location +
-                            ' `' +
-                            propFullName +
-                            '` is marked as required in `' +
-                            componentName +
-                            '`, but its value is `null`.'
-                        )
-                      : new PropTypeError(
-                          'The ' +
-                            location +
-                            ' `' +
-                            propFullName +
-                            '` is marked as required in `' +
-                            componentName +
-                            '`, but its value is `undefined`.'
-                        )
+                      ? new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in `' + componentName + '`, but its value is `null`.')
+                      : new PropTypeError('The ' + location + ' `' + propFullName + '` is marked as required in `' + componentName + '`, but its value is `undefined`.')
                     : null
                   : validate(props, propName, componentName, location, propFullName);
               }
@@ -53552,36 +48945,15 @@ module.exports = {
             function createArrayOfTypeChecker(typeChecker) {
               function validate(props, propName, componentName, location, propFullName) {
                 if ('function' != typeof typeChecker)
-                  return new PropTypeError(
-                    'Property `' +
-                      propFullName +
-                      '` of component `' +
-                      componentName +
-                      '` has invalid PropType notation inside arrayOf.'
-                  );
+                  return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside arrayOf.');
                 var propValue = props[propName],
                   propType;
                 if (!Array.isArray(propValue))
                   return new PropTypeError(
-                    'Invalid ' +
-                      location +
-                      ' `' +
-                      propFullName +
-                      '` of type `' +
-                      getPropType(propValue) +
-                      '` supplied to `' +
-                      componentName +
-                      '`, expected an array.'
+                    'Invalid ' + location + ' `' + propFullName + '` of type `' + getPropType(propValue) + '` supplied to `' + componentName + '`, expected an array.'
                   );
                 for (var i = 0; i < propValue.length; i++) {
-                  var error = typeChecker(
-                    propValue,
-                    i,
-                    componentName,
-                    location,
-                    propFullName + '[' + i + ']',
-                    ReactPropTypesSecret
-                  );
+                  var error = typeChecker(propValue, i, componentName, location, propFullName + '[' + i + ']', ReactPropTypesSecret);
                   if (error instanceof Error) return error;
                 }
                 return null;
@@ -53632,16 +49004,9 @@ module.exports = {
               return createChainableTypeChecker(validate);
             }
             function createEnumTypeChecker(expectedValues) {
-              if (!Array.isArray(expectedValues))
-                return (
-                  printWarning(
-                    'Invalid argument supplied to oneOf, expected an instance of array.'
-                  ),
-                  emptyFunctionThatReturnsNull
-                );
+              if (!Array.isArray(expectedValues)) return printWarning('Invalid argument supplied to oneOf, expected an instance of array.'), emptyFunctionThatReturnsNull;
               function validate(props, propName, componentName, location, propFullName) {
-                for (var propValue = props[propName], i = 0; i < expectedValues.length; i++)
-                  if (is(propValue, expectedValues[i])) return null;
+                for (var propValue = props[propName], i = 0; i < expectedValues.length; i++) if (is(propValue, expectedValues[i])) return null;
                 var valuesString;
                 return new PropTypeError(
                   'Invalid ' +
@@ -53662,37 +49027,16 @@ module.exports = {
             function createObjectOfTypeChecker(typeChecker) {
               function validate(props, propName, componentName, location, propFullName) {
                 if ('function' != typeof typeChecker)
-                  return new PropTypeError(
-                    'Property `' +
-                      propFullName +
-                      '` of component `' +
-                      componentName +
-                      '` has invalid PropType notation inside objectOf.'
-                  );
+                  return new PropTypeError('Property `' + propFullName + '` of component `' + componentName + '` has invalid PropType notation inside objectOf.');
                 var propValue = props[propName],
                   propType = getPropType(propValue);
                 if ('object' !== propType)
                   return new PropTypeError(
-                    'Invalid ' +
-                      location +
-                      ' `' +
-                      propFullName +
-                      '` of type `' +
-                      propType +
-                      '` supplied to `' +
-                      componentName +
-                      '`, expected an object.'
+                    'Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` supplied to `' + componentName + '`, expected an object.'
                   );
                 for (var key in propValue)
                   if (propValue.hasOwnProperty(key)) {
-                    var error = typeChecker(
-                      propValue,
-                      key,
-                      componentName,
-                      location,
-                      propFullName + '.' + key,
-                      ReactPropTypesSecret
-                    );
+                    var error = typeChecker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
                     if (error instanceof Error) return error;
                   }
                 return null;
@@ -53701,12 +49045,7 @@ module.exports = {
             }
             function createUnionTypeChecker(arrayOfTypeCheckers) {
               if (!Array.isArray(arrayOfTypeCheckers))
-                return (
-                  printWarning(
-                    'Invalid argument supplied to oneOfType, expected an instance of array.'
-                  ),
-                  emptyFunctionThatReturnsNull
-                );
+                return printWarning('Invalid argument supplied to oneOfType, expected an instance of array.'), emptyFunctionThatReturnsNull;
               for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
                 var checker = arrayOfTypeCheckers[i];
                 if ('function' != typeof checker)
@@ -53724,28 +49063,9 @@ module.exports = {
               function validate(props, propName, componentName, location, propFullName) {
                 for (var i = 0; i < arrayOfTypeCheckers.length; i++) {
                   var checker;
-                  if (
-                    null ==
-                    (0, arrayOfTypeCheckers[i])(
-                      props,
-                      propName,
-                      componentName,
-                      location,
-                      propFullName,
-                      ReactPropTypesSecret
-                    )
-                  )
-                    return null;
+                  if (null == (0, arrayOfTypeCheckers[i])(props, propName, componentName, location, propFullName, ReactPropTypesSecret)) return null;
                 }
-                return new PropTypeError(
-                  'Invalid ' +
-                    location +
-                    ' `' +
-                    propFullName +
-                    '` supplied to `' +
-                    componentName +
-                    '`.'
-                );
+                return new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to `' + componentName + '`.');
               }
               return createChainableTypeChecker(validate);
             }
@@ -53753,15 +49073,7 @@ module.exports = {
               function validate(props, propName, componentName, location, propFullName) {
                 return isNode(props[propName])
                   ? null
-                  : new PropTypeError(
-                      'Invalid ' +
-                        location +
-                        ' `' +
-                        propFullName +
-                        '` supplied to `' +
-                        componentName +
-                        '`, expected a ReactNode.'
-                    );
+                  : new PropTypeError('Invalid ' + location + ' `' + propFullName + '` supplied to `' + componentName + '`, expected a ReactNode.');
               }
               return createChainableTypeChecker(validate);
             }
@@ -53771,27 +49083,12 @@ module.exports = {
                   propType = getPropType(propValue);
                 if ('object' !== propType)
                   return new PropTypeError(
-                    'Invalid ' +
-                      location +
-                      ' `' +
-                      propFullName +
-                      '` of type `' +
-                      propType +
-                      '` supplied to `' +
-                      componentName +
-                      '`, expected `object`.'
+                    'Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` supplied to `' + componentName + '`, expected `object`.'
                   );
                 for (var key in shapeTypes) {
                   var checker = shapeTypes[key];
                   if (checker) {
-                    var error = checker(
-                      propValue,
-                      key,
-                      componentName,
-                      location,
-                      propFullName + '.' + key,
-                      ReactPropTypesSecret
-                    );
+                    var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
                     if (error) return error;
                   }
                 }
@@ -53805,15 +49102,7 @@ module.exports = {
                   propType = getPropType(propValue);
                 if ('object' !== propType)
                   return new PropTypeError(
-                    'Invalid ' +
-                      location +
-                      ' `' +
-                      propFullName +
-                      '` of type `' +
-                      propType +
-                      '` supplied to `' +
-                      componentName +
-                      '`, expected `object`.'
+                    'Invalid ' + location + ' `' + propFullName + '` of type `' + propType + '` supplied to `' + componentName + '`, expected `object`.'
                   );
                 var allKeys = assign({}, props[propName], shapeTypes);
                 for (var key in allKeys) {
@@ -53833,14 +49122,7 @@ module.exports = {
                         '\nValid keys: ' +
                         JSON.stringify(Object.keys(shapeTypes), null, '  ')
                     );
-                  var error = checker(
-                    propValue,
-                    key,
-                    componentName,
-                    location,
-                    propFullName + '.' + key,
-                    ReactPropTypesSecret
-                  );
+                  var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret);
                   if (error) return error;
                 }
                 return null;
@@ -53875,21 +49157,11 @@ module.exports = {
               }
             }
             function isSymbol(propType, propValue) {
-              return (
-                'symbol' === propType ||
-                'Symbol' === propValue['@@toStringTag'] ||
-                ('function' == typeof Symbol && propValue instanceof Symbol)
-              );
+              return 'symbol' === propType || 'Symbol' === propValue['@@toStringTag'] || ('function' == typeof Symbol && propValue instanceof Symbol);
             }
             function getPropType(propValue) {
               var propType = typeof propValue;
-              return Array.isArray(propValue)
-                ? 'array'
-                : propValue instanceof RegExp
-                ? 'object'
-                : isSymbol(propType, propValue)
-                ? 'symbol'
-                : propType;
+              return Array.isArray(propValue) ? 'array' : propValue instanceof RegExp ? 'object' : isSymbol(propType, propValue) ? 'symbol' : propType;
             }
             function getPreciseType(propValue) {
               if (null == propValue) return '' + propValue;
@@ -53915,15 +49187,10 @@ module.exports = {
               }
             }
             function getClassName(propValue) {
-              return propValue.constructor && propValue.constructor.name
-                ? propValue.constructor.name
-                : ANONYMOUS;
+              return propValue.constructor && propValue.constructor.name ? propValue.constructor.name : ANONYMOUS;
             }
             return (
-              (PropTypeError.prototype = Error.prototype),
-              (ReactPropTypes.checkPropTypes = checkPropTypes),
-              (ReactPropTypes.PropTypes = ReactPropTypes),
-              ReactPropTypes
+              (PropTypeError.prototype = Error.prototype), (ReactPropTypes.checkPropTypes = checkPropTypes), (ReactPropTypes.PropTypes = ReactPropTypes), ReactPropTypes
             );
           });
       },
@@ -53978,13 +49245,8 @@ module.exports = {
           if (null != obj)
             for (var key in obj)
               if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                var desc =
-                  Object.defineProperty && Object.getOwnPropertyDescriptor
-                    ? Object.getOwnPropertyDescriptor(obj, key)
-                    : {};
-                desc.get || desc.set
-                  ? Object.defineProperty(newObj, key, desc)
-                  : (newObj[key] = obj[key]);
+                var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
+                desc.get || desc.set ? Object.defineProperty(newObj, key, desc) : (newObj[key] = obj[key]);
               }
           return (newObj.default = obj), newObj;
         }
@@ -53996,10 +49258,7 @@ module.exports = {
           if (Object.getOwnPropertySymbols) {
             var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
             for (i = 0; i < sourceSymbolKeys.length; i++)
-              (key = sourceSymbolKeys[i]),
-                excluded.indexOf(key) >= 0 ||
-                  (Object.prototype.propertyIsEnumerable.call(source, key) &&
-                    (target[key] = source[key]));
+              (key = sourceSymbolKeys[i]), excluded.indexOf(key) >= 0 || (Object.prototype.propertyIsEnumerable.call(source, key) && (target[key] = source[key]));
           }
           return target;
         }
@@ -54009,8 +49268,7 @@ module.exports = {
             sourceKeys = Object.keys(source),
             key,
             i;
-          for (i = 0; i < sourceKeys.length; i++)
-            (key = sourceKeys[i]), excluded.indexOf(key) >= 0 || (target[key] = source[key]);
+          for (i = 0; i < sourceKeys.length; i++) (key = sourceKeys[i]), excluded.indexOf(key) >= 0 || (target[key] = source[key]);
           return target;
         }
         function _defineProperty(obj, key, value) {
@@ -54032,14 +49290,8 @@ module.exports = {
           }
           render() {
             const _this$props = this.props,
-              {
-                children: children,
-                unstable__transformChildren: unstable__transformChildren
-              } = _this$props,
-              style = _objectWithoutProperties(_this$props, [
-                'children',
-                'unstable__transformChildren'
-              ]);
+              { children: children, unstable__transformChildren: unstable__transformChildren } = _this$props,
+              style = _objectWithoutProperties(_this$props, ['children', 'unstable__transformChildren']);
             return _react.default.createElement(
               'div',
               {
@@ -54070,43 +49322,17 @@ module.exports = {
             paddingBottom: _propTypes.default.number,
             paddingLeft: _propTypes.default.number,
             paddingRight: _propTypes.default.number,
-            width: _propTypes.default.oneOfType([
-              _propTypes.default.number,
-              _propTypes.default.string
-            ]),
+            width: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
             minWidth: _propTypes.default.number,
-            height: _propTypes.default.oneOfType([
-              _propTypes.default.number,
-              _propTypes.default.string
-            ]),
+            height: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
             minHeight: _propTypes.default.number,
             flexGrow: _propTypes.default.number,
             flexShrink: _propTypes.default.number,
-            flexDirection: _propTypes.default.oneOf([
-              'row',
-              'row-reverse',
-              'column',
-              'column-reverse'
-            ]),
-            flexBasis: _propTypes.default.oneOfType([
-              _propTypes.default.number,
-              _propTypes.default.string
-            ]),
+            flexDirection: _propTypes.default.oneOf(['row', 'row-reverse', 'column', 'column-reverse']),
+            flexBasis: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
             alignItems: _propTypes.default.oneOf(['flex-start', 'center', 'flex-end']),
-            justifyContent: _propTypes.default.oneOf([
-              'flex-start',
-              'center',
-              'flex-end',
-              'space-between',
-              'space-around'
-            ]),
-            textWrap: _propTypes.default.oneOf([
-              'wrap',
-              'truncate',
-              'truncate-start',
-              'truncate-middle',
-              'truncate-end'
-            ]),
+            justifyContent: _propTypes.default.oneOf(['flex-start', 'center', 'flex-end', 'space-between', 'space-around']),
+            textWrap: _propTypes.default.oneOf(['wrap', 'truncate', 'truncate-start', 'truncate-middle', 'truncate-end']),
             unstable__transformChildren: _propTypes.default.func,
             children: _propTypes.default.node
           }),
@@ -54133,7 +49359,7 @@ module.exports = {
           children: children,
           unstable__transformChildren: unstable__transformChildren
         }) => {
-          const transformChildren = children => (
+          const transformChildren = (children) => (
             bold && (children = _chalk.default.bold(children)),
             italic && (children = _chalk.default.italic(children)),
             underline && (children = _chalk.default.underline(children)),
@@ -54141,11 +49367,7 @@ module.exports = {
             unstable__transformChildren && (children = unstable__transformChildren(children)),
             children
           );
-          return _react.default.createElement(
-            'span',
-            { style: { flexDirection: 'row' }, unstable__transformChildren: transformChildren },
-            children
-          );
+          return _react.default.createElement('span', { style: { flexDirection: 'row' }, unstable__transformChildren: transformChildren }, children);
         };
         (Text.propTypes = {
           bold: _propTypes.default.bool,
@@ -54171,17 +49393,14 @@ module.exports = {
           ansiStyles = __webpack_require__(31),
           stdoutColor = __webpack_require__(82).stdout,
           template = __webpack_require__(85),
-          isSimpleWindowsTerm =
-            'win32' === process.platform &&
-            !(process.env.TERM || '').toLowerCase().startsWith('xterm'),
+          isSimpleWindowsTerm = 'win32' === process.platform && !(process.env.TERM || '').toLowerCase().startsWith('xterm'),
           levelMapping = ['ansi', 'ansi', 'ansi256', 'ansi16m'],
           skipModels = new Set(['gray']),
           styles = Object.create(null);
         function applyOptions(obj, options) {
           options = options || {};
           const scLevel = stdoutColor ? stdoutColor.level : 0;
-          (obj.level = void 0 === options.level ? scLevel : options.level),
-            (obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0);
+          (obj.level = void 0 === options.level ? scLevel : options.level), (obj.enabled = 'enabled' in options ? options.enabled : obj.level > 0);
         }
         function Chalk(options) {
           if (!this || !(this instanceof Chalk) || this.template) {
@@ -54206,12 +49425,7 @@ module.exports = {
             (styles[key] = {
               get() {
                 const codes = ansiStyles[key];
-                return build.call(
-                  this,
-                  this._styles ? this._styles.concat(codes) : [codes],
-                  this._empty,
-                  key
-                );
+                return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, key);
               }
             });
         (styles.visible = {
@@ -54232,12 +49446,7 @@ module.exports = {
                       close: ansiStyles.color.close,
                       closeRe: ansiStyles.color.closeRe
                     };
-                  return build.call(
-                    this,
-                    this._styles ? this._styles.concat(codes) : [codes],
-                    this._empty,
-                    model
-                  );
+                  return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
                 };
               }
             });
@@ -54255,12 +49464,7 @@ module.exports = {
                     close: ansiStyles.bgColor.close,
                     closeRe: ansiStyles.bgColor.closeRe
                   };
-                return build.call(
-                  this,
-                  this._styles ? this._styles.concat(codes) : [codes],
-                  this._empty,
-                  model
-                );
+                return build.call(this, this._styles ? this._styles.concat(codes) : [codes], this._empty, model);
               };
             }
           };
@@ -54302,17 +49506,14 @@ module.exports = {
           const originalDim = ansiStyles.dim.open;
           isSimpleWindowsTerm && this.hasGrey && (ansiStyles.dim.open = '');
           for (const code of this._styles.slice().reverse())
-            (str = code.open + str.replace(code.closeRe, code.open) + code.close),
-              (str = str.replace(/\r?\n/g, `${code.close}$&${code.open}`));
+            (str = code.open + str.replace(code.closeRe, code.open) + code.close), (str = str.replace(/\r?\n/g, `${code.close}$&${code.open}`));
           return (ansiStyles.dim.open = originalDim), str;
         }
         function chalkTag(chalk, strings) {
           if (!Array.isArray(strings)) return [].slice.call(arguments, 1).join(' ');
           const args = [].slice.call(arguments, 2),
             parts = [strings.raw[0]];
-          for (let i = 1; i < strings.length; i++)
-            parts.push(String(args[i - 1]).replace(/[{}\\]/g, '\\$&')),
-              parts.push(String(strings.raw[i]));
+          for (let i = 1; i < strings.length; i++) parts.push(String(args[i - 1]).replace(/[{}\\]/g, '\\$&')), parts.push(String(strings.raw[i]));
           return template(chalk, parts.join(''));
         }
         Object.defineProperties(Chalk.prototype, styles),
@@ -54335,9 +49536,7 @@ module.exports = {
           env = process.env;
         let forceColor;
         function translateLevel(level) {
-          return (
-            0 !== level && { level: level, hasBasic: !0, has256: level >= 2, has16m: level >= 3 }
-          );
+          return 0 !== level && { level: level, hasBasic: !0, has256: level >= 2, has16m: level >= 3 };
         }
         function supportsColor(stream) {
           if (!1 === forceColor) return 0;
@@ -54347,21 +49546,14 @@ module.exports = {
           const min = forceColor ? 1 : 0;
           if ('win32' === process.platform) {
             const osRelease = os.release().split('.');
-            return Number(process.versions.node.split('.')[0]) >= 8 &&
-              Number(osRelease[0]) >= 10 &&
-              Number(osRelease[2]) >= 10586
+            return Number(process.versions.node.split('.')[0]) >= 8 && Number(osRelease[0]) >= 10 && Number(osRelease[2]) >= 10586
               ? Number(osRelease[2]) >= 14931
                 ? 3
                 : 2
               : 1;
           }
-          if ('CI' in env)
-            return ['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI'].some(sign => sign in env) ||
-              'codeship' === env.CI_NAME
-              ? 1
-              : min;
-          if ('TEAMCITY_VERSION' in env)
-            return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
+          if ('CI' in env) return ['TRAVIS', 'CIRCLECI', 'APPVEYOR', 'GITLAB_CI'].some((sign) => sign in env) || 'codeship' === env.CI_NAME ? 1 : min;
+          if ('TEAMCITY_VERSION' in env) return /^(9\.(0*[1-9]\d*)\.|\d{2,}\.)/.test(env.TEAMCITY_VERSION) ? 1 : 0;
           if ('truecolor' === env.COLORTERM) return 3;
           if ('TERM_PROGRAM' in env) {
             const version = parseInt((env.TERM_PROGRAM_VERSION || '').split('.')[0], 10);
@@ -54386,13 +49578,8 @@ module.exports = {
         }
         hasFlag('no-color') || hasFlag('no-colors') || hasFlag('color=false')
           ? (forceColor = !1)
-          : (hasFlag('color') ||
-              hasFlag('colors') ||
-              hasFlag('color=true') ||
-              hasFlag('color=always')) &&
-            (forceColor = !0),
-          'FORCE_COLOR' in env &&
-            (forceColor = 0 === env.FORCE_COLOR.length || 0 !== parseInt(env.FORCE_COLOR, 10)),
+          : (hasFlag('color') || hasFlag('colors') || hasFlag('color=true') || hasFlag('color=always')) && (forceColor = !0),
+          'FORCE_COLOR' in env && (forceColor = 0 === env.FORCE_COLOR.length || 0 !== parseInt(env.FORCE_COLOR, 10)),
           (module.exports = {
             supportsColor: getSupportLevel,
             stdout: getSupportLevel(process.stdout),
@@ -54431,9 +49618,7 @@ module.exports = {
             ['a', '']
           ]);
         function unescape(c) {
-          return ('u' === c[0] && 5 === c.length) || ('x' === c[0] && 3 === c.length)
-            ? String.fromCharCode(parseInt(c.slice(1), 16))
-            : ESCAPES.get(c) || c;
+          return ('u' === c[0] && 5 === c.length) || ('x' === c[0] && 3 === c.length) ? String.fromCharCode(parseInt(c.slice(1), 16)) : ESCAPES.get(c) || c;
         }
         function parseArguments(name, args) {
           const results = [],
@@ -54441,15 +49626,8 @@ module.exports = {
           let matches;
           for (const chunk of chunks)
             if (isNaN(chunk)) {
-              if (!(matches = chunk.match(STRING_REGEX)))
-                throw new Error(
-                  `Invalid Chalk template style argument: ${chunk} (in style '${name}')`
-                );
-              results.push(
-                matches[2].replace(ESCAPE_REGEX, (m, escape, chr) =>
-                  escape ? unescape(escape) : chr
-                )
-              );
+              if (!(matches = chunk.match(STRING_REGEX))) throw new Error(`Invalid Chalk template style argument: ${chunk} (in style '${name}')`);
+              results.push(matches[2].replace(ESCAPE_REGEX, (m, escape, chr) => (escape ? unescape(escape) : chr)));
             } else results.push(Number(chunk));
           return results;
         }
@@ -54468,17 +49646,12 @@ module.exports = {
         }
         function buildStyle(chalk, styles) {
           const enabled = {};
-          for (const layer of styles)
-            for (const style of layer.styles)
-              enabled[style[0]] = layer.inverse ? null : style.slice(1);
+          for (const layer of styles) for (const style of layer.styles) enabled[style[0]] = layer.inverse ? null : style.slice(1);
           let current = chalk;
           for (const styleName of Object.keys(enabled))
             if (Array.isArray(enabled[styleName])) {
               if (!(styleName in current)) throw new Error(`Unknown Chalk style: ${styleName}`);
-              current =
-                enabled[styleName].length > 0
-                  ? current[styleName].apply(current, enabled[styleName])
-                  : current[styleName];
+              current = enabled[styleName].length > 0 ? current[styleName].apply(current, enabled[styleName]) : current[styleName];
             }
           return current;
         }
@@ -54491,21 +49664,16 @@ module.exports = {
               if (escapeChar) chunk.push(unescape(escapeChar));
               else if (style) {
                 const str = chunk.join('');
-                (chunk = []),
-                  chunks.push(0 === styles.length ? str : buildStyle(chalk, styles)(str)),
-                  styles.push({ inverse: inverse, styles: parseStyle(style) });
+                (chunk = []), chunks.push(0 === styles.length ? str : buildStyle(chalk, styles)(str)), styles.push({ inverse: inverse, styles: parseStyle(style) });
               } else if (close) {
-                if (0 === styles.length)
-                  throw new Error('Found extraneous } in Chalk template literal');
+                if (0 === styles.length) throw new Error('Found extraneous } in Chalk template literal');
                 chunks.push(buildStyle(chalk, styles)(chunk.join(''))), (chunk = []), styles.pop();
               } else chunk.push(chr);
             }),
             chunks.push(chunk.join('')),
             styles.length > 0)
           ) {
-            const errMsg = `Chalk template literal is missing ${styles.length} closing bracket${
-              1 === styles.length ? '' : 's'
-            } (\`}\`)`;
+            const errMsg = `Chalk template literal is missing ${styles.length} closing bracket${1 === styles.length ? '' : 's'} (\`}\`)`;
             throw new Error(errMsg);
           }
           return chunks.join('');
@@ -54529,10 +49697,7 @@ module.exports = {
           if (Object.getOwnPropertySymbols) {
             var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
             for (i = 0; i < sourceSymbolKeys.length; i++)
-              (key = sourceSymbolKeys[i]),
-                excluded.indexOf(key) >= 0 ||
-                  (Object.prototype.propertyIsEnumerable.call(source, key) &&
-                    (target[key] = source[key]));
+              (key = sourceSymbolKeys[i]), excluded.indexOf(key) >= 0 || (Object.prototype.propertyIsEnumerable.call(source, key) && (target[key] = source[key]));
           }
           return target;
         }
@@ -54542,44 +49707,23 @@ module.exports = {
             sourceKeys = Object.keys(source),
             key,
             i;
-          for (i = 0; i < sourceKeys.length; i++)
-            (key = sourceKeys[i]), excluded.indexOf(key) >= 0 || (target[key] = source[key]);
+          for (i = 0; i < sourceKeys.length; i++) (key = sourceKeys[i]), excluded.indexOf(key) >= 0 || (target[key] = source[key]);
           return target;
         }
-        const methods = [
-            'hex',
-            'hsl',
-            'hsv',
-            'hwb',
-            'rgb',
-            'keyword',
-            'bgHex',
-            'bgHsl',
-            'bgHsv',
-            'bgHwb',
-            'bgRgb',
-            'bgKeyword'
-          ],
-          Color = _ref => {
+        const methods = ['hex', 'hsl', 'hsv', 'hwb', 'rgb', 'keyword', 'bgHex', 'bgHsl', 'bgHsv', 'bgHwb', 'bgRgb', 'bgKeyword'],
+          Color = (_ref) => {
             let { children: children } = _ref,
               colorProps = _objectWithoutProperties(_ref, ['children']);
-            const transformChildren = children => (
-              Object.keys(colorProps).forEach(method => {
+            const transformChildren = (children) => (
+              Object.keys(colorProps).forEach((method) => {
                 colorProps[method] &&
                   (methods.includes(method)
-                    ? (children = _chalk.default[method](
-                        ...(0, _arrify.default)(colorProps[method])
-                      )(children))
-                    : 'function' == typeof _chalk.default[method] &&
-                      (children = _chalk.default[method](children)));
+                    ? (children = _chalk.default[method](...(0, _arrify.default)(colorProps[method]))(children))
+                    : 'function' == typeof _chalk.default[method] && (children = _chalk.default[method](children)));
               }),
               children
             );
-            return _react.default.createElement(
-              'span',
-              { style: { flexDirection: 'row' }, unstable__transformChildren: transformChildren },
-              children
-            );
+            return _react.default.createElement('span', { style: { flexDirection: 'row' }, unstable__transformChildren: transformChildren }, children);
           };
         Color.propTypes = { children: _propTypes.default.node.isRequired };
         var _default = Color;
@@ -54605,13 +49749,8 @@ module.exports = {
           if (null != obj)
             for (var key in obj)
               if (Object.prototype.hasOwnProperty.call(obj, key)) {
-                var desc =
-                  Object.defineProperty && Object.getOwnPropertyDescriptor
-                    ? Object.getOwnPropertyDescriptor(obj, key)
-                    : {};
-                desc.get || desc.set
-                  ? Object.defineProperty(newObj, key, desc)
-                  : (newObj[key] = obj[key]);
+                var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {};
+                desc.get || desc.set ? Object.defineProperty(newObj, key, desc) : (newObj[key] = obj[key]);
               }
           return (newObj.default = obj), newObj;
         }
@@ -54623,10 +49762,7 @@ module.exports = {
           if (Object.getOwnPropertySymbols) {
             var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
             for (i = 0; i < sourceSymbolKeys.length; i++)
-              (key = sourceSymbolKeys[i]),
-                excluded.indexOf(key) >= 0 ||
-                  (Object.prototype.propertyIsEnumerable.call(source, key) &&
-                    (target[key] = source[key]));
+              (key = sourceSymbolKeys[i]), excluded.indexOf(key) >= 0 || (Object.prototype.propertyIsEnumerable.call(source, key) && (target[key] = source[key]));
           }
           return target;
         }
@@ -54636,8 +49772,7 @@ module.exports = {
             sourceKeys = Object.keys(source),
             key,
             i;
-          for (i = 0; i < sourceKeys.length; i++)
-            (key = sourceKeys[i]), excluded.indexOf(key) >= 0 || (target[key] = source[key]);
+          for (i = 0; i < sourceKeys.length; i++) (key = sourceKeys[i]), excluded.indexOf(key) >= 0 || (target[key] = source[key]);
           return target;
         }
         function _defineProperty(obj, key, value) {
@@ -54653,7 +49788,7 @@ module.exports = {
             obj
           );
         }
-        const childrenToArray = children => (Array.isArray(children) ? children : [children]);
+        const childrenToArray = (children) => (Array.isArray(children) ? children : [children]);
         class Static extends _react.Component {
           constructor(...args) {
             super(...args), _defineProperty(this, 'state', { lastIndex: null });
@@ -54665,13 +49800,8 @@ module.exports = {
               { lastIndex: lastIndex } = this.state;
             let newChildren = children;
             return (
-              'number' == typeof lastIndex &&
-                (newChildren = childrenToArray(children).slice(lastIndex)),
-              _react.default.createElement(
-                'div',
-                { unstable__static: !0, style: otherProps },
-                newChildren
-              )
+              'number' == typeof lastIndex && (newChildren = childrenToArray(children).slice(lastIndex)),
+              _react.default.createElement('div', { unstable__static: !0, style: otherProps }, newChildren)
             );
           }
           componentDidMount() {
@@ -54685,19 +49815,14 @@ module.exports = {
             this.state.lastIndex !== nextIndex && this.setState({ lastIndex: nextIndex });
           }
         }
-        (exports.default = Static),
-          _defineProperty(Static, 'propTypes', { children: _propTypes.default.node });
+        (exports.default = Static), _defineProperty(Static, 'propTypes', { children: _propTypes.default.node });
       },
       function (module, exports, __webpack_require__) {
         'use strict';
         Object.defineProperty(exports, '__esModule', { value: !0 });
         const ink_1 = __webpack_require__(5),
           react_1 = __webpack_require__(8);
-        exports.useListInput = function (
-          value,
-          values,
-          { active: active, minus: minus, plus: plus, set: set }
-        ) {
+        exports.useListInput = function (value, values, { active: active, minus: minus, plus: plus, set: set }) {
           const { stdin: stdin } = react_1.useContext(ink_1.StdinContext);
           react_1.useEffect(() => {
             if (!active) return;
@@ -54727,8 +49852,7 @@ module.exports = {
           function (mod) {
             if (mod && mod.__esModule) return mod;
             var result = {};
-            if (null != mod)
-              for (var k in mod) Object.hasOwnProperty.call(mod, k) && (result[k] = mod[k]);
+            if (null != mod) for (var k in mod) Object.hasOwnProperty.call(mod, k) && (result[k] = mod[k]);
             return (result.default = mod), result;
           };
         Object.defineProperty(exports, '__esModule', { value: !0 });
@@ -54736,18 +49860,12 @@ module.exports = {
           react_1 = __importStar(__webpack_require__(8)),
           useFocusRequest_1 = __webpack_require__(91),
           useListInput_1 = __webpack_require__(89);
-        exports.ScrollableItems = ({
-          active: active = !0,
-          children: children = [],
-          radius: radius = 10,
-          size: size = 1,
-          onFocusRequest: onFocusRequest
-        }) => {
-          const getKey = child => {
+        exports.ScrollableItems = ({ active: active = !0, children: children = [], radius: radius = 10, size: size = 1, onFocusRequest: onFocusRequest }) => {
+          const getKey = (child) => {
               if (null === child.key) throw new Error('Expected all children to have a key');
               return child.key;
             },
-            keys = react_1.default.Children.map(children, child => getKey(child)),
+            keys = react_1.default.Children.map(children, (child) => getKey(child)),
             initialKey = keys[0],
             [activeKey, setActiveKey] = react_1.useState(initialKey),
             activeIndex = keys.indexOf(activeKey);
@@ -54760,9 +49878,7 @@ module.exports = {
             });
           let min = activeIndex - radius,
             max = activeIndex + radius;
-          max > keys.length && ((min -= max - keys.length), (max = keys.length)),
-            min < 0 && ((max += -min), (min = 0)),
-            max >= keys.length && (max = keys.length - 1);
+          max > keys.length && ((min -= max - keys.length), (max = keys.length)), min < 0 && ((max += -min), (min = 0)), max >= keys.length && (max = keys.length - 1);
           const rendered = [];
           for (let t = min; t <= max; ++t) {
             const key = keys[t],
@@ -54776,19 +49892,11 @@ module.exports = {
                   { marginLeft: 2, marginRight: 2 },
                   activeItem ? react_1.default.createElement(ink_1.Color, { cyan: !0 }, '▶') : ' '
                 ),
-                react_1.default.createElement(
-                  ink_1.Box,
-                  null,
-                  react_1.default.cloneElement(children[t], { active: activeItem })
-                )
+                react_1.default.createElement(ink_1.Box, null, react_1.default.cloneElement(children[t], { active: activeItem }))
               )
             );
           }
-          return react_1.default.createElement(
-            ink_1.Box,
-            { flexDirection: 'column', width: '100%', height: radius * size * 2 + size },
-            rendered
-          );
+          return react_1.default.createElement(ink_1.Box, { flexDirection: 'column', width: '100%', height: radius * size * 2 + size }, rendered);
         };
       },
       function (module, exports, __webpack_require__) {
@@ -54805,8 +49913,7 @@ module.exports = {
             react_1.useEffect(() => {
               if (!active || void 0 === handler) return;
               const cb = (ch, key) => {
-                'tab' === key.name &&
-                  (key.shift ? handler(FocusRequest.BEFORE) : handler(FocusRequest.AFTER));
+                'tab' === key.name && (key.shift ? handler(FocusRequest.BEFORE) : handler(FocusRequest.AFTER));
               };
               return (
                 stdin.on('keypress', cb),
@@ -54824,11 +49931,10 @@ module.exports = {
           Application_1 = __webpack_require__(93);
         function useMinistore(key, initialValue) {
           const ministore = react_1.useContext(Application_1.MinistoreContext);
-          if (null === ministore)
-            throw new Error('Expected this hook to run with a ministore context attached');
+          if (null === ministore) throw new Error('Expected this hook to run with a ministore context attached');
           if (void 0 === key) return ministore.getAll();
           const setValue = react_1.useCallback(
-            newValue => {
+            (newValue) => {
               ministore.set(key, newValue);
             },
             [key, ministore.set]
@@ -54845,8 +49951,7 @@ module.exports = {
           function (mod) {
             if (mod && mod.__esModule) return mod;
             var result = {};
-            if (null != mod)
-              for (var k in mod) Object.hasOwnProperty.call(mod, k) && (result[k] = mod[k]);
+            if (null != mod) for (var k in mod) Object.hasOwnProperty.call(mod, k) && (result[k] = mod[k]);
             return (result.default = mod), result;
           };
         Object.defineProperty(exports, '__esModule', { value: !0 });
@@ -54862,7 +49967,7 @@ module.exports = {
               ministore = react_1.useMemo(
                 () => ({
                   getAll: () => data,
-                  get: key => data.get(key),
+                  get: (key) => data.get(key),
                   set: (key, value) => setData(new Map([...data, [key, value]]))
                 }),
                 [data, setData]
@@ -54880,8 +49985,7 @@ module.exports = {
           function (mod) {
             if (mod && mod.__esModule) return mod;
             var result = {};
-            if (null != mod)
-              for (var k in mod) Object.hasOwnProperty.call(mod, k) && (result[k] = mod[k]);
+            if (null != mod) for (var k in mod) Object.hasOwnProperty.call(mod, k) && (result[k] = mod[k]);
             return (result.default = mod), result;
           };
         Object.defineProperty(exports, '__esModule', { value: !0 });
@@ -54890,7 +49994,7 @@ module.exports = {
           Application_1 = __webpack_require__(93);
         exports.renderForm = async function (UserComponent, props) {
           let returnedValue;
-          const useSubmit = value => {
+          const useSubmit = (value) => {
               const { exit: exit } = react_1.useContext(ink_1.AppContext),
                 { stdin: stdin } = react_1.useContext(ink_1.StdinContext);
               react_1.useEffect(() => {
@@ -54909,10 +50013,7 @@ module.exports = {
               react_1.default.createElement(
                 Application_1.Application,
                 null,
-                react_1.default.createElement(
-                  UserComponent,
-                  Object.assign({}, props, { useSubmit: useSubmit })
-                )
+                react_1.default.createElement(UserComponent, Object.assign({}, props, { useSubmit: useSubmit }))
               )
             );
           return await waitUntilExit(), returnedValue;
@@ -55069,11 +50170,7 @@ module.exports = {
         'use strict';
         function Diff() {}
         function buildValues(diff, components, newString, oldString, useLongestToken) {
-          for (
-            var componentPos = 0, componentLen = components.length, newPos = 0, oldPos = 0;
-            componentPos < componentLen;
-            componentPos++
-          ) {
+          for (var componentPos = 0, componentLen = components.length, newPos = 0, oldPos = 0; componentPos < componentLen; componentPos++) {
             var component = components[componentPos];
             if (component.removed) {
               if (
@@ -55082,8 +50179,7 @@ module.exports = {
                 componentPos && components[componentPos - 1].added)
               ) {
                 var tmp = components[componentPos - 1];
-                (components[componentPos - 1] = components[componentPos]),
-                  (components[componentPos] = tmp);
+                (components[componentPos - 1] = components[componentPos]), (components[componentPos] = tmp);
               }
             } else {
               if (!component.added && useLongestToken) {
@@ -55116,8 +50212,7 @@ module.exports = {
             diff: function diff(oldString, newString) {
               var options = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {},
                 callback = options.callback;
-              'function' == typeof options && ((callback = options), (options = {})),
-                (this.options = options);
+              'function' == typeof options && ((callback = options), (options = {})), (this.options = options);
               var self = this;
               function done(value) {
                 return callback
@@ -55127,23 +50222,16 @@ module.exports = {
                     !0)
                   : value;
               }
-              (oldString = this.castInput(oldString)),
-                (newString = this.castInput(newString)),
-                (oldString = this.removeEmpty(this.tokenize(oldString)));
+              (oldString = this.castInput(oldString)), (newString = this.castInput(newString)), (oldString = this.removeEmpty(this.tokenize(oldString)));
               var newLen = (newString = this.removeEmpty(this.tokenize(newString))).length,
                 oldLen = oldString.length,
                 editLength = 1,
                 maxEditLength = newLen + oldLen,
                 bestPath = [{ newPos: -1, components: [] }],
                 oldPos = this.extractCommon(bestPath[0], newString, oldString, 0);
-              if (bestPath[0].newPos + 1 >= newLen && oldPos + 1 >= oldLen)
-                return done([{ value: this.join(newString), count: newString.length }]);
+              if (bestPath[0].newPos + 1 >= newLen && oldPos + 1 >= oldLen) return done([{ value: this.join(newString), count: newString.length }]);
               function execEditLength() {
-                for (
-                  var diagonalPath = -1 * editLength;
-                  diagonalPath <= editLength;
-                  diagonalPath += 2
-                ) {
+                for (var diagonalPath = -1 * editLength; diagonalPath <= editLength; diagonalPath += 2) {
                   var basePath = void 0,
                     addPath = bestPath[diagonalPath - 1],
                     removePath = bestPath[diagonalPath + 1],
@@ -55154,22 +50242,12 @@ module.exports = {
                   if (canAdd || canRemove) {
                     if (
                       (!canAdd || (canRemove && addPath.newPos < removePath.newPos)
-                        ? ((basePath = clonePath(removePath)),
-                          self.pushComponent(basePath.components, void 0, !0))
-                        : ((basePath = addPath).newPos++,
-                          self.pushComponent(basePath.components, !0, void 0)),
+                        ? ((basePath = clonePath(removePath)), self.pushComponent(basePath.components, void 0, !0))
+                        : ((basePath = addPath).newPos++, self.pushComponent(basePath.components, !0, void 0)),
                       (_oldPos = self.extractCommon(basePath, newString, oldString, diagonalPath)),
                       basePath.newPos + 1 >= newLen && _oldPos + 1 >= oldLen)
                     )
-                      return done(
-                        buildValues(
-                          self,
-                          basePath.components,
-                          newString,
-                          oldString,
-                          self.useLongestToken
-                        )
-                      );
+                      return done(buildValues(self, basePath.components, newString, oldString, self.useLongestToken));
                     bestPath[diagonalPath] = basePath;
                   } else bestPath[diagonalPath] = void 0;
                 }
@@ -55200,28 +50278,17 @@ module.exports = {
             },
             extractCommon: function extractCommon(basePath, newString, oldString, diagonalPath) {
               for (
-                var newLen = newString.length,
-                  oldLen = oldString.length,
-                  newPos = basePath.newPos,
-                  oldPos = newPos - diagonalPath,
-                  commonCount = 0;
-                newPos + 1 < newLen &&
-                oldPos + 1 < oldLen &&
-                this.equals(newString[newPos + 1], oldString[oldPos + 1]);
+                var newLen = newString.length, oldLen = oldString.length, newPos = basePath.newPos, oldPos = newPos - diagonalPath, commonCount = 0;
+                newPos + 1 < newLen && oldPos + 1 < oldLen && this.equals(newString[newPos + 1], oldString[oldPos + 1]);
 
               )
                 newPos++, oldPos++, commonCount++;
-              return (
-                commonCount && basePath.components.push({ count: commonCount }),
-                (basePath.newPos = newPos),
-                oldPos
-              );
+              return commonCount && basePath.components.push({ count: commonCount }), (basePath.newPos = newPos), oldPos;
             },
             equals: function equals(left, right) {
               return this.options.comparator
                 ? this.options.comparator(left, right)
-                : left === right ||
-                    (this.options.ignoreCase && left.toLowerCase() === right.toLowerCase());
+                : left === right || (this.options.ignoreCase && left.toLowerCase() === right.toLowerCase());
             },
             removeEmpty: function removeEmpty(array) {
               for (var ret = [], i = 0; i < array.length; i++) array[i] && ret.push(array[i]);
@@ -55244,9 +50311,7 @@ module.exports = {
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.diffChars = diffChars),
-          (exports.characterDiff = void 0);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.diffChars = diffChars), (exports.characterDiff = void 0);
         var characterDiff = new (_interopRequireDefault(__webpack_require__(98)).default)();
         function diffChars(oldStr, newStr, options) {
           return characterDiff.diff(oldStr, newStr, options);
@@ -55268,10 +50333,7 @@ module.exports = {
           reWhitespace = /\S/,
           wordDiff = new _base.default();
         function diffWords(oldStr, newStr, options) {
-          return (
-            (options = (0, _params.generateOptions)(options, { ignoreWhitespace: !0 })),
-            wordDiff.diff(oldStr, newStr, options)
-          );
+          return (options = (0, _params.generateOptions)(options, { ignoreWhitespace: !0 })), wordDiff.diff(oldStr, newStr, options);
         }
         function diffWordsWithSpace(oldStr, newStr, options) {
           return wordDiff.diff(oldStr, newStr, options);
@@ -55279,20 +50341,12 @@ module.exports = {
         (exports.wordDiff = wordDiff),
           (wordDiff.equals = function (left, right) {
             return (
-              this.options.ignoreCase &&
-                ((left = left.toLowerCase()), (right = right.toLowerCase())),
-              left === right ||
-                (this.options.ignoreWhitespace &&
-                  !reWhitespace.test(left) &&
-                  !reWhitespace.test(right))
+              this.options.ignoreCase && ((left = left.toLowerCase()), (right = right.toLowerCase())),
+              left === right || (this.options.ignoreWhitespace && !reWhitespace.test(left) && !reWhitespace.test(right))
             );
           }),
           (wordDiff.tokenize = function (value) {
-            for (
-              var tokens = value.split(/(\s+|[()[\]{}'"]|\b)/), i = 0;
-              i < tokens.length - 1;
-              i++
-            )
+            for (var tokens = value.split(/(\s+|[()[\]{}'"]|\b)/), i = 0; i < tokens.length - 1; i++)
               !tokens[i + 1] &&
                 tokens[i + 2] &&
                 extendedWordChars.test(tokens[i]) &&
@@ -55305,13 +50359,10 @@ module.exports = {
         'use strict';
         function generateOptions(options, defaults) {
           if ('function' == typeof options) defaults.callback = options;
-          else if (options)
-            for (var name in options)
-              options.hasOwnProperty(name) && (defaults[name] = options[name]);
+          else if (options) for (var name in options) options.hasOwnProperty(name) && (defaults[name] = options[name]);
           return defaults;
         }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.generateOptions = generateOptions);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.generateOptions = generateOptions);
       },
       function (module, exports, __webpack_require__) {
         'use strict';
@@ -55352,9 +50403,7 @@ module.exports = {
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.diffSentences = diffSentences),
-          (exports.sentenceDiff = void 0);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.diffSentences = diffSentences), (exports.sentenceDiff = void 0);
         var sentenceDiff = new (_interopRequireDefault(__webpack_require__(98)).default)();
         function diffSentences(oldStr, newStr, callback) {
           return sentenceDiff.diff(oldStr, newStr, callback);
@@ -55370,9 +50419,7 @@ module.exports = {
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.diffCss = diffCss),
-          (exports.cssDiff = void 0);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.diffCss = diffCss), (exports.cssDiff = void 0);
         var cssDiff = new (_interopRequireDefault(__webpack_require__(98)).default)();
         function diffCss(oldStr, newStr, callback) {
           return cssDiff.diff(oldStr, newStr, callback);
@@ -55384,10 +50431,7 @@ module.exports = {
       },
       function (module, exports, __webpack_require__) {
         'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.diffJson = diffJson),
-          (exports.canonicalize = canonicalize),
-          (exports.jsonDiff = void 0);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.diffJson = diffJson), (exports.canonicalize = canonicalize), (exports.jsonDiff = void 0);
         var _base = _interopRequireDefault(__webpack_require__(98)),
           _line = __webpack_require__(102);
         function _interopRequireDefault(obj) {
@@ -55400,12 +50444,7 @@ module.exports = {
                   return typeof obj;
                 }
               : function _typeof(obj) {
-                  return obj &&
-                    'function' == typeof Symbol &&
-                    obj.constructor === Symbol &&
-                    obj !== Symbol.prototype
-                    ? 'symbol'
-                    : typeof obj;
+                  return obj && 'function' == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? 'symbol' : typeof obj;
                 })(obj);
         }
         var objectPrototypeToString = Object.prototype.toString,
@@ -55415,42 +50454,20 @@ module.exports = {
         }
         function canonicalize(obj, stack, replacementStack, replacer, key) {
           var i, canonicalizedObj;
-          for (
-            stack = stack || [],
-              replacementStack = replacementStack || [],
-              replacer && (obj = replacer(key, obj)),
-              i = 0;
-            i < stack.length;
-            i += 1
-          )
+          for (stack = stack || [], replacementStack = replacementStack || [], replacer && (obj = replacer(key, obj)), i = 0; i < stack.length; i += 1)
             if (stack[i] === obj) return replacementStack[i];
           if ('[object Array]' === objectPrototypeToString.call(obj)) {
-            for (
-              stack.push(obj),
-                canonicalizedObj = new Array(obj.length),
-                replacementStack.push(canonicalizedObj),
-                i = 0;
-              i < obj.length;
-              i += 1
-            )
+            for (stack.push(obj), canonicalizedObj = new Array(obj.length), replacementStack.push(canonicalizedObj), i = 0; i < obj.length; i += 1)
               canonicalizedObj[i] = canonicalize(obj[i], stack, replacementStack, replacer, key);
             return stack.pop(), replacementStack.pop(), canonicalizedObj;
           }
-          if (
-            (obj && obj.toJSON && (obj = obj.toJSON()), 'object' === _typeof(obj) && null !== obj)
-          ) {
+          if ((obj && obj.toJSON && (obj = obj.toJSON()), 'object' === _typeof(obj) && null !== obj)) {
             stack.push(obj), (canonicalizedObj = {}), replacementStack.push(canonicalizedObj);
             var sortedKeys = [],
               _key;
             for (_key in obj) obj.hasOwnProperty(_key) && sortedKeys.push(_key);
             for (sortedKeys.sort(), i = 0; i < sortedKeys.length; i += 1)
-              canonicalizedObj[(_key = sortedKeys[i])] = canonicalize(
-                obj[_key],
-                stack,
-                replacementStack,
-                replacer,
-                _key
-              );
+              canonicalizedObj[(_key = sortedKeys[i])] = canonicalize(obj[_key], stack, replacementStack, replacer, _key);
             stack.pop(), replacementStack.pop();
           } else canonicalizedObj = obj;
           return canonicalizedObj;
@@ -55468,20 +50485,10 @@ module.exports = {
                       return void 0 === v ? undefinedReplacement : v;
                     }
                   : _this$options$stringi;
-            return 'string' == typeof value
-              ? value
-              : JSON.stringify(
-                  canonicalize(value, null, null, stringifyReplacer),
-                  stringifyReplacer,
-                  '  '
-                );
+            return 'string' == typeof value ? value : JSON.stringify(canonicalize(value, null, null, stringifyReplacer), stringifyReplacer, '  ');
           }),
           (jsonDiff.equals = function (left, right) {
-            return _base.default.prototype.equals.call(
-              jsonDiff,
-              left.replace(/,([\r\n])/g, '$1'),
-              right.replace(/,([\r\n])/g, '$1')
-            );
+            return _base.default.prototype.equals.call(jsonDiff, left.replace(/,([\r\n])/g, '$1'), right.replace(/,([\r\n])/g, '$1'));
           });
       },
       function (module, exports, __webpack_require__) {
@@ -55490,9 +50497,7 @@ module.exports = {
         function _interopRequireDefault(obj) {
           return obj && obj.__esModule ? obj : { default: obj };
         }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.diffArrays = diffArrays),
-          (exports.arrayDiff = void 0);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.diffArrays = diffArrays), (exports.arrayDiff = void 0);
         var arrayDiff = new (_interopRequireDefault(__webpack_require__(98)).default)();
         function diffArrays(oldArr, newArr, callback) {
           return arrayDiff.diff(oldArr, newArr, callback);
@@ -55507,9 +50512,7 @@ module.exports = {
       },
       function (module, exports, __webpack_require__) {
         'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.applyPatch = applyPatch),
-          (exports.applyPatches = applyPatches);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.applyPatch = applyPatch), (exports.applyPatches = applyPatches);
         var _parse = __webpack_require__(108),
           _distanceIterator = _interopRequireDefault(__webpack_require__(109));
         function _interopRequireDefault(obj) {
@@ -55517,10 +50520,7 @@ module.exports = {
         }
         function applyPatch(source, uniDiff) {
           var options = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : {};
-          if (
-            ('string' == typeof uniDiff && (uniDiff = (0, _parse.parsePatch)(uniDiff)),
-            Array.isArray(uniDiff))
-          ) {
+          if (('string' == typeof uniDiff && (uniDiff = (0, _parse.parsePatch)(uniDiff)), Array.isArray(uniDiff))) {
             if (uniDiff.length > 1) throw new Error('applyPatch only works with a single input.');
             uniDiff = uniDiff[0];
           }
@@ -55544,11 +50544,7 @@ module.exports = {
                 operation = line.length > 0 ? line[0] : ' ',
                 content = line.length > 0 ? line.substr(1) : line;
               if (' ' === operation || '-' === operation) {
-                if (
-                  !compareLine(toPos + 1, lines[toPos], operation, content) &&
-                  ++errorCount > fuzzFactor
-                )
-                  return !1;
+                if (!compareLine(toPos + 1, lines[toPos], operation, content) && ++errorCount > fuzzFactor) return !1;
                 toPos++;
               }
             }
@@ -55582,13 +50578,10 @@ module.exports = {
                 delimiter = _hunk.linedelimiters[j];
               if (' ' === operation) _toPos++;
               else if ('-' === operation) lines.splice(_toPos, 1), delimiters.splice(_toPos, 1);
-              else if ('+' === operation)
-                lines.splice(_toPos, 0, content), delimiters.splice(_toPos, 0, delimiter), _toPos++;
+              else if ('+' === operation) lines.splice(_toPos, 0, content), delimiters.splice(_toPos, 0, delimiter), _toPos++;
               else if ('\\' === operation) {
                 var previousOperation = _hunk.lines[j - 1] ? _hunk.lines[j - 1][0] : null;
-                '+' === previousOperation
-                  ? (removeEOFNL = !0)
-                  : '-' === previousOperation && (addEOFNL = !0);
+                '+' === previousOperation ? (removeEOFNL = !0) : '-' === previousOperation && (addEOFNL = !0);
               }
             }
           }
@@ -55631,17 +50624,12 @@ module.exports = {
               var header = /^(?:Index:|diff(?: -r \w+)+)\s+(.+?)\s*$/.exec(line);
               header && (index.index = header[1]), i++;
             }
-            for (
-              parseFileHeader(index), parseFileHeader(index), index.hunks = [];
-              i < diffstr.length;
-
-            ) {
+            for (parseFileHeader(index), parseFileHeader(index), index.hunks = []; i < diffstr.length; ) {
               var _line = diffstr[i];
               if (/^(Index:|diff|\-\-\-|\+\+\+)\s/.test(_line)) break;
               if (/^@@/.test(_line)) index.hunks.push(parseHunk());
               else {
-                if (_line && options.strict)
-                  throw new Error('Unknown line ' + (i + 1) + ' ' + JSON.stringify(_line));
+                if (_line && options.strict) throw new Error('Unknown line ' + (i + 1) + ' ' + JSON.stringify(_line));
                 i++;
               }
             }
@@ -55674,47 +50662,25 @@ module.exports = {
                 addCount = 0,
                 removeCount = 0;
               i < diffstr.length &&
-              !(
-                0 === diffstr[i].indexOf('--- ') &&
-                i + 2 < diffstr.length &&
-                0 === diffstr[i + 1].indexOf('+++ ') &&
-                0 === diffstr[i + 2].indexOf('@@')
-              );
+              !(0 === diffstr[i].indexOf('--- ') && i + 2 < diffstr.length && 0 === diffstr[i + 1].indexOf('+++ ') && 0 === diffstr[i + 2].indexOf('@@'));
               i++
             ) {
-              var operation =
-                0 == diffstr[i].length && i != diffstr.length - 1 ? ' ' : diffstr[i][0];
-              if ('+' !== operation && '-' !== operation && ' ' !== operation && '\\' !== operation)
-                break;
+              var operation = 0 == diffstr[i].length && i != diffstr.length - 1 ? ' ' : diffstr[i][0];
+              if ('+' !== operation && '-' !== operation && ' ' !== operation && '\\' !== operation) break;
               hunk.lines.push(diffstr[i]),
                 hunk.linedelimiters.push(delimiters[i] || '\n'),
-                '+' === operation
-                  ? addCount++
-                  : '-' === operation
-                  ? removeCount++
-                  : ' ' === operation && (addCount++, removeCount++);
+                '+' === operation ? addCount++ : '-' === operation ? removeCount++ : ' ' === operation && (addCount++, removeCount++);
             }
-            if (
-              (addCount || 1 !== hunk.newLines || (hunk.newLines = 0),
-              removeCount || 1 !== hunk.oldLines || (hunk.oldLines = 0),
-              options.strict)
-            ) {
-              if (addCount !== hunk.newLines)
-                throw new Error(
-                  'Added line count did not match for hunk at line ' + (chunkHeaderIndex + 1)
-                );
-              if (removeCount !== hunk.oldLines)
-                throw new Error(
-                  'Removed line count did not match for hunk at line ' + (chunkHeaderIndex + 1)
-                );
+            if ((addCount || 1 !== hunk.newLines || (hunk.newLines = 0), removeCount || 1 !== hunk.oldLines || (hunk.oldLines = 0), options.strict)) {
+              if (addCount !== hunk.newLines) throw new Error('Added line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
+              if (removeCount !== hunk.oldLines) throw new Error('Removed line count did not match for hunk at line ' + (chunkHeaderIndex + 1));
             }
             return hunk;
           }
           for (; i < diffstr.length; ) parseIndex();
           return list;
         }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.parsePatch = parsePatch);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.parsePatch = parsePatch);
       },
       function (module, exports, __webpack_require__) {
         'use strict';
@@ -55725,29 +50691,18 @@ module.exports = {
             localOffset = 1;
           return function iterator() {
             if (wantForward && !forwardExhausted) {
-              if (
-                (backwardExhausted ? localOffset++ : (wantForward = !1),
-                start + localOffset <= maxLine)
-              )
-                return localOffset;
+              if ((backwardExhausted ? localOffset++ : (wantForward = !1), start + localOffset <= maxLine)) return localOffset;
               forwardExhausted = !0;
             }
             if (!backwardExhausted)
-              return (
-                forwardExhausted || (wantForward = !0),
-                minLine <= start - localOffset
-                  ? -localOffset++
-                  : ((backwardExhausted = !0), iterator())
-              );
+              return forwardExhausted || (wantForward = !0), minLine <= start - localOffset ? -localOffset++ : ((backwardExhausted = !0), iterator());
           };
         }
         Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.default = _default);
       },
       function (module, exports, __webpack_require__) {
         'use strict';
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.calcLineCount = calcLineCount),
-          (exports.merge = merge);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.calcLineCount = calcLineCount), (exports.merge = merge);
         var _create = __webpack_require__(111),
           _parse = __webpack_require__(108),
           _array = __webpack_require__(112);
@@ -55758,11 +50713,7 @@ module.exports = {
           throw new TypeError('Invalid attempt to spread non-iterable instance');
         }
         function _iterableToArray(iter) {
-          if (
-            Symbol.iterator in Object(iter) ||
-            '[object Arguments]' === Object.prototype.toString.call(iter)
-          )
-            return Array.from(iter);
+          if (Symbol.iterator in Object(iter) || '[object Arguments]' === Object.prototype.toString.call(iter)) return Array.from(iter);
         }
         function _arrayWithoutHoles(arr) {
           if (Array.isArray(arr)) {
@@ -55774,8 +50725,7 @@ module.exports = {
           var _calcOldNewLineCount = calcOldNewLineCount(hunk.lines),
             oldLines = _calcOldNewLineCount.oldLines,
             newLines = _calcOldNewLineCount.newLines;
-          void 0 !== oldLines ? (hunk.oldLines = oldLines) : delete hunk.oldLines,
-            void 0 !== newLines ? (hunk.newLines = newLines) : delete hunk.newLines;
+          void 0 !== oldLines ? (hunk.oldLines = oldLines) : delete hunk.oldLines, void 0 !== newLines ? (hunk.newLines = newLines) : delete hunk.newLines;
         }
         function merge(mine, theirs, base) {
           (mine = loadPatch(mine, base)), (theirs = loadPatch(theirs, base));
@@ -55788,48 +50738,28 @@ module.exports = {
                     (ret.newFileName = selectField(ret, mine.newFileName, theirs.newFileName)),
                     (ret.oldHeader = selectField(ret, mine.oldHeader, theirs.oldHeader)),
                     (ret.newHeader = selectField(ret, mine.newHeader, theirs.newHeader)))
-                  : ((ret.oldFileName = mine.oldFileName),
-                    (ret.newFileName = mine.newFileName),
-                    (ret.oldHeader = mine.oldHeader),
-                    (ret.newHeader = mine.newHeader))
+                  : ((ret.oldFileName = mine.oldFileName), (ret.newFileName = mine.newFileName), (ret.oldHeader = mine.oldHeader), (ret.newHeader = mine.newHeader))
                 : ((ret.oldFileName = theirs.oldFileName || mine.oldFileName),
                   (ret.newFileName = theirs.newFileName || mine.newFileName),
                   (ret.oldHeader = theirs.oldHeader || mine.oldHeader),
                   (ret.newHeader = theirs.newHeader || mine.newHeader))),
             (ret.hunks = []);
-          for (
-            var mineIndex = 0, theirsIndex = 0, mineOffset = 0, theirsOffset = 0;
-            mineIndex < mine.hunks.length || theirsIndex < theirs.hunks.length;
-
-          ) {
+          for (var mineIndex = 0, theirsIndex = 0, mineOffset = 0, theirsOffset = 0; mineIndex < mine.hunks.length || theirsIndex < theirs.hunks.length; ) {
             var mineCurrent = mine.hunks[mineIndex] || { oldStart: 1 / 0 },
               theirsCurrent = theirs.hunks[theirsIndex] || { oldStart: 1 / 0 };
             if (hunkBefore(mineCurrent, theirsCurrent))
-              ret.hunks.push(cloneHunk(mineCurrent, mineOffset)),
-                mineIndex++,
-                (theirsOffset += mineCurrent.newLines - mineCurrent.oldLines);
+              ret.hunks.push(cloneHunk(mineCurrent, mineOffset)), mineIndex++, (theirsOffset += mineCurrent.newLines - mineCurrent.oldLines);
             else if (hunkBefore(theirsCurrent, mineCurrent))
-              ret.hunks.push(cloneHunk(theirsCurrent, theirsOffset)),
-                theirsIndex++,
-                (mineOffset += theirsCurrent.newLines - theirsCurrent.oldLines);
+              ret.hunks.push(cloneHunk(theirsCurrent, theirsOffset)), theirsIndex++, (mineOffset += theirsCurrent.newLines - theirsCurrent.oldLines);
             else {
               var mergedHunk = {
                 oldStart: Math.min(mineCurrent.oldStart, theirsCurrent.oldStart),
                 oldLines: 0,
-                newStart: Math.min(
-                  mineCurrent.newStart + mineOffset,
-                  theirsCurrent.oldStart + theirsOffset
-                ),
+                newStart: Math.min(mineCurrent.newStart + mineOffset, theirsCurrent.oldStart + theirsOffset),
                 newLines: 0,
                 lines: []
               };
-              mergeLines(
-                mergedHunk,
-                mineCurrent.oldStart,
-                mineCurrent.lines,
-                theirsCurrent.oldStart,
-                theirsCurrent.lines
-              ),
+              mergeLines(mergedHunk, mineCurrent.oldStart, mineCurrent.lines, theirsCurrent.oldStart, theirsCurrent.lines),
                 theirsIndex++,
                 mineIndex++,
                 ret.hunks.push(mergedHunk);
@@ -55839,8 +50769,7 @@ module.exports = {
         }
         function loadPatch(param, base) {
           if ('string' == typeof param) {
-            if (/^@@/m.test(param) || /^Index:/m.test(param))
-              return (0, _parse.parsePatch)(param)[0];
+            if (/^@@/m.test(param) || /^Index:/m.test(param)) return (0, _parse.parsePatch)(param)[0];
             if (!base) throw new Error('Must provide a base reference or pass in a patch');
             return (0, _create.structuredPatch)(void 0, void 0, base, param);
           }
@@ -55867,29 +50796,16 @@ module.exports = {
         function mergeLines(hunk, mineOffset, mineLines, theirOffset, theirLines) {
           var mine = { offset: mineOffset, lines: mineLines, index: 0 },
             their = { offset: theirOffset, lines: theirLines, index: 0 };
-          for (
-            insertLeading(hunk, mine, their), insertLeading(hunk, their, mine);
-            mine.index < mine.lines.length && their.index < their.lines.length;
-
-          ) {
+          for (insertLeading(hunk, mine, their), insertLeading(hunk, their, mine); mine.index < mine.lines.length && their.index < their.lines.length; ) {
             var mineCurrent = mine.lines[mine.index],
               theirCurrent = their.lines[their.index];
-            if (
-              ('-' !== mineCurrent[0] && '+' !== mineCurrent[0]) ||
-              ('-' !== theirCurrent[0] && '+' !== theirCurrent[0])
-            )
+            if (('-' !== mineCurrent[0] && '+' !== mineCurrent[0]) || ('-' !== theirCurrent[0] && '+' !== theirCurrent[0]))
               if ('+' === mineCurrent[0] && ' ' === theirCurrent[0]) {
                 var _hunk$lines;
-                (_hunk$lines = hunk.lines).push.apply(
-                  _hunk$lines,
-                  _toConsumableArray(collectChange(mine))
-                );
+                (_hunk$lines = hunk.lines).push.apply(_hunk$lines, _toConsumableArray(collectChange(mine)));
               } else if ('+' === theirCurrent[0] && ' ' === mineCurrent[0]) {
                 var _hunk$lines2;
-                (_hunk$lines2 = hunk.lines).push.apply(
-                  _hunk$lines2,
-                  _toConsumableArray(collectChange(their))
-                );
+                (_hunk$lines2 = hunk.lines).push.apply(_hunk$lines2, _toConsumableArray(collectChange(their)));
               } else
                 '-' === mineCurrent[0] && ' ' === theirCurrent[0]
                   ? removal(hunk, mine, their)
@@ -55907,28 +50823,13 @@ module.exports = {
             theirChanges = collectChange(their);
           if (allRemoves(myChanges) && allRemoves(theirChanges)) {
             var _hunk$lines3, _hunk$lines4;
-            if (
-              (0, _array.arrayStartsWith)(myChanges, theirChanges) &&
-              skipRemoveSuperset(their, myChanges, myChanges.length - theirChanges.length)
-            )
-              return void (_hunk$lines3 = hunk.lines).push.apply(
-                _hunk$lines3,
-                _toConsumableArray(myChanges)
-              );
-            if (
-              (0, _array.arrayStartsWith)(theirChanges, myChanges) &&
-              skipRemoveSuperset(mine, theirChanges, theirChanges.length - myChanges.length)
-            )
-              return void (_hunk$lines4 = hunk.lines).push.apply(
-                _hunk$lines4,
-                _toConsumableArray(theirChanges)
-              );
+            if ((0, _array.arrayStartsWith)(myChanges, theirChanges) && skipRemoveSuperset(their, myChanges, myChanges.length - theirChanges.length))
+              return void (_hunk$lines3 = hunk.lines).push.apply(_hunk$lines3, _toConsumableArray(myChanges));
+            if ((0, _array.arrayStartsWith)(theirChanges, myChanges) && skipRemoveSuperset(mine, theirChanges, theirChanges.length - myChanges.length))
+              return void (_hunk$lines4 = hunk.lines).push.apply(_hunk$lines4, _toConsumableArray(theirChanges));
           } else if ((0, _array.arrayEqual)(myChanges, theirChanges)) {
             var _hunk$lines5;
-            return void (_hunk$lines5 = hunk.lines).push.apply(
-              _hunk$lines5,
-              _toConsumableArray(myChanges)
-            );
+            return void (_hunk$lines5 = hunk.lines).push.apply(_hunk$lines5, _toConsumableArray(myChanges));
           }
           conflict(hunk, myChanges, theirChanges);
         }
@@ -55937,10 +50838,7 @@ module.exports = {
             theirChanges = collectContext(their, myChanges),
             _hunk$lines6;
           theirChanges.merged
-            ? (_hunk$lines6 = hunk.lines).push.apply(
-                _hunk$lines6,
-                _toConsumableArray(theirChanges.merged)
-              )
+            ? (_hunk$lines6 = hunk.lines).push.apply(_hunk$lines6, _toConsumableArray(theirChanges.merged))
             : conflict(hunk, swap ? theirChanges : myChanges, swap ? myChanges : theirChanges);
         }
         function conflict(hunk, mine, their) {
@@ -55959,14 +50857,9 @@ module.exports = {
           }
         }
         function collectChange(state) {
-          for (
-            var ret = [], operation = state.lines[state.index][0];
-            state.index < state.lines.length;
-
-          ) {
+          for (var ret = [], operation = state.lines[state.index][0]; state.index < state.lines.length; ) {
             var line = state.lines[state.index];
-            if (('-' === operation && '+' === line[0] && (operation = '+'), operation !== line[0]))
-              break;
+            if (('-' === operation && '+' === line[0] && (operation = '+'), operation !== line[0])) break;
             ret.push(line), state.index++;
           }
           return ret;
@@ -55980,23 +50873,11 @@ module.exports = {
             var change = state.lines[state.index],
               match = matchChanges[matchIndex];
             if ('+' === match[0]) break;
-            if (
-              ((contextChanges = contextChanges || ' ' !== change[0]),
-              merged.push(match),
-              matchIndex++,
-              '+' === change[0])
-            )
-              for (conflicted = !0; '+' === change[0]; )
-                changes.push(change), (change = state.lines[++state.index]);
-            match.substr(1) === change.substr(1)
-              ? (changes.push(change), state.index++)
-              : (conflicted = !0);
+            if (((contextChanges = contextChanges || ' ' !== change[0]), merged.push(match), matchIndex++, '+' === change[0]))
+              for (conflicted = !0; '+' === change[0]; ) changes.push(change), (change = state.lines[++state.index]);
+            match.substr(1) === change.substr(1) ? (changes.push(change), state.index++) : (conflicted = !0);
           }
-          if (
-            ('+' === (matchChanges[matchIndex] || '')[0] && contextChanges && (conflicted = !0),
-            conflicted)
-          )
-            return changes;
+          if (('+' === (matchChanges[matchIndex] || '')[0] && contextChanges && (conflicted = !0), conflicted)) return changes;
           for (; matchIndex < matchChanges.length; ) merged.push(matchChanges[matchIndex++]);
           return { merged: merged, changes: changes };
         }
@@ -56020,14 +50901,8 @@ module.exports = {
               if ('string' != typeof line) {
                 var myCount = calcOldNewLineCount(line.mine),
                   theirCount = calcOldNewLineCount(line.theirs);
-                void 0 !== oldLines &&
-                  (myCount.oldLines === theirCount.oldLines
-                    ? (oldLines += myCount.oldLines)
-                    : (oldLines = void 0)),
-                  void 0 !== newLines &&
-                    (myCount.newLines === theirCount.newLines
-                      ? (newLines += myCount.newLines)
-                      : (newLines = void 0));
+                void 0 !== oldLines && (myCount.oldLines === theirCount.oldLines ? (oldLines += myCount.oldLines) : (oldLines = void 0)),
+                  void 0 !== newLines && (myCount.newLines === theirCount.newLines ? (newLines += myCount.newLines) : (newLines = void 0));
               } else void 0 === newLines || ('+' !== line[0] && ' ' !== line[0]) || newLines++, void 0 === oldLines || ('-' !== line[0] && ' ' !== line[0]) || oldLines++;
             }),
             { oldLines: oldLines, newLines: newLines }
@@ -56048,11 +50923,7 @@ module.exports = {
           throw new TypeError('Invalid attempt to spread non-iterable instance');
         }
         function _iterableToArray(iter) {
-          if (
-            Symbol.iterator in Object(iter) ||
-            '[object Arguments]' === Object.prototype.toString.call(iter)
-          )
-            return Array.from(iter);
+          if (Symbol.iterator in Object(iter) || '[object Arguments]' === Object.prototype.toString.call(iter)) return Array.from(iter);
         }
         function _arrayWithoutHoles(arr) {
           if (Array.isArray(arr)) {
@@ -56060,15 +50931,7 @@ module.exports = {
             return arr2;
           }
         }
-        function structuredPatch(
-          oldFileName,
-          newFileName,
-          oldStr,
-          newStr,
-          oldHeader,
-          newHeader,
-          options
-        ) {
+        function structuredPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options) {
           options || (options = {}), void 0 === options.context && (options.context = 4);
           var diff = (0, _line.diffLines)(oldStr, newStr, options);
           function contextLines(lines) {
@@ -56094,10 +50957,7 @@ module.exports = {
                     (oldRangeStart = oldLine),
                       (newRangeStart = newLine),
                       prev &&
-                        ((curRange =
-                          options.context > 0
-                            ? contextLines(prev.lines.slice(-options.context))
-                            : []),
+                        ((curRange = options.context > 0 ? contextLines(prev.lines.slice(-options.context)) : []),
                         (oldRangeStart -= curRange.length),
                         (newRangeStart -= curRange.length));
                   }
@@ -56114,17 +50974,11 @@ module.exports = {
                   if (oldRangeStart)
                     if (lines.length <= 2 * options.context && i < diff.length - 2) {
                       var _curRange2;
-                      (_curRange2 = curRange).push.apply(
-                        _curRange2,
-                        _toConsumableArray(contextLines(lines))
-                      );
+                      (_curRange2 = curRange).push.apply(_curRange2, _toConsumableArray(contextLines(lines)));
                     } else {
                       var _curRange3,
                         contextSize = Math.min(lines.length, options.context);
-                      (_curRange3 = curRange).push.apply(
-                        _curRange3,
-                        _toConsumableArray(contextLines(lines.slice(0, contextSize)))
-                      );
+                      (_curRange3 = curRange).push.apply(_curRange3, _toConsumableArray(contextLines(lines.slice(0, contextSize))));
                       var hunk = {
                         oldStart: oldRangeStart,
                         oldLines: oldLine - oldRangeStart + contextSize,
@@ -56136,11 +50990,8 @@ module.exports = {
                         var oldEOFNewline = /\n$/.test(oldStr),
                           newEOFNewline = /\n$/.test(newStr),
                           noNlBeforeAdds = 0 == lines.length && curRange.length > hunk.oldLines;
-                        !oldEOFNewline &&
-                          noNlBeforeAdds &&
-                          curRange.splice(hunk.oldLines, 0, '\\ No newline at end of file'),
-                          ((oldEOFNewline || noNlBeforeAdds) && newEOFNewline) ||
-                            curRange.push('\\ No newline at end of file');
+                        !oldEOFNewline && noNlBeforeAdds && curRange.splice(hunk.oldLines, 0, '\\ No newline at end of file'),
+                          ((oldEOFNewline || noNlBeforeAdds) && newEOFNewline) || curRange.push('\\ No newline at end of file');
                       }
                       hunks.push(hunk), (oldRangeStart = 0), (newRangeStart = 0), (curRange = []);
                     }
@@ -56160,60 +51011,21 @@ module.exports = {
             hunks: hunks
           };
         }
-        function createTwoFilesPatch(
-          oldFileName,
-          newFileName,
-          oldStr,
-          newStr,
-          oldHeader,
-          newHeader,
-          options
-        ) {
-          var diff = structuredPatch(
-              oldFileName,
-              newFileName,
-              oldStr,
-              newStr,
-              oldHeader,
-              newHeader,
-              options
-            ),
+        function createTwoFilesPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options) {
+          var diff = structuredPatch(oldFileName, newFileName, oldStr, newStr, oldHeader, newHeader, options),
             ret = [];
           oldFileName == newFileName && ret.push('Index: ' + oldFileName),
             ret.push('==================================================================='),
-            ret.push(
-              '--- ' + diff.oldFileName + (void 0 === diff.oldHeader ? '' : '\t' + diff.oldHeader)
-            ),
-            ret.push(
-              '+++ ' + diff.newFileName + (void 0 === diff.newHeader ? '' : '\t' + diff.newHeader)
-            );
+            ret.push('--- ' + diff.oldFileName + (void 0 === diff.oldHeader ? '' : '\t' + diff.oldHeader)),
+            ret.push('+++ ' + diff.newFileName + (void 0 === diff.newHeader ? '' : '\t' + diff.newHeader));
           for (var i = 0; i < diff.hunks.length; i++) {
             var hunk = diff.hunks[i];
-            ret.push(
-              '@@ -' +
-                hunk.oldStart +
-                ',' +
-                hunk.oldLines +
-                ' +' +
-                hunk.newStart +
-                ',' +
-                hunk.newLines +
-                ' @@'
-            ),
-              ret.push.apply(ret, hunk.lines);
+            ret.push('@@ -' + hunk.oldStart + ',' + hunk.oldLines + ' +' + hunk.newStart + ',' + hunk.newLines + ' @@'), ret.push.apply(ret, hunk.lines);
           }
           return ret.join('\n') + '\n';
         }
         function createPatch(fileName, oldStr, newStr, oldHeader, newHeader, options) {
-          return createTwoFilesPatch(
-            fileName,
-            fileName,
-            oldStr,
-            newStr,
-            oldHeader,
-            newHeader,
-            options
-          );
+          return createTwoFilesPatch(fileName, fileName, oldStr, newStr, oldHeader, newHeader, options);
         }
       },
       function (module, exports, __webpack_require__) {
@@ -56226,20 +51038,16 @@ module.exports = {
           for (var i = 0; i < start.length; i++) if (start[i] !== array[i]) return !1;
           return !0;
         }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.arrayEqual = arrayEqual),
-          (exports.arrayStartsWith = arrayStartsWith);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.arrayEqual = arrayEqual), (exports.arrayStartsWith = arrayStartsWith);
       },
       function (module, exports, __webpack_require__) {
         'use strict';
         function convertChangesToDMP(changes) {
           for (var ret = [], change, operation, i = 0; i < changes.length; i++)
-            (operation = (change = changes[i]).added ? 1 : change.removed ? -1 : 0),
-              ret.push([operation, change.value]);
+            (operation = (change = changes[i]).added ? 1 : change.removed ? -1 : 0), ret.push([operation, change.value]);
           return ret;
         }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.convertChangesToDMP = convertChangesToDMP);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.convertChangesToDMP = convertChangesToDMP);
       },
       function (module, exports, __webpack_require__) {
         'use strict';
@@ -56254,13 +51062,9 @@ module.exports = {
         }
         function escapeHTML(s) {
           var n = s;
-          return (n = (n = (n = (n = n.replace(/&/g, '&amp;')).replace(/</g, '&lt;')).replace(
-            />/g,
-            '&gt;'
-          )).replace(/"/g, '&quot;'));
+          return (n = (n = (n = (n = n.replace(/&/g, '&amp;')).replace(/</g, '&lt;')).replace(/>/g, '&gt;')).replace(/"/g, '&quot;'));
         }
-        Object.defineProperty(exports, '__esModule', { value: !0 }),
-          (exports.convertChangesToXML = convertChangesToXML);
+        Object.defineProperty(exports, '__esModule', { value: !0 }), (exports.convertChangesToXML = convertChangesToXML);
       },
       function (module, exports) {
         module.exports = require('semver');

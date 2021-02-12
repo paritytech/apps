@@ -110,11 +110,7 @@ async function signAndSend(
   }
 }
 
-async function sendUnsigned(
-  queueSetTxStatus: QueueTxMessageSetStatus,
-  currentItem: QueueTx,
-  tx: SubmittableExtrinsic<'promise'>
-): Promise<void> {
+async function sendUnsigned(queueSetTxStatus: QueueTxMessageSetStatus, currentItem: QueueTx, tx: SubmittableExtrinsic<'promise'>): Promise<void> {
   currentItem.txStartCb && currentItem.txStartCb();
 
   try {
@@ -151,9 +147,7 @@ async function signAsync(
   return null;
 }
 
-function signQrPayload(
-  setQrState: (state: QrState) => void
-): (payload: SignerPayloadJSON) => Promise<SignerResult> {
+function signQrPayload(setQrState: (state: QrState) => void): (payload: SignerPayloadJSON) => Promise<SignerResult> {
   return (payload: SignerPayloadJSON): Promise<SignerResult> =>
     new Promise((resolve, reject): void => {
       // limit size of the transaction
@@ -174,11 +168,7 @@ function signQrPayload(
     });
 }
 
-async function wrapTx(
-  api: ApiPromise,
-  currentItem: QueueTx,
-  { isMultiCall, multiRoot, proxyRoot, signAddress }: AddressProxy
-): Promise<SubmittableExtrinsic<'promise'>> {
+async function wrapTx(api: ApiPromise, currentItem: QueueTx, { isMultiCall, multiRoot, proxyRoot, signAddress }: AddressProxy): Promise<SubmittableExtrinsic<'promise'>> {
   let tx = currentItem.extrinsic as SubmittableExtrinsic<'promise'>;
 
   if (proxyRoot) {
@@ -187,13 +177,10 @@ async function wrapTx(
 
   if (multiRoot) {
     const multiModule = api.tx.multisig ? 'multisig' : 'utility';
-    const info = await api.query[multiModule].multisigs<Option<Multisig>>(
-      multiRoot,
-      tx.method.hash
-    );
+    const info = await api.query[multiModule].multisigs<Option<Multisig>>(multiRoot, tx.method.hash);
     const { weight } = await tx.paymentInfo(multiRoot);
     const { threshold, who } = extractExternal(multiRoot);
-    const others = who.filter(w => w !== signAddress);
+    const others = who.filter((w) => w !== signAddress);
     let timepoint: Timepoint | null = null;
 
     if (info.isSome) {
@@ -203,14 +190,7 @@ async function wrapTx(
     tx = isMultiCall
       ? api.tx[multiModule].asMulti.meta.args.length === 6
         ? // We are doing toHex here since we have a Vec<u8> input
-          api.tx[multiModule].asMulti(
-            threshold,
-            others,
-            timepoint,
-            tx.method.toHex(),
-            false,
-            weight
-          )
+          api.tx[multiModule].asMulti(threshold, others, timepoint, tx.method.toHex(), false, weight)
         : // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           // @ts-ignore
           api.tx[multiModule].asMulti(threshold, others, timepoint, tx.method)
@@ -327,8 +307,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
   }, [currentItem, queueSetTxStatus]);
 
   const _unlock = useCallback((): boolean => {
-    const passwordError =
-      senderInfo.signAddress && flags.isUnlockable ? unlockAccount(senderInfo) : null;
+    const passwordError = senderInfo.signAddress && flags.isUnlockable ? unlockAccount(senderInfo) : null;
 
     setPasswordError(passwordError);
 
@@ -339,9 +318,7 @@ export default function useSendTx(source: QueueTx | null, requestAddress: string
     if (_unlock() && senderInfo.signAddress && currentItem?.payload) {
       const { id, payload, signerCb = NOOP } = currentItem;
       const pair = keyring.getPair(senderInfo.signAddress);
-      const result = registry
-        .createType('ExtrinsicPayload', payload, { version: payload.version })
-        .sign(pair);
+      const result = registry.createType('ExtrinsicPayload', payload, { version: payload.version }).sign(pair);
 
       signerCb(id, { id, ...result });
       queueSetTxStatus(id, 'completed');

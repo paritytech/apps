@@ -32,21 +32,14 @@ export type RenderFn = (value?: any) => React.ReactNode;
 
 export type StorageTransform = (input: any, index: number) => any | null;
 
-export type HOC = (
-  Component: React.ComponentType<any>,
-  defaultProps?: DefaultProps,
-  render?: RenderFn
-) => React.ComponentType<any>;
+export type HOC = (Component: React.ComponentType<any>, defaultProps?: DefaultProps, render?: RenderFn) => React.ComponentType<any>;
 
 export interface ApiMethod {
   name: string;
   section?: string;
 }
 
-export type ComponentRenderer = (
-  render: RenderFn,
-  defaultProps?: DefaultProps
-) => React.ComponentType<any>;
+export type ComponentRenderer = (render: RenderFn, defaultProps?: DefaultProps) => React.ComponentType<any>;
 
 export type OmitProps<T, K> = Pick<T, Exclude<keyof T, K>>;
 export type SubtractProps<T, K> = OmitProps<T, keyof K>;

@@ -23,17 +23,7 @@ interface Options {
 }
 
 function EnumParam(props: Props): React.ReactElement<Props> {
-  const {
-    className = '',
-    defaultValue,
-    isDisabled,
-    isError,
-    label,
-    onChange,
-    overrides,
-    type,
-    withLabel
-  } = props;
+  const { className = '', defaultValue, isDisabled, isError, label, onChange, overrides, type, withLabel } = props;
   const [current, setCurrent] = useState<ParamDef[] | null>(null);
   const [initialValue, setInitialValue] = useState<string | null>(null);
   const [{ options, subTypes }, setOptions] = useState<Options>({ options: [], subTypes: [] });

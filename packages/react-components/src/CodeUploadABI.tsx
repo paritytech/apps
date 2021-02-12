@@ -23,15 +23,7 @@ function CodeUploadABI({ codeHash, label, onSave }: Props): React.ReactElement<P
   const { t } = useTranslation();
   const showNotification = useNotification();
   const [isOpen, toggleIsOpen] = useToggle();
-  const {
-    abi,
-    errorText,
-    isAbiError,
-    isAbiSupplied,
-    isAbiValid,
-    onChangeAbi,
-    onRemoveAbi
-  } = useAbi();
+  const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
 
   const _onSave = useCallback((): void => {
@@ -67,12 +59,7 @@ function CodeUploadABI({ codeHash, label, onSave }: Props): React.ReactElement<P
           />
         </Modal.Content>
         <Modal.Actions onCancel={toggleIsOpen}>
-          <Button
-            isDisabled={!abiFile || !isAbiValid}
-            isPrimary
-            label={t<string>('Save')}
-            onClick={_onSave}
-          />
+          <Button isDisabled={!abiFile || !isAbiValid} isPrimary label={t<string>('Save')} onClick={_onSave} />
         </Modal.Actions>
       </Modal>
     </>

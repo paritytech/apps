@@ -5,26 +5,11 @@ import { Input } from '@canvas-ui/react-components';
 import React, { useCallback, useState } from 'react';
 
 import { TypeDef } from '@polkadot/types/types';
-import {
-  compactAddLength,
-  hexToU8a,
-  isAscii,
-  isHex,
-  isU8a,
-  stringToU8a,
-  u8aToHex,
-  u8aToString
-} from '@polkadot/util';
+import { compactAddLength, hexToU8a, isAscii, isHex, isU8a, stringToU8a, u8aToHex, u8aToString } from '@polkadot/util';
 import { decodeAddress } from '@polkadot/util-crypto';
 
 import { useTranslation } from '../translate';
-import {
-  RawParam,
-  RawParamOnChange,
-  RawParamOnEnter,
-  RawParamOnEscape,
-  Size
-} from '@canvas-ui/react-components/types';
+import { RawParam, RawParamOnChange, RawParamOnEnter, RawParamOnEscape, Size } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
 interface Props {
@@ -89,13 +74,7 @@ function BaseBytes({
 }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [defaultValue] = useState(
-    value
-      ? isDisabled && isU8a(value) && isAscii(value)
-        ? u8aToString(value)
-        : isHex(value)
-        ? value
-        : u8aToHex(value as Uint8Array, isDisabled ? 256 : -1)
-      : undefined
+    value ? (isDisabled && isU8a(value) && isAscii(value) ? u8aToString(value) : isHex(value) ? value : u8aToHex(value as Uint8Array, isDisabled ? 256 : -1)) : undefined
   );
   const [isValid, setIsValid] = useState(false);
 
@@ -103,10 +82,7 @@ function BaseBytes({
     (hex: string): void => {
       let [isValid, value] = convertInput(hex);
 
-      isValid =
-        isValid &&
-        validate(value) &&
-        (length !== -1 ? value.length === length : value.length !== 0);
+      isValid = isValid && validate(value) && (length !== -1 ? value.length === length : value.length !== 0);
 
       if (withLength && isValid) {
         value = compactAddLength(value);

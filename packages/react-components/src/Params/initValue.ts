@@ -13,7 +13,7 @@ export default function getInitValue(def: TypeDef): unknown {
   if (def.info === TypeDefInfo.Vec) {
     return [getInitValue(def.sub as TypeDef)];
   } else if (def.info === TypeDefInfo.Tuple) {
-    return Array.isArray(def.sub) ? def.sub.map(def => getInitValue(def)) : [];
+    return Array.isArray(def.sub) ? def.sub.map((def) => getInitValue(def)) : [];
   } else if (def.info === TypeDefInfo.Struct) {
     return Array.isArray(def.sub)
       ? def.sub.reduce((result: Record<string, unknown>, def): Record<string, unknown> => {
@@ -26,9 +26,7 @@ export default function getInitValue(def: TypeDef): unknown {
     return Array.isArray(def.sub) ? { [def.sub[0].name as string]: getInitValue(def.sub[0]) } : {};
   }
 
-  const type = [TypeDefInfo.Compact, TypeDefInfo.Option].includes(def.info)
-    ? (def.sub as TypeDef).type
-    : def.type;
+  const type = [TypeDefInfo.Compact, TypeDefInfo.Option].includes(def.info) ? (def.sub as TypeDef).type : def.type;
 
   switch (type) {
     case 'AccountIndex':
@@ -132,11 +130,7 @@ export default function getInitValue(def: TypeDef): unknown {
       if (!warnList.includes(type)) {
         warnList.push(type);
         error && console.error(`params: initValue: ${error}`);
-        console.info(
-          `params: initValue: No default value for type ${type} from ${JSON.stringify(
-            def
-          )}, using defaults`
-        );
+        console.info(`params: initValue: No default value for type ${type} from ${JSON.stringify(def)}, using defaults`);
       }
 
       return '0x';

@@ -23,7 +23,7 @@ function ResetStorageModal({ className }: BareProps): React.ReactElement<BarePro
   const _onReset = useCallback((): void => {
     const existingContractList = keyring.getContracts();
 
-    existingContractList.forEach(existingContract => {
+    existingContractList.forEach((existingContract) => {
       keyring.forgetContract(existingContract.address.toString());
     });
 

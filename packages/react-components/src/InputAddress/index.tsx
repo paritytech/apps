@@ -14,12 +14,7 @@ import styled from 'styled-components';
 import { keyring } from '@polkadot/ui-keyring';
 // import keyringOption from '@polkadot/ui-keyring/options';
 import { createOptionItem } from '@polkadot/ui-keyring/options/item';
-import {
-  KeyringOption$Type,
-  KeyringOptions,
-  KeyringSectionOption,
-  KeyringSectionOptions
-} from '@polkadot/ui-keyring/options/types';
+import { KeyringOption$Type, KeyringOptions, KeyringSectionOption, KeyringSectionOptions } from '@polkadot/ui-keyring/options/types';
 import { isNull, isUndefined } from '@polkadot/util';
 
 import Dropdown from '../Dropdown';
@@ -163,27 +158,18 @@ function InputAddress({
 }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { hasInjectedAccounts } = useApi();
-  const hasOptions = useMemo(
-    () =>
-      (options && options.length !== 0) ||
-      (optionsAll && Object.keys(optionsAll[type]).length !== 0),
-    [options, optionsAll, type]
-  );
+  const hasOptions = useMemo(() => (options && options.length !== 0) || (optionsAll && Object.keys(optionsAll[type]).length !== 0), [options, optionsAll, type]);
 
   const value = useMemo((): string | undefined | (string | undefined)[] => {
     try {
-      return Array.isArray(propsValue)
-        ? propsValue.map(addressToAddress)
-        : addressToAddress(propsValue) || undefined;
+      return Array.isArray(propsValue) ? propsValue.map(addressToAddress) : addressToAddress(propsValue) || undefined;
     } catch (error) {
       return undefined;
     }
   }, [propsValue]);
 
   const filteredOptions = useMemo((): Option[] => {
-    return !optionsAll
-      ? []
-      : optionsAll[type].filter(({ value }) => !filter || (!!value && filter.includes(value)));
+    return !optionsAll ? [] : optionsAll[type].filter(({ value }) => !filter || (!!value && filter.includes(value)));
   }, [filter, optionsAll, type]);
 
   const lastValue = useMemo((): string => getLastValue(type), [type]);
@@ -211,11 +197,7 @@ function InputAddress({
   const onChangeMulti = useCallback(
     (addresses: string[]): void => {
       if (_onChangeMulti) {
-        _onChangeMulti(
-          addresses
-            .map(transformToAccountId)
-            .filter((address): string => address as string) as string[]
-        );
+        _onChangeMulti(addresses.map(transformToAccountId).filter((address): string => address as string) as string[]);
       }
     },
     [_onChangeMulti]
@@ -241,10 +223,7 @@ function InputAddress({
       const query = _query.trim();
       const queryLower = query.toLowerCase();
       const matches = filteredOptions.filter(
-        (item): boolean =>
-          !!item.value &&
-          ((item.name.toLowerCase && item.name.toLowerCase().includes(queryLower)) ||
-            item.value.toLowerCase().includes(queryLower))
+        (item): boolean => !!item.value && ((item.name.toLowerCase && item.name.toLowerCase().includes(queryLower)) || item.value.toLowerCase().includes(queryLower))
       );
 
       if (isInput && matches.length === 0) {
@@ -268,27 +247,14 @@ function InputAddress({
 
   const actualValue = useMemo(
     (): StringOrNull =>
-      transformToAddress(
-        isDisabled || (defaultValue && hasValue(defaultValue))
-          ? defaultValue
-          : hasValue(lastValue)
-          ? lastValue
-          : lastOption && lastOption.value
-      ),
+      transformToAddress(isDisabled || (defaultValue && hasValue(defaultValue)) ? defaultValue : hasValue(lastValue) ? lastValue : lastOption && lastOption.value),
     [defaultValue, hasValue, isDisabled, lastOption, lastValue]
   );
 
   const actualOptions = useMemo((): Option[] => {
-    return options
-      ? options.map((o): Option => createItem(o))
-      : isDisabled && actualValue
-      ? [createOption(actualValue)]
-      : filteredOptions;
+    return options ? options.map((o): Option => createItem(o)) : isDisabled && actualValue ? [createOption(actualValue)] : filteredOptions;
   }, [actualValue, filteredOptions, isDisabled, options]);
-  const _defaultValue = useMemo(
-    () => (isMultiple || !isUndefined(value) ? undefined : actualValue),
-    [actualValue, isMultiple, value]
-  );
+  const _defaultValue = useMemo(() => (isMultiple || !isUndefined(value) ? undefined : actualValue), [actualValue, isMultiple, value]);
 
   if (!hasOptions) {
     return (
@@ -321,11 +287,7 @@ function InputAddress({
             text={
               <>
                 {t('Please reload this app with the')}{' '}
-                <a
-                  href={availableExtensions[browserName][0].link}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
+                <a href={availableExtensions[browserName][0].link} rel="noopener noreferrer" target="_blank">
                   {t('Polkadot extension')}
                 </a>{' '}
                 {t('to show available accounts')}
@@ -358,13 +320,7 @@ function InputAddress({
       withLabel={withLabel}
     >
       {!hasInjectedAccounts && actualOptions.length === 0 && (
-        <InputStatus
-          text={
-            <>
-              {t('Please reload this app with the Polkadot extension to show available accounts.')}
-            </>
-          }
-        />
+        <InputStatus text={<>{t('Please reload this app with the Polkadot extension to show available accounts.')}</>} />
       )}
     </Dropdown>
   );
@@ -408,19 +364,11 @@ const ExportedComponent = withMulti(
   withObservable(keyring.keyringOption.optionsSubject, {
     propName: 'optionsAll',
     transform: (optionsAll: KeyringOptions): Record<string, (Option | React.ReactNode)[]> =>
-      Object.entries(optionsAll).reduce(
-        (
-          result: Record<string, (Option | React.ReactNode)[]>,
-          [type, options]
-        ): Record<string, (Option | React.ReactNode)[]> => {
-          result[type] = options.map((option): Option | React.ReactNode =>
-            option.value === null ? createHeader(option) : createItem(option)
-          );
+      Object.entries(optionsAll).reduce((result: Record<string, (Option | React.ReactNode)[]>, [type, options]): Record<string, (Option | React.ReactNode)[]> => {
+        result[type] = options.map((option): Option | React.ReactNode => (option.value === null ? createHeader(option) : createItem(option)));
 
-          return result;
-        },
-        {}
-      )
+        return result;
+      }, {})
   })
 ) as ExportedType;
 

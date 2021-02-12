@@ -6,9 +6,7 @@ import { ComponentType } from 'react';
 import { Environment } from '../types';
 import { getEnvironment } from '../util';
 
-const onlyOn = (environment: Environment) => <T extends ComponentType<any>>(
-  component: T
-): T | (() => null) => {
+const onlyOn = (environment: Environment) => <T extends ComponentType<any>>(component: T): T | (() => null) => {
   if (getEnvironment() === environment) {
     return component;
   }

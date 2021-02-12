@@ -37,13 +37,7 @@ function Field({ name, value }: { name: string; value: React.ReactNode }): React
   );
 }
 
-function Data({
-  asJson = false,
-  className,
-  registry = baseRegistry,
-  type,
-  value
-}: Props): React.ReactElement<Props> | null {
+function Data({ asJson = false, className, registry = baseRegistry, type, value }: Props): React.ReactElement<Props> | null {
   const content = useMemo((): React.ReactNode => {
     if (isNull(value) || (Array.isArray(value) && value.length === 0)) {
       return '()';
@@ -90,14 +84,11 @@ function Data({
     if (type.info === TypeDefInfo.Enum) {
       const json = (value as unknown) as Record<string, AnyJson>;
       const [variant, subValue] = Object.entries(json)[0];
-      const isNull =
-        !!subValue && typeof subValue === 'object' && Object.entries(subValue)[0] === null;
+      const isNull = !!subValue && typeof subValue === 'object' && Object.entries(subValue)[0] === null;
       const subType = (type.sub as TypeDef[]).find(({ name }) => name === variant);
 
       if (asJson) {
-        return `${variant}: ${
-          JSON.stringify(formatData(registry, subValue, subType).toJSON()) || '()'
-        }`;
+        return `${variant}: ${JSON.stringify(formatData(registry, subValue, subType).toJSON()) || '()'}`;
       }
 
       return (
@@ -105,13 +96,7 @@ function Data({
           <Field
             key={variant}
             name={variant}
-            value={
-              isNull ? (
-                Object.keys(subValue as Record<string, AnyJson>)[0]
-              ) : (
-                <Data asJson registry={registry} type={subType} value={subValue} />
-              )
-            }
+            value={isNull ? Object.keys(subValue as Record<string, AnyJson>)[0] : <Data asJson registry={registry} type={subType} value={subValue} />}
           />
         </Labelled>
       );
@@ -129,20 +114,7 @@ function Data({
           {Object.entries(struct).map(([key, field], index) => {
             const subType = (type.sub as TypeDef[])[index];
 
-            return (
-              <Field
-                key={key}
-                name={key}
-                value={
-                  <Data
-                    asJson
-                    registry={registry}
-                    type={subType}
-                    value={formatData(registry, field, subType).toJSON()}
-                  />
-                }
-              />
-            );
+            return <Field key={key} name={key} value={<Data asJson registry={registry} type={subType} value={formatData(registry, field, subType).toJSON()} />} />;
           })}
         </Labelled>
       );
@@ -168,13 +140,7 @@ function Data({
       return (
         <Labelled isIndented isSmall withLabel={false}>
           {array.map((element, index) => {
-            return (
-              <Field
-                key={index}
-                name={`${index}`}
-                value={<Data asJson registry={registry} type={sub} value={element} />}
-              />
-            );
+            return <Field key={index} name={`${index}`} value={<Data asJson registry={registry} type={sub} value={element} />} />;
           })}
         </Labelled>
       );

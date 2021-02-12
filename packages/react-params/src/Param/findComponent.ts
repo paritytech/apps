@@ -45,16 +45,7 @@ const SPECIAL_TYPES = ['AccountId', 'AccountIndex', 'Address', 'Balance'];
 const componentDef: TypeToComponent[] = [
   {
     c: Account,
-    t: [
-      'AccountId',
-      'AccountIdOf',
-      'Address',
-      'AuthorityId',
-      'LookupSource',
-      'LookupTarget',
-      'SessionKey',
-      'ValidatorId'
-    ]
+    t: ['AccountId', 'AccountIdOf', 'Address', 'AuthorityId', 'LookupSource', 'LookupTarget', 'SessionKey', 'ValidatorId']
   },
   {
     c: Amount,
@@ -163,12 +154,8 @@ function fromDef({ displayName, info, sub, type }: TypeDef): string {
   }
 }
 
-export default function findComponent(
-  def: TypeDef,
-  overrides: ComponentMap = {}
-): React.ComponentType<Props> {
-  const findOne = (type: string): React.ComponentType<Props> | null =>
-    overrides[type] || components[type];
+export default function findComponent(def: TypeDef, overrides: ComponentMap = {}): React.ComponentType<Props> {
+  const findOne = (type: string): React.ComponentType<Props> | null => overrides[type] || components[type];
   const type = fromDef(def);
   let Component = findOne(type);
 
@@ -198,11 +185,7 @@ export default function findComponent(
     if (!warnList.includes(type)) {
       warnList.push(type);
       error && console.error(`params: findComponent: ${error}`);
-      console.info(
-        `params: findComponent: No pre-defined component for type ${type} from ${JSON.stringify(
-          def
-        )}, using defaults`
-      );
+      console.info(`params: findComponent: No pre-defined component for type ${type} from ${JSON.stringify(def)}, using defaults`);
     }
   }
 

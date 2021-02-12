@@ -17,11 +17,7 @@ interface Props {
 
 let id = 0;
 
-function LabelHelp({
-  className = '',
-  help,
-  icon = 'question-circle'
-}: Props): React.ReactElement<Props> {
+function LabelHelp({ className = '', help, icon = 'question-circle' }: Props): React.ReactElement<Props> {
   const [trigger] = useState(`label-help-${++id}`);
 
   return (

@@ -13,12 +13,7 @@ interface Props extends BareProps {
   text?: React.ReactNode;
 }
 
-function WithLoader({
-  children = null,
-  className,
-  isLoading = false,
-  text
-}: Props): React.ReactElement<Props> | null {
+function WithLoader({ children = null, className, isLoading = false, text }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
 
   return (

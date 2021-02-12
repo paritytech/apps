@@ -22,15 +22,7 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
   const [address, setAddress, , , isAddressTouched] = useNonEmptyString();
   const contractInfo = useCall<Option<ContractInfo>>(api.query.contracts.contractInfoOf, [address]);
   const [name, setName, isNameValid, isNameError] = useNonEmptyString('New Contract');
-  const {
-    abi,
-    errorText,
-    isAbiError,
-    isAbiSupplied,
-    isAbiValid,
-    onChangeAbi,
-    onRemoveAbi
-  } = useAbi();
+  const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
   const [isAddress, setIsAddress] = useState(false);
   const [isStored, setIsStored] = useState(false);
@@ -71,11 +63,7 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
     return [isAddressValid, status];
   }, [isAddress, isAddressTouched, isNotAdded, isStored, t]);
 
-  const isValid = useMemo((): boolean => isAbiValid && isAddressValid && isNameValid, [
-    isAddressValid,
-    isAbiValid,
-    isNameValid
-  ]);
+  const isValid = useMemo((): boolean => isAbiValid && isAddressValid && isNameValid, [isAddressValid, isAbiValid, isNameValid]);
 
   const _onAdd = useCallback((): void => {
     if (!address || !abi || !name) {
@@ -118,11 +106,7 @@ function Add({ className, isContract, navigateTo }: Props): React.ReactElement<P
     <div className={className}>
       <header>
         <h1>{t<string>('Add Existing Contract')}</h1>
-        <div className="instructions">
-          {t<string>(
-            'Using the existing contract address of a deployed contract instance you can add a contract to call to the UI.'
-          )}
-        </div>
+        <div className="instructions">{t<string>('Using the existing contract address of a deployed contract instance you can add a contract to call to the UI.')}</div>
       </header>
       <section>
         <Input

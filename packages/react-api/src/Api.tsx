@@ -69,32 +69,21 @@ export class TokenUnit {
 }
 
 async function retrieve(api: ApiPromise): Promise<ChainData> {
-  const [
-    properties,
-    systemChain,
-    systemChainType,
-    systemName,
-    systemVersion,
-    injectedAccounts
-  ] = await Promise.all([
+  const [properties, systemChain, systemChainType, systemName, systemVersion, injectedAccounts] = await Promise.all([
     api.rpc.system.properties(),
     api.rpc.system.chain(),
-    api.rpc.system.chainType
-      ? api.rpc.system.chainType()
-      : Promise.resolve(registry.createType('ChainType', 'Live')),
+    api.rpc.system.chainType ? api.rpc.system.chainType() : Promise.resolve(registry.createType('ChainType', 'Live')),
     api.rpc.system.name(),
     api.rpc.system.version(),
     injectedPromise
       .then(() => web3Accounts())
-      .then(accounts =>
+      .then((accounts) =>
         accounts.map(
           ({ address, meta }, whenCreated): InjectedAccountExt => ({
             address,
             meta: {
               ...meta,
-              name: `${meta.name || 'unknown'} (${
-                meta.source === 'polkadot-js' ? 'extension' : meta.source
-              })`,
+              name: `${meta.name || 'unknown'} (${meta.source === 'polkadot-js' ? 'extension' : meta.source})`,
               whenCreated
             }
           })
@@ -118,31 +107,16 @@ async function retrieve(api: ApiPromise): Promise<ChainData> {
 }
 
 async function loadOnReady(api: ApiPromise, store?: KeyringStore): Promise<ApiState> {
-  const {
-    injectedAccounts,
-    properties,
-    systemChain,
-    systemChainType,
-    systemName,
-    systemVersion
-  } = await retrieve(api);
-  const ss58Format =
-    uiSettings.prefix === -1
-      ? properties.ss58Format.unwrapOr(DEFAULT_SS58).toNumber()
-      : uiSettings.prefix;
+  const { injectedAccounts, properties, systemChain, systemChainType, systemName, systemVersion } = await retrieve(api);
+  const ss58Format = uiSettings.prefix === -1 ? properties.ss58Format.unwrapOr(DEFAULT_SS58).toNumber() : uiSettings.prefix;
   const tokenSymbol = properties.tokenSymbol.unwrapOr(undefined)?.toString();
   const tokenDecimals = properties.tokenDecimals.unwrapOr(DEFAULT_DECIMALS).toNumber();
-  const isDevelopment =
-    systemChainType.isDevelopment || systemChainType.isLocal || isTestChain(systemChain);
+  const isDevelopment = systemChainType.isDevelopment || systemChainType.isLocal || isTestChain(systemChain);
 
-  console.log(
-    `chain: ${systemChain} (${systemChainType.toString()}), ${JSON.stringify(properties)}`
-  );
+  console.log(`chain: ${systemChain} (${systemChainType.toString()}), ${JSON.stringify(properties)}`);
 
   // explicitly override the ss58Format as specified
-  registry.setChainProperties(
-    registry.createType('ChainProperties', { ...properties, ss58Format })
-  );
+  registry.setChainProperties(registry.createType('ChainProperties', { ...properties, ss58Format }));
 
   // FIXME This should be removed (however we have some hanging bits, e.g. vanity)
   setSS58Format(ss58Format);
@@ -225,7 +199,7 @@ function Api({ children, store, url }: Props): React.ReactElement<Props> | null 
       }
     );
 
-    injectedPromise.then(setExtensions).catch(error => console.error(error));
+    injectedPromise.then(setExtensions).catch((error) => console.error(error));
 
     setIsApiInitialized(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps

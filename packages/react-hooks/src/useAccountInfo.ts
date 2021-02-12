@@ -50,7 +50,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
 
   useEffect((): void => {
     accountFlags &&
-      setFlags(flags => ({
+      setFlags((flags) => ({
         ...flags,
         ...accountFlags
       }));
@@ -113,10 +113,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
           isEditable:
             !!(
               !identity?.display &&
-              (isInContacts ||
-                accountOrAddress?.meta.isMultisig ||
-                (accountOrAddress &&
-                  !(accountOrAddress.meta.isInjected || accountOrAddress.meta.isHardware)))
+              (isInContacts || accountOrAddress?.meta.isMultisig || (accountOrAddress && !(accountOrAddress.meta.isInjected || accountOrAddress.meta.isHardware)))
             ) || false,
           isExternal: !!accountOrAddress?.meta.isExternal || false,
           isInContacts,
@@ -127,9 +124,7 @@ export default function useAccountInfo(value: string | null, isContract = false)
       );
       setMeta(accountOrAddress?.meta);
       setName(accountOrAddress?.meta.name || '');
-      setSortedTags(
-        accountOrAddress?.meta.tags ? (accountOrAddress.meta.tags as string[]).sort() : []
-      );
+      setSortedTags(accountOrAddress?.meta.tags ? (accountOrAddress.meta.tags as string[]).sort() : []);
     }
   }, [identity, isAccount, isAddress, value]);
 

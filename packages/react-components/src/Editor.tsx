@@ -62,12 +62,7 @@ function Editor({ className = '', code, isValid, onEdit }: Props): React.ReactEl
     editorRef.current && editorRef.current.updateCode(code);
   }, [code]);
 
-  return (
-    <div
-      className={classes('ui-Editor', className, isValid === false ? 'invalid' : '')}
-      id={editorId}
-    />
-  );
+  return <div className={classes('ui-Editor', className, isValid === false ? 'invalid' : '')} id={editorId} />;
 }
 
 export default React.memo(styled(Editor)`

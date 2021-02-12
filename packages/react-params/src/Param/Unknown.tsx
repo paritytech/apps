@@ -8,18 +8,7 @@ import BaseBytes from './BaseBytes';
 import Static from './Static';
 
 function Unknown(props: Props): React.ReactElement<Props> {
-  const {
-    className = '',
-    defaultValue,
-    isDisabled,
-    isError,
-    label,
-    name,
-    onChange,
-    onEnter,
-    onEscape,
-    type
-  } = props;
+  const { className = '', defaultValue, isDisabled, isError, label, name, onChange, onEnter, onEscape, type } = props;
 
   if (isDisabled) {
     return <Static {...props} />;

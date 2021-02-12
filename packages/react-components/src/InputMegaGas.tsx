@@ -36,9 +36,7 @@ function InputMegaGas({
 
   const [withEstimate, setWithEstimate] = useState(true);
 
-  const estimatedMg = useMemo(() => (estimatedWeight ? estimatedWeight.div(MEGA).iaddn(1) : null), [
-    estimatedWeight
-  ]);
+  const estimatedMg = useMemo(() => (estimatedWeight ? estimatedWeight.div(MEGA).iaddn(1) : null), [estimatedWeight]);
 
   useEffect((): void => {
     withEstimate && estimatedMg && setMegaGas(estimatedMg);
@@ -65,11 +63,7 @@ function InputMegaGas({
         {(estimatedWeight || isCall) && (
           <Toggle
             isOverlay
-            label={
-              isCall
-                ? t<string>(withEstimate ? 'use estimated gas' : 'specify gas')
-                : t<string>('use estimated gas')
-            }
+            label={isCall ? t<string>(withEstimate ? 'use estimated gas' : 'specify gas') : t<string>('use estimated gas')}
             onChange={setWithEstimate}
             value={withEstimate}
           />
@@ -84,12 +78,7 @@ function InputMegaGas({
             replace: { percentage: percentage.toFixed(3) }
           })}
         </aside>
-        <Progress
-          className="contracts--InputMegaGas-progress"
-          color={percentage < 100 ? 'green' : 'red'}
-          total={100}
-          value={percentage}
-        />
+        <Progress className="contracts--InputMegaGas-progress" color={percentage < 100 ? 'green' : 'red'} total={100} value={percentage} />
       </div>
     </div>
   );

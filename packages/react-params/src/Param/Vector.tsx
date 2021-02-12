@@ -20,16 +20,7 @@ function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
   };
 }
 
-function Vector({
-  className = '',
-  defaultValue,
-  isDisabled = false,
-  label,
-  onChange,
-  overrides,
-  type,
-  withLabel
-}: Props): React.ReactElement<Props> | null {
+function Vector({ className = '', defaultValue, isDisabled = false, label, onChange, overrides, type, withLabel }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const inputParams = useParamDefs(type);
   const [count, setCount] = useState(0);
@@ -74,9 +65,7 @@ function Vector({
     isDisabled &&
       setValues(
         ((defaultValue.value as RawParam[]) || []).map((value: RawParam) =>
-          isUndefined(value) || isUndefined(value.isValid)
-            ? { isValid: !isUndefined(value), value }
-            : value
+          isUndefined(value) || isUndefined(value.isValid) ? { isValid: !isUndefined(value), value } : value
         )
       );
   }, [defaultValue, isDisabled]);
@@ -90,29 +79,18 @@ function Vector({
       });
   }, [values, onChange]);
 
-  const _rowAdd = useCallback((): void => setCount(count => count + 1), []);
-  const _rowRemove = useCallback((): void => setCount(count => count - 1), []);
+  const _rowAdd = useCallback((): void => setCount((count) => count + 1), []);
+  const _rowRemove = useCallback((): void => setCount((count) => count - 1), []);
 
   return (
     <Base className={className} isOuter label={label} withLabel={withLabel}>
       {!isDisabled && (
         <div className="ui--Param-Vector-buttons">
           <Button icon="plus" label={t<string>('Add item')} onClick={_rowAdd} />
-          <Button
-            icon="minus"
-            isDisabled={values.length === 0}
-            label={t<string>('Remove item')}
-            onClick={_rowRemove}
-          />
+          <Button icon="minus" isDisabled={values.length === 0} label={t<string>('Remove item')} onClick={_rowRemove} />
         </div>
       )}
-      <Params
-        isDisabled={isDisabled}
-        onChange={setValues}
-        overrides={overrides}
-        params={params}
-        values={values}
-      />
+      <Params isDisabled={isDisabled} onChange={setValues} overrides={overrides} params={params} values={values} />
     </Base>
   );
 }

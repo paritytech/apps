@@ -33,18 +33,12 @@ export function renderProvided({ className = '', label, value }: RenderProps): R
     const total = totals.reduce((total, value): BN => total.add(value), BN_ZERO).gtn(0);
 
     if (total) {
-      others = totals.map(
-        (balance, index): React.ReactNode => <FormatBalance key={index} value={balance} />
-      );
+      others = totals.map((balance, index): React.ReactNode => <FormatBalance key={index} value={balance} />);
     }
   }
 
   return (
-    <FormatBalance
-      className={classes('ui--Balance', className)}
-      label={label}
-      value={Array.isArray(value) ? value[0] : value}
-    >
+    <FormatBalance className={classes('ui--Balance', className)} label={label} value={Array.isArray(value) ? value[0] : value}>
       {others && <span>&nbsp;(+{others})</span>}
     </FormatBalance>
   );
@@ -57,11 +51,7 @@ function BalanceDisplay(props: Props): React.ReactElement<Props> | null {
     return null;
   }
 
-  return balance ? (
-    <>{renderProvided({ className, label, value: balance })}</>
-  ) : (
-    <Balance className={classes('ui--Balance', className)} label={label} params={params} />
-  );
+  return balance ? <>{renderProvided({ className, label, value: balance })}</> : <Balance className={classes('ui--Balance', className)} label={label} params={params} />;
 }
 
 export default React.memo(BalanceDisplay);

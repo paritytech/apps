@@ -9,17 +9,7 @@ import { Codec } from '@polkadot/types/types/codec';
 import { Props } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
-function Raw({
-  className = '',
-  defaultValue: { value },
-  isDisabled,
-  isError,
-  label,
-  onChange,
-  onEnter,
-  onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function Raw({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
@@ -36,11 +26,7 @@ function Raw({
     [onChange]
   );
 
-  const defaultValue = value
-    ? (value as { toHex?: () => unknown }).toHex
-      ? (value as Codec).toHex()
-      : value
-    : '';
+  const defaultValue = value ? ((value as { toHex?: () => unknown }).toHex ? (value as Codec).toHex() : value) : '';
 
   return (
     <Bare className={className}>

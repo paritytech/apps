@@ -25,27 +25,15 @@ interface Props {
   withLabel?: boolean;
 }
 
-function InputStorage({
-  className = '',
-  defaultValue,
-  help,
-  label,
-  onChange,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function InputStorage({ className = '', defaultValue, help, label, onChange, withLabel }: Props): React.ReactElement<Props> {
   const { api } = useApi();
-  const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(
-    keyOptions(api, defaultValue.creator.section)
-  );
+  const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(keyOptions(api, defaultValue.creator.section));
   const [optionsSection] = useState<DropdownOptions>(sectionOptions(api));
   const [value, setValue] = useState<QueryableStorageEntry<'promise'>>(() => defaultValue);
 
   const _onKeyChange = useCallback(
     (newValue: QueryableStorageEntry<'promise'>): void => {
-      if (
-        value.creator.section === newValue.creator.section &&
-        value.creator.method === newValue.creator.method
-      ) {
+      if (value.creator.section === newValue.creator.section && value.creator.method === newValue.creator.method) {
         return;
       }
 
@@ -72,12 +60,7 @@ function InputStorage({
 
   return (
     <LinkedWrapper className={className} help={help} label={label} withLabel={withLabel}>
-      <SelectSection
-        className="small"
-        onChange={_onSectionChange}
-        options={optionsSection}
-        value={value}
-      />
+      <SelectSection className="small" onChange={_onSectionChange} options={optionsSection} value={value} />
       <SelectKey className="large" onChange={_onKeyChange} options={optionsMethod} value={value} />
     </LinkedWrapper>
   );

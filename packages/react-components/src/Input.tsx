@@ -138,10 +138,7 @@ function Input({
     [onChange]
   );
 
-  const _onKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLInputElement>): void => onKeyDown && onKeyDown(event),
-    [onKeyDown]
-  );
+  const _onKeyDown = useCallback((event: React.KeyboardEvent<HTMLInputElement>): void => onKeyDown && onKeyDown(event), [onKeyDown]);
 
   const _onKeyUp = useCallback(
     (event: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -160,21 +157,10 @@ function Input({
     [onEnter, onEscape, onKeyUp]
   );
 
-  const _onPaste = useCallback(
-    (event: React.ClipboardEvent<HTMLInputElement>): void => onPaste && onPaste(event),
-    [onPaste]
-  );
+  const _onPaste = useCallback((event: React.ClipboardEvent<HTMLInputElement>): void => onPaste && onPaste(event), [onPaste]);
 
   return (
-    <Labelled
-      className={className}
-      help={help}
-      isFull={isFull}
-      label={label}
-      labelExtra={labelExtra}
-      withEllipsis={withEllipsis}
-      withLabel={withLabel}
-    >
+    <Labelled className={className} help={help} isFull={isFull} label={label} labelExtra={labelExtra} withEllipsis={withEllipsis} withLabel={withLabel}>
       <SUIInput
         action={isAction}
         autoFocus={autoFocus}
@@ -204,13 +190,7 @@ function Input({
         type={type}
         value={value}
       >
-        <input
-          autoCapitalize="off"
-          autoComplete={type === 'password' ? 'new-password' : 'off'}
-          autoCorrect="off"
-          onPaste={_onPaste}
-          spellCheck={false}
-        />
+        <input autoCapitalize="off" autoComplete={type === 'password' ? 'new-password' : 'off'} autoCorrect="off" onPaste={_onPaste} spellCheck={false} />
         {isEditable && <i className="edit icon" />}
         {icon}
       </SUIInput>

@@ -17,13 +17,7 @@ interface Props extends BareProps {
   text: React.ReactNode;
 }
 
-function FileSupplied({
-  className,
-  errorText,
-  isError,
-  onRemove,
-  text
-}: Props): React.ReactElement<Props> {
+function FileSupplied({ className, errorText, isError, onRemove, text }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (

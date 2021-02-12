@@ -8,17 +8,7 @@ import React, { useCallback, useState } from 'react';
 import { Props } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
-function Balance({
-  className = '',
-  defaultValue: { value },
-  isDisabled,
-  isError,
-  label,
-  onChange,
-  onEnter,
-  onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function Balance({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
   const [defaultValue] = useState(new BN(((value as BN) || '0').toString()).toString(10));
 

@@ -20,16 +20,8 @@ interface Props extends BareProps {
   isEditable?: boolean;
 }
 
-function ContractInfo({
-  address,
-  children,
-  className,
-  isEditable
-}: Props): React.ReactElement<Props> {
-  const { isEditingName, name, onSaveName, setName, toggleIsEditingName } = useAccountInfo(
-    address,
-    true
-  );
+function ContractInfo({ address, children, className, isEditable }: Props): React.ReactElement<Props> {
+  const { isEditingName, name, onSaveName, setName, toggleIsEditingName } = useAccountInfo(address, true);
 
   return (
     <ItemInfo
@@ -42,16 +34,7 @@ function ContractInfo({
       }
       title={
         isEditable && isEditingName ? (
-          <Input
-            autoFocus
-            className="name-editor"
-            isError={name === ''}
-            onBlur={onSaveName}
-            onChange={setName}
-            onEnter
-            value={name}
-            withLabel={false}
-          />
+          <Input autoFocus className="name-editor" isError={name === ''} onBlur={onSaveName} onChange={setName} onEnter value={name} withLabel={false} />
         ) : isEditable ? (
           <EditButton onClick={toggleIsEditingName}>{name}</EditButton>
         ) : (

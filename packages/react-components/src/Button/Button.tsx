@@ -31,23 +31,15 @@ function Button({
   tabIndex,
   withoutLink
 }: ButtonProps): React.ReactElement<ButtonProps> {
-  const _onClick = useCallback(() => !(isBusy || isDisabled) && onClick && onClick(), [
-    isBusy,
-    isDisabled,
-    onClick
-  ]);
+  const _onClick = useCallback(() => !(isBusy || isDisabled) && onClick && onClick(), [isBusy, isDisabled, onClick]);
 
   return (
     <button
-      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${
-        isCircular ? ' isCircular' : ''
-      }${isFull ? ' isFull' : ''}${isIcon ? ' isIcon' : ''}${
-        isBusy || isDisabled ? ' isDisabled' : ''
-      }${isBusy ? ' isBusy' : ''}${isNegative ? ' isNegative' : ''}${
-        isPrimary ? ' isPrimary' : ''
-      }${isSelected ? ' isSelected' : ''}${isToplevel ? ' isToplevel' : ''}${
-        withoutLink ? ' withoutLink' : ''
-      } ${className}`}
+      className={`ui--Button${label ? ' hasLabel' : ''}${isBasic ? ' isBasic' : ''}${isCircular ? ' isCircular' : ''}${isFull ? ' isFull' : ''}${
+        isIcon ? ' isIcon' : ''
+      }${isBusy || isDisabled ? ' isDisabled' : ''}${isBusy ? ' isBusy' : ''}${isNegative ? ' isNegative' : ''}${isPrimary ? ' isPrimary' : ''}${
+        isSelected ? ' isSelected' : ''
+      }${isToplevel ? ' isToplevel' : ''}${withoutLink ? ' withoutLink' : ''} ${className}`}
       onClick={_onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

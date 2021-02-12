@@ -26,21 +26,13 @@ function Connecting({ className }: Props): React.ReactElement<Props> | null {
   if (isWaitingInjected) {
     return (
       <BaseOverlay className={className} icon="puzzle" type="info">
-        <div>
-          {t<string>(
-            'Waiting for authorization from the extension. Please open the installed extension and approve or reject access.'
-          )}
-        </div>
+        <div>{t<string>('Waiting for authorization from the extension. Please open the installed extension and approve or reject access.')}</div>
       </BaseOverlay>
     );
   } else if (!isApiConnected) {
     return (
       <BaseOverlay className={className} icon={faGlobe} type="error">
-        <div>
-          {t<string>(
-            'You are not connected to a node. Ensure that your node is running and that the Websocket endpoint is reachable.'
-          )}
-        </div>
+        <div>{t<string>('You are not connected to a node. Ensure that your node is running and that the Websocket endpoint is reachable.')}</div>
         {isWs && !isWsLocal && isHttps ? (
           <div>
             {t<string>(

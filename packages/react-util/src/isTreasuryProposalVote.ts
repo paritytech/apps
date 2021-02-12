@@ -12,9 +12,5 @@ export default function isTreasuryProposalVote(proposal?: Proposal | null): bool
 
   const { method, section } = registry.findMetaCall(proposal.callIndex);
 
-  return (
-    section === 'treasury' &&
-    ['approveProposal', 'rejectProposal'].includes(method) &&
-    !!proposal.args[0]
-  );
+  return section === 'treasury' && ['approveProposal', 'rejectProposal'].includes(method) && !!proposal.args[0];
 }

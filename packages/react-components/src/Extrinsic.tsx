@@ -34,26 +34,14 @@ interface CallState {
   }[];
 }
 
-function getParams({
-  meta
-}: SubmittableExtrinsicFunction<'promise'>): { name: string; type: TypeDef }[] {
+function getParams({ meta }: SubmittableExtrinsicFunction<'promise'>): { name: string; type: TypeDef }[] {
   return GenericCall.filterOrigin(meta).map((arg): { name: string; type: TypeDef } => ({
     name: arg.name.toString(),
     type: getTypeDef(arg.type.toString())
   }));
 }
 
-function ExtrinsicDisplay({
-  defaultValue,
-  isDisabled,
-  isError,
-  isPrivate,
-  label,
-  onChange,
-  onEnter,
-  onEscape,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function ExtrinsicDisplay({ defaultValue, isDisabled, isError, isPrivate, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
   const [extrinsic, setCall] = useState<CallState>({
     fn: defaultValue,
     params: getParams(defaultValue)
@@ -66,8 +54,7 @@ function ExtrinsicDisplay({
 
   useEffect((): void => {
     const isValid = values.reduce(
-      (isValid, value): boolean =>
-        isValid && !isUndefined(value) && !isUndefined(value.value) && value.isValid,
+      (isValid, value): boolean => isValid && !isUndefined(value) && !isUndefined(value.value) && value.isValid,
       extrinsic.params.length === values.length
     );
 
@@ -84,10 +71,7 @@ function ExtrinsicDisplay({
     onChange(method);
   }, [extrinsic, onChange, values]);
 
-  const _onChangeMethod = useCallback(
-    (fn: SubmittableExtrinsicFunction<'promise'>): void => setCall({ fn, params: getParams(fn) }),
-    []
-  );
+  const _onChangeMethod = useCallback((fn: SubmittableExtrinsicFunction<'promise'>): void => setCall({ fn, params: getParams(fn) }), []);
 
   const {
     fn: { meta, method, section },

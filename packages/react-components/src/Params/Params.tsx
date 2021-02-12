@@ -38,10 +38,7 @@ class Params extends React.PureComponent<Props, State> {
     params: null
   };
 
-  public static getDerivedStateFromProps(
-    { isDisabled, params, values }: Props,
-    prevState: State
-  ): Pick<State, never> | null {
+  public static getDerivedStateFromProps({ isDisabled, params, values }: Props, prevState: State): Pick<State, never> | null {
     const isSame = JSON.stringify(prevState.params) === JSON.stringify(params);
 
     if (isDisabled || isSame) {
@@ -50,13 +47,7 @@ class Params extends React.PureComponent<Props, State> {
 
     return {
       params,
-      values: params.reduce(
-        (result: RawParams, param, index): RawParams => [
-          ...result,
-          values && values[index] ? values[index] : createValue(param)
-        ],
-        []
-      )
+      values: params.reduce((result: RawParams, param, index): RawParams => [...result, values && values[index] ? values[index] : createValue(param)], [])
     };
   }
 
@@ -77,16 +68,7 @@ class Params extends React.PureComponent<Props, State> {
   }
 
   public render(): React.ReactNode {
-    const {
-      children,
-      className = '',
-      isDisabled,
-      onEnter,
-      onEscape,
-      overrides,
-      params,
-      withBorder = true
-    } = this.props;
+    const { children, className = '', isDisabled, onEnter, onEscape, overrides, params, withBorder = true } = this.props;
     const { values = this.props.values } = this.state;
 
     if (!values || !values.length) {
@@ -132,9 +114,7 @@ class Params extends React.PureComponent<Props, State> {
 
     this.setState(
       (prevState: State): Pick<State, never> => ({
-        values: (prevState.values || []).map(
-          (prev, prevIndex): RawParam => (prevIndex !== index ? prev : { isValid, value })
-        )
+        values: (prevState.values || []).map((prev, prevIndex): RawParam => (prevIndex !== index ? prev : { isValid, value }))
       }),
       this.triggerUpdate
     );

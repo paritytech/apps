@@ -47,7 +47,7 @@ function Content({ className }: Props): React.ReactElement<Props> {
     name
   } = useMemo((): Route => {
     const app = location.pathname.slice(1) || '';
-    const found = createRoutes(t).find(route => !!(route && app.startsWith(route.name)));
+    const found = createRoutes(t).find((route) => !!(route && app.startsWith(route.name)));
 
     return found || NOT_FOUND;
   }, [location, t]);
@@ -64,9 +64,7 @@ function Content({ className }: Props): React.ReactElement<Props> {
             <Icon icon="warning-circle" />
             {t<string>('You are not connected to a node.')}
             <br />
-            {t<string>(
-              'Ensure that your node is running and that your Websocket endpoint is reachable.'
-            )}
+            {t<string>('Ensure that your node is running and that your Websocket endpoint is reachable.')}
           </div>
         </div>
       </div>
@@ -88,12 +86,7 @@ function Content({ className }: Props): React.ReactElement<Props> {
           }
         >
           <ErrorBoundary trigger={name}>
-            <Component
-              basePath={`/${name}`}
-              location={location}
-              navigateTo={navigateTo}
-              onStatusChange={queueAction}
-            />
+            <Component basePath={`/${name}`} location={location} navigateTo={navigateTo} onStatusChange={queueAction} />
             {!sawGuide && !isLoading && <GuideModal onClose={setSawGuide} />}
             <HelpWidget />
           </ErrorBoundary>

@@ -65,29 +65,15 @@ function SignFields({ address, onChange, signedTx }: Props): React.ReactElement<
           />
         </Modal.Column>
         <Modal.Column>
-          <p>
-            {t<string>(
-              'Override any applicable values for the specific signed output. These will be used to construct and display the signed transaction.'
-            )}
-          </p>
+          <p>{t<string>('Override any applicable values for the specific signed output. These will be used to construct and display the signed transaction.')}</p>
         </Modal.Column>
       </Modal.Columns>
       {!!signedTx && (
         <Modal.Columns>
           <Modal.Column>
-            <Output
-              isFull
-              isTrimmed
-              label={t<string>('Signed transaction')}
-              value={signedTx}
-              withCopy
-            />
+            <Output isFull isTrimmed label={t<string>('Signed transaction')} value={signedTx} withCopy />
           </Modal.Column>
-          <Modal.Column>
-            {t<string>(
-              'The actual fully constructed signed output. This can be used for submission via other channels.'
-            )}
-          </Modal.Column>
+          <Modal.Column>{t<string>('The actual fully constructed signed output. This can be used for submission via other channels.')}</Modal.Column>
         </Modal.Columns>
       )}
     </>

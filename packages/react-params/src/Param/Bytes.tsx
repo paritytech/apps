@@ -12,19 +12,7 @@ import { Props } from '@canvas-ui/react-components/types';
 import BaseBytes from './BaseBytes';
 import File from './File';
 
-function Bytes({
-  className = '',
-  defaultValue,
-  isDisabled,
-  isError,
-  label,
-  name,
-  onChange,
-  onEnter,
-  onEscape,
-  type,
-  withLabel
-}: Props): React.ReactElement<Props> {
+function Bytes({ className = '', defaultValue, isDisabled, isError, label, name, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isValid, setIsValid] = useState(false);
   const [isFileDrop, setFileInput] = useState(false);
@@ -47,13 +35,7 @@ function Bytes({
   return (
     <div className={className}>
       {!isDisabled && isFileDrop ? (
-        <File
-          isDisabled={isDisabled}
-          isError={isError || !isValid}
-          label={label}
-          onChange={_onChangeFile}
-          withLabel={withLabel}
-        />
+        <File isDisabled={isDisabled} isError={isError || !isValid} label={label} onChange={_onChangeFile} withLabel={withLabel} />
       ) : (
         <BaseBytes
           defaultValue={defaultValue}
@@ -70,14 +52,7 @@ function Bytes({
           withLength
         />
       )}
-      {!isDisabled && (
-        <Toggle
-          isOverlay
-          label={t<string>('file upload')}
-          onChange={setFileInput}
-          value={isFileDrop}
-        />
-      )}
+      {!isDisabled && <Toggle isOverlay label={t<string>('file upload')} onChange={setFileInput} value={isFileDrop} />}
     </div>
   );
 }

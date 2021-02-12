@@ -56,9 +56,7 @@ export default function withCall<P extends ApiProps>(
     withIndicator = false
   }: Options = {}
 ): (Inner: React.ComponentType<ApiProps>) => React.ComponentType<any> {
-  return (
-    Inner: React.ComponentType<ApiProps>
-  ): React.ComponentType<SubtractProps<P, ApiProps>> => {
+  return (Inner: React.ComponentType<ApiProps>): React.ComponentType<SubtractProps<P, ApiProps>> => {
     class WithPromise extends React.Component<P, State> {
       public state: State = {
         callResult: undefined,
@@ -141,29 +139,17 @@ export default function withCall<P extends ApiProps>(
           return [false, []];
         }
 
-        const values = isUndefined(paramValue)
-          ? params
-          : params.concat(
-              Array.isArray(paramValue) && !(paramValue as any).toU8a ? paramValue : [paramValue]
-            );
+        const values = isUndefined(paramValue) ? params : params.concat(Array.isArray(paramValue) && !(paramValue as any).toU8a ? paramValue : [paramValue]);
 
         return [true, values];
       }
 
-      private constructApiSection = (
-        endpoint: string
-      ): [Record<string, Method>, string, string, string] => {
+      private constructApiSection = (endpoint: string): [Record<string, Method>, string, string, string] => {
         const { api } = this.props;
         const [area, section, method, ...others] = endpoint.split('.');
 
-        assert(
-          area.length && section.length && method.length && others.length === 0,
-          `Invalid API format, expected <area>.<section>.<method>, found ${endpoint}`
-        );
-        assert(
-          ['consts', 'rpc', 'query', 'derive'].includes(area),
-          `Unknown api.${area}, expected consts, rpc, query or derive`
-        );
+        assert(area.length && section.length && method.length && others.length === 0, `Invalid API format, expected <area>.<section>.<method>, found ${endpoint}`);
+        assert(['consts', 'rpc', 'query', 'derive'].includes(area), `Unknown api.${area}, expected consts, rpc, query or derive`);
         assert(!at || area === 'query', "Only able to do an 'at' query on the api.query interface");
 
         const apiSection = (api as any)[area][section];
@@ -180,9 +166,7 @@ export default function withCall<P extends ApiProps>(
 
         const endpoints: string[] = [endpoint].concat(fallbacks || []);
         const expanded = endpoints.map(this.constructApiSection);
-        const [apiSection, area, section, method] = expanded.find(
-          ([apiSection]): boolean => !!apiSection
-        ) || [{}, expanded[0][1], expanded[0][2], expanded[0][3]];
+        const [apiSection, area, section, method] = expanded.find(([apiSection]): boolean => !!apiSection) || [{}, expanded[0][1], expanded[0][2], expanded[0][3]];
 
         assert(apiSection && apiSection[method], `Unable to find api.${area}.${section}.${method}`);
 
@@ -191,10 +175,7 @@ export default function withCall<P extends ApiProps>(
         if (area === 'query' && meta?.type.isMap) {
           const arg = newParams[0];
 
-          assert(
-            (!isUndefined(arg) && !isNull(arg)) || meta.type.asMap.kind.isLinkedMap,
-            `${meta.name} expects one argument`
-          );
+          assert((!isUndefined(arg) && !isNull(arg)) || meta.type.asMap.kind.isLinkedMap, `${meta.name} expects one argument`);
         }
 
         return [apiSection[method], newParams, method.startsWith('subscribe') ? 'subscribe' : area];
@@ -235,9 +216,7 @@ export default function withCall<P extends ApiProps>(
 
         try {
           if (['derive', 'subscribe'].includes(area) || (area === 'query' && !at && !atProp)) {
-            this.destroy = isMulti
-              ? await apiMethod.multi(params, updateCb)
-              : await apiMethod(...params, updateCb);
+            this.destroy = isMulti ? await apiMethod.multi(params, updateCb) : await apiMethod(...params, updateCb);
           } else if (area === 'consts') {
             updateCb(apiMethod);
           } else {

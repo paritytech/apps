@@ -61,14 +61,7 @@ function AddressMini({
   }
 
   return (
-    <div
-      className={classes(
-        'ui--AddressMini',
-        isPadded ? 'padded' : '',
-        withShrink ? 'withShrink' : '',
-        className
-      )}
-    >
+    <div className={classes('ui--AddressMini', isPadded ? 'padded' : '', withShrink ? 'withShrink' : '', className)}>
       {label && <label className="ui--AddressMini-label">{label}</label>}
       <div className="ui--AddressMini-icon">
         <IdentityIcon value={value as Uint8Array} />
@@ -76,13 +69,7 @@ function AddressMini({
       </div>
       <div className="ui--AddressMini-info">
         {withAddress && (
-          <div className="ui--AddressMini-address">
-            {withName ? (
-              <AccountName noLookup={noLookup} value={value} withSidebar={withSidebar} />
-            ) : (
-              toShortAddress(value)
-            )}
-          </div>
+          <div className="ui--AddressMini-address">{withName ? <AccountName noLookup={noLookup} value={value} withSidebar={withSidebar} /> : toShortAddress(value)}</div>
         )}
         {children}
       </div>

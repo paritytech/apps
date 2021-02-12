@@ -51,34 +51,20 @@ function MessageSignature({
           <span className="ui--MessageSignature-returnType">
             {encodeTypeDef({
               ...returnType,
-              ...((returnType.displayName || '').length > 0
-                ? { displayName: returnType.displayName }
-                : {})
+              ...((returnType.displayName || '').length > 0 ? { displayName: returnType.displayName } : {})
             })}
           </span>
         </>
       )}
       {isMutating && (
         <>
-          <Icon
-            className="ui--MessageSignature-icon"
-            data-for={`mutates-${identifier}`}
-            data-tip
-            icon="database"
-          />
-          {withTooltip && (
-            <Tooltip text={t<string>('Mutates contract state')} trigger={`mutates-${identifier}`} />
-          )}
+          <Icon className="ui--MessageSignature-icon" data-for={`mutates-${identifier}`} data-tip icon="database" />
+          {withTooltip && <Tooltip text={t<string>('Mutates contract state')} trigger={`mutates-${identifier}`} />}
         </>
       )}
       {isPayable && (
         <>
-          <Icon
-            className="ui--MessageSignature-icon"
-            data-for={`payable-${identifier}`}
-            data-tip
-            icon="paper-plane"
-          />
+          <Icon className="ui--MessageSignature-icon" data-for={`payable-${identifier}`} data-tip icon="paper-plane" />
           {withTooltip && <Tooltip text={t<string>('Payable')} trigger={`payable-${identifier}`} />}
         </>
       )}

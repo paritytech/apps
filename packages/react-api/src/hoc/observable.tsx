@@ -16,15 +16,8 @@ interface State extends CallState {
   subscriptions: { unsubscribe: () => void }[];
 }
 
-export default function withObservable<T, P>(
-  observable: Observable<P>,
-  { callOnResult, propName = 'value', transform = echoTransform }: Options = {}
-): HOC {
-  return (
-    Inner: React.ComponentType<any>,
-    defaultProps: DefaultProps = {},
-    render?: RenderFn
-  ): React.ComponentType<any> => {
+export default function withObservable<T, P>(observable: Observable<P>, { callOnResult, propName = 'value', transform = echoTransform }: Options = {}): HOC {
+  return (Inner: React.ComponentType<any>, defaultProps: DefaultProps = {}, render?: RenderFn): React.ComponentType<any> => {
     return class WithObservable extends React.Component<any, State> {
       private isActive = true;
 
@@ -61,11 +54,7 @@ export default function withObservable<T, P>(
           }
 
           // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          triggerChange(
-            callResult,
-            callOnResult,
-            (props as any).callOnResult || defaultProps.callOnResult
-          );
+          triggerChange(callResult, callOnResult, (props as any).callOnResult || defaultProps.callOnResult);
 
           this.setState({
             callResult,

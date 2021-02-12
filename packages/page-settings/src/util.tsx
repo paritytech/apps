@@ -24,11 +24,7 @@ export function createOption({ isHeader, text, value }: Option): Option | React.
   };
 }
 
-export function createIdenticon(
-  { info, text, value }: Option,
-  overrides: string[] = [],
-  override = 'empty'
-): Option {
+export function createIdenticon({ info, text, value }: Option, overrides: string[] = [], override = 'empty'): Option {
   return {
     text: (
       <div className="ui--Dropdown-item" key={value}>

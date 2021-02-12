@@ -26,10 +26,7 @@ function Param({
 }: Props): React.ReactElement<Props> | null {
   const compRef = useRef<React.ComponentType<CProps> | null>(findComponent(type, overrides));
 
-  const label = useMemo(
-    () => (isUndefined(name) ? encodeTypeDef(type) : `${name}: ${encodeTypeDef(type)}`),
-    [name, type]
-  );
+  const label = useMemo(() => (isUndefined(name) ? encodeTypeDef(type) : `${name}: ${encodeTypeDef(type)}`), [name, type]);
 
   if (!compRef.current) {
     return null;

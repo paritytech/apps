@@ -66,7 +66,7 @@ function EventsBase({ children }: Props): React.ReactElement<Props> {
                   if (blockHash !== prevBlockHash) {
                     prevBlockHash = blockHash;
 
-                    setState(events =>
+                    setState((events) =>
                       [
                         ...newEvents.map(
                           ({ index, record }): KeyedEvent => ({

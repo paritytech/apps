@@ -37,30 +37,12 @@ function Apps({ className = '' }: Props): React.ReactElement<Props> {
     ...store.get('sidebar', {}),
     isMenu: window.innerWidth < SIDEBAR_MENU_THRESHOLD
   });
-  const uiHighlight = useMemo(
-    (): string | undefined => getSystemChainColor(systemChain, systemName),
-    [systemChain, systemName]
-  );
+  const uiHighlight = useMemo((): string | undefined => getSystemChainColor(systemChain, systemName), [systemChain, systemName]);
 
-  const _collapse = useCallback(
-    (): void =>
-      setSidebar((sidebar: SidebarState) =>
-        saveSidebar({ ...sidebar, isCollapsed: !sidebar.isCollapsed })
-      ),
-    []
-  );
-  const _toggleMenu = useCallback(
-    (): void =>
-      setSidebar((sidebar: SidebarState) =>
-        saveSidebar({ ...sidebar, isCollapsed: false, isMenuOpen: true })
-      ),
-    []
-  );
+  const _collapse = useCallback((): void => setSidebar((sidebar: SidebarState) => saveSidebar({ ...sidebar, isCollapsed: !sidebar.isCollapsed })), []);
+  const _toggleMenu = useCallback((): void => setSidebar((sidebar: SidebarState) => saveSidebar({ ...sidebar, isCollapsed: false, isMenuOpen: true })), []);
   const _handleResize = useCallback((): void => {
-    const transition =
-      window.innerWidth < SIDEBAR_MENU_THRESHOLD
-        ? SideBarTransition.MINIMISED_AND_EXPANDED
-        : SideBarTransition.EXPANDED_AND_MAXIMISED;
+    const transition = window.innerWidth < SIDEBAR_MENU_THRESHOLD ? SideBarTransition.MINIMISED_AND_EXPANDED : SideBarTransition.EXPANDED_AND_MAXIMISED;
 
     setSidebar((sidebar: SidebarState) =>
       saveSidebar({
@@ -78,22 +60,9 @@ function Apps({ className = '' }: Props): React.ReactElement<Props> {
     <>
       <ScrollToTop />
       <GlobalStyle uiHighlight={defaultColor || uiHighlight} />
-      <div
-        className={`apps--Wrapper ${isCollapsed ? 'collapsed' : 'expanded'} ${
-          isMenuOpen ? 'menu-open' : ''
-        } theme--default ${className}`}
-      >
-        <div
-          className={`apps--Menu-bg ${isMenuOpen ? 'open' : 'closed'}`}
-          onClick={_handleResize}
-        />
-        <SideBar
-          collapse={_collapse}
-          handleResize={_handleResize}
-          isCollapsed={false}
-          isMenuOpen={isMenuOpen}
-          toggleMenu={_toggleMenu}
-        />
+      <div className={`apps--Wrapper ${isCollapsed ? 'collapsed' : 'expanded'} ${isMenuOpen ? 'menu-open' : ''} theme--default ${className}`}>
+        <div className={`apps--Menu-bg ${isMenuOpen ? 'open' : 'closed'}`} onClick={_handleResize} />
+        <SideBar collapse={_collapse} handleResize={_handleResize} isCollapsed={false} isMenuOpen={isMenuOpen} toggleMenu={_toggleMenu} />
         <Content />
         <div id={PORTAL_ID} />
       </div>

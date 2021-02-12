@@ -16,11 +16,7 @@ interface UseSendUnsigned {
 
 const NOOP = () => undefined;
 
-async function sendUnsigned(
-  queueSetTxStatus: QueueTxMessageSetStatus,
-  currentItem: QueueTx,
-  tx: SubmittableExtrinsic<'promise'>
-): Promise<void> {
+async function sendUnsigned(queueSetTxStatus: QueueTxMessageSetStatus, currentItem: QueueTx, tx: SubmittableExtrinsic<'promise'>): Promise<void> {
   currentItem.txStartCb && currentItem.txStartCb();
 
   try {

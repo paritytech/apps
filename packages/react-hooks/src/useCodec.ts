@@ -10,11 +10,7 @@ function formatData(registry: Registry, data: AnyJson, type: TypeDef | undefined
   return createTypeUnsafe(registry, type?.type || 'Raw', [data], { isPedantic: true });
 }
 
-export default function useCodec(
-  registry: TypeRegistry,
-  source: AnyJson,
-  type?: TypeDef
-): [Codec, string] {
+export default function useCodec(registry: TypeRegistry, source: AnyJson, type?: TypeDef): [Codec, string] {
   return useMemo((): [Codec, string] => {
     const codec = formatData(registry, [source], type);
 

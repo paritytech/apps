@@ -37,14 +37,7 @@ function genLinks(systemChain: string, { data, hash, type, withShort }: Props): 
       const link = create(extChain, extPath, data, hash);
 
       return (
-        <a
-          data-for={trigger}
-          data-tip={true}
-          href={link}
-          key={name}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
+        <a data-for={trigger} data-tip={true} href={link} key={name} rel="noopener noreferrer" target="_blank">
           {withShort ? shortName(name) : name}
           <Tooltip
             place="top"
@@ -63,22 +56,10 @@ function genLinks(systemChain: string, { data, hash, type, withShort }: Props): 
     .filter((node): node is React.ReactNode => !!node);
 }
 
-function LinkExternal({
-  className = '',
-  data,
-  hash,
-  type,
-  withShort
-}: Props): React.ReactElement<Props> | null {
+function LinkExternal({ className = '', data, hash, type, withShort }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { systemChain } = useApi();
-  const links = useMemo(() => genLinks(systemChain, { data, hash, type, withShort }), [
-    systemChain,
-    data,
-    hash,
-    type,
-    withShort
-  ]);
+  const links = useMemo(() => genLinks(systemChain, { data, hash, type, withShort }), [systemChain, data, hash, type, withShort]);
 
   if (!links.length) {
     return null;

@@ -9,11 +9,7 @@ import React, { useMemo } from 'react';
 
 import { UseEndpoints } from './types';
 
-export default function useEndpointOptions(
-  { isCustom, url }: UseEndpoints,
-  t: TFunction,
-  useShortText?: boolean
-): React.ReactNode[] {
+export default function useEndpointOptions({ isCustom, url }: UseEndpoints, t: TFunction, useShortText?: boolean): React.ReactNode[] {
   const { isApiConnected } = useApi();
   const className = classes('chain-option', !isApiConnected && 'isDisconnected');
 

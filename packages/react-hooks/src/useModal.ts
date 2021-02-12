@@ -6,11 +6,7 @@ import { useCallback } from 'react';
 import { ModalState } from './types';
 import useToggle from './useToggle';
 
-export default function useModal(
-  defaultIsOpen?: boolean,
-  onOpen?: () => void,
-  onClose?: () => void
-): ModalState {
+export default function useModal(defaultIsOpen?: boolean, onOpen?: () => void, onClose?: () => void): ModalState {
   const [isOpen, , setIsOpen] = useToggle(defaultIsOpen || false);
   const _onOpen = useCallback((): void => {
     setIsOpen(true);

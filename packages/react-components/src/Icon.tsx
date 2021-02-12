@@ -24,15 +24,7 @@ interface Props {
 // library.add(far);
 library.add(fas);
 
-function Icon({
-  className = '',
-  color = 'normal',
-  icon,
-  isSpinning,
-  onClick,
-  size = '1x',
-  tooltip
-}: Props): React.ReactElement<Props> {
+function Icon({ className = '', color = 'normal', icon, isSpinning, onClick, size = '1x', tooltip }: Props): React.ReactElement<Props> {
   const extraProps = tooltip ? { 'data-for': tooltip, 'data-tip': true } : {};
 
   return (

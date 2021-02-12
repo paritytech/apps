@@ -21,21 +21,8 @@ interface Props {
   values?: RawParams | null;
 }
 
-function ParamComp({
-  defaultValue,
-  index,
-  isDisabled,
-  name,
-  onChange,
-  onEnter,
-  onEscape,
-  overrides,
-  type
-}: Props): React.ReactElement<Props> {
-  const _onChange = useCallback((value: RawParamOnChangeValue): void => onChange(index, value), [
-    index,
-    onChange
-  ]);
+function ParamComp({ defaultValue, index, isDisabled, name, onChange, onEnter, onEscape, overrides, type }: Props): React.ReactElement<Props> {
+  const _onChange = useCallback((value: RawParamOnChangeValue): void => onChange(index, value), [index, onChange]);
 
   return (
     <div className="ui--Param-composite">
