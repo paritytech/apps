@@ -26,7 +26,7 @@ interface Props {
   withLabel?: boolean;
 }
 
-function InputRpc ({ className = '', defaultValue, help, label, onChange, withLabel }: Props): React.ReactElement<Props> {
+function InputRpc({ className = '', defaultValue, help, label, onChange, withLabel }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [optionsMethod, setOptionsMethod] = useState<DropdownOptions>(methodOptions(api, defaultValue.section));
   const [optionsSection] = useState<DropdownOptions>(sectionOptions(api));
@@ -63,18 +63,9 @@ function InputRpc ({ className = '', defaultValue, help, label, onChange, withLa
   );
 
   return (
-    <LinkedWrapper className={className}
-      help={help}
-      label={label}
-      withLabel={withLabel}>
-      <SelectSection className='small'
-        onChange={_onSectionChange}
-        options={optionsSection}
-        value={value} />
-      <SelectMethod className='large'
-        onChange={_onMethodChange}
-        options={optionsMethod}
-        value={value} />
+    <LinkedWrapper className={className} help={help} label={label} withLabel={withLabel}>
+      <SelectSection className="small" onChange={_onSectionChange} options={optionsSection} value={value} />
+      <SelectMethod className="large" onChange={_onMethodChange} options={optionsMethod} value={value} />
     </LinkedWrapper>
   );
 }

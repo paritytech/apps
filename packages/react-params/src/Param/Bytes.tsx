@@ -12,7 +12,7 @@ import { useTranslation } from '../translate';
 import BaseBytes from './BaseBytes';
 import File from './File';
 
-function Bytes ({ className = '', defaultValue, isDisabled, isError, label, name, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
+function Bytes({ className = '', defaultValue, isDisabled, isError, label, name, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isValid, setIsValid] = useState(false);
   const [isFileDrop, setFileInput] = useState(false);
@@ -34,34 +34,25 @@ function Bytes ({ className = '', defaultValue, isDisabled, isError, label, name
 
   return (
     <div className={className}>
-      {!isDisabled && isFileDrop
-        ? (
-          <File isDisabled={isDisabled}
-            isError={isError || !isValid}
-            label={label}
-            onChange={_onChangeFile}
-            withLabel={withLabel} />
-        )
-        : (
-          <BaseBytes
-            defaultValue={defaultValue}
-            isDisabled={isDisabled}
-            isError={isError}
-            label={label}
-            length={-1}
-            name={name}
-            onChange={onChange}
-            onEnter={onEnter}
-            onEscape={onEscape}
-            type={type}
-            withLabel={withLabel}
-            withLength
-          />
-        )}
-      {!isDisabled && <Toggle isOverlay
-        label={t<string>('file upload')}
-        onChange={setFileInput}
-        value={isFileDrop} />}
+      {!isDisabled && isFileDrop ? (
+        <File isDisabled={isDisabled} isError={isError || !isValid} label={label} onChange={_onChangeFile} withLabel={withLabel} />
+      ) : (
+        <BaseBytes
+          defaultValue={defaultValue}
+          isDisabled={isDisabled}
+          isError={isError}
+          label={label}
+          length={-1}
+          name={name}
+          onChange={onChange}
+          onEnter={onEnter}
+          onEscape={onEscape}
+          type={type}
+          withLabel={withLabel}
+          withLength
+        />
+      )}
+      {!isDisabled && <Toggle isOverlay label={t<string>('file upload')} onChange={setFileInput} value={isFileDrop} />}
     </div>
   );
 }

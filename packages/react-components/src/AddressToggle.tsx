@@ -23,7 +23,7 @@ interface Props {
   value?: boolean;
 }
 
-function getIsFiltered (address: string, filter?: string, info?: DeriveAccountInfo): boolean {
+function getIsFiltered(address: string, filter?: string, info?: DeriveAccountInfo): boolean {
   if (!filter || address.includes(filter)) {
     return false;
   }
@@ -51,7 +51,7 @@ function getIsFiltered (address: string, filter?: string, info?: DeriveAccountIn
   return true;
 }
 
-function AddressToggle ({ address, className = '', filter, isHidden, noLookup, noToggle, onChange, value }: Props): React.ReactElement<Props> | null {
+function AddressToggle({ address, className = '', filter, isHidden, noLookup, noToggle, onChange, value }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveAccountInfo>(!noLookup && api.derive.accounts.info, [address]);
   const [isFiltered, setIsFiltered] = useState(false);
@@ -63,16 +63,11 @@ function AddressToggle ({ address, className = '', filter, isHidden, noLookup, n
   const _onClick = useCallback((): void => onChange && onChange(!value), [onChange, value]);
 
   return (
-    <div className={`ui--AddressToggle ${className} ${value || noToggle ? 'isAye' : 'isNay'} ${isHidden || isFiltered ? 'isHidden' : ''}`}
-      onClick={_onClick}>
-      <AddressMini className='ui--AddressToggle-address'
-        noLookup={noLookup}
-        value={address}
-        withSidebar={false} />
+    <div className={`ui--AddressToggle ${className} ${value || noToggle ? 'isAye' : 'isNay'} ${isHidden || isFiltered ? 'isHidden' : ''}`} onClick={_onClick}>
+      <AddressMini className="ui--AddressToggle-address" noLookup={noLookup} value={address} withSidebar={false} />
       {!noToggle && (
-        <div className='ui--AddressToggle-toggle'>
-          <Toggle label=''
-            value={value} />
+        <div className="ui--AddressToggle-toggle">
+          <Toggle label="" value={value} />
         </div>
       )}
     </div>

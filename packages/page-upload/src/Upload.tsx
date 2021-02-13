@@ -17,7 +17,7 @@ import { compactAddLength, isNull, isWasm } from '@polkadot/util';
 
 import { useTranslation } from './translate';
 
-function Upload ({ basePath, navigateTo }: Props): React.ReactElement<Props> {
+function Upload({ basePath, navigateTo }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
   const [accountId, setAccountId] = useAccountId();
@@ -110,7 +110,7 @@ function Upload ({ basePath, navigateTo }: Props): React.ReactElement<Props> {
     >
       <header>
         <h1>{t<string>('Upload WASM Code Blob')}</h1>
-        <div className='instructions'>
+        <div className="instructions">
           {t<string>('You can upload an existing Wasm blob here. Already have a blob on chain? ')}
           <Link to={`${basePath}/add`}>{t<string>('Add an existing code hash.')}</Link>
         </div>
@@ -121,7 +121,7 @@ function Upload ({ basePath, navigateTo }: Props): React.ReactElement<Props> {
           isInput={false}
           label={t<string>('Account')}
           onChange={setAccountId}
-          type='account'
+          type="account"
           value={accountId}
         />
         <Input
@@ -132,14 +132,7 @@ function Upload ({ basePath, navigateTo }: Props): React.ReactElement<Props> {
           placeholder={t<string>('Give your bundle a descriptive name')}
           value={name}
         />
-        <InputABI abi={abi}
-          errorText={errorText}
-          file={abiFile}
-          isError={isAbiError}
-          isSupplied={isAbiSupplied}
-          isValid={isAbiValid}
-          setFile={setAbiFile}
-          withLabel />
+        <InputABI abi={abi} errorText={errorText} file={abiFile} isError={isAbiError} isSupplied={isAbiSupplied} isValid={isAbiValid} setFile={setAbiFile} withLabel />
         {abi?.project.source.wasm && abi.project.source.wasm.length === 0 && (
           <InputFile
             help={t<string>(

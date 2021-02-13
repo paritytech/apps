@@ -9,7 +9,7 @@ import Base from './Base';
 import Static from './Static';
 import useParamDefs from './useParamDefs';
 
-function StructParam (props: Props): React.ReactElement<Props> {
+function StructParam(props: Props): React.ReactElement<Props> {
   const params = useParamDefs(props.type);
   const { className = '', isDisabled, label, onChange, overrides, withLabel } = props;
 
@@ -33,13 +33,9 @@ function StructParam (props: Props): React.ReactElement<Props> {
   }
 
   return (
-    <div className='ui--Params-Struct'>
-      <Base className={className}
-        label={label}
-        withLabel={withLabel} />
-      <Params onChange={_onChangeParams}
-        overrides={overrides}
-        params={params} />
+    <div className="ui--Params-Struct">
+      <Base className={className} label={label} withLabel={withLabel} />
+      <Params onChange={_onChangeParams} overrides={overrides} params={params} />
     </div>
   );
 }

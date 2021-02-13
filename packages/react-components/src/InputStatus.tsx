@@ -15,7 +15,7 @@ interface Props extends BareProps {
   text: React.ReactNode;
 }
 
-function InputStatus ({ className, isError = false, isValid = false, text = null }: Props): React.ReactElement<Props> {
+function InputStatus({ className, isError = false, isValid = false, text = null }: Props): React.ReactElement<Props> {
   return (
     <div className={classes(className, isError && 'isError')}>
       {!!text && <Icon icon={!isValid ? 'exclamation-circle' : 'check-circle'} />}

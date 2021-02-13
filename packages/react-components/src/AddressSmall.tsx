@@ -23,7 +23,8 @@ interface Props {
   value?: string | Address | AccountId | null | Uint8Array;
 }
 
-function AddressSmall ({ children,
+function AddressSmall({
+  children,
   className = '',
   defaultName,
   onClickName,
@@ -31,7 +32,8 @@ function AddressSmall ({ children,
   toggle,
   value,
   withIndex,
-  withSidebar = true }: Props): React.ReactElement<Props> {
+  withSidebar = true
+}: Props): React.ReactElement<Props> {
   return (
     <div className={`ui--AddressSmall ${className}`}>
       <IdentityIcon value={value as Uint8Array} />

@@ -16,11 +16,11 @@ interface UseSettings {
   settings: SettingsStruct;
 }
 
-export function save (settings: SettingsStruct): void {
+export function save(settings: SettingsStruct): void {
   uiSettings.set(settings);
 }
 
-export function saveAndReload (settings: SettingsStruct): void {
+export function saveAndReload(settings: SettingsStruct): void {
   save(settings);
 
   // HACK This is terribe, but since the API needs to re-connect, but since
@@ -28,7 +28,7 @@ export function saveAndReload (settings: SettingsStruct): void {
   window.location.reload();
 }
 
-export default function useSettings (reloadOnChange?: boolean): UseSettings {
+export default function useSettings(reloadOnChange?: boolean): UseSettings {
   // tri-state: null = nothing changed, false = no reload, true = reload required
   const [isChanged, setIsChanged] = useState<boolean | null>(null);
   const [settings, setSettings] = useState(uiSettings.get());

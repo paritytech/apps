@@ -9,11 +9,11 @@ import { ApiConsumer } from '../ApiContext';
 import { ApiProps, SubtractProps } from '../types';
 import { DefaultProps } from './types';
 
-export default function withApi<P extends ApiProps> (Inner: React.ComponentType<P>, defaultProps: DefaultProps = {}): React.ComponentType<any> {
+export default function withApi<P extends ApiProps>(Inner: React.ComponentType<P>, defaultProps: DefaultProps = {}): React.ComponentType<any> {
   return class WithApi extends React.PureComponent<SubtractProps<P, ApiProps>> {
     private component: any = React.createRef();
 
-    public render (): React.ReactNode {
+    public render(): React.ReactNode {
       return (
         <ApiConsumer>
           {(apiProps?: ApiProps): React.ReactNode => {

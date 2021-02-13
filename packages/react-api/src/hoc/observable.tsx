@@ -16,7 +16,7 @@ interface State extends CallState {
   subscriptions: { unsubscribe: () => void }[];
 }
 
-export default function withObservable<T, P> (observable: Observable<P>, { callOnResult, propName = 'value', transform = echoTransform }: Options = {}): HOC {
+export default function withObservable<T, P>(observable: Observable<P>, { callOnResult, propName = 'value', transform = echoTransform }: Options = {}): HOC {
   return (Inner: React.ComponentType<any>, defaultProps: DefaultProps = {}, render?: RenderFn): React.ComponentType<any> => {
     return class WithObservable extends React.Component<any, State> {
       private isActive = true;
@@ -28,7 +28,7 @@ export default function withObservable<T, P> (observable: Observable<P>, { callO
         subscriptions: []
       };
 
-      public componentDidMount (): void {
+      public componentDidMount(): void {
         this.setState({
           subscriptions: [
             observable
@@ -42,7 +42,7 @@ export default function withObservable<T, P> (observable: Observable<P>, { callO
         });
       }
 
-      public componentWillUnmount (): void {
+      public componentWillUnmount(): void {
         this.isActive = false;
         this.state.subscriptions.forEach((subscription): void => subscription.unsubscribe());
       }
@@ -66,7 +66,7 @@ export default function withObservable<T, P> (observable: Observable<P>, { callO
         }
       };
 
-      public render (): React.ReactNode {
+      public render(): React.ReactNode {
         const { children } = this.props;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const { callResult, callUpdated, callUpdatedAt } = this.state;

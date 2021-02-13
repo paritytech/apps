@@ -9,7 +9,7 @@ import { Codec } from '@polkadot/types/types/codec';
 
 import Bare from './Bare';
 
-function Raw ({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
+function Raw({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
@@ -31,7 +31,7 @@ function Raw ({ className = '', defaultValue: { value }, isDisabled, isError, la
   return (
     <Bare className={className}>
       <Input
-        className='full'
+        className="full"
         defaultValue={defaultValue as string}
         isDisabled={isDisabled}
         isError={isError || !isValid}
@@ -39,8 +39,8 @@ function Raw ({ className = '', defaultValue: { value }, isDisabled, isError, la
         onChange={_onChange}
         onEnter={onEnter}
         onEscape={onEscape}
-        placeholder='Hex data'
-        type='text'
+        placeholder="Hex data"
+        type="text"
         withLabel={withLabel}
       />
     </Bare>

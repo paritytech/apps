@@ -6,7 +6,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import store from './store';
 import { WithCodes } from './types';
 
-export default function useAppNavigation (): WithCodes {
+export default function useAppNavigation(): WithCodes {
   const [isLoading, setIsLoading] = useState(true);
   const [updated, setUpdated] = useState(0);
   const [allCodes, setAllCodes] = useState(store.getAllCode());

@@ -17,7 +17,7 @@ export interface ItemState {
   requestAddress: string | null;
 }
 
-async function submitRpc (api: ApiPromise, { method, section }: DefinitionRpcExt, values: any[]): Promise<QueueTxResult> {
+async function submitRpc(api: ApiPromise, { method, section }: DefinitionRpcExt, values: any[]): Promise<QueueTxResult> {
   try {
     const rpc = api.rpc as Record<string, Record<string, (...params: unknown[]) => Promise<unknown>>>;
 
@@ -41,7 +41,7 @@ async function submitRpc (api: ApiPromise, { method, section }: DefinitionRpcExt
   }
 }
 
-async function sendRpc (api: ApiPromise, queueSetTxStatus: QueueTxMessageSetStatus, { id, rpc, values = [] }: QueueTx): Promise<void> {
+async function sendRpc(api: ApiPromise, queueSetTxStatus: QueueTxMessageSetStatus, { id, rpc, values = [] }: QueueTx): Promise<void> {
   if (rpc) {
     queueSetTxStatus(id, 'sending');
 
@@ -52,7 +52,7 @@ async function sendRpc (api: ApiPromise, queueSetTxStatus: QueueTxMessageSetStat
   }
 }
 
-function extractCurrent (api: ApiPromise, queueSetTxStatus: QueueTxMessageSetStatus, txqueue: QueueTx[], filter?: string): ItemState {
+function extractCurrent(api: ApiPromise, queueSetTxStatus: QueueTxMessageSetStatus, txqueue: QueueTx[], filter?: string): ItemState {
   const nextItem = txqueue.find(({ status }) => ['queued', 'qr'].includes(status)) || null;
   let currentItem = null;
 
@@ -75,7 +75,7 @@ function extractCurrent (api: ApiPromise, queueSetTxStatus: QueueTxMessageSetSta
   };
 }
 
-export default function usePendingTx (signature?: string): ItemState {
+export default function usePendingTx(signature?: string): ItemState {
   const scrollToTop = useScrollToTop();
   const { api } = useApi();
   const { queueSetTxStatus, txqueue } = useContext(StatusContext);

@@ -19,7 +19,7 @@ interface Props extends BareProps {
   value?: string;
 }
 
-function InputName ({ className, isBusy, isContract, isError, onChange, onEnter, value = '' }: Props): React.ReactElement<Props> {
+function InputName({ className, isBusy, isContract, isError, onChange, onEnter, value = '' }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   return (

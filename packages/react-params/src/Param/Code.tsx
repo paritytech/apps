@@ -9,7 +9,7 @@ import { isWasm } from '@polkadot/util';
 import Bytes from './Bytes';
 import BytesFile from './File';
 
-function Code ({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
+function Code({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
@@ -37,12 +37,7 @@ function Code ({ className = '', defaultValue, isDisabled, isError, label, onCha
     );
   }
 
-  return <BytesFile className={className}
-    defaultValue={defaultValue}
-    isError={isError || !isValid}
-    label={label}
-    onChange={_onChange}
-    withLabel={withLabel} />;
+  return <BytesFile className={className} defaultValue={defaultValue} isError={isError || !isValid} label={label} onChange={_onChange} withLabel={withLabel} />;
 }
 
 export default React.memo(Code);

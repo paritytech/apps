@@ -7,7 +7,7 @@ import React, { useCallback } from 'react';
 
 import Amount from './Amount';
 
-function Moment ({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
+function Moment({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
   const _onChange = useCallback((value: RawParamOnChangeValue) => onChange && onChange(value), [onChange]);
 
   if (isDisabled) {

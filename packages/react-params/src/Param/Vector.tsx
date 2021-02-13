@@ -13,14 +13,14 @@ import { useTranslation } from '../translate';
 import Base from './Base';
 import useParamDefs from './useParamDefs';
 
-function generateParam ([{ name, type }]: ParamDef[], index: number): ParamDef {
+function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
   return {
     name: `${index}: ${name || type.type}`,
     type
   };
 }
 
-function Vector ({ className = '', defaultValue, isDisabled = false, label, onChange, overrides, type, withLabel }: Props): React.ReactElement<Props> | null {
+function Vector({ className = '', defaultValue, isDisabled = false, label, onChange, overrides, type, withLabel }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const inputParams = useParamDefs(type);
   const [count, setCount] = useState(0);
@@ -83,26 +83,14 @@ function Vector ({ className = '', defaultValue, isDisabled = false, label, onCh
   const _rowRemove = useCallback((): void => setCount((count) => count - 1), []);
 
   return (
-    <Base className={className}
-      isOuter
-      label={label}
-      withLabel={withLabel}>
+    <Base className={className} isOuter label={label} withLabel={withLabel}>
       {!isDisabled && (
-        <div className='ui--Param-Vector-buttons'>
-          <Button icon='plus'
-            label={t<string>('Add item')}
-            onClick={_rowAdd} />
-          <Button icon='minus'
-            isDisabled={values.length === 0}
-            label={t<string>('Remove item')}
-            onClick={_rowRemove} />
+        <div className="ui--Param-Vector-buttons">
+          <Button icon="plus" label={t<string>('Add item')} onClick={_rowAdd} />
+          <Button icon="minus" isDisabled={values.length === 0} label={t<string>('Remove item')} onClick={_rowRemove} />
         </div>
       )}
-      <Params isDisabled={isDisabled}
-        onChange={setValues}
-        overrides={overrides}
-        params={params}
-        values={values} />
+      <Params isDisabled={isDisabled} onChange={setValues} overrides={overrides} params={params} values={values} />
     </Base>
   );
 }

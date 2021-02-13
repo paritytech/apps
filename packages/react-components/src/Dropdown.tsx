@@ -43,7 +43,8 @@ export type IDropdown<Option> = React.ComponentType<Props<Option>> & {
   Header: React.ComponentType<{ content: React.ReactNode }>;
 };
 
-function BaseDropdown<Option> ({ allowAdd = false,
+function BaseDropdown<Option>({
+  allowAdd = false,
   children,
   className = '',
   defaultValue,
@@ -68,7 +69,8 @@ function BaseDropdown<Option> ({ allowAdd = false,
   transform,
   value,
   withEllipsis,
-  withLabel }: Props<Option>): React.ReactElement<Props<Option>> {
+  withLabel
+}: Props<Option>): React.ReactElement<Props<Option>> {
   const lastUpdate = useRef<string>('');
   const [stored, setStored] = useState<string | undefined>();
 
@@ -119,24 +121,22 @@ function BaseDropdown<Option> ({ allowAdd = false,
     />
   );
 
-  return isButton
-    ? (
-      <SUIButton.Group primary>{dropdown}</SUIButton.Group>
-    )
-    : (
-      <Labelled
-        className={classes('ui--Dropdown', className)}
-        help={help}
-        isFull={isFull}
-        label={label}
-        labelExtra={labelExtra}
-        withEllipsis={withEllipsis}
-        withLabel={withLabel}
-      >
-        {dropdown}
-        {children}
-      </Labelled>
-    );
+  return isButton ? (
+    <SUIButton.Group primary>{dropdown}</SUIButton.Group>
+  ) : (
+    <Labelled
+      className={classes('ui--Dropdown', className)}
+      help={help}
+      isFull={isFull}
+      label={label}
+      labelExtra={labelExtra}
+      withEllipsis={withEllipsis}
+      withLabel={withLabel}
+    >
+      {dropdown}
+      {children}
+    </Labelled>
+  );
 }
 
 const Dropdown = (React.memo(styled(BaseDropdown)`

@@ -15,7 +15,7 @@ interface Props {
   onEnter?: () => void;
 }
 
-function CallParams ({ isDisabled, onChange, onEnter, params: propParams }: Props): React.ReactElement<Props> | null {
+function CallParams({ isDisabled, onChange, onEnter, params: propParams }: Props): React.ReactElement<Props> | null {
   const [params, setParams] = useState<AbiParam[]>([]);
 
   useEffect((): void => {
@@ -28,10 +28,7 @@ function CallParams ({ isDisabled, onChange, onEnter, params: propParams }: Prop
     return null;
   }
 
-  return <UIParams isDisabled={isDisabled}
-    onChange={_onChange}
-    onEnter={onEnter}
-    params={params} />;
+  return <UIParams isDisabled={isDisabled} onChange={_onChange} onEnter={onEnter} params={params} />;
 }
 
 export default React.memo(CallParams);

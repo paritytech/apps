@@ -37,7 +37,8 @@ interface Props extends BareProps {
   withShrink?: boolean;
 }
 
-function AddressMini ({ balance,
+function AddressMini({
+  balance,
   bonded,
   children,
   className = '',
@@ -53,36 +54,29 @@ function AddressMini ({ balance,
   withBonded = false,
   withName = true,
   withShrink = false,
-  withSidebar = true }: Props): React.ReactElement<Props> | null {
+  withSidebar = true
+}: Props): React.ReactElement<Props> | null {
   if (!value) {
     return null;
   }
 
   return (
     <div className={classes('ui--AddressMini', isPadded ? 'padded' : '', withShrink ? 'withShrink' : '', className)}>
-      {label && <label className='ui--AddressMini-label'>{label}</label>}
-      <div className='ui--AddressMini-icon'>
+      {label && <label className="ui--AddressMini-label">{label}</label>}
+      <div className="ui--AddressMini-icon">
         <IdentityIcon value={value as Uint8Array} />
-        {iconInfo && <div className='ui--AddressMini-icon-info'>{iconInfo}</div>}
+        {iconInfo && <div className="ui--AddressMini-icon-info">{iconInfo}</div>}
       </div>
-      <div className='ui--AddressMini-info'>
+      <div className="ui--AddressMini-info">
         {withAddress && (
-          <div className='ui--AddressMini-address'>{withName
-            ? <AccountName noLookup={noLookup}
-              value={value}
-              withSidebar={withSidebar} />
-            : toShortAddress(value)}</div>
+          <div className="ui--AddressMini-address">{withName ? <AccountName noLookup={noLookup} value={value} withSidebar={withSidebar} /> : toShortAddress(value)}</div>
         )}
         {children}
       </div>
-      <div className='ui--AddressMini-balances'>
-        {withBalance && <BalanceDisplay balance={balance}
-          label={labelBalance}
-          params={value} />}
-        {withBonded && <BondedDisplay bonded={bonded}
-          label=''
-          params={value} />}
-        {summary && <div className='ui--AddressMini-summary'>{summary}</div>}
+      <div className="ui--AddressMini-balances">
+        {withBalance && <BalanceDisplay balance={balance} label={labelBalance} params={value} />}
+        {withBonded && <BondedDisplay bonded={bonded} label="" params={value} />}
+        {summary && <div className="ui--AddressMini-summary">{summary}</div>}
       </div>
     </div>
   );

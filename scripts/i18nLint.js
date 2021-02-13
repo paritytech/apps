@@ -7,7 +7,7 @@ const path = require('path');
 const defaults = {};
 const i18nRoot = path.join(__dirname, '../packages/apps/public/locales');
 
-function getEntries (langRoot) {
+function getEntries(langRoot) {
   return fs
     .readdirSync(langRoot)
     .filter(
@@ -20,7 +20,7 @@ function getEntries (langRoot) {
     .sort();
 }
 
-function checkLanguage (lang) {
+function checkLanguage(lang) {
   console.log(`*** Checking ${lang}`);
 
   const langRoot = path.join(i18nRoot, lang);
@@ -60,14 +60,14 @@ function checkLanguage (lang) {
   });
 }
 
-function checkLanguages () {
+function checkLanguages() {
   fs.readdirSync(i18nRoot)
     .filter((entry) => !['.', '..'].includes(entry) && fs.lstatSync(path.join(i18nRoot, entry)).isDirectory() && entry !== 'en')
     .sort()
     .forEach(checkLanguage);
 }
 
-function initDefault () {
+function initDefault() {
   const enRoot = path.join(i18nRoot, 'en');
 
   getEntries(enRoot).forEach((entry) => {

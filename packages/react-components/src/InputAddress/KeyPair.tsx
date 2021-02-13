@@ -54,31 +54,29 @@ const styles = `
   }
 `;
 
-function KeyPairNone ({ className }: BareProps): React.ReactElement<BareProps> {
+function KeyPairNone({ className }: BareProps): React.ReactElement<BareProps> {
   const { t } = useTranslation();
 
   return (
     <div className={['ui--KeyPair', 'noAccount', className].join(' ')}>
-      <IdentityIcon className='icon'
-        value='none' />
-      <div className='info'>
-        <div className='name'>{t('No Account')}</div>
-        <div className='address'>...</div>
+      <IdentityIcon className="icon" value="none" />
+      <div className="info">
+        <div className="name">{t('No Account')}</div>
+        <div className="address">...</div>
       </div>
     </div>
   );
 }
 
-function KeyPair ({ address, className }: Props): React.ReactElement<Props> {
+function KeyPair({ address, className }: Props): React.ReactElement<Props> {
   return (
     <div className={['ui--KeyPair', className].join(' ')}>
-      <IdentityIcon className='icon'
-        value={address} />
-      <div className='info'>
-        <div className='name'>
+      <IdentityIcon className="icon" value={address} />
+      <div className="info">
+        <div className="name">
           <AccountName value={address} />
         </div>
-        <div className='address'>{truncate(address, 8)}</div>
+        <div className="address">{truncate(address, 8)}</div>
       </div>
     </div>
   );

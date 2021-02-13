@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { getTypeDef } from '@polkadot/types';
 import { TypeDef } from '@polkadot/types/types';
 
-function expandDef (td: TypeDef): TypeDef {
+function expandDef(td: TypeDef): TypeDef {
   try {
     return getTypeDef(registry.createType(td.type as 'u32').toRawType());
   } catch (e) {
@@ -16,7 +16,7 @@ function expandDef (td: TypeDef): TypeDef {
   }
 }
 
-export default function useParamDefs (type: TypeDef): ParamDef[] {
+export default function useParamDefs(type: TypeDef): ParamDef[] {
   const [params, setParams] = useState<ParamDef[]>([]);
 
   useEffect((): void => {

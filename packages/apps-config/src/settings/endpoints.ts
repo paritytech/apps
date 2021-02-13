@@ -9,7 +9,7 @@ interface LinkOption extends Option {
   dnslink?: string;
 }
 
-function createDev (t: TFunction): LinkOption[] {
+function createDev(t: TFunction): LinkOption[] {
   return [
     {
       dnslink: 'local',
@@ -21,7 +21,7 @@ function createDev (t: TFunction): LinkOption[] {
   ];
 }
 
-function createLive (t: TFunction): LinkOption[] {
+function createLive(t: TFunction): LinkOption[] {
   return [
     {
       dnslink: 'canvas',
@@ -52,7 +52,7 @@ function createLive (t: TFunction): LinkOption[] {
 //   info: The chain logo name as defined in ../logos, specifically in namedLogos
 //   text: The text to display on teh dropdown
 //   value: The actual hosted secure websocket endpoint
-export default function create (t: TFunction): LinkOption[] {
+export default function create(t: TFunction): LinkOption[] {
   const ENV: LinkOption[] = [];
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment,@typescript-eslint/no-unsafe-member-access
   const WS_URL = process.env.WS_URL || ((window as any).process_env?.WS_URL as string);

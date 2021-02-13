@@ -40,7 +40,7 @@ const BYTE_STR_X = 'x'.charCodeAt(0);
 const STR_NL = '\n';
 const NOOP = (): void => undefined;
 
-function convertResult (result: ArrayBuffer): Uint8Array {
+function convertResult(result: ArrayBuffer): Uint8Array {
   const data = new Uint8Array(result);
 
   // this converts the input (if detected as hex), via the hex conversion route
@@ -59,7 +59,8 @@ function convertResult (result: ArrayBuffer): Uint8Array {
   return data;
 }
 
-function InputFile ({ accept,
+function InputFile({
+  accept,
   children,
   className,
   errorText,
@@ -71,7 +72,8 @@ function InputFile ({ accept,
   onRemove,
   value = null,
   withEllipsis,
-  withLabel }: InputFileProps): React.ReactElement<InputFileProps> {
+  withLabel
+}: InputFileProps): React.ReactElement<InputFileProps> {
   const { t } = useTranslation();
   const dropRef = createRef<DropzoneRef>();
 
@@ -113,11 +115,7 @@ function InputFile ({ accept,
   );
 
   const dropZone = (
-    <Dropzone accept={accept}
-      disabled={isDisabled}
-      multiple={false}
-      onDrop={_onDrop}
-      ref={dropRef}>
+    <Dropzone accept={accept} disabled={isDisabled} multiple={false} onDrop={_onDrop} ref={dropRef}>
       {({ getInputProps, getRootProps }): JSX.Element => {
         const rootProps = getRootProps({
           className: classes('ui--InputFile', isError ? 'error' : '', !value ? 'isEmpty' : '', className)
@@ -127,39 +125,28 @@ function InputFile ({ accept,
         return (
           <div {...rootProps}>
             <input {...inputProps} />
-            {!value
-              ? (
-                <>
-                  <Icon icon='upload'
-                    size='2x' />
-                  <div>{t<string>('Click to select or drag & drop to upload file.')}</div>
-                </>
-              )
-              : (
-                <FileSupplied errorText={errorText}
-                  isError={isError}
-                  onRemove={_onRemove}
-                  text={value.name} />
-              )}
-            {children && <div className='children'>{children}</div>}
+            {!value ? (
+              <>
+                <Icon icon="upload" size="2x" />
+                <div>{t<string>('Click to select or drag & drop to upload file.')}</div>
+              </>
+            ) : (
+              <FileSupplied errorText={errorText} isError={isError} onRemove={_onRemove} text={value.name} />
+            )}
+            {children && <div className="children">{children}</div>}
           </div>
         );
       }}
     </Dropzone>
   );
 
-  return label
-    ? (
-      <Labelled help={help}
-        label={label}
-        withEllipsis={withEllipsis}
-        withLabel={withLabel}>
-        {dropZone}
-      </Labelled>
-    )
-    : (
-      dropZone
-    );
+  return label ? (
+    <Labelled help={help} label={label} withEllipsis={withEllipsis} withLabel={withLabel}>
+      {dropZone}
+    </Labelled>
+  ) : (
+    dropZone
+  );
 }
 
 export default React.memo(styled(InputFile)`

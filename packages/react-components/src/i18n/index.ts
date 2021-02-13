@@ -85,7 +85,7 @@ uiSettings.on('change', (settings): void => {
     .changeLanguage(
       settings.i18nLang === LANGUAGE_DEFAULT
         ? // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
-        i18n.services.languageDetector.detect()
+          i18n.services.languageDetector.detect()
         : settings.i18nLang
     )
     .catch(console.error);

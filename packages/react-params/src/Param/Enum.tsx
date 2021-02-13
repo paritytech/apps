@@ -22,7 +22,7 @@ interface Options {
   subTypes: TypeDef[];
 }
 
-function EnumParam (props: Props): React.ReactElement<Props> {
+function EnumParam(props: Props): React.ReactElement<Props> {
   const { className = '', defaultValue, isDisabled, isError, label, onChange, overrides, type, withLabel } = props;
   const [current, setCurrent] = useState<ParamDef[] | null>(null);
   const [initialValue, setInitialValue] = useState<string | null>(null);
@@ -83,7 +83,7 @@ function EnumParam (props: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>
       <Dropdown
-        className='full'
+        className="full"
         defaultValue={initialValue}
         isDisabled={isDisabled}
         isError={isError}
@@ -93,9 +93,7 @@ function EnumParam (props: Props): React.ReactElement<Props> {
         withEllipsis
         withLabel={withLabel}
       />
-      {current && <Params onChange={_onChangeParam}
-        overrides={overrides}
-        params={current} />}
+      {current && <Params onChange={_onChangeParam} overrides={overrides} params={current} />}
     </Bare>
   );
 }

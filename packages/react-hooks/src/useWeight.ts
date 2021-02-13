@@ -14,7 +14,7 @@ import useIsMountedRef from './useIsMountedRef';
 const ZERO_ACCOUNT = '5CAUdnwecHGxxyr5vABevAfZ34Fi4AaraDRMwfDQXQ52PXqg';
 
 // for a given call, calculate the weight
-export default function useWeight (call: Call): BN {
+export default function useWeight(call: Call): BN {
   const { api } = useApi();
   const mountedRef = useIsMountedRef();
   const [weight, setWeight] = useState<BN>(BN_ZERO);

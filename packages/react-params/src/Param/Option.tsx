@@ -11,7 +11,7 @@ import { TypeDef } from '@polkadot/types/types';
 import { useTranslation } from '../translate';
 import Param from './index';
 
-function Option ({ className = '', defaultValue, isDisabled, name, onChange, onEnter, onEscape, type: { sub, withOptionActive } }: Props): React.ReactElement<Props> {
+function Option({ className = '', defaultValue, isDisabled, name, onChange, onEnter, onEscape, type: { sub, withOptionActive } }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isActive, setIsActive] = useState(withOptionActive || false);
 
@@ -37,10 +37,7 @@ function Option ({ className = '', defaultValue, isDisabled, name, onChange, onE
         onEscape={onEscape}
         type={sub as TypeDef}
       />
-      {!isDisabled && <Toggle isOverlay
-        label={t<string>('include option')}
-        onChange={setIsActive}
-        value={isActive} />}
+      {!isDisabled && <Toggle isOverlay label={t<string>('include option')} onChange={setIsActive} value={isActive} />}
     </div>
   );
 }

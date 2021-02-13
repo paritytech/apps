@@ -6,7 +6,7 @@ import type { GroupProps } from './types';
 import React from 'react';
 import styled from 'styled-components';
 
-function ButtonGroup ({ children, className = '', isCentered }: GroupProps): React.ReactElement<GroupProps> {
+function ButtonGroup({ children, className = '', isCentered }: GroupProps): React.ReactElement<GroupProps> {
   return <div className={`ui--Button-Group${isCentered ? ' isCentered' : ''} ${className}`}>{children}</div>;
 }
 

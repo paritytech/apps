@@ -11,12 +11,12 @@ import Success from './Success';
 import { ComponentProps } from './types';
 import Upload from './Upload';
 
-function UploadApp ({ basePath, navigateTo }: Props): React.ReactElement<Props> {
+function UploadApp({ basePath, navigateTo }: Props): React.ReactElement<Props> {
   const useCodesHook = useCodes();
   const componentProps = useMemo((): ComponentProps => ({ ...useCodesHook, basePath, navigateTo }), [useCodesHook, basePath, navigateTo]);
 
   return (
-    <main className='upload--App'>
+    <main className="upload--App">
       <Switch>
         <Route path={`${basePath}/add`}>
           <Add {...componentProps} />

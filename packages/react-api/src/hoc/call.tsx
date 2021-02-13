@@ -38,9 +38,10 @@ const NO_SKIP = (): boolean => false;
 // a mapping of actual error messages that has already been shown
 const errorred: Record<string, boolean> = {};
 
-export default function withCall<P extends ApiProps> (
+export default function withCall<P extends ApiProps>(
   endpoint: string,
-  { at,
+  {
+    at,
     atProp,
     callOnResult,
     fallbacks,
@@ -52,7 +53,8 @@ export default function withCall<P extends ApiProps> (
     propName,
     skipIf = NO_SKIP,
     transform = echoTransform,
-    withIndicator = false }: Options = {}
+    withIndicator = false
+  }: Options = {}
 ): (Inner: React.ComponentType<ApiProps>) => React.ComponentType<any> {
   return (Inner: React.ComponentType<ApiProps>): React.ComponentType<SubtractProps<P, ApiProps>> => {
     class WithPromise extends React.Component<P, State> {
@@ -70,7 +72,7 @@ export default function withCall<P extends ApiProps> (
 
       private timerId = -1;
 
-      constructor (props: P) {
+      constructor(props: P) {
         super(props);
 
         const [, section, method] = endpoint.split('.');
@@ -78,7 +80,7 @@ export default function withCall<P extends ApiProps> (
         this.propName = `${section}_${method}`;
       }
 
-      public componentDidUpdate (prevProps: any): void {
+      public componentDidUpdate(prevProps: any): void {
         const oldParams = this.getParams(prevProps);
         const newParams = this.getParams(this.props);
 
@@ -87,7 +89,7 @@ export default function withCall<P extends ApiProps> (
         }
       }
 
-      public componentDidMount (): void {
+      public componentDidMount(): void {
         this.isActive = true;
 
         if (withIndicator) {
@@ -108,7 +110,7 @@ export default function withCall<P extends ApiProps> (
         });
       }
 
-      public componentWillUnmount (): void {
+      public componentWillUnmount(): void {
         this.isActive = false;
 
         this.unsubscribe().then(NOOP).catch(NOOP);
@@ -118,13 +120,13 @@ export default function withCall<P extends ApiProps> (
         }
       }
 
-      private nextState (state: Partial<State>): void {
+      private nextState(state: Partial<State>): void {
         if (this.isActive) {
           this.setState(state as State);
         }
       }
 
-      private getParams (props: any): [boolean, any[]] {
+      private getParams(props: any): [boolean, any[]] {
         const paramValue = paramPick ? paramPick(props) : paramName ? props[paramName] : undefined;
 
         if (atProp) {
@@ -155,7 +157,7 @@ export default function withCall<P extends ApiProps> (
         return [apiSection, area, section, method];
       };
 
-      private getApiMethod (newParams: any[]): ApiMethodInfo {
+      private getApiMethod(newParams: any[]): ApiMethodInfo {
         if (endpoint === 'subscribe') {
           const [fn, ...params] = newParams;
 
@@ -179,7 +181,7 @@ export default function withCall<P extends ApiProps> (
         return [apiSection[method], newParams, method.startsWith('subscribe') ? 'subscribe' : area];
       }
 
-      private async subscribe ([isValid, newParams]: [boolean, any[]]): Promise<void> {
+      private async subscribe([isValid, newParams]: [boolean, any[]]): Promise<void> {
         if (!isValid || skipIf(this.props)) {
           return;
         }
@@ -226,14 +228,14 @@ export default function withCall<P extends ApiProps> (
       }
 
       // eslint-disable-next-line @typescript-eslint/require-await
-      private async unsubscribe (): Promise<void> {
+      private async unsubscribe(): Promise<void> {
         if (this.destroy) {
           this.destroy();
           this.destroy = undefined;
         }
       }
 
-      private triggerUpdate (props: any, value?: any): void {
+      private triggerUpdate(props: any, value?: any): void {
         try {
           const callResult = (props.transform || transform)(value);
 
@@ -253,7 +255,7 @@ export default function withCall<P extends ApiProps> (
         }
       }
 
-      public render (): React.ReactNode {
+      public render(): React.ReactNode {
         const { callResult, callUpdated, callUpdatedAt } = this.state;
         const _props = {
           ...this.props,

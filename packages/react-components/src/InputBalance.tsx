@@ -34,7 +34,7 @@ interface Props extends BareProps {
 
 const DEFAULT_BITLENGTH = BitLengthOption.CHAIN_SPEC as BitLength;
 
-function reformat (value: string | BN, isDisabled?: boolean): string {
+function reformat(value: string | BN, isDisabled?: boolean): string {
   if (isBn(value)) {
     let fmt = (
       value
@@ -59,7 +59,8 @@ function reformat (value: string | BN, isDisabled?: boolean): string {
   return formatBalance(value, { forceUnit: '-', withSi: false }).replace(',', isDisabled ? ',' : '');
 }
 
-function InputBalance ({ autoFocus,
+function InputBalance({
+  autoFocus,
   className = '',
   defaultValue: inDefault,
   help,
@@ -77,7 +78,8 @@ function InputBalance ({ autoFocus,
   value,
   withEllipsis,
   withLabel,
-  withMax }: Props): React.ReactElement<Props> {
+  withMax
+}: Props): React.ReactElement<Props> {
   const [defaultValue, setDefaultValue] = useState<string | undefined>();
 
   useEffect((): void => {

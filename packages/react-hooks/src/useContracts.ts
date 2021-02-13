@@ -14,7 +14,7 @@ interface UseContracts {
   isReady: boolean;
 }
 
-export default function useContracts (): UseContracts {
+export default function useContracts(): UseContracts {
   const mountedRef = useIsMountedRef();
   const [state, setState] = useState<UseContracts>({
     allContracts: [],

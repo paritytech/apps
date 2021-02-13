@@ -4,7 +4,8 @@
 import { useAbi } from '@canvas-ui/page-contracts';
 import { Code } from '@canvas-ui/page-contracts/types';
 import { useApi } from '@canvas-ui/react-api';
-import { Button,
+import {
+  Button,
   ContractParams,
   Dropdown,
   Input,
@@ -17,7 +18,8 @@ import { Button,
   MessageSignature,
   PendingTx,
   Toggle,
-  TxButton } from '@canvas-ui/react-components';
+  TxButton
+} from '@canvas-ui/react-components';
 import useTxParams from '@canvas-ui/react-components/Params/useTxParams';
 import { extractValues } from '@canvas-ui/react-components/Params/values';
 import { ELEV_2_CSS } from '@canvas-ui/react-components/styles/constants';
@@ -44,11 +46,11 @@ type ConstructOptions = { key: string; text: React.ReactNode; value: string }[];
 
 const ENDOWMENT = new BN(1e15);
 
-function defaultContractName (name?: string) {
+function defaultContractName(name?: string) {
   return name ? `${name} (instance)` : '';
 }
 
-function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Props> | null {
+function New({ allCodes, className, navigateTo }: Props): React.ReactElement<Props> | null {
   const { id, index = '0' }: { id: string; index?: string } = useParams();
   const { t } = useTranslation();
   const { api } = useApi();
@@ -77,9 +79,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
     return abi.constructors.map((constructor, index) => {
       return {
         key: `${index}`,
-        text: <MessageSignature isConstructor
-          message={constructor}
-          registry={abi.registry} />,
+        text: <MessageSignature isConstructor message={constructor} registry={abi.registry} />,
         value: `${index}`
       };
     });
@@ -143,8 +143,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
       // data: encoder ? u8aToHex(encoder()) : null,
       name: name || '',
       params: params.map((param, index) => ({
-        arg: <MessageArg arg={param}
-          registry={abi?.registry} />,
+        arg: <MessageArg arg={param} registry={abi?.registry} />,
         type: param.type,
         value: values[index].value
       })),
@@ -173,7 +172,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
               replace: { contractName: code?.name || 'Contract' }
             })}
           </h1>
-          <div className='instructions'>{t<string>('Choose an account to deploy the contract from, give it a descriptive name and set the endowment amount.')}</div>
+          <div className="instructions">{t<string>('Choose an account to deploy the contract from, give it a descriptive name and set the endowment amount.')}</div>
         </header>
         <section>
           <InputAddress
@@ -181,17 +180,14 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
             isInput={false}
             label={t<string>('deployment account')}
             onChange={setAccountId}
-            type='account'
+            type="account"
             value={accountId}
           />
-          <InputName isContract
-            isError={isNameError}
-            onChange={setName}
-            value={name || ''} />
+          <InputName isContract isError={isNameError} onChange={setName} value={name || ''} />
           <Labelled label={t<string>('Code Bundle')}>
-            <div className='code-bundle'>
-              <div className='name'>{code?.name || ''}</div>
-              <div className='code-hash'>{truncate(code?.codeHash || '', 16)}</div>
+            <div className="code-bundle">
+              <div className="name">{code?.name || ''}</div>
+              <div className="code-hash">{truncate(code?.codeHash || '', 16)}</div>
             </div>
           </Labelled>
           {abi && (
@@ -204,9 +200,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
                 options={constructOptions}
                 value={`${constructorIndex}`}
               />
-              <ContractParams onChange={setValues}
-                params={params || []}
-                values={values} />
+              <ContractParams onChange={setValues} params={params || []} values={values} />
             </>
           )}
           <InputBalance
@@ -224,11 +218,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
             placeholder={t<string>('0x prefixed hex, e.g. 0x1234 or ascii data')}
             value={withSalt ? salt : t<string>('<none>')}
           >
-            <Toggle className='toggle'
-              isOverlay
-              label={t<string>('use deployment salt')}
-              onChange={setWithSalt}
-              value={withSalt} />
+            <Toggle className="toggle" isOverlay label={t<string>('use deployment salt')} onChange={setWithSalt} value={withSalt} />
           </Input>
           <InputMegaGas
             help={t<string>('The maximum amount of gas that can be used by this deployment, if the code requires more, the deployment will fail.')}
@@ -238,7 +228,7 @@ function New ({ allCodes, className, navigateTo }: Props): React.ReactElement<Pr
             <TxButton
               accountId={accountId}
               extrinsic={initTx}
-              icon='cloud-upload-alt'
+              icon="cloud-upload-alt"
               isDisabled={!isValid}
               isPrimary
               label={t<string>('Deploy')}

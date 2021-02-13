@@ -14,13 +14,11 @@ interface Props {
   withLabel?: boolean;
 }
 
-function LinkedWrapper ({ children, className = '', help, label, withLabel }: Props): React.ReactElement<Props> {
+function LinkedWrapper({ children, className = '', help, label, withLabel }: Props): React.ReactElement<Props> {
   return (
     <div className={className}>
-      <Labelled help={help}
-        label={label}
-        withLabel={withLabel}>
-        <div className='ui--DropdownLinked ui--row'>{children}</div>
+      <Labelled help={help} label={label} withLabel={withLabel}>
+        <div className="ui--DropdownLinked ui--row">{children}</div>
       </Labelled>
     </div>
   );

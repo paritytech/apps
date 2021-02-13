@@ -10,7 +10,8 @@ import styled from 'styled-components';
 import Icon from '../Icon';
 import Spinner from '../Spinner';
 
-function Button ({ children,
+function Button({
+  children,
   className = '',
   icon,
   isBasic,
@@ -28,7 +29,8 @@ function Button ({ children,
   onMouseEnter,
   onMouseLeave,
   tabIndex,
-  withoutLink }: ButtonProps): React.ReactElement<ButtonProps> {
+  withoutLink
+}: ButtonProps): React.ReactElement<ButtonProps> {
   const _onClick = useCallback(() => !(isBusy || isDisabled) && onClick && onClick(), [isBusy, isDisabled, onClick]);
 
   return (
@@ -46,8 +48,7 @@ function Button ({ children,
       {icon && <Icon icon={icon} />}
       {label}
       {children}
-      <Spinner className='ui--Button-spinner'
-        variant='cover' />
+      <Spinner className="ui--Button-spinner" variant="cover" />
     </button>
   );
 }

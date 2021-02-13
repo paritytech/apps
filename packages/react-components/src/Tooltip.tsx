@@ -28,7 +28,7 @@ interface Props extends BareProps {
   trigger: string;
 }
 
-function Tooltip ({ className = '', effect = 'solid', offset, place = 'top', text, trigger }: Props): React.ReactElement<Props> | null {
+function Tooltip({ className = '', effect = 'solid', offset, place = 'top', text, trigger }: Props): React.ReactElement<Props> | null {
   const [tooltipContainer] = useState(
     typeof document === 'undefined'
       ? ({} as HTMLElement) // This hack is required for server side rendering
@@ -44,11 +44,7 @@ function Tooltip ({ className = '', effect = 'solid', offset, place = 'top', tex
   }, [tooltipContainer]);
 
   return ReactDOM.createPortal(
-    <ReactTooltip className={classes('ui--Tooltip', className)}
-      effect={effect}
-      id={trigger}
-      offset={offset}
-      place={place}>
+    <ReactTooltip className={classes('ui--Tooltip', className)} effect={effect} id={trigger} offset={offset} place={place}>
       {className?.includes('address') ? <div>{text}</div> : text}
     </ReactTooltip>,
     tooltipContainer

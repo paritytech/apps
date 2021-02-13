@@ -11,7 +11,7 @@ import TxSigned from './TxSigned';
 import TxUnsigned from './TxUnsigned';
 import usePendingTx from './usePendingTx';
 
-function Signer ({ children, className = '' }: Props): React.ReactElement<Props> {
+function Signer({ children, className = '' }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { currentItem, requestAddress } = usePendingTx();
 
@@ -19,13 +19,8 @@ function Signer ({ children, className = '' }: Props): React.ReactElement<Props>
     <>
       {children}
       {currentItem && (
-        <Modal className={className}
-          header={t<string>('Authorize transaction')}
-          size='large'>
-          {currentItem.isUnsigned
-            ? <TxUnsigned currentItem={currentItem} />
-            : <TxSigned currentItem={currentItem}
-              requestAddress={requestAddress} />}
+        <Modal className={className} header={t<string>('Authorize transaction')} size="large">
+          {currentItem.isUnsigned ? <TxUnsigned currentItem={currentItem} /> : <TxSigned currentItem={currentItem} requestAddress={requestAddress} />}
         </Modal>
       )}
     </>

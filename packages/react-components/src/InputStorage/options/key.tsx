@@ -9,7 +9,7 @@ import React from 'react';
 import { ApiPromise } from '@polkadot/api';
 import { unwrapStorageType } from '@polkadot/types/primitive/StorageKey';
 
-export default function createOptions (api: ApiPromise, sectionName: string): DropdownOptions {
+export default function createOptions(api: ApiPromise, sectionName: string): DropdownOptions {
   const section = api.query[sectionName];
 
   if (!section || Object.keys(section).length === 0) {
@@ -29,12 +29,10 @@ export default function createOptions (api: ApiPromise, sectionName: string): Dr
           className: 'ui--DropdownLinked-Item',
           key: `${sectionName}_${value}`,
           text: [
-            <div className='ui--DropdownLinked-Item-call'
-              key={`${sectionName}_${value}:call`}>
+            <div className="ui--DropdownLinked-Item-call" key={`${sectionName}_${value}:call`}>
               {value}({input}): {output}
             </div>,
-            <div className='ui--DropdownLinked-Item-text'
-              key={`${sectionName}_${value}:text`}>
+            <div className="ui--DropdownLinked-Item-text" key={`${sectionName}_${value}:text`}>
               {(method.meta.documentation[0] || method.meta.name).toString()}
             </div>
           ],

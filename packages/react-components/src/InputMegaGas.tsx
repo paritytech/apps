@@ -25,11 +25,13 @@ interface Props extends BareProps {
 
 const MEGA = new BN(1_000_000);
 
-function InputMegaGas ({ className,
+function InputMegaGas({
+  className,
   estimatedWeight,
   help,
   isCall,
-  weight: { executionTime, isValid, megaGas, percentage, setIsEmpty, setMegaGas } }: Props): React.ReactElement<Props> {
+  weight: { executionTime, isValid, megaGas, percentage, setIsEmpty, setMegaGas }
+}: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
 
   const [withEstimate, setWithEstimate] = useState(true);
@@ -67,7 +69,7 @@ function InputMegaGas ({ className,
           />
         )}
       </InputNumber>
-      <div className='contracts--InputMegaGas-meter'>
+      <div className="contracts--InputMegaGas-meter">
         {t<string>('{{executionTime}}s execution time', {
           replace: { executionTime: executionTime < 0.001 ? '<0.001' : executionTime.toFixed(3) }
         })}
@@ -76,10 +78,7 @@ function InputMegaGas ({ className,
             replace: { percentage: percentage.toFixed(3) }
           })}
         </aside>
-        <Progress className='contracts--InputMegaGas-progress'
-          color={percentage < 100 ? 'green' : 'red'}
-          total={100}
-          value={percentage} />
+        <Progress className="contracts--InputMegaGas-progress" color={percentage < 100 ? 'green' : 'red'} total={100} value={percentage} />
       </div>
     </div>
   );

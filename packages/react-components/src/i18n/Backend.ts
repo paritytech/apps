@@ -14,7 +14,7 @@ export default class Backend {
 
   static type: 'backend' = 'backend';
 
-  async read (lng: string, _namespace: string, responder: Callback): Promise<void> {
+  async read(lng: string, _namespace: string, responder: Callback): Promise<void> {
     if (languageCache[lng]) {
       return responder(null, languageCache[lng]);
     }
@@ -29,7 +29,7 @@ export default class Backend {
     return responder(error, data);
   }
 
-  async createLoader (lng: string): Promise<LoadResult> {
+  async createLoader(lng: string): Promise<LoadResult> {
     try {
       const response = await fetch(`locales/${lng}/translation.json`, {});
 

@@ -68,7 +68,7 @@ const browserInfo = detect();
 const browserName: Browser | null = (browserInfo && (browserInfo.name as Browser)) || null;
 const isSupported = browserName && Object.keys(availableExtensions).includes(browserName);
 
-function transformToAddress (value?: string | Uint8Array | null): string | null {
+function transformToAddress(value?: string | Uint8Array | null): string | null {
   try {
     return addressToAddress(value) || null;
   } catch (error) {
@@ -78,7 +78,7 @@ function transformToAddress (value?: string | Uint8Array | null): string | null 
   return null;
 }
 
-function transformToAccountId (value: string): string | null {
+function transformToAccountId(value: string): string | null {
   if (!value) {
     return null;
   }
@@ -88,7 +88,7 @@ function transformToAccountId (value: string): string | null {
   return !accountId ? null : accountId;
 }
 
-function createOption (address: string): Option {
+function createOption(address: string): Option {
   let isRecent: boolean | undefined;
   const pair = keyring.getAccount(address);
   let name: string | undefined;
@@ -109,24 +109,24 @@ function createOption (address: string): Option {
   return createItem(createOptionItem(address, name), !isRecent);
 }
 
-function readOptions (): Record<string, Record<string, string>> {
+function readOptions(): Record<string, Record<string, string>> {
   return (store.get(STORAGE_KEY) as Record<string, Record<string, string>>) || { defaults: {} };
 }
 
-function getLastValue (type: KeyringOption$Type = DEFAULT_TYPE): string {
+function getLastValue(type: KeyringOption$Type = DEFAULT_TYPE): string {
   const options = readOptions();
 
   return options.defaults[type];
 }
 
-function setLastValue (type: KeyringOption$Type = DEFAULT_TYPE, value: string): void {
+function setLastValue(type: KeyringOption$Type = DEFAULT_TYPE, value: string): void {
   const options = readOptions();
 
   options.defaults[type] = value;
   store.set(STORAGE_KEY, options);
 }
 
-function renderLabel ({ value }: KeyringSectionOption): React.ReactNode {
+function renderLabel({ value }: KeyringSectionOption): React.ReactNode {
   if (!value) {
     return undefined;
   }
@@ -134,7 +134,8 @@ function renderLabel ({ value }: KeyringSectionOption): React.ReactNode {
   return getAddressName(value);
 }
 
-function InputAddress ({ className = '',
+function InputAddress({
+  className = '',
   defaultValue,
   filter,
   help,
@@ -153,7 +154,8 @@ function InputAddress ({ className = '',
   type = DEFAULT_TYPE,
   value: propsValue,
   withEllipsis,
-  withLabel }: Props): React.ReactElement<Props> | null {
+  withLabel
+}: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { hasInjectedAccounts } = useApi();
   const hasOptions = useMemo(() => (options && options.length !== 0) || (optionsAll && Object.keys(optionsAll[type]).length !== 0), [options, optionsAll, type]);
@@ -285,9 +287,7 @@ function InputAddress ({ className = '',
             text={
               <>
                 {t('Please reload this app with the')}{' '}
-                <a href={availableExtensions[browserName][0].link}
-                  rel='noopener noreferrer'
-                  target='_blank'>
+                <a href={availableExtensions[browserName][0].link} rel="noopener noreferrer" target="_blank">
                   {t('Polkadot extension')}
                 </a>{' '}
                 {t('to show available accounts')}

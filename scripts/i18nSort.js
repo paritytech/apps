@@ -8,14 +8,14 @@ const i18nRoot = path.join(__dirname, '../packages/apps/public/locales');
 
 const SKIP_NS = ['app-123code', 'app-dashboard', 'app-i18n', 'translation'].map((f) => `${f}.json`);
 
-function getEntries (langRoot) {
+function getEntries(langRoot) {
   return fs
     .readdirSync(langRoot)
     .filter((entry) => !['.', '..'].includes(entry) && fs.lstatSync(path.join(langRoot, entry)).isFile() && entry.endsWith('.json') && !['index.json'].includes(entry))
     .sort();
 }
 
-function sortLanguage (lang) {
+function sortLanguage(lang) {
   const langRoot = path.join(i18nRoot, lang);
   const entries = getEntries(langRoot);
   const hasKeys = {};
@@ -43,7 +43,7 @@ function sortLanguage (lang) {
   }
 }
 
-function checkLanguages () {
+function checkLanguages() {
   const languages = fs
     .readdirSync(i18nRoot)
     .filter((entry) => !['.', '..'].includes(entry) && fs.lstatSync(path.join(i18nRoot, entry)).isDirectory())

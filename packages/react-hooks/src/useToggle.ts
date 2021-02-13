@@ -4,7 +4,7 @@
 import { useCallback, useState } from 'react';
 
 // Simple wrapper for a true/false toggle
-export default function useToggle (defaultValue = false): [boolean, () => void, (value: boolean) => void] {
+export default function useToggle(defaultValue = false): [boolean, () => void, (value: boolean) => void] {
   const [isActive, setActive] = useState(defaultValue);
   const toggleActive = useCallback((): void => setActive((isActive: boolean) => !isActive), []);
 

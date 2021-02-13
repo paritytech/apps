@@ -24,11 +24,11 @@ interface SidebarState {
   transition: SideBarTransition;
 }
 
-function saveSidebar (sidebar: SidebarState): SidebarState {
+function saveSidebar(sidebar: SidebarState): SidebarState {
   return store.set('sidebar', sidebar) as SidebarState;
 }
 
-function Apps ({ className = '' }: Props): React.ReactElement<Props> {
+function Apps({ className = '' }: Props): React.ReactElement<Props> {
   const { systemChain, systemName } = useApi();
   const [sidebar, setSidebar] = useState<SidebarState>({
     isCollapsed: false,
@@ -61,13 +61,8 @@ function Apps ({ className = '' }: Props): React.ReactElement<Props> {
       <ScrollToTop />
       <GlobalStyle uiHighlight={defaultColor || uiHighlight} />
       <div className={`apps--Wrapper ${isCollapsed ? 'collapsed' : 'expanded'} ${isMenuOpen ? 'menu-open' : ''} theme--default ${className}`}>
-        <div className={`apps--Menu-bg ${isMenuOpen ? 'open' : 'closed'}`}
-          onClick={_handleResize} />
-        <SideBar collapse={_collapse}
-          handleResize={_handleResize}
-          isCollapsed={false}
-          isMenuOpen={isMenuOpen}
-          toggleMenu={_toggleMenu} />
+        <div className={`apps--Menu-bg ${isMenuOpen ? 'open' : 'closed'}`} onClick={_handleResize} />
+        <SideBar collapse={_collapse} handleResize={_handleResize} isCollapsed={false} isMenuOpen={isMenuOpen} toggleMenu={_toggleMenu} />
         <Content />
         <div id={PORTAL_ID} />
       </div>

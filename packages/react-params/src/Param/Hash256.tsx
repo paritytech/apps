@@ -6,7 +6,7 @@ import React from 'react';
 
 import BaseBytes from './BaseBytes';
 
-function Hash256 ({ className = '', defaultValue, isDisabled, isError, label, name, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
+function Hash256({ className = '', defaultValue, isDisabled, isError, label, name, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
   return (
     <BaseBytes
       className={className}

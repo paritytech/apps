@@ -37,7 +37,7 @@ store.each((_, key): void => {
 });
 
 ReactDOM.render(
-  <Suspense fallback='...'>
+  <Suspense fallback="...">
     <ThemeProvider theme={theme}>
       <Queue>
         <Api url={settings.apiUrl}>
