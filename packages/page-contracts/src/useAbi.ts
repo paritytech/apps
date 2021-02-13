@@ -34,7 +34,7 @@ interface AbiSpecOutdated {
   };
 }
 
-export default function useAbi(source: Code | null = null, isRequired = false): UseAbi {
+export default function useAbi (source: Code | null = null, isRequired = false): UseAbi {
   const { api } = useApi();
   const { t } = useTranslation();
   const initialState: State = source

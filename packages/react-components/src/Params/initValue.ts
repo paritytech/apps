@@ -9,7 +9,7 @@ import { BN_ZERO, isBn } from '@polkadot/util';
 
 const warnList: string[] = [];
 
-export default function getInitValue(def: TypeDef): unknown {
+export default function getInitValue (def: TypeDef): unknown {
   if (def.info === TypeDefInfo.Vec) {
     return [getInitValue(def.sub as TypeDef)];
   } else if (def.info === TypeDefInfo.Tuple) {
@@ -17,10 +17,10 @@ export default function getInitValue(def: TypeDef): unknown {
   } else if (def.info === TypeDefInfo.Struct) {
     return Array.isArray(def.sub)
       ? def.sub.reduce((result: Record<string, unknown>, def): Record<string, unknown> => {
-          result[def.name as string] = getInitValue(def);
+        result[def.name as string] = getInitValue(def);
 
-          return result;
-        }, {})
+        return result;
+      }, {})
       : {};
   } else if (def.info === TypeDefInfo.Enum) {
     return Array.isArray(def.sub) ? { [def.sub[0].name as string]: getInitValue(def.sub[0]) } : {};

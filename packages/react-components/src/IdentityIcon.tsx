@@ -4,7 +4,6 @@
 import { getSystemIcon } from '@canvas-ui/apps-config/ui';
 import { useApi } from '@canvas-ui/react-api';
 import { useNotification } from '@canvas-ui/react-hooks';
-import { ValidatorsContext } from './BlockAuthors';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -12,13 +11,14 @@ import BaseIdentityIcon from '@polkadot/react-identicon';
 import { IdentityProps as Props } from '@polkadot/react-identicon/types';
 import uiSettings from '@polkadot/ui-settings';
 
+import { ValidatorsContext } from './BlockAuthors';
 import { useTranslation } from './translate';
 
-export function getIdentityTheme(systemName: string): 'substrate' {
+export function getIdentityTheme (systemName: string): 'substrate' {
   return ((uiSettings.icon === 'default' && getSystemIcon(systemName)) || uiSettings.icon) as 'substrate';
 }
 
-function IdentityIcon({ className = '', onCopy, prefix, size = 24, theme, value }: Props): React.ReactElement<Props> {
+function IdentityIcon ({ className = '', onCopy, prefix, size = 24, theme, value }: Props): React.ReactElement<Props> {
   const { systemName } = useApi();
   const { t } = useTranslation();
   const showNotification = useNotification();
@@ -47,7 +47,12 @@ function IdentityIcon({ className = '', onCopy, prefix, size = 24, theme, value 
 
   return (
     <div className={`ui--IdentityIcon-Outer ${className}`}>
-      <BaseIdentityIcon isHighlight={isValidator} onCopy={_onCopy} prefix={prefix} size={size} theme={thisTheme as 'substrate'} value={address} />
+      <BaseIdentityIcon isHighlight={isValidator}
+        onCopy={_onCopy}
+        prefix={prefix}
+        size={size}
+        theme={thisTheme as 'substrate'}
+        value={address} />
     </div>
   );
 }

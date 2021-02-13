@@ -1,11 +1,12 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import UIParams from './Params/Params';
-import { RawParams } from './types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { AbiParam } from '@polkadot/api-contract/types';
+
+import UIParams from './Params/Params';
+import { RawParams } from './types';
 
 interface Props {
   isDisabled?: boolean;
@@ -14,7 +15,7 @@ interface Props {
   onEnter?: () => void;
 }
 
-function CallParams({ isDisabled, onChange, onEnter, params: propParams }: Props): React.ReactElement<Props> | null {
+function CallParams ({ isDisabled, onChange, onEnter, params: propParams }: Props): React.ReactElement<Props> | null {
   const [params, setParams] = useState<AbiParam[]>([]);
 
   useEffect((): void => {
@@ -27,7 +28,10 @@ function CallParams({ isDisabled, onChange, onEnter, params: propParams }: Props
     return null;
   }
 
-  return <UIParams isDisabled={isDisabled} onChange={_onChange} onEnter={onEnter} params={params} />;
+  return <UIParams isDisabled={isDisabled}
+    onChange={_onChange}
+    onEnter={onEnter}
+    params={params} />;
 }
 
 export default React.memo(CallParams);

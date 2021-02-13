@@ -19,7 +19,7 @@ interface Props extends BareProps {
   onForget: VoidFn;
 }
 
-function CodeForget({ className, code, onForget }: Props): React.ReactElement<Props> {
+function CodeForget ({ className, code, onForget }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const showNotification = useNotification();
   const [isOpen, toggleIsOpen] = useToggle();
@@ -37,8 +37,12 @@ function CodeForget({ className, code, onForget }: Props): React.ReactElement<Pr
 
   return (
     <>
-      <Button isNegative label={t<string>('Forget')} onClick={toggleIsOpen} />
-      <Modal className={className} isOpen={isOpen} onClose={toggleIsOpen}>
+      <Button isNegative
+        label={t<string>('Forget')}
+        onClick={toggleIsOpen} />
+      <Modal className={className}
+        isOpen={isOpen}
+        onClose={toggleIsOpen}>
         <Modal.Header>{t<string>('Forget code bundle?')}</Modal.Header>
         <Modal.Content>
           <p>
@@ -51,10 +55,13 @@ function CodeForget({ className, code, onForget }: Props): React.ReactElement<Pr
               'This operation does not remove the uploaded code WASM and ABI from the chain, nor any deployed contracts. The forget operation only limits your access to the code on this browser.'
             )}
           </p>
-          <CodeInfo className="forget-code" code={code} />
+          <CodeInfo className='forget-code'
+            code={code} />
         </Modal.Content>
         <Modal.Actions onCancel={toggleIsOpen}>
-          <Button isPrimary label={t<string>('Forget')} onClick={_onForget} />
+          <Button isPrimary
+            label={t<string>('Forget')}
+            onClick={_onForget} />
         </Modal.Actions>
       </Modal>
     </>

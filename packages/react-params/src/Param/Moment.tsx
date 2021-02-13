@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Static } from '@canvas-ui/react-components';
+import { Props, RawParamOnChangeValue } from '@canvas-ui/react-components/types';
 import React, { useCallback } from 'react';
 
-import { Props, RawParamOnChangeValue } from '@canvas-ui/react-components/types';
 import Amount from './Amount';
 
-function Moment({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
+function Moment ({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
   const _onChange = useCallback((value: RawParamOnChangeValue) => onChange && onChange(value), [onChange]);
 
   if (isDisabled) {

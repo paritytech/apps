@@ -40,7 +40,7 @@ export const collectionStyles = `
 `;
 
 export default class Collection<P extends CollectionProps, S extends CollectionState> extends React.PureComponent<P, S> {
-  constructor(props: P) {
+  constructor (props: P) {
     super(props);
 
     this.state = {
@@ -48,17 +48,17 @@ export default class Collection<P extends CollectionProps, S extends CollectionS
     } as S;
   }
 
-  private static isEmpty(children?: React.ReactNode): boolean {
+  private static isEmpty (children?: React.ReactNode): boolean {
     return !children || (Array.isArray(children) && children.length === 0);
   }
 
-  public static getDerivedStateFromProps({ children, isEmpty }: CollectionProps): CollectionState {
+  public static getDerivedStateFromProps ({ children, isEmpty }: CollectionProps): CollectionState {
     return {
       isEmpty: isEmpty === undefined ? Collection.isEmpty(children) : isEmpty
     };
   }
 
-  public render(): React.ReactNode {
+  public render (): React.ReactNode {
     const { banner, className } = this.props;
     const { isEmpty, showHeader } = this.state;
 
@@ -71,7 +71,7 @@ export default class Collection<P extends CollectionProps, S extends CollectionS
     );
   }
 
-  protected renderHeader(): React.ReactNode {
+  protected renderHeader (): React.ReactNode {
     const { buttons, headerText } = this.props;
 
     if (!headerText && !buttons) {
@@ -79,14 +79,14 @@ export default class Collection<P extends CollectionProps, S extends CollectionS
     }
 
     return (
-      <div className="ui--Collection-header">
+      <div className='ui--Collection-header'>
         <h1>{headerText}</h1>
-        {buttons && <div className="ui--Collection-buttons">{buttons}</div>}
+        {buttons && <div className='ui--Collection-buttons'>{buttons}</div>}
       </div>
     );
   }
 
-  protected renderEmpty(): React.ReactNode {
+  protected renderEmpty (): React.ReactNode {
     const { emptyText = this.props.t<string>('No items'), showEmptyText = true } = this.props;
 
     if (!showEmptyText) {
@@ -95,12 +95,12 @@ export default class Collection<P extends CollectionProps, S extends CollectionS
 
     return (
       <article>
-        <div className="ui--Collection-lowercase">{emptyText}</div>
+        <div className='ui--Collection-lowercase'>{emptyText}</div>
       </article>
     );
   }
 
-  protected renderCollection(): React.ReactNode {
+  protected renderCollection (): React.ReactNode {
     const { children } = this.props;
 
     return children;

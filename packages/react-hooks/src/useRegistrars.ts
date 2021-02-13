@@ -26,7 +26,7 @@ interface State {
   skipQuery?: boolean;
 }
 
-export default function useRegistrars(skipQuery?: boolean): State {
+export default function useRegistrars (skipQuery?: boolean): State {
   const { api } = useApi();
   const { allAccounts, hasAccounts } = useAccounts();
   const query = useCall<Option<RegistrarInfo>[]>(!skipQuery && hasAccounts && api.query.identity?.registrars, []);

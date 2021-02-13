@@ -19,11 +19,11 @@ interface Props {
   withShort?: boolean;
 }
 
-function shortName(name: string): string {
+function shortName (name: string): string {
   return `${name[0]}${name[name.length - 1]}`;
 }
 
-function genLinks(systemChain: string, { data, hash, type, withShort }: Props): React.ReactNode[] {
+function genLinks (systemChain: string, { data, hash, type, withShort }: Props): React.ReactNode[] {
   return Object.entries(linked)
     .map(([name, { chains, create, isActive, paths, url }]): React.ReactNode | null => {
       const extChain = chains[systemChain];
@@ -37,10 +37,15 @@ function genLinks(systemChain: string, { data, hash, type, withShort }: Props): 
       const link = create(extChain, extPath, data, hash);
 
       return (
-        <a data-for={trigger} data-tip={true} href={link} key={name} rel="noopener noreferrer" target="_blank">
+        <a data-for={trigger}
+          data-tip={true}
+          href={link}
+          key={name}
+          rel='noopener noreferrer'
+          target='_blank'>
           {withShort ? shortName(name) : name}
           <Tooltip
-            place="top"
+            place='top'
             text={
               <>
                 {name}
@@ -56,7 +61,7 @@ function genLinks(systemChain: string, { data, hash, type, withShort }: Props): 
     .filter((node): node is React.ReactNode => !!node);
 }
 
-function LinkExternal({ className = '', data, hash, type, withShort }: Props): React.ReactElement<Props> | null {
+function LinkExternal ({ className = '', data, hash, type, withShort }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const { systemChain } = useApi();
   const links = useMemo(() => genLinks(systemChain, { data, hash, type, withShort }), [systemChain, data, hash, type, withShort]);
@@ -68,7 +73,7 @@ function LinkExternal({ className = '', data, hash, type, withShort }: Props): R
   return (
     <div className={`${className} ${withShort ? 'withShort' : ''}`}>
       {!withShort && <div>{t<string>('View this externally')}</div>}
-      <div className="links">
+      <div className='links'>
         {links.map((link, index) => (
           <span key={index}>{link}</span>
         ))}

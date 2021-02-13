@@ -3,12 +3,12 @@
 
 import { registry } from '@canvas-ui/react-api';
 import { Dropdown } from '@canvas-ui/react-components';
+import { Props } from '@canvas-ui/react-components/types';
 import React, { useCallback } from 'react';
 
 import { ClassOf } from '@polkadot/types';
 import { bnToBn } from '@polkadot/util';
 
-import { Props } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
 type TextMap = Record<number, string>;
@@ -25,7 +25,7 @@ export const textMap = options.reduce((textMap, { text, value }): TextMap => {
   return textMap;
 }, ({} as unknown) as TextMap);
 
-function VoteThresholdParam({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, withLabel }: Props): React.ReactElement<Props> {
+function VoteThresholdParam ({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, withLabel }: Props): React.ReactElement<Props> {
   const _onChange = useCallback(
     (value: number) =>
       onChange &&
@@ -41,7 +41,7 @@ function VoteThresholdParam({ className = '', defaultValue: { value }, isDisable
   return (
     <Bare className={className}>
       <Dropdown
-        className="full"
+        className='full'
         defaultValue={defaultValue}
         isDisabled={isDisabled}
         isError={isError}

@@ -7,6 +7,6 @@ import { useContext } from 'react';
 
 import ApiContext from './ApiContext';
 
-export default function useApi(): ApiProps {
+export default function useApi (): ApiProps {
   return useContext(ApiContext);
 }

@@ -1,7 +1,6 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import Params from './Params/Params';
 import { classes } from '@canvas-ui/react-util';
 import React from 'react';
 
@@ -9,6 +8,7 @@ import { getTypeDef } from '@polkadot/types';
 import { Event } from '@polkadot/types/interfaces';
 import { Codec, TypeDef } from '@polkadot/types/types';
 
+import Params from './Params/Params';
 import { BareProps } from './types';
 
 export interface Props extends BareProps {
@@ -16,7 +16,7 @@ export interface Props extends BareProps {
   value: Event;
 }
 
-function EventDisplay({ children, className = '', value }: Props): React.ReactElement<Props> {
+function EventDisplay ({ children, className = '', value }: Props): React.ReactElement<Props> {
   const params = value.typeDef.map(({ type }): { type: TypeDef } => ({
     type: getTypeDef(type)
   }));
@@ -28,7 +28,9 @@ function EventDisplay({ children, className = '', value }: Props): React.ReactEl
   return (
     <div className={classes('ui--Event', className)}>
       {children}
-      <Params isDisabled params={params} values={values} />
+      <Params isDisabled
+        params={params}
+        values={values} />
     </div>
   );
 }

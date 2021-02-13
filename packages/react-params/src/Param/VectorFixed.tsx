@@ -1,24 +1,24 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import Params from '@canvas-ui/react-components/Params';
+import getInitValue from '@canvas-ui/react-components/Params/initValue';
+import { ParamDef, Props, RawParam } from '@canvas-ui/react-components/types';
 import React, { useEffect, useState } from 'react';
 
 import { isUndefined } from '@polkadot/util';
 
-import getInitValue from '@canvas-ui/react-components/Params/initValue';
-import { ParamDef, Props, RawParam } from '@canvas-ui/react-components/types';
-import Params from '@canvas-ui/react-components/Params';
 import Base from './Base';
 import useParamDefs from './useParamDefs';
 
-function generateParam([{ name, type }]: ParamDef[], index: number): ParamDef {
+function generateParam ([{ name, type }]: ParamDef[], index: number): ParamDef {
   return {
     name: `${index}: ${name || type.type}`,
     type
   };
 }
 
-function VectorFixed({ className = '', defaultValue, isDisabled = false, label, onChange, overrides, type, withLabel }: Props): React.ReactElement<Props> | null {
+function VectorFixed ({ className = '', defaultValue, isDisabled = false, label, onChange, overrides, type, withLabel }: Props): React.ReactElement<Props> | null {
   const inputParams = useParamDefs(type);
   const [params, setParams] = useState<ParamDef[]>([]);
   const [values, setValues] = useState<RawParam[]>([]);
@@ -79,8 +79,15 @@ function VectorFixed({ className = '', defaultValue, isDisabled = false, label, 
   }, [values, onChange]);
 
   return (
-    <Base className={className} isOuter label={label} withLabel={withLabel}>
-      <Params isDisabled={isDisabled} onChange={setValues} overrides={overrides} params={params} values={values} />
+    <Base className={className}
+      isOuter
+      label={label}
+      withLabel={withLabel}>
+      <Params isDisabled={isDisabled}
+        onChange={setValues}
+        overrides={overrides}
+        params={params}
+        values={values} />
     </Base>
   );
 }

@@ -24,7 +24,7 @@ interface Props extends BareProps {
   withButton: boolean;
 }
 
-function CopyButton({ children, className, icon = 'copy', isAddress = false, value, withButton = true }: Props): React.ReactElement<Props> {
+function CopyButton ({ children, className, icon = 'copy', isAddress = false, value, withButton = true }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const showNotification = useNotification();
 
@@ -39,12 +39,15 @@ function CopyButton({ children, className, icon = 'copy', isAddress = false, val
 
   return (
     <div className={className}>
-      <CopyToClipboard onCopy={_onCopy} text={value}>
-        <div className="copyContainer">
+      <CopyToClipboard onCopy={_onCopy}
+        text={value}>
+        <div className='copyContainer'>
           {children}
           {withButton && (
-            <span className="copySpan">
-              <Button className="icon-button show-on-hover" icon={icon} isIcon />
+            <span className='copySpan'>
+              <Button className='icon-button show-on-hover'
+                icon={icon}
+                isIcon />
             </span>
           )}
         </div>

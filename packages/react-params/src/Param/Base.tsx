@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Labelled } from '@canvas-ui/react-components';
+import { Size } from '@canvas-ui/react-components/types';
 import React from 'react';
 
-import { Size } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
 interface Props {
@@ -17,10 +17,14 @@ interface Props {
   withLabel?: boolean;
 }
 
-function Base({ children, className = '', isOuter, label, size = 'full', withLabel }: Props): React.ReactElement<Props> {
+function Base ({ children, className = '', isOuter, label, size = 'full', withLabel }: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>
-      <Labelled className={size} isOuter label={label} withEllipsis withLabel={withLabel}>
+      <Labelled className={size}
+        isOuter
+        label={label}
+        withEllipsis
+        withLabel={withLabel}>
         {!isOuter && children}
       </Labelled>
       {isOuter && children}

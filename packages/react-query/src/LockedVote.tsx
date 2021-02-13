@@ -3,13 +3,12 @@
 
 import { useApi } from '@canvas-ui/react-api';
 import { BareProps } from '@canvas-ui/react-api/types';
+import FormatBalance from '@canvas-ui/react-components/FormatBalance';
 import { useCall } from '@canvas-ui/react-hooks';
 import React from 'react';
 
 import { DeriveCouncilVote } from '@polkadot/api-derive/types';
 import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
-
-import FormatBalance from '@canvas-ui/react-components/FormatBalance';
 
 interface Props extends BareProps {
   children?: React.ReactNode;
@@ -17,7 +16,7 @@ interface Props extends BareProps {
   params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
 }
 
-function LockedVote({ children, className = '', label, params }: Props): React.ReactElement<Props> | null {
+function LockedVote ({ children, className = '', label, params }: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const info = useCall<DeriveCouncilVote>(api.derive.council.votesOf, [params]);
 
@@ -26,7 +25,9 @@ function LockedVote({ children, className = '', label, params }: Props): React.R
   }
 
   return (
-    <FormatBalance className={className} label={label} value={info?.stake}>
+    <FormatBalance className={className}
+      label={label}
+      value={info?.stake}>
       {children}
     </FormatBalance>
   );

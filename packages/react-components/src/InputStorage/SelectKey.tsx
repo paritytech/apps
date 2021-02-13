@@ -19,14 +19,14 @@ interface Props extends BareProps {
   value: QueryableStorageEntry<'promise'>;
 }
 
-function transform(api: ApiPromise, { value }: Props): (method: string) => QueryableStorageEntry<'promise'> {
+function transform (api: ApiPromise, { value }: Props): (method: string) => QueryableStorageEntry<'promise'> {
   return function (method: string): QueryableStorageEntry<'promise'> {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return api.query[value.creator.section] ? (api.query[value.creator.section][method] as any) : value;
   };
 }
 
-function SelectKey(props: Props): React.ReactElement<Props> | null {
+function SelectKey (props: Props): React.ReactElement<Props> | null {
   const { api } = useApi();
   const { className = '', isError, onChange, options, value } = props;
 

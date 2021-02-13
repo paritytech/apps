@@ -1,15 +1,15 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { Props } from '@canvas-ui/react-components/types';
 import React, { useCallback, useState } from 'react';
 
 import { isWasm } from '@polkadot/util';
 
-import { Props } from '@canvas-ui/react-components/types';
 import Bytes from './Bytes';
 import BytesFile from './File';
 
-function Code({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
+function Code ({ className = '', defaultValue, isDisabled, isError, label, onChange, onEnter, onEscape, type, withLabel }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
@@ -37,7 +37,12 @@ function Code({ className = '', defaultValue, isDisabled, isError, label, onChan
     );
   }
 
-  return <BytesFile className={className} defaultValue={defaultValue} isError={isError || !isValid} label={label} onChange={_onChange} withLabel={withLabel} />;
+  return <BytesFile className={className}
+    defaultValue={defaultValue}
+    isError={isError || !isValid}
+    label={label}
+    onChange={_onChange}
+    withLabel={withLabel} />;
 }
 
 export default React.memo(Code);

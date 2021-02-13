@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Dropdown } from '@canvas-ui/react-components';
+import Params from '@canvas-ui/react-components/Params';
+import { ParamDef, Props, RawParam } from '@canvas-ui/react-components/types';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { Enum } from '@polkadot/types';
 import { TypeDef } from '@polkadot/types/types';
 
-import { ParamDef, Props, RawParam } from '@canvas-ui/react-components/types';
-import Params from '@canvas-ui/react-components/Params';
 import Bare from './Bare';
 import Static from './Static';
 
@@ -22,7 +22,7 @@ interface Options {
   subTypes: TypeDef[];
 }
 
-function EnumParam(props: Props): React.ReactElement<Props> {
+function EnumParam (props: Props): React.ReactElement<Props> {
   const { className = '', defaultValue, isDisabled, isError, label, onChange, overrides, type, withLabel } = props;
   const [current, setCurrent] = useState<ParamDef[] | null>(null);
   const [initialValue, setInitialValue] = useState<string | null>(null);
@@ -83,7 +83,7 @@ function EnumParam(props: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>
       <Dropdown
-        className="full"
+        className='full'
         defaultValue={initialValue}
         isDisabled={isDisabled}
         isError={isError}
@@ -93,7 +93,9 @@ function EnumParam(props: Props): React.ReactElement<Props> {
         withEllipsis
         withLabel={withLabel}
       />
-      {current && <Params onChange={_onChangeParam} overrides={overrides} params={current} />}
+      {current && <Params onChange={_onChangeParam}
+        overrides={overrides}
+        params={current} />}
     </Bare>
   );
 }

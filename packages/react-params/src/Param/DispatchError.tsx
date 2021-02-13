@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Input } from '@canvas-ui/react-components';
+import { Props } from '@canvas-ui/react-components/types';
 import React, { useEffect, useState } from 'react';
 
 import { DispatchError } from '@polkadot/types/interfaces';
 
 import { useTranslation } from '../translate';
-import { Props } from '@canvas-ui/react-components/types';
 import Static from './Static';
 import Unknown from './Unknown';
 
@@ -20,11 +20,11 @@ interface Details {
   type?: string;
 }
 
-function isModuleError(value?: ModuleErrorDefault): value is DispatchError {
+function isModuleError (value?: ModuleErrorDefault): value is DispatchError {
   return !!value?.isModule;
 }
 
-function ErrorDisplay(props: Props): React.ReactElement<Props> {
+function ErrorDisplay (props: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [{ details, type }, setDetails] = useState<Details>({});
 
@@ -55,8 +55,14 @@ function ErrorDisplay(props: Props): React.ReactElement<Props> {
 
   return (
     <Static {...props}>
-      <Input className="full" isDisabled label={t<string>('type')} value={type} />
-      {details && <Input className="full" isDisabled label={t<string>('details')} value={details} />}
+      <Input className='full'
+        isDisabled
+        label={t<string>('type')}
+        value={type} />
+      {details && <Input className='full'
+        isDisabled
+        label={t<string>('details')}
+        value={details} />}
     </Static>
   );
 }

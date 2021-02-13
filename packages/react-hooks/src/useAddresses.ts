@@ -13,7 +13,7 @@ interface UseAccounts {
   isAddress: (address: string) => boolean;
 }
 
-export default function useAccounts(): UseAccounts {
+export default function useAccounts (): UseAccounts {
   const mountedRef = useIsMountedRef();
   const [state, setState] = useState<UseAccounts>({
     allAddresses: [],

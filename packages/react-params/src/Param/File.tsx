@@ -17,10 +17,16 @@ interface Props {
   withLabel?: boolean;
 }
 
-function File({ className = '', isDisabled, isError = false, label, onChange, placeholder, withLabel }: Props): React.ReactElement<Props> {
+function File ({ className = '', isDisabled, isError = false, label, onChange, placeholder, withLabel }: Props): React.ReactElement<Props> {
   return (
     <Bare className={className}>
-      <InputFile isDisabled={isDisabled} isError={isError} label={label} onChange={onChange} placeholder={placeholder} withEllipsis withLabel={withLabel} />
+      <InputFile isDisabled={isDisabled}
+        isError={isError}
+        label={label}
+        onChange={onChange}
+        placeholder={placeholder}
+        withEllipsis
+        withLabel={withLabel} />
     </Bare>
   );
 }

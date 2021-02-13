@@ -7,10 +7,10 @@ import { SubmittableExtrinsic } from '@polkadot/api/types';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { EventRecord, ExtrinsicStatus } from '@polkadot/types/interfaces';
 
-export async function execute(extrinsic: SubmittableExtrinsic<'promise'>, singer: KeyringPair, logger = { info: console.log }): Promise<void> {
+export async function execute (extrinsic: SubmittableExtrinsic<'promise'>, singer: KeyringPair, logger = { info: console.log }): Promise<void> {
   let currentTxDone = false;
 
-  function sendStatusCb({ events = [], status }: { events?: EventRecord[]; status: ExtrinsicStatus }) {
+  function sendStatusCb ({ events = [], status }: { events?: EventRecord[]; status: ExtrinsicStatus }) {
     if (status.isInvalid) {
       logger.info('Transaction invalid');
       currentTxDone = true;

@@ -32,7 +32,7 @@ const IS_NONE = {
   isTechCommittee: false
 };
 
-export default function useAccountInfo(value: string | null, isContract = false): UseAccountInfo {
+export default function useAccountInfo (value: string | null, isContract = false): UseAccountInfo {
   const { api } = useApi();
   const { isAccount } = useAccounts();
   const { isAddress } = useAddresses();

@@ -14,7 +14,7 @@ interface Props {
   onChange: (tip: BN) => void;
 }
 
-function Tip({ className, onChange }: Props): React.ReactElement<Props> | null {
+function Tip ({ className, onChange }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
   const [tip, setTip] = useState(BN_ZERO);
   const [showTip, setShowTip] = useState(false);
@@ -27,7 +27,7 @@ function Tip({ className, onChange }: Props): React.ReactElement<Props> | null {
     <Modal.Columns className={className}>
       <Modal.Column>
         <Toggle
-          className="tipToggle"
+          className='tipToggle'
           label={showTip ? t<string>('Include an optional tip for faster processing') : t<string>('Do not include a tip for the block author')}
           onChange={setShowTip}
           value={showTip}

@@ -3,13 +3,12 @@
 
 import { useApi } from '@canvas-ui/react-api';
 import { BareProps } from '@canvas-ui/react-api/types';
+import FormatBalance from '@canvas-ui/react-components/FormatBalance';
 import { useCall } from '@canvas-ui/react-hooks';
 import React from 'react';
 
 import { DeriveBalancesAll } from '@polkadot/api-derive/types';
 import { AccountId, AccountIndex, Address } from '@polkadot/types/interfaces';
-
-import FormatBalance from '@canvas-ui/react-components/FormatBalance';
 
 interface Props extends BareProps {
   children?: React.ReactNode;
@@ -17,12 +16,14 @@ interface Props extends BareProps {
   params?: AccountId | AccountIndex | Address | string | Uint8Array | null;
 }
 
-function BalanceFree({ children, className = '', label, params }: Props): React.ReactElement<Props> {
+function BalanceFree ({ children, className = '', label, params }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const allBalances = useCall<DeriveBalancesAll>(api.derive.balances.all, [params]);
 
   return (
-    <FormatBalance className={className} label={label} value={allBalances?.freeBalance}>
+    <FormatBalance className={className}
+      label={label}
+      value={allBalances?.freeBalance}>
       {children}
     </FormatBalance>
   );

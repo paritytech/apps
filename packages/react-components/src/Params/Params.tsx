@@ -5,10 +5,10 @@ import { ErrorBoundary } from '@canvas-ui/react-components';
 import { I18nProps } from '@canvas-ui/react-components/types';
 import React from 'react';
 
-import Holder from './Holder';
-import ParamComp from './ParamComp';
 import translate from '../translate';
 import { ComponentMap, ParamDef, RawParam, RawParamOnChangeValue, RawParams } from '../types';
+import Holder from './Holder';
+import ParamComp from './ParamComp';
 import { createValue } from './values';
 
 interface Props extends I18nProps {
@@ -38,7 +38,7 @@ class Params extends React.PureComponent<Props, State> {
     params: null
   };
 
-  public static getDerivedStateFromProps({ isDisabled, params, values }: Props, prevState: State): Pick<State, never> | null {
+  public static getDerivedStateFromProps ({ isDisabled, params, values }: Props, prevState: State): Pick<State, never> | null {
     const isSame = JSON.stringify(prevState.params) === JSON.stringify(params);
 
     if (isDisabled || isSame) {
@@ -52,13 +52,13 @@ class Params extends React.PureComponent<Props, State> {
   }
 
   // Fire the initial onChange (we did update) when the component is loaded
-  public componentDidMount(): void {
+  public componentDidMount (): void {
     this.componentDidUpdate(null, {});
   }
 
   // This is needed in the case where the item changes, i.e. the values get
   // initialized and we need to alert the parent that we have new values
-  public componentDidUpdate(_: Props | null, prevState: State): void {
+  public componentDidUpdate (_: Props | null, prevState: State): void {
     const { isDisabled } = this.props;
     const { values } = this.state;
 
@@ -67,7 +67,7 @@ class Params extends React.PureComponent<Props, State> {
     }
   }
 
-  public render(): React.ReactNode {
+  public render (): React.ReactNode {
     const { children, className = '', isDisabled, onEnter, onEscape, overrides, params, withBorder = true } = this.props;
     const { values = this.props.values } = this.state;
 
@@ -76,9 +76,10 @@ class Params extends React.PureComponent<Props, State> {
     }
 
     return (
-      <Holder className={className} withBorder={withBorder}>
+      <Holder className={className}
+        withBorder={withBorder}>
         <ErrorBoundary onError={this.onRenderError}>
-          <div className="ui--Params-Content">
+          <div className='ui--Params-Content'>
             {values &&
               params.map(
                 ({ name, type }: ParamDef, index: number): React.ReactNode => (

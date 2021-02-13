@@ -36,7 +36,7 @@ const BlockAuthorsContext: React.Context<Authors> = React.createContext<Authors>
 });
 const ValidatorsContext: React.Context<string[]> = React.createContext<string[]>([]);
 
-function BlockAuthorsBase({ children }: Props): React.ReactElement<Props> {
+function BlockAuthorsBase ({ children }: Props): React.ReactElement<Props> {
   const { api, isApiReady } = useApi();
   const queryPoints = useCall<EraRewardPoints>(isApiReady && api.derive.staking?.currentPoints, []);
   const [state, setState] = useState<Authors>({

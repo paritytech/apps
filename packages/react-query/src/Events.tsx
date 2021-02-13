@@ -29,7 +29,7 @@ const MAX_EVENTS = 50;
 
 const EventsContext: React.Context<Events> = React.createContext<Events>([]);
 
-function EventsBase({ children }: Props): React.ReactElement<Props> {
+function EventsBase ({ children }: Props): React.ReactElement<Props> {
   const { api } = useApi();
   const [state, setState] = useState<Events>([]);
 
@@ -45,11 +45,7 @@ function EventsBase({ children }: Props): React.ReactElement<Props> {
             const newEvents: IndexedEvent[] = records
               .map((record, index) => ({ index, record }))
               .filter(
-                ({
-                  record: {
-                    event: { section }
-                  }
-                }) => section !== 'system'
+                ({ record: { event: { section } } }) => section !== 'system'
               );
             const newEventHash = xxhashAsHex(stringToU8a(JSON.stringify(newEvents)));
 

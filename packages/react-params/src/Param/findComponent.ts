@@ -2,12 +2,12 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { registry } from '@canvas-ui/react-api';
+import { ComponentMap, Props } from '@canvas-ui/react-components/types';
 
 import { getTypeDef } from '@polkadot/types';
 import { TypeDef, TypeDefInfo } from '@polkadot/types/types';
 import { isBn } from '@polkadot/util';
 
-import { ComponentMap, Props } from '@canvas-ui/react-components/types';
 import Account from './Account';
 import Amount from './Amount';
 import Balance from './Balance';
@@ -110,7 +110,7 @@ const components: ComponentMap = componentDef.reduce((components, { c, t }): Com
 
 const warnList: string[] = [];
 
-function fromDef({ displayName, info, sub, type }: TypeDef): string {
+function fromDef ({ displayName, info, sub, type }: TypeDef): string {
   if (displayName && SPECIAL_TYPES.includes(displayName)) {
     return displayName;
   }
@@ -154,7 +154,7 @@ function fromDef({ displayName, info, sub, type }: TypeDef): string {
   }
 }
 
-export default function findComponent(def: TypeDef, overrides: ComponentMap = {}): React.ComponentType<Props> {
+export default function findComponent (def: TypeDef, overrides: ComponentMap = {}): React.ComponentType<Props> {
   const findOne = (type: string): React.ComponentType<Props> | null => overrides[type] || components[type];
   const type = fromDef(def);
   let Component = findOne(type);

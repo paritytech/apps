@@ -13,20 +13,26 @@ interface Props extends BareProps {
   text?: React.ReactNode;
 }
 
-function WithLoader({ children = null, className, isLoading = false, text }: Props): React.ReactElement<Props> | null {
+function WithLoader ({ children = null, className, isLoading = false, text }: Props): React.ReactElement<Props> | null {
   const { t } = useTranslation();
 
   return (
     <>
-      {isLoading ? (
-        <div className={className}>
-          <Loader active className="spinner" indeterminate inline="centered" size="medium">
-            {text || t<string>('Loading')}
-          </Loader>
-        </div>
-      ) : (
-        children
-      )}
+      {isLoading
+        ? (
+          <div className={className}>
+            <Loader active
+              className='spinner'
+              indeterminate
+              inline='centered'
+              size='medium'>
+              {text || t<string>('Loading')}
+            </Loader>
+          </div>
+        )
+        : (
+          children
+        )}
     </>
   );
 }

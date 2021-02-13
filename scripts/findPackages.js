@@ -4,7 +4,7 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports = function findPackages() {
+module.exports = function findPackages () {
   const pkgRoot = path.join(__dirname, '..', 'packages');
 
   return fs

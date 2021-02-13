@@ -44,15 +44,15 @@ interface Props extends BareProps {
 
 const DEFAULT_BITLENGTH = BitLengthOption.NORMAL_NUMBERS as BitLength;
 
-function getGlobalMaxValue(bitLength?: number): BN {
+function getGlobalMaxValue (bitLength?: number): BN {
   return new BN(2).pow(new BN(bitLength || DEFAULT_BITLENGTH)).subn(1);
 }
 
-function getRegex(isDecimal: boolean): RegExp {
+function getRegex (isDecimal: boolean): RegExp {
   return new RegExp(isDecimal ? `^(0|[1-9]\\d*)(\\${KEYS.DECIMAL}\\d*)?$` : '^(0|[1-9]\\d*)$');
 }
 
-function getSiOptions(): { text: string; value: string }[] {
+function getSiOptions (): { text: string; value: string }[] {
   return formatBalance.getOptions().map(({ power, text, value }): {
     text: string;
     value: string;
@@ -62,7 +62,7 @@ function getSiOptions(): { text: string; value: string }[] {
   }));
 }
 
-function getSiPowers(si: SiDef | null): [BN, number, number] {
+function getSiPowers (si: SiDef | null): [BN, number, number] {
   if (!si) {
     return [BN_ZERO, 0, 0];
   }
@@ -72,7 +72,7 @@ function getSiPowers(si: SiDef | null): [BN, number, number] {
   return [new BN(basePower + si.power), basePower, si.power];
 }
 
-function isValidNumber(bn: BN, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): boolean {
+function isValidNumber (bn: BN, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): boolean {
   if (
     // cannot be negative
     bn.lt(BN_ZERO) ||
@@ -91,7 +91,7 @@ function isValidNumber(bn: BN, bitLength: BitLength, isZeroable: boolean, maxVal
   return true;
 }
 
-function inputToBn(input: string, si: SiDef | null, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): [BN, boolean] {
+function inputToBn (input: string, si: SiDef | null, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): [BN, boolean] {
   const [siPower, basePower, siUnitPower] = getSiPowers(si);
 
   // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
@@ -116,24 +116,23 @@ function inputToBn(input: string, si: SiDef | null, bitLength: BitLength, isZero
   return [result, isValidNumber(result, bitLength, isZeroable, maxValue)];
 }
 
-function getValuesFromString(value: string, si: SiDef | null, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): [string, BN, boolean] {
+function getValuesFromString (value: string, si: SiDef | null, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): [string, BN, boolean] {
   const [valueBn, isValid] = inputToBn(value, si, bitLength, isZeroable, maxValue);
 
   return [value, valueBn, isValid];
 }
 
-function getValuesFromBn(valueBn: BN, si: SiDef | null): [string, BN, boolean] {
+function getValuesFromBn (valueBn: BN, si: SiDef | null): [string, BN, boolean] {
   const value = si ? valueBn.div(BN_TEN.pow(new BN(formatBalance.getDefaults().decimals + si.power))).toString() : valueBn.toString();
 
   return [value, valueBn, true];
 }
 
-function getValues(value: BN | string = BN_ZERO, si: SiDef | null, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): [string, BN, boolean] {
+function getValues (value: BN | string = BN_ZERO, si: SiDef | null, bitLength: BitLength, isZeroable: boolean, maxValue?: BN): [string, BN, boolean] {
   return isBn(value) ? getValuesFromBn(value, si) : getValuesFromString(value, si, bitLength, isZeroable, maxValue);
 }
 
-function InputNumber({
-  autoFocus,
+function InputNumber ({ autoFocus,
   bitLength = DEFAULT_BITLENGTH,
   children,
   className,
@@ -153,8 +152,7 @@ function InputNumber({
   onEnter,
   onEscape,
   placeholder,
-  value: propsValue
-}: Props): React.ReactElement<Props> {
+  value: propsValue }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [si, setSi] = useState<SiDef | null>(isSi ? formatBalance.findSi('-') : null);
   const [isPreKeyDown, setIsPreKeyDown] = useState(false);
@@ -244,10 +242,14 @@ function InputNumber({
       onKeyUp={_onKeyUp}
       onPaste={_onPaste}
       placeholder={placeholder || t<string>('Positive number')}
-      type="text"
+      type='text'
       value={value}
     >
-      {!!si && <Dropdown className="siDropdown" defaultValue={si.value} isButton onChange={_onSelectSiUnit} options={getSiOptions()} />}
+      {!!si && <Dropdown className='siDropdown'
+        defaultValue={si.value}
+        isButton
+        onChange={_onSelectSiUnit}
+        options={getSiOptions()} />}
       {children}
     </Input>
   );

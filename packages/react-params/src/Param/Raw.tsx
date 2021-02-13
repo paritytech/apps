@@ -2,14 +2,14 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Input } from '@canvas-ui/react-components';
+import { Props } from '@canvas-ui/react-components/types';
 import React, { useCallback, useState } from 'react';
 
 import { Codec } from '@polkadot/types/types/codec';
 
-import { Props } from '@canvas-ui/react-components/types';
 import Bare from './Bare';
 
-function Raw({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
+function Raw ({ className = '', defaultValue: { value }, isDisabled, isError, label, onChange, onEnter, onEscape, withLabel }: Props): React.ReactElement<Props> {
   const [isValid, setIsValid] = useState(false);
 
   const _onChange = useCallback(
@@ -31,7 +31,7 @@ function Raw({ className = '', defaultValue: { value }, isDisabled, isError, lab
   return (
     <Bare className={className}>
       <Input
-        className="full"
+        className='full'
         defaultValue={defaultValue as string}
         isDisabled={isDisabled}
         isError={isError || !isValid}
@@ -39,8 +39,8 @@ function Raw({ className = '', defaultValue: { value }, isDisabled, isError, lab
         onChange={_onChange}
         onEnter={onEnter}
         onEscape={onEscape}
-        placeholder="Hex data"
-        type="text"
+        placeholder='Hex data'
+        type='text'
         withLabel={withLabel}
       />
     </Bare>

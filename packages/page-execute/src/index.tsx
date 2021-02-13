@@ -13,7 +13,7 @@ import Call from './Call';
 import Contracts from './Contracts';
 import { ComponentProps } from './types';
 
-function ExecuteApp({ basePath, className, navigateTo }: Props): React.ReactElement<Props> {
+function ExecuteApp ({ basePath, className, navigateTo }: Props): React.ReactElement<Props> {
   const { allAccounts, isReady: isAccountsReady } = useAccounts();
   const { allContracts, hasContracts, isContract, isReady: isContractsReady } = useContracts();
 

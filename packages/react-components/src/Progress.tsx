@@ -21,7 +21,7 @@ interface Props extends BareProps {
   value?: UInt | BN | number;
 }
 
-function Progress({ className = '', color = 'blue', percent, total, value }: Props): React.ReactElement<Props> | null {
+function Progress ({ className = '', color = 'blue', percent, total, value }: Props): React.ReactElement<Props> | null {
   const _total = bnToBn(total);
   const _value = bnToBn(value);
   const calculated = _total.gtn(0) ? (100.0 * _value.toNumber()) / _total.toNumber() : isBn(percent) ? percent.toNumber() : percent;
@@ -37,13 +37,16 @@ function Progress({ className = '', color = 'blue', percent, total, value }: Pro
           ? 'green'
           : 'red'
         : calculated > 33.3
-        ? 'orange'
-        : color === 'auto'
-        ? 'red'
-        : 'green'
+          ? 'orange'
+          : color === 'auto'
+            ? 'red'
+            : 'green'
       : color;
 
-  return <SUIProgress className={classes('ui--Progress', className)} color={rainbow} percent={calculated} size="tiny" />;
+  return <SUIProgress className={classes('ui--Progress', className)}
+    color={rainbow}
+    percent={calculated}
+    size='tiny' />;
 }
 
 export default React.memo(Progress);

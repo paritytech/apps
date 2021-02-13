@@ -2,7 +2,6 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { ComponentMap } from '../types';
-
 import Call from './Call';
 import Proposal from './Proposal';
 

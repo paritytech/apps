@@ -9,7 +9,7 @@ import { Options } from './types';
 
 type Call = string | [string, Options];
 
-export default function withCalls<P>(...calls: Call[]): (Component: React.ComponentType<P>) => React.ComponentType<SubtractProps<P, ApiProps>> {
+export default function withCalls<P> (...calls: Call[]): (Component: React.ComponentType<P>) => React.ComponentType<SubtractProps<P, ApiProps>> {
   return (Component: React.ComponentType<P>): React.ComponentType<any> => {
     // NOTE: Order is reversed so it makes sense in the props, i.e. component
     // after something can use the value of the preceding version

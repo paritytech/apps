@@ -1,14 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import { ParamDef } from './types';
 import React from 'react';
 
 import { encodeTypeDef } from '@polkadot/types';
 import { CodecArg, Registry } from '@polkadot/types/types';
 
 import Data from './Data';
-import { BareProps } from './types';
+import { BareProps, ParamDef } from './types';
 
 export interface Props extends BareProps {
   arg?: ParamDef;
@@ -16,7 +15,7 @@ export interface Props extends BareProps {
   registry?: Registry;
 }
 
-function MessageArg({ arg, param, registry }: Props): React.ReactElement<Props> | null {
+function MessageArg ({ arg, param, registry }: Props): React.ReactElement<Props> | null {
   if (!arg) {
     return null;
   }
@@ -30,13 +29,17 @@ function MessageArg({ arg, param, registry }: Props): React.ReactElement<Props> 
         </>
       )}
       <span>
-        {param ? (
-          <b>
-            <Data registry={registry} type={arg.type} value={param} />
-          </b>
-        ) : (
-          encodeTypeDef(arg.type)
-        )}
+        {param
+          ? (
+            <b>
+              <Data registry={registry}
+                type={arg.type}
+                value={param} />
+            </b>
+          )
+          : (
+            encodeTypeDef(arg.type)
+          )}
       </span>
     </>
   );

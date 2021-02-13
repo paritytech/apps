@@ -2,16 +2,16 @@
 // SPDX-License-Identifier: Apache-2.0
 
 import { Toggle } from '@canvas-ui/react-components';
+import { Props } from '@canvas-ui/react-components/types';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { TypeDef } from '@polkadot/types/types';
 
 import { useTranslation } from '../translate';
-import { Props } from '@canvas-ui/react-components/types';
 import Param from './index';
 
-function Option({ className = '', defaultValue, isDisabled, name, onChange, onEnter, onEscape, type: { sub, withOptionActive } }: Props): React.ReactElement<Props> {
+function Option ({ className = '', defaultValue, isDisabled, name, onChange, onEnter, onEscape, type: { sub, withOptionActive } }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const [isActive, setIsActive] = useState(withOptionActive || false);
 
@@ -37,7 +37,10 @@ function Option({ className = '', defaultValue, isDisabled, name, onChange, onEn
         onEscape={onEscape}
         type={sub as TypeDef}
       />
-      {!isDisabled && <Toggle isOverlay label={t<string>('include option')} onChange={setIsActive} value={isActive} />}
+      {!isDisabled && <Toggle isOverlay
+        label={t<string>('include option')}
+        onChange={setIsActive}
+        value={isActive} />}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { useCallback, useMemo, useRef, useState } from 'react';
 
 export type FormField<T> = [T | null, (_?: T | null) => void, boolean, boolean, boolean];
 
-export default function useFormField<T>(defaultValue: T | null, validate: (_: T) => boolean = (): boolean => true): FormField<T> {
+export default function useFormField<T> (defaultValue: T | null, validate: (_: T) => boolean = (): boolean => true): FormField<T> {
   const [value, setValue] = useState<T | null>(defaultValue);
   const isTouched = useRef(false);
 

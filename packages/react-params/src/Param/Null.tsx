@@ -1,11 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { Props } from '@canvas-ui/react-components/types';
 import React, { useEffect } from 'react';
 
-import { Props } from '@canvas-ui/react-components/types';
-
-function Null({ onChange }: Props): React.ReactElement<Props> | null {
+function Null ({ onChange }: Props): React.ReactElement<Props> | null {
   useEffect((): void => {
     onChange &&
       onChange({

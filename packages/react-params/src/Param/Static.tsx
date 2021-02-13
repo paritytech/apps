@@ -1,8 +1,8 @@
 // Copyright 2017-2021 @canvas-ui/react-params authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import type { Codec } from '@polkadot/types/types';
 import type { RawParam } from '@canvas-ui/react-components/types';
+import type { Codec } from '@polkadot/types/types';
 
 import { Static } from '@canvas-ui/react-components';
 import React from 'react';
@@ -20,7 +20,7 @@ interface Props {
   withLabel?: boolean;
 }
 
-function StaticParam({ asHex, children, className = '', defaultValue, label }: Props): React.ReactElement<Props> {
+function StaticParam ({ asHex, children, className = '', defaultValue, label }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const value =
     defaultValue &&
@@ -28,13 +28,15 @@ function StaticParam({ asHex, children, className = '', defaultValue, label }: P
     (asHex
       ? (defaultValue.value as Codec).toHex()
       : JSON.stringify((defaultValue.value as { toHuman?: () => unknown }).toHuman ? (defaultValue.value as Codec).toHuman() : defaultValue.value, null, 2)
-          .replace(/"/g, '')
-          .replace(/\\/g, '')
-          .replace(/\],\[/g, '],\n['));
+        .replace(/"/g, '')
+        .replace(/\\/g, '')
+        .replace(/\],\[/g, '],\n['));
 
   return (
     <Bare className={className}>
-      <Static className="full" label={label} value={<pre>{value || t<string>('<empty>')}</pre>} />
+      <Static className='full'
+        label={label}
+        value={<pre>{value || t<string>('<empty>')}</pre>} />
       {children}
     </Bare>
   );

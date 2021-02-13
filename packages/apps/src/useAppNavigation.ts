@@ -5,7 +5,7 @@ import { AppNavigation } from '@canvas-ui/react-components/types';
 import { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 
-export default function useAppNavigation(): AppNavigation {
+export default function useAppNavigation (): AppNavigation {
   const history = useHistory();
 
   const navigator = useCallback(

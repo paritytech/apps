@@ -11,7 +11,7 @@ const webpack = require('webpack');
 
 const findPackages = require('../../scripts/findPackages');
 
-function mapChunks(name, regs, inc) {
+function mapChunks (name, regs, inc) {
   return regs.reduce(
     (result, test, index) => ({
       ...result,
@@ -26,7 +26,7 @@ function mapChunks(name, regs, inc) {
   );
 }
 
-function createWebpack(context, mode = 'production') {
+function createWebpack (context, mode = 'production') {
   const pkgJson = require(path.join(context, 'package.json'));
   const alias = findPackages().reduce((alias, { dir, name }) => {
     alias[name] = path.resolve(context, `../${dir}/src`);
@@ -112,7 +112,7 @@ function createWebpack(context, mode = 'production') {
       minimize: mode === 'production',
       splitChunks: {
         cacheGroups: {
-          ...mapChunks('robohash', [/* 00 */ /RoboHash\/(backgrounds|sets\/set1)/, /* 01 */ /RoboHash\/sets\/set(2|3)/, /* 02 */ /RoboHash\/sets\/set(4|5)/]),
+          ...mapChunks('robohash', [/RoboHash\/(backgrounds|sets\/set1)/, /* 01 */ /RoboHash\/sets\/set(2|3)/, /* 02 */ /RoboHash\/sets\/set(4|5)/]),
           ...mapChunks('polkadot', [
             /* 00 */ /node_modules\/@polkadot\/(wasm)/,
             /* 01 */ /node_modules\/(@polkadot\/(api|metadata|rpc|types))/,

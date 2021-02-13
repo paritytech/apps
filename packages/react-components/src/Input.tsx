@@ -88,8 +88,7 @@ const isSelectAll = (key: string, isPreKeyDown: boolean): boolean => isPreKeyDow
 
 let counter = 0;
 
-function Input({
-  autoFocus = false,
+function Input ({ autoFocus = false,
   children,
   className,
   defaultValue,
@@ -125,8 +124,7 @@ function Input({
   value,
   withEllipsis,
   withLabel,
-  withStatus = false
-}: Props): React.ReactElement<Props> {
+  withStatus = false }: Props): React.ReactElement<Props> {
   const [stateName] = useState(`in_${counter++}_at_${Date.now()}`);
 
   const _onBlur = useCallback(() => onBlur && onBlur(), [onBlur]);
@@ -160,7 +158,13 @@ function Input({
   const _onPaste = useCallback((event: React.ClipboardEvent<HTMLInputElement>): void => onPaste && onPaste(event), [onPaste]);
 
   return (
-    <Labelled className={className} help={help} isFull={isFull} label={label} labelExtra={labelExtra} withEllipsis={withEllipsis} withLabel={withLabel}>
+    <Labelled className={className}
+      help={help}
+      isFull={isFull}
+      label={label}
+      labelExtra={labelExtra}
+      withEllipsis={withEllipsis}
+      withLabel={withLabel}>
       <SUIInput
         action={isAction}
         autoFocus={autoFocus}
@@ -190,11 +194,17 @@ function Input({
         type={type}
         value={value}
       >
-        <input autoCapitalize="off" autoComplete={type === 'password' ? 'new-password' : 'off'} autoCorrect="off" onPaste={_onPaste} spellCheck={false} />
-        {isEditable && <i className="edit icon" />}
+        <input autoCapitalize='off'
+          autoComplete={type === 'password' ? 'new-password' : 'off'}
+          autoCorrect='off'
+          onPaste={_onPaste}
+          spellCheck={false} />
+        {isEditable && <i className='edit icon' />}
         {icon}
       </SUIInput>
-      {withStatus && <InputStatus isError={isError} isValid={!isError} text={status} />}
+      {withStatus && <InputStatus isError={isError}
+        isValid={!isError}
+        text={status} />}
       {children}
     </Labelled>
   );

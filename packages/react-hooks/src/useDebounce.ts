@@ -8,7 +8,7 @@ import useIsMountedRef from './useIsMountedRef';
 const DEFAULT_DELAY = 250;
 
 // Debounces inputs
-export default function useDebounce<T>(value: T, delay?: number): T {
+export default function useDebounce<T> (value: T, delay?: number): T {
   const mountedRef = useIsMountedRef();
   const [debouncedValue, setDebouncedValue] = useState(value);
 

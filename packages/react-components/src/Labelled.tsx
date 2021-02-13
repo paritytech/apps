@@ -127,8 +127,7 @@ const Wrapper = styled.div`
   }
 `;
 
-function Labelled({
-  className = '',
+function Labelled ({ className = '',
   children,
   help,
   isFull,
@@ -141,8 +140,7 @@ function Labelled({
   label = defaultLabel,
   labelExtra,
   withEllipsis,
-  withLabel = true
-}: Props): React.ReactElement<Props> | null {
+  withLabel = true }: Props): React.ReactElement<Props> | null {
   if (isHidden) {
     return null;
   }
@@ -165,8 +163,8 @@ function Labelled({
           {help && <LabelHelp help={help} />}
         </label>
       )}
-      {labelExtra && <div className="labelExtra">{labelExtra}</div>}
-      <div className="ui--Labelled-content">{children}</div>
+      {labelExtra && <div className='labelExtra'>{labelExtra}</div>}
+      <div className='ui--Labelled-content'>{children}</div>
     </Wrapper>
   );
 }
