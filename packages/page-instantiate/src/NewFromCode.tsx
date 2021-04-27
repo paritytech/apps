@@ -1,26 +1,24 @@
 // Copyright 2017-2021 @canvas-ui/app-instantiate authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { BareProps as Props, RawParam } from '@canvas-ui/react-components/types';
 import type { SubmittableResult } from '@polkadot/api';
 import type { SubmittableExtrinsic } from '@polkadot/api/types';
 import type { AccountId } from '@polkadot/types/interfaces';
-import type { ComponentProps as Props } from './types';
 
+import { useDatabase } from '@canvas-ui/app-db';
 import { Button, Dropdown, Input, InputABI, InputAddress, InputBalance, InputMegaGas, InputName, MessageArg, MessageSignature, Toggle, TxButton } from '@canvas-ui/react-components';
 import { extractValues } from '@canvas-ui/react-components/Params/values';
 import { ELEV_2_CSS } from '@canvas-ui/react-components/styles/constants';
-import { RawParam } from '@canvas-ui/react-components/types';
 import { useAbi, useAccountId, useApi, useAppNavigation, useFile, useGasWeight, useNonEmptyString, useNonZeroBn, useStepper } from '@canvas-ui/react-hooks';
 import { ContractParams } from '@canvas-ui/react-params';
 import PendingTx from '@canvas-ui/react-signer/PendingTx';
 import usePendingTx from '@canvas-ui/react-signer/usePendingTx';
-import store from '@canvas-ui/react-store/store';
 import BN from 'bn.js';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { CodePromise } from '@polkadot/api-contract';
-import keyring from '@polkadot/ui-keyring';
 import { isWasm } from '@polkadot/util';
 import { randomAsHex } from '@polkadot/util-crypto';
 
@@ -38,6 +36,7 @@ function NewFromCode ({ className }: Props): React.ReactElement<Props> | null {
   // const { id, index = '0' }: { id: string, index?: string } = useParams();
   const { t } = useTranslation();
   const { api } = useApi();
+  const { createCode, createContract } = useDatabase();
   const { navigateTo } = useAppNavigation();
   const hasInstantiateWithCode = !!api.tx.contracts.instantiateWithCode;
   // const code = useMemo(
@@ -168,7 +167,11 @@ function NewFromCode ({ className }: Props): React.ReactElement<Props> | null {
   );
 
   const _onSuccess = useCallback(
-    (result: SubmittableResult): void => {
+    async (result: SubmittableResult): Promise<void> => {
+      if (!codeName || !contractName) {
+        return;
+      }
+
       const section = api.tx.contracts ? 'contracts' : 'contract';
 
       const codeStoredRecord = result.findRecord(section, 'CodeStored');
@@ -180,11 +183,14 @@ function NewFromCode ({ className }: Props): React.ReactElement<Props> | null {
           return;
         }
 
-        store.saveCode({ abi: abi?.json || undefined, codeHash: codeHash.toHex(), name: codeName, tags: [] })
-          .then(() => { console.log('Saved code'); })
-          .catch((error: any): void => {
-            console.error('Unable to save code', error);
-          });
+        await createCode(
+          {
+            abi: abi?.json,
+            codeHash: codeHash.toHex(),
+            name: codeName,
+            tags: []
+          }
+        );
       }
 
       const instantiatedRecords = result.filterRecords(section, 'Instantiated');
@@ -194,19 +200,17 @@ function NewFromCode ({ className }: Props): React.ReactElement<Props> | null {
         // more clever here to find the exact contract deployed, this works for eg. Delegator)
         const address = instantiatedRecords[instantiatedRecords.length - 1].event.data[1] as unknown as AccountId;
 
-        keyring.saveContract(address.toString(), {
-          contract: {
-            abi: abi?.json || undefined,
-            genesisHash: api.genesisHash.toHex()
-          },
+        contractName && isContractNameValid && createContract({
+          abi: abi?.json,
+          address: address.toString(),
           name: contractName,
           tags: []
-        });
-
-        navigateTo.instantiateSuccess(address.toString())();
+        })
+          .then((address) => navigateTo.instantiateSuccess(address.toString())())
+          .catch((e) => console.error(e));
       }
     },
-    [abi, api, codeName, contractName, navigateTo]
+    [abi, api, createCode, createContract, codeName, contractName, isContractNameValid, navigateTo]
   );
 
   const additionalDetails = useMemo(

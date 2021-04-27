@@ -1,27 +1,40 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-// import { PromiseContract as Contract } from '@polkadot/api-contract';
-// import { CodeStored } from '@canvas-ui/react-store/types';
-import { useAccountInfo } from '@canvas-ui/react-hooks';
+import type { Contract } from '@canvas-ui/app-db/types';
+import type { BareProps } from './types';
+
+import { useDatabase } from '@canvas-ui/app-db';
+import { useNonEmptyString, useToggle } from '@canvas-ui/react-hooks';
 import { truncate } from '@canvas-ui/react-util';
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 import CopyButton from './CopyButton';
 import EditButton from './EditButton';
 import Input from './Input';
 import ItemInfo from './ItemInfo';
-import { BareProps } from './types';
 import { IdentityIcon } from '.';
 
 interface Props extends BareProps {
-  address: string;
+  contract: Contract;
   isEditable?: boolean;
 }
 
-function ContractInfo ({ address, children, className, isEditable }: Props): React.ReactElement<Props> {
-  const { isEditingName, name, onSaveName, setName, toggleIsEditingName } = useAccountInfo(address, true);
+function ContractInfo ({ children, className, contract: { document, document: { address } }, isEditable }: Props): React.ReactElement<Props> {
+  const { updateContract } = useDatabase();
+  const [newName, setNewName, isNewNameValid, isNewNameError] = useNonEmptyString(document.name);
+  const [isEditingName, toggleIsEditingName] = useToggle();
+
+  const onSaveName = useCallback(
+    (): void => {
+      newName && isNewNameValid && updateContract(address, { name: newName })
+        .then((): void => toggleIsEditingName())
+        .catch((e) => console.error(e));
+    },
+    [address, isNewNameValid, newName, toggleIsEditingName, updateContract]
+  );
+  // const { isEditingName, name, onSaveName, setName, toggleIsEditingName } = useAccountInfo(address, true);
 
   return (
     <ItemInfo
@@ -47,11 +60,11 @@ function ContractInfo ({ address, children, className, isEditable }: Props): Rea
             <Input
               autoFocus
               className='name-editor'
-              isError={name === ''}
+              isError={isNewNameError}
               onBlur={onSaveName}
-              onChange={setName}
+              onChange={setNewName}
               onEnter
-              value={name}
+              value={newName}
               withLabel={false}
             />
           )
@@ -59,10 +72,10 @@ function ContractInfo ({ address, children, className, isEditable }: Props): Rea
             isEditable
               ? (
                 <EditButton onClick={toggleIsEditingName}>
-                  {name}
+                  {document.name}
                 </EditButton>
               )
-              : name
+              : document.name
           )
       }
     >

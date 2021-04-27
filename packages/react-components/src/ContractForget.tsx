@@ -1,26 +1,41 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { Contract } from '@canvas-ui/app-db/types';
+import type { BareProps } from './types';
+
+import { useDatabase } from '@canvas-ui/app-db';
 import { useNotification, useToggle } from '@canvas-ui/react-hooks';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-
-import keyring from '@polkadot/ui-keyring';
 
 import Button from './Button';
 import ContractInfo from './ContractInfo';
 import Modal from './Modal';
 import { useTranslation } from './translate';
-import { BareProps } from './types';
 
 interface Props extends BareProps {
-  address: string;
+  contract: Contract;
 }
 
-function ContractForget ({ address, className }: Props): React.ReactElement<Props> {
+function ContractForget ({ className, contract, contract: { document: { address } } }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
+  const { removeContract } = useDatabase();
   const showNotification = useNotification();
   const [isOpen, toggleIsOpen] = useToggle();
+
+  const _onForgetSuccess = useCallback(
+    (): void => {
+      showNotification({
+        account: address,
+        action: 'forget',
+        message: t<string>('contract removed'),
+        status: 'success'
+      });
+      toggleIsOpen();
+    },
+    [address, showNotification, t, toggleIsOpen]
+  );
 
   const _onForget = useCallback(
     (): void => {
@@ -29,15 +44,9 @@ function ContractForget ({ address, className }: Props): React.ReactElement<Prop
       }
 
       try {
-        keyring.forgetContract(address.toString());
-
-        showNotification({
-          account: address,
-          action: 'forget',
-          message: t<string>('contract removed'),
-          status: 'success'
-        });
-        toggleIsOpen();
+        removeContract(address)
+          .then(_onForgetSuccess)
+          .catch((e) => console.error(e));
       } catch (error) {
         showNotification({
           account: address,
@@ -47,7 +56,7 @@ function ContractForget ({ address, className }: Props): React.ReactElement<Prop
         });
       }
     },
-    [address, showNotification, t, toggleIsOpen]
+    [_onForgetSuccess, address, removeContract, showNotification]
   );
 
   return (
@@ -71,8 +80,8 @@ function ContractForget ({ address, className }: Props): React.ReactElement<Prop
             {t<string>('This operation does not remove the history of the contract from the chain, nor any associated funds from its account. The forget operation only limits your access to the contract on this browser.')}
           </p>
           <ContractInfo
-            address={address}
             className='forget-contract'
+            contract={contract}
           />
         </Modal.Content>
         <Modal.Actions onCancel={toggleIsOpen}>

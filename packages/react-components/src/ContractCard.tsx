@@ -1,11 +1,10 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { Contract } from '@canvas-ui/app-db/types';
 import { useAppNavigation } from '@canvas-ui/react-hooks';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-
-import { ContractPromise as Contract } from '@polkadot/api-contract';
 
 import { ELEV_2_CSS } from './styles/constants';
 import Abi from './Abi';
@@ -13,13 +12,13 @@ import Button from './Button';
 import ContractForget from './ContractForget';
 import ContractInfo from './ContractInfo';
 import { useTranslation } from './translate';
-import { ComponentProps } from './types';
+import { BareProps } from './types';
 
-interface Props extends ComponentProps {
+interface Props extends BareProps {
   contract: Contract;
 }
 
-function ContractCard ({ className, contract: { abi, address } }: Props): React.ReactElement<Props> {
+function ContractCard ({ className, contract, contract: { api: { abi }, document: { address } } }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { navigateTo } = useAppNavigation();
 
@@ -33,14 +32,14 @@ function ContractCard ({ className, contract: { abi, address } }: Props): React.
   return (
     <article className={className}>
       <ContractInfo
-        address={address.toString()}
+        contract={contract}
         isEditable
       >
         <Abi abi={abi} />
       </ContractInfo>
       <div className='footer'>
         <Button.Group>
-          <ContractForget address={address.toString()} />
+          <ContractForget contract={contract} />
           <Button
             isPrimary
             label={t<string>('Execute')}

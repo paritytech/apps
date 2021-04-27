@@ -2,13 +2,14 @@
 // and @canvas-ui/react-hooks authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
-import store from '@canvas-ui/react-store/store';
-import { Code } from '@canvas-ui/react-store/types';
-import { VoidFn } from '@canvas-ui/react-util/types';
+import type { CodeDocument as Code } from '@canvas-ui/app-db/types';
+import type { VoidFn } from '@canvas-ui/react-util/types';
+import type { AnyJson } from '@polkadot/types/types';
+
+import { useDatabase } from '@canvas-ui/app-db';
 import { useCallback, useEffect, useState } from 'react';
 
 import { Abi } from '@polkadot/api-contract';
-import { AnyJson } from '@polkadot/types/types';
 import { u8aToString } from '@polkadot/util';
 
 import { useTranslation } from './translate';
@@ -38,6 +39,7 @@ interface AbiSpecOutdated {
 export default function useAbi (source: Code | null = null, isRequired = false): UseAbi {
   const { api } = useApi();
   const { t } = useTranslation();
+  const { updateCode } = useDatabase();
   const initialState: State = source
     ? [source.abi ? new Abi(source.abi, api.registry.getChainProperties()) : null, !!source?.abi, !isRequired || !!source.abi]
     : [null, false, false];
@@ -68,9 +70,9 @@ export default function useAbi (source: Code | null = null, isRequired = false):
 
         setAbi([new Abi(newAbi, api.registry.getChainProperties()), true, true]);
         setError([false, null]);
-        source?.id && store.saveCode(
-          { abi: newAbi },
-          source.id
+        source?.id && updateCode(
+          source.id,
+          { abi: newAbi }
         );
       } catch (error) {
         console.error(error);
@@ -79,7 +81,7 @@ export default function useAbi (source: Code | null = null, isRequired = false):
         setError([true, error]);
       }
     },
-    [api.registry, source, t]
+    [api.registry, source, t, updateCode]
   );
 
   const onRemoveAbi = useCallback(
@@ -87,12 +89,12 @@ export default function useAbi (source: Code | null = null, isRequired = false):
       setAbi([null, false, false]);
       setError([false, null]);
 
-      source?.id && store.saveCode(
-        { abi: null },
-        source?.id
+      source?.id && updateCode(
+        source.id,
+        { abi: null }
       );
     },
-    [source]
+    [source, updateCode]
   );
 
   return {

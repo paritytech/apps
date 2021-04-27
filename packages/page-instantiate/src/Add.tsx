@@ -1,18 +1,18 @@
 // Copyright 2017-2021 @canvas-ui/app-upload authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { BareProps as Props } from '@canvas-ui/react-components/types';
+import type { Option } from '@polkadot/types';
+import type { PrefabWasmModule } from '@polkadot/types/interfaces';
+
+import { useDatabase } from '@canvas-ui/app-db';
 import { Button, Input, InputABI, InputName } from '@canvas-ui/react-components';
-import { ComponentProps as Props } from '@canvas-ui/react-components/types';
 import { useAbi, useApi, useAppNavigation, useCall, useFile, useHasInstantiateWithCode, useNonEmptyString, useNotification } from '@canvas-ui/react-hooks';
-import store from '@canvas-ui/react-store/store';
-import useCodes from '@canvas-ui/react-store/useCodes';
 import { truncate } from '@canvas-ui/react-util';
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { useHistory } from 'react-router';
 import styled from 'styled-components';
 
-import { Option } from '@polkadot/types';
-import { PrefabWasmModule } from '@polkadot/types/interfaces';
 import { isHex } from '@polkadot/util';
 
 import { useTranslation } from './translate';
@@ -21,20 +21,36 @@ function Add ({ className }: Props): React.ReactElement<Props> {
   const history = useHistory();
   const { t } = useTranslation();
   const { api } = useApi();
+  const { createCode, findCodeByHash, isDbReady } = useDatabase();
   const { navigateTo } = useAppNavigation();
   const hasInstantiateWithCode = useHasInstantiateWithCode();
   const showNotification = useNotification();
   const [codeHash, setCodeHash, , , isCodeHashTouched] = useNonEmptyString();
+  const [isCodeAlreadyStored, setIsCodeAlreadyStored] = useState(false);
   const codeStorage = useCall<Option<PrefabWasmModule>>((api.query.contracts || api.query.contract).codeStorage, [codeHash]);
   const [name, setName, isNameValid, isNameError] = useNonEmptyString();
   const { abi, errorText, isAbiError, isAbiSupplied, isAbiValid, onChangeAbi, onRemoveAbi } = useAbi();
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
-  const { hasCodes } = useCodes();
+
+  useEffect(
+    (): void => {
+      async function checkIfAlreadyStored (): Promise<void> {
+        if (!codeHash || !isDbReady) return;
+
+        const code = await findCodeByHash(codeHash);
+
+        setIsCodeAlreadyStored(!!code);
+      }
+
+      checkIfAlreadyStored().then().catch((e) => { console.error(e); });
+    },
+    [codeHash, findCodeByHash, isDbReady]
+  );
+
   const [isCodeHashValid, status] = useMemo(
     (): [boolean, React.ReactNode | null] => {
       const isCodeHashValidHex = !!codeHash && isHex(codeHash) && codeHash.length === 66;
       const isCodeHashOnChain = !!codeStorage && codeStorage.isSome;
-      const isCodeAlreadyStored = !!codeHash && hasCodes && store.isHashSaved(codeHash);
       const isCodeHashValid = isCodeHashValidHex && isCodeHashOnChain && !isCodeAlreadyStored;
 
       let status = null;
@@ -56,7 +72,7 @@ function Add ({ className }: Props): React.ReactElement<Props> {
         status
       ];
     },
-    [codeHash, codeStorage, hasCodes, isCodeHashTouched, t]
+    [codeHash, codeStorage, isCodeAlreadyStored, isCodeHashTouched, t]
   );
 
   const isValid = useMemo(
@@ -70,8 +86,7 @@ function Add ({ className }: Props): React.ReactElement<Props> {
         return;
       }
 
-      store
-        .saveCode({ abi: abi.json, codeHash, name, tags: [] })
+      createCode({ abi: abi.json, codeHash, name, tags: [] })
         .then((id): void => {
           showNotification({
             action: truncate(codeHash, 12),
@@ -95,7 +110,7 @@ function Add ({ className }: Props): React.ReactElement<Props> {
           });
         });
     },
-    [abi, codeHash, hasInstantiateWithCode, name, navigateTo, showNotification, t]
+    [abi, codeHash, createCode, hasInstantiateWithCode, name, navigateTo, showNotification, t]
   );
 
   return (

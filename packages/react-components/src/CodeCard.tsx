@@ -1,11 +1,13 @@
 // Copyright 2017-2021 @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { CodeDocument as Code } from '@canvas-ui/app-db/types';
+import type { FileState } from '@canvas-ui/react-hooks/types';
+import type { VoidFn } from '@canvas-ui/react-util/types';
+import type { BareProps } from './types';
+
+import { useDatabase } from '@canvas-ui/app-db';
 import { useAbi, useAppNavigation, useToggle } from '@canvas-ui/react-hooks';
-import { FileState } from '@canvas-ui/react-hooks/types';
-import store from '@canvas-ui/react-store/store';
-import { Code } from '@canvas-ui/react-store/types';
-import { VoidFn } from '@canvas-ui/react-util/types';
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
@@ -17,9 +19,8 @@ import CodeForget from './CodeForget';
 import CodeInfo from './CodeInfo';
 import CodeUploadABI from './CodeUploadABI';
 import { useTranslation } from './translate';
-import { ComponentProps } from './types';
 
-interface Props extends ComponentProps {
+interface Props extends BareProps {
   code: Code;
   onForget?: VoidFn;
 }
@@ -28,6 +29,7 @@ function CodeCard ({ className, code, code: { id }, onForget: _onForget }: Props
   const { t } = useTranslation();
   const { navigateTo } = useAppNavigation();
   const [, , setIsAbiOpen] = useToggle();
+  const { removeCode } = useDatabase();
   const { abi, isAbiSupplied, onChangeAbi } = useAbi(code);
 
   const onInstantiate = useCallback(
@@ -39,11 +41,11 @@ function CodeCard ({ className, code, code: { id }, onForget: _onForget }: Props
 
   const onForget = useCallback(
     (): void => {
-      store.forgetCode(id);
-
-      _onForget && _onForget();
+      removeCode(id)
+        .then(_onForget)
+        .catch((e) => console.error(e));
     },
-    [id, _onForget]
+    [id, removeCode, _onForget]
   );
 
   const onSaveABI = useCallback(

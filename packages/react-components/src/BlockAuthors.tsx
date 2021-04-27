@@ -1,6 +1,7 @@
 // Copyright 2017-2020 @canvas-ui/react-query authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+// import { createThreadDb } from '@canvas-ui/app-db';
 import { useApi, useCall } from '@canvas-ui/react-hooks';
 import React, { useEffect, useState } from 'react';
 

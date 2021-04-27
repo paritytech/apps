@@ -11,6 +11,8 @@
       "@canvas-ui/app/*": ["packages/app/src/*"],
       "@canvas-ui/app": ["packages/app/src"],
       "@canvas-ui/app-config/*": [ "packages/app-config/src/*" ],
+      "@canvas-ui/app-db/*": ["packages/app-db/src/*"],
+      "@canvas-ui/app-db": ["packages/app-db/src"],
       "@canvas-ui/app-routing": [ "packages/app-routing/src" ],
       "@canvas-ui/app-routing/*": [ "packages/app-routing/src/*" ],
       "@canvas-ui/app-instantiate": [ "packages/page-instantiate/src" ],
@@ -44,6 +46,7 @@
       "@polkadot/types/*": ["packages/types/src/*"],
       "@polkadot/types": ["packages/types/src"],
     },
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "typeRoots": [
       "./node_modules/@polkadot/ts",

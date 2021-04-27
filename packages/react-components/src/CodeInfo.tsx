@@ -2,9 +2,11 @@
 // and @canvas-ui/react-components authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { Code } from '@canvas-ui/app-db/types';
+import type { BareProps } from './types';
+
+import { useDatabase } from '@canvas-ui/app-db';
 import { useNonEmptyString, useToggle } from '@canvas-ui/react-hooks';
-import store from '@canvas-ui/react-store/store';
-import { Code } from '@canvas-ui/react-store/types';
 import { truncate } from '@canvas-ui/react-util';
 import { faFile } from '@fortawesome/free-regular-svg-icons';
 import React, { useCallback } from 'react';
@@ -16,7 +18,6 @@ import Icon from './Icon';
 import Input from './Input';
 import ItemInfo from './ItemInfo';
 import { useTranslation } from './translate';
-import { BareProps } from './types';
 
 interface Props extends BareProps {
   code: Code;
@@ -25,25 +26,23 @@ interface Props extends BareProps {
 
 function CodeInfo ({ children, className, code: { codeHash, id, name }, isEditable }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
+  const { updateCode } = useDatabase();
   const [newName, setNewName, isNewNameValid, isNewNameError] = useNonEmptyString(name);
   const [isEditingName, toggleIsEditingName] = useToggle();
 
   const onSaveName = useCallback(
     (): void => {
-      if (!isNewNameValid) {
+      if (!newName || !isNewNameValid) {
         return;
       }
 
-      store.saveCode(
-        { name: newName },
-        id
-      )
+      updateCode(id, { name: newName })
         .then(toggleIsEditingName)
         .catch((e): void => {
           console.error(e);
         });
     },
-    [id, isNewNameValid, newName, toggleIsEditingName]
+    [id, isNewNameValid, newName, toggleIsEditingName, updateCode]
   );
 
   return (

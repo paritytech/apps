@@ -1,0 +1,21 @@
+{
+  "name": "@canvas-ui/app-db",
+  "private": true,
+  "version": "0.0.1",
+  "description": "Connection and schema logic for IPFS back-end (Textile)",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Keith Ingram <keith@parity.io>",
+  "maintainers": [
+    "Keith Ingram <keith@parity.io>"
+  ],
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@babel/runtime": "^7.10.2",
+    "@textile/crypto": "^4.1.1",
+    "@textile/hub": "^6.1.2",
+    "@textile/threaddb": "^0.0.6",
+    "@textile/threads-client": "^2.1.2",
+    "@textile/threads-id": "^0.5.1"
+  }
+}

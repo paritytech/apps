@@ -1,8 +1,11 @@
 // Copyright 2017-2021 @canvas-ui/app-execute authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import type { BareProps as Props } from '@canvas-ui/react-components/types';
+
 import { Button, Input, InputABI, InputName } from '@canvas-ui/react-components';
 import { useAbi, useApi, useAppNavigation, useCall, useFile, useNonEmptyString, useNotification } from '@canvas-ui/react-hooks';
+import { useContracts } from '@canvas-ui/app-db';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 
@@ -11,11 +14,11 @@ import { ContractInfo } from '@polkadot/types/interfaces';
 import keyring from '@polkadot/ui-keyring';
 
 import { useTranslation } from './translate';
-import { ComponentProps as Props } from './types';
 
-function Add ({ className, isContract }: Props): React.ReactElement<Props> {
+function Add ({ className }: Props): React.ReactElement<Props> {
   const { t } = useTranslation();
   const { api } = useApi();
+  const { isContract } = useContracts();
   const { navigateTo } = useAppNavigation();
   const showNotification = useNotification();
   const [address, setAddress, , , isAddressTouched] = useNonEmptyString();
@@ -25,18 +28,37 @@ function Add ({ className, isContract }: Props): React.ReactElement<Props> {
   const [abiFile, setAbiFile] = useFile({ onChange: onChangeAbi, onRemove: onRemoveAbi });
   const [isAddress, setIsAddress] = useState(false);
   const [isStored, setIsStored] = useState(false);
-  const [isNotAdded, setIsNotAdded] = useState(false);
+  const [isNotAdded, setIsNotAdded] = useState<boolean | null>(null);
+
+  const checkIfIsNotAdded = useCallback(
+    async (): Promise<void> => {
+      if (!address) {
+        setIsAddress(false);
+        setIsStored(false);
+        setIsNotAdded(null);
+
+        return;
+      }
+
+      try {
+        keyring.decodeAddress(address || '');
+        setIsAddress(true);
+      } catch (error) {
+        setIsAddress(false);
+      } finally {
+        if (address) {
+          const isNotAdded = !(await isContract(address));
+
+          setIsNotAdded(isNotAdded);
+        }
+      }
+    },
+    [address, isContract]
+  );
 
   useEffect((): void => {
-    try {
-      keyring.decodeAddress(address || '');
-      setIsAddress(true);
-    } catch (error) {
-      setIsAddress(false);
-    } finally {
-      setIsNotAdded(!isContract(address || ''));
-    }
-  }, [address, isContract]);
+    checkIfIsNotAdded().then().catch((e) => { console.error(e); });
+  }, [checkIfIsNotAdded]);
 
   useEffect((): void => {
     setIsStored(!!contractInfo?.isSome);
@@ -44,7 +66,7 @@ function Add ({ className, isContract }: Props): React.ReactElement<Props> {
 
   const [isAddressValid, status] = useMemo(
     (): [boolean, React.ReactNode | null] => {
-      const isAddressValid = isAddress && isStored && isNotAdded;
+      const isAddressValid = isAddress && isStored && isNotAdded === false;
 
       let status = null;
 

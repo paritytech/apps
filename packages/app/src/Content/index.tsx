@@ -2,6 +2,7 @@
 // and @canvas-ui/app authors & contributors
 // SPDX-License-Identifier: Apache-2.0
 
+import { useDatabase } from '@canvas-ui/app-db';
 import createRoutes from '@canvas-ui/app-routing';
 import { Route } from '@canvas-ui/app-routing/types';
 import { ErrorBoundary, GuideModal, Icon, StatusContext, WithLoader } from '@canvas-ui/react-components';
@@ -38,6 +39,7 @@ function Content ({ className }: Props): React.ReactElement<Props> {
   const location = useLocation();
   const { t } = useTranslation();
   const { isApiConnected, isApiReady } = useApi();
+  const { db, isDbReady } = useDatabase();
   const { queueAction, stqueue, txqueue } = useContext(StatusContext);
   const { Component, display: { needsApi }, name } = useMemo(
     (): Route => {
@@ -69,9 +71,11 @@ function Content ({ className }: Props): React.ReactElement<Props> {
     );
   }
 
-  const isLoading = needsApi && !isApiReady;
+  const isLoading = needsApi && !isApiReady && !isDbReady;
 
   const sawGuide = !!store.get(sawGuideKey) || false;
+
+  console.log(db);
 
   return (
     <div className={classes(className, isLoading && 'isLoading')}>
