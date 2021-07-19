@@ -12,5 +12,7 @@
     "inputs": "Vec<TransactionInput>",
     "outputs": "Vec<TransactionOutput>"
   },
-  "blah": "u32"
+  "blah": "u32",
+  "Address": "MultiAddress",
+  "LookupSource": "MultiAddress"
 }
